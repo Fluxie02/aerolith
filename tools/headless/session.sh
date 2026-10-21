@@ -56,23 +56,32 @@ export WAYLAND_DISPLAY
 export SWAYSOCK=$(ls "$XDG_RUNTIME_DIR"/sway-ipc.*.sock 2>/dev/null | head -1 || true)
 
 if [ "${AUDIO:-0}" = 1 ]; then
-  pipewire >"$OUT/pipewire.log" 2>&1 &
+  PIPEWIRE_DEBUG="${PIPEWIRE_DEBUG:-2}" pipewire >"$OUT/pipewire.log" 2>&1 &
   PIDS+=($!)
-  sleep 0.5
-  wireplumber >"$OUT/wireplumber.log" 2>&1 &
+  for _ in $(seq 50); do [ -S "$XDG_RUNTIME_DIR/pipewire-0" ] && break; sleep 0.1; done
+  WIREPLUMBER_DEBUG="${WIREPLUMBER_DEBUG:-W}" wireplumber >"$OUT/wireplumber.log" 2>&1 &
   PIDS+=($!)
-  sleep 1
+  # WirePlumber loads its policy components asynchronously; nodes created
+  # before that finishes are not picked up as default candidates. A fixed
+  # settle time matched the standalone measurement in docs/TESTING.md.
+  sleep 1.5
   pw-cli create-node adapter '{ factory.name=support.null-audio-sink node.name=aerolith-speakers node.description="Test Speakers" media.class=Audio/Sink object.linger=true audio.position=[FL FR] }' >/dev/null
   pw-cli create-node adapter '{ factory.name=support.null-audio-sink node.name=aerolith-headphones node.description="Test Headphones" media.class=Audio/Sink object.linger=true audio.position=[FL FR] }' >/dev/null
-  pw-cli create-node adapter '{ factory.name=support.null-audio-sink node.name=aerolith-mic node.description="Test Microphone" media.class=Audio/Source/Virtual object.linger=true audio.position=[MONO] }' >/dev/null
+  pw-cli create-node adapter '{ factory.name=support.null-audio-sink node.name=aerolith-mic node.description="Test Microphone" media.class=Audio/Source object.linger=true audio.position=[MONO] }' >/dev/null
   sleep 1
 fi
 
 if [ "${MEDIA:-0}" = 1 ]; then
-  mpv --no-video --ao="${MPV_AO:-null}" --idle=no --loop=inf --title="AEROLITH Test Tone" \
-    --script=/usr/lib/mpv-mpris/mpris.so "av://lavfi:sine=frequency=440:sample_rate=48000" >"$OUT/mpv.log" 2>&1 &
+  # Arch's mpv-mpris loads itself from /etc/mpv/scripts.
+  mpv --no-video --ao="${MPV_AO:-null}" --idle=no --loop=inf --force-media-title="AEROLITH Test Tone" \
+    "av://lavfi:sine=frequency=440:sample_rate=48000" >"$OUT/mpv.log" 2>&1 &
   PIDS+=($!)
-  sleep 1
+  if [ "${MPV_AO:-null}" = pipewire ]; then
+    for _ in $(seq 50); do pw-link -l 2>/dev/null | grep -q "mpv:output" && break; sleep 0.1; done
+    pw-link -l 2>/dev/null | grep -q "mpv:output" || echo "warning: mpv stream not linked" >&2
+  else
+    sleep 1
+  fi
 fi
 
 qs -p "$SRC/shell" >"$OUT/qs.log" 2>&1 &
@@ -82,6 +91,11 @@ PIDS+=($QS_PID)
 # --- helpers for scenarios ----------------------------------------------------
 ipc() { qs -p "$SRC/shell" ipc call aerolith "$@"; }
 shot() { grim "$OUT/$1.png"; }
+# Each wtype invocation uploads a fresh keymap and Qt drops the first key
+# event that follows it (measured; a physical keyboard is unaffected), so
+# lead with a harmless modifier tap inside the same invocation.
+typ() { wtype -k Shift_L -- "$1"; }
+key() { wtype -k Shift_L -k "$1"; }
 mock() { python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --control "$1"; }
 wait_for_log() {
   local pattern=$1 timeout=${2:-10}

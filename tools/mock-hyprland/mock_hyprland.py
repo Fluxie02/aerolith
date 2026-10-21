@@ -147,8 +147,28 @@ class State:
             )
         return out
 
+    def layout(self) -> None:
+        """Tile windows like a simple master/stack layout so geometry is realistic."""
+        mon = self.monitor()
+        gap, top = 8, 36
+        w, h = mon["width"], mon["height"]
+        for wid in self.ws_ids():
+            wins = [c for c in self.clients.values() if c.workspace == wid and not c.floating]
+            if not wins:
+                continue
+            if len(wins) == 1:
+                wins[0].at, wins[0].size = (gap, top), (w - 2 * gap, h - top - gap)
+                continue
+            half = (w - 3 * gap) // 2
+            wins[0].at, wins[0].size = (gap, top), (half, h - top - gap)
+            rest = wins[1:]
+            each = (h - top - gap * (len(rest) + 1)) // len(rest)
+            for i, c in enumerate(rest):
+                c.at, c.size = (2 * gap + half, top + i * (each + gap)), (half, each)
+
     def clients_json(self) -> list[dict]:
         mon = self.monitor()
+        self.layout()
         return [c.to_json(str(c.workspace), mon["id"]) for c in self.clients.values()]
 
     def monitors_json(self) -> list[dict]:

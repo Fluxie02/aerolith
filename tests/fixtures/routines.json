@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "routines": [
+    {
+      "id": "focus-mode",
+      "name": "Focus mode",
+      "description": "Go to workspace 3, set volume to 30 %, show a notice.",
+      "steps": [
+        { "action": "workspace.focus", "args": { "workspace": 3 } },
+        { "action": "audio.volume.set", "args": { "level": 30 } },
+        { "action": "shell.notify", "args": { "message": "Focus mode engaged" } }
+      ]
+    },
+    {
+      "id": "broken-example",
+      "name": "Broken example",
+      "steps": [ { "action": "rm.rf", "args": {} } ]
+    }
+  ]
+}

@@ -46,7 +46,7 @@ Scope {
             }
             Registry.run(command, args, {
                 origin: "ipc"
-            });
+            }).then(r => Log.info("ipc", command + ": " + (r.ok ? "ok: " : "failed: ") + r.message));
             return "started";
         }
         function status(): string {
@@ -55,14 +55,32 @@ Scope {
                 displays: Ui.screenCount,
                 hyprland: Compositor.available,
                 dialect: Compositor.dialect,
+                focusedWorkspace: Compositor.focusedWorkspaceId,
+                activeWindow: Compositor.activeTitle,
+                toplevels: Compositor.available ? Compositor.windows().map(w => w.address) : [],
                 pipewire: Audio.ready,
                 players: Media.players.length,
                 commands: Registry.api.size(),
                 configErrors: Config.errors.length,
                 routineErrors: Routines.errors.length,
                 ai: Registry.get("ai.ask") !== null,
-                telemetryIntervalMs: Telemetry.interval
+                telemetryIntervalMs: Telemetry.interval,
+                telemetrySamples: Telemetry.samplesTaken,
+                cpuPercent: Telemetry.cpu.total,
+                memoryPercent: Telemetry.memory ? Telemetry.memory.percent : null
             });
+        }
+        // Diagnostics: how PipeWire nodes are classified (no volumes or
+        // stream contents beyond names).
+        function audio(): string {
+            return JSON.stringify(Audio.nodes.map(n => ({
+                        id: n.id,
+                        name: n.name,
+                        isSink: n.isSink,
+                        isStream: n.isStream,
+                        audio: n.audio !== null,
+                        type: String(n.type)
+                    })));
         }
         function reload(): void {
             Config.reload();

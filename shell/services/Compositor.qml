@@ -31,19 +31,18 @@ Singleton {
     readonly property int focusedWorkspaceId: available && Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : -1
     // Quickshell only learns the active window from `activewindowv2` events,
     // so right after startup it is unknown. Until the first event arrives,
-    // fall back to the window `j/activewindow` reported at startup.
-    property string startupActiveAddress: ""
+    // use the window Hyprland lists with focusHistoryID 0 (the focused one).
     readonly property var activeToplevel: {
         if (!available)
             return null;
         if (Hyprland.activeToplevel)
             return Hyprland.activeToplevel;
-        if (startupActiveAddress === "")
-            return null;
         const list = Hyprland.toplevels.values;
-        for (let i = 0; i < list.length; i++)
-            if ("0x" + list[i].address === startupActiveAddress)
+        for (let i = 0; i < list.length; i++) {
+            const ipc = list[i].lastIpcObject;
+            if (ipc && ipc.focusHistoryID === 0)
                 return list[i];
+        }
         return null;
     }
     readonly property string activeTitle: activeToplevel ? activeToplevel.title : ""
@@ -121,100 +120,55 @@ Singleton {
             return null;
         const name = Ui.screenName;
         const list = Hyprland.monitors.values;
+        let m = null;
         for (let i = 0; i < list.length; i++)
-            if (list[i].name === name || name === "")
-                return {
-                    x: list[i].x,
-                    y: list[i].y,
-                    width: list[i].width,
-                    height: list[i].height,
-                    scale: list[i].scale
-                };
+            if (list[i].name === name)
+                m = list[i];
+        // Hyprland and Qt normally agree on output names; with a single
+        // monitor there is no ambiguity even if they do not.
+        if (!m && list.length === 1)
+            m = list[0];
+        return m ? {
+            x: m.x,
+            y: m.y,
+            width: m.width,
+            height: m.height,
+            scale: m.scale
+        } : null;
+    }
+
+    // --- verified dispatches -------------------------------------------------
+    //
+    // Requests go through Quickshell's Hyprland IPC client. It does not hand
+    // Hyprland's reply back to QML (failures only reach the Quickshell log),
+    // so each action is confirmed by its observable effect instead: a
+    // workspace switch succeeds once Hyprland reports that workspace as
+    // focused, a move once the window is on the target workspace, and so on.
+    // (Quickshell's Socket type was evaluated for raw requests and rejected:
+    // it drops data still buffered when the peer closes, which is exactly how
+    // Hyprland answers.)
+
+    function findToplevel(address) {
+        if (!available)
+            return null;
+        const want = HD.normalizeAddress(address);
+        const list = Hyprland.toplevels.values;
+        for (let i = 0; i < list.length; i++)
+            if ("0x" + String(list[i].address).replace(/^0x/, "") === want)
+                return list[i];
         return null;
     }
 
-    // --- verified requests ---------------------------------------------------
-
-    Component {
-        id: requestComponent
-        Socket {
-            id: sock
-            property string request: ""
-            property bool raw: false
-            property var resolve: null
-            property string buffer: ""
-            property bool finished: false
-
-            function finish(error) {
-                if (finished)
-                    return;
-                finished = true;
-                watchdog.stop();
-                const r = error ? {
-                    ok: false,
-                    message: error
-                } : raw ? {
-                    ok: true,
-                    message: buffer
-                } : HD.interpretReply(buffer);
-                const cb = resolve;
-                Qt.callLater(() => sock.destroy());
-                if (cb)
-                    cb(r);
-            }
-
-            parser: SplitParser {
-                splitMarker: ""
-                onRead: data => sock.buffer += data
-            }
-            onConnectionStateChanged: {
-                if (connected) {
-                    write(request);
-                    flush();
-                } else {
-                    finish("");
-                }
-            }
-            onError: error => finish("Hyprland socket error (" + error + ")")
-
-            property Timer watchdog: Timer {
-                interval: 3000
-                running: true
-                onTriggered: sock.finish("Hyprland did not answer within 3 s")
-            }
-        }
-    }
-
-    // Send a request ("dispatch ..." or "j/..."). Resolves with
-    // { ok, message } from interpretReply, or with the reply text as
-    // message when raw is true. Never rejects.
-    function request(text, raw) {
-        return new Promise(resolve => {
-            if (!available) {
-                resolve({
-                    ok: false,
-                    message: "Hyprland is not running"
-                });
-                return;
-            }
-            const sock = requestComponent.createObject(root, {
-                request: text,
-                raw: raw === true,
-                resolve: resolve,
-                path: Hyprland.requestSocketPath
+    // dispatch(build, confirm, timeoutMs, failMessage)
+    //   build(dialect) -> request string (lib/hyprdispatch.mjs)
+    //   confirm() -> true once the effect is visible
+    // Resolves { ok, message }; never rejects.
+    function dispatch(build, confirm, timeoutMs, failMessage) {
+        if (!available)
+            return Promise.resolve({
+                ok: false,
+                message: "Hyprland is not running"
             });
-            if (!sock) {
-                resolve({
-                    ok: false,
-                    message: "could not create Hyprland request"
-                });
-                return;
-            }
-            sock.connected = true;
-        });
-    }
-
-    function dispatch(build) {
         let body;
         try {
             body = build(dialect);
@@ -225,20 +179,75 @@ Singleton {
             });
         }
         Log.debug("hypr", "dispatch " + body);
-        return request("dispatch " + body);
+        Hyprland.dispatch(body);
+        if (!confirm)
+            return Promise.resolve({
+                ok: true,
+                message: "sent"
+            });
+        return Wait.until(confirm, timeoutMs || 1500).then(okay => ({
+                    ok: okay,
+                    message: okay ? "ok" : failMessage + " (see `qs log` for Hyprland's reply)"
+                }));
     }
 
     function focusWorkspace(ws) {
-        return dispatch(d => HD.focusWorkspace(d, ws));
+        const id = Number(ws);
+        return dispatch(d => HD.focusWorkspace(d, ws), () => root.focusedWorkspaceId === id, 1500, "Hyprland did not switch to workspace " + ws);
     }
     function focusWindow(address) {
-        return dispatch(d => HD.focusWindow(d, address));
+        let t = null;
+        try {
+            t = findToplevel(address);
+        } catch (e) {
+            return Promise.resolve({
+                ok: false,
+                message: String(e.message)
+            });
+        }
+        if (!t)
+            return Promise.resolve({
+                ok: false,
+                message: "That window no longer exists"
+            });
+        return dispatch(d => HD.focusWindow(d, address), () => Hyprland.activeToplevel === t, 1500, "Hyprland did not focus the window");
     }
     function moveWindow(address, ws, follow) {
-        return dispatch(d => HD.moveWindowToWorkspace(d, address, ws, follow));
+        let t = null;
+        try {
+            t = findToplevel(address);
+        } catch (e) {
+            return Promise.resolve({
+                ok: false,
+                message: String(e.message)
+            });
+        }
+        if (!t)
+            return Promise.resolve({
+                ok: false,
+                message: "That window no longer exists"
+            });
+        const id = Number(ws);
+        return dispatch(d => HD.moveWindowToWorkspace(d, address, ws, follow), () => t.workspace !== null && t.workspace.id === id, 1500, "Hyprland did not move the window");
     }
+    // Closing asks the application; it may legitimately refuse or prompt to
+    // save, so a window that stays open is reported, not treated as an error.
     function closeWindow(address) {
-        return dispatch(d => HD.closeWindow(d, address));
+        let t = null;
+        try {
+            t = findToplevel(address);
+        } catch (e) {
+            return Promise.resolve({
+                ok: false,
+                message: String(e.message)
+            });
+        }
+        if (!t)
+            return Promise.resolve({
+                ok: false,
+                message: "That window no longer exists"
+            });
+        return dispatch(d => HD.closeWindow(d, address), () => root.findToplevel(address) === null, 2000, "The window is still open; the application may be asking to save");
     }
 
     function windowLabel(w) {
@@ -268,24 +277,7 @@ Singleton {
         return r.ok ? Registry.ok(okMessage, extra) : Registry.fail(r.message);
     }
 
-    function query(command) {
-        return request("j/" + command, true).then(r => {
-            if (!r.ok)
-                return null;
-            try {
-                return JSON.parse(r.message);
-            } catch (e) {
-                return null;
-            }
-        });
-    }
-
     Component.onCompleted: {
-        if (available)
-            query("activewindow").then(w => {
-                if (w && typeof w.address === "string" && /^0x[0-9a-f]+$/.test(w.address))
-                    root.startupActiveAddress = w.address;
-            });
         Registry.register({
             id: "workspace.focus",
             title: "Go to workspace",

@@ -188,7 +188,8 @@ FocusScope {
 
                 // Devices
                 ColumnLayout {
-                    Layout.preferredWidth: parent.width * 0.36
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 36
                     Layout.fillHeight: true
                     spacing: Theme.px(2)
                     Label {
@@ -255,7 +256,8 @@ FocusScope {
 
                 // Streams
                 ColumnLayout {
-                    Layout.preferredWidth: parent.width * 0.32
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 32
                     Layout.fillHeight: true
                     visible: Config.audio.showStreams
                     spacing: Theme.px(2)
@@ -288,6 +290,7 @@ FocusScope {
                 // Media
                 ColumnLayout {
                     Layout.fillWidth: true
+                    Layout.preferredWidth: 32
                     Layout.fillHeight: true
                     spacing: Theme.pad
                     Label {

@@ -27,9 +27,11 @@ Singleton {
 
     readonly property var sinks: nodes.filter(n => n.audio && n.isSink && !n.isStream)
     readonly property var sources: nodes.filter(n => n.audio && !n.isSink && !n.isStream)
-    // Playback streams output audio (isSink false); capture streams take it.
-    readonly property var playbackStreams: nodes.filter(n => n.audio && n.isStream && !n.isSink)
-    readonly property var captureStreams: nodes.filter(n => n.audio && n.isStream && n.isSink)
+    // Measured with Quickshell 0.3.2 + PipeWire 1.6: a playback stream
+    // (media.class Stream/Output/Audio) reports isSink = true, i.e. "a
+    // stream that feeds a sink"; capture streams report isSink = false.
+    readonly property var playbackStreams: nodes.filter(n => n.audio && n.isStream && n.isSink)
+    readonly property var captureStreams: nodes.filter(n => n.audio && n.isStream && !n.isSink)
 
     readonly property bool sinkReady: sink !== null && sink.audio !== null && sink.ready
     readonly property real volume: sinkReady ? sink.audio.volume : 0

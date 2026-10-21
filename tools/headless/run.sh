@@ -17,7 +17,7 @@ extra=()
 
 docker run --rm --cap-add=SYS_NICE \
   -v "$here:/src:ro" -v "$out:/out" "${extra[@]}" \
-  -e AUDIO -e MEDIA -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO \
+  -e AUDIO -e MEDIA -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO \
   "$image" bash -c '
     set -e
     id pilot >/dev/null 2>&1 || useradd -m -u 1000 pilot
@@ -26,5 +26,5 @@ docker run --rm --cap-add=SYS_NICE \
     [ -f /seed/config.json ] && cp /seed/config.json /home/pilot/.config/aerolith/config.json
     [ -f /seed/routines.json ] && cp /seed/routines.json /home/pilot/.config/aerolith/routines.json
     chown -R pilot /home/pilot
-    exec su pilot -c "AUDIO=${AUDIO:-0} MEDIA=${MEDIA:-0} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} bash /src/tools/headless/session.sh /src/'"$scenario"'"
+    exec su pilot -c "AUDIO=${AUDIO:-0} MEDIA=${MEDIA:-0} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
   '

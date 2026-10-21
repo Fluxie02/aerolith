@@ -81,7 +81,8 @@ FocusScope {
                 }
                 Readout {
                     label: "Swap"
-                    value: Telemetry.memory && Telemetry.memory.swapTotalBytes ? T.formatPercent(Telemetry.memory.swapPercent) : "N/A"
+                    // A swap total of 0 means no swap is configured, which is not "unknown".
+                    value: !Telemetry.memory || Telemetry.memory.swapTotalBytes === null ? "N/A" : Telemetry.memory.swapTotalBytes === 0 ? "NONE" : T.formatPercent(Telemetry.memory.swapPercent)
                 }
                 Readout {
                     label: "Mem pressure 10s"
@@ -122,7 +123,7 @@ FocusScope {
             // Traces
             GridLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: Theme.px(130)
+                Layout.preferredHeight: Theme.px(170)
                 columns: 4
                 columnSpacing: Theme.pad
                 TracePanel {
@@ -170,7 +171,8 @@ FocusScope {
 
                 // Left: cores, storage, battery
                 ColumnLayout {
-                    Layout.preferredWidth: parent.width * 0.42
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 42
                     Layout.fillHeight: true
                     spacing: Theme.pad
 
@@ -249,6 +251,7 @@ FocusScope {
                 // Right: processes
                 ColumnLayout {
                     Layout.fillWidth: true
+                    Layout.preferredWidth: 58
                     Layout.fillHeight: true
                     spacing: Theme.px(2)
                     Label {
@@ -345,6 +348,8 @@ FocusScope {
     }
 
     component TracePanel: ColumnLayout {
+        // Equal stretch for every trace regardless of its label width.
+        Layout.preferredWidth: 1
         property string title: ""
         property var values: []
         property int seq: 0

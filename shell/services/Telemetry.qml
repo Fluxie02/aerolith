@@ -129,7 +129,6 @@ Singleton {
     FileView {
         id: statFile
         path: "/proc/stat"
-        preload: false
         printErrors: false
         onLoaded: {
             const cur = T.parseProcStat(text());
@@ -146,7 +145,6 @@ Singleton {
     FileView {
         id: memFile
         path: "/proc/meminfo"
-        preload: false
         printErrors: false
         onLoaded: {
             const m = T.memoryUsage(T.parseMeminfo(text()));
@@ -157,7 +155,6 @@ Singleton {
     FileView {
         id: psiFile
         path: "/proc/pressure/memory"
-        preload: false
         printErrors: false
         onLoaded: root.pressure = T.parsePressure(text())
         onLoadFailed: root.pressure = null
@@ -165,7 +162,6 @@ Singleton {
     FileView {
         id: netFile
         path: "/proc/net/dev"
-        preload: false
         printErrors: false
         onLoaded: {
             const cur = T.parseNetDev(text());
@@ -181,7 +177,6 @@ Singleton {
     FileView {
         id: cpuinfoFile
         path: "/proc/cpuinfo"
-        preload: false
         printErrors: false
         onLoaded: {
             const mhz = text().split("\n").filter(l => l.indexOf("cpu MHz") === 0).map(l => Number(l.split(":")[1]));
@@ -234,21 +229,18 @@ Singleton {
     FileView {
         id: cpuTempFile
         path: root.tempPaths.cpu
-        preload: false
         printErrors: false
         onLoaded: root.setTemp("cpu", text())
     }
     FileView {
         id: gpuTempFile
         path: root.tempPaths.gpu
-        preload: false
         printErrors: false
         onLoaded: root.setTemp("gpu", text())
     }
     FileView {
         id: nvmeTempFile
         path: root.tempPaths.nvme
-        preload: false
         printErrors: false
         onLoaded: root.setTemp("nvme", text())
     }
@@ -325,7 +317,6 @@ Singleton {
     FileView {
         id: amdBusy
         path: root.gpuVendor === "amd" ? root.gpuDevice + "/gpu_busy_percent" : ""
-        preload: false
         printErrors: false
         onLoaded: {
             const v = T.parseSysfsInt(text());
@@ -341,7 +332,6 @@ Singleton {
     FileView {
         id: amdVramUsed
         path: root.gpuVendor === "amd" ? root.gpuDevice + "/mem_info_vram_used" : ""
-        preload: false
         printErrors: false
         onLoaded: root.setGpu({
             vramUsedBytes: T.parseSysfsInt(text())
@@ -350,7 +340,6 @@ Singleton {
     FileView {
         id: amdVramTotal
         path: root.gpuVendor === "amd" ? root.gpuDevice + "/mem_info_vram_total" : ""
-        preload: false
         printErrors: false
         onLoaded: root.setGpu({
             vramTotalBytes: T.parseSysfsInt(text())
@@ -360,7 +349,6 @@ Singleton {
         id: intelFreq
         // gpuDevice is /sys/class/drm/cardN/device; the counter lives on cardN.
         path: root.gpuVendor === "intel" ? root.gpuDevice.replace(/\/device$/, "") + "/gt_cur_freq_mhz" : ""
-        preload: false
         printErrors: false
         onLoaded: root.setGpu({
             clockMHz: T.parseSysfsInt(text())
