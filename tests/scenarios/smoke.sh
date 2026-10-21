@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Smoke scenario: the shell starts, renders the Flight Strip with mock
 # Hyprland state, opens the Command Core over IPC, and exits cleanly.
 # Sourced by tools/headless/session.sh (helpers: ipc, shot, mock, alive).

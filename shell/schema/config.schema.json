@@ -1,0 +1,360 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aerolith.invalid/schema/config.schema.json",
+  "title": "AEROLITH configuration",
+  "type": "object",
+  "description": "AEROLITH core configuration.",
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "description": "Configuration schema version. Written by AEROLITH; do not change by hand.",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "display": {
+      "type": "object",
+      "description": "AEROLITH supports exactly one display. These settings choose which one.",
+      "properties": {
+        "output": {
+          "type": "string",
+          "description": "Output (monitor) name to run on, e.g. \"DP-1\". Empty selects automatically.",
+          "default": "",
+          "maxLength": 64
+        },
+        "warnOnMultipleDisplays": {
+          "type": "boolean",
+          "description": "Show a caution annunciator when more than one display is connected.",
+          "default": true
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "description": "AEROLITH Instrument System appearance.",
+      "properties": {
+        "density": {
+          "enum": [
+            "compact",
+            "standard",
+            "comfortable"
+          ],
+          "description": "Spacing and type scale.",
+          "default": "standard"
+        },
+        "uiScale": {
+          "type": "number",
+          "description": "Multiplier applied on top of the compositor's own scaling.",
+          "default": 1,
+          "minimum": 0.75,
+          "maximum": 2
+        },
+        "motion": {
+          "enum": [
+            "full",
+            "reduced",
+            "off"
+          ],
+          "description": "Animation level. 'off' disables all transitions.",
+          "default": "full"
+        },
+        "lowEffects": {
+          "type": "boolean",
+          "description": "Opaque backdrops and no shadows, for slow GPUs or screen recording.",
+          "default": false
+        },
+        "fontSans": {
+          "type": "string",
+          "description": "Interface font family.",
+          "default": "Inter",
+          "maxLength": 128
+        },
+        "fontMono": {
+          "type": "string",
+          "description": "Monospaced font for commands and telemetry.",
+          "default": "JetBrains Mono",
+          "maxLength": 128
+        },
+        "palette": {
+          "type": "object",
+          "description": "Colour overrides. Keys: obsidian, surface, surface2, grid, text, textDim, signal, caution, critical, nominal.",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+          },
+          "default": {}
+        }
+      }
+    },
+    "strip": {
+      "type": "object",
+      "description": "The edge-mounted status strip.",
+      "properties": {
+        "visible": {
+          "type": "boolean",
+          "description": "Show the Flight Strip.",
+          "default": true
+        },
+        "edge": {
+          "enum": [
+            "top",
+            "bottom"
+          ],
+          "description": "Screen edge for the Flight Strip.",
+          "default": "top"
+        },
+        "showWindowTitle": {
+          "type": "boolean",
+          "description": "Show the focused window title.",
+          "default": true
+        },
+        "telemetry": {
+          "enum": [
+            "off",
+            "alert",
+            "always"
+          ],
+          "description": "CPU/memory readouts: never, only when above thresholds, or always.",
+          "default": "alert"
+        },
+        "clock": {
+          "enum": [
+            "24h",
+            "12h"
+          ],
+          "description": "Clock format.",
+          "default": "24h"
+        },
+        "showDate": {
+          "type": "boolean",
+          "description": "Show the date next to the clock.",
+          "default": true
+        },
+        "showSeconds": {
+          "type": "boolean",
+          "description": "Show seconds. Costs one redraw per second.",
+          "default": false
+        },
+        "workspaceCount": {
+          "type": "integer",
+          "description": "Minimum number of workspace cells shown on the workspace tape.",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 20
+        }
+      }
+    },
+    "commandCore": {
+      "type": "object",
+      "description": "The universal command palette.",
+      "properties": {
+        "maxResults": {
+          "type": "integer",
+          "description": "Maximum results listed.",
+          "default": 40,
+          "minimum": 5,
+          "maximum": 200
+        },
+        "historySize": {
+          "type": "integer",
+          "description": "Executed actions kept in history.",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "terminal": {
+          "type": "array",
+          "description": "Terminal command used for Terminal=true applications, e.g. [\"foot\"] or [\"kitty\", \"-e\"]. Empty: detect.",
+          "items": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "default": [],
+          "maxItems": 16
+        },
+        "launchPrefix": {
+          "type": "array",
+          "description": "Command prefix for launching apps, e.g. [\"uwsm\", \"app\", \"--\"].",
+          "items": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "default": [],
+          "maxItems": 16
+        }
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "description": "Systems Bay sampling. Nothing is sampled while no view needs the data.",
+      "properties": {
+        "stripIntervalMs": {
+          "type": "integer",
+          "description": "Sampling interval while only the Flight Strip needs data.",
+          "default": 5000,
+          "minimum": 1000,
+          "maximum": 60000
+        },
+        "panelIntervalMs": {
+          "type": "integer",
+          "description": "Sampling interval while the Systems Bay is open.",
+          "default": 2000,
+          "minimum": 500,
+          "maximum": 60000
+        },
+        "detailIntervalMs": {
+          "type": "integer",
+          "description": "Sampling interval for the detailed process view.",
+          "default": 1000,
+          "minimum": 250,
+          "maximum": 60000
+        },
+        "historySamples": {
+          "type": "integer",
+          "description": "Samples kept for graphs (bounded memory).",
+          "default": 120,
+          "minimum": 10,
+          "maximum": 3600
+        },
+        "gpu": {
+          "enum": [
+            "auto",
+            "amd",
+            "intel",
+            "nvidia",
+            "off"
+          ],
+          "description": "GPU telemetry source.",
+          "default": "auto"
+        },
+        "performanceMode": {
+          "type": "boolean",
+          "description": "Halve sampling rates everywhere (useful while gaming).",
+          "default": false
+        },
+        "cpuCautionPercent": {
+          "type": "integer",
+          "description": "CPU percentage that raises a caution.",
+          "default": 85,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "memoryCautionPercent": {
+          "type": "integer",
+          "description": "Memory percentage that raises a caution.",
+          "default": 90,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "temperatureCautionC": {
+          "type": "integer",
+          "description": "Temperature that raises a caution.",
+          "default": 85,
+          "minimum": 30,
+          "maximum": 120
+        },
+        "temperatureCriticalC": {
+          "type": "integer",
+          "description": "Temperature that raises a critical alert.",
+          "default": 95,
+          "minimum": 30,
+          "maximum": 130
+        }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "description": "Signal Rack audio behaviour.",
+      "properties": {
+        "volumeStep": {
+          "type": "integer",
+          "description": "Volume change per step, in percent.",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 25
+        },
+        "maxVolume": {
+          "type": "integer",
+          "description": "Upper volume limit in percent. Above 100 amplifies.",
+          "default": 100,
+          "minimum": 100,
+          "maximum": 150
+        },
+        "showStreams": {
+          "type": "boolean",
+          "description": "List per-application streams in the Signal Rack.",
+          "default": true
+        }
+      }
+    },
+    "navigator": {
+      "type": "object",
+      "description": "Spatial Navigator overview.",
+      "properties": {
+        "thumbnails": {
+          "type": "boolean",
+          "description": "Live window thumbnails (uses hyprland-toplevel-export; costs GPU memory).",
+          "default": false
+        },
+        "showEmptyWorkspaces": {
+          "type": "boolean",
+          "description": "Show empty workspaces up to strip.workspaceCount.",
+          "default": true
+        }
+      }
+    },
+    "routines": {
+      "type": "object",
+      "description": "Routine engine safety settings. Routines themselves live in routines.json.",
+      "properties": {
+        "allowCommandSteps": {
+          "type": "boolean",
+          "description": "Allow routines to run arbitrary programs ('exec' steps). Each run still asks for confirmation.",
+          "default": false
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "description": "Optional built-in notification server.",
+      "properties": {
+        "server": {
+          "type": "boolean",
+          "description": "Act as the desktop notification server. Leave off if mako, dunst or swaync is running.",
+          "default": false
+        },
+        "doNotDisturb": {
+          "type": "boolean",
+          "description": "Suppress notification popups (they are still counted).",
+          "default": false
+        },
+        "popupTimeoutMs": {
+          "type": "integer",
+          "description": "How long popups stay visible.",
+          "default": 6000,
+          "minimum": 1000,
+          "maximum": 60000
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "description": "Diagnostics.",
+      "properties": {
+        "level": {
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
+          "description": "Minimum level written to the Quickshell log.",
+          "default": "info"
+        }
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  }
+}

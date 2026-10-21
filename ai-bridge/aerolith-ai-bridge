@@ -1,7 +1,8 @@
-#!/usr/bin/env -S python3 -I
+#!/usr/bin/env -S python3 -I -B
 # Launcher for the AEROLITH AI Bridge. Python runs isolated (-I): PYTHON*
 # environment variables, user site-packages and the current directory are
-# ignored, so only the package next to this file is loaded.
+# ignored, so only the package next to this file is loaded. -B keeps the
+# installed tree free of __pycache__ so removal leaves nothing behind.
 import os
 import sys
 

@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # AI Bridge scenario with a fake Claude CLI (tests/fixtures/fake-providers).
 # Needs AI=1 AUDIO=1. Verifies: explicit request, lockdown flags, proposal
 # review, approval of one proposal only, and removal of the module at runtime.

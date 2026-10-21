@@ -15,7 +15,6 @@ from aerolith_ai import config as aicfg
 from aerolith_ai.__main__ import ask, status
 from aerolith_ai.proposals import parse_output
 from aerolith_ai.providers import CODEX_DISABLED_FEATURES
-
 from conftest import ROOT, read_log, write_exe
 
 CATALOGUE = [

@@ -28,8 +28,8 @@ from typing import Any
 
 from . import PROTOCOL_VERSION, __version__
 from .config import ConfigError, load
-from .proposals import parse_output, validate_catalogue
 from .prompting import render_prompt
+from .proposals import parse_output, validate_catalogue
 from .providers import Custom, ProviderError, cancel_active, make
 
 MAX_PROMPT_CHARS = 4000

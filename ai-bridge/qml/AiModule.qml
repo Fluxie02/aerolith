@@ -39,7 +39,10 @@ Scope {
     property var result: null        // last bridge result, proposals annotated
     property var transcript: []      // this session only, never written to disk
 
-    readonly property Component bayComponent: Component {
+    // No AI bay without a valid ai.json (see commandsWanted below).
+    readonly property Component bayComponent: cfg !== null ? consoleComponent : null
+    Component {
+        id: consoleComponent
         AiConsole {
             module: ai
         }
@@ -296,9 +299,22 @@ Scope {
 
     // --- commands ------------------------------------------------------------
 
+    // Commands exist only while a valid ai.json exists. A machine where the
+    // module is installed (e.g. by a system package) but this user chose
+    // "None" has no ai.json, and sees no AI commands at all.
     property var unregisterFns: []
+    readonly property bool commandsWanted: cfg !== null
+    onCommandsWantedChanged: commandsWanted ? registerCommands() : unregisterCommands()
 
-    Component.onCompleted: {
+    function unregisterCommands() {
+        for (let i = 0; i < unregisterFns.length; i++)
+            unregisterFns[i]();
+        unregisterFns = [];
+    }
+
+    function registerCommands() {
+        if (unregisterFns.length > 0)
+            return;
         const reg = (def, isProvider) => unregisterFns.push(isProvider ? Registry.registerProvider(def, "ai") : Registry.register(def, "ai"));
         reg({
             id: "ai.ask",
@@ -351,13 +367,12 @@ Scope {
 
     Component.onDestruction: {
         cancel();
-        for (let i = 0; i < unregisterFns.length; i++)
-            unregisterFns[i]();
+        unregisterCommands();
     }
 
     // Global shortcut only on Hyprland; bound by the installer when AI is set up.
     LazyLoader {
-        active: Compositor.available
+        active: Compositor.available && ai.commandsWanted
         GlobalShortcut {
             appid: "aerolith"
             name: "ai"

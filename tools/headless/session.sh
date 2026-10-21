@@ -21,7 +21,8 @@ SCENARIO=${1:?usage: session.sh <scenario.sh>}
 RES=${RES:-1920x1080}
 SCALE=${SCALE:-1}
 
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
+XDG_RUNTIME_DIR=/run/user/$(id -u)
+export XDG_RUNTIME_DIR
 export XDG_CONFIG_HOME=$HOME/.config XDG_STATE_HOME=$HOME/.local/state
 export QT_FORCE_STDERR_LOGGING=1 QT_QUICK_BACKEND=software
 export WLR_BACKENDS=headless WLR_RENDERER=pixman WLR_LIBINPUT_NO_DEVICES=1
@@ -38,7 +39,8 @@ cleanup() {
 trap cleanup EXIT
 
 if [ "${HYPR_MOCK:-1}" = 1 ]; then
-  python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --seed --log "$OUT/hypr-requests.jsonl" ${HYPR_MOCK_ARGS:-} >"$OUT/mock.log" 2>&1 &
+  read -ra mock_args <<<"${HYPR_MOCK_ARGS:-}"
+  python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --seed --log "$OUT/hypr-requests.jsonl" "${mock_args[@]}" >"$OUT/mock.log" 2>&1 &
   PIDS+=($!)
   export HYPRLAND_INSTANCE_SIGNATURE=aerolith_mock
   for _ in $(seq 50); do [ -S "$XDG_RUNTIME_DIR/hypr/aerolith_mock/.socket.sock" ] && break; sleep 0.1; done
@@ -48,12 +50,18 @@ printf 'output HEADLESS-1 resolution %s scale %s\n' "$RES" "$SCALE" >"$OUT/sway.
 sway -c "$OUT/sway.conf" >"$OUT/sway.log" 2>&1 &
 PIDS+=($!)
 for _ in $(seq 50); do
-  WAYLAND_DISPLAY=$(ls "$XDG_RUNTIME_DIR" 2>/dev/null | grep -E '^wayland-[0-9]+$' | head -1 || true)
+  WAYLAND_DISPLAY=
+  for sock in "$XDG_RUNTIME_DIR"/wayland-[0-9]*; do
+    case ${sock##*/} in *.lock) continue ;; esac
+    [ -S "$sock" ] && WAYLAND_DISPLAY=${sock##*/} && break
+  done
   [ -n "$WAYLAND_DISPLAY" ] && break
   sleep 0.1
 done
 export WAYLAND_DISPLAY
-export SWAYSOCK=$(ls "$XDG_RUNTIME_DIR"/sway-ipc.*.sock 2>/dev/null | head -1 || true)
+SWAYSOCK=
+for sock in "$XDG_RUNTIME_DIR"/sway-ipc.*.sock; do [ -S "$sock" ] && SWAYSOCK=$sock && break; done
+export SWAYSOCK
 
 if [ "${AUDIO:-0}" = 1 ]; then
   PIPEWIRE_DEBUG="${PIPEWIRE_DEBUG:-2}" pipewire >"$OUT/pipewire.log" 2>&1 &
@@ -97,10 +105,25 @@ if [ "${AI:-0}" = 1 ]; then
   export PATH="$HOME/.local/bin:$PATH" FAKE_LOG="$OUT/fake-provider.jsonl"
   printf '{"schemaVersion":1,"provider":"%s","enabled":true,"timeoutSeconds":20}\n' "${AI_PROVIDER:-claude}" >"$XDG_CONFIG_HOME/aerolith/ai.json"
 fi
+# INSTALL="<installer flags>": install AEROLITH from the checkout with the
+# real installer into this user's home (seeded with a minimal hyprland.lua)
+# and run the shell from the installed location. Fake provider CLIs are put
+# on PATH first so an AI choice finds a "Claude" or "Codex" without network.
+if [ -n "${INSTALL:-}" ]; then
+  mkdir -p "$HOME/.local/bin" "$XDG_CONFIG_HOME/hypr"
+  cp "$SRC"/tests/fixtures/fake-providers/* "$HOME/.local/bin/"
+  export PATH="$HOME/.local/bin:$PATH" FAKE_LOG="$OUT/fake-provider.jsonl"
+  printf -- '-- test hyprland.lua\nhl.config({ general = { gaps_in = 4 } })\n' >"$XDG_CONFIG_HOME/hypr/hyprland.lua"
+  cp "$XDG_CONFIG_HOME/hypr/hyprland.lua" "$OUT/hyprland.lua.orig"
+  read -ra install_args <<<"$INSTALL"
+  sh "$SRC/install.sh" "${install_args[@]}" --yes --no-start </dev/null >"$OUT/install.log" 2>&1 || {
+    echo "FAIL: installer exited $?"; cat "$OUT/install.log"; exit 1; }
+  SHELL_DIR="$HOME/.local/share/aerolith/shell"
+fi
 export SHELL_DIR
 qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &
 QS_PID=$!
-PIDS+=($QS_PID)
+PIDS+=("$QS_PID")
 
 # --- helpers for scenarios ----------------------------------------------------
 ipc() { qs -p "$SHELL_DIR" ipc call aerolith "$@"; }

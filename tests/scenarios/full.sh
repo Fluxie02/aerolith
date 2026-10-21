@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Full interaction scenario. Needs AUDIO=1 MEDIA=1 MPV_AO=pipewire and the
 # routines fixture (ROUTINES=tests/fixtures/routines.json).
 # Sourced by tools/headless/session.sh.

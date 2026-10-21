@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Signal Rack scenario: device default switching, stream routing and media
 # control, each verified against PipeWire / MPRIS state from outside the
 # shell. Needs AUDIO=1 MEDIA=1 MPV_AO=pipewire.
