@@ -1,0 +1,20 @@
+#!/usr/bin/env -S python3 -I
+# Fake Codex CLI for tests. Records calls to $FAKE_LOG; never contacts anything.
+import json, os, sys
+log = os.environ.get("FAKE_LOG")
+mode = os.environ.get("FAKE_MODE", "ok")
+argv = sys.argv[1:]
+if argv[:1] == ["--version"]:
+    print("codex-cli 0.163.0"); sys.exit(0)
+if argv[:2] == ["login", "status"]:
+    print("Logged in using ChatGPT"); sys.exit(0 if mode != "noauth" else 1)
+stdin = sys.stdin.read()
+if log:
+    open(log, "a").write(json.dumps({"argv": argv, "stdin": stdin, "cwd": os.getcwd()}) + "\n")
+if mode == "unknownflag":
+    sys.stderr.write("Error: Unknown feature flag: shell_tool\n"); sys.exit(1)
+if mode == "noauth":
+    sys.stderr.write("Error: Not logged in. Run codex login\n"); sys.exit(1)
+out = argv[argv.index("-o") + 1]
+open(out, "w").write(json.dumps({"reply": "Done thinking.", "proposals": [
+    {"action": "media.play-pause", "argsJson": "", "reason": "pause it"}]}))

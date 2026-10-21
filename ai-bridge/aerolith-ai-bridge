@@ -1,0 +1,12 @@
+#!/usr/bin/env -S python3 -I
+# Launcher for the AEROLITH AI Bridge. Python runs isolated (-I): PYTHON*
+# environment variables, user site-packages and the current directory are
+# ignored, so only the package next to this file is loaded.
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+
+from aerolith_ai.__main__ import main  # noqa: E402
+
+sys.exit(main(sys.argv[1:]))

@@ -84,12 +84,26 @@ if [ "${MEDIA:-0}" = 1 ]; then
   fi
 fi
 
-qs -p "$SRC/shell" >"$OUT/qs.log" 2>&1 &
+# AI=1: run a writable copy of the shell with the AI module installed the way
+# the installer lays it out, and fake provider CLIs on PATH.
+SHELL_DIR="$SRC/shell"
+if [ "${AI:-0}" = 1 ]; then
+  SHELL_DIR="$HOME/aerolith-shell"
+  cp -r "$SRC/shell" "$SHELL_DIR"
+  mkdir -p "$SHELL_DIR/modules/ai/bridge" "$HOME/.local/bin"
+  cp "$SRC"/ai-bridge/qml/*.qml "$SHELL_DIR/modules/ai/"
+  cp -r "$SRC/ai-bridge/aerolith_ai" "$SRC/ai-bridge/aerolith-ai-bridge" "$SHELL_DIR/modules/ai/bridge/"
+  cp "$SRC"/tests/fixtures/fake-providers/* "$HOME/.local/bin/"
+  export PATH="$HOME/.local/bin:$PATH" FAKE_LOG="$OUT/fake-provider.jsonl"
+  printf '{"schemaVersion":1,"provider":"%s","enabled":true,"timeoutSeconds":20}\n' "${AI_PROVIDER:-claude}" >"$XDG_CONFIG_HOME/aerolith/ai.json"
+fi
+export SHELL_DIR
+qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &
 QS_PID=$!
 PIDS+=($QS_PID)
 
 # --- helpers for scenarios ----------------------------------------------------
-ipc() { qs -p "$SRC/shell" ipc call aerolith "$@"; }
+ipc() { qs -p "$SHELL_DIR" ipc call aerolith "$@"; }
 shot() { grim "$OUT/$1.png"; }
 # Each wtype invocation uploads a fresh keymap and Qt drops the first key
 # event that follows it (measured; a physical keyboard is unaffected), so
