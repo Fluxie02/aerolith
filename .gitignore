@@ -1,0 +1,23 @@
+# Build and test output
+/build/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+node_modules/
+
+# Quickshell writes this for qmlls; it is machine-specific
+.qmlls.ini
+
+# Packaging artefacts
+/packaging/arch/src/
+/packaging/arch/pkg/
+/packaging/arch/*.pkg.tar.*
+/packaging/arch/*.tar.gz
+
+# Never commit local configuration, logs or credentials
+*.log
+.env
+*.key
+*.pem
