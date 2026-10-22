@@ -42,6 +42,17 @@ What that means for the design work:
   surfaces while a full-screen window is up); designs must restore
   cleanly afterwards and must not rely on GPU state surviving it.
 
+## Decision on round 3 (UI-004)
+
+The owner, verbatim:
+
+> They are all really good but for diffrent type of users but I think Dense is too diffrent from the others so saturated and insane are really great but let the user choose it in the settings or terminal or something and let them choose in the installation(implement this later now just a command in terminal) and default is saturated
+
+So: AEROLITH ships both **Saturated** and **Insane** as a user setting,
+`theme.intensity` (`saturated` or `insane`, default `saturated`). Dense is
+dropped. The user switches with a terminal command now; a choice during
+installation comes later.
+
 ## How the two texts fit together
 
 - The directive below still holds for process, quality, usability,

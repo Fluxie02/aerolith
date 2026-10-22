@@ -907,6 +907,37 @@ def cmd_config(args: argparse.Namespace, ui: Ui) -> int:
     raise Abort(f"unknown config command {args.config_cmd}")
 
 
+INTENSITIES = ("saturated", "insane")
+
+
+def cmd_intensity(args: argparse.Namespace, ui: Ui) -> int:
+    """Show or set theme.intensity in config.json; the running shell applies it live."""
+    lay = layout()
+    data: dict = {}
+    if lay.config_file.exists():
+        try:
+            data = json.loads(lay.config_file.read_text(encoding="utf-8") or "{}")
+        except (OSError, ValueError) as e:
+            raise Abort(f"{tilde(lay.config_file)} is not valid JSON ({e}); fix it first") from e
+        if not isinstance(data, dict):
+            raise Abort(f"{tilde(lay.config_file)} does not contain a JSON object; fix it first")
+    theme = data.get("theme") if isinstance(data.get("theme"), dict) else {}
+    current = theme.get("intensity", INTENSITIES[0])
+    if not args.level:
+        print(current)
+        return 0
+    if args.level == current and "intensity" in theme:
+        ui.ok(f"intensity is already {current}")
+        return 0
+    theme["intensity"] = args.level
+    data["theme"] = theme
+    data.setdefault("schemaVersion", 1)
+    lay.config_file.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write(lay.config_file, json.dumps(data, indent=2) + "\n")
+    ui.ok(f"intensity set to {args.level}; a running shell switches at once")
+    return 0
+
+
 def cmd_hypr(args: argparse.Namespace, ui: Ui) -> int:
     lay = layout()
     manifest = load_manifest(lay)
@@ -1016,6 +1047,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     c = sub.add_parser("config", parents=[yes], help="configuration file helpers")
     c.add_argument("config_cmd", choices=["validate", "path", "reset"])
+    t = sub.add_parser("intensity", parents=[yes], help="show or set how much the interface shows")
+    t.add_argument("level", nargs="?", choices=INTENSITIES)
     h = sub.add_parser("hypr", parents=[yes], help="Hyprland integration")
     h.add_argument("hypr_cmd", choices=["show", "apply", "remove"])
     for name in ("run", "restart", "stop"):
@@ -1030,6 +1063,7 @@ COMMANDS = {
     "doctor": cmd_doctor,
     "ai": cmd_ai,
     "config": cmd_config,
+    "intensity": cmd_intensity,
     "hypr": cmd_hypr,
     "run": cmd_run,
     "restart": cmd_run,

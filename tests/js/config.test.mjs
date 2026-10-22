@@ -122,4 +122,12 @@ export default suite("config", (test) => {
     assert.equal(JSON.stringify(SCHEMA).toLowerCase().indexOf("claude"), -1);
     assert.equal(JSON.stringify(SCHEMA).toLowerCase().indexOf("codex"), -1);
   });
+
+  test("intensity defaults to saturated and accepts only known levels", (assert) => {
+    assert.equal(validateConfig("").config.theme.intensity, "saturated");
+    assert.equal(validateConfig('{"theme":{"intensity":"insane"}}').config.theme.intensity, "insane");
+    const r = validateConfig('{"theme":{"intensity":"dense"}}');
+    assert.equal(r.config.theme.intensity, "saturated");
+    assert.equal(r.errors.length, 1);
+  });
 });

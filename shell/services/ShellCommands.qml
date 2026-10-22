@@ -96,6 +96,22 @@ Singleton {
             run: args => root.setting("theme.motion", args.motion, "Motion " + args.motion)
         });
         Registry.register({
+            id: "settings.intensity",
+            title: "Set interface intensity",
+            category: "settings",
+            alias: "intensity",
+            keywords: ["saturated", "insane", "density", "appearance"],
+            params: [
+                {
+                    name: "intensity",
+                    type: "enum",
+                    required: true,
+                    choices: ["saturated", "insane"]
+                }
+            ],
+            run: args => root.setting("theme.intensity", args.intensity, "Intensity " + args.intensity)
+        });
+        Registry.register({
             id: "settings.low-effects",
             title: "Toggle low-effects mode",
             category: "settings",
