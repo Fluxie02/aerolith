@@ -21,7 +21,7 @@ Singleton {
     }
 
     Component.onCompleted: {
-        const bays = [["navigator", "Spatial Navigator", "nav", ["overview", "windows", "expose"]], ["systems", "Systems Bay", "sys", ["telemetry", "cpu", "memory", "gpu", "monitor"]], ["signal", "Signal Rack", "sig", ["audio", "media", "mixer", "devices"]], ["routines", "Routine Console", "", ["routine", "automation"]], ["help", "Help and shortcuts", "help", ["keys", "keyboard", "shortcuts", "commands"]]];
+        const bays = [["navigator", "Spatial Navigator", "nav", ["overview", "windows", "expose"]], ["systems", "Systems Bay", "sys", ["telemetry", "cpu", "memory", "gpu", "monitor"]], ["signal", "Signal Rack", "sig", ["audio", "media", "mixer", "devices"]], ["routines", "Routine Console", "", ["routine", "automation"]], ["help", "Help and shortcuts", "help", ["keys", "keyboard", "shortcuts", "commands"]], ["settings", "Settings", "set", ["settings", "preferences", "configuration", "options"]]];
         for (let i = 0; i < bays.length; i++) {
             const b = bays[i];
             const def = {
