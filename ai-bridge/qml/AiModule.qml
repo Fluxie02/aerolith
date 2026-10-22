@@ -470,263 +470,214 @@ Scope {
             event.accepted = true;
         }
 
+        // One scrollable response register keeps long replies and every proposal
+        // reachable on small displays. The disclosure and input stay in view.
         Bezel {
-            anchors.centerIn: parent
-            width: Math.min(Theme.px(1100), parent.width - Theme.pad * 4)
-            height: Math.min(Theme.px(760), parent.height - Theme.pad)
-            designation: "AI-06"
+            anchors.fill: parent
+            contentPadding: height < Theme.du(600) ? Theme.pad : Theme.contentInset
+            titleHeight: height < Theme.du(600) ? Theme.du(42) : Theme.headerHeight
+            designation: "AI / 06"
             title: "AI Bridge"
             status: {
                 const s = console_.module ? console_.module.status : null;
-                if (!console_.module || !console_.module.cfg)
-                    return "NOT CONFIGURED";
-                if (!console_.module.enabled)
-                    return "DISABLED";
-                if (!s)
-                    return console_.module.providerName.toUpperCase() + " · CHECKING";
-                if (!s.ok)
-                    return "CONFIG PROBLEM";
+                if (!console_.module || !console_.module.cfg) return "NOT CONFIGURED";
+                if (!console_.module.enabled) return "DISABLED";
+                if (!s) return console_.module.providerName.toUpperCase() + " · CHECKING";
+                if (!s.ok) return "CONFIG PROBLEM";
                 return console_.module.providerName.toUpperCase() + (s.remote ? " · REMOTE SERVICE" : " · LOCAL PROGRAM") + (s.installed ? " · " + (s.providerVersion || "installed") : " · NOT INSTALLED");
             }
             statusColor: console_.module && console_.module.enabled && console_.module.status && console_.module.status.installed ? Theme.textDim : Theme.caution
-
-            MouseArea {
-                anchors.fill: parent
-                anchors.margins: -Theme.pad
-                z: -1
-            }
+            MouseArea { anchors.fill: parent; anchors.margins: -Theme.pad; z: -1 }
 
             ColumnLayout {
                 anchors.fill: parent
                 spacing: Theme.gap
-
-                // Data-flow disclosure, always visible before sending.
                 Rectangle {
                     Layout.fillWidth: true
-                    implicitHeight: disclosure.implicitHeight + Theme.pad
+                    implicitHeight: disclosure.implicitHeight + Theme.gap * 2
                     color: Theme.bg
                     border.color: Theme.grid
                     border.width: Theme.border
-                    radius: Theme.radius
+                    Rectangle { width: Theme.px(2); height: parent.height; color: Theme.signal }
                     Column {
                         id: disclosure
-                        anchors.left: parent.left
-                        anchors.right: parent.right
+                        anchors.left: parent.left; anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.margins: Theme.pad
-                        spacing: Theme.px(2)
+                        spacing: Theme.px(3)
                         Text {
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            color: Theme.text
-                            font.family: Theme.mono
-                            font.pixelSize: Theme.fontXs
-                            text: "SENT ON ⏎: your prompt + the list of allowed actions" + (console_.module && console_.module.sharedContext.length ? " + context: " + console_.module.sharedContext.join(", ") : " · no desktop context (enable per item in ai.json)")
+                            width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
+                            color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                            text: "SENT ON ENTER / prompt + allowed actions" + (console_.module && console_.module.sharedContext.length ? " + context: " + console_.module.sharedContext.join(", ") : " · desktop context OFF")
                         }
                         Text {
                             visible: !!(console_.module && console_.module.status && console_.module.status.dataFlow)
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            color: Theme.textDim
-                            font.family: Theme.sans
-                            font.pixelSize: Theme.fontXs
+                            width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
+                            color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontXs
                             text: console_.module && console_.module.status ? (console_.module.status.dataFlow || "") : ""
                         }
                         Text {
                             visible: !!(console_.module && console_.module.status && console_.module.status.problem)
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            color: Theme.caution
-                            font.family: Theme.mono
-                            font.pixelSize: Theme.fontXs
-                            text: console_.module && console_.module.status && console_.module.status.problem ? "⚠ " + console_.module.status.problem.message : ""
+                            width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
+                            color: Theme.caution; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                            text: console_.module && console_.module.status && console_.module.status.problem ? console_.module.status.problem.message : ""
                         }
                     }
                 }
-
-                // Prompt
                 Rectangle {
                     Layout.fillWidth: true
-                    implicitHeight: Math.round(Theme.rowHeight * 1.25)
+                    implicitHeight: Theme.rowHeight * 1.5
                     color: Theme.bg
                     border.color: prompt.activeFocus ? Theme.signal : Theme.grid
                     border.width: Theme.border
-                    radius: Theme.radius
                     Text {
                         id: chevron
-                        anchors.left: parent.left
-                        anchors.leftMargin: Theme.pad
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: "?"
-                        color: Theme.signal
-                        font.family: Theme.mono
-                        font.pixelSize: Theme.fontLg
+                        anchors.left: parent.left; anchors.leftMargin: Theme.pad; anchors.verticalCenter: parent.verticalCenter
+                        text: "?"; textFormat: Text.PlainText
+                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.inputSize
                     }
                     TextInput {
                         id: prompt
-                        anchors.left: chevron.right
-                        anchors.leftMargin: Theme.gap
-                        anchors.right: parent.right
-                        anchors.rightMargin: Theme.pad
+                        anchors.left: chevron.right; anchors.leftMargin: Theme.gap
+                        anchors.right: parent.right; anchors.rightMargin: Theme.pad
                         anchors.verticalCenter: parent.verticalCenter
                         focus: true
                         enabled: console_.module && !console_.module.busy
                         maximumLength: 4000
-                        color: Theme.text
-                        font.family: Theme.mono
-                        font.pixelSize: Theme.fontMd
+                        color: Theme.text; selectionColor: Theme.signal; selectedTextColor: Theme.bg
+                        font.family: Theme.mono; font.pixelSize: Theme.fontMd
                         clip: true
                         onAccepted: {
                             const r = console_.module.ask(text);
-                            if (!r.ok)
-                                Ui.report(r);
+                            if (!r.ok) Ui.report(r);
                             console_.selected = 0;
                         }
                         Text {
                             visible: prompt.text === ""
-                            text: "Ask " + (console_.module ? console_.module.providerName : "the AI") + " — e.g. “set up a quiet focus session on workspace 3”"
-                            color: Theme.textDim
-                            font: prompt.font
-                            elide: Text.ElideRight
-                            width: parent.width
+                            text: "Ask " + (console_.module ? console_.module.providerName : "the AI") + " · Enter to send"
+                            textFormat: Text.PlainText
+                            color: Theme.textDim; font: prompt.font
+                            elide: Text.ElideRight; width: parent.width
                         }
                     }
                 }
-
-                // Active operation
                 Text {
+                    Layout.fillWidth: true
                     visible: !!(console_.module && console_.module.busy)
                     text: {
                         console_.tick;
-                        return "◌ ACTIVE OPERATION · waiting for " + (console_.module ? console_.module.providerName : "") + " · " + Math.round((Date.now() - (console_.module ? console_.module.startedAt : 0)) / 1000) + " s · Esc cancels";
+                        return "ACTIVE / " + (console_.module ? console_.module.providerName : "") + " · " + Math.round((Date.now() - (console_.module ? console_.module.startedAt : 0)) / 1000) + " s · Esc cancels";
                     }
-                    color: Theme.signal
-                    font.family: Theme.mono
-                    font.pixelSize: Theme.fontXs
+                    textFormat: Text.PlainText
+                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    elide: Text.ElideRight
                 }
-
-                // Reply
                 Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.preferredHeight: 3
-                    contentHeight: replyText.implicitHeight
-                    clip: true
-                    Text {
-                        id: replyText
-                        width: parent.width
-                        wrapMode: Text.Wrap
-                        textFormat: Text.PlainText
-                        color: console_.result && !console_.result.ok ? Theme.critical : Theme.text
-                        font.family: Theme.sans
-                        font.pixelSize: Theme.fontSm
-                        text: !console_.result ? "" : console_.result.ok ? console_.result.reply : "FAULT · " + console_.errorText(console_.result)
+                    id: responseView
+                    Layout.fillWidth: true; Layout.fillHeight: true
+                    Layout.minimumHeight: 0
+                    contentWidth: width; contentHeight: responseColumn.implicitHeight
+                    clip: true; boundsBehavior: Flickable.StopAtBounds
+                    function revealProposal() {
+                        if (!console_.inProposals) return;
+                        const row = proposalRows.itemAt(console_.selected);
+                        if (!row) return;
+                        const top = row.y;
+                        contentY = Math.max(0, Math.min(contentHeight - height, top < contentY ? top : top + row.height > contentY + height ? top + row.height - height : contentY));
                     }
-                }
-                Repeater {
-                    model: console_.result && console_.result.ok ? (console_.result.warnings || []).slice(0, 3) : []
-                    Text {
-                        required property var modelData
-                        Layout.fillWidth: true
-                        text: "note: " + modelData
-                        color: Theme.caution
-                        font.family: Theme.mono
-                        font.pixelSize: Theme.fontXs
-                        elide: Text.ElideRight
+                    Connections {
+                        target: console_
+                        function onSelectedChanged() { responseView.revealProposal(); }
+                        function onInProposalsChanged() { responseView.revealProposal(); }
                     }
-                }
-
-                // Proposals
-                Label {
-                    visible: console_.proposals.length > 0
-                    text: "Proposed actions · nothing runs until you approve it (Tab, then A)"
-                }
-                Repeater {
-                    model: console_.proposals
-                    delegate: Rectangle {
-                        required property var modelData
-                        required property int index
-                        readonly property bool sel: console_.inProposals && index === console_.selected
-                        Layout.fillWidth: true
-                        implicitHeight: Math.round(Theme.rowHeight * 1.4)
-                        color: sel ? Theme.surface2 : "transparent"
-                        border.color: sel ? Theme.signal : Theme.grid
-                        border.width: Theme.border
-                        radius: Theme.radius
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.margins: Theme.px(6)
-                            spacing: Theme.gap
+                    Column {
+                        id: responseColumn
+                        width: responseView.width
+                        spacing: Theme.gap
+                        Label {
+                            width: parent.width; strong: true
+                            text: !console_.result ? (console_.module && console_.module.busy ? "RESPONSE REGISTER / WAITING" : "RESPONSE REGISTER / READY") : !console_.result.ok ? (console_.result.error.code === "cancelled" ? "RESPONSE REGISTER / CANCELLED" : "RESPONSE REGISTER / FAULT") : "RESPONSE REGISTER / RECEIVED"
+                        }
+                        Text {
+                            width: parent.width
+                            wrapMode: Text.Wrap; textFormat: Text.PlainText
+                            color: console_.result && !console_.result.ok ? (console_.result.error.code === "cancelled" ? Theme.caution : Theme.critical) : console_.result ? Theme.text : Theme.textDim
+                            font.family: Theme.sans; font.pixelSize: Theme.fontSm; lineHeight: 1.25
+                            text: !console_.result ? (console_.module && console_.module.busy ? "Awaiting the provider response. Press Esc to cancel this request." : "Ask a question or describe a change. Review each proposed action before approving it. Nothing runs automatically.") : console_.result.ok ? console_.result.reply : (console_.result.error.code === "cancelled" ? "CANCELLED · " : "FAULT · ") + console_.errorText(console_.result)
+                        }
+                        Repeater {
+                            model: console_.result && console_.result.ok ? (console_.result.warnings || []) : []
                             Text {
-                                Layout.preferredWidth: Theme.px(90)
-                                text: modelData.state === "done" ? "[ DONE ]" : modelData.state === "failed" ? "[ FAIL ]" : modelData.state === "dismissed" ? "[ SKIP ]" : modelData.state === "approved" ? "[ .... ]" : modelData.valid && modelData.available ? "[REVIEW]" : "[REJECT]"
-                                color: modelData.state === "done" ? Theme.signal : modelData.state === "failed" || (!modelData.valid && modelData.state === "proposed") ? Theme.critical : Theme.caution
-                                font.family: Theme.mono
-                                font.pixelSize: Theme.fontXs
-                            }
-                            Column {
-                                Layout.fillWidth: true
-                                Text {
-                                    width: parent.width
-                                    text: modelData.title + "  " + JSON.stringify(modelData.args)
-                                    color: Theme.text
-                                    font.family: Theme.mono
-                                    font.pixelSize: Theme.fontXs
-                                    elide: Text.ElideRight
-                                }
-                                Text {
-                                    width: parent.width
-                                    text: modelData.outcome || modelData.problem || modelData.reason
-                                    color: modelData.problem && modelData.state === "proposed" ? Theme.critical : Theme.textDim
-                                    font.family: Theme.sans
-                                    font.pixelSize: Theme.fontXs
-                                    elide: Text.ElideRight
-                                }
-                            }
-                            Text {
-                                text: modelData.action
-                                color: Theme.textDim
-                                font.family: Theme.mono
-                                font.pixelSize: Theme.fontXs
+                                required property var modelData
+                                width: responseColumn.width
+                                text: "NOTE / " + modelData; textFormat: Text.PlainText; wrapMode: Text.Wrap
+                                color: Theme.caution; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                             }
                         }
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                console_.inProposals = true;
-                                console_.selected = index;
-                                proposalKeys.forceActiveFocus();
+                        Rectangle { width: parent.width; height: Theme.border; color: Theme.grid }
+                        Label {
+                            visible: console_.proposals.length > 0
+                            width: parent.width
+                            text: "ACTION REVIEW / " + console_.proposals.length + " PROPOSED · TAB TO SELECT · A APPROVES ONE"
+                            strong: true
+                        }
+                        Repeater {
+                            id: proposalRows
+                            model: console_.proposals
+                            delegate: Rectangle {
+                                required property var modelData
+                                required property int index
+                                readonly property bool sel: console_.inProposals && index === console_.selected
+                                width: responseColumn.width
+                                height: proposalCol.implicitHeight + Theme.pad * 2
+                                color: sel ? Theme.surface2 : Theme.bg
+                                border.color: sel ? Theme.signal : Theme.grid; border.width: Theme.border
+                                Rectangle { width: Theme.px(2); height: parent.height; color: parent.sel ? Theme.signal : Theme.grid }
+                                Column {
+                                    id: proposalCol
+                                    x: Theme.pad; y: Theme.pad; width: parent.width - 2 * x
+                                    spacing: Theme.px(4)
+                                    Text {
+                                        width: parent.width; textFormat: Text.PlainText; wrapMode: Text.Wrap
+                                        text: String(index + 1).padStart(2, "0") + " / " + (modelData.state === "done" ? "DONE" : modelData.state === "failed" ? "FAILED" : modelData.state === "dismissed" ? "DISMISSED" : modelData.state === "approved" ? "RUNNING" : modelData.valid && modelData.available ? "REVIEW" : "REJECTED") + " · " + modelData.action
+                                        color: modelData.state === "done" ? Theme.signal : modelData.state === "failed" || (!modelData.valid && modelData.state === "proposed") ? Theme.critical : Theme.caution
+                                        font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                                    }
+                                    Text {
+                                        width: parent.width; textFormat: Text.PlainText; wrapMode: Text.Wrap
+                                        text: modelData.title + "  " + JSON.stringify(modelData.args)
+                                        color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                    }
+                                    Text {
+                                        width: parent.width; textFormat: Text.PlainText; wrapMode: Text.Wrap
+                                        text: modelData.outcome || modelData.problem || modelData.reason || ""
+                                        color: modelData.problem && modelData.state === "proposed" ? Theme.critical : Theme.textDim
+                                        font.family: Theme.sans; font.pixelSize: Theme.fontXs
+                                    }
+                                }
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        console_.inProposals = true;
+                                        console_.selected = index;
+                                        proposalKeys.forceActiveFocus();
+                                    }
+                                }
                             }
                         }
                     }
                 }
-
+                Rectangle {
+                    Layout.alignment: Qt.AlignRight
+                    Layout.preferredWidth: Theme.du(48); implicitHeight: Theme.px(2)
+                    visible: responseView.contentHeight > responseView.height
+                    color: Theme.signal
+                }
                 StatusLine {
                     Layout.fillWidth: true
-                    hints: [
-                        {
-                            key: "⏎",
-                            action: "send"
-                        },
-                        {
-                            key: "TAB",
-                            action: "proposals"
-                        },
-                        {
-                            key: "A",
-                            action: "approve"
-                        },
-                        {
-                            key: "D",
-                            action: "dismiss"
-                        },
-                        {
-                            key: "ESC",
-                            action: console_.module && console_.module.busy ? "cancel request" : "close"
-                        }
-                    ]
-                    message: console_.result ? (console_.result.ok ? "answered in " + (console_.result.elapsedMs / 1000).toFixed(1) + " s" : console_.result.error.code) : ""
-                    messageState: console_.result ? (console_.result.ok ? "ok" : "error") : ""
+                    hints: console_.inProposals ? [{key:"↑↓",action:"select"},{key:"A",action:"approve"},{key:"D",action:"dismiss"},{key:"TAB",action:"prompt"}] : [{key:"⏎",action:"send"},{key:"TAB",action:"review"},{key:"ESC",action:console_.module && console_.module.busy ? "cancel" : "close"}]
+                    message: console_.result ? (console_.result.ok ? "answered in " + (console_.result.elapsedMs / 1000).toFixed(1) + " s · each action needs approval" : console_.result.error.code) : "Explicit requests only · nothing runs automatically"
+                    messageState: console_.result ? (console_.result.ok ? "ok" : console_.result.error.code === "cancelled" ? "caution" : "error") : ""
                 }
             }
         }
