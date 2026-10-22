@@ -31,8 +31,15 @@ PanelWindow {
     // How long an outgoing bay may stay on screen; 0 when motion is off or
     // effects are reduced, which unmaps and destroys at once.
     readonly property int exitMs: Theme.animate && !Theme.lowEffects ? Theme.normal : 0
-    // True while a closed Deck still shows an outgoing bay.
-    readonly property bool exiting: !Ui.deckOpen && (slotA.leaving || slotB.leaving)
+    // True while a closed Deck still shows an outgoing bay. (Slot state
+    // first, so the binding always depends on it.)
+    readonly property bool exiting: (slotA.leaving || slotB.leaving) && !Ui.deckOpen
+    // Whether the surface stays mapped. Written only at the end of sync()
+    // and release(), never by a binding: a binding could see the request
+    // gone before the outgoing slot is marked leaving, unmap for one turn
+    // and remap, and a remap is a new layer surface (compositor close and
+    // open animations).
+    property bool holdSurface: false
     readonly property alias slotA: slotA
     readonly property alias slotB: slotB
 
@@ -71,7 +78,7 @@ PanelWindow {
     readonly property string wanted: Ui.deckOpen && Ui.screen !== null ? Ui.activeBay : ""
 
     screen: Ui.screen
-    visible: (Ui.deckOpen || exiting) && Ui.screen !== null
+    visible: holdSurface && Ui.screen !== null
     color: "transparent"
     anchors {
         top: true
@@ -90,7 +97,14 @@ PanelWindow {
         id: noInput
     }
 
-    onVisibleChanged: Ui.deckMapped = visible
+    onVisibleChanged: {
+        Ui.deckMapped = visible;
+        if (visible)
+            Ui.deckMaps++;
+    }
+    // The compositor closed the surface (e.g. its output went away): treat
+    // it as closed, so no bay keeps its demand without being seen.
+    onClosed: Ui.close()
     onWantedChanged: sync()
     onAiBayChanged: sync()
     Component.onCompleted: sync()
@@ -118,7 +132,16 @@ PanelWindow {
     // Bring the slots in line with the requested bay. Two slots alternate so
     // an outgoing bay can finish its exit while the incoming one is live; a
     // third change during that time cuts the oldest exit short.
+    function updateHold() {
+        holdSurface = wanted !== "" || slotA.leaving || slotB.leaving;
+    }
+
     function sync() {
+        syncSlots();
+        updateHold();
+    }
+
+    function syncSlots() {
         const comp = wanted !== "" ? componentFor(wanted) : null;
         const cur = slotA.current ? slotA : slotB.current ? slotB : null;
         if (cur && cur.bay === wanted && cur.sourceComponent === comp)
@@ -186,6 +209,9 @@ PanelWindow {
         anchors.fill: parent
         active: bay !== ""
         visible: active
+        // An outgoing bay may sit above the incoming one during a switch;
+        // it must not take pointer input or focus meanwhile.
+        enabled: current
 
         function present(name, comp) {
             exitTimer.stop();
@@ -220,6 +246,7 @@ PanelWindow {
             current = false;
             bay = "";
             sourceComponent = null;
+            deck.updateHold();
         }
 
         onLoaded: {

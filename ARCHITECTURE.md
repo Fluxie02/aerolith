@@ -266,7 +266,8 @@ node tests/js/run-node.mjs                     # unit tests in Node
 docker run --rm -v "$PWD:/src:ro" aerolith-dev bash -c \
   'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'
 python3 -m pytest -q tests/py                  # installer and AI bridge
-AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/deck       # Deck lifecycle, notices
+AUDIO=1 HYPR_MOCK_ARGS="--mode 2560x1440 --scale 1.5 --transform 1" \
+  tools/headless/run.sh tests/scenarios/deck.sh build/deck    # Deck lifecycle, notices, geometry
 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/notify.sh build/notify
 AUDIO=1 MEDIA=1 tools/headless/run.sh tests/scenarios/perf.sh build/perf  # CPU, RSS per state
 ```

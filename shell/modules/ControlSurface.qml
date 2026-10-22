@@ -72,6 +72,7 @@ Scope {
                 memoryPercent: Telemetry.memory ? Telemetry.memory.percent : null,
                 monitor: Compositor.monitorGeometry(),
                 deckMapped: Ui.deckMapped,
+                deckMaps: Ui.deckMaps,
                 audioDetail: Audio.detailDemand,
                 notices: Ui.notices.length,
                 popups: Notifications.popups.length,

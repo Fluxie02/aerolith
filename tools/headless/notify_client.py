@@ -25,6 +25,7 @@ def main() -> int:
     ap.add_argument("--app", default="aerolith-test")
     ap.add_argument("--action", action="append", default=[], help="identifier:label, repeatable")
     ap.add_argument("--wait", type=float, default=10.0)
+    ap.add_argument("--resident", action="store_true", help="ask the server to keep the notification after an action")
     args = ap.parse_args()
 
     conn = Gio.bus_get_sync(Gio.BusType.SESSION, None)
@@ -48,9 +49,10 @@ def main() -> int:
     for spec in args.action:
         ident, _, label = spec.partition(":")
         actions += [ident, label or ident]
+    hints = {"resident": GLib.Variant("b", True)} if args.resident else {}
     reply = conn.call_sync(
         BUS, PATH, BUS, "Notify",
-        GLib.Variant("(susssasa{sv}i)", (args.app, 0, "", args.summary, args.body, actions, {}, -1)),
+        GLib.Variant("(susssasa{sv}i)", (args.app, 0, "", args.summary, args.body, actions, hints, -1)),
         GLib.VariantType("(u)"), Gio.DBusCallFlags.NONE, 5000, None,
     )
     state["id"] = reply.unpack()[0]
