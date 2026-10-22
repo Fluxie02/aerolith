@@ -1,6 +1,41 @@
+# Owner direction (22 October 2026): read this first
+
+This section is the repository owner's latest direction. Where it differs
+from the directive further down, this section wins.
+
+## Feedback on the first round (UI-001)
+
+The owner rejected the UI-001 result. In the owner's words, the Interleaf
+screenshots "show a totally wrong design nothing like the original design".
+The light, paper-like editorial index is not the direction. The reference
+point is the original AEROLITH design: the dark avionics instrument panel
+with the Flight Strip, annunciators, registration brackets and the Command
+Core (`docs/design/shots/baseline/` on the Astra branch, and any run of the
+current `shell/`). Evolve that identity into something radical; do not
+replace it with a different one.
+
+## The owner's directive, verbatim
+
+Design the desktop as a futuristic, experimental instrument for controlling a computer, not a conventional desktop with a sci-fi skin. Think aerospace avionics, abstract digital architecture, precision instruments, and computational art, fused into one coherent visual identity. Use unconventional composition, deliberate asymmetry, sophisticated typography, restrained but striking color, layered depth, subtle translucency, and exceptionally fluid micro-animations. Make the interface feel alive, precise, and engineered rather than decorative.
+
+Avoid generic cyberpunk, neon overload, ordinary floating cards, standard dashboards, and predictable glassmorphism. The result should be visually radical yet functional, lightweight, and instantly recognizable as its own design. Invent a new visual language rather than remixing existing desktop environments.
+
+## How the two texts fit together
+
+- The directive below still holds for process, quality, usability,
+  accessibility, performance and the division of work with Claude.
+- Its warnings against "generic sci-fi dashboards" and "the familiar
+  neon-blue hacker aesthetic" are about cliché, not about avionics or
+  instruments. The owner explicitly wants aerospace avionics and precision
+  instruments as a core source.
+- The owner chooses the direction. Show concept screenshots and wait for the
+  owner's choice before implementing in the production shell.
+
+---
+
 # ASTRA: CREATIVE DIRECTIVE FOR AN ENTIRELY NEW LINUX DESKTOP EXPERIENCE
 
-_The repository owner's creative directive for Astra, recorded verbatim. Only Markdown formatting (heading marks and bold labels) was added._
+_The repository owner's first creative directive for Astra, recorded verbatim. Only Markdown formatting (heading marks and bold labels) was added._
 
 ## 1. Your Mission: Invent a New Visual Language for Computing
 
