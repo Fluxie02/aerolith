@@ -100,12 +100,26 @@ Item {
         FocusScope {
             Bezel {
                 anchors.fill: parent
-                designation: "AI / 06"; title: "AI Bridge not installed"; active: false
+                designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: Theme.caution
                 MouseArea { anchors.fill: parent }
-                Text {
-                    anchors.fill: parent; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                    color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontMd
-                    text: "AEROLITH is running without AI integration. Everything else works normally. To add a provider later, run: aerolith ai configure"
+                Column {
+                    width: parent.width; spacing: Theme.pad
+                    Label { width: parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
+                    Text {
+                        width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
+                        color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
+                        text: "Add a provider when you need one."
+                    }
+                    Text {
+                        width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
+                        color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                        text: "The desktop is ready without AI. Configure a provider to ask questions and review proposed actions here."
+                    }
+                    Text {
+                        width: parent.width; wrapMode: Text.WrapAnywhere; textFormat: Text.PlainText
+                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
+                        text: "aerolith ai configure"
+                    }
                 }
             }
         }

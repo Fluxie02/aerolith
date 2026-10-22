@@ -20,20 +20,20 @@ FocusScope {
 
     readonly property var keyGroups: [
         {
-            title: "Global (Hyprland binds → global shortcuts)",
-            keys: [["aerolith:command", "Command Core"], ["aerolith:navigator", "Spatial Navigator"], ["aerolith:systems", "Systems Bay"], ["aerolith:signal", "Signal Rack"], ["aerolith:routines", "Routine Console"], ["aerolith:volume-up/-down", "Volume"], ["aerolith:mute", "Mute"], ["aerolith:play-pause", "Media"]]
+            title: "Global / Hyprland shortcuts",
+            keys: [["aerolith:command", "Command Core"], ["aerolith:navigator", "Spatial Navigator"], ["aerolith:systems", "Systems Bay"], ["aerolith:signal", "Signal Rack"], ["aerolith:routines", "Routine Console"], ["aerolith:ai", "AI Bridge (when installed)"], ["aerolith:volume-up/-down", "Volume"], ["aerolith:mute", "Mute"], ["aerolith:play-pause", "Media"]]
         },
         {
             title: "Deck",
-            keys: [["Ctrl+1…6", "Switch bay"], ["F1", "This help"], ["PgUp / PgDn", "Scroll these keys"], ["Esc", "Close"]]
+            keys: [["Ctrl+1…6", "Switch bay"], ["F1", "This help"], ["Esc", "Close"]]
         },
         {
             title: "Command Core",
-            keys: [["↑↓ / Ctrl+J K", "Select"], ["Enter", "Run"], ["Shift+Enter", "Run, keep open"], ["Tab", "Scope"], ["> @ ! ?", "Commands, windows, routines, AI"], ["alias args", "e.g. vol 40, ws 3, out <device>"]]
+            keys: [["↑↓ / Ctrl+J K / N P", "Select"], ["PgUp / PgDn", "Select by page"], ["Ctrl+L", "Clear query"], ["Enter", "Run"], ["Shift+Enter", "Run, keep open"], ["Tab / Shift+Tab", "Next / previous scope"], ["> @ ! ?", "Commands, windows, routines, AI"], ["alias args", "e.g. vol 40, ws 3, out <device>"]]
         },
         {
             title: "Spatial Navigator",
-            keys: [["←→ / h l", "Workspace"], ["↑↓ / j k / Tab", "Window"], ["1-9", "Go to workspace"], ["M then 1-9", "Move window"], ["X X", "Close window"], ["/", "Filter"]]
+            keys: [["←→ / h l", "Workspace"], ["↑↓ / j k / Tab", "Window"], ["1-9", "Go to workspace"], ["M then 1-9", "Move window"], ["X X / Delete twice", "Close window"], ["Enter", "Focus window / workspace"], ["/", "Filter"]]
         },
         {
             title: "Systems Bay",
@@ -41,11 +41,19 @@ FocusScope {
         },
         {
             title: "Signal Rack",
-            keys: [["↑↓ / j k", "Select"], ["←→ / h l", "Volume"], ["M", "Mute"], ["Enter", "Default / play / re-route"], [", .", "Previous / next"]]
+            keys: [["↑↓ / j k", "Select"], ["←→ / h l", "Volume"], ["M", "Mute"], ["Enter / Space", "Default / play / re-route"], ["PgUp / PgDn", "Scroll rack"], [", .", "Previous / next"]]
         },
         {
             title: "Routine Console",
-            keys: [["Enter", "Run (twice if sensitive)"], ["Esc", "Cancel between steps"], ["R", "Revert last run"], ["E", "Edit routines.json"]]
+            keys: [["↑↓ / j k", "Select routine"], ["Enter", "Run (twice if sensitive)"], ["Esc", "Cancel between steps"], ["R", "Revert last run"], ["E", "Edit routines.json"], ["PgUp / PgDn", "Scroll execution plan"]]
+        },
+        {
+            title: "AI Bridge (when installed)",
+            keys: [["Enter", "Send prompt"], ["Tab", "Prompt / proposal review"], ["↑↓ / j k", "Select proposal in review"], ["A / D", "Approve one / dismiss one"], ["Esc", "Cancel request / leave review / close"]]
+        },
+        {
+            title: "This reference",
+            keys: [["PgUp / PgDn", "Scroll key reference"], ["↑↓", "Scroll command register"], ["Esc", "Clear filter / close"]]
         }
     ]
 
@@ -117,6 +125,7 @@ FocusScope {
                                 model: modelData.keys
                                 delegate: Row {
                                     required property var modelData
+                                    width: keysCol.width
                                     spacing: Theme.gap
                                     Text {
                                         textFormat: Text.PlainText
@@ -125,10 +134,12 @@ FocusScope {
                                         color: Theme.signal
                                         font.family: Theme.mono
                                         font.pixelSize: Theme.fontXs
-                                        elide: Text.ElideRight
+                                        wrapMode: Text.WrapAnywhere
                                     }
                                     Text {
                                         textFormat: Text.PlainText
+                                        width: Math.max(0, keysCol.width - Math.min(Theme.px(170), keysCol.width * .48) - Theme.gap)
+                                        wrapMode: Text.WordWrap
                                         text: modelData[1]
                                         color: Theme.text
                                         font.family: Theme.sans
@@ -163,6 +174,7 @@ FocusScope {
                         color: Theme.text
                         font.family: Theme.mono
                         font.pixelSize: Theme.fontSm
+                        clip: true
                         onTextChanged: help.filter = text
                         Text {
                             textFormat: Text.PlainText
@@ -194,7 +206,7 @@ FocusScope {
                         spacing: Theme.gap
                         Text {
                             textFormat: Text.PlainText
-                            Layout.preferredWidth: Theme.px(230)
+                            Layout.preferredWidth: list.width * .36
                             text: modelData.title
                             color: modelData.hidden ? Theme.textDim : Theme.text
                             font.family: Theme.sans
@@ -203,7 +215,7 @@ FocusScope {
                         }
                         Text {
                             textFormat: Text.PlainText
-                            Layout.preferredWidth: Theme.px(150)
+                            Layout.preferredWidth: list.width * .26
                             text: modelData.alias ? modelData.alias + (modelData.params.length ? " " + modelData.params.map(p => "‹" + p.name + "›").join(" ") : "") : ""
                             color: Theme.signal
                             font.family: Theme.mono

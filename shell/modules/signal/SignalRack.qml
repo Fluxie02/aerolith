@@ -152,7 +152,10 @@ FocusScope {
             report(Registry.execute("media.previous", {}, {
                 record: false
             }));
-        else
+        else if (k === Qt.Key_PageDown || k === Qt.Key_PageUp) {
+            const direction = k === Qt.Key_PageDown ? 1 : -1;
+            contentView.contentY = Math.max(0, Math.min(contentView.contentHeight - contentView.height, contentView.contentY + direction * contentView.height * .8));
+        } else
             return;
         event.accepted = true;
     }
@@ -194,146 +197,201 @@ FocusScope {
             anchors.fill: parent
             spacing: Theme.pad
 
-            RowLayout {
+            Flickable {
+                id: contentView
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                spacing: Theme.pad * 2
-
-                // Devices
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 36
-                    Layout.fillHeight: true
-                    spacing: Theme.px(2)
-                    Label {
-                        text: "Output devices"
-                    }
-                    Repeater {
-                        model: Audio.sinks
-                        delegate: DeviceRow {
-                            required property var modelData
-                            Layout.fillWidth: true
-                            node: modelData
-                            isDefault: modelData === Audio.sink
-                            preferred: modelData === Audio.preferredSink
-                            selected: rack.current && rack.current.node === modelData
-                            onPicked: rack.selected = rack.rowIndex("sink", modelData)
-                            onMakeDefault: rack.primary({
-                                kind: "sink",
-                                node: modelData
-                            })
-                            onMuteToggled: rack.toggleMute({
-                                kind: "sink",
-                                node: modelData
-                            })
-                        }
-                    }
-                    Label {
-                        visible: Audio.sinks.length === 0
-                        text: Audio.ready ? "No output devices" : "Waiting for PipeWire…"
-                    }
-                    Item {
-                        Layout.preferredHeight: Theme.pad
-                    }
-                    Label {
-                        text: "Input devices"
-                    }
-                    Repeater {
-                        model: Audio.sources
-                        delegate: DeviceRow {
-                            required property var modelData
-                            Layout.fillWidth: true
-                            node: modelData
-                            isDefault: modelData === Audio.source
-                            preferred: modelData === Audio.preferredSource
-                            selected: rack.current && rack.current.node === modelData
-                            onPicked: rack.selected = rack.rowIndex("source", modelData)
-                            onMakeDefault: rack.primary({
-                                kind: "source",
-                                node: modelData
-                            })
-                            onMuteToggled: rack.toggleMute({
-                                kind: "source",
-                                node: modelData
-                            })
-                        }
-                    }
-                    Label {
-                        visible: Audio.sources.length === 0
-                        text: "No input devices"
-                    }
-                    Item {
-                        Layout.fillHeight: true
-                    }
+                Layout.minimumHeight: 0
+                contentWidth: width
+                contentHeight: contentRow.height
+                clip: true
+                boundsBehavior: Flickable.StopAtBounds
+                function reveal(item) {
+                    if (!item) return;
+                    const top = item.mapToItem(contentRow, 0, 0).y;
+                    contentY = Math.max(0, Math.min(contentHeight - height, top < contentY ? top : top + item.height > contentY + height ? top + item.height - height : contentY));
                 }
+                RowLayout {
+                    id: contentRow
+                    width: contentView.width
+                    height: Math.max(implicitHeight, contentView.height)
+                    spacing: Theme.pad * 2
 
-                // Streams
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 32
-                    Layout.fillHeight: true
-                    visible: Config.audio.showStreams
-                    spacing: Theme.px(2)
-                    Label {
-                        text: "Application streams"
-                    }
-                    Repeater {
-                        model: Audio.playbackStreams
-                        delegate: StreamRow {
-                            required property var modelData
-                            Layout.fillWidth: true
-                            node: modelData
-                            selected: rack.current && rack.current.node === modelData
-                            onPicked: rack.selected = rack.rowIndex("stream", modelData)
-                            onReroute: rack.primary({
-                                kind: "stream",
-                                node: modelData
-                            })
-                        }
-                    }
-                    Label {
-                        visible: Audio.playbackStreams.length === 0
-                        text: "No application is playing audio"
-                    }
-                    Item {
+                    // Devices
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: 36
                         Layout.fillHeight: true
-                    }
-                }
-
-                // Media
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 32
-                    Layout.fillHeight: true
-                    spacing: Theme.pad
-                    Label {
-                        text: "Media players (MPRIS)"
-                    }
-                    Repeater {
-                        model: Media.players
-                        delegate: PlayerCard {
-                            required property var modelData
-                            Layout.fillWidth: true
-                            player: modelData
-                            active: modelData === Media.active
-                            selected: rack.current && rack.current.player === modelData
-                            onPicked: {
-                                rack.selected = rack.rowIndex("player", modelData);
-                                Media.selectedName = modelData.dbusName;
+                        spacing: Theme.px(2)
+                        Label {
+                            text: "Output devices"
+                        }
+                        Repeater {
+                            model: Audio.sinks
+                            delegate: DeviceRow {
+                                id: deviceRow
+                                onSelectedChanged: if (selected) contentView.reveal(deviceRow)
+                                required property var modelData
+                                Layout.fillWidth: true
+                                node: modelData
+                                isDefault: modelData === Audio.sink
+                                preferred: modelData === Audio.preferredSink
+                                selected: rack.current && rack.current.node === modelData
+                                onPicked: rack.selected = rack.rowIndex("sink", modelData)
+                                onMakeDefault: rack.primary({
+                                    kind: "sink",
+                                    node: modelData
+                                })
+                                onMuteToggled: rack.toggleMute({
+                                    kind: "sink",
+                                    node: modelData
+                                })
                             }
-                            onCommand: id => rack.report(Registry.execute(id, {}, {
-                                    record: false
-                                }))
+                        }
+                        Text {
+                            visible: Audio.sinks.length === 0
+                            Layout.fillWidth: true
+                            text: Audio.ready ? "No output devices" : "Waiting for PipeWire…"
+                            textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap
+                            color: Theme.textDim
+                            font.family: Theme.sans
+                            font.pixelSize: Theme.fontSm
+                        }
+                        Item {
+                            Layout.preferredHeight: Theme.pad
+                        }
+                        Label {
+                            text: "Input devices"
+                        }
+                        Repeater {
+                            model: Audio.sources
+                            delegate: DeviceRow {
+                                id: deviceRow
+                                onSelectedChanged: if (selected) contentView.reveal(deviceRow)
+                                required property var modelData
+                                Layout.fillWidth: true
+                                node: modelData
+                                isDefault: modelData === Audio.source
+                                preferred: modelData === Audio.preferredSource
+                                selected: rack.current && rack.current.node === modelData
+                                onPicked: rack.selected = rack.rowIndex("source", modelData)
+                                onMakeDefault: rack.primary({
+                                    kind: "source",
+                                    node: modelData
+                                })
+                                onMuteToggled: rack.toggleMute({
+                                    kind: "source",
+                                    node: modelData
+                                })
+                            }
+                        }
+                        Text {
+                            visible: Audio.sources.length === 0
+                            Layout.fillWidth: true
+                            text: "No input devices"
+                            textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap
+                            color: Theme.textDim
+                            font.family: Theme.sans
+                            font.pixelSize: Theme.fontSm
+                        }
+                        Item {
+                            Layout.fillHeight: true
                         }
                     }
-                    Label {
-                        visible: Media.players.length === 0
-                        text: "No MPRIS player is running"
-                    }
-                    Item {
+
+                    // Streams
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: 32
                         Layout.fillHeight: true
+                        visible: Config.audio.showStreams
+                        spacing: Theme.px(2)
+                        Label {
+                            text: "Application streams"
+                        }
+                        Repeater {
+                            model: Audio.playbackStreams
+                            delegate: StreamRow {
+                                id: streamRow
+                                onSelectedChanged: if (selected) contentView.reveal(streamRow)
+                                required property var modelData
+                                Layout.fillWidth: true
+                                node: modelData
+                                selected: rack.current && rack.current.node === modelData
+                                onPicked: rack.selected = rack.rowIndex("stream", modelData)
+                                onReroute: rack.primary({
+                                    kind: "stream",
+                                    node: modelData
+                                })
+                            }
+                        }
+                        Text {
+                            visible: Audio.playbackStreams.length === 0
+                            Layout.fillWidth: true
+                            text: "No application is playing audio"
+                            textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap
+                            color: Theme.textDim
+                            font.family: Theme.sans
+                            font.pixelSize: Theme.fontSm
+                        }
+                        Item {
+                            Layout.fillHeight: true
+                        }
+                    }
+
+                    // Media
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: 32
+                        Layout.fillHeight: true
+                        spacing: Theme.pad
+                        Label {
+                            text: "Media players (MPRIS)"
+                        }
+                        Repeater {
+                            model: Media.players
+                            delegate: PlayerCard {
+                                id: playerRow
+                                onSelectedChanged: if (selected) contentView.reveal(playerRow)
+                                required property var modelData
+                                Layout.fillWidth: true
+                                player: modelData
+                                active: modelData === Media.active
+                                selected: rack.current && rack.current.player === modelData
+                                onPicked: {
+                                    rack.selected = rack.rowIndex("player", modelData);
+                                    Media.selectedName = modelData.dbusName;
+                                }
+                                onCommand: id => rack.report(Registry.execute(id, {}, {
+                                        record: false
+                                    }))
+                            }
+                        }
+                        Text {
+                            visible: Media.players.length === 0
+                            Layout.fillWidth: true
+                            text: "No MPRIS player is running"
+                            textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap
+                            color: Theme.textDim
+                            font.family: Theme.sans
+                            font.pixelSize: Theme.fontSm
+                        }
+                        Item {
+                            Layout.fillHeight: true
+                        }
                     }
                 }
+            }
+            Rectangle {
+                Layout.alignment: Qt.AlignRight
+                Layout.preferredWidth: Math.max(Theme.du(24), contentView.width * Math.min(1, contentView.height / Math.max(1, contentView.contentHeight)))
+                implicitHeight: Theme.px(2)
+                visible: contentView.contentHeight > contentView.height
+                color: Theme.signal
             }
 
             StatusLine {

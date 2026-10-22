@@ -6,6 +6,7 @@ import qs.core
 // minute instead of every second.
 Item {
     id: root
+    property bool compact: false
     implicitWidth: row.implicitWidth + Theme.pad
 
     SystemClock {
@@ -38,7 +39,7 @@ Item {
         spacing: Theme.gap
         Text {
             textFormat: Text.PlainText
-            visible: Config.strip.showDate
+            visible: Config.strip.showDate && !root.compact
             text: root.dateText
             color: Theme.textDim
             font.family: Theme.mono

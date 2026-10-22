@@ -10,6 +10,7 @@ import qs.services
 // only renders results and turns keys into registry calls.
 FocusScope {
     id: core
+    readonly property bool compact: height < Theme.du(600)
 
     property string query: Ui.pendingQuery
     property int scopeIndex: 0
@@ -231,6 +232,8 @@ FocusScope {
     Bezel {
         id: bezel
         anchors.fill: parent
+        contentPadding: core.compact ? Theme.pad : Theme.contentInset
+        titleHeight: core.compact ? Theme.du(42) : Theme.headerHeight
         designation: "CMD / 01"
         title: "Command Core"
         status: "ESC / CLOSE"
@@ -268,9 +271,9 @@ FocusScope {
             Rectangle {
                 id: inputRow
                 anchors.top: summary.bottom
-                anchors.topMargin: Theme.pad * 1.6
+                anchors.topMargin: core.compact ? Theme.gap : Theme.pad * 1.6
                 width: parent.width
-                height: Math.max(Theme.px(76), Theme.rowHeight * 1.9)
+                height: core.compact ? Theme.du(48) : Math.max(Theme.px(76), Theme.rowHeight * 1.9)
                 color: Theme.lowEffects ? Theme.bg : Theme.alpha(Theme.bg, 0.8)
 
                 Rectangle {
@@ -288,7 +291,7 @@ FocusScope {
                     textFormat: Text.PlainText
                     color: Theme.signal
                     font.family: Theme.mono
-                    font.pixelSize: Theme.px(34)
+                    font.pixelSize: core.compact ? Theme.fontLg : Theme.px(34)
                 }
                 TextInput {
                     id: input
@@ -305,7 +308,7 @@ FocusScope {
                     selectionColor: Theme.signal
                     selectedTextColor: Theme.bg
                     font.family: Theme.mono
-                    font.pixelSize: Theme.px(28)
+                    font.pixelSize: core.compact ? Theme.fontLg : Theme.px(28)
                     clip: true
                     Component.onCompleted: cursorPosition = text.length
                     Text {
@@ -315,7 +318,7 @@ FocusScope {
                         textFormat: Text.PlainText
                         color: Theme.textDim
                         font.family: Theme.mono
-                        font.pixelSize: Theme.px(24)
+                        font.pixelSize: core.compact ? Theme.fontLg : Theme.px(24)
                         elide: Text.ElideRight
                         width: parent.width
                     }
@@ -325,7 +328,7 @@ FocusScope {
             Flow {
                 id: scopeRow
                 anchors.top: inputRow.bottom
-                anchors.topMargin: Theme.pad * 1.8
+                anchors.topMargin: core.compact ? Theme.gap : Theme.pad * 1.8
                 width: parent.width
                 spacing: Theme.pad * 1.8
                 Repeater {
@@ -335,7 +338,7 @@ FocusScope {
                         required property int index
                         readonly property bool selected: index === core.scopeIndex
                         width: scopeLabel.implicitWidth
-                        height: Math.round(Theme.rowHeight)
+                        height: core.compact ? Theme.du(24) : Math.round(Theme.rowHeight)
                         Text {
                             id: scopeLabel
                             text: modelData.label
@@ -368,7 +371,7 @@ FocusScope {
                 anchors.bottom: footer.top
                 anchors.bottomMargin: Theme.pad
                 width: parent.width
-                readonly property int rowH: Math.max(Theme.px(68), Math.round(Theme.rowHeight * 1.7))
+                readonly property int rowH: core.compact ? Theme.px(54) : Math.max(Theme.px(68), Math.round(Theme.rowHeight * 1.7))
                 readonly property int visibleRows: Math.max(1, Math.floor(height / rowH))
                 clip: true
                 model: core.results

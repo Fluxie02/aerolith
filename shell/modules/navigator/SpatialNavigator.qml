@@ -212,7 +212,8 @@ FocusScope {
         anchors.fill: parent
         designation: "NAV / 02"
         title: "Spatial Navigator"
-        status: nav.allWindows.length + " WINDOWS / " + nav.sectors.length + " WORKSPACES"
+        status: Compositor.available ? nav.allWindows.length + " WINDOWS / " + nav.sectors.length + " WORKSPACES" : "COMPOSITOR OFFLINE"
+        statusColor: Compositor.available ? Theme.textDim : Theme.caution
         MouseArea { anchors.fill: parent; z: -1 }
         Item {
             anchors.fill: parent
@@ -245,7 +246,7 @@ FocusScope {
                 anchors.left: parent.left; anchors.right: parent.right
                 anchors.bottom: status.top; anchors.bottomMargin: Theme.du(20)
                 clip: true
-                contentWidth: Math.max(width, nav.sectors.length * (cellW + Theme.du(22)) - Theme.du(22))
+                contentWidth: !Compositor.available ? width : Math.max(width, nav.sectors.length * (cellW + Theme.du(22)) - Theme.du(22))
                 contentHeight: height
                 boundsBehavior: Flickable.StopAtBounds
                 readonly property real cellW: Math.max(Theme.du(220), (width - (nav.sectors.length - 1) * Theme.du(22)) / Math.max(1, nav.sectors.length))
@@ -256,7 +257,7 @@ FocusScope {
                 Connections { target: nav; function onSectorIndexChanged() { field.reveal(); } }
                 onWidthChanged: reveal()
                 Repeater {
-                    model: nav.sectors
+                    model: Compositor.available ? nav.sectors : []
                     delegate: Sector {
                         required property var modelData
                         required property int index
@@ -274,7 +275,8 @@ FocusScope {
                 Text {
                     visible: !Compositor.available
                     anchors.centerIn: parent; width: parent.width
-                    text: "HYPRLAND NOT DETECTED · window overview unavailable"
+                    text: "HYPRLAND LINK / UNAVAILABLE\n\nWindow and workspace controls need a Hyprland session.\nThe overview will return when the compositor reconnects."
+                    horizontalAlignment: Text.AlignHCenter; lineHeight: 1.4
                     textFormat: Text.PlainText; wrapMode: Text.WordWrap
                     color: Theme.caution; font.family: Theme.mono; font.pixelSize: Theme.fontSm
                 }
@@ -283,7 +285,7 @@ FocusScope {
                 id: status
                 anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
                 hints: [{key:"←→",action:"workspace"},{key:"↑↓ / TAB",action:"window"},{key:"⏎",action:"focus"},{key:"1–9",action:"workspace"},{key:"M",action:"move"},{key:"X X",action:"close"},{key:"/",action:"filter"}]
-                message: nav.statusText !== "" ? nav.statusText : nav.currentWindow ? Compositor.windowLabel(nav.currentWindow) : nav.currentSector ? "Workspace " + nav.currentSector.id + " · empty" : ""
+                message: nav.statusText !== "" ? nav.statusText : !Compositor.available ? "N/A · no compositor connection" : nav.currentWindow ? Compositor.windowLabel(nav.currentWindow) : nav.currentSector ? "Workspace " + nav.currentSector.id + " · empty" : ""
                 messageState: nav.statusState
             }
         }

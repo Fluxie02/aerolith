@@ -1,0 +1,14 @@
+{
+  "ai-bridge/qml/AiModule.qml": "e13a8e3831ae088f051a7e19d32d2b48eb9e2d4c0983f5319927d5e1ef8944f4",
+  "shell/components/Annunciator.qml": "bcd115f1aea64bcf56d64dd5b02d662206001856e9d3e2a6c3c992a1b54d4c48",
+  "shell/components/Bezel.qml": "b2132e32914ae1b6546e6a57285c605112d7e3d1bf37d4634d3fd259183a023f",
+  "shell/modules/command/CommandCore.qml": "8e5b32a285eb49c06d8d828e42fa04486370b405600eba0562017facebc15043",
+  "shell/modules/deck/DeckView.qml": "fc4e771ea35d799456307fd0e33699beaa741dbfd66089c97e01b04f4a35f4ed",
+  "shell/modules/help/HelpBay.qml": "9b1609f826e6beebeb251ccab22b09f9bdf6fbbc28abf02e69d934360618f483",
+  "shell/modules/navigator/SpatialNavigator.qml": "8834bd578b9afa8713a97e5bd6efe2366c512334574b14765d8e2f3e7e4ddab2",
+  "shell/modules/routines/RoutineConsole.qml": "184a530d711ee528ed45623ab64601be140cf18dffd79d3363b7c9df05caea48",
+  "shell/modules/signal/SignalRack.qml": "a542418af30870292165f30d3b7224b8150c73fed35794d77775b9e5eed0624e",
+  "shell/modules/strip/FlightStrip.qml": "8e1fb961cca3c80e95fedac1f5028fe20a412fb6b559329e10900969896617f7",
+  "shell/modules/strip/StripClock.qml": "6ae7b25a0c15377e49d27d96608ddffa5976c511e62c2a2b3779377b5fbcc09c",
+  "shell/modules/strip/WorkspaceTape.qml": "ce9f0811708a271460eda1ebce4b7b04abd67d509acb1f1644aa10a19825ac97"
+}

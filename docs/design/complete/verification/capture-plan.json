@@ -1,0 +1,266 @@
+[
+  {
+    "source": "build/ui006/saturated-full-verified/01-strip.png",
+    "artifact": "docs/design/complete/saturated/full/01-strip.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/02-command-vol.png",
+    "artifact": "docs/design/complete/saturated/full/02-command-vol.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/03-command-search.png",
+    "artifact": "docs/design/complete/saturated/full/03-command-search.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/04-navigator.png",
+    "artifact": "docs/design/complete/saturated/full/04-navigator.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/05-systems.png",
+    "artifact": "docs/design/complete/saturated/full/05-systems.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/06-signal.png",
+    "artifact": "docs/design/complete/saturated/full/06-signal.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/07-routines.png",
+    "artifact": "docs/design/complete/saturated/full/07-routines.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/08-routine-ran.png",
+    "artifact": "docs/design/complete/saturated/full/08-routine-ran.png"
+  },
+  {
+    "source": "build/ui006/saturated-full-verified/09-help.png",
+    "artifact": "docs/design/complete/saturated/full/09-help.png"
+  },
+  {
+    "source": "build/ui006/saturated-ai-verified/a1-answer.png",
+    "artifact": "docs/design/complete/saturated/ai/a1-answer.png"
+  },
+  {
+    "source": "build/ui006/saturated-ai-verified/a2-approved.png",
+    "artifact": "docs/design/complete/saturated/ai/a2-approved.png"
+  },
+  {
+    "source": "build/ui006/saturated-small/01-command.png",
+    "artifact": "docs/design/complete/saturated/small/command.png"
+  },
+  {
+    "source": "build/ui006/saturated-small/01-navigator.png",
+    "artifact": "docs/design/complete/saturated/small/navigator.png"
+  },
+  {
+    "source": "build/ui006/saturated-small/01-systems.png",
+    "artifact": "docs/design/complete/saturated/small/systems.png"
+  },
+  {
+    "source": "build/ui006/saturated-small/01-signal.png",
+    "artifact": "docs/design/complete/saturated/small/signal.png"
+  },
+  {
+    "source": "build/ui006/saturated-small/01-routines.png",
+    "artifact": "docs/design/complete/saturated/small/routines.png"
+  },
+  {
+    "source": "build/ui006/saturated-small/01-help.png",
+    "artifact": "docs/design/complete/saturated/small/help.png"
+  },
+  {
+    "source": "build/ui006/saturated-small/01-ai.png",
+    "artifact": "docs/design/complete/saturated/small/ai.png"
+  },
+  {
+    "source": "build/ui006/saturated-ai-states-complete/q1-busy.png",
+    "artifact": "docs/design/complete/saturated/states/q1-busy.png"
+  },
+  {
+    "source": "build/ui006/saturated-ai-states-complete/q2-cancelled.png",
+    "artifact": "docs/design/complete/saturated/states/q2-cancelled.png"
+  },
+  {
+    "source": "build/ui006/saturated-ai-states-complete/q3-long-literal.png",
+    "artifact": "docs/design/complete/saturated/states/q3-long-literal.png"
+  },
+  {
+    "source": "build/ui006/saturated-ai-states-complete/q4-last-proposal.png",
+    "artifact": "docs/design/complete/saturated/states/q4-last-proposal.png"
+  },
+  {
+    "source": "build/ui006/saturated-ai-states-complete/q6-auth-fault.png",
+    "artifact": "docs/design/complete/saturated/states/q6-auth-fault.png"
+  },
+  {
+    "source": "build/ui006/saturated-reduced/01-command.png",
+    "artifact": "docs/design/complete/saturated/reduced.png"
+  },
+  {
+    "source": "build/ui006/saturated-low/01-help.png",
+    "artifact": "docs/design/complete/saturated/low.png"
+  },
+  {
+    "source": "build/ui006/saturated-gallery-verified/g1-all-annunciators.png",
+    "artifact": "docs/design/complete/saturated/annunciators/g1-all-annunciators.png"
+  },
+  {
+    "source": "build/ui006/saturated-gallery-verified/g2-annunciators-over-deck.png",
+    "artifact": "docs/design/complete/saturated/annunciators/g2-annunciators-over-deck.png"
+  },
+  {
+    "source": "build/ui006/saturated-edges/e3-sharing-multi-dnd.png",
+    "artifact": "docs/design/complete/saturated/edges/e3-sharing-multi-dnd.png"
+  },
+  {
+    "source": "build/ui006/saturated-edges/e4-notice.png",
+    "artifact": "docs/design/complete/saturated/edges/e4-notice.png"
+  },
+  {
+    "source": "build/ui006/saturated-edges/e5-help-keys.png",
+    "artifact": "docs/design/complete/saturated/edges/e5-help-keys.png"
+  },
+  {
+    "source": "build/ui006/saturated-codex-verified/c1-answer.png",
+    "artifact": "docs/design/complete/saturated/codex/c1-answer.png"
+  },
+  {
+    "source": "build/ui006/saturated-codex-verified/c2-dismissed.png",
+    "artifact": "docs/design/complete/saturated/codex/c2-dismissed.png"
+  },
+  {
+    "source": "build/ui006/saturated-codex-verified/c3-approved.png",
+    "artifact": "docs/design/complete/saturated/codex/c3-approved.png"
+  },
+  {
+    "source": "build/ui006/insane-full/01-strip.png",
+    "artifact": "docs/design/complete/insane/full/01-strip.png"
+  },
+  {
+    "source": "build/ui006/insane-full/02-command-vol.png",
+    "artifact": "docs/design/complete/insane/full/02-command-vol.png"
+  },
+  {
+    "source": "build/ui006/insane-full/03-command-search.png",
+    "artifact": "docs/design/complete/insane/full/03-command-search.png"
+  },
+  {
+    "source": "build/ui006/insane-full/04-navigator.png",
+    "artifact": "docs/design/complete/insane/full/04-navigator.png"
+  },
+  {
+    "source": "build/ui006/insane-full/05-systems.png",
+    "artifact": "docs/design/complete/insane/full/05-systems.png"
+  },
+  {
+    "source": "build/ui006/insane-full/06-signal.png",
+    "artifact": "docs/design/complete/insane/full/06-signal.png"
+  },
+  {
+    "source": "build/ui006/insane-full/07-routines.png",
+    "artifact": "docs/design/complete/insane/full/07-routines.png"
+  },
+  {
+    "source": "build/ui006/insane-full/08-routine-ran.png",
+    "artifact": "docs/design/complete/insane/full/08-routine-ran.png"
+  },
+  {
+    "source": "build/ui006/insane-full/09-help.png",
+    "artifact": "docs/design/complete/insane/full/09-help.png"
+  },
+  {
+    "source": "build/ui006/insane-ai-verified/a1-answer.png",
+    "artifact": "docs/design/complete/insane/ai/a1-answer.png"
+  },
+  {
+    "source": "build/ui006/insane-ai-verified/a2-approved.png",
+    "artifact": "docs/design/complete/insane/ai/a2-approved.png"
+  },
+  {
+    "source": "build/ui006/insane-small/01-command.png",
+    "artifact": "docs/design/complete/insane/small/command.png"
+  },
+  {
+    "source": "build/ui006/insane-small/01-navigator.png",
+    "artifact": "docs/design/complete/insane/small/navigator.png"
+  },
+  {
+    "source": "build/ui006/insane-small/01-systems.png",
+    "artifact": "docs/design/complete/insane/small/systems.png"
+  },
+  {
+    "source": "build/ui006/insane-small/01-signal.png",
+    "artifact": "docs/design/complete/insane/small/signal.png"
+  },
+  {
+    "source": "build/ui006/insane-small/01-routines.png",
+    "artifact": "docs/design/complete/insane/small/routines.png"
+  },
+  {
+    "source": "build/ui006/insane-small/01-help.png",
+    "artifact": "docs/design/complete/insane/small/help.png"
+  },
+  {
+    "source": "build/ui006/insane-small/01-ai.png",
+    "artifact": "docs/design/complete/insane/small/ai.png"
+  },
+  {
+    "source": "build/ui006/insane-ai-states-complete/q1-busy.png",
+    "artifact": "docs/design/complete/insane/states/q1-busy.png"
+  },
+  {
+    "source": "build/ui006/insane-ai-states-complete/q2-cancelled.png",
+    "artifact": "docs/design/complete/insane/states/q2-cancelled.png"
+  },
+  {
+    "source": "build/ui006/insane-ai-states-complete/q3-long-literal.png",
+    "artifact": "docs/design/complete/insane/states/q3-long-literal.png"
+  },
+  {
+    "source": "build/ui006/insane-ai-states-complete/q4-last-proposal.png",
+    "artifact": "docs/design/complete/insane/states/q4-last-proposal.png"
+  },
+  {
+    "source": "build/ui006/insane-ai-states-complete/q6-auth-fault.png",
+    "artifact": "docs/design/complete/insane/states/q6-auth-fault.png"
+  },
+  {
+    "source": "build/ui006/insane-reduced/01-command.png",
+    "artifact": "docs/design/complete/insane/reduced.png"
+  },
+  {
+    "source": "build/ui006/insane-low/01-help.png",
+    "artifact": "docs/design/complete/insane/low.png"
+  },
+  {
+    "source": "build/ui006/insane-gallery-verified/g1-all-annunciators.png",
+    "artifact": "docs/design/complete/insane/annunciators/g1-all-annunciators.png"
+  },
+  {
+    "source": "build/ui006/insane-gallery-verified/g2-annunciators-over-deck.png",
+    "artifact": "docs/design/complete/insane/annunciators/g2-annunciators-over-deck.png"
+  },
+  {
+    "source": "build/ui006/insane-edges/e3-sharing-multi-dnd.png",
+    "artifact": "docs/design/complete/insane/edges/e3-sharing-multi-dnd.png"
+  },
+  {
+    "source": "build/ui006/insane-edges/e4-notice.png",
+    "artifact": "docs/design/complete/insane/edges/e4-notice.png"
+  },
+  {
+    "source": "build/ui006/insane-edges/e5-help-keys.png",
+    "artifact": "docs/design/complete/insane/edges/e5-help-keys.png"
+  },
+  {
+    "source": "build/ui006/insane-codex-verified/c1-answer.png",
+    "artifact": "docs/design/complete/insane/codex/c1-answer.png"
+  },
+  {
+    "source": "build/ui006/insane-codex-verified/c2-dismissed.png",
+    "artifact": "docs/design/complete/insane/codex/c2-dismissed.png"
+  },
+  {
+    "source": "build/ui006/insane-codex-verified/c3-approved.png",
+    "artifact": "docs/design/complete/insane/codex/c3-approved.png"
+  }
+]

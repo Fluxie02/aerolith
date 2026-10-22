@@ -1,0 +1,562 @@
+[
+  {
+    "file": "insane/ai/a1-answer.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "e0c532047b8301ff843e36cd6d8dfbc3f17f63e253fd21e60d9df2ddcac0fe8e"
+  },
+  {
+    "file": "insane/ai/a2-approved.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "45b684ca10f5ded32bf8bde9baf19101ffece75dc65dac0331f4099eaddbda4c"
+  },
+  {
+    "file": "insane/annunciators/g1-all-annunciators.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "f04a4b7017d11a5dbd4710e54809a62fbafaf7d4136ffcc0dbb4420ae873ed77"
+  },
+  {
+    "file": "insane/annunciators/g2-annunciators-over-deck.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "dfea3bd2989fe0e5ca871145a08bd1fa5ffd96e6c22e2debbbb823900e847961"
+  },
+  {
+    "file": "insane/codex/c1-answer.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "89453fb84ec3bb4c0f4fc610c9d75dbc6d0443e482b2fc8ae40c2b0b4eb51120"
+  },
+  {
+    "file": "insane/codex/c2-dismissed.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "50ecb4cab5a32b08c4ffdb1fc2b8cbf0b67bcefff90b75cc46d51a7fca34355e"
+  },
+  {
+    "file": "insane/codex/c3-approved.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "a3826127de8f91d61f695a6f236dae5ef50fe2692ba371792a0ce18ee87f163f"
+  },
+  {
+    "file": "insane/edges/e3-sharing-multi-dnd.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "ac90d5541ac83732827197cdaa7d690c3ae8f61e1e37577dc70256b8d93b7420"
+  },
+  {
+    "file": "insane/edges/e4-notice.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "5993cdbb31da1b64aa87e108ac0304fff35e9c479d553dbc60e735fe6420f3da"
+  },
+  {
+    "file": "insane/edges/e5-help-keys.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "dad9dcd02a071be8d71f03af295bf8f59e84d8da8157bba248f7420110b090b7"
+  },
+  {
+    "file": "insane/full/01-strip.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "cf16750dbbdd3f193937ca93d1fd6c97d768c4cd1a5c941f12f482f81e5b5cea"
+  },
+  {
+    "file": "insane/full/02-command-vol.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "755871bf88f2c9630bbaa2e19e16fda1dbf52fa6661c34c8479436b00c1a0423"
+  },
+  {
+    "file": "insane/full/03-command-search.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "d67b6978c781816d54cef227896fc0146d61dc964ada54ff8b7fbd558a32d29b"
+  },
+  {
+    "file": "insane/full/04-navigator.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "8de1a5b539ccc0c5ef053c29dcabb00ddcdb070935be29b975941776ae8b3e72"
+  },
+  {
+    "file": "insane/full/05-systems.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "d075b1ea16b15212479abe10e916fe5548d2028c3aa1b3b15ca5445545a4cc76"
+  },
+  {
+    "file": "insane/full/06-signal.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "b7f7e5ef4ebc9077bc6e540e402a43326dee6b56353889087372f2234de314aa"
+  },
+  {
+    "file": "insane/full/07-routines.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "67422526f725ca3827de9d22c4346279698980e3e51a24148ce73d2075cbbfb1"
+  },
+  {
+    "file": "insane/full/08-routine-ran.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "d79a33fcbea24b0a26f51a441e480eb040b22e8130bb4a71030273276fc08f42"
+  },
+  {
+    "file": "insane/full/09-help.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "4ccd32da4fb2b758a81e946708ac1d6d677ca395d84036941513fe774c2c17db"
+  },
+  {
+    "file": "insane/low.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "94fbd825047609c09ed5d5f6418da227dec836cdd698f57a67525961df8b21d2"
+  },
+  {
+    "file": "insane/popups/n1-popup.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "fcc955e3116543f1687764bca2607a9e1cc585b7145ecf51950c0ae5ffd5b2ea"
+  },
+  {
+    "file": "insane/popups/n2-two-popups.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "717a8ec9166962599ad79f4da031c00520d7659cfe85c1759830e1f2252baf03"
+  },
+  {
+    "file": "insane/reduced.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "0444880f839087a49f009e83db78072fbc763a02cbdcaf7dfdc7a18abeaa65e1"
+  },
+  {
+    "file": "insane/small/ai.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "ef08071b6f14f3844c33a29a0d56be8c4a38c6959b1dde8849ddb30d5c55237e"
+  },
+  {
+    "file": "insane/small/command.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "9482e992d617d3a37b8f46b23e8d30cd7f946b86fb1bf58f27a2566729c9a805"
+  },
+  {
+    "file": "insane/small/help.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "8b24906f9a81f3e8fa5daef2c6a53eb7c5465f51470ab367c9ee3212e9985cd8"
+  },
+  {
+    "file": "insane/small/navigator.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "b61e59693ea65704095ba4142f7106c8c667b7a96257897250a4d9653af8b00b"
+  },
+  {
+    "file": "insane/small/routines.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "d3472a5b03cdd4ed0afb4f78b3ce79d0641ad209892d0e4afe60aeee42646233"
+  },
+  {
+    "file": "insane/small/signal.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "a46ba70cdbb9f7a365a496ef94761355f73eb4490c002e1029106af8545dbd35"
+  },
+  {
+    "file": "insane/small/systems.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "434b3a3d1c704a1052988d6a5f807c87993aa7ab148e4d1798f7e07340771e6f"
+  },
+  {
+    "file": "insane/states/q1-busy.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "df7144861805c78de97caebb6ac01b6aca1af1c58bd7987c6672dded8ab984f0"
+  },
+  {
+    "file": "insane/states/q2-cancelled.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "3171c03dfeee0d25e25599696c353b5372a01e4d977e943ef4955314af22e6c7"
+  },
+  {
+    "file": "insane/states/q3-long-literal.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "b8794a2541d0936b739c10d5974209046e28dad903a7760bc9b034c4b0b622b0"
+  },
+  {
+    "file": "insane/states/q4-last-proposal.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "299a2002d9ab0417d705c3d5121b8f947d3177bb4c94283de8f424c1d86fa3e6"
+  },
+  {
+    "file": "insane/states/q6-auth-fault.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "c9510cd62d1cba607c2b1727b7c9ece0343239de37ce5eb3b7f49fe67f8f3aa5"
+  },
+  {
+    "file": "saturated/ai/a1-answer.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "192e84262cece8ca3debc1b9840373aa72a2eeaa73f09e1825eeec6bfdbad411"
+  },
+  {
+    "file": "saturated/ai/a2-approved.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "604db610c6c9f86bb0f15249b600618ccac18a15217ebbf8943edda843f7f9e7"
+  },
+  {
+    "file": "saturated/annunciators/g1-all-annunciators.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "cc27f42caa19ea41080ef6e3e1525002fe21956825832fbd6c242bd33951965f"
+  },
+  {
+    "file": "saturated/annunciators/g2-annunciators-over-deck.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "2c4f88a1461a0de2b3512c8992aa6926b2102a30525e11b767d5f747e63f4cf2"
+  },
+  {
+    "file": "saturated/codex/c1-answer.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "160933b3d6bc2fedf693a8ef9f911d4c7d470e8b09c9073cdca3a6940f39a0db"
+  },
+  {
+    "file": "saturated/codex/c2-dismissed.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "ebfcc05c1885f507730a5cd4f145333251c13a55cdcc6ada37381206935c603b"
+  },
+  {
+    "file": "saturated/codex/c3-approved.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "961a7cdbf3174f8266e826198c735015ab3d1c17f217554b0d85ab4d01e69dc4"
+  },
+  {
+    "file": "saturated/edges/e3-sharing-multi-dnd.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "8f8f2f384dca984ff0a25c3bc59e8dc06bc3de9fd73e8e2836b535c52a790554"
+  },
+  {
+    "file": "saturated/edges/e4-notice.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "91ee535643d1759cb90713752b5ae9bee340e4ab6b089aaf597cb3df3842d5a6"
+  },
+  {
+    "file": "saturated/edges/e5-help-keys.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "f85b029e90d0efc2cbc41360d320c139ddb8896c473612cb155230f7a954aa67"
+  },
+  {
+    "file": "saturated/full/01-strip.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "52150fda221c6b02fe09d06fa35aa8dac4a8df1c2f3372c9a9a02f0df9ccb757"
+  },
+  {
+    "file": "saturated/full/02-command-vol.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "dd118c1d31e329228fd1d0bfca31dc7b5acdc8e126d5da4e196d75f47514e407"
+  },
+  {
+    "file": "saturated/full/03-command-search.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "83c253c1825f997f6942def97fc0f680825660890df0d0acba912244a3bbfc02"
+  },
+  {
+    "file": "saturated/full/04-navigator.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "bb624ffd9572b3c754e0b0e9f7daa96624c679087ce17b0ca02307c73e6fe704"
+  },
+  {
+    "file": "saturated/full/05-systems.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "d7ed6c57341a73bdd5333c836a2929a4277ea9377ca292d7e22fa49d1781a01c"
+  },
+  {
+    "file": "saturated/full/06-signal.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "5a5883e73685a59d131631f4e5ba57967adceaf83e6518b54776c6fd1f44e534"
+  },
+  {
+    "file": "saturated/full/07-routines.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "58a2a221d8c4ca13d213bac6c49f9da3461217b74dfc3d3a79dc015e5be8a64b"
+  },
+  {
+    "file": "saturated/full/08-routine-ran.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "6f52225aefb77b512a04ba82e1585257dfadf7298af633c2fb9bb2e53608ab2a"
+  },
+  {
+    "file": "saturated/full/09-help.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "20b87caca59e03a8f5775f848fe118f81193bd2ce82459a3ad6ce04a9f0250d5"
+  },
+  {
+    "file": "saturated/low.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "a9c6624560ca5ac3261adcb244ab5759a7ed64da4baeff5401bba866b8fa9c20"
+  },
+  {
+    "file": "saturated/popups/n1-popup.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "0e64f45606c7678d42ed3babc2e40906b8c9e97001baf397d4cfb45250d8687b"
+  },
+  {
+    "file": "saturated/popups/n2-two-popups.png",
+    "size": [
+      1920,
+      1080
+    ],
+    "sha256": "36b7cc0f005dd8ba2a8eef2b4171a8a70c852691e11640f6232a9928794ae8f1"
+  },
+  {
+    "file": "saturated/reduced.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "32cd9a6af15b60d4f93d7da3450ac2fbca552370ddb3aa5b8f04c4ea86e33eed"
+  },
+  {
+    "file": "saturated/small/ai.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "3415c4e63c6b6306aff98b154d769355dfccd89e3b132fbdf6b2018686dcf83c"
+  },
+  {
+    "file": "saturated/small/command.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "c581d8cfe772afcf214ec8950b07176e00d77f3d03e17017b520b809a0c0b7c4"
+  },
+  {
+    "file": "saturated/small/help.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "1ccdf3cafd044548cf669bda94594091948f9035073c7db57a215ed1e3813a63"
+  },
+  {
+    "file": "saturated/small/navigator.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "e0dfa172ff71f1f9950ec484e5bddc444797cc745809ceb8ccaf56b4d9f4671d"
+  },
+  {
+    "file": "saturated/small/routines.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "4af350bef1d9a5930fc5f70e4db02dcda660d4d98a7751a230142d6ef716dc5a"
+  },
+  {
+    "file": "saturated/small/signal.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "b044218bffc3a347d69d45f63c657ffd1868a7b45e82d2562140f33af94cb622"
+  },
+  {
+    "file": "saturated/small/systems.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "936d633f88be200be0a8340de829bf6f01bb4208b1d5b0699c3f8002a0a0e260"
+  },
+  {
+    "file": "saturated/states/q1-busy.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "e77048a53a64138fd200002d3c9f25a256382afd07b1b7d97e2319e6f7e6103b"
+  },
+  {
+    "file": "saturated/states/q2-cancelled.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "548b950774c65c6885eab0c19cfb15ae47bbff96a51c63809f2630d2b4052ccb"
+  },
+  {
+    "file": "saturated/states/q3-long-literal.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "59647504147ee468c8deb209165809ccfa0830348b11e0cc190f2f3506ca2cfd"
+  },
+  {
+    "file": "saturated/states/q4-last-proposal.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "bd032363b7a1d6adc44c433954ddb48683573c166b34611374e60023072b67e4"
+  },
+  {
+    "file": "saturated/states/q6-auth-fault.png",
+    "size": [
+      1280,
+      720
+    ],
+    "sha256": "fe00f6c854e39831e10577b5ac1b145eb9dd745c926a94a2bd443b910cba80ea"
+  }
+]

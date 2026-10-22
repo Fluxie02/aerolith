@@ -6,6 +6,7 @@ import qs.services
 // boxed with phosphor registration brackets; urgent cells get an amber plate.
 Row {
     id: tape
+    property bool compact: false
     spacing: Theme.px(2)
 
     // Cells 1..max(configured minimum, highest existing workspace).
@@ -36,7 +37,7 @@ Row {
         delegate: Item {
             id: cell
             required property var modelData
-            width: Math.round(Theme.stripHeight * 1.05)
+            width: Math.round(Theme.stripHeight * (tape.compact ? .8 : 1.05))
             height: tape.height
 
             Rectangle {

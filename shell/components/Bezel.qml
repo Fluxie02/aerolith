@@ -15,7 +15,9 @@ Item {
     property color accent: active ? Theme.signal : Theme.grid
     property alias headerRight: headerRightSlot.data
     default property alias content: body.data
-    readonly property int headerHeight: showHeader ? Theme.headerHeight : 0
+    property int contentPadding: Theme.contentInset
+    property int titleHeight: Theme.headerHeight
+    readonly property int headerHeight: showHeader ? titleHeight : 0
 
     Canvas {
         id: face
@@ -76,8 +78,8 @@ Item {
             left: parent.left
             right: parent.right
             top: parent.top
-            leftMargin: Theme.contentInset
-            rightMargin: Theme.contentInset
+            leftMargin: root.contentPadding
+            rightMargin: root.contentPadding
         }
         height: root.headerHeight
         Row {
@@ -128,7 +130,7 @@ Item {
     }
     Rectangle {
         visible: root.showHeader
-        x: Theme.contentInset
+        x: root.contentPadding
         y: header.height - height
         width: Math.max(0, root.width - 2 * x)
         height: Theme.border
@@ -138,10 +140,10 @@ Item {
         id: body
         anchors {
             fill: parent
-            topMargin: root.headerHeight + Theme.contentInset
-            leftMargin: Theme.contentInset
-            rightMargin: Theme.contentInset
-            bottomMargin: Theme.contentInset
+            topMargin: root.headerHeight + root.contentPadding
+            leftMargin: root.contentPadding
+            rightMargin: root.contentPadding
+            bottomMargin: root.contentPadding
         }
     }
 }

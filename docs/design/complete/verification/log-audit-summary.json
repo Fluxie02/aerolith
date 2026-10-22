@@ -1,0 +1,394 @@
+{
+  "logs_read": 63,
+  "regression_runs": [],
+  "runs": [
+    {
+      "run": "ai-first",
+      "lines": 44,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "baseline-perf-frozen",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "before-full",
+      "lines": 41,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "before-perf",
+      "lines": 116,
+      "qml_regressions": [],
+      "reloads": 4
+    },
+    {
+      "run": "boot-probe",
+      "lines": 116,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "codex-required-first",
+      "lines": 36,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "gallery-debug",
+      "lines": 30,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "gallery-small",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "gallery-small-final",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "gallery-verified",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-ai",
+      "lines": 44,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-ai-states",
+      "lines": 43,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-ai-states-complete",
+      "lines": 62,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-ai-states-final",
+      "lines": 59,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-ai-states-verified",
+      "lines": 57,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-ai-verified",
+      "lines": 44,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-codex-console",
+      "lines": 48,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-codex-required",
+      "lines": 36,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-codex-verified",
+      "lines": 48,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-deck",
+      "lines": 37,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-edges",
+      "lines": 37,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-full",
+      "lines": 41,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-full-final",
+      "lines": 54,
+      "qml_regressions": [],
+      "reloads": 1
+    },
+    {
+      "run": "insane-gallery-verified",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-low",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-notify",
+      "lines": 31,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-perf-final",
+      "lines": 28,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-perf-verified",
+      "lines": 28,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-reduced",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-signal",
+      "lines": 33,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-signal-final",
+      "lines": 35,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-small",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-small-final",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-small-full-final",
+      "lines": 41,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "insane-smoke",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-ai",
+      "lines": 44,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-ai-states",
+      "lines": 59,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-ai-states-complete",
+      "lines": 62,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-ai-states-verified",
+      "lines": 59,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-ai-verified",
+      "lines": 44,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-codex-console",
+      "lines": 48,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-codex-required",
+      "lines": 36,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-codex-verified",
+      "lines": 48,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-deck",
+      "lines": 37,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-deck-verified",
+      "lines": 37,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-edges",
+      "lines": 37,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-full",
+      "lines": 33,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-full-final",
+      "lines": 41,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-full-verified",
+      "lines": 41,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-gallery-verified",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-low",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-notify",
+      "lines": 31,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-notify-verified",
+      "lines": 31,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-perf-final",
+      "lines": 28,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-perf-verified",
+      "lines": 28,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-reduced",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-signal",
+      "lines": 33,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-signal-final",
+      "lines": 35,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-small",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-small-final",
+      "lines": 14,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "saturated-smoke",
+      "lines": 29,
+      "qml_regressions": [],
+      "reloads": 0
+    },
+    {
+      "run": "small-first",
+      "lines": 18,
+      "qml_regressions": [],
+      "reloads": 1
+    },
+    {
+      "run": "small-full-first",
+      "lines": 41,
+      "qml_regressions": [],
+      "reloads": 0
+    }
+  ],
+  "diagnostic_families": {
+    "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.": 54,
+    "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.": 63,
+    "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.": 550,
+    "  WARN: GlobalShortcut will not work.": 550,
+    "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug": 236,
+    "  WARN Qt Wayland input focus warning (also in baseline)": 149,
+    "  WARN: The Wayland connection broke. Did the Wayland compositor die?": 1,
+    " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112": 21
+  }
+}
