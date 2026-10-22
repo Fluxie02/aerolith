@@ -6,7 +6,7 @@ import qs.core
 // unavailable metric is never mistaken for zero.
 Item {
     id: root
-    property real value: NaN
+    property var value: NaN
     property real min: 0
     property real max: 100
     property real caution: NaN
@@ -36,9 +36,9 @@ Item {
             y: Theme.border
             height: parent.height - 2 * Theme.border
             width: Math.max(0, (parent.width - 2 * Theme.border) * root.fraction)
-            color: Theme.alpha(root.fillColor, 0.75)
+            color: Theme.lowEffects ? root.fillColor : Theme.alpha(root.fillColor, 0.75)
             Behavior on width {
-                enabled: Theme.animate
+                enabled: Theme.travel
                 NumberAnimation {
                     duration: Theme.normal
                 }
@@ -96,6 +96,7 @@ Item {
 
     // Caret
     Text {
+        textFormat: Text.PlainText
         visible: root.showCaret && root.known
         text: "▲"
         color: root.fillColor

@@ -8,7 +8,7 @@ Item {
     property var hints: []        // [{ key, action }]
     property string message: ""
     property string messageState: "" // ok | error | caution | busy | ""
-    implicitHeight: Theme.rowHeight * 0.8
+    implicitHeight: hintsFlow.implicitHeight + messageText.implicitHeight + Theme.du(22)
 
     Rectangle {
         anchors.left: parent.left
@@ -17,10 +17,11 @@ Item {
         height: Theme.border
         color: Theme.grid
     }
-    Row {
+    Flow {
+        id: hintsFlow
         anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: Theme.px(2)
+        anchors.right: parent.right
+        y: Theme.du(10)
         spacing: Theme.pad
         Repeater {
             model: root.hints
@@ -32,12 +33,12 @@ Item {
         }
     }
     Text {
+        id: messageText
+        textFormat: Text.PlainText
+        anchors.left: parent.left
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: Theme.px(2)
-        width: Math.min(implicitWidth, root.width * 0.55)
-        horizontalAlignment: Text.AlignRight
-        elide: Text.ElideLeft
+        anchors.bottom: parent.bottom
+        elide: Text.ElideRight
         text: root.messageState === "busy" ? "◌ " + root.message : root.message
         color: root.messageState === "ok" ? Theme.signal : root.messageState === "error" ? Theme.critical : root.messageState === "caution" ? Theme.caution : Theme.textDim
         font.family: Theme.mono

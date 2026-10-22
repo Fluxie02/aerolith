@@ -10,17 +10,16 @@ Row {
 
     Rectangle {
         anchors.verticalCenter: parent.verticalCenter
-        width: keyText.implicitWidth + Theme.px(8)
+        width: keyText.implicitWidth
         height: keyText.implicitHeight + Theme.px(2)
         color: "transparent"
-        border.color: Theme.grid
-        border.width: Theme.border
         radius: Theme.radius
         Text {
+            textFormat: Text.PlainText
             id: keyText
             anchors.centerIn: parent
             text: root.key
-            color: Theme.text
+            color: Theme.textDim
             font.family: Theme.mono
             font.pixelSize: Theme.fontXs
         }

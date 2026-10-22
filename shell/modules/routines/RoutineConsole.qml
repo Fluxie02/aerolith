@@ -78,10 +78,8 @@ FocusScope {
     }
 
     Bezel {
-        anchors.centerIn: parent
-        width: Math.min(Theme.px(1200), parent.width - Theme.pad * 4)
-        height: Math.min(Theme.px(720), parent.height - Theme.pad)
-        designation: "RTN-05"
+        anchors.fill: parent
+        designation: "RTN / 05"
         title: "Routine Console"
         status: Routines.routines.length + " ROUTINES" + (Routines.errors.length ? " · " + Routines.errors.length + " PROBLEMS" : "") + (Routines.running ? " · RUNNING" : "")
         statusColor: Routines.errors.length ? Theme.caution : Theme.textDim
@@ -101,7 +99,7 @@ FocusScope {
                 visible: Routines.errors.length > 0
                 Layout.fillWidth: true
                 implicitHeight: errCol.implicitHeight + Theme.pad
-                color: Theme.alpha(Theme.caution, 0.08)
+                color: Theme.surface2
                 border.color: Theme.caution
                 border.width: Theme.border
                 radius: Theme.radius
@@ -117,6 +115,7 @@ FocusScope {
                             required property var modelData
                             width: errCol.width
                             text: "⚠ " + (modelData.routine ? modelData.routine + (modelData.step ? " · step " + modelData.step : "") + ": " : "") + modelData.message
+                            textFormat: Text.PlainText
                             color: Theme.caution
                             font.family: Theme.mono
                             font.pixelSize: Theme.fontXs
@@ -129,16 +128,26 @@ FocusScope {
             RowLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                spacing: Theme.pad * 2
+                spacing: Theme.pad * 3
 
                 // Routine list
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.preferredWidth: 32
                     Layout.fillHeight: true
-                    spacing: Theme.px(2)
+                    spacing: Theme.gap
                     Label {
-                        text: "Routines · " + Paths.routinesFile.replace(Paths.home, "~")
+                        text: "ROUTINE INDEX / " + console_.list.length
+                        strong: true
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        text: Paths.routinesFile.replace(Paths.home, "~")
+                        textFormat: Text.PlainText
+                        color: Theme.textDim
+                        font.family: Theme.mono
+                        font.pixelSize: Theme.fontXs
+                        elide: Text.ElideMiddle
                     }
                     Repeater {
                         model: console_.list
@@ -147,27 +156,40 @@ FocusScope {
                             required property int index
                             readonly property bool sel: index === console_.selected
                             Layout.fillWidth: true
-                            implicitHeight: Math.round(Theme.rowHeight * 1.5)
-                            color: sel ? Theme.surface2 : "transparent"
-                            border.color: sel ? Theme.signal : "transparent"
+                            implicitHeight: Math.round(Theme.rowHeight * 1.8)
+                            color: sel ? Theme.surface2 : Theme.bg
+                            border.color: sel ? Theme.signal : Theme.grid
                             border.width: Theme.border
                             radius: Theme.radius
+
+                            Text {
+                                x: Theme.px(10)
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: String(index + 1).padStart(2, "0")
+                                color: sel ? Theme.signal : Theme.textDim
+                                font.family: Theme.mono
+                                font.pixelSize: Theme.fontXs
+                            }
                             Column {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.margins: Theme.pad
+                                anchors.leftMargin: Theme.px(40)
                                 Text {
                                     width: parent.width
                                     text: modelData.name
+                                    textFormat: Text.PlainText
                                     color: Theme.text
-                                    font.family: Theme.sans
+                                    font.family: Theme.displaySans
                                     font.pixelSize: Theme.fontSm
+                                    font.weight: Font.Medium
                                     elide: Text.ElideRight
                                 }
                                 Text {
                                     width: parent.width
                                     text: modelData.id + " · " + modelData.steps.length + " steps" + (modelData.steps.some(s => s.sensitive) ? " · CONFIRM" : "")
+                                    textFormat: Text.PlainText
                                     color: Theme.textDim
                                     font.family: Theme.mono
                                     font.pixelSize: Theme.fontXs
@@ -189,6 +211,7 @@ FocusScope {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         text: Routines.fileMissing ? "No routines yet. Create " + Paths.routinesFile + " (see docs/COMMANDS.md for the format and an example), then it loads automatically." : "No valid routines in the file."
+                        textFormat: Text.PlainText
                         color: Theme.textDim
                         font.family: Theme.sans
                         font.pixelSize: Theme.fontSm
@@ -203,14 +226,26 @@ FocusScope {
                     Layout.fillWidth: true
                     Layout.preferredWidth: 68
                     Layout.fillHeight: true
-                    spacing: Theme.px(3)
+                    spacing: Theme.gap
                     Label {
-                        text: console_.current ? "Plan · " + console_.current.name + (console_.current.onError === "continue" ? " · continues on error" : " · stops on error") : "Plan"
+                        text: "EXECUTION PLAN / " + (console_.current && console_.current.onError === "continue" ? "CONTINUE ON ERROR" : "STOP ON ERROR")
+                        strong: true
+                    }
+                    Text {
+                        Layout.fillWidth: true
+                        text: console_.current ? console_.current.name : "No routine selected"
+                        textFormat: Text.PlainText
+                        color: Theme.text
+                        font.family: Theme.displaySans
+                        font.pixelSize: Theme.fontXl
+                        font.weight: Font.Medium
+                        elide: Text.ElideRight
                     }
                     Text {
                         visible: console_.current !== null && console_.current.description !== ""
                         Layout.fillWidth: true
                         text: console_.current ? console_.current.description : ""
+                        textFormat: Text.PlainText
                         color: Theme.textDim
                         font.family: Theme.sans
                         font.pixelSize: Theme.fontSm
@@ -236,7 +271,7 @@ FocusScope {
                             Layout.fillWidth: true
                             spacing: Theme.gap
                             Text {
-                                Layout.preferredWidth: Theme.px(54)
+                                Layout.preferredWidth: Theme.px(58)
                                 text: stepRow.result ? (stepRow.result.skipped ? "[SKIP]" : stepRow.result.ok ? "[ OK ]" : "[FAIL]") : Routines.runningId === (console_.current ? console_.current.id : "") ? "[ .. ]" : "[    ]"
                                 color: stepRow.result ? (stepRow.result.skipped ? Theme.textDim : stepRow.result.ok ? Theme.signal : Theme.critical) : Theme.textDim
                                 font.family: Theme.mono
@@ -252,14 +287,16 @@ FocusScope {
                             Text {
                                 Layout.preferredWidth: Theme.px(190)
                                 text: modelData.title
+                                textFormat: Text.PlainText
                                 color: Theme.text
-                                font.family: Theme.sans
+                                font.family: Theme.displaySans
                                 font.pixelSize: Theme.fontSm
                                 elide: Text.ElideRight
                             }
                             Text {
                                 Layout.fillWidth: true
                                 text: stepRow.result ? stepRow.result.message : modelData.description
+                                textFormat: Text.PlainText
                                 color: stepRow.result && !stepRow.result.ok && !stepRow.result.skipped ? Theme.critical : Theme.textDim
                                 font.family: Theme.mono
                                 font.pixelSize: Theme.fontXs
@@ -268,6 +305,7 @@ FocusScope {
                             Text {
                                 visible: modelData.sensitive || !modelData.available
                                 text: !modelData.available ? "N/A · " + modelData.reason : "SENSITIVE"
+                                textFormat: Text.PlainText
                                 color: Theme.caution
                                 font.family: Theme.mono
                                 font.pixelSize: Theme.fontXs
@@ -280,6 +318,7 @@ FocusScope {
                     Text {
                         visible: Routines.lastReport !== null && Routines.lastReport.undo && Routines.lastReport.undo.length > 0
                         text: "Last run of " + (Routines.lastReport ? Routines.lastReport.name : "") + " can be reverted (" + (Routines.lastReport && Routines.lastReport.undo ? Routines.lastReport.undo.length : 0) + " steps): press R"
+                        textFormat: Text.PlainText
                         color: Theme.textDim
                         font.family: Theme.mono
                         font.pixelSize: Theme.fontXs

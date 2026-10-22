@@ -21,7 +21,7 @@ Item {
         y: Math.round(bus.height * (1 - bus.caution / 100))
         width: bus.width
         height: Theme.border
-        color: Theme.alpha(Theme.caution, 0.6)
+        color: Theme.caution
     }
     Row {
         anchors.fill: parent
@@ -33,12 +33,12 @@ Item {
                 required property var modelData
                 width: Math.floor(bus.barW) - 1
                 height: parent.height
-                readonly property bool known: modelData !== null && modelData !== undefined
+                readonly property bool known: modelData !== null && modelData !== undefined && isFinite(modelData)
                 Rectangle {
                     anchors.bottom: parent.bottom
                     width: parent.width
                     height: parent.known ? Math.max(1, parent.height * modelData / 100) : parent.height
-                    color: !parent.known ? "transparent" : modelData >= bus.caution ? Theme.caution : Theme.alpha(Theme.signal, 0.8)
+                    color: !parent.known ? "transparent" : modelData >= bus.caution ? Theme.caution : Theme.signal
                     border.color: parent.known ? "transparent" : Theme.grid
                     border.width: Theme.border
                 }

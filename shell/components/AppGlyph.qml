@@ -29,6 +29,7 @@ Item {
         border.width: Theme.border
         radius: Theme.radius
         Text {
+            textFormat: Text.PlainText
             anchors.centerIn: parent
             text: (root.fallback || root.icon || "?").replace(/[^A-Za-z0-9]/g, "").slice(0, 3).toUpperCase()
             color: Theme.textDim

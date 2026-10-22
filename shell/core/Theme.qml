@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell
 import "../lib/tokens.mjs" as Tokens
 
-// The AEROLITH Instrument System, resolved against the user's configuration.
+// Limb's mineral planes and phosphor inscriptions, resolved against config.
 // Every visual value used by components comes from here.
 Singleton {
     id: root
@@ -29,15 +29,27 @@ Singleton {
 
     // Type
     readonly property string sans: cfg.fontSans
+    readonly property string displaySans: cfg.fontSans === "Inter" ? "Inter Display" : cfg.fontSans
     readonly property string mono: cfg.fontMono
     function px(n) {
         return Math.round(n * scale);
+    }
+    readonly property real unit: scale * (cfg.density === "compact" ? 0.92 : cfg.density === "comfortable" ? 1.08 : 1)
+    function du(n) {
+        return Math.round(n * unit);
     }
     readonly property int fontXs: px(density.fontXs)
     readonly property int fontSm: px(density.fontSm)
     readonly property int fontMd: px(density.fontMd)
     readonly property int fontLg: px(density.fontLg)
     readonly property int fontXl: px(density.fontXl)
+    readonly property int titleSize: du(36)
+    readonly property int inputSize: du(28)
+    readonly property int resultSize: du(16)
+    readonly property int resultHeight: du(68)
+    readonly property int headerHeight: du(56)
+    readonly property int contentInset: du(28)
+    readonly property int inputHeight: du(76)
 
     // Space and shape
     readonly property int stripHeight: px(density.stripHeight)
@@ -54,12 +66,14 @@ Singleton {
     readonly property real backdropOpacity: lowEffects ? Tokens.OPACITY.backdropLowEffects : Tokens.OPACITY.backdrop
     readonly property real disabledOpacity: Tokens.OPACITY.disabled
     readonly property real gridMinorOpacity: Tokens.OPACITY.gridMinor
+    readonly property real panelOpacity: lowEffects ? 1 : Tokens.OPACITY.panel
 
     // Motion (ms). Components must use these, never literals.
-    readonly property int fast: motionSet.fast
-    readonly property int normal: motionSet.normal
-    readonly property int slow: motionSet.slow
-    readonly property bool animate: cfg.motion !== "off"
+    readonly property int fast: lowEffects ? 0 : motionSet.fast
+    readonly property int normal: lowEffects ? 0 : motionSet.normal
+    readonly property int slow: lowEffects ? 0 : motionSet.slow
+    readonly property bool animate: cfg.motion !== "off" && !lowEffects
+    readonly property bool travel: animate && cfg.motion === "full"
 
     function stateColor(state) {
         return Tokens.stateColor(palette, state);

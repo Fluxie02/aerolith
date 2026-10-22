@@ -20,6 +20,7 @@ Column {
         id: valueRow
         spacing: Theme.px(3)
         Text {
+            textFormat: Text.PlainText
             text: root.value
             color: root.status === "" || root.status === "nominal" ? Theme.text : Theme.stateColor(root.status)
             font.family: Theme.mono
@@ -27,6 +28,7 @@ Column {
             font.weight: Font.Medium
         }
         Text {
+            textFormat: Text.PlainText
             visible: root.unit !== "" && root.value !== "N/A"
             text: root.unit
             color: Theme.textDim

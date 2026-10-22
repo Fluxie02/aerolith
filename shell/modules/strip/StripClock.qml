@@ -37,6 +37,7 @@ Item {
         anchors.centerIn: parent
         spacing: Theme.gap
         Text {
+            textFormat: Text.PlainText
             visible: Config.strip.showDate
             text: root.dateText
             color: Theme.textDim
@@ -46,6 +47,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
         }
         Text {
+            textFormat: Text.PlainText
             text: root.timeText
             color: Theme.text
             font.family: Theme.mono

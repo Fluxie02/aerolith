@@ -178,10 +178,8 @@ FocusScope {
     }
 
     Bezel {
-        anchors.centerIn: parent
-        width: Math.min(Theme.px(1360), parent.width - Theme.pad * 4)
-        height: Math.min(Theme.px(780), parent.height - Theme.pad)
-        designation: "SIG-04"
+        anchors.fill: parent
+        designation: "SIG / 04"
         title: "Signal Rack"
         status: Audio.ready ? Audio.sinks.length + " OUT · " + Audio.sources.length + " IN · " + Audio.playbackStreams.length + " STREAMS · " + Media.players.length + " PLAYERS" : "PIPEWIRE NOT CONNECTED"
         statusColor: Audio.ready ? Theme.textDim : Theme.caution

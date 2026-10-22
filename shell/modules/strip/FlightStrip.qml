@@ -64,6 +64,7 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Text {
+                    textFormat: Text.PlainText
                     text: "AEROLITH"
                     color: Theme.text
                     font.family: Theme.sans
@@ -97,6 +98,7 @@ PanelWindow {
             spacing: Theme.gap
             clip: true
             Text {
+                textFormat: Text.PlainText
                 visible: Compositor.activeClass !== ""
                 text: Compositor.activeClass.toUpperCase()
                 color: Theme.signal
@@ -108,6 +110,7 @@ PanelWindow {
                 elide: Text.ElideRight
             }
             Text {
+                textFormat: Text.PlainText
                 text: Compositor.available ? Compositor.activeTitle : "COMPOSITOR LINK DOWN"
                 color: Compositor.available ? Theme.text : Theme.caution
                 font.family: Compositor.available ? Theme.sans : Theme.mono
@@ -189,8 +192,8 @@ PanelWindow {
             Annunciator {
                 visible: Audio.ready && Audio.sink !== null
                 code: "AUD"
-                value: Audio.muted ? "MUTE" : String(Audio.volumePercent)
-                status: Audio.muted ? "caution" : "nominal"
+                value: !Audio.volumeKnown ? "N/A" : Audio.muted ? "MUTE" : String(Audio.volumePercent)
+                status: !Audio.volumeKnown ? "unknown" : Audio.muted ? "caution" : "nominal"
                 onClicked: m => {
                     if (m.button === Qt.MiddleButton)
                         Registry.run("audio.mute.toggle");

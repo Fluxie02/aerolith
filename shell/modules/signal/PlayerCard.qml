@@ -29,9 +29,18 @@ Rectangle {
 
     implicitHeight: col.implicitHeight + Theme.pad * 2
     color: selected ? Theme.surface2 : Theme.bg
-    border.color: selected ? Theme.signal : active ? Theme.grid : Theme.alpha(Theme.grid, 0.5)
+    border.color: selected ? Theme.signal : Theme.grid
     border.width: Theme.border
     radius: Theme.radius
+
+    Rectangle {
+        x: Theme.px(12)
+        y: Theme.px(14)
+        width: Theme.px(5)
+        height: width
+        rotation: 45
+        color: card.selected || card.active ? Theme.signal : Theme.grid
+    }
 
     MouseArea {
         anchors.fill: parent
@@ -44,15 +53,17 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: Theme.pad
-        spacing: Theme.px(4)
+        anchors.leftMargin: Theme.pad + Theme.px(12)
+        spacing: Theme.px(6)
 
         RowLayout {
             Layout.fillWidth: true
             Text {
-                text: card.player.isPlaying ? "▶ PLAYING" : "Ⅱ PAUSED"
+                text: card.player.isPlaying ? "PLAYING / MPRIS" : "PAUSED / MPRIS"
                 color: card.player.isPlaying ? Theme.signal : Theme.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
+                font.letterSpacing: 0.8
             }
             Label {
                 Layout.fillWidth: true
@@ -62,15 +73,18 @@ Rectangle {
         Text {
             Layout.fillWidth: true
             text: card.player.trackTitle || "Unknown title"
+            textFormat: Text.PlainText
             color: Theme.text
-            font.family: Theme.sans
+            font.family: Theme.displaySans
             font.pixelSize: Theme.fontLg
+            font.weight: Font.Medium
             elide: Text.ElideRight
         }
         Text {
             Layout.fillWidth: true
             visible: (card.player.trackArtist || card.player.trackAlbum) !== ""
             text: [card.player.trackArtist, card.player.trackAlbum].filter(s => s && s.length > 0).join(" · ")
+            textFormat: Text.PlainText
             color: Theme.textDim
             font.family: Theme.sans
             font.pixelSize: Theme.fontSm
@@ -132,10 +146,10 @@ Rectangle {
         id: btn
         property string glyph: ""
         signal triggered
-        width: Theme.px(40)
-        height: Theme.px(26)
-        color: "transparent"
-        border.color: enabled ? Theme.grid : Theme.alpha(Theme.grid, 0.4)
+        width: Theme.px(44)
+        height: Theme.px(30)
+        color: controlMouse.containsMouse && enabled ? Theme.surface2 : "transparent"
+        border.color: Theme.grid
         border.width: Theme.border
         radius: Theme.radius
         opacity: enabled ? 1 : Theme.disabledOpacity
@@ -146,8 +160,10 @@ Rectangle {
             font.pixelSize: Theme.fontMd
         }
         MouseArea {
+            id: controlMouse
             anchors.fill: parent
             enabled: btn.enabled
+            hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: btn.triggered()
         }

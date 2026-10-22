@@ -29,19 +29,19 @@ FocusScope {
         },
         {
             title: "Command Core",
-            keys: [["↑↓ / Ctrl+J K", "Select"], ["Enter", "Run"], ["Shift+Enter", "Run, keep open"], ["Tab", "Scope"], ["> @ !", "Commands, windows, routines"], ["alias args", "e.g. vol 40, ws 3, out <device>"]]
+            keys: [["↑↓ / Ctrl+J K", "Select"], ["Enter", "Run"], ["Shift+Enter", "Run, keep open"], ["Tab", "Scope"], ["> @ ! ?", "Commands, windows, routines, AI"], ["alias args", "e.g. vol 40, ws 3, out <device>"]]
         },
         {
             title: "Spatial Navigator",
-            keys: [["←↑↓→ / hjkl", "Sector"], ["Tab", "Window"], ["1-9", "Go to workspace"], ["M then 1-9", "Move window"], ["X X", "Close window"], ["/", "Filter"]]
+            keys: [["←→ / h l", "Workspace"], ["↑↓ / j k / Tab", "Window"], ["1-9", "Go to workspace"], ["M then 1-9", "Move window"], ["X X", "Close window"], ["/", "Filter"]]
         },
         {
             title: "Systems Bay",
-            keys: [["C / M", "Sort processes by CPU / memory"], ["P", "Performance mode (halve sampling)"]]
+            keys: [["C / M", "Sort processes by CPU / memory"], ["P", "Performance mode (halve sampling)"], ["PgUp / PgDn", "Scroll instruments"]]
         },
         {
             title: "Signal Rack",
-            keys: [["←→", "Volume"], ["M", "Mute"], ["Enter", "Default / play / re-route"], [", .", "Previous / next"]]
+            keys: [["↑↓ / j k", "Select"], ["←→ / h l", "Volume"], ["M", "Mute"], ["Enter", "Default / play / re-route"], [", .", "Previous / next"]]
         },
         {
             title: "Routine Console",
@@ -76,10 +76,8 @@ FocusScope {
     }
 
     Bezel {
-        anchors.centerIn: parent
-        width: Math.min(Theme.px(1280), parent.width - Theme.pad * 4)
-        height: Math.min(Theme.px(820), parent.height - Theme.pad)
-        designation: "HLP-00"
+        anchors.fill: parent
+        designation: "HLP / 00"
         title: "Help and shortcuts"
         status: help.commands.length + " COMMANDS"
 
@@ -121,7 +119,8 @@ FocusScope {
                                     required property var modelData
                                     spacing: Theme.gap
                                     Text {
-                                        width: Theme.px(170)
+                                        textFormat: Text.PlainText
+                                        width: Math.min(Theme.px(170), keysCol.width * .48)
                                         text: modelData[0]
                                         color: Theme.signal
                                         font.family: Theme.mono
@@ -129,6 +128,7 @@ FocusScope {
                                         elide: Text.ElideRight
                                     }
                                     Text {
+                                        textFormat: Text.PlainText
                                         text: modelData[1]
                                         color: Theme.text
                                         font.family: Theme.sans
@@ -165,6 +165,7 @@ FocusScope {
                         font.pixelSize: Theme.fontSm
                         onTextChanged: help.filter = text
                         Text {
+                            textFormat: Text.PlainText
                             visible: filterInput.text === ""
                             anchors.verticalCenter: parent.verticalCenter
                             text: "filter commands"
@@ -192,6 +193,7 @@ FocusScope {
                         width: list.width
                         spacing: Theme.gap
                         Text {
+                            textFormat: Text.PlainText
                             Layout.preferredWidth: Theme.px(230)
                             text: modelData.title
                             color: modelData.hidden ? Theme.textDim : Theme.text
@@ -200,6 +202,7 @@ FocusScope {
                             elide: Text.ElideRight
                         }
                         Text {
+                            textFormat: Text.PlainText
                             Layout.preferredWidth: Theme.px(150)
                             text: modelData.alias ? modelData.alias + (modelData.params.length ? " " + modelData.params.map(p => "‹" + p.name + "›").join(" ") : "") : ""
                             color: Theme.signal
@@ -208,6 +211,7 @@ FocusScope {
                             elide: Text.ElideRight
                         }
                         Text {
+                            textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: modelData.id + (modelData.sensitive ? " · confirm" : "") + (modelData.routine ? " · routine" : "") + (modelData.source !== "core" ? " · " + modelData.source : "")
                             color: Theme.textDim

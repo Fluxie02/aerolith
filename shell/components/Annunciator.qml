@@ -22,7 +22,7 @@ Item {
         anchors.fill: parent
         anchors.topMargin: Theme.px(4)
         anchors.bottomMargin: Theme.px(4)
-        color: root.raised ? Theme.alpha(root.tone, 0.14) : mouse.containsMouse && root.interactive ? Theme.surface2 : "transparent"
+        color: root.raised ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(root.tone, 0.14)) : mouse.containsMouse && root.interactive ? Theme.surface2 : "transparent"
         border.color: root.raised ? root.tone : "transparent"
         border.width: Theme.border
         radius: Theme.radius
@@ -33,6 +33,7 @@ Item {
         anchors.centerIn: parent
         spacing: Theme.px(5)
         Text {
+            textFormat: Text.PlainText
             text: root.code
             color: root.tone
             font.family: Theme.mono
@@ -42,6 +43,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
         }
         Text {
+            textFormat: Text.PlainText
             visible: root.value !== ""
             text: root.value
             color: root.status === "nominal" ? Theme.text : root.tone

@@ -31,7 +31,7 @@ Canvas {
         ctx.clearRect(0, 0, w, h);
 
         // Grid: quarter lines and a vertical line every 10 samples.
-        ctx.strokeStyle = Theme.alpha(Theme.grid, Theme.gridMinorOpacity);
+        ctx.strokeStyle = Theme.lowEffects ? Theme.grid : Theme.alpha(Theme.grid, Theme.gridMinorOpacity);
         ctx.lineWidth = 1;
         ctx.beginPath();
         for (let i = 1; i < 4; i++) {
@@ -61,7 +61,7 @@ Canvas {
 
         if (!isNaN(root.caution) && !root.autoMax) {
             const cy = Math.round(h - (root.caution - root.min) / span * h) + 0.5;
-            ctx.strokeStyle = Theme.alpha(Theme.caution, 0.6);
+            ctx.strokeStyle = Theme.lowEffects ? Theme.caution : Theme.alpha(Theme.caution, 0.6);
             ctx.setLineDash([3, 3]);
             ctx.beginPath();
             ctx.moveTo(0, cy);

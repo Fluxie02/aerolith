@@ -1,6 +1,6 @@
 import { suite } from "./harness.mjs";
 import { buildLaunchArgv, detectTerminal, recordUse, usageScore } from "../../shell/lib/launch.mjs";
-import { PALETTE, contrast, MIN_TEXT_CONTRAST, resolvePalette, densityTokens, motionTokens, fontFamilyList } from "../../shell/lib/tokens.mjs";
+import { PALETTE, OPACITY, contrast, MIN_TEXT_CONTRAST, resolvePalette, densityTokens, motionTokens, fontFamilyList } from "../../shell/lib/tokens.mjs";
 
 export default suite("launch", (test) => {
   test("strips desktop-entry field codes", (assert) => {
@@ -56,6 +56,40 @@ export const tokensSuite = suite("tokens", (test) => {
         const c = contrast(PALETTE[fg[i]], PALETTE[bg[k]]);
         assert.ok(c >= MIN_TEXT_CONTRAST, fg[i] + " on " + bg[k] + " contrast " + c.toFixed(2));
       }
+  });
+
+  test("Limb's translucent planes and annunciators retain AA contrast", (assert) => {
+    function composite(foreground, background, alpha) {
+      let out = "#";
+      for (let i = 1; i < 7; i += 2) {
+        const f = parseInt(foreground.slice(i, i + 2), 16);
+        const b = parseInt(background.slice(i, i + 2), 16);
+        const channel = Math.round(f * alpha + b * (1 - alpha)).toString(16);
+        out += channel.length === 1 ? "0" + channel : channel;
+      }
+      return out;
+    }
+    // A white desktop is the brightest possible content under the chord.
+    // Darker desktop content increases contrast for every light text role.
+    const chord = composite(PALETTE.surface, "#ffffff", OPACITY.panel);
+    const foregrounds = ["text", "textDim", "signal", "caution", "critical", "nominal"];
+    for (let i = 0; i < foregrounds.length; i++) {
+      const role = foregrounds[i];
+      assert.ok(contrast(PALETTE[role], chord) >= MIN_TEXT_CONTRAST, role + " over translucent chord");
+    }
+    // Confirmation rows tint the chord over our opaque ground. Its brightest
+    // circular plane is darker than surface, so surface bounds this pair.
+    const confirmation = composite(PALETTE.caution, PALETTE.surface, 0.12);
+    for (let i = 0; i < foregrounds.length; i++) {
+      const role = foregrounds[i];
+      assert.ok(contrast(PALETTE[role], confirmation) >= MIN_TEXT_CONTRAST, role + " over confirmation row");
+    }
+    const alerts = ["caution", "critical"];
+    for (let i = 0; i < alerts.length; i++) {
+      const tone = PALETTE[alerts[i]];
+      const plate = composite(tone, PALETTE.obsidian, 0.14);
+      assert.ok(contrast(tone, plate) >= MIN_TEXT_CONTRAST, alerts[i] + " annunciator plate");
+    }
   });
 
   test("palette overrides accept only known keys and valid colours", (assert) => {

@@ -7,16 +7,16 @@
 // V4-compatible JavaScript (see docs/RESEARCH.md).
 
 export const PALETTE = {
-  obsidian: "#101318", // background
-  surface: "#1A2129", // instrument surface
-  surface2: "#222B35", // secondary surface
-  grid: "#35414B", // grid lines and dividers
-  text: "#E8EEF2", // primary text
-  textDim: "#8E9BA7", // secondary text
-  signal: "#65D9E8", // cyan: active information and selection
-  caution: "#F2B84B", // amber: caution
-  critical: "#F06464", // red: errors and critical states
-  nominal: "#7FC8A0", // restrained success
+  obsidian: "#0d1215", // deep mineral field
+  surface: "#1b282b", // smoked chord plane
+  surface2: "#25373a", // recessed and selected planes
+  grid: "#3b5253", // engraved rules
+  text: "#edf3f5", // cool instrument text
+  textDim: "#abc0bd", // secondary inscriptions
+  signal: "#ceebac", // phosphor: focus and interaction
+  caution: "#ffd071", // amber: caution
+  critical: "#ff9591", // red: errors and critical states
+  nominal: "#b3e6bd", // restrained success
 };
 
 // Contrast-checked against obsidian and surface in tests/js/tokens.test.mjs.
@@ -67,7 +67,7 @@ export const DENSITY = {
 };
 
 export const SHAPE = {
-  radius: 2, // instruments are machined, not pillowy
+  radius: 0, // planes meet in precise edges; chord frames have one chamfer
   border: 1,
   bracket: 10, // length of corner registration marks
   bracketWeight: 2,
@@ -75,11 +75,11 @@ export const SHAPE = {
 };
 
 export const OPACITY = {
-  backdrop: 0.55,
-  backdropLowEffects: 0.85,
+  backdrop: 0.64,
+  backdropLowEffects: 1,
   disabled: 0.4,
   gridMinor: 0.35,
-  panel: 0.97,
+  panel: 0.86,
 };
 
 // Durations in ms. "reduced" keeps feedback but drops travel; "off" is instant.

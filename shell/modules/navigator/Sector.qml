@@ -4,15 +4,11 @@ import Quickshell.Wayland
 import qs.core
 import qs.components
 
-// One workspace sector of the Spatial Navigator: a scaled map of the
-// display with each window drawn at its position.
+// A workspace registered along Limb's shallow arc. The small map retains
+// real geometry; application titles are always horizontal and readable.
 Item {
     id: sector
-    property var sector: ({
-            id: 0,
-            windows: [],
-            focused: false
-        })
+    property var sector: ({id:0, windows:[], focused:false})
     property var monitor: null
     property int headerHeight: Theme.rowHeight
     property bool selected: false
@@ -21,98 +17,43 @@ Item {
     property var filterFn: w => true
     signal sectorClicked
     signal windowClicked(var w)
-
-    readonly property real mapW: width
-    readonly property real mapH: height - headerHeight
-    readonly property bool hasGeometry: monitor !== null && monitor.width > 0
-
-    // Header
-    Row {
-        id: head
-        height: sector.headerHeight
-        spacing: Theme.gap
-        Text {
-            anchors.verticalCenter: parent.verticalCenter
-            text: "WS " + sector.sector.id
-            color: sector.sector.focused ? Theme.signal : sector.selected ? Theme.text : Theme.textDim
-            font.family: Theme.mono
-            font.pixelSize: Theme.fontSm
-            font.weight: Font.DemiBold
-        }
-        Label {
-            anchors.verticalCenter: parent.verticalCenter
-            text: sector.sector.windows.length + (sector.sector.windows.length === 1 ? " window" : " windows") + (sector.sector.focused ? " · current" : "")
-        }
+    Bezel { anchors.fill: parent; showHeader: false; active: sector.selected }
+    Rectangle { width: parent.width; height: Theme.px(3); color: sector.sector.focused ? Theme.signal : Theme.grid }
+    Text {
+        x: Theme.du(12); y: Theme.du(15)
+        text: "WS " + sector.sector.id; textFormat: Text.PlainText
+        color: sector.selected ? Theme.signal : Theme.text
+        font.family: Theme.mono; font.pixelSize: Theme.fontMd; font.weight: Font.DemiBold
     }
-
+    Text {
+        anchors.right: parent.right; anchors.rightMargin: Theme.du(12); y: Theme.du(17)
+        text: sector.sector.focused ? "ACTIVE" : sector.sector.windows.length + " WIN"
+        textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+    }
+    MouseArea { anchors.fill: parent; onClicked: sector.sectorClicked() }
     Rectangle {
         id: map
-        y: sector.headerHeight
-        width: sector.mapW
-        height: sector.mapH
-        color: Theme.bg
-        border.color: sector.selected ? Theme.signal : Theme.grid
-        border.width: sector.selected ? Theme.px(2) : Theme.border
-        radius: Theme.radius
-        clip: true
-
-        // Map grid
-        Repeater {
-            model: 3
-            Rectangle {
-                required property int index
-                x: Math.round(map.width * (index + 1) / 4)
-                width: Theme.border
-                height: map.height
-                color: Theme.alpha(Theme.grid, Theme.gridMinorOpacity)
-            }
-        }
-        Repeater {
-            model: 3
-            Rectangle {
-                required property int index
-                y: Math.round(map.height * (index + 1) / 4)
-                height: Theme.border
-                width: map.width
-                color: Theme.alpha(Theme.grid, Theme.gridMinorOpacity)
-            }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: sector.sectorClicked()
-        }
-
+        x: Theme.du(12); y: Theme.du(47); width: parent.width - 2*x
+        height: Math.max(0, Math.min(width * .62, sector.height * (sector.height < Theme.du(260) ? .24 : .34)))
+        color: Theme.bg; border.color: Theme.grid; clip: true
         Repeater {
             model: sector.sector.windows
             delegate: Rectangle {
                 id: tile
                 required property var modelData
                 required property int index
-                readonly property bool placed: sector.hasGeometry && modelData.at !== null && modelData.size !== null
-                readonly property real sx: map.width / (sector.hasGeometry ? sector.monitor.width : 1)
-                readonly property real sy: map.height / (sector.hasGeometry ? sector.monitor.height : 1)
-                readonly property bool isSelected: modelData.address === sector.selectedWindow
-                readonly property bool matchesFilter: sector.filterFn(modelData)
-                readonly property bool armed: modelData.address === sector.closeArmed
-
-                // Without geometry, stack tiles as a list.
-                x: placed ? Math.round((modelData.at[0] - sector.monitor.x) * sx) + 2 : Theme.px(4)
-                y: placed ? Math.round((modelData.at[1] - sector.monitor.y) * sy) + 2 : Theme.px(4) + index * (Theme.rowHeight + Theme.px(4))
-                width: placed ? Math.max(Theme.px(24), Math.round(modelData.size[0] * sx) - 4) : map.width - Theme.px(8)
-                height: placed ? Math.max(Theme.px(18), Math.round(modelData.size[1] * sy) - 4) : Theme.rowHeight
+                readonly property bool placed: sector.monitor !== null && sector.monitor.width > 0 && modelData.at !== null && modelData.size !== null
+                x: placed ? (modelData.at[0] - sector.monitor.x) * map.width / sector.monitor.width + 2 : 4
+                y: placed ? (modelData.at[1] - sector.monitor.y) * map.height / sector.monitor.height + 2 : 6 + index * map.height / Math.max(1, sector.sector.windows.length)
+                width: placed ? Math.max(12, modelData.size[0] * map.width / sector.monitor.width - 4) : map.width - 12
+                height: placed ? Math.max(12, modelData.size[1] * map.height / sector.monitor.height - 4) : map.height / Math.max(1, sector.sector.windows.length) - 12
+                color: modelData.address === sector.selectedWindow ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(Theme.signal, .15)) : Theme.surface2
+                border.color: modelData.address === sector.closeArmed ? Theme.critical : modelData.address === sector.selectedWindow ? Theme.signal : Theme.grid
+                opacity: sector.filterFn(modelData) ? 1 : Theme.disabledOpacity
                 z: modelData.floating ? 2 : 1
-                color: armed ? Theme.alpha(Theme.critical, 0.2) : isSelected ? Theme.alpha(Theme.signal, 0.12) : Theme.surface2
-                border.color: armed ? Theme.critical : isSelected ? Theme.signal : modelData.active ? Theme.text : Theme.grid
-                border.width: isSelected || armed ? Theme.px(2) : Theme.border
-                opacity: matchesFilter ? 1 : 0.25
-                radius: Theme.radius
                 clip: true
-
                 Loader {
                     anchors.fill: parent
-                    anchors.margins: Theme.border
                     active: Config.navigator.thumbnails && tile.modelData.toplevel && tile.modelData.toplevel.wayland !== null
                     sourceComponent: ScreencopyView {
                         captureSource: tile.modelData.toplevel.wayland
@@ -120,56 +61,51 @@ Item {
                         Component.onCompleted: captureFrame()
                     }
                 }
-
-                Column {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.margins: Theme.px(4)
-                    spacing: Theme.px(1)
-                    Row {
-                        spacing: Theme.px(4)
-                        width: parent.width
-                        AppGlyph {
-                            size: Math.min(Theme.px(16), tile.height - Theme.px(8))
-                            icon: tile.modelData.appId
-                            fallback: tile.modelData.appId
-                            visible: tile.height > Theme.px(20)
-                        }
-                        Text {
-                            text: (tile.modelData.active ? "● " : "") + tile.modelData.appId.toUpperCase()
-                            color: tile.modelData.active ? Theme.signal : Theme.textDim
-                            font.family: Theme.mono
-                            font.pixelSize: Theme.fontXs
-                            elide: Text.ElideRight
-                            width: parent.width - x
-                        }
-                    }
-                    Text {
-                        visible: tile.height > Theme.px(34)
-                        width: parent.width
-                        text: tile.modelData.title
-                        color: Theme.text
-                        font.family: Theme.sans
-                        font.pixelSize: Theme.fontXs
-                        wrapMode: Text.Wrap
-                        maximumLineCount: Math.max(1, Math.floor((tile.height - Theme.px(24)) / (Theme.fontXs + 4)))
-                        elide: Text.ElideRight
-                    }
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: sector.windowClicked(tile.modelData)
-                }
+                MouseArea { anchors.fill: parent; onClicked: sector.windowClicked(tile.modelData) }
             }
         }
-
-        Label {
-            visible: sector.sector.windows.length === 0
-            anchors.centerIn: parent
-            text: "EMPTY"
+        Text {
+            anchors.centerIn: parent; visible: sector.sector.windows.length === 0
+            text: "—"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+        }
+    }
+    ListView {
+        id: names
+        x: map.x; y: map.y + map.height + Theme.du(22); width: map.width
+        height: Math.max(0, sector.height - y - Theme.du(12))
+        model: sector.sector.windows
+        clip: true; spacing: Theme.du(18)
+        boundsBehavior: Flickable.StopAtBounds
+        currentIndex: {
+            for (var i = 0; i < sector.sector.windows.length; i++)
+                if (sector.sector.windows[i].address === sector.selectedWindow) return i;
+            return -1;
+        }
+        onCurrentIndexChanged: if (currentIndex >= 0) positionViewAtIndex(currentIndex, ListView.Contain)
+        delegate: Item {
+            id: entry
+            required property var modelData
+            width: names.width; height: body.implicitHeight + Theme.du(12)
+            opacity: sector.filterFn(modelData) ? 1 : Theme.disabledOpacity
+            Rectangle { width: Theme.border; height: parent.height; visible: entry.modelData.address === sector.selectedWindow; color: entry.modelData.address === sector.closeArmed ? Theme.critical : Theme.signal }
+            Column {
+                id: body; x: Theme.px(4); width: parent.width - x; spacing: Theme.du(8)
+                Text {
+                    width: parent.width; text: entry.modelData.appId.toUpperCase(); textFormat: Text.PlainText
+                    color: entry.modelData.address === sector.selectedWindow ? Theme.signal : Theme.textDim
+                    font.family: Theme.mono; font.pixelSize: Theme.fontXs; elide: Text.ElideRight
+                }
+                Text {
+                    width: parent.width; text: entry.modelData.title; textFormat: Text.PlainText
+                    color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontMd + Theme.px(1)
+                    wrapMode: Text.WordWrap; maximumLineCount: 4; elide: Text.ElideRight
+                }
+            }
+            MouseArea { anchors.fill: parent; onClicked: sector.windowClicked(entry.modelData) }
+        }
+        Text {
+            visible: names.count === 0; text: "UNASSIGNED"; textFormat: Text.PlainText
+            color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
         }
     }
 }

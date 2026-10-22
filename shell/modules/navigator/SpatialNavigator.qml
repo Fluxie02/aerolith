@@ -11,7 +11,7 @@ import qs.services
 // only when navigator.thumbnails is enabled (they use
 // hyprland-toplevel-export and cost GPU memory).
 //
-// Keys: arrows/hjkl move between sectors, Tab cycles windows in a sector,
+// Keys: left/right (h/l) move workspaces, up/down (k/j) and Tab select windows,
 // Enter focuses, 1-9 jumps to a workspace, M then 1-9 moves the selected
 // window, X twice closes it, / filters, Esc clears filter or closes.
 FocusScope {
@@ -57,7 +57,7 @@ FocusScope {
         return out;
     }
 
-    readonly property int columns: Math.max(1, Math.min(sectors.length, sectors.length <= 4 ? sectors.length : Math.ceil(Math.sqrt(sectors.length * 1.6))))
+    readonly property int columns: Math.max(1, sectors.length)
     readonly property var currentSector: sectors.length > 0 ? sectors[Math.min(sectorIndex, sectors.length - 1)] : null
     readonly property var currentWindow: currentSector && currentSector.windows.length > 0 ? currentSector.windows[Math.min(windowIndex, currentSector.windows.length - 1)] : null
 
@@ -90,11 +90,14 @@ FocusScope {
         const n = sectors.length;
         if (n === 0)
             return;
-        let i = sectorIndex + dx + dy * columns;
-        if (i < 0 || i >= n)
-            i = Math.max(0, Math.min(n - 1, i));
-        sectorIndex = i;
-        windowIndex = 0;
+        if (dy !== 0) {
+            const count = currentSector ? currentSector.windows.length : 0;
+            if (count > 0)
+                windowIndex = Math.max(0, Math.min(count - 1, windowIndex + dy));
+        } else {
+            sectorIndex = Math.max(0, Math.min(n - 1, sectorIndex + dx));
+            windowIndex = 0;
+        }
         confirmClose = "";
     }
 
@@ -206,148 +209,80 @@ FocusScope {
     }
 
     Bezel {
-        id: bezel
-        anchors.centerIn: parent
-        width: Math.min(Theme.px(1360), parent.width - Theme.pad * 4)
-        height: Math.min(Theme.px(820), parent.height - Theme.pad)
-        designation: "NAV-02"
+        anchors.fill: parent
+        designation: "NAV / 02"
         title: "Spatial Navigator"
-        status: nav.allWindows.length + " WINDOWS · " + nav.sectors.length + " SECTORS · " + (Ui.screenName || "NO DISPLAY")
-
-        MouseArea {
-            anchors.fill: parent
-            anchors.margins: -Theme.pad
-            z: -1
-        }
-
+        status: nav.allWindows.length + " WINDOWS / " + nav.sectors.length + " WORKSPACES"
+        MouseArea { anchors.fill: parent; z: -1 }
         Item {
             anchors.fill: parent
-
-            // Filter line
-            Rectangle {
+            Item {
                 id: filterRow
                 width: parent.width
-                height: Math.round(Theme.rowHeight * 1.1)
-                color: Theme.bg
-                border.color: nav.filtering ? Theme.signal : Theme.grid
-                border.width: Theme.border
-                radius: Theme.radius
+                height: Theme.du(35)
                 Text {
-                    id: slash
-                    anchors.left: parent.left
-                    anchors.leftMargin: Theme.pad
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "/"
-                    color: nav.filtering ? Theme.signal : Theme.textDim
-                    font.family: Theme.mono
-                    font.pixelSize: Theme.fontMd
+                    text: "/"; textFormat: Text.PlainText
+                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.du(17)
                 }
                 TextInput {
                     id: filterInput
-                    anchors.left: slash.right
-                    anchors.leftMargin: Theme.gap
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.pad
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: Theme.text
-                    font.family: Theme.mono
-                    font.pixelSize: Theme.fontSm
+                    x: Theme.du(28); width: parent.width - x; height: parent.height
+                    color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.fontMd
                     onTextChanged: nav.filter = text
                     Keys.forwardTo: [nav]
                     Text {
                         visible: filterInput.text === ""
-                        text: nav.filtering ? "filter by title or application" : "press / to filter windows"
-                        color: Theme.textDim
-                        font: filterInput.font
+                        text: nav.filtering ? "FILTER BY TITLE OR APPLICATION" : "PRESS / TO FILTER"
+                        textFormat: Text.PlainText
+                        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
                     }
                 }
+                Rectangle { anchors.bottom: parent.bottom; width: parent.width; height: Theme.border; color: Theme.grid }
             }
-
-            Text {
-                visible: !Compositor.available
-                anchors.centerIn: grid
-                text: "HYPRLAND NOT DETECTED · window overview unavailable"
-                color: Theme.caution
-                font.family: Theme.mono
-                font.pixelSize: Theme.fontSm
-            }
-
-            Grid {
-                id: grid
-                anchors.top: filterRow.bottom
-                anchors.topMargin: Theme.pad
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: status.top
-                anchors.bottomMargin: Theme.pad
-                columns: nav.columns
-                spacing: Theme.pad
-
-                readonly property real aspect: nav.monitor && nav.monitor.height > 0 ? nav.monitor.width / nav.monitor.height : 16 / 9
-                readonly property int rows: Math.max(1, Math.ceil(nav.sectors.length / nav.columns))
-                readonly property real cellW: Math.min((width - (columns - 1) * spacing) / columns, ((height - (rows - 1) * spacing) / rows - headerH) * aspect)
-                readonly property real cellH: cellW / aspect + headerH
-                readonly property int headerH: Math.round(Theme.rowHeight * 0.75)
-
+            Flickable {
+                id: field
+                anchors.top: filterRow.bottom; anchors.topMargin: Theme.du(25)
+                anchors.left: parent.left; anchors.right: parent.right
+                anchors.bottom: status.top; anchors.bottomMargin: Theme.du(20)
+                clip: true
+                contentWidth: Math.max(width, nav.sectors.length * (cellW + Theme.du(22)) - Theme.du(22))
+                contentHeight: height
+                boundsBehavior: Flickable.StopAtBounds
+                readonly property real cellW: Math.max(Theme.du(220), (width - (nav.sectors.length - 1) * Theme.du(22)) / Math.max(1, nav.sectors.length))
+                function reveal() {
+                    var left = nav.sectorIndex * (cellW + Theme.du(22));
+                    contentX = Math.max(0, Math.min(contentWidth - width, left < contentX ? left : left + cellW > contentX + width ? left + cellW - width : contentX));
+                }
+                Connections { target: nav; function onSectorIndexChanged() { field.reveal(); } }
+                onWidthChanged: reveal()
                 Repeater {
                     model: nav.sectors
                     delegate: Sector {
                         required property var modelData
                         required property int index
-                        width: grid.cellW
-                        height: grid.cellH
-                        sector: modelData
-                        headerHeight: grid.headerH
-                        selected: index === nav.sectorIndex
-                        selectedWindow: index === nav.sectorIndex && nav.currentWindow ? nav.currentWindow.address : ""
-                        closeArmed: nav.confirmClose
-                        monitor: nav.monitor
+                        x: index * (field.cellW + Theme.du(22))
+                        y: Math.min(2, Math.abs(index - (nav.sectors.length - 1) / 2)) * Math.min(Theme.du(24), field.height * .035)
+                        width: field.cellW; height: Math.max(0, field.height - (field.height < Theme.du(300) ? Math.min(Theme.du(48), field.height * .07) : Theme.du(60)))
+                        sector: modelData; selected: index === nav.sectorIndex
+                        selectedWindow: selected && nav.currentWindow ? nav.currentWindow.address : ""
+                        closeArmed: nav.confirmClose; monitor: nav.monitor
                         filterFn: w => nav.matches(w)
-                        onSectorClicked: nav.runAndReport("workspace.focus", {
-                            workspace: modelData.id
-                        }, true)
-                        onWindowClicked: w => nav.runAndReport("window.focus", {
-                            address: w.address
-                        }, true)
+                        onSectorClicked: nav.runAndReport("workspace.focus", {workspace: modelData.id}, true)
+                        onWindowClicked: w => nav.runAndReport("window.focus", {address: w.address}, true)
                     }
                 }
+                Text {
+                    visible: !Compositor.available
+                    anchors.centerIn: parent; width: parent.width
+                    text: "HYPRLAND NOT DETECTED · window overview unavailable"
+                    textFormat: Text.PlainText; wrapMode: Text.WordWrap
+                    color: Theme.caution; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                }
             }
-
             StatusLine {
                 id: status
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                hints: [
-                    {
-                        key: "←↑↓→",
-                        action: "sector"
-                    },
-                    {
-                        key: "TAB",
-                        action: "window"
-                    },
-                    {
-                        key: "⏎",
-                        action: "focus"
-                    },
-                    {
-                        key: "1-9",
-                        action: "workspace"
-                    },
-                    {
-                        key: "M",
-                        action: "move"
-                    },
-                    {
-                        key: "X",
-                        action: "close"
-                    },
-                    {
-                        key: "/",
-                        action: "filter"
-                    }
-                ]
+                anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
+                hints: [{key:"←→",action:"workspace"},{key:"↑↓ / TAB",action:"window"},{key:"⏎",action:"focus"},{key:"1–9",action:"workspace"},{key:"M",action:"move"},{key:"X X",action:"close"},{key:"/",action:"filter"}]
                 message: nav.statusText !== "" ? nav.statusText : nav.currentWindow ? Compositor.windowLabel(nav.currentWindow) : nav.currentSector ? "Workspace " + nav.currentSector.id + " · empty" : ""
                 messageState: nav.statusState
             }

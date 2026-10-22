@@ -3,7 +3,7 @@ import qs.core
 import qs.services
 
 // Workspace tape: numbered cells with occupancy ticks. The focused cell is
-// boxed with cyan registration brackets; urgent cells get an amber plate.
+// boxed with phosphor registration brackets; urgent cells get an amber plate.
 Row {
     id: tape
     spacing: Theme.px(2)
@@ -42,7 +42,7 @@ Row {
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: Theme.px(3)
-                color: cell.modelData.urgent ? Theme.alpha(Theme.caution, 0.18) : hover.containsMouse ? Theme.surface2 : "transparent"
+                color: cell.modelData.urgent ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(Theme.caution, 0.18)) : hover.containsMouse ? Theme.surface2 : "transparent"
                 radius: Theme.radius
             }
 
@@ -73,6 +73,7 @@ Row {
             }
 
             Text {
+                textFormat: Text.PlainText
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: -Theme.px(2)
                 text: cell.modelData.id
