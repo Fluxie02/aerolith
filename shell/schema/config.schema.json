@@ -144,6 +144,17 @@
         }
       }
     },
+    "ground": {
+      "type": "object",
+      "description": "The desktop background surface.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg.",
+          "default": true
+        }
+      }
+    },
     "commandCore": {
       "type": "object",
       "description": "The universal command palette.",

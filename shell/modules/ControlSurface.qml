@@ -69,7 +69,14 @@ Scope {
                 telemetryIntervalMs: Telemetry.interval,
                 telemetrySamples: Telemetry.samplesTaken,
                 cpuPercent: Telemetry.cpu.total,
-                memoryPercent: Telemetry.memory ? Telemetry.memory.percent : null
+                memoryPercent: Telemetry.memory ? Telemetry.memory.percent : null,
+                monitor: Compositor.monitorGeometry(),
+                deckMapped: Ui.deckMapped,
+                audioDetail: Audio.detailDemand,
+                notices: Ui.notices.length,
+                popups: Notifications.popups.length,
+                ground: Config.ground.enabled,
+                motion: Config.theme.motion
             });
         }
         // Diagnostics: how PipeWire nodes are classified (no volumes or

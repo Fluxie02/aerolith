@@ -9,6 +9,7 @@ import {
   closeWindow,
   exitSession,
   interpretReply,
+  logicalMonitorSize,
 } from "../../shell/lib/hyprdispatch.mjs";
 
 export default suite("hyprdispatch", (test) => {
@@ -90,5 +91,14 @@ export default suite("hyprdispatch", (test) => {
     assert.equal(interpretReply("Invalid dispatcher").ok, false);
     assert.equal(interpretReply("").ok, false);
     assert.equal(interpretReply(null).message, "no reply from Hyprland");
+  });
+
+  test("monitor size is converted from physical pixels to logical layout units", (assert) => {
+    assert.deepEqual(logicalMonitorSize(1920, 1080, 1, 0), { width: 1920, height: 1080 });
+    assert.deepEqual(logicalMonitorSize(2560, 1440, 1.5, 0), { width: 1707, height: 960 });
+    assert.deepEqual(logicalMonitorSize(3840, 2160, 2, 1), { width: 1080, height: 1920 }, "90 degrees swaps the axes");
+    assert.deepEqual(logicalMonitorSize(3840, 2160, 2, 6), { width: 1920, height: 1080 }, "flipped 180 keeps them");
+    assert.deepEqual(logicalMonitorSize(1920, 1080, 0, 0), { width: 1920, height: 1080 }, "a missing scale counts as 1");
+    assert.equal(logicalMonitorSize(0, 1080, 1, 0), null);
   });
 });

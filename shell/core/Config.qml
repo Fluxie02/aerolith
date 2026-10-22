@@ -24,6 +24,7 @@ Singleton {
     readonly property var display: data.display
     readonly property var theme: data.theme
     readonly property var strip: data.strip
+    readonly property var ground: data.ground
     readonly property var commandCore: data.commandCore
     readonly property var telemetry: data.telemetry
     readonly property var audio: data.audio
@@ -84,7 +85,13 @@ Singleton {
         const r = ConfigLib.setPath(raw, path, value);
         if (r.error)
             return r.error;
-        file.setText(JSON.stringify(r.raw, null, 2) + "\n");
+        const text = JSON.stringify(r.raw, null, 2) + "\n";
+        file.setText(text);
+        // Apply now: an atomic save replaces the file, and the watcher does
+        // not reliably report that replacement (measured), so waiting for it
+        // could leave the change unapplied. A later file event re-applies
+        // the same text harmlessly.
+        apply(text);
         return "";
     }
 

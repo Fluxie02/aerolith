@@ -187,7 +187,7 @@ class State:
 
 
 class Mock:
-    def __init__(self, base: str, log_path: str | None, lua: bool):
+    def __init__(self, base: str, log_path: str | None, lua: bool, mode: tuple[int, int] = (1920, 1080), scale: float = 1.0, transform: int = 0):
         self.base = base
         self.log_path = log_path
         self.state = State(lua=lua)
@@ -195,20 +195,20 @@ class Mock:
             {
                 "id": 0,
                 "name": "DP-1",
-                "description": "Mock Display 1920x1080",
+                "description": f"Mock Display {mode[0]}x{mode[1]}",
                 "make": "Mock",
                 "model": "Display",
                 "serial": "0",
-                "width": 1920,
-                "height": 1080,
+                "width": mode[0],
+                "height": mode[1],
                 "physicalWidth": 530,
                 "physicalHeight": 300,
                 "refreshRate": 60.0,
                 "x": 0,
                 "y": 0,
                 "reserved": [0, 0, 0, 0],
-                "scale": 1.0,
-                "transform": 0,
+                "scale": scale,
+                "transform": transform,
                 "dpmsStatus": True,
                 "vrr": False,
                 "solitary": "0",
@@ -593,12 +593,16 @@ def main() -> int:
     ap.add_argument("--hyprlang", action="store_true", help="emulate legacy hyprlang dispatch syntax")
     ap.add_argument("--seed", action="store_true", help="open a few windows at start")
     ap.add_argument("--control", default=None, help="send a JSON control message to a running mock and exit")
+    ap.add_argument("--mode", default="1920x1080", help="monitor mode in physical pixels, WxH")
+    ap.add_argument("--scale", type=float, default=1.0, help="monitor scale")
+    ap.add_argument("--transform", type=int, default=0, choices=range(8), help="monitor transform (0-7)")
     args = ap.parse_args()
     base = os.path.join(args.runtime_dir, "hypr", args.signature)
     if args.control:
         print(json.dumps(control_client(base, json.loads(args.control))))
         return 0
-    mock = Mock(base, args.log, lua=not args.hyprlang)
+    mw, mh = (int(v) for v in args.mode.lower().split("x", 1))
+    mock = Mock(base, args.log, lua=not args.hyprlang, mode=(mw, mh), scale=args.scale, transform=args.transform)
     mock.state.persistent_ws = {1, 2, 3}
     if args.seed:
         with mock.state.lock:

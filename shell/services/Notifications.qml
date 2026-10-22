@@ -31,10 +31,10 @@ Singleton {
                 n.tracked = true;
                 root.items = [n].concat(root.items).slice(0, 100);
                 if (!root.doNotDisturb && n.urgency !== NotificationUrgency.Low)
-                    root.popups = root.popups.concat([n]).slice(-3);
+                    root.showPopup(n);
                 n.closed.connect(() => {
                     root.items = root.items.filter(x => x !== n);
-                    root.popups = root.popups.filter(x => x !== n);
+                    root.dropPopup(n);
                 });
             }
         }
@@ -49,11 +49,86 @@ Singleton {
             server = null;
             items = [];
             popups = [];
+            popupExpiry = {};
         }
     }
 
+    // Popups are the notification objects themselves, so views can key on
+    // them. Each popup expires popupTimeoutMs after it was shown; the time is
+    // fixed then, so later popups never extend earlier ones.
+    property var popupExpiry: ({})
+
+    function showPopup(n) {
+        const expiry = Object.assign({}, popupExpiry);
+        expiry[n.id] = Date.now() + Config.notifications.popupTimeoutMs;
+        const kept = popups.concat([n]).slice(-3);
+        const ids = kept.map(x => String(x.id));
+        for (const k in expiry)
+            if (ids.indexOf(k) === -1)
+                delete expiry[k];
+        popupExpiry = expiry;
+        popups = kept;
+        popupTimer.schedule();
+    }
+
     function dropPopup(n) {
+        if (popups.indexOf(n) === -1)
+            return;
+        const expiry = Object.assign({}, popupExpiry);
+        delete expiry[n.id];
+        popupExpiry = expiry;
         popups = popups.filter(x => x !== n);
+        popupTimer.schedule();
+    }
+
+    function actionsOf(n) {
+        const out = [];
+        const list = n && n.actions ? n.actions : [];
+        for (let i = 0; i < list.length; i++)
+            out.push(list[i]);
+        return out;
+    }
+
+    // Invoke one of a notification's actions by identifier. Quickshell
+    // dismisses non-resident notifications after an action.
+    function invokeAction(n, identifier) {
+        const action = actionsOf(n).filter(a => a.identifier === identifier)[0];
+        if (!action)
+            return false;
+        action.invoke();
+        dropPopup(n);
+        return true;
+    }
+
+    // Clicking a popup: the freedesktop "default" action when the sender
+    // offers one, otherwise just hide the popup (it stays in the list).
+    function activate(n) {
+        if (!invokeAction(n, "default"))
+            dropPopup(n);
+    }
+
+    Timer {
+        id: popupTimer
+        function schedule() {
+            stop();
+            let next = -1;
+            for (let i = 0; i < root.popups.length; i++) {
+                const at = root.popupExpiry[root.popups[i].id];
+                if (at !== undefined && (next === -1 || at < next))
+                    next = at;
+            }
+            if (next === -1)
+                return;
+            interval = Math.max(1, next - Date.now());
+            start();
+        }
+        onTriggered: {
+            const now = Date.now();
+            const expired = root.popups.filter(n => (root.popupExpiry[n.id] || 0) <= now);
+            for (let i = 0; i < expired.length; i++)
+                root.dropPopup(expired[i]);
+            schedule();
+        }
     }
 
     function clearAll() {
@@ -62,6 +137,7 @@ Singleton {
             list[i].dismiss();
         items = [];
         popups = [];
+        popupExpiry = {};
     }
 
     Connections {
@@ -118,6 +194,35 @@ Singleton {
                     return Registry.fail("Notification is gone");
                 n.dismiss();
                 return Registry.ok("Dismissed");
+            }
+        });
+        Registry.register({
+            id: "notifications.action",
+            title: "Run notification action",
+            category: "shell",
+            hidden: true,
+            record: false,
+            params: [
+                {
+                    name: "id",
+                    type: "int",
+                    min: 0,
+                    required: true
+                },
+                {
+                    name: "action",
+                    type: "string",
+                    required: true,
+                    maxLength: 200
+                }
+            ],
+            run: args => {
+                const n = root.items.filter(x => x.id === args.id)[0];
+                if (!n)
+                    return Registry.fail("Notification is gone");
+                if (!root.invokeAction(n, args.action))
+                    return Registry.fail("The notification has no action " + args.action);
+                return Registry.ok("Done");
             }
         });
         Registry.registerProvider({

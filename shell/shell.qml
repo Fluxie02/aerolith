@@ -11,6 +11,7 @@ import qs.services
 import "modules/strip"
 import "modules/deck"
 import "modules/notices"
+import "modules/ground"
 import "modules"
 
 ShellRoot {
@@ -19,6 +20,8 @@ ShellRoot {
     // Touch services so they initialise and register their commands even
     // before anything visible references them.
     readonly property var services: [Compositor, Apps, Audio, Media, Telemetry, Power, Routines, Notifications, ShellCommands]
+
+    GroundSurface {}
 
     FlightStrip {}
 

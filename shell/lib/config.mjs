@@ -66,6 +66,12 @@ export const SCHEMA = S.obj(
       },
       "The edge-mounted status strip.",
     ),
+    ground: S.obj(
+      {
+        enabled: S.bool(true, "Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg."),
+      },
+      "The desktop background surface.",
+    ),
     commandCore: S.obj(
       {
         maxResults: S.int(40, 5, 200, "Maximum results listed."),
