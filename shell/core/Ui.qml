@@ -75,6 +75,9 @@ Singleton {
     // True while the Deck surface is mapped (including its exit). Set by the
     // Deck; the notice column hides then, because the Deck shows notices.
     property bool deckMapped: false
+    // Number of times the Deck surface was mapped (diagnostics: one per
+    // open-to-closed cycle; a remap during an exit would show up here).
+    property int deckMaps: 0
 
     // Transient notices shown in the toast column. Records keep their
     // identity for their whole life (views key on `id`), and each expires at
@@ -114,6 +117,15 @@ Singleton {
         if (result.ok && result.quiet)
             return;
         notify(result.message, result.ok ? "ok" : "error", result.detail);
+    }
+
+    // A setting changed from the shell could not be saved; Config has
+    // already gone back to what is on disk.
+    Connections {
+        target: Config
+        function onSaveFailed(message) {
+            root.notify("Could not save the setting", "error", message);
+        }
     }
 
     // One timer for all notices, aimed at the earliest expiry.

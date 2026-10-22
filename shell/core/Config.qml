@@ -33,11 +33,15 @@ Singleton {
     readonly property var notifications: data.notifications
 
     signal reloaded
+    signal saveFailed(string message)
 
     // The file on disk is not valid JSON (a typo, or an editor half-way
     // through saving). The last good settings stay in effect meanwhile.
     property bool fileBroken: false
     property bool hasGood: false
+    // The text known to be on disk (last loaded or last saved), to go back
+    // to when a save fails.
+    property string diskText: ""
 
     function apply(text) {
         const r = ConfigLib.validateConfig(text);
@@ -109,13 +113,22 @@ Singleton {
         onFileChanged: reload()
         onLoaded: {
             root.fileMissing = false;
-            root.apply(text());
+            root.diskText = text();
+            root.apply(root.diskText);
         }
         onLoadFailed: error => {
             // A missing file is normal: run on defaults.
             root.fileMissing = true;
+            root.diskText = "";
             root.apply("");
         }
-        onSaveFailed: error => Log.error("config", "could not save " + path + ": " + error)
+        // setValue() applied the change before the save finished; when the
+        // save fails, go back to what is on disk and say so.
+        onSaveFailed: error => {
+            Log.error("config", "could not save " + path + ": " + error);
+            root.apply(root.diskText);
+            root.saveFailed("Could not write " + path + " (" + error + "); the previous settings are back.");
+        }
+        onSaved: root.diskText = text()
     }
 }

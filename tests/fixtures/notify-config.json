@@ -2,6 +2,6 @@
   "schemaVersion": 1,
   "notifications": {
     "server": true,
-    "popupTimeoutMs": 3000
+    "popupTimeoutMs": 5000
   }
 }

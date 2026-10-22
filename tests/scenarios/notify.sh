@@ -4,8 +4,9 @@
 # A real D-Bus client (tools/headless/notify_client.py) sends notifications
 # and records the signals it gets back. Checks that
 #   1. a notification shows a popup, and invoking one of its actions reaches
-#      the sender as ActionInvoked and removes the popup,
-#   2. popup lifetimes are fixed when they appear (popupTimeoutMs 3000), so a
+#      the sender as ActionInvoked and removes the popup (a resident
+#      notification, which the server keeps, so only the shell can hide it),
+#   2. popup lifetimes are fixed when they appear (popupTimeoutMs 5000), so a
 #      later popup never extends an earlier one, and hiding a popup does not
 #      close the notification,
 #   3. dismissing a notification closes it for the sender.
@@ -32,7 +33,7 @@ saw() {
 sleep 3
 
 # 1. Actions.
-id=$(send "$OUT/n1.txt" --summary "Build finished" --body "aerolith: 0 errors" --action "default:Open" --action "rerun:Run again" --wait 15)
+id=$(send "$OUT/n1.txt" --summary "Build finished" --body "aerolith: 0 errors" --action "default:Open" --action "rerun:Run again" --resident --wait 15)
 [ -n "$id" ] || fail "the notification server did not answer"
 wait_field popups 1 5 || fail "no popup for the notification"
 shot n1-popup
@@ -42,14 +43,14 @@ saw "^action rerun" "$OUT/n1.txt" || fail "the sender never received ActionInvok
 wait_field popups 0 3 || fail "the popup stayed after its action ran"
 
 # 2. Lifetimes fixed on arrival.
-first=$(send "$OUT/n2.txt" --summary "First popup" --wait 20)
-sleep 1.5
-send "$OUT/n3.txt" --summary "Second popup" --wait 20 >/dev/null
+first=$(send "$OUT/n2.txt" --summary "First popup" --wait 25)
+sleep 2.5
+send "$OUT/n3.txt" --summary "Second popup" --wait 25 >/dev/null
 wait_field popups 2 3 || fail "two popups expected"
 shot n2-two-popups
-sleep 2
+sleep 3.3
 [ "$(field popups)" = 1 ] || fail "the first popup's life was extended by the second ($(field popups) shown)"
-wait_field popups 0 4 || fail "popups did not expire"
+wait_field popups 0 5 || fail "popups did not expire"
 grep -q "^closed" "$OUT/n2.txt" && fail "hiding a popup closed the notification"
 
 # 3. Dismissal reaches the sender (reason 2: dismissed by the user).
