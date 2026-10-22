@@ -24,13 +24,15 @@ Item {
         anchors.bottomMargin: Config.strip.edge === "bottom" ? Theme.stripHeight : 0
         clip: true
         Rectangle { anchors.fill: parent; color: Theme.bg }
-        CircularField {
+        InstrumentField {
             y: Config.strip.edge === "top" ? -Theme.stripHeight : 0
             width: view.width; height: view.height
             instrument: true; progress: view.fieldProgress
         }
     }
     MouseArea { anchors.fill: parent; onClicked: Ui.close() }
+    Instrumentation { anchors.fill: parent; instrument: true }
+
 
     Row {
         id: railRow
@@ -77,9 +79,9 @@ Item {
         }
     }
     Text {
-        x: parent.width * .08; y: parent.height - Theme.du(50)
+        x: parent.width * .055; y: parent.height * .84
         visible: !view.compactScreen
-        text: "AEROLITH   /   LIMB"; textFormat: Text.PlainText
+        text: "LIMB / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
         color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
     }
     NoticeStack {

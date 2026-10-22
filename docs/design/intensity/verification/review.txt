@@ -1,0 +1,10 @@
+UI-005: Astra's one review of Claude's available systems integration.
+Reviewed a87c6dc: config.mjs enum/default, schema entry, ShellCommands.qml
+settings.intensity/alias, installer CLI cmd_intensity and unit coverage;
+also Config.qml's live apply/save behavior and the existing Deck, GroundSurface
+and NoticeColumn lifecycle interfaces. No actionable findings in this snapshot.
+Node/Qt verify both enum values and rejection of Dense. Pytest verifies CLI
+read/write, missing/broken configs and preservation of unrelated config.
+Live IPC switching and external config changes are exercised in the harness.
+The full-screen systems changes are not present in this working copy and have
+not been reviewed as completed work. True Hyprland/GPU validation is pending.

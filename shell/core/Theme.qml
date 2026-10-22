@@ -15,6 +15,29 @@ Singleton {
     readonly property var motionSet: Tokens.motionTokens(cfg.motion)
     readonly property real scale: cfg.uiScale
 
+    // Both intensities share Limb geometry. Config changes apply to live bindings.
+    readonly property string intensity: cfg.intensity === "insane" ? "insane" : "saturated"
+    readonly property bool insane: intensity === "insane"
+    readonly property int variantLevel: insane ? 3 : 2
+    readonly property string variantName: insane ? "Insane" : "Saturated"
+    // Process lifetime latch survives hidden/recreated views. Freeze the selected
+    // startup duration so changing intensity during assembly cannot retime it.
+    property bool bootPlayed: false
+    property bool bootInsane: false
+    property real bootProgress: 1
+    readonly property int ignitionDuration: slow * (bootInsane ? 10 : 8)
+    function ignite() {
+        if (bootPlayed) return;
+        bootPlayed = true;
+        bootInsane = insane;
+        if (travel) { bootProgress = 0; ignition.restart(); }
+    }
+    onTravelChanged: if (!travel) { ignition.stop(); bootProgress = 1; }
+    NumberAnimation {
+        id: ignition; target: root; property: "bootProgress"
+        to: 1; duration: root.ignitionDuration; easing.type: Easing.OutCubic
+    }
+
     // Colour roles
     readonly property color bg: palette.obsidian
     readonly property color surface: palette.surface

@@ -79,7 +79,7 @@ export const OPACITY = {
   backdropLowEffects: 1,
   disabled: 0.4,
   gridMinor: 0.35,
-  panel: 0.86,
+  panel: 0.97,
 };
 
 // Durations in ms. "reduced" keeps feedback but drops travel; "off" is instant.
