@@ -150,3 +150,16 @@ export function interpretReply(reply) {
   if (text.length === 0) return { ok: false, message: "no reply from Hyprland" };
   return { ok: false, message: text.length > 300 ? text.slice(0, 300) + "…" : text };
 }
+
+// Hyprland reports a monitor's mode in physical pixels, while its position
+// and every window's `at`/`size` are logical layout coordinates. The logical
+// size divides by the scale and swaps width and height for the 90/270 degree
+// transforms (1, 3, 5, 7). Invalid input gives null.
+export function logicalMonitorSize(width, height, scale, transform) {
+  if (!(width > 0) || !(height > 0)) return null;
+  const s = scale > 0 ? scale : 1;
+  const rotated = transform === 1 || transform === 3 || transform === 5 || transform === 7;
+  const w = Math.round(width / s);
+  const h = Math.round(height / s);
+  return rotated ? { width: h, height: w } : { width: w, height: h };
+}

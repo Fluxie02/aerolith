@@ -128,11 +128,17 @@ Singleton {
         // monitor there is no ambiguity even if they do not.
         if (!m && list.length === 1)
             m = list[0];
-        return m ? {
+        if (!m)
+            return null;
+        // Hyprland's width/height are the mode in physical pixels; window
+        // geometry is logical, so callers get the logical size.
+        const ipc = m.lastIpcObject || {};
+        const size = HD.logicalMonitorSize(m.width, m.height, m.scale, ipc.transform || 0);
+        return size ? {
             x: m.x,
             y: m.y,
-            width: m.width,
-            height: m.height,
+            width: size.width,
+            height: size.height,
             scale: m.scale
         } : null;
     }

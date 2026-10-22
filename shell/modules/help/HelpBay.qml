@@ -49,12 +49,20 @@ FocusScope {
         }
     ]
 
+    // Kinetic scrolling is motion: with theme.motion "off" the list jumps.
+    function scrollList(dir) {
+        if (Theme.animate)
+            list.flick(0, -800 * dir);
+        else
+            list.contentY = Math.max(list.originY, Math.min(list.originY + list.contentHeight - list.height, list.contentY + list.height * 0.25 * dir));
+    }
+
     Keys.onPressed: event => {
         if (event.key === Qt.Key_Down) {
-            list.flick(0, -800);
+            help.scrollList(1);
             event.accepted = true;
         } else if (event.key === Qt.Key_Up) {
-            list.flick(0, 800);
+            help.scrollList(-1);
             event.accepted = true;
         } else if (event.key === Qt.Key_PageDown || event.key === Qt.Key_PageUp) {
             // The key reference can be taller than a small screen.

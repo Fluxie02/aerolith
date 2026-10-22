@@ -11,12 +11,21 @@ import qs.core
 //
 // Volume and mute are only valid for nodes bound with PwObjectTracker. The
 // default sink and source are always bound (the Flight Strip shows them);
-// every other device and stream is bound only while the Signal Rack asks
-// for it through `detailed`, which keeps idle work minimal.
+// every other device and stream is bound only while some view holds detail
+// demand (acquireDetail/releaseDetail, reference counted), which keeps idle
+// work minimal.
 Singleton {
     id: root
 
-    property bool detailed: false
+    property int detailDemand: 0
+    readonly property bool detailed: detailDemand > 0
+
+    function acquireDetail() {
+        detailDemand++;
+    }
+    function releaseDetail() {
+        detailDemand = Math.max(0, detailDemand - 1);
+    }
 
     readonly property bool ready: Pipewire.ready
     readonly property var sink: Pipewire.defaultAudioSink
@@ -34,6 +43,9 @@ Singleton {
     readonly property var captureStreams: nodes.filter(n => n.audio && n.isStream && !n.isSink)
 
     readonly property bool sinkReady: sink !== null && sink.audio !== null && sink.ready
+    // False while the default sink is missing or not yet bound: views show
+    // the volume as unknown then, never as 0.
+    readonly property bool volumeKnown: sinkReady
     readonly property real volume: sinkReady ? sink.audio.volume : 0
     readonly property bool muted: sinkReady ? sink.audio.muted : false
     readonly property int volumePercent: Math.round(volume * 100)

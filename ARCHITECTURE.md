@@ -34,20 +34,22 @@ query, the chosen screen and the notice queue. The visual layer reads it.
 
 ## Surfaces
 
-The shell has exactly three windows, all `PanelWindow`s on wlr-layer-shell:
+The shell has four windows, all `PanelWindow`s on wlr-layer-shell. Each
+surface is a systems host (Claude) that draws a visual view (Astra):
 
-| Surface | File | Layer, namespace | Focus | Lifecycle |
+| Surface | Host / view | Layer, namespace | Focus | Lifecycle |
 |---|---|---|---|---|
+| Ground | `modules/ground/GroundSurface.qml` / `Ground.qml` | Background, `aerolith-ground` | never | mapped while `ground.enabled` (default on); behind every window, reserves nothing. `ground.enabled: false` leaves the background to another program |
 | Strip | `modules/strip/FlightStrip.qml` | Top, `aerolith-strip` | never | always mapped while `strip.visible`; reserves `exclusiveZone = Theme.stripHeight` on `strip.edge` (top or bottom) |
-| Deck | `modules/deck/Deck.qml` | Overlay, `aerolith-deck` | Exclusive while open | mapped only while a bay is open; one bay at a time, created on open and destroyed on close or switch |
-| Notices | `modules/notices/NoticeColumn.qml` | Overlay, `aerolith-notices` | never | mapped only while there is a notice or popup |
+| Deck | `modules/deck/Deck.qml` / `DeckView.qml` | Overlay, `aerolith-deck` | Exclusive while a bay is requested | mapped while a bay is open, plus at most `deck.exitMs` for an outgoing bay's exit (see contract 6) |
+| Notices | `modules/notices/NoticeColumn.qml` / `NoticeStack.qml` | Overlay, `aerolith-notices` | never | mapped while there is a notice or popup and the Deck is not mapped (the Deck shows the stack then) |
 
-There is no background/wallpaper surface, no lock screen (`Power` calls
-`loginctl lock-session` for an external locker), and no brightness,
-network, Bluetooth or display-configuration service. Each of these needs
-Claude first; see "Systems requests".
+There is no lock screen (`Power` calls `loginctl lock-session` for an
+external locker), and no brightness, network, Bluetooth or
+display-configuration service. Each of these needs Claude first; see
+"Systems requests".
 
-Keep the three namespaces: users' Hyprland `layerrule`s can target them.
+Keep the namespaces: users' Hyprland `layerrule`s can target them.
 
 ## Contracts the visual layer must keep
 
@@ -77,15 +79,27 @@ Keep the three namespaces: users' Hyprland `layerrule`s can target them.
    `Behavior`/`Transition` is gated by `enabled: Theme.animate`.
    `theme.motion` is a user setting: `full`, `reduced` (feedback without
    travel) and `off` (the schema promises that `off` disables **all**
-   transitions; today `HelpBay`'s `list.flick` ignores it). No looping or
+   transitions; `HelpBay` jumps instead of flicking then). No looping or
    ambient animation may run while the shell is idle: one infinite
    `NumberAnimation` on an 8 px item measured 4.25 % of a core and
    188 context switches/s, against 0 % for a static strip.
-6. **Lifecycles limit exit motion.** Closing the Deck unmaps it at once and
-   switching bays destroys the old bay, so exit and cross-bay transitions are
-   impossible today. The notice column unmaps when it is empty, and its JS
-   array models rebuild every card on any change (which also restarts every
-   card's timer). Both need systems changes; ask for them.
+6. **Lifecycles.** The Deck keeps two bay slots (`deck.slotA`, `deck.slotB`,
+   Loaders parented into `DeckView.frameA`/`frameB`). A slot is `current`
+   while its bay is requested and `leaving` for at most `deck.exitMs`
+   (`Theme.normal`, or 0 with motion off or `lowEffects`) after the bay was
+   closed or replaced; `deck.exiting` is true while a closed Deck shows its
+   exit. Animate enter, exit and cross-bay motion from these properties.
+   The moment a bay stops being requested, its `active` property goes false
+   (bays release demand on it), it loses focus, and a closed Deck passes
+   pointer input through and drops keyboard focus; a third change during an
+   exit cuts the oldest exit short. Bays are created fresh on every open.
+   Notices and popups are keyed models (`Ui.notices` records keyed by `id`,
+   `Notifications.popups` are the notification objects), so a card lives as
+   long as its record. Expiry belongs to the services and is fixed when a
+   record arrives; cards have no timers. Clicking a popup calls
+   `Notifications.activate(n)` (its "default" action, else hide);
+   clicking a notice calls `Ui.dismiss(id)`. While the Deck is mapped the
+   notice column unmaps and `DeckView` must show a `NoticeStack`.
 7. **Rendering limits.** Tests and screenshots use `QT_QUICK_BACKEND=software`
    on headless sway with the pixman renderer. Measured: `MultiEffect` (blur,
    shadow, colourisation), `RectangularShadow`, `ShaderEffect`, and Qt5Compat
@@ -123,15 +137,18 @@ Keep the three namespaces: users' Hyprland `layerrule`s can target them.
     model output must render with `textFormat: Text.PlainText`. Today several
     places use the default `AutoText`, which interprets HTML: `StatusLine`,
     `Annunciator` (media title, screencast owner), `FlightStrip` (active
-    class), `NoticeColumn` (summary, body), `ResultRow` subtitle, `Sector`
-    and `SpatialNavigator`, `StreamRow`, `DeviceRow`, and `AiConsole`
-    proposal rows. Fix these as you restyle them. The only allowed rich text
+    class), `ResultRow` subtitle, `Sector` and `SpatialNavigator`,
+    `StreamRow`, `DeviceRow`, and `AiConsole` proposal rows (`NoticeStack`
+    is already fixed). Fix these as you restyle them. The only allowed rich text
     is `Fuzzy.highlightMarkup`, which escapes its input.
 13. **Demand-driven work.** Visuals must not add their own sampling or
-    timers. `SystemsBay` acquires telemetry demand in `onCompleted` and
-    releases it in `onDestruction`; the scenarios assert 1000 ms sampling
-    while open and 5000 ms after close. `SignalRack` sets `Audio.detailed`
-    (a plain bool, not reference-counted yet). `Trace` is a `Canvas` that
+    timers. `SystemsBay` holds telemetry demand while its `active` property
+    is true; the scenarios assert 1000 ms sampling while open and 5000 ms
+    right after close. `SignalRack` holds audio detail the same way
+    (`Audio.acquireDetail`/`releaseDetail`, reference counted, so other
+    views may show device or stream volumes too). `Audio.volumeKnown` is
+    false while the default sink's volume is unknown: show N/A then.
+    `Ground` must stay static between events. `Trace` is a `Canvas` that
     repaints only when its `seq` changes while visible. `ScreencopyView`
     thumbnails are opt-in, `live: false`, one `captureFrame()` per tile.
     The strip's clock has minute precision unless `strip.showSeconds`.
@@ -182,23 +199,22 @@ These are known gaps the brief may need. Astra decides whether the design
 needs them; Claude builds them. Record requests in `.ai_sync_hub.json`
 (`publish --type note` or a `blocked` event) and in your design document.
 
-- A background-layer surface for the idle desktop (wallpaper and anything
-  drawn behind windows).
+Done: the background-layer surface (`Ground`), Deck exit and cross-bay
+lifetimes, keyed notices with a defined order above the Deck,
+reference-counted audio detail, notification actions
+(`Notifications.invokeAction`, `activate`, command `notifications.action`)
+and quiet results (a command that already gave feedback returns
+`{quiet: true}` and is not reported again).
+
+Still open:
+
 - A lock screen (`WlSessionLock` with PAM authentication) and session
   transitions.
 - Brightness (backlight), network, Bluetooth and display-configuration
   services, and a volume/brightness OSD surface.
-- Deck exit and cross-bay transitions: delay the unmap and bay destruction
-  until an exit animation ends, without keeping telemetry or audio demand
-  alive.
-- Keyed notice models so cards can enter and leave individually, and a
-  defined stacking order between the Deck and notices.
-- Reference-counted `Audio.detailed` before any second surface shows device
-  or stream volumes.
 - Hyprland `layerrule`s from the installer: blur behind a surface, or
   disabling Hyprland's own layer animations (which otherwise stack with
   in-shell motion and ignore `theme.motion`).
-- Notification actions (advertised today but not invocable).
 - New config keys or renamed palette roles (schema change and migration).
 
 ## Seeing your work
@@ -250,6 +266,8 @@ node tests/js/run-node.mjs                     # unit tests in Node
 docker run --rm -v "$PWD:/src:ro" aerolith-dev bash -c \
   'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'
 python3 -m pytest -q tests/py                  # installer and AI bridge
+AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/deck       # Deck lifecycle, notices
+CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/notify.sh build/notify
 AUDIO=1 MEDIA=1 tools/headless/run.sh tests/scenarios/perf.sh build/perf  # CPU, RSS per state
 ```
 

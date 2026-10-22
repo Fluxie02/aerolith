@@ -17,8 +17,23 @@ FocusScope {
     property string statusText: ""
     property string statusState: ""
 
-    Component.onCompleted: Audio.detailed = true
-    Component.onDestruction: Audio.detailed = false
+    // The Deck sets `active` false as soon as this bay stops being requested
+    // (its pixels may stay briefly for an exit transition); detail demand
+    // follows `active`, so closing releases it at once.
+    property bool active: true
+    property bool holding: false
+    function hold(on) {
+        if (on === holding)
+            return;
+        holding = on;
+        if (on)
+            Audio.acquireDetail();
+        else
+            Audio.releaseDetail();
+    }
+    onActiveChanged: hold(active)
+    Component.onCompleted: hold(active)
+    Component.onDestruction: hold(false)
 
     // Flat list of selectable rows across sections.
     readonly property var rows: {

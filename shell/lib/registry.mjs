@@ -48,6 +48,8 @@ export function result(ok, message, extra) {
     if (extra.data !== undefined) r.data = extra.data;
     if (extra.undo !== undefined) r.undo = extra.undo;
     if (extra.needsConfirmation) r.needsConfirmation = true;
+    // The command already showed its own feedback; do not report it again.
+    if (extra.quiet) r.quiet = true;
   }
   return r;
 }

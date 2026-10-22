@@ -7,22 +7,34 @@ import qs.services
 import "../../lib/telemetry.mjs" as T
 
 // SYS-03 · Systems Bay: live telemetry. Opening the bay raises sampling
-// demand; closing it (the bay is unloaded) drops it back, so nothing here
-// costs anything while hidden.
+// demand; closing it drops it back, so nothing here costs anything while
+// hidden.
 FocusScope {
     id: bay
 
     readonly property var cfg: Config.telemetry
     readonly property int seq: Telemetry.sampleSeq
 
-    Component.onCompleted: {
-        Telemetry.acquire("panel");
-        Telemetry.acquire("detail");
+    // The Deck sets `active` false as soon as this bay stops being requested
+    // (its pixels may stay briefly for an exit transition); sampling demand
+    // follows `active`, so closing drops back to idle sampling at once.
+    property bool active: true
+    property bool holding: false
+    function hold(on) {
+        if (on === holding)
+            return;
+        holding = on;
+        if (on) {
+            Telemetry.acquire("panel");
+            Telemetry.acquire("detail");
+        } else {
+            Telemetry.release("panel");
+            Telemetry.release("detail");
+        }
     }
-    Component.onDestruction: {
-        Telemetry.release("panel");
-        Telemetry.release("detail");
-    }
+    onActiveChanged: hold(active)
+    Component.onCompleted: hold(active)
+    Component.onDestruction: hold(false)
 
     Keys.onPressed: event => {
         if (event.key === Qt.Key_C) {

@@ -106,6 +106,12 @@ export default suite("registry", (test) => {
     });
   });
 
+  test("quiet results keep their flag; ordinary results do not get one", (assert) => {
+    assert.equal(ok("Notice shown", { quiet: true }).quiet, true);
+    assert.equal(ok("Volume 40%").quiet, undefined);
+    assert.equal(fail("No audio server", { detail: "x" }).quiet, undefined);
+  });
+
   test("sensitive commands need explicit confirmation", (assert) => {
     const state = { audio: true };
     const reg = volumeRegistry(state);

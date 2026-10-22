@@ -257,7 +257,9 @@ Singleton {
             routine: true,
             run: args => {
                 Ui.notify(args.message, "info");
-                return Registry.ok("Notice shown");
+                return Registry.ok("Notice shown", {
+                    quiet: true
+                });
             }
         });
         Registry.register({
