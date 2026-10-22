@@ -35,7 +35,42 @@
     "astra_to_claude_requests": [],
     "claude_to_astra_responses": []
   },
-  "events": [],
-  "changed_files_since_last_completion": [],
-  "last_agent_event": null
+  "events": [
+    {
+      "id": "3982c259-383d-4e98-b1e4-f938c1ab8c29",
+      "type": "note",
+      "agent": "Claude",
+      "files": [
+        ".mcp.json",
+        ".claude/settings.json",
+        ".claude/hooks/session-start.sh",
+        "CLAUDE.md"
+      ],
+      "summary": "Cloud setup: session-start hook, codex-bridge MCP config, Codex plugin, and a CLAUDE.md rule to delegate visual work to Astra.",
+      "notes": "Hook tested from clean build (exit 0, ~3s); bridge launches via .mcp.json paths and reports Codex logged in; agent-sync tests 17 passed. Codex login must be redone per new container.",
+      "task_id": "INFRA-001",
+      "timestamp": "2026-10-22T11:29:36+00:00"
+    }
+  ],
+  "changed_files_since_last_completion": [
+    ".claude/hooks/session-start.sh",
+    ".claude/settings.json",
+    ".mcp.json",
+    "CLAUDE.md"
+  ],
+  "last_agent_event": {
+    "agent": "Claude",
+    "type": "note",
+    "files": [
+      ".mcp.json",
+      ".claude/settings.json",
+      ".claude/hooks/session-start.sh",
+      "CLAUDE.md"
+    ],
+    "summary": "Cloud setup: session-start hook, codex-bridge MCP config, Codex plugin, and a CLAUDE.md rule to delegate visual work to Astra.",
+    "notes": "Hook tested from clean build (exit 0, ~3s); bridge launches via .mcp.json paths and reports Codex logged in; agent-sync tests 17 passed. Codex login must be redone per new container.",
+    "task_id": "INFRA-001",
+    "timestamp": "2026-10-22T11:29:36+00:00"
+  },
+  "updated_at": "2026-10-22T11:29:36+00:00"
 }

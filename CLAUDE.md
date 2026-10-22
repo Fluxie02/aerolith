@@ -11,6 +11,21 @@ You are **Claude (Claude Code)**. Use `--agent Claude` in every sync command.
 - **Claude (Claude Code)** owns the systems side: Hyprland/Wayland IPC, async
   events, process lifecycle, resource safety, build reliability and performance.
 
+## Delegating to Astra
+
+Do not do Astra's work yourself. For design tokens, layout, spacing,
+typography, colour, effects or animation, delegate to Astra with the
+`codex_design_task` tool from the `codex-bridge` MCP server (or the Codex
+plugin's `/codex:rescue`), then review the result once. Use
+`codex_review_diff` to have Astra review your changes.
+
+Astra runs on the Codex CLI and needs a ChatGPT login in each new cloud
+container. If `codex_status` reports it is not logged in, run
+`codex login --device-auth` in the background and give the user the link
+and one-time code; never store or ask for Codex tokens. If Astra cannot be
+reached, tell the user and leave the visual work undone rather than
+doing it yourself.
+
 ## Quick commands
 
 ```bash

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "codex-bridge": {
+      "command": "node",
+      "args": ["codex-mcp-bridge/dist/index.js"],
+      "env": {
+        "CODEX_MCP_REPO": ".",
+        "CODEX_MCP_TIMEOUT_MS": "600000"
+      }
+    }
+  }
+}
