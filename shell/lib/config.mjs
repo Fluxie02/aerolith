@@ -119,7 +119,7 @@ export const SCHEMA = S.obj(
     ),
     routines: S.obj(
       {
-        allowCommandSteps: S.bool(false, "Allow routines to run arbitrary programs ('exec' steps). Each run still asks for confirmation."),
+        allowCommandSteps: S.bool(false, "Allow routines to run programs with 'shell.exec' steps (argument list, no shell). Each run still asks for confirmation."),
       },
       "Routine engine safety settings. Routines themselves live in routines.json.",
     ),
@@ -280,7 +280,7 @@ export function validateConfig(text) {
     raw = JSON.parse(String(text));
   } catch (e) {
     errors.push({ path: "(file)", message: "invalid JSON: " + e.message + "; running with defaults" });
-    return { config: defaultsOf(SCHEMA), errors: errors, warnings: warnings, notes: [], migrated: false };
+    return { config: defaultsOf(SCHEMA), errors: errors, warnings: warnings, notes: [], migrated: false, invalidJson: true };
   }
   let notes = [];
   let migrated = false;

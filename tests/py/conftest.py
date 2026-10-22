@@ -43,6 +43,7 @@ def home(tmp_path, monkeypatch):
     monkeypatch.setenv("XDG_DATA_HOME", str(h / ".local" / "share"))
     monkeypatch.delenv("AEROLITH_CONFIG_DIR", raising=False)
     monkeypatch.delenv("HYPRLAND_INSTANCE_SIGNATURE", raising=False)
+    monkeypatch.delenv("AEROLITH_SYSTEM_ROOT", raising=False)
     # Only our fakes plus the basics: no real provider can be reached.
     monkeypatch.setenv("PATH", f"{bindir}:/usr/bin:/bin")
     return h

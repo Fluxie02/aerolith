@@ -38,12 +38,20 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if [ "${HYPR_MOCK:-1}" = 1 ]; then
+# start_mock / start_audio are also used by scenarios that restart them.
+start_mock() {
   read -ra mock_args <<<"${HYPR_MOCK_ARGS:-}"
-  python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --seed --log "$OUT/hypr-requests.jsonl" "${mock_args[@]}" >"$OUT/mock.log" 2>&1 &
+  python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --seed --log "$OUT/hypr-requests.jsonl" "${mock_args[@]}" >>"$OUT/mock.log" 2>&1 &
   PIDS+=($!)
   export HYPRLAND_INSTANCE_SIGNATURE=aerolith_mock
-  for _ in $(seq 50); do [ -S "$XDG_RUNTIME_DIR/hypr/aerolith_mock/.socket.sock" ] && break; sleep 0.1; done
+  # Ready when it answers (socket files from a previous run may still exist).
+  for _ in $(seq 50); do
+    python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --control '{"op":"state"}' >/dev/null 2>&1 && break
+    sleep 0.1
+  done
+}
+if [ "${HYPR_MOCK:-1}" = 1 ]; then
+  start_mock
 fi
 
 printf 'output HEADLESS-1 resolution %s scale %s\n' "$RES" "$SCALE" >"$OUT/sway.conf"
@@ -63,11 +71,11 @@ SWAYSOCK=
 for sock in "$XDG_RUNTIME_DIR"/sway-ipc.*.sock; do [ -S "$sock" ] && SWAYSOCK=$sock && break; done
 export SWAYSOCK
 
-if [ "${AUDIO:-0}" = 1 ]; then
-  PIPEWIRE_DEBUG="${PIPEWIRE_DEBUG:-2}" pipewire >"$OUT/pipewire.log" 2>&1 &
+start_audio() {
+  PIPEWIRE_DEBUG="${PIPEWIRE_DEBUG:-2}" pipewire >>"$OUT/pipewire.log" 2>&1 &
   PIDS+=($!)
   for _ in $(seq 50); do [ -S "$XDG_RUNTIME_DIR/pipewire-0" ] && break; sleep 0.1; done
-  WIREPLUMBER_DEBUG="${WIREPLUMBER_DEBUG:-W}" wireplumber >"$OUT/wireplumber.log" 2>&1 &
+  WIREPLUMBER_DEBUG="${WIREPLUMBER_DEBUG:-W}" wireplumber >>"$OUT/wireplumber.log" 2>&1 &
   PIDS+=($!)
   # WirePlumber loads its policy components asynchronously; nodes created
   # before that finishes are not picked up as default candidates. A fixed
@@ -77,6 +85,9 @@ if [ "${AUDIO:-0}" = 1 ]; then
   pw-cli create-node adapter '{ factory.name=support.null-audio-sink node.name=aerolith-headphones node.description="Test Headphones" media.class=Audio/Sink object.linger=true audio.position=[FL FR] }' >/dev/null
   pw-cli create-node adapter '{ factory.name=support.null-audio-sink node.name=aerolith-mic node.description="Test Microphone" media.class=Audio/Source object.linger=true audio.position=[MONO] }' >/dev/null
   sleep 1
+}
+if [ "${AUDIO:-0}" = 1 ]; then
+  start_audio
 fi
 
 if [ "${MEDIA:-0}" = 1 ]; then
@@ -106,7 +117,8 @@ if [ "${AI:-0}" = 1 ]; then
   printf '{"schemaVersion":1,"provider":"%s","enabled":true,"timeoutSeconds":20}\n' "${AI_PROVIDER:-claude}" >"$XDG_CONFIG_HOME/aerolith/ai.json"
 fi
 # INSTALL="<installer flags>": install AEROLITH from the checkout with the
-# real installer into this user's home (seeded with a minimal hyprland.lua)
+# real installer (or, with PACKAGED=1, set up the pacman-installed tree with
+# /usr/bin/aerolith) into this user's home (seeded with a minimal hyprland.lua)
 # and run the shell from the installed location. Fake provider CLIs are put
 # on PATH first so an AI choice finds a "Claude" or "Codex" without network.
 if [ -n "${INSTALL:-}" ]; then
@@ -116,9 +128,16 @@ if [ -n "${INSTALL:-}" ]; then
   printf -- '-- test hyprland.lua\nhl.config({ general = { gaps_in = 4 } })\n' >"$XDG_CONFIG_HOME/hypr/hyprland.lua"
   cp "$XDG_CONFIG_HOME/hypr/hyprland.lua" "$OUT/hyprland.lua.orig"
   read -ra install_args <<<"$INSTALL"
-  sh "$SRC/install.sh" "${install_args[@]}" --yes --no-start </dev/null >"$OUT/install.log" 2>&1 || {
+  if [ "${PACKAGED:-0}" = 1 ]; then
+    # Arch packages already installed by run.sh: per-user setup only.
+    installer=(/usr/bin/aerolith install)
+    SHELL_DIR=/usr/share/aerolith/shell
+  else
+    installer=(sh "$SRC/install.sh")
+    SHELL_DIR="$HOME/.local/share/aerolith/shell"
+  fi
+  "${installer[@]}" "${install_args[@]}" --yes --no-start </dev/null >"$OUT/install.log" 2>&1 || {
     echo "FAIL: installer exited $?"; cat "$OUT/install.log"; exit 1; }
-  SHELL_DIR="$HOME/.local/share/aerolith/shell"
 fi
 export SHELL_DIR
 qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &

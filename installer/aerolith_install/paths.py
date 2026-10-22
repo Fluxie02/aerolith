@@ -1,4 +1,13 @@
-"""Filesystem layout for a per-user installation."""
+"""Filesystem layout.
+
+Two modes:
+- user: installed from a source checkout with install.sh; the shell is
+  copied to ~/.local/share/aerolith/shell and AEROLITH owns every file.
+- system: the shell comes from the Arch package (/usr/share/aerolith, owned
+  by pacman, marked by a PACKAGED file). `aerolith install` then only writes
+  this user's files (config, Hyprland fragment, ai.json) and never touches
+  the packaged tree.
+"""
 
 from __future__ import annotations
 
@@ -12,6 +21,9 @@ def _xdg(var: str, default: str) -> Path:
     return Path(v) if v and os.path.isabs(v) else Path(os.path.expanduser(default))
 
 
+PACKAGED_MARKER = "PACKAGED"
+
+
 @dataclass(frozen=True)
 class Layout:
     home: Path
@@ -21,10 +33,15 @@ class Layout:
     bindir: Path  # ~/.local/bin
     hypr: Path  # ~/.config/hypr
     systemd_user: Path  # ~/.config/systemd/user
+    system: Path | None = None  # packaged tree (/usr/share/aerolith) in system mode
+
+    @property
+    def mode(self) -> str:
+        return "system" if self.system else "user"
 
     @property
     def shell(self) -> Path:
-        return self.data / "shell"
+        return (self.system or self.data) / "shell"
 
     @property
     def ai_module(self) -> Path:
@@ -67,6 +84,18 @@ class Layout:
         return self.systemd_user / "aerolith.service"
 
 
+def system_root() -> Path | None:
+    """The pacman-installed tree, when this code runs from one.
+
+    AEROLITH_SYSTEM_ROOT overrides the location (tests, other prefixes); the
+    tree must still carry the PACKAGED marker."""
+    override = os.environ.get("AEROLITH_SYSTEM_ROOT")
+    root = Path(override) if override else Path(__file__).resolve().parents[2]
+    if (root / PACKAGED_MARKER).is_file() and (root / "shell" / "shell.qml").is_file():
+        return root
+    return None
+
+
 def layout() -> Layout:
     home = Path(os.path.expanduser("~"))
     data_home = _xdg("XDG_DATA_HOME", "~/.local/share")
@@ -80,6 +109,7 @@ def layout() -> Layout:
         bindir=home / ".local" / "bin",
         hypr=config_home / "hypr",
         systemd_user=config_home / "systemd" / "user",
+        system=system_root(),
     )
 
 

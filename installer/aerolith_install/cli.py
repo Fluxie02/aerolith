@@ -104,15 +104,37 @@ def import_ai_config(lay: Layout, src: Path | None):
 
 def load_manifest(lay: Layout) -> Manifest | None:
     try:
-        return Manifest.load(lay.manifest)
+        m = Manifest.load(lay.manifest)
     except ValueError as exc:
         raise Abort(str(exc)) from None
+    if m is not None and m.mode != lay.mode:
+        if m.mode == "user":
+            raise Abort(
+                "AEROLITH is installed for this user from a source checkout; manage it with ~/.local/bin/aerolith, "
+                "or remove it with `~/.local/bin/aerolith uninstall` before setting up the packaged version"
+            )
+        raise Abort(
+            "AEROLITH is set up for this user from the system package; manage it with /usr/bin/aerolith, "
+            "or run `/usr/bin/aerolith uninstall` before installing from a checkout"
+        )
+    return m
 
 
-def shell_running(lay: Layout) -> bool:
+def _own_pids():
+    """PIDs of this user's processes (a packaged shell path is shared by all users)."""
+    uid = os.getuid()
     for pid in os.listdir("/proc"):
         if not pid.isdigit():
             continue
+        try:
+            if os.stat(f"/proc/{pid}").st_uid == uid:
+                yield pid
+        except OSError:
+            continue
+
+
+def shell_running(lay: Layout) -> bool:
+    for pid in _own_pids():
         try:
             cmd = Path(f"/proc/{pid}/cmdline").read_bytes().split(b"\0")
         except OSError:
@@ -126,8 +148,8 @@ def kill_bridge_processes(lay: Layout) -> int:
     """SIGTERM AEROLITH's own AI bridge processes (matched by path)."""
     target = str(lay.ai_module / "bridge").encode()
     n = 0
-    for pid in os.listdir("/proc"):
-        if not pid.isdigit() or int(pid) == os.getpid():
+    for pid in _own_pids():
+        if int(pid) == os.getpid():
             continue
         try:
             if target in Path(f"/proc/{pid}/cmdline").read_bytes():
@@ -205,9 +227,18 @@ WantedBy=graphical-session.target
 
 def plan_ai(args: argparse.Namespace, ui: Ui, lay: Layout, src: Path, manifest: Manifest, plan: Plan, choice: str) -> None:
     """Add the AI part of an install/switch to the plan."""
-    bridge_src = ai_bridge_source(src, lay)
-    if bridge_src is None:
-        raise Abort("AI Bridge sources not found (ai-bridge/); cannot install an AI provider from here")
+    if lay.system:
+        # The module is the aerolith-ai-bridge package's; only ai.json is ours.
+        bridge_src = None
+        if not (lay.ai_module / "AiModule.qml").is_file():
+            raise Abort(
+                "the AI Bridge is a separate package: build and install aerolith-ai-bridge (packaging/arch, "
+                "`makepkg`), then run this again. Nothing was changed"
+            )
+    else:
+        bridge_src = ai_bridge_source(src, lay)
+        if bridge_src is None:
+            raise Abort("AI Bridge sources not found (ai-bridge/); cannot install an AI provider from here")
     aicfg = import_ai_config(lay, src)
     data: dict = {"schemaVersion": 1, "provider": choice, "enabled": True, "timeoutSeconds": 90}
 
@@ -273,7 +304,10 @@ def plan_ai(args: argparse.Namespace, ui: Ui, lay: Layout, src: Path, manifest: 
         manifest.record_file(lay.ai_file, "ai", "config")
         manifest.ai_provider = choice
 
-    plan.add(f"install the AI Bridge module to {tilde(lay.ai_module)}", install_module)
+    if lay.system:
+        plan.add(f"use the AI Bridge from the aerolith-ai-bridge package ({lay.ai_module})")
+    else:
+        plan.add(f"install the AI Bridge module to {tilde(lay.ai_module)}", install_module)
     if keep_existing:
         plan.add(f"keep your existing {tilde(lay.ai_file)}")
     else:
@@ -358,8 +392,11 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     manifest = existing or Manifest(aerolith_version=__version__, source=str(src))
     manifest.aerolith_version = __version__
     manifest.source = str(src)
+    manifest.mode = lay.mode
 
     ui.title(f"AEROLITH {__version__} · install for {os.environ.get('USER', 'this user')}")
+    if lay.system:
+        ui.info(f"using the packaged shell in {lay.shell} (owned by pacman; only your own files are written)")
     if existing:
         ui.info(f"existing installation found (AI: {existing.ai_provider}); this updates it")
 
@@ -438,8 +475,11 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     # Core files go after any dependency installation, before the AI module
     # (which lives inside the shell directory).
     pos = 1 if missing else 0
-    plan.lines.insert(pos, f"copy the shell to {tilde(lay.shell)} and the `aerolith` tool to {tilde(lay.launcher)}")
-    plan.actions.insert(pos, ("core", install_core))
+    if lay.system:
+        plan.lines.insert(pos, f"run the shell from {lay.shell} (the aerolith package; `pacman -Syu` updates it)")
+    else:
+        plan.lines.insert(pos, f"copy the shell to {tilde(lay.shell)} and the `aerolith` tool to {tilde(lay.launcher)}")
+        plan.actions.insert(pos, ("core", install_core))
     if lay.config_file.exists():
         plan.add(f"keep your existing {tilde(lay.config_file)} unchanged")
     else:
@@ -500,7 +540,7 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
 
     # 8. next steps
     ui.title("Done")
-    if str(lay.bindir) not in os.environ.get("PATH", "").split(":"):
+    if not lay.system and str(lay.bindir) not in os.environ.get("PATH", "").split(":"):
         ui.warn(f"{tilde(lay.bindir)} is not on your PATH; run {tilde(lay.launcher)} directly or add it")
     ui.say(f"  Start now:        aerolith run   (or: qs -p {tilde(lay.shell)})")
     ui.say("  Status:           aerolith status · aerolith doctor")
@@ -602,6 +642,11 @@ def ai_remove(lay: Layout, manifest: Manifest, ui: Ui, *, remove_provider: bool 
         for r in retained:
             ui.info("kept " + r)
         ui.info("kept ~/.claude, ~/.claude.json and ~/.codex (owned by those tools)")
+        if lay.system and (lay.ai_module / "AiModule.qml").is_file():
+            ui.info(
+                f"the AI Bridge files in {lay.ai_module} belong to the aerolith-ai-bridge package and stay inactive "
+                "without your ai.json; to remove them for every user: sudo pacman -R aerolith-ai-bridge"
+            )
         ui.ok("the shell keeps working; AI commands disappear immediately")
     return rep
 
@@ -674,7 +719,11 @@ def cmd_uninstall(args: argparse.Namespace, ui: Ui) -> int:
         # Backups of edited files and the shell's command history are user
         # data: report them, never delete them.
         ui.info(f"kept {tilde(lay.state)} (backups of files AEROLITH edited, command history); delete it yourself when you no longer need it")
-    ui.ok("AEROLITH has been uninstalled. No reboot is needed; restart Hyprland or reload its config to drop the binds.")
+    if lay.system:
+        ui.info(f"the packaged files in {lay.system} are pacman's; remove them with: sudo pacman -R aerolith (and aerolith-ai-bridge)")
+        ui.ok("AEROLITH has been removed for this user. No reboot is needed; restart Hyprland or reload its config to drop the binds.")
+    else:
+        ui.ok("AEROLITH has been uninstalled. No reboot is needed; restart Hyprland or reload its config to drop the binds.")
     return 0
 
 
@@ -730,7 +779,7 @@ def cmd_ai(args: argparse.Namespace, ui: Ui) -> int:
         src = Path(manifest.source) if manifest.source else None
         if args.source:
             src = Path(args.source).resolve()
-        if src is None or ai_bridge_source(src, lay) is None:
+        if not lay.system and (src is None or ai_bridge_source(src, lay) is None):
             raise Abort("AI Bridge sources not found; pass --source <aerolith checkout>")
         choice = ui.choose("Choose an AI provider:", [c for c in AI_CHOICES if c[0] != "none"], args.ai)
         plan = Plan()
@@ -762,6 +811,7 @@ def cmd_status(args: argparse.Namespace, ui: Ui) -> int:
     manifest = load_manifest(lay)
     info = {
         "installed": manifest is not None,
+        "mode": lay.mode,
         "shell": str(lay.shell),
         "running": shell_running(lay),
         "ai_provider": manifest.ai_provider if manifest else None,

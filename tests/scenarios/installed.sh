@@ -1,25 +1,37 @@
 # shellcheck shell=bash
 # Installer integration scenario. Run with
 #   INSTALL="--ai claude --startup hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
-# session.sh has already run the real installer (install.sh) into a fresh home
-# with a minimal hyprland.lua, and started the shell from the installed tree.
+# or, against the Arch packages (built by tools/package/build.sh):
+#   PKGS=build/packages INSTALL="--ai claude --startup hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
+# session.sh has already run the real installer (install.sh, or
+# /usr/bin/aerolith for packages) into a fresh home with a minimal
+# hyprland.lua, and started the shell from the installed tree.
 # Verifies: installed layout and Hyprland fragment, the AI path through the
 # installed bridge, `aerolith ai remove` while the shell runs, and a full
 # uninstall that restores hyprland.lua byte for byte and keeps the
 # independently installed provider CLI.
 fail() { echo "FAIL: $*"; exit 1; }
-aerolith() { "$HOME/.local/bin/aerolith" "$@"; }
 hypr="$XDG_CONFIG_HOME/hypr"
+if [ "${PACKAGED:-0}" = 1 ]; then
+  aerolith() { /usr/bin/aerolith "$@"; }
+  expect_shell=/usr/share/aerolith/shell mode=system
+  pkg_sum() { find /usr/share/aerolith -type f -exec sha256sum {} + | sort | sha256sum; }
+  pkg_before=$(pkg_sum)
+else
+  aerolith() { "$HOME/.local/bin/aerolith" "$@"; }
+  expect_shell=$HOME/.local/share/aerolith/shell mode=user
+fi
 sleep 3
 
-[ "$SHELL_DIR" = "$HOME/.local/share/aerolith/shell" ] || fail "not running the installed shell"
+[ "$SHELL_DIR" = "$expect_shell" ] || fail "not running the installed shell"
 [ -f "$XDG_STATE_HOME/aerolith/manifest.json" ] || fail "no manifest"
+grep -qF -- "-p '$expect_shell'" "$hypr/aerolith/aerolith.lua" || fail "autostart does not run $expect_shell"
 grep -q 'pcall(require, "aerolith/aerolith")' "$hypr/hyprland.lua" || fail "include not added to hyprland.lua"
 cp "$hypr/aerolith/aerolith.lua" "$OUT/fragment.lua"
 luac -p "$hypr/hyprland.lua" "$hypr/aerolith/aerolith.lua" || fail "generated Lua does not parse"
 grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind missing from fragment"
 aerolith status --json >"$OUT/status.json"
-python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["installed"] and s["ai_provider"] == "claude" and s["hyprland_dialect"] == "lua", s' "$OUT/status.json" \
+python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["installed"] and s["mode"] == sys.argv[2] and s["ai_provider"] == "claude" and s["hyprland_dialect"] == "lua", s' "$OUT/status.json" "$mode" \
   || fail "status: $(cat "$OUT/status.json")"
 aerolith doctor >"$OUT/doctor.log" 2>&1 || true
 python3 -c 'import json,sys; s=json.loads(sys.argv[1]); assert s["ai"] is True, s' "$(ipc status)" || fail "AI commands not registered"
@@ -36,7 +48,12 @@ key Escape; ipc close; sleep 0.5
 aerolith --yes ai remove >"$OUT/ai-remove.log" 2>&1 || fail "ai remove exited $?"
 sleep 2
 python3 -c 'import json,sys; s=json.loads(sys.argv[1]); assert s["ai"] is False, s' "$(ipc status)" || fail "AI commands still registered after ai remove"
-[ ! -e "$SHELL_DIR/modules/ai" ] || fail "AI module left behind: $(find "$SHELL_DIR/modules/ai")"
+if [ "$mode" = system ]; then
+  [ -f "$SHELL_DIR/modules/ai/AiModule.qml" ] || fail "ai remove touched the aerolith-ai-bridge package"
+  grep -q "sudo pacman -R aerolith-ai-bridge" "$OUT/ai-remove.log" || fail "ai remove did not explain the package"
+else
+  [ ! -e "$SHELL_DIR/modules/ai" ] || fail "AI module left behind: $(find "$SHELL_DIR/modules/ai")"
+fi
 [ ! -e "$XDG_CONFIG_HOME/aerolith/ai.json" ] || fail "ai.json left behind"
 ! grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind still in fragment"
 [ -x "$HOME/.local/bin/claude" ] || fail "independently installed provider CLI was removed"
@@ -48,8 +65,12 @@ aerolith --yes uninstall --remove-config >"$OUT/uninstall.log" 2>&1 || fail "uni
 same() { [ "$(sha256sum <"$1")" = "$(sha256sum <"$2")" ]; }
 same "$hypr/hyprland.lua" "$OUT/hyprland.lua.orig" || fail "hyprland.lua not restored exactly"
 [ ! -e "$HOME/.local/share/aerolith" ] || fail "data left: $(find "$HOME/.local/share/aerolith")"
+if [ "$mode" = system ]; then
+  [ "$(pkg_sum)" = "$pkg_before" ] || fail "the packaged tree changed"
+  pacman -Qkk aerolith aerolith-ai-bridge >"$OUT/pacman-qkk.log" 2>&1 || fail "pacman reports altered package files: $(cat "$OUT/pacman-qkk.log")"
+fi
 [ ! -e "$hypr/aerolith" ] || fail "fragment dir left: $(find "$hypr/aerolith")"
-[ ! -e "$HOME/.local/bin/aerolith" ] || fail "maintenance tool left"
+[ ! -e "$HOME/.local/bin/aerolith" ] || fail "maintenance tool left in ~/.local/bin"
 [ ! -e "$XDG_STATE_HOME/aerolith/manifest.json" ] || fail "manifest left"
 [ -x "$HOME/.local/bin/claude" ] || fail "uninstall removed the provider CLI"
 for _ in $(seq 30); do alive || break; sleep 0.1; done

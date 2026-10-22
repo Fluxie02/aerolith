@@ -472,3 +472,107 @@ def test_prune_removes_bytecode_cache_but_not_user_files(tmp_path):
     assert not owned.exists()
     assert (mixed / "__pycache__" / "notes.txt").read_text() == "mine"
     assert str(mixed) in rep.dirs_kept
+
+
+# --- SYSTEM PACKAGE MODE ------------------------------------------------------------
+# The Arch packages put a read-only tree in /usr/share/aerolith (marked by
+# PACKAGED); `aerolith install` then writes only the user's own files.
+
+_PYC = shutil.ignore_patterns("__pycache__", "*.pyc")
+
+
+@pytest.fixture
+def packaged(tmp_path, monkeypatch):
+    """A tree laid out as packaging/arch/PKGBUILD installs the aerolith package."""
+    root = tmp_path / "usr-share-aerolith"
+    shutil.copytree(ROOT / "shell", root / "shell", ignore=_PYC)
+    shutil.copytree(ROOT / "installer", root / "installer", ignore=_PYC)
+    (root / "PACKAGED").write_text("aerolith 0.1.0\n")
+    monkeypatch.setenv("AEROLITH_SYSTEM_ROOT", str(root))
+    return root
+
+
+def add_ai_package(root: Path) -> None:
+    """What the aerolith-ai-bridge package adds to the tree."""
+    ai = root / "shell" / "modules" / "ai"
+    shutil.copytree(ROOT / "ai-bridge" / "aerolith_ai", ai / "bridge" / "aerolith_ai", ignore=_PYC)
+    shutil.copy2(ROOT / "ai-bridge" / "qml" / "AiModule.qml", ai / "AiModule.qml")
+    shutil.copy2(ROOT / "ai-bridge" / "aerolith-ai-bridge", ai / "bridge" / "aerolith-ai-bridge")
+
+
+def snapshot(root: Path) -> dict[str, str]:
+    from aerolith_install.manifest import sha256
+
+    return {str(p.relative_to(root)): sha256(p) for p in sorted(root.rglob("*")) if p.is_file()}
+
+
+def test_system_mode_none_writes_only_user_files(system, home, packaged):
+    main = lua_main(home)
+    before = snapshot(packaged)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
+    lay = layout()
+    assert lay.mode == "system" and lay.shell == packaged / "shell"
+    assert snapshot(packaged) == before, "the packaged tree is pacman's and must not change"
+    assert not (home / ".local" / "share" / "aerolith").exists(), "no copy of the shell in system mode"
+    assert not (home / ".local" / "bin" / "aerolith").exists(), "the package provides /usr/bin/aerolith"
+    m = Manifest.load(lay.manifest)
+    assert m.mode == "system" and m.ai_provider == "none"
+    assert all(Path(f.path).is_relative_to(home) for f in m.files), [f.path for f in m.files]
+    frag = (lay.hypr_fragment_dir / "aerolith.lua").read_text()
+    assert str(packaged / "shell") in frag, "autostart runs the packaged shell"
+    assert 'pcall(require, "aerolith/aerolith")' in main.read_text()
+    assert not lay.ai_file.exists()
+
+
+def test_system_mode_ai_needs_the_bridge_package(system, home, packaged, fake_claude, capsys):
+    main = lua_main(home)
+    assert run("--yes", "install", "--ai", "claude", "--startup", "hyprland") == 2
+    assert "aerolith-ai-bridge" in capsys.readouterr().err
+    assert main.read_text() == LUA_CONFIG
+    assert not layout().manifest.exists()
+
+
+def test_system_mode_ai_then_remove_keeps_package_files(system, home, packaged, fake_claude, capsys):
+    lua_main(home)
+    add_ai_package(packaged)
+    before = snapshot(packaged)
+    assert run("--yes", "install", "--ai", "claude", "--startup", "hyprland") == 0
+    lay = layout()
+    m = Manifest.load(lay.manifest)
+    assert [f.path for f in m.component_files("ai")] == [str(lay.ai_file)], "only ai.json is the user's"
+    assert json.loads(lay.ai_file.read_text())["provider"] == "claude"
+    assert "aerolith:ai" in (lay.hypr_fragment_dir / "aerolith.lua").read_text()
+    capsys.readouterr()
+    assert run("--yes", "ai", "remove") == 0
+    out = capsys.readouterr().out
+    assert not lay.ai_file.exists()
+    assert snapshot(packaged) == before, "package files untouched by ai remove"
+    assert "sudo pacman -R aerolith-ai-bridge" in out
+    assert "aerolith:ai" not in (lay.hypr_fragment_dir / "aerolith.lua").read_text()
+    assert Manifest.load(lay.manifest).ai_provider == "none"
+
+
+def test_system_mode_uninstall_restores_config_and_leaves_package(system, home, packaged, capsys):
+    main = lua_main(home)
+    before = snapshot(packaged)
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 0
+    svc = layout().service.read_text()
+    assert f"-p {packaged / 'shell'}" in svc
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert main.read_text() == LUA_CONFIG
+    assert snapshot(packaged) == before
+    assert not layout().manifest.exists()
+    assert "sudo pacman -R aerolith" in capsys.readouterr().out
+
+
+def test_user_and_system_installs_are_not_mixed(system, home, tmp_path, monkeypatch, capsys):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    root = tmp_path / "pkg"
+    shutil.copytree(ROOT / "shell", root / "shell", ignore=_PYC)
+    (root / "PACKAGED").write_text("aerolith\n")
+    monkeypatch.setenv("AEROLITH_SYSTEM_ROOT", str(root))
+    capsys.readouterr()
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 2
+    assert "~/.local/bin/aerolith" in capsys.readouterr().err
+    assert (home / ".local" / "share" / "aerolith" / "shell" / "shell.qml").is_file(), "user install untouched"

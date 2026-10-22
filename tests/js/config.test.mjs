@@ -15,6 +15,14 @@ export default suite("config", (test) => {
     assert.equal(r.errors.length, 1);
     assert.match(r.errors[0].message, /invalid JSON/);
     assert.deepEqual(r.config, defaultsOf(SCHEMA));
+    // Flagged so the shell can keep its last good settings instead.
+    assert.equal(r.invalidJson, true);
+  });
+
+  test("only unparsable text is flagged as invalid JSON", (assert) => {
+    assert.ok(!validateConfig(JSON.stringify({ strip: { edge: "left" } })).invalidJson);
+    assert.ok(!validateConfig("").invalidJson);
+    assert.ok(!validateConfig("[1, 2]").invalidJson);
   });
 
   test("a bad value falls back to its default without affecting siblings", (assert) => {

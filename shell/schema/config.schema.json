@@ -309,7 +309,7 @@
       "properties": {
         "allowCommandSteps": {
           "type": "boolean",
-          "description": "Allow routines to run arbitrary programs ('exec' steps). Each run still asks for confirmation.",
+          "description": "Allow routines to run programs with 'shell.exec' steps (argument list, no shell). Each run still asks for confirmation.",
           "default": false
         }
       }

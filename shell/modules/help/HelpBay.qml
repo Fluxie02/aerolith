@@ -25,7 +25,7 @@ FocusScope {
         },
         {
             title: "Deck",
-            keys: [["Ctrl+1…6", "Switch bay"], ["F1", "This help"], ["Esc", "Close"]]
+            keys: [["Ctrl+1…6", "Switch bay"], ["F1", "This help"], ["PgUp / PgDn", "Scroll these keys"], ["Esc", "Close"]]
         },
         {
             title: "Command Core",
@@ -34,6 +34,10 @@ FocusScope {
         {
             title: "Spatial Navigator",
             keys: [["←↑↓→ / hjkl", "Sector"], ["Tab", "Window"], ["1-9", "Go to workspace"], ["M then 1-9", "Move window"], ["X X", "Close window"], ["/", "Filter"]]
+        },
+        {
+            title: "Systems Bay",
+            keys: [["C / M", "Sort processes by CPU / memory"], ["P", "Performance mode (halve sampling)"]]
         },
         {
             title: "Signal Rack",
@@ -51,6 +55,11 @@ FocusScope {
             event.accepted = true;
         } else if (event.key === Qt.Key_Up) {
             list.flick(0, 800);
+            event.accepted = true;
+        } else if (event.key === Qt.Key_PageDown || event.key === Qt.Key_PageUp) {
+            // The key reference can be taller than a small screen.
+            const step = keysView.height * 0.8 * (event.key === Qt.Key_PageDown ? 1 : -1);
+            keysView.contentY = Math.max(0, Math.min(keysView.contentHeight - keysView.height, keysView.contentY + step));
             event.accepted = true;
         } else if (event.key === Qt.Key_Escape && filterInput.text !== "") {
             filterInput.text = "";
@@ -78,6 +87,7 @@ FocusScope {
 
             // Keys
             Flickable {
+                id: keysView
                 Layout.fillWidth: true
                 Layout.preferredWidth: 38
                 Layout.fillHeight: true

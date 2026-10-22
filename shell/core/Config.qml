@@ -33,8 +33,29 @@ Singleton {
 
     signal reloaded
 
+    // The file on disk is not valid JSON (a typo, or an editor half-way
+    // through saving). The last good settings stay in effect meanwhile.
+    property bool fileBroken: false
+    property bool hasGood: false
+
     function apply(text) {
         const r = ConfigLib.validateConfig(text);
+        if (r.invalidJson === true && hasGood) {
+            fileBroken = true;
+            errors = [
+                {
+                    path: "(file)",
+                    message: r.errors[0].message.replace(/; running with defaults$/, "") + "; keeping the previous settings until it is fixed"
+                }
+            ];
+            warnings = [];
+            revision++;
+            Log.warn("config", errors[0].message);
+            return;
+        }
+        fileBroken = r.invalidJson === true;
+        if (!fileBroken)
+            hasGood = true;
         data = r.config;
         errors = r.errors;
         warnings = r.warnings;
@@ -55,6 +76,9 @@ Singleton {
 
     // Validate and persist a single setting. Returns "" or an error message.
     function setValue(path, value) {
+        // Never write over a file the user is in the middle of editing.
+        if (fileBroken)
+            return "the configuration file is not valid JSON; fix it before changing settings from the shell";
         if (Object.keys(raw).length === 0 && errors.length > 0)
             return "configuration file has errors; fix it before changing settings from the shell";
         const r = ConfigLib.setPath(raw, path, value);

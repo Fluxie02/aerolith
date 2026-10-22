@@ -62,6 +62,8 @@ Scope {
                 players: Media.players.length,
                 commands: Registry.api.size(),
                 configErrors: Config.errors.length,
+                configFileBroken: Config.fileBroken,
+                stripEdge: Config.strip.edge,
                 routineErrors: Routines.errors.length,
                 ai: Registry.get("ai.ask") !== null,
                 telemetryIntervalMs: Telemetry.interval,
@@ -84,6 +86,31 @@ Scope {
         }
         function reload(): void {
             Config.reload();
+        }
+        // The command catalogue as JSON (ids, aliases, typed parameters,
+        // flags). Used by tools/gen-commands-doc.py and scripts.
+        function commands(): string {
+            return JSON.stringify(Registry.api.list().map(c => ({
+                        id: c.id,
+                        alias: c.alias || null,
+                        title: c.title,
+                        category: c.category,
+                        description: c.description || "",
+                        source: c.source,
+                        sensitive: c.sensitive === true,
+                        routine: c.routine === true,
+                        aiAllowed: c.aiAllowed !== false && c.sensitive !== true,
+                        params: c.params.map(p => ({
+                                    name: p.name,
+                                    type: p.type,
+                                    required: p.required === true,
+                                    default: p.default === undefined ? null : p.default,
+                                    min: p.min === undefined ? null : p.min,
+                                    max: p.max === undefined ? null : p.max,
+                                    choices: Array.isArray(p.choices) ? p.choices.map(ch => (ch && typeof ch === "object" && "value" in ch) ? ch.value : ch) : (typeof p.choices === "function" ? "dynamic" : null),
+                                    description: p.description || ""
+                                }))
+                    })));
         }
     }
 

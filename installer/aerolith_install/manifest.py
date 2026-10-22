@@ -84,6 +84,7 @@ class Manifest:
     ai_provider: str = "none"
     startup: str = "none"  # hyprland | systemd | manual | none
     hypr_dialect: str = "none"  # lua | hyprlang | none
+    mode: str = "user"  # user | system (see paths.py)
 
     # -- persistence -----------------------------------------------------------
     @classmethod
@@ -104,6 +105,7 @@ class Manifest:
             ai_provider=data.get("ai_provider", "none"),
             startup=data.get("startup", "none"),
             hypr_dialect=data.get("hypr_dialect", "none"),
+            mode=data.get("mode", "user"),
         )
         m.files = [FileEntry(**f) for f in data.get("files", [])]
         m.edits = [EditEntry(**e) for e in data.get("edits", [])]

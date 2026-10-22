@@ -19,6 +19,10 @@ RUN pacman -Syu --noconfirm --needed \
         foot wtype \
     && pacman -Scc --noconfirm
 
+# Package building and testing (packaging/arch/PKGBUILD, makepkg as a user).
+RUN pacman -Syu --noconfirm --needed base-devel git \
+    && pacman -Scc --noconfirm
+
 ENV XDG_RUNTIME_DIR=/run/user/0 \
     QT_QPA_PLATFORM=wayland \
     LIBGL_ALWAYS_SOFTWARE=1

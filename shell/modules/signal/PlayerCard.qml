@@ -15,6 +15,10 @@ Rectangle {
     signal picked
     signal command(string id)
 
+    // Live and endless streams report no length or a meaningless one
+    // (shorter than the position); show the length as unknown then.
+    readonly property bool lengthKnown: player !== null && player.lengthSupported && player.length > 0 && player.position <= player.length + 2
+
     function clock(s) {
         if (!isFinite(s) || s < 0)
             return "--:--";
@@ -85,11 +89,11 @@ Rectangle {
             TapeGauge {
                 Layout.fillWidth: true
                 implicitHeight: Theme.px(10)
-                value: card.player.lengthSupported && card.player.length > 0 ? card.player.position / card.player.length * 100 : NaN
+                value: card.lengthKnown ? card.player.position / card.player.length * 100 : NaN
                 showCaret: false
             }
             Text {
-                text: card.player.lengthSupported ? card.clock(card.player.length) : "--:--"
+                text: card.lengthKnown ? card.clock(card.player.length) : "--:--"
                 color: Theme.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
