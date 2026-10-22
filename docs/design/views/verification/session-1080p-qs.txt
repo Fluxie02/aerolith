@@ -1,0 +1,24 @@
+[32m  INFO[0m: Launching config: "/src/prototypes/views/session/shell.qml"
+[32m  INFO[0m: Shell ID: "a97cc67c5c9c57b20eb1f9ee9528a6dc" Path ID "a97cc67c5c9c57b20eb1f9ee9528a6dc"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/xzwwbnt/log.qslog"
+[32m  INFO[0m: Configuration Loaded
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fec6a0e3180 but 0x0 is focused
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
