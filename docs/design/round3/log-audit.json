@@ -1,0 +1,62 @@
+[
+  {
+    "log": "build/r3/dense-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/dense-deck-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/dense-notify/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/dense-remap/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/dense-small-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/saturated-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/saturated-deck-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/saturated-notify/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/saturated-remap/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/saturated-small-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/insane-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/insane-deck-final/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/insane-notify/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/insane-remap/qs.log",
+    "qml_errors": []
+  },
+  {
+    "log": "build/r3/insane-small-final/qs.log",
+    "qml_errors": []
+  }
+]

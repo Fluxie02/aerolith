@@ -1,0 +1,10 @@
+UI-004: one review of the currently available Claude systems hosts.
+Reviewed shell/modules/deck/Deck.qml, shell/modules/ground/GroundSurface.qml,
+shell/modules/notices/NoticeColumn.qml, shell/core/Ui.qml, plus demand interfaces
+in services/Telemetry.qml and services/Audio.qml.
+No actionable finding in the reviewed snapshot: Deck retire() releases demand
+and focus before bounded exit; slot cancellation is bounded; notice expiry
+is arrival-based; background has no focus or exclusive zone. Presentation uses
+these existing contracts without modifying them.
+Fullscreen unmapping is not yet present in this snapshot and is not reviewed
+as completed work. A real Hyprland/GPU validation remains Claude's integration work.

@@ -1,0 +1,37 @@
+[32m  INFO[0m: Launching config: "/src/prototypes/r3-dense/shell.qml"
+[32m  INFO[0m: Shell ID: "a8265c2fbfe80a27d697e0ee187c044e" Path ID "a8265c2fbfe80a27d697e0ee187c044e"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/b1swgbnt/log.qslog"
+[33m  WARN[0m: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.
+[E][16:10:04.422781] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:10:04.422800] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[33m  WARN[97m quickshell.service.upower[0m: Could not connect to DBus. UPower service will not work.
+[32m  INFO[97m qml[0m: [aerolith:shell] AEROLITH started on HEADLESS-1; Hyprland connected
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[32m  INFO[0m: Configuration Loaded
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7efc1f42bde0 but 0x7efc1f42bde0 has focus
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[32m  INFO[97m qml[0m: [aerolith:ipc] settings.motion: ok: Motion off (saved to config.json)
+[32m  INFO[97m qml[0m: [aerolith:ipc] settings.motion: ok: Motion full (saved to config.json)
+[32m  INFO[97m qml[0m: [aerolith:ipc] shell.notify: ok: Notice shown
+[32m  INFO[97m qml[0m: [aerolith:ipc] shell.notify: ok: Notice shown
+[31m ERROR[97m qml[0m: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3
+[32m  INFO[97m qml[0m: [aerolith:ipc] settings.motion: ok: Motion reduced (saved to config.json)
+[33m  WARN[97m quickshell.service.pipewire.loop[0m: Pipewire error on object 0 with code -32 connection error

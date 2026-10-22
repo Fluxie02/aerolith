@@ -1,0 +1,12 @@
+{
+  "capture_start_ms": [
+    4.5,
+    35.1,
+    70.1,
+    188.3,
+    197.2,
+    198.6
+  ],
+  "interval_ms": 35,
+  "reference": "launch of real open IPC; no slowed animation"
+}
