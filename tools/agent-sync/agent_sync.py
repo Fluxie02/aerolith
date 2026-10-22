@@ -5,8 +5,8 @@ This daemon monitors repository changes and manages an explicit JSON
 blackboard. It does NOT launch cloud agents or guarantee that an agent
 reads a message. Dispatch is an adapter responsibility; see README.md.
 
-Install: python -m pip install watchdog
-Run:     python agent_sync.py
+Install: python -m pip install -r tools/agent-sync/requirements.txt
+Run:     python tools/agent-sync/agent_sync.py watch
 """
 from __future__ import annotations
 
@@ -19,12 +19,24 @@ import tempfile
 import threading
 import time
 import uuid
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from watchdog.events import FileSystemEvent, FileSystemEventHandler
-from watchdog.observers import Observer
+try:
+    import fcntl
+except ImportError:  # Windows: cross-process locking falls back to in-process only
+    fcntl = None
+
+# watchdog is only needed for the watcher; the other commands work without it.
+try:
+    from watchdog.events import FileSystemEvent, FileSystemEventHandler
+    from watchdog.observers import Observer
+except ImportError:
+    FileSystemEvent = Any
+    FileSystemEventHandler = object
+    Observer = None
 
 AGENTS = {"Claude", "Astra"}
 STATES = {
@@ -41,10 +53,13 @@ IGNORE_DIRS = {
 HUB_NAME = ".ai_sync_hub.json"
 EVENT_LOG_NAME = ".ai_sync_events.jsonl"
 LOCKS_NAME = ".ai_sync_locks.json"
+HUB_LOCK_NAME = ".ai_sync_hub.lock"
+# tools/agent-sync/agent_sync.py -> repository root
+DEFAULT_REPO = Path(__file__).resolve().parents[2]
 
 
 def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")  # noqa: UP017 (datetime.UTC needs 3.11)
 
 
 def default_hub() -> dict[str, Any]:
@@ -80,11 +95,31 @@ class Blackboard:
         self.path = repo / HUB_NAME
         self.event_log = repo / EVENT_LOG_NAME
         self.lock_file = repo / LOCKS_NAME
+        self.hub_lock = repo / HUB_LOCK_NAME
         self.mutex = threading.RLock()
-        if not self.path.exists():
-            self._atomic_write(default_hub(), self.path)
-            logging.warning("Created default %s", self.path.name)
+        with self._exclusive():
+            if not self.path.exists():
+                self._atomic_write(default_hub(), self.path)
+                logging.warning("Created default %s", self.path.name)
         self.read()  # fail early if malformed
+
+    @contextmanager
+    def _exclusive(self):
+        """Serialise writers within this process and across processes.
+
+        Claude and Codex each run the CLI as a separate process, so a thread
+        lock alone would let two simultaneous publishes overwrite each other.
+        """
+        with self.mutex:
+            if fcntl is None:
+                yield
+                return
+            with self.hub_lock.open("a") as fh:
+                fcntl.flock(fh.fileno(), fcntl.LOCK_EX)
+                try:
+                    yield
+                finally:
+                    fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
 
     def read(self) -> dict[str, Any]:
         with self.mutex:
@@ -94,9 +129,14 @@ class Blackboard:
                 raise HubError(f"Cannot read valid {HUB_NAME}: {exc}") from exc
             if data.get("system_state") not in STATES:
                 raise HubError(f"Invalid system_state: {data.get('system_state')!r}")
-            data.setdefault("active_file_locks", {"locked_by": "None", "files": [], "locks": []})
-            data["active_file_locks"].setdefault("locks", [])
-            data["active_file_locks"].setdefault("files", [])
+            # Tolerate hand-edited hubs that dropped a section.
+            defaults = default_hub()
+            for key in ("workflow", "active_file_locks", "communication_channel", "audit_logs"):
+                data.setdefault(key, defaults[key])
+                for sub_key, value in defaults[key].items():
+                    data[key].setdefault(sub_key, value)
+            data.setdefault("events", [])
+            data.setdefault("changed_files_since_last_completion", [])
             return data
 
     @staticmethod
@@ -117,7 +157,7 @@ class Blackboard:
                 pass
 
     def update(self, mutator) -> dict[str, Any]:
-        with self.mutex:
+        with self._exclusive():
             data = self.read()
             mutator(data)
             data["updated_at"] = utc_now()
@@ -325,7 +365,7 @@ class RepoHandler(FileSystemEventHandler):
                 continue
             if any(part in IGNORE_DIRS for part in Path(rel).parts):
                 continue
-            if rel in {HUB_NAME, EVENT_LOG_NAME, LOCKS_NAME} or rel.endswith(".tmp"):
+            if rel in {HUB_NAME, EVENT_LOG_NAME, LOCKS_NAME, HUB_LOCK_NAME} or rel.endswith(".tmp"):
                 continue
             now = time.monotonic()
             with self.guard:
@@ -337,14 +377,11 @@ class RepoHandler(FileSystemEventHandler):
                                 "event": event.event_type})
             try:
                 data = self.hub.read()
-                ok, message = self.hub.check_lock("Observer", rel)
-                if not ok:
-                    logging.error("%s", message)
                 locks = data["active_file_locks"].get("locks", [])
-                active = [l for l in locks if l.get("expires_epoch", 0) > time.time()
-                          and rel in l.get("files", [])]
+                active = [lock for lock in locks if lock.get("expires_epoch", 0) > time.time()
+                          and rel in lock.get("files", [])]
                 if active:
-                    owners = sorted({l["agent"] for l in active})
+                    owners = sorted({lock["agent"] for lock in active})
                     logging.warning(
                         "LOCKED FILE CHANGED: %s; active owner(s): %s. "
                         "Watcher cannot undo writes; use the controlled edit/commit gate.",
@@ -354,10 +391,13 @@ class RepoHandler(FileSystemEventHandler):
                 logging.error("Blackboard error while handling event: %s", exc)
 
 
-def cli() -> int:
+def cli(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--repo", default=".", help="Repository root (default: current directory)")
+    parser.add_argument("--repo", default=str(DEFAULT_REPO),
+                        help="Repository root (default: the repository this script lives in)")
     sub = parser.add_subparsers(dest="command")
+
+    sub.add_parser("watch", help="Watch the repository for changes (default when no command is given)")
 
     p_transition = sub.add_parser("transition", help="Set workflow state")
     p_transition.add_argument("state", choices=sorted(STATES))
@@ -390,8 +430,8 @@ def cli() -> int:
     p_check.add_argument("--agent", required=True, choices=sorted(AGENTS))
     p_check.add_argument("--file", required=True)
 
-    p_status = sub.add_parser("status", help="Print current state")
-    args = parser.parse_args()
+    sub.add_parser("status", help="Print current state")
+    args = parser.parse_args(argv)
     repo = Path(args.repo).resolve()
 
     try:
@@ -411,6 +451,8 @@ def cli() -> int:
         elif args.command == "status":
             print(json.dumps(hub.read(), indent=2, ensure_ascii=False))
         else:
+            if Observer is None:
+                raise HubError("The watcher needs watchdog: python -m pip install -r tools/agent-sync/requirements.txt")
             observer = Observer()
             observer.schedule(RepoHandler(repo, hub), str(repo), recursive=True)
             observer.start()

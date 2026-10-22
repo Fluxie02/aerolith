@@ -1,0 +1,7 @@
+# Agent sync runtime files (tools/agent-sync)
+.ai_sync_events.jsonl
+.ai_sync_hub.lock
+.ai_sync_hub.json.*.tmp
+__pycache__/
+.pytest_cache/
+.venv/
