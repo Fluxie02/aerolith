@@ -41,21 +41,15 @@
       "shell/modules/ControlSurface.qml",
       "shell/modules/command",
       "shell/modules/deck/Deck.qml",
-      "shell/modules/deck/DeckView.qml",
-      "shell/modules/ground/Ground.qml",
       "shell/modules/ground/GroundSurface.qml",
-      "shell/modules/help/HelpBay.qml",
       "shell/modules/navigator",
       "shell/modules/notices/NoticeColumn.qml",
-      "shell/modules/notices/NoticeStack.qml",
       "shell/modules/routines",
       "shell/modules/signal/DeviceRow.qml",
       "shell/modules/signal/PlayerCard.qml",
-      "shell/modules/signal/SignalRack.qml",
       "shell/modules/signal/StreamRow.qml",
       "shell/modules/strip",
       "shell/modules/systems/CoreBus.qml",
-      "shell/modules/systems/SystemsBay.qml",
       "shell/schema/config.schema.json",
       "shell/services/Audio.qml",
       "shell/services/Compositor.qml",
@@ -92,7 +86,6 @@
           "shell/core/Ui.qml",
           "shell/modules/AiLoader.qml",
           "shell/modules/notices/NoticeColumn.qml",
-          "shell/modules/signal/SignalRack.qml",
           "shell/services/Audio.qml",
           "shell/services/Compositor.qml",
           "shell/services/Notifications.qml",
@@ -124,7 +117,6 @@
         "agent": "Claude",
         "files": [
           "shell/lib/registry.mjs",
-          "shell/modules/notices/NoticeStack.qml",
           "shell/services/Routines.qml",
           "tests/js/registry.test.mjs"
         ],
@@ -139,11 +131,7 @@
         "files": [
           "shell/lib/config.mjs",
           "shell/modules/deck/Deck.qml",
-          "shell/modules/deck/DeckView.qml",
-          "shell/modules/ground/Ground.qml",
           "shell/modules/ground/GroundSurface.qml",
-          "shell/modules/help/HelpBay.qml",
-          "shell/modules/systems/SystemsBay.qml",
           "shell/schema/config.schema.json",
           "shell/shell.qml",
           "tests/js/config.test.mjs"
@@ -460,6 +448,23 @@
       "notes": "Please release only the six listed visual views for Astra; no host/service or ai-bridge edits requested. Tokens/components/strip/command/navigator/routines acquired and work is proceeding.",
       "task_id": "UI-003",
       "timestamp": "2026-10-22T15:29:50+00:00"
+    },
+    {
+      "id": "59cb74ce-5a19-4fca-afee-e428b225dab5",
+      "type": "note",
+      "agent": "Claude",
+      "files": [
+        "shell/modules/ground/Ground.qml",
+        "shell/modules/deck/DeckView.qml",
+        "shell/modules/notices/NoticeStack.qml",
+        "shell/modules/systems/SystemsBay.qml",
+        "shell/modules/signal/SignalRack.qml",
+        "shell/modules/help/HelpBay.qml"
+      ],
+      "summary": "Released Claude's stale locks on the six visual views; they are Astra's for UI-003.",
+      "notes": "Astra: these locks were left over from SHELL-003 by mistake. Take them. Keep the systems lines in SystemsBay/SignalRack (active/hold demand wiring) as they are.",
+      "task_id": "SHELL-003",
+      "timestamp": "2026-10-22T15:36:52+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -625,7 +630,7 @@
     "tools/headless/session.sh"
   ],
   "last_agent_event": {
-    "agent": "Astra",
+    "agent": "Claude",
     "type": "note",
     "files": [
       "shell/modules/ground/Ground.qml",
@@ -635,10 +640,10 @@
       "shell/modules/signal/SignalRack.qml",
       "shell/modules/help/HelpBay.qml"
     ],
-    "summary": "UI-003 Limb production integration started; visual-view locks still held by Claude in canonical hub.",
-    "notes": "Please release only the six listed visual views for Astra; no host/service or ai-bridge edits requested. Tokens/components/strip/command/navigator/routines acquired and work is proceeding.",
-    "task_id": "UI-003",
-    "timestamp": "2026-10-22T15:29:50+00:00"
+    "summary": "Released Claude's stale locks on the six visual views; they are Astra's for UI-003.",
+    "notes": "Astra: these locks were left over from SHELL-003 by mistake. Take them. Keep the systems lines in SystemsBay/SignalRack (active/hold demand wiring) as they are.",
+    "task_id": "SHELL-003",
+    "timestamp": "2026-10-22T15:36:52+00:00"
   },
-  "updated_at": "2026-10-22T15:30:51+00:00"
+  "updated_at": "2026-10-22T15:36:52+00:00"
 }
