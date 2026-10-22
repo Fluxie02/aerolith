@@ -18,22 +18,38 @@
     "locked_by": "Multiple",
     "files": [
       "DESIGN_BRIEF.md",
+      "ai-bridge/qml/AiModule.qml",
       "build/ui008",
       "docs/design/settings",
       "installer/aerolith_install/cli.py",
+      "shell/components/Annunciator.qml",
+      "shell/components/Bezel.qml",
       "shell/components/InstrumentTabs.qml",
+      "shell/core/Theme.qml",
       "shell/core/Ui.qml",
       "shell/lib/config.mjs",
+      "shell/lib/tokens.mjs",
       "shell/modules/command/CommandCore.qml",
+      "shell/modules/command/ResultRow.qml",
       "shell/modules/deck/Deck.qml",
       "shell/modules/deck/DeckView.qml",
       "shell/modules/help/HelpBay.qml",
+      "shell/modules/lock/LockView.qml",
+      "shell/modules/navigator/Sector.qml",
+      "shell/modules/notices/NoticeStack.qml",
+      "shell/modules/osd/OsdView.qml",
+      "shell/modules/routines/RoutineConsole.qml",
+      "shell/modules/session/SessionView.qml",
       "shell/modules/settings/SettingControl.qml",
       "shell/modules/settings/SettingsBay.qml",
+      "shell/modules/signal/DeviceRow.qml",
+      "shell/modules/signal/PlayerCard.qml",
+      "shell/modules/signal/StreamRow.qml",
       "shell/schema/config.schema.json",
       "shell/services/ShellCommands.qml",
       "tests/js/config.test.mjs",
-      "tests/py/test_installer.py"
+      "tests/py/test_installer.py",
+      "themes"
     ],
     "locks": [
       {
@@ -92,6 +108,32 @@
         "task_id": "UI-008",
         "created_at": "2026-10-22T22:11:02+00:00",
         "expires_epoch": 1792714262.6399968,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "c2961498-0d7b-4d5f-8b59-46102711f7ac",
+        "agent": "Astra",
+        "files": [
+          "ai-bridge/qml/AiModule.qml",
+          "shell/components/Annunciator.qml",
+          "shell/components/Bezel.qml",
+          "shell/core/Theme.qml",
+          "shell/lib/tokens.mjs",
+          "shell/modules/command/ResultRow.qml",
+          "shell/modules/lock/LockView.qml",
+          "shell/modules/navigator/Sector.qml",
+          "shell/modules/notices/NoticeStack.qml",
+          "shell/modules/osd/OsdView.qml",
+          "shell/modules/routines/RoutineConsole.qml",
+          "shell/modules/session/SessionView.qml",
+          "shell/modules/signal/DeviceRow.qml",
+          "shell/modules/signal/PlayerCard.qml",
+          "shell/modules/signal/StreamRow.qml",
+          "themes"
+        ],
+        "task_id": "UI-008",
+        "created_at": "2026-10-22T22:14:12+00:00",
+        "expires_epoch": 1792714452.1020865,
         "ttl_seconds": 7200
       }
     ]
@@ -1250,5 +1292,5 @@
     "task_id": "UI-008",
     "timestamp": "2026-10-22T22:09:12+00:00"
   },
-  "updated_at": "2026-10-22T22:11:02+00:00"
+  "updated_at": "2026-10-22T22:14:12+00:00"
 }
