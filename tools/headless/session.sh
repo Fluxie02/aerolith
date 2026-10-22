@@ -105,10 +105,13 @@ fi
 
 # AI=1: run a writable copy of the shell with the AI module installed the way
 # the installer lays it out, and fake provider CLIs on PATH.
-SHELL_DIR="$SRC/shell"
+# SHELL_PATH selects another shell directory in the repo (for prototypes).
+SHELL_SRC="$SRC/${SHELL_PATH:-shell}"
+[ -f "$SHELL_SRC/shell.qml" ] || { echo "no shell.qml in $SHELL_SRC" >&2; exit 1; }
+SHELL_DIR="$SHELL_SRC"
 if [ "${AI:-0}" = 1 ]; then
   SHELL_DIR="$HOME/aerolith-shell"
-  cp -r "$SRC/shell" "$SHELL_DIR"
+  cp -r "$SHELL_SRC" "$SHELL_DIR"
   mkdir -p "$SHELL_DIR/modules/ai/bridge" "$HOME/.local/bin"
   cp "$SRC"/ai-bridge/qml/*.qml "$SHELL_DIR/modules/ai/"
   cp -r "$SRC/ai-bridge/aerolith_ai" "$SRC/ai-bridge/aerolith-ai-bridge" "$SHELL_DIR/modules/ai/bridge/"

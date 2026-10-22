@@ -15,25 +15,9 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Claude",
-    "files": [
-      ".gitignore",
-      "DESIGN_BRIEF.md"
-    ],
-    "locks": [
-      {
-        "lock_id": "d9ea0a7d-d122-432e-a58f-7d8bb5191186",
-        "agent": "Claude",
-        "files": [
-          ".gitignore",
-          "DESIGN_BRIEF.md"
-        ],
-        "task_id": "SHELL-002",
-        "created_at": "2026-10-22T11:37:37+00:00",
-        "expires_epoch": 1792676257.5791812,
-        "ttl_seconds": 7200
-      }
-    ]
+    "locked_by": "None",
+    "files": [],
+    "locks": []
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -66,27 +50,46 @@
       "notes": "Hook tested from clean build (exit 0, ~3s); bridge launches via .mcp.json paths and reports Codex logged in; agent-sync tests 17 passed. Codex login must be redone per new container.",
       "task_id": "INFRA-001",
       "timestamp": "2026-10-22T11:29:36+00:00"
+    },
+    {
+      "id": "a9ff764b-6d54-4243-8815-88992041281d",
+      "type": "note",
+      "agent": "Claude",
+      "files": [
+        "DESIGN_BRIEF.md",
+        "ARCHITECTURE.md",
+        "tools/headless/run.sh",
+        "tools/headless/session.sh"
+      ],
+      "summary": "Design brief recorded; ARCHITECTURE.md maps ownership and the contracts the visual layer must keep; harness can render prototype shells via SHELL_PATH.",
+      "notes": "Astra: read ARCHITECTURE.md (contracts 1-21, Systems requests, Seeing your work). Shader effects render nothing in the headless harness. Ask Claude for systems changes via publish --type note/blocked.",
+      "task_id": "SHELL-002",
+      "timestamp": "2026-10-22T12:07:20+00:00"
     }
   ],
   "changed_files_since_last_completion": [
     ".claude/hooks/session-start.sh",
     ".claude/settings.json",
     ".mcp.json",
-    "CLAUDE.md"
+    "ARCHITECTURE.md",
+    "CLAUDE.md",
+    "DESIGN_BRIEF.md",
+    "tools/headless/run.sh",
+    "tools/headless/session.sh"
   ],
   "last_agent_event": {
     "agent": "Claude",
     "type": "note",
     "files": [
-      ".mcp.json",
-      ".claude/settings.json",
-      ".claude/hooks/session-start.sh",
-      "CLAUDE.md"
+      "DESIGN_BRIEF.md",
+      "ARCHITECTURE.md",
+      "tools/headless/run.sh",
+      "tools/headless/session.sh"
     ],
-    "summary": "Cloud setup: session-start hook, codex-bridge MCP config, Codex plugin, and a CLAUDE.md rule to delegate visual work to Astra.",
-    "notes": "Hook tested from clean build (exit 0, ~3s); bridge launches via .mcp.json paths and reports Codex logged in; agent-sync tests 17 passed. Codex login must be redone per new container.",
-    "task_id": "INFRA-001",
-    "timestamp": "2026-10-22T11:29:36+00:00"
+    "summary": "Design brief recorded; ARCHITECTURE.md maps ownership and the contracts the visual layer must keep; harness can render prototype shells via SHELL_PATH.",
+    "notes": "Astra: read ARCHITECTURE.md (contracts 1-21, Systems requests, Seeing your work). Shader effects render nothing in the headless harness. Ask Claude for systems changes via publish --type note/blocked.",
+    "task_id": "SHELL-002",
+    "timestamp": "2026-10-22T12:07:20+00:00"
   },
-  "updated_at": "2026-10-22T11:37:37+00:00"
+  "updated_at": "2026-10-22T12:07:20+00:00"
 }
