@@ -41,6 +41,7 @@ export const SCHEMA = S.obj(
         density: S.enumOf("standard", ["compact", "standard", "comfortable"], "Spacing and type scale."),
         uiScale: S.num(1.0, 0.75, 2.0, "Multiplier applied on top of the compositor's own scaling."),
         motion: S.enumOf("full", ["full", "reduced", "off"], "Animation level. 'off' disables all transitions."),
+        intensity: S.enumOf("saturated", ["saturated", "insane"], "How much the interface shows: 'saturated' or the even denser 'insane'. Switch with `aerolith intensity`."),
         lowEffects: S.bool(false, "Opaque backdrops and no shadows, for slow GPUs or screen recording."),
         fontSans: S.str("Inter", 128, "Interface font family."),
         fontMono: S.str("JetBrains Mono", 128, "Monospaced font for commands and telemetry."),

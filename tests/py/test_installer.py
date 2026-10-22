@@ -421,6 +421,42 @@ def test_config_validate_reports_errors(system, home, capsys):
     assert "invalid JSON" in capsys.readouterr().out
 
 
+def test_intensity_command_shows_and_sets_the_level(system, home, capsys):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    lay = layout()
+    capsys.readouterr()
+    assert run("intensity") == 0
+    assert capsys.readouterr().out.strip() == "saturated"
+    before = json.loads(lay.config_file.read_text())
+    assert run("intensity", "insane") == 0
+    after = json.loads(lay.config_file.read_text())
+    assert after["theme"]["intensity"] == "insane"
+    # Everything else in the file is kept.
+    del after["theme"]["intensity"]
+    before.get("theme", {}).pop("intensity", None)
+    assert after == before
+    capsys.readouterr()
+    assert run("intensity") == 0
+    assert capsys.readouterr().out.strip() == "insane"
+    assert run("config", "validate") == 0
+
+
+def test_intensity_command_never_overwrites_a_broken_file(system, home):
+    lay = layout()
+    lay.config_file.parent.mkdir(parents=True, exist_ok=True)
+    lay.config_file.write_text("{ broken")
+    assert run("intensity", "insane") != 0
+    assert lay.config_file.read_text() == "{ broken"
+
+
+def test_intensity_command_creates_a_missing_config(system, home):
+    lay = layout()
+    assert not lay.config_file.exists()
+    assert run("intensity", "insane") == 0
+    assert json.loads(lay.config_file.read_text()) == {"theme": {"intensity": "insane"}, "schemaVersion": 1}
+
+
 def test_status_json(system, home, capsys):
     lua_main(home)
     assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0

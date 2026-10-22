@@ -58,6 +58,14 @@
           "description": "Animation level. 'off' disables all transitions.",
           "default": "full"
         },
+        "intensity": {
+          "enum": [
+            "saturated",
+            "insane"
+          ],
+          "description": "How much the interface shows: 'saturated' or the even denser 'insane'. Switch with `aerolith intensity`.",
+          "default": "saturated"
+        },
         "lowEffects": {
           "type": "boolean",
           "description": "Opaque backdrops and no shadows, for slow GPUs or screen recording.",
