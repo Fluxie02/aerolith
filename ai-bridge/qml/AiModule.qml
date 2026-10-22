@@ -495,7 +495,7 @@ Scope {
                 Rectangle {
                     Layout.fillWidth: true
                     implicitHeight: disclosure.implicitHeight + Theme.gap * 2
-                    color: Theme.bg
+                    color: Theme.bg; radius: Theme.radius
                     border.color: Theme.grid
                     border.width: Theme.border
                     Rectangle { width: Theme.px(2); height: parent.height; color: Theme.signal }
@@ -527,7 +527,7 @@ Scope {
                 Rectangle {
                     Layout.fillWidth: true
                     implicitHeight: Theme.rowHeight * 1.5
-                    color: Theme.bg
+                    color: Theme.bg; radius: Theme.radius
                     border.color: prompt.activeFocus ? Theme.signal : Theme.grid
                     border.width: Theme.border
                     Text {
@@ -630,9 +630,10 @@ Scope {
                                 readonly property bool sel: console_.inProposals && index === console_.selected
                                 width: responseColumn.width
                                 height: proposalCol.implicitHeight + Theme.pad * 2
+                                radius: Theme.radius
                                 color: sel ? Theme.surface2 : Theme.bg
                                 border.color: sel ? Theme.signal : Theme.grid; border.width: Theme.border
-                                Rectangle { width: Theme.px(2); height: parent.height; color: parent.sel ? Theme.signal : Theme.grid }
+                                Rectangle { y: Theme.radius; width: Theme.px(2); height: Math.max(0, parent.height-2*y); radius: width/2; color: parent.sel ? Theme.signal : Theme.grid }
                                 Column {
                                     id: proposalCol
                                     x: Theme.pad; y: Theme.pad; width: parent.width - 2 * x

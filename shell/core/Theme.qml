@@ -79,7 +79,8 @@ Singleton {
     readonly property int rowHeight: px(density.rowHeight)
     readonly property int pad: px(density.pad)
     readonly property int gap: px(density.gap)
-    readonly property int radius: Tokens.SHAPE.radius
+    readonly property int radius: du(Tokens.SHAPE.radius)
+    readonly property int panelRadius: du(20)
     readonly property int border: Tokens.SHAPE.border
     readonly property int bracket: px(Tokens.SHAPE.bracket)
     readonly property int bracketWeight: Tokens.SHAPE.bracketWeight

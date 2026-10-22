@@ -132,7 +132,8 @@ FocusScope {
                 }
                 Rectangle {
                     width: parent.width; height: Theme.du(root.compact ? 48 : 60); color: Theme.bg
-                    border.width: Theme.border; border.color: root.editable ? root.accent : Theme.grid
+                    radius: Theme.radius
+            border.width: Theme.border; border.color: root.editable ? root.accent : Theme.grid
                     TextInput {
                         id: entry
                         anchors.fill: parent; anchors.margins: Theme.du(16)
@@ -176,6 +177,7 @@ FocusScope {
             anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
             height: Theme.du(root.compact ? 38 : 44)
             color: submitMouse.containsMouse && root.editable ? Theme.surface2 : Theme.surface
+            radius: Theme.radius
             border.width: Theme.border; border.color: root.editable ? Theme.signal : Theme.grid
             Text {
                 anchors.centerIn: parent

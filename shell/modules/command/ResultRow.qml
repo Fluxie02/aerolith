@@ -21,16 +21,19 @@ Item {
         color: row.confirming ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(Theme.caution, 0.12)) : row.selected ? Theme.surface2 : "transparent"
         border.color: row.confirming ? Theme.caution : "transparent"
         border.width: Theme.border
+        radius: Theme.radius
     }
     Rectangle {
         visible: row.selected
         width: Theme.px(3)
-        height: parent.height
+        y: Theme.radius
+        height: Math.max(0, parent.height - 2 * y)
+        radius: width / 2
         color: row.confirming ? Theme.caution : Theme.signal
     }
     Rectangle {
         anchors.bottom: parent.bottom
-        width: parent.width
+        x: Theme.radius; width: parent.width - 2 * x
         height: Theme.border
         color: Theme.grid
     }

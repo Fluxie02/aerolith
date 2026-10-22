@@ -25,7 +25,7 @@ FocusScope {
         },
         {
             title: "Deck",
-            keys: [["Ctrl+1…6", "Switch bay"], ["F1", "This help"], ["Esc", "Close"]]
+            keys: [["Ctrl+1…7", "Switch bay"], ["Ctrl+7", "Settings"], ["F1", "This help"], ["Esc", "Close"]]
         },
         {
             title: "Command Core",
@@ -50,6 +50,10 @@ FocusScope {
         {
             title: "AI Bridge (when installed)",
             keys: [["Enter", "Send prompt"], ["Tab", "Prompt / proposal review"], ["↑↓ / j k", "Select proposal in review"], ["A / D", "Approve one / dismiss one"], ["Esc", "Cancel request / leave review / close"]]
+        },
+        {
+            title: "Settings",
+            keys: [["↑↓ / j k", "Select setting"], ["←→ / h l", "Change choice / number"], ["Enter / Space", "Toggle / step / edit text"], ["Enter", "Save text"], ["Esc", "Cancel text / close"], ["PgUp / PgDn", "Move ten settings"]]
         },
         {
             title: "This reference",

@@ -274,11 +274,12 @@ FocusScope {
                 anchors.topMargin: core.compact ? Theme.gap : Theme.pad * 1.6
                 width: parent.width
                 height: core.compact ? Theme.du(48) : Math.max(Theme.px(76), Theme.rowHeight * 1.9)
+                radius: Theme.radius
                 color: Theme.lowEffects ? Theme.bg : Theme.alpha(Theme.bg, 0.8)
 
                 Rectangle {
                     anchors.bottom: parent.bottom
-                    width: parent.width
+                    x: Theme.radius; width: parent.width - 2 * x
                     height: Theme.px(2)
                     color: Theme.signal
                 }
@@ -325,43 +326,15 @@ FocusScope {
                 }
             }
 
-            Flow {
+            InstrumentTabs {
                 id: scopeRow
                 anchors.top: inputRow.bottom
                 anchors.topMargin: core.compact ? Theme.gap : Theme.pad * 1.8
                 width: parent.width
-                spacing: Theme.pad * 1.8
-                Repeater {
-                    model: core.scopes
-                    delegate: Item {
-                        required property var modelData
-                        required property int index
-                        readonly property bool selected: index === core.scopeIndex
-                        width: scopeLabel.implicitWidth
-                        height: core.compact ? Theme.du(24) : Math.round(Theme.rowHeight)
-                        Text {
-                            id: scopeLabel
-                            text: modelData.label
-                            textFormat: Text.PlainText
-                            color: parent.selected ? Theme.signal : Theme.textDim
-                            font.family: Theme.mono
-                            font.pixelSize: Theme.fontXs
-                            font.letterSpacing: 1
-                        }
-                        Rectangle {
-                            visible: parent.selected
-                            y: Theme.fontXs + Theme.gap * 1.5
-                            width: parent.width
-                            height: Theme.px(2)
-                            color: Theme.signal
-                        }
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: core.scopeIndex = index
-                        }
-                    }
-                }
+                height: implicitHeight
+                entries: core.scopes
+                currentIndex: core.scopeIndex
+                onChosen: index => core.scopeIndex = index
             }
 
             ListView {

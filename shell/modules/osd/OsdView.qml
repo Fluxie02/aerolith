@@ -60,11 +60,11 @@ Item {
             }
             Item {
                 width: parent.width; height: Theme.du(14)
-                Rectangle { anchors.fill: parent; color: Theme.bg; border.color: Theme.grid; border.width: Theme.border }
+                Rectangle { anchors.fill: parent; radius: Theme.radius; color: Theme.bg; border.color: Theme.grid; border.width: Theme.border }
                 Rectangle {
                     x: 1; y: 1; height: parent.height-2
                     width: Math.max(0,(parent.width-2)*root.bounded/root.ceiling)
-                    visible: root.known && !root.muted; color: root.accent
+                    visible: root.known && !root.muted; color: root.accent; radius: Theme.radius
                 }
                 Repeater {
                     model: Theme.insane ? 32 : 16

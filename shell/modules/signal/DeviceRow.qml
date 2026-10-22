@@ -27,7 +27,8 @@ Rectangle {
 
     Rectangle {
         width: Theme.px(2)
-        height: parent.height - Theme.px(12)
+        height: Math.max(0, parent.height - 2 * Theme.radius)
+        radius: width / 2
         x: 0
         anchors.verticalCenter: parent.verticalCenter
         visible: row.selected

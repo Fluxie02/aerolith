@@ -1,7 +1,7 @@
 import QtQuick
 import qs.core
 
-// Limb's chord: one chamfered mineral plane, a measured upper edge and
+// Limb's chord: one rounded mineral plane, a measured upper edge and
 // opposite phosphor registrations. The body API also serves the AI package.
 Item {
     id: root
@@ -28,14 +28,18 @@ Item {
             const c = getContext("2d");
             const w = width;
             const h = height;
-            const cut = Math.min(Theme.du(20), w / 4, h / 4);
+            const cut = Math.min(Theme.panelRadius, w / 4, h / 4);
             c.reset();
             c.beginPath();
-            c.moveTo(0.5, 0.5);
+            c.moveTo(cut + 0.5, 0.5);
             c.lineTo(w - cut - 0.5, 0.5);
-            c.lineTo(w - 0.5, cut + 0.5);
-            c.lineTo(w - 0.5, h - 0.5);
-            c.lineTo(0.5, h - 0.5);
+            c.quadraticCurveTo(w - 0.5, 0.5, w - 0.5, cut + 0.5);
+            c.lineTo(w - 0.5, h - cut - 0.5);
+            c.quadraticCurveTo(w - 0.5, h - 0.5, w - cut - 0.5, h - 0.5);
+            c.lineTo(cut + 0.5, h - 0.5);
+            c.quadraticCurveTo(0.5, h - 0.5, 0.5, h - cut - 0.5);
+            c.lineTo(0.5, cut + 0.5);
+            c.quadraticCurveTo(0.5, 0.5, cut + 0.5, 0.5);
             c.closePath();
             c.fillStyle = Theme.alpha(Theme.surface, Theme.panelOpacity);
             c.fill();
@@ -52,18 +56,21 @@ Item {
             c.beginPath();
             c.strokeStyle = root.accent;
             c.lineWidth = Theme.bracketWeight;
-            c.moveTo(0, Theme.du(28));
-            c.lineTo(0, 0);
+            c.moveTo(0.5, Theme.du(28));
+            c.lineTo(0.5, cut + 0.5);
+            c.quadraticCurveTo(0.5, 0.5, cut + 0.5, 0.5);
             c.lineTo(Theme.du(54), 0);
-            c.moveTo(w, h - Theme.du(28));
-            c.lineTo(w, h);
-            c.lineTo(w - Theme.du(54), h);
+            c.moveTo(w - 0.5, h - Theme.du(28));
+            c.lineTo(w - 0.5, h - cut - 0.5);
+            c.quadraticCurveTo(w - 0.5, h - 0.5, w - cut - 0.5, h - 0.5);
+            c.lineTo(w - Theme.du(54), h - 0.5);
             c.stroke();
         }
         Connections {
             target: Theme
             function onPaletteChanged() { face.requestPaint(); }
             function onPanelOpacityChanged() { face.requestPaint(); }
+            function onUnitChanged() { face.requestPaint(); }
         }
         Connections {
             target: root
@@ -99,14 +106,13 @@ Item {
             }
             Text {
                 textFormat: Text.PlainText
-                text: root.title.toUpperCase()
+                text: root.title
                 width: Math.max(0, headerLabel.width - designationText.width - headerLabel.spacing)
                 elide: Text.ElideRight
                 color: Theme.text
-                font.family: Theme.mono
-                font.pixelSize: Theme.fontSm
+                font.family: Theme.sans
+                font.pixelSize: Theme.fontMd
                 font.weight: Font.DemiBold
-                font.letterSpacing: 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }

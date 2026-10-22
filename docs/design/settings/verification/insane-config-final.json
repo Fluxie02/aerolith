@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "theme": {
+    "intensity": "insane",
+    "fontSans": "Inter"
+  },
+  "ground": {
+    "enabled": true
+  },
+  "strip": {
+    "edge": "top"
+  },
+  "telemetry": {
+    "stripIntervalMs": 5000
+  }
+}

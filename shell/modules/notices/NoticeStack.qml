@@ -75,11 +75,12 @@ Item {
         radius: Theme.radius
         Rectangle {
             anchors.right: parent.right; anchors.bottom: parent.bottom
+            anchors.rightMargin: Theme.radius; anchors.bottomMargin: Theme.px(2)
             width: Theme.du(40); height: Theme.border; color: card.tone
         }
         Rectangle {
             width: Theme.px(2)
-            height: parent.height
+            y: Theme.radius; height: Math.max(0, parent.height - 2 * y); radius: width / 2
             color: card.tone
         }
         Column {

@@ -102,6 +102,7 @@ FocusScope {
                 required property int index
                 width: list.width; height: Math.max(Theme.du(62), labels.implicitHeight+Theme.du(20))
                 color: root.selected === index ? Theme.surface2 : Theme.surface
+                radius: Theme.radius
                 border.width: Theme.border; border.color: root.selected === index ? Theme.signal : Theme.grid
                 Rectangle { x: 0; y: 0; width: Theme.du(3); height: parent.height; color: modelData.available === true ? root.sensitive(modelData) ? Theme.caution : Theme.signal : Theme.grid }
                 Text {
@@ -158,6 +159,7 @@ FocusScope {
                         required property int index
                         width: (parent.width-Theme.du(12))/2; height: Theme.du(56)
                         color: (index === 1) === root.confirmSelected ? Theme.surface2 : Theme.surface
+                        radius: Theme.radius
                         border.width: Theme.border
                         border.color: (index === 1) === root.confirmSelected ? (index === 1 ? Theme.caution : Theme.signal) : Theme.grid
                         Text {

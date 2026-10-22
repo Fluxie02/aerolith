@@ -67,7 +67,7 @@ export const DENSITY = {
 };
 
 export const SHAPE = {
-  radius: 0, // planes meet in precise edges; chord frames have one chamfer
+  radius: 10, // shared soft controls; outer chord uses the larger panel radius
   border: 1,
   bracket: 10, // length of corner registration marks
   bracketWeight: 2,

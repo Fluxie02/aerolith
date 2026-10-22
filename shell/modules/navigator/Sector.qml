@@ -18,7 +18,7 @@ Item {
     signal sectorClicked
     signal windowClicked(var w)
     Bezel { anchors.fill: parent; showHeader: false; active: sector.selected }
-    Rectangle { width: parent.width; height: Theme.px(3); color: sector.sector.focused ? Theme.signal : Theme.grid }
+    Rectangle { x: Theme.panelRadius; width: parent.width - 2*x; radius: height/2; height: Theme.px(3); color: sector.sector.focused ? Theme.signal : Theme.grid }
     Text {
         x: Theme.du(12); y: Theme.du(15)
         text: "WS " + sector.sector.id; textFormat: Text.PlainText
@@ -35,7 +35,7 @@ Item {
         id: map
         x: Theme.du(12); y: Theme.du(47); width: parent.width - 2*x
         height: Math.max(0, Math.min(width * .62, sector.height * (sector.height < Theme.du(260) ? .24 : .34)))
-        color: Theme.bg; border.color: Theme.grid; clip: true
+        color: Theme.bg; border.color: Theme.grid; radius: Theme.radius; clip: true
         Repeater {
             model: sector.sector.windows
             delegate: Rectangle {
@@ -49,6 +49,7 @@ Item {
                 height: placed ? Math.max(12, modelData.size[1] * map.height / sector.monitor.height - 4) : map.height / Math.max(1, sector.sector.windows.length) - 12
                 color: modelData.address === sector.selectedWindow ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(Theme.signal, .15)) : Theme.surface2
                 border.color: modelData.address === sector.closeArmed ? Theme.critical : modelData.address === sector.selectedWindow ? Theme.signal : Theme.grid
+                radius: Math.min(Theme.radius / 2, width / 4, height / 4)
                 opacity: sector.filterFn(modelData) ? 1 : Theme.disabledOpacity
                 z: modelData.floating ? 2 : 1
                 clip: true

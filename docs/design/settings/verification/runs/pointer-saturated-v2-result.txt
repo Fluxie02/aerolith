@@ -1,0 +1,5 @@
+ok
+ok
+ok
+ok
+pointer: ok (rail, scope, switch, choice, number, text, navigation after save)

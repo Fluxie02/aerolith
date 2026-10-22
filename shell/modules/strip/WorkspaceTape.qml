@@ -47,30 +47,12 @@ Row {
                 radius: Theme.radius
             }
 
-            // Brackets around the focused workspace.
-            Repeater {
-                model: cell.modelData.focused ? 4 : 0
-                delegate: Item {
-                    required property int index
-                    readonly property bool r: index % 2 === 1
-                    readonly property bool b: index >= 2
-                    x: r ? cell.width - width - Theme.px(2) : Theme.px(2)
-                    y: b ? cell.height - height - Theme.px(3) : Theme.px(3)
-                    width: Theme.px(5)
-                    height: Theme.px(5)
-                    Rectangle {
-                        width: parent.width
-                        height: Theme.px(2)
-                        y: parent.b ? parent.height - height : 0
-                        color: Theme.signal
-                    }
-                    Rectangle {
-                        width: Theme.px(2)
-                        height: parent.height
-                        x: parent.r ? parent.width - width : 0
-                        color: Theme.signal
-                    }
-                }
+            // The same soft focus ring used by the Deck route.
+            Rectangle {
+                anchors.fill: parent; anchors.margins: Theme.px(3)
+                visible: cell.modelData.focused
+                color: Theme.surface2; radius: Theme.radius
+                border.width: Theme.border; border.color: Theme.signal
             }
 
             Text {

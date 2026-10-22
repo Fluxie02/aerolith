@@ -22,7 +22,10 @@ Item {
             width: Theme.du(62); height: Theme.du(48)
             visible: !orbit.instrument
             Rectangle {
-                width: parent.width; height: 1; color: station.current ? Theme.signal : Theme.grid
+                anchors.fill: parent; radius: Theme.radius
+                color: station.current ? Theme.surface2 : hover.containsMouse ? Theme.surface : "transparent"
+                border.color: station.current ? Theme.signal : hover.containsMouse ? Theme.grid : "transparent"
+                border.width: Theme.border
             }
             Text {
                 y: Theme.du(6); anchors.horizontalCenter: parent.horizontalCenter
@@ -38,6 +41,8 @@ Item {
                 }
             }
             MouseArea {
+                id: hover
+                hoverEnabled: true
                 anchors.fill: parent; cursorShape: Qt.PointingHandCursor
                 onClicked: Registry.execute("workspace.focus", {workspace: station.workspaceId}, {record: false})
             }

@@ -1,0 +1,123 @@
+{
+  "palette": {
+    "obsidian": "#0d1215",
+    "surface": "#1b282b",
+    "surface2": "#25373a",
+    "grid": "#3b5253",
+    "text": "#edf3f5",
+    "textDim": "#abc0bd",
+    "signal": "#ceebac",
+    "caution": "#ffd071",
+    "critical": "#ff9591",
+    "nominal": "#b3e6bd"
+  },
+  "ansi": [
+    {
+      "index": 0,
+      "color": "#829691",
+      "contrast": 6.03
+    },
+    {
+      "index": 1,
+      "color": "#ff9591",
+      "contrast": 8.94
+    },
+    {
+      "index": 2,
+      "color": "#ceebac",
+      "contrast": 14.45
+    },
+    {
+      "index": 3,
+      "color": "#ffd071",
+      "contrast": 13.02
+    },
+    {
+      "index": 4,
+      "color": "#a7c8ee",
+      "contrast": 10.89
+    },
+    {
+      "index": 5,
+      "color": "#d8b9e8",
+      "contrast": 10.79
+    },
+    {
+      "index": 6,
+      "color": "#b3e6bd",
+      "contrast": 13.43
+    },
+    {
+      "index": 7,
+      "color": "#abc0bd",
+      "contrast": 9.88
+    },
+    {
+      "index": 8,
+      "color": "#abc0bd",
+      "contrast": 9.88
+    },
+    {
+      "index": 9,
+      "color": "#ffb3af",
+      "contrast": 11.05
+    },
+    {
+      "index": 10,
+      "color": "#def3c7",
+      "contrast": 15.93
+    },
+    {
+      "index": 11,
+      "color": "#ffe0a0",
+      "contrast": 14.74
+    },
+    {
+      "index": 12,
+      "color": "#c1dbfa",
+      "contrast": 13.26
+    },
+    {
+      "index": 13,
+      "color": "#ead0f5",
+      "contrast": 13.32
+    },
+    {
+      "index": 14,
+      "color": "#d0f4e0",
+      "contrast": 15.88
+    },
+    {
+      "index": 15,
+      "color": "#edf3f5",
+      "contrast": 16.81
+    }
+  ],
+  "roles": [
+    {
+      "role": "text",
+      "contrast": 16.81
+    },
+    {
+      "role": "textDim",
+      "contrast": 9.88
+    },
+    {
+      "role": "signal",
+      "contrast": 14.45
+    },
+    {
+      "role": "caution",
+      "contrast": 13.02
+    },
+    {
+      "role": "critical",
+      "contrast": 8.94
+    },
+    {
+      "role": "nominal",
+      "contrast": 13.43
+    }
+  ],
+  "selection": 14.45
+}

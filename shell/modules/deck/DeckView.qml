@@ -13,7 +13,9 @@ Item {
     readonly property alias frameA: frameA
     readonly property alias frameB: frameB
     readonly property alias missingAiBay: missingAiBay
-    readonly property var codes: ({command:"CMD",navigator:"NAV",systems:"SYS",signal:"SIG",routines:"RTN",ai:"AI",help:"HELP"})
+    readonly property var codes: ({command:"CMD",navigator:"NAV",systems:"SYS",signal:"SIG",routines:"RTN",ai:"AI",settings:"SET",help:"HELP"})
+    readonly property var bayNames: ({command:"Command",navigator:"Navigator",systems:"Systems",signal:"Signal",routines:"Routines",ai:"AI",settings:"Settings",help:"Help"})
+    readonly property var railEntries: deck.rail.filter(r => r.bay !== "ai" || deck.aiBay !== null).map(r => ({bay:r.bay, key:r.key, label:bayNames[r.bay] || r.bay}))
     readonly property bool compactScreen: width < Theme.du(1500) || height < Theme.du(850)
     readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
 
@@ -34,33 +36,17 @@ Item {
     Instrumentation { anchors.fill: parent; instrument: true }
 
 
-    Row {
+    InstrumentTabs {
         id: railRow
-        x: view.compactScreen ? view.width * .045 : view.width * .37
-        y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(view.compactScreen ? 24 : 42)
-        spacing: Theme.du(view.compactScreen ? 18 : 25)
-        Repeater {
-            model: view.deck.rail.filter(r => r.bay !== "ai" || view.deck.aiBay !== null)
-            delegate: Item {
-                required property var modelData
-                readonly property bool current: Ui.activeBay === modelData.bay
-                width: Theme.du(modelData.bay === "help" ? 88 : 74)
-                height: Theme.du(34)
-                Text {
-                    text: (modelData.key === "F1" ? "F1" : "^" + modelData.key) + " " + view.codes[modelData.bay]
-                    textFormat: Text.PlainText
-                    color: parent.current ? Theme.signal : Theme.textDim
-                    font.family: Theme.mono; font.pixelSize: Theme.fontSm
-                }
-                Rectangle {
-                    y: Theme.du(25); width: parent.current ? parent.width : Theme.du(8)
-                    height: parent.current ? Theme.px(2) : Theme.border
-                    color: parent.current ? Theme.signal : Theme.grid
-                    Behavior on width { enabled: Theme.animate; NumberAnimation { duration: Theme.fast; easing.type: Easing.OutCubic } }
-                }
-                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(modelData.bay) }
-            }
-        }
+        x: view.width * (view.compactScreen ? .045 : .37)
+        y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(8)
+        width: view.width - x - view.width * (view.compactScreen ? .045 : .08)
+        height: implicitHeight
+        arc: true; shortcuts: true
+        compact: view.compactScreen
+        entries: view.railEntries
+        currentIndex: view.railEntries.map(r => r.bay).indexOf(Ui.activeBay)
+        onChosen: index => Ui.open(view.railEntries[index].bay)
     }
     ChordSlot { id: frameA; slot: view.deck.slotA }
     ChordSlot { id: frameB; slot: view.deck.slotB }
