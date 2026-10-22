@@ -9,6 +9,7 @@ import "../systems"
 import "../signal"
 import "../routines"
 import "../help"
+import "../settings"
 
 // The Deck: one overlay surface that hosts whichever bay is open (Command
 // Core, Spatial Navigator, Systems Bay, Signal Rack, Routine Console, Help,
@@ -72,6 +73,10 @@ PanelWindow {
         {
             bay: "help",
             key: "F1"
+        },
+        {
+            bay: "settings",
+            key: "7"
         }
     ]
 
@@ -123,6 +128,8 @@ PanelWindow {
             return routinesBay;
         case "help":
             return helpBay;
+        case "settings":
+            return settingsBay;
         case "ai":
             return aiBay !== null ? aiBay : view.missingAiBay;
         }
@@ -171,8 +178,10 @@ PanelWindow {
             } else if (event.key === Qt.Key_F1) {
                 Ui.toggle("help");
                 event.accepted = true;
-            } else if ((event.modifiers & Qt.ControlModifier) && event.key >= Qt.Key_1 && event.key <= Qt.Key_6) {
-                const target = deck.rail[event.key - Qt.Key_1].bay;
+            } else if ((event.modifiers & Qt.ControlModifier) && event.key >= Qt.Key_1 && event.key <= Qt.Key_7) {
+                const n = event.key - Qt.Key_1;
+                // Rail entries 0-5 are Ctrl+1..6; Help (F1) sits between them and Settings (Ctrl+7).
+                const target = n < 6 ? deck.rail[n].bay : "settings";
                 if (target !== "ai" || deck.aiBay !== null)
                     Ui.open(target);
                 event.accepted = true;
@@ -283,5 +292,9 @@ PanelWindow {
     Component {
         id: helpBay
         HelpBay {}
+    }
+    Component {
+        id: settingsBay
+        SettingsBay {}
     }
 }

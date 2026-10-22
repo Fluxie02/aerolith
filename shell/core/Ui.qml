@@ -15,7 +15,7 @@ Singleton {
 
     // "" when closed, otherwise one of bays.
     property string activeBay: ""
-    readonly property var bays: ["command", "navigator", "systems", "signal", "routines", "help", "ai"]
+    readonly property var bays: ["command", "navigator", "systems", "signal", "routines", "help", "ai", "settings"]
     readonly property bool deckOpen: activeBay !== ""
     // Text to pre-fill when opening the Command Core.
     property string pendingQuery: ""
