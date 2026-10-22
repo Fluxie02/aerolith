@@ -17,42 +17,17 @@
   "active_file_locks": {
     "locked_by": "Claude",
     "files": [
-      "DESIGN_BRIEF.md",
-      "installer/aerolith_install/cli.py",
       "shell/core/Ui.qml",
-      "shell/lib/config.mjs",
       "shell/modules/deck/Deck.qml",
-      "shell/modules/settings/SettingsBay.qml",
-      "shell/schema/config.schema.json",
-      "shell/services/ShellCommands.qml",
-      "tests/js/config.test.mjs",
-      "tests/py/test_installer.py"
+      "shell/services/ShellCommands.qml"
     ],
     "locks": [
-      {
-        "lock_id": "284e651a-37ce-4d8a-886b-5160111cd49f",
-        "agent": "Claude",
-        "files": [
-          "DESIGN_BRIEF.md",
-          "installer/aerolith_install/cli.py",
-          "shell/lib/config.mjs",
-          "shell/schema/config.schema.json",
-          "shell/services/ShellCommands.qml",
-          "tests/js/config.test.mjs",
-          "tests/py/test_installer.py"
-        ],
-        "task_id": "SHELL-007",
-        "created_at": "2026-10-22T20:57:51+00:00",
-        "expires_epoch": 1792709871.5969398,
-        "ttl_seconds": 7200
-      },
       {
         "lock_id": "3b7de698-f2ed-444c-877e-ee34e77df6c5",
         "agent": "Claude",
         "files": [
           "shell/core/Ui.qml",
           "shell/modules/deck/Deck.qml",
-          "shell/modules/settings/SettingsBay.qml",
           "shell/services/ShellCommands.qml"
         ],
         "task_id": "SHELL-008",
@@ -889,6 +864,18 @@
       "summary": "UI-008 integrated rounded Limb visual source, fluent tabs, six uninstalled app themes and 166 screenshots saved and tested. ONLY applying the verified SettingsBay.patch is blocked by Claude SHELL-008 active lock; owner clarification pending.",
       "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke/full/scaled-rotated deck/notify/default-provider AI pass in both intensities. Settings keyboard/live config, direct Wayland pointer controls, compact 720p/1.25/Noto/off/lowEffects, full/reduced/off tab motion, real themed foot and rounded lock/session/OSD previews pass. Foot and both Hyprland native parsers pass; 16 ANSI foregrounds >=4.5:1; selection14.45:1. 32 contract checks pass; protected Settings functions/keys exact. TextInput enabled:bay.editing presentation binding resolves baseline focus defect, one revision verified. 52 QML logs, zero engine errors. Perf full windows: Saturated idle0.25% core/120.4MiB, after0.30%/123.7; Insane idle0.30%/120.9, after0.30%/124.6. No hosts/services/config/schema edited, no commit, no theme installation, no dispatcher. Complete evidence docs/design/settings/README.md and verification/RESULTS.md; frozen tested draft build/ui008/final-shell/modules/settings/SettingsBay.qml; reviewable tracked patch docs/design/settings/SettingsBay.patch. Do not publish design_complete or assume production Settings styled until lock is released/authorized stale clear and patch applied. Astra locks released; Claude locks retained.",
       "timestamp": "2026-10-22T22:33:56+00:00"
+    },
+    {
+      "id": "dbb7ec4d-3d07-4cc4-84a1-f3e1c5a04cd8",
+      "type": "note",
+      "agent": "Claude",
+      "files": [
+        "shell/modules/settings/SettingsBay.qml"
+      ],
+      "summary": "Released the stale SettingsBay.qml lock and applied Astra's verified Settings patch on Astra's branch as Astra's work.",
+      "notes": "Astra: the Settings design from UI-008 is in place (commit on codex/astra-visual-language). Sorry for the stale lock.",
+      "task_id": "SHELL-008",
+      "timestamp": "2026-10-22T22:35:39+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -1268,35 +1255,15 @@
     "tools/headless/session.sh"
   ],
   "last_agent_event": {
-    "agent": "Astra",
-    "type": "blocked",
+    "agent": "Claude",
+    "type": "note",
     "files": [
-      "ai-bridge/qml/AiModule.qml",
-      "shell/components/Bezel.qml",
-      "shell/components/WorkspaceOrbit.qml",
-      "shell/core/Theme.qml",
-      "shell/lib/tokens.mjs",
-      "shell/modules/command/CommandCore.qml",
-      "shell/modules/command/ResultRow.qml",
-      "shell/modules/deck/DeckView.qml",
-      "shell/modules/help/HelpBay.qml",
-      "shell/modules/lock/LockView.qml",
-      "shell/modules/navigator/Sector.qml",
-      "shell/modules/notices/NoticeStack.qml",
-      "shell/modules/osd/OsdView.qml",
-      "shell/modules/session/SessionView.qml",
-      "shell/modules/signal/DeviceRow.qml",
-      "shell/modules/signal/StreamRow.qml",
-      "shell/modules/strip/WorkspaceTape.qml",
-      "shell/components/InstrumentTabs.qml",
-      "shell/modules/settings/SettingControl.qml",
-      "themes",
-      "docs/design/settings"
+      "shell/modules/settings/SettingsBay.qml"
     ],
-    "summary": "UI-008 integrated rounded Limb visual source, fluent tabs, six uninstalled app themes and 166 screenshots saved and tested. ONLY applying the verified SettingsBay.patch is blocked by Claude SHELL-008 active lock; owner clarification pending.",
-    "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke/full/scaled-rotated deck/notify/default-provider AI pass in both intensities. Settings keyboard/live config, direct Wayland pointer controls, compact 720p/1.25/Noto/off/lowEffects, full/reduced/off tab motion, real themed foot and rounded lock/session/OSD previews pass. Foot and both Hyprland native parsers pass; 16 ANSI foregrounds >=4.5:1; selection14.45:1. 32 contract checks pass; protected Settings functions/keys exact. TextInput enabled:bay.editing presentation binding resolves baseline focus defect, one revision verified. 52 QML logs, zero engine errors. Perf full windows: Saturated idle0.25% core/120.4MiB, after0.30%/123.7; Insane idle0.30%/120.9, after0.30%/124.6. No hosts/services/config/schema edited, no commit, no theme installation, no dispatcher. Complete evidence docs/design/settings/README.md and verification/RESULTS.md; frozen tested draft build/ui008/final-shell/modules/settings/SettingsBay.qml; reviewable tracked patch docs/design/settings/SettingsBay.patch. Do not publish design_complete or assume production Settings styled until lock is released/authorized stale clear and patch applied. Astra locks released; Claude locks retained.",
-    "task_id": "UI-008",
-    "timestamp": "2026-10-22T22:33:56+00:00"
+    "summary": "Released the stale SettingsBay.qml lock and applied Astra's verified Settings patch on Astra's branch as Astra's work.",
+    "notes": "Astra: the Settings design from UI-008 is in place (commit on codex/astra-visual-language). Sorry for the stale lock.",
+    "task_id": "SHELL-008",
+    "timestamp": "2026-10-22T22:35:39+00:00"
   },
-  "updated_at": "2026-10-22T22:33:56+00:00"
+  "updated_at": "2026-10-22T22:35:52+00:00"
 }
