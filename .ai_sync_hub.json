@@ -15,43 +15,18 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Multiple",
+    "locked_by": "Claude",
     "files": [
       "DESIGN_BRIEF.md",
-      "ai-bridge/qml/AiModule.qml",
-      "build/ui008",
-      "docs/design/settings",
       "installer/aerolith_install/cli.py",
-      "shell/components/Annunciator.qml",
-      "shell/components/Bezel.qml",
-      "shell/components/InstrumentTabs.qml",
-      "shell/components/WorkspaceOrbit.qml",
-      "shell/core/Theme.qml",
       "shell/core/Ui.qml",
       "shell/lib/config.mjs",
-      "shell/lib/tokens.mjs",
-      "shell/modules/command/CommandCore.qml",
-      "shell/modules/command/ResultRow.qml",
       "shell/modules/deck/Deck.qml",
-      "shell/modules/deck/DeckView.qml",
-      "shell/modules/help/HelpBay.qml",
-      "shell/modules/lock/LockView.qml",
-      "shell/modules/navigator/Sector.qml",
-      "shell/modules/notices/NoticeStack.qml",
-      "shell/modules/osd/OsdView.qml",
-      "shell/modules/routines/RoutineConsole.qml",
-      "shell/modules/session/SessionView.qml",
-      "shell/modules/settings/SettingControl.qml",
       "shell/modules/settings/SettingsBay.qml",
-      "shell/modules/signal/DeviceRow.qml",
-      "shell/modules/signal/PlayerCard.qml",
-      "shell/modules/signal/StreamRow.qml",
-      "shell/modules/strip/WorkspaceTape.qml",
       "shell/schema/config.schema.json",
       "shell/services/ShellCommands.qml",
       "tests/js/config.test.mjs",
-      "tests/py/test_installer.py",
-      "themes"
+      "tests/py/test_installer.py"
     ],
     "locks": [
       {
@@ -83,71 +58,6 @@
         "task_id": "SHELL-008",
         "created_at": "2026-10-22T22:00:39+00:00",
         "expires_epoch": 1792713639.4778407,
-        "ttl_seconds": 7200
-      },
-      {
-        "lock_id": "0801b802-ad1e-4e40-90ca-c310456f7516",
-        "agent": "Astra",
-        "files": [
-          "build/ui008",
-          "docs/design/settings",
-          "shell/modules/deck/DeckView.qml",
-          "shell/modules/help/HelpBay.qml",
-          "shell/modules/settings/SettingControl.qml"
-        ],
-        "task_id": "UI-008",
-        "created_at": "2026-10-22T22:03:27+00:00",
-        "expires_epoch": 1792713807.9126472,
-        "ttl_seconds": 7200
-      },
-      {
-        "lock_id": "1c6c939c-5905-4e13-a72f-54f31bfb54a8",
-        "agent": "Astra",
-        "files": [
-          "shell/components/InstrumentTabs.qml",
-          "shell/modules/command/CommandCore.qml"
-        ],
-        "task_id": "UI-008",
-        "created_at": "2026-10-22T22:11:02+00:00",
-        "expires_epoch": 1792714262.6399968,
-        "ttl_seconds": 7200
-      },
-      {
-        "lock_id": "c2961498-0d7b-4d5f-8b59-46102711f7ac",
-        "agent": "Astra",
-        "files": [
-          "ai-bridge/qml/AiModule.qml",
-          "shell/components/Annunciator.qml",
-          "shell/components/Bezel.qml",
-          "shell/core/Theme.qml",
-          "shell/lib/tokens.mjs",
-          "shell/modules/command/ResultRow.qml",
-          "shell/modules/lock/LockView.qml",
-          "shell/modules/navigator/Sector.qml",
-          "shell/modules/notices/NoticeStack.qml",
-          "shell/modules/osd/OsdView.qml",
-          "shell/modules/routines/RoutineConsole.qml",
-          "shell/modules/session/SessionView.qml",
-          "shell/modules/signal/DeviceRow.qml",
-          "shell/modules/signal/PlayerCard.qml",
-          "shell/modules/signal/StreamRow.qml",
-          "themes"
-        ],
-        "task_id": "UI-008",
-        "created_at": "2026-10-22T22:14:12+00:00",
-        "expires_epoch": 1792714452.1020865,
-        "ttl_seconds": 7200
-      },
-      {
-        "lock_id": "2333f26a-14aa-426d-ad9c-f4bec4b63054",
-        "agent": "Astra",
-        "files": [
-          "shell/components/WorkspaceOrbit.qml",
-          "shell/modules/strip/WorkspaceTape.qml"
-        ],
-        "task_id": "UI-008",
-        "created_at": "2026-10-22T22:21:58+00:00",
-        "expires_epoch": 1792714918.9564657,
         "ttl_seconds": 7200
       }
     ]
@@ -939,6 +849,46 @@
       "notes": "Rail order and Ctrl+1..7/F1 retained. Theme palette roles and systems contracts unchanged. Settings draft and all verification saved in build/ui008; original SettingsBay source remains untouched pending Claude SHELL-008 lock release. Six uninstalled theme files saved; foot and both Hyprland native parsers pass; 16 ANSI foregrounds pass 4.5:1.",
       "task_id": "UI-008",
       "timestamp": "2026-10-22T22:20:10+00:00"
+    },
+    {
+      "id": "f73b644f-3dee-4063-80c0-6e9a3435445d",
+      "type": "blocked",
+      "agent": "Astra",
+      "files": [
+        "ai-bridge/qml/AiModule.qml",
+        "shell/components/Bezel.qml",
+        "shell/components/WorkspaceOrbit.qml",
+        "shell/core/Theme.qml",
+        "shell/lib/tokens.mjs",
+        "shell/modules/command/CommandCore.qml",
+        "shell/modules/command/ResultRow.qml",
+        "shell/modules/deck/DeckView.qml",
+        "shell/modules/help/HelpBay.qml",
+        "shell/modules/lock/LockView.qml",
+        "shell/modules/navigator/Sector.qml",
+        "shell/modules/notices/NoticeStack.qml",
+        "shell/modules/osd/OsdView.qml",
+        "shell/modules/session/SessionView.qml",
+        "shell/modules/signal/DeviceRow.qml",
+        "shell/modules/signal/StreamRow.qml",
+        "shell/modules/strip/WorkspaceTape.qml",
+        "shell/components/InstrumentTabs.qml",
+        "shell/modules/settings/SettingControl.qml",
+        "themes",
+        "docs/design/settings"
+      ],
+      "summary": "UI-008 integrated rounded Limb visual source, fluent tabs, six uninstalled app themes and 166 screenshots saved and tested. ONLY applying the verified SettingsBay.patch is blocked by Claude SHELL-008 active lock; owner clarification pending.",
+      "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke/full/scaled-rotated deck/notify/default-provider AI pass in both intensities. Settings keyboard/live config, direct Wayland pointer controls, compact 720p/1.25/Noto/off/lowEffects, full/reduced/off tab motion, real themed foot and rounded lock/session/OSD previews pass. Foot and both Hyprland native parsers pass; 16 ANSI foregrounds >=4.5:1; selection14.45:1. 32 contract checks pass; protected Settings functions/keys exact. TextInput enabled:bay.editing presentation binding resolves baseline focus defect, one revision verified. 52 QML logs, zero engine errors. Perf full windows: Saturated idle0.25% core/120.4MiB, after0.30%/123.7; Insane idle0.30%/120.9, after0.30%/124.6. No hosts/services/config/schema edited, no commit, no theme installation, no dispatcher. Complete evidence docs/design/settings/README.md and verification/RESULTS.md; frozen tested draft build/ui008/final-shell/modules/settings/SettingsBay.qml; reviewable tracked patch docs/design/settings/SettingsBay.patch. Do not publish design_complete or assume production Settings styled until lock is released/authorized stale clear and patch applied. Astra locks released; Claude locks retained.",
+      "task_id": "UI-008",
+      "timestamp": "2026-10-22T22:33:56+00:00"
+    },
+    {
+      "id": "67c09093-a7e4-4150-aa12-6befe6a87fa7",
+      "type": "blocked",
+      "agent": "Astra",
+      "summary": "UI-008 integrated rounded Limb visual source, fluent tabs, six uninstalled app themes and 166 screenshots saved and tested. ONLY applying the verified SettingsBay.patch is blocked by Claude SHELL-008 active lock; owner clarification pending.",
+      "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke/full/scaled-rotated deck/notify/default-provider AI pass in both intensities. Settings keyboard/live config, direct Wayland pointer controls, compact 720p/1.25/Noto/off/lowEffects, full/reduced/off tab motion, real themed foot and rounded lock/session/OSD previews pass. Foot and both Hyprland native parsers pass; 16 ANSI foregrounds >=4.5:1; selection14.45:1. 32 contract checks pass; protected Settings functions/keys exact. TextInput enabled:bay.editing presentation binding resolves baseline focus defect, one revision verified. 52 QML logs, zero engine errors. Perf full windows: Saturated idle0.25% core/120.4MiB, after0.30%/123.7; Insane idle0.30%/120.9, after0.30%/124.6. No hosts/services/config/schema edited, no commit, no theme installation, no dispatcher. Complete evidence docs/design/settings/README.md and verification/RESULTS.md; frozen tested draft build/ui008/final-shell/modules/settings/SettingsBay.qml; reviewable tracked patch docs/design/settings/SettingsBay.patch. Do not publish design_complete or assume production Settings styled until lock is released/authorized stale clear and patch applied. Astra locks released; Claude locks retained.",
+      "timestamp": "2026-10-22T22:33:56+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -948,6 +898,7 @@
     "ARCHITECTURE.md",
     "CLAUDE.md",
     "DESIGN_BRIEF.md",
+    "ai-bridge/qml/AiModule.qml",
     "build/UI-001-astra.bundle",
     "build/UI-001-import.txt",
     "docs/design/CONCEPTS.md",
@@ -1177,6 +1128,7 @@
     "docs/design/round2/perf-keel.json",
     "docs/design/round2/perf-limb.json",
     "docs/design/round2/perf-original.json",
+    "docs/design/settings",
     "docs/design/shots/baseline/overview.png",
     "docs/design/shots/baseline/sound.png",
     "docs/design/shots/cut/01-idle.png",
@@ -1292,10 +1244,14 @@
     "shell/modules/deck/DeckView.qml",
     "shell/modules/ground/Ground.qml",
     "shell/modules/help/HelpBay.qml",
+    "shell/modules/lock/LockView.qml",
     "shell/modules/navigator/Sector.qml",
     "shell/modules/navigator/SpatialNavigator.qml",
     "shell/modules/notices/NoticeStack.qml",
+    "shell/modules/osd/OsdView.qml",
     "shell/modules/routines/RoutineConsole.qml",
+    "shell/modules/session/SessionView.qml",
+    "shell/modules/settings/SettingControl.qml",
     "shell/modules/settings/SettingsBay.qml",
     "shell/modules/signal/DeviceRow.qml",
     "shell/modules/signal/PlayerCard.qml",
@@ -1313,16 +1269,34 @@
   ],
   "last_agent_event": {
     "agent": "Astra",
-    "type": "note",
+    "type": "blocked",
     "files": [
-      "themes",
+      "ai-bridge/qml/AiModule.qml",
+      "shell/components/Bezel.qml",
+      "shell/components/WorkspaceOrbit.qml",
+      "shell/core/Theme.qml",
+      "shell/lib/tokens.mjs",
+      "shell/modules/command/CommandCore.qml",
+      "shell/modules/command/ResultRow.qml",
+      "shell/modules/deck/DeckView.qml",
+      "shell/modules/help/HelpBay.qml",
+      "shell/modules/lock/LockView.qml",
+      "shell/modules/navigator/Sector.qml",
+      "shell/modules/notices/NoticeStack.qml",
+      "shell/modules/osd/OsdView.qml",
+      "shell/modules/session/SessionView.qml",
+      "shell/modules/signal/DeviceRow.qml",
+      "shell/modules/signal/StreamRow.qml",
+      "shell/modules/strip/WorkspaceTape.qml",
       "shell/components/InstrumentTabs.qml",
-      "shell/components/Bezel.qml"
+      "shell/modules/settings/SettingControl.qml",
+      "themes",
+      "docs/design/settings"
     ],
-    "summary": "Owner re-scoped UI-008: integrated rounded Limb across surfaces, fluent Deck/scopes, uninstalled app themes for kitty/Alacritty/foot/btop/Hyprland, then finish Settings.",
-    "notes": "Rail order and Ctrl+1..7/F1 retained. Theme palette roles and systems contracts unchanged. Settings draft and all verification saved in build/ui008; original SettingsBay source remains untouched pending Claude SHELL-008 lock release. Six uninstalled theme files saved; foot and both Hyprland native parsers pass; 16 ANSI foregrounds pass 4.5:1.",
+    "summary": "UI-008 integrated rounded Limb visual source, fluent tabs, six uninstalled app themes and 166 screenshots saved and tested. ONLY applying the verified SettingsBay.patch is blocked by Claude SHELL-008 active lock; owner clarification pending.",
+    "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke/full/scaled-rotated deck/notify/default-provider AI pass in both intensities. Settings keyboard/live config, direct Wayland pointer controls, compact 720p/1.25/Noto/off/lowEffects, full/reduced/off tab motion, real themed foot and rounded lock/session/OSD previews pass. Foot and both Hyprland native parsers pass; 16 ANSI foregrounds >=4.5:1; selection14.45:1. 32 contract checks pass; protected Settings functions/keys exact. TextInput enabled:bay.editing presentation binding resolves baseline focus defect, one revision verified. 52 QML logs, zero engine errors. Perf full windows: Saturated idle0.25% core/120.4MiB, after0.30%/123.7; Insane idle0.30%/120.9, after0.30%/124.6. No hosts/services/config/schema edited, no commit, no theme installation, no dispatcher. Complete evidence docs/design/settings/README.md and verification/RESULTS.md; frozen tested draft build/ui008/final-shell/modules/settings/SettingsBay.qml; reviewable tracked patch docs/design/settings/SettingsBay.patch. Do not publish design_complete or assume production Settings styled until lock is released/authorized stale clear and patch applied. Astra locks released; Claude locks retained.",
     "task_id": "UI-008",
-    "timestamp": "2026-10-22T22:20:10+00:00"
+    "timestamp": "2026-10-22T22:33:56+00:00"
   },
-  "updated_at": "2026-10-22T22:21:58+00:00"
+  "updated_at": "2026-10-22T22:33:56+00:00"
 }
