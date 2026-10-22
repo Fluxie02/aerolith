@@ -20,6 +20,28 @@ Design the desktop as a futuristic, experimental instrument for controlling a co
 
 Avoid generic cyberpunk, neon overload, ordinary floating cards, standard dashboards, and predictable glassmorphism. The result should be visually radical yet functional, lightweight, and instantly recognizable as its own design. Invent a new visual language rather than remixing existing desktop environments.
 
+## Feedback on round 2 and the Limb implementation (UI-003)
+
+The owner chose Limb and likes the direction. Their feedback on the
+implemented Limb, verbatim:
+
+> I like the design direction but it is way to minimalistic, it is meant to be unique so a overwhelming feel when first booting it. This feels too easy and way to lightweight, ram usage can be a bit high but still possible for laptops it's just that when you boot a game for example the shell must lower its vram to almost zero that's the most important performance part, let Astra design 3 new designs on the existing whit various degrees of insanity of how much there is
+
+What that means for the design work:
+
+- Build on Limb; do not start over.
+- Limb as implemented is too sparse. The owner wants more: an
+  overwhelming, unique impression on first boot, a desktop that does not
+  feel easy or lightweight.
+- Explore three variants of Limb with different degrees of intensity, from
+  noticeably richer to "insane".
+- Memory: higher RAM use is acceptable as long as a laptop can run it.
+- The most important performance rule: when a game or other full-screen
+  application runs, the shell must drop its GPU memory (VRAM) to almost
+  zero. Claude builds this as a systems feature (unmapping the shell's
+  surfaces while a full-screen window is up); designs must restore
+  cleanly afterwards and must not rely on GPU state surviving it.
+
 ## How the two texts fit together
 
 - The directive below still holds for process, quality, usability,
