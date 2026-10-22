@@ -21,8 +21,10 @@
       "build/ui008",
       "docs/design/settings",
       "installer/aerolith_install/cli.py",
+      "shell/components/InstrumentTabs.qml",
       "shell/core/Ui.qml",
       "shell/lib/config.mjs",
+      "shell/modules/command/CommandCore.qml",
       "shell/modules/deck/Deck.qml",
       "shell/modules/deck/DeckView.qml",
       "shell/modules/help/HelpBay.qml",
@@ -78,6 +80,18 @@
         "task_id": "UI-008",
         "created_at": "2026-10-22T22:03:27+00:00",
         "expires_epoch": 1792713807.9126472,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "1c6c939c-5905-4e13-a72f-54f31bfb54a8",
+        "agent": "Astra",
+        "files": [
+          "shell/components/InstrumentTabs.qml",
+          "shell/modules/command/CommandCore.qml"
+        ],
+        "task_id": "UI-008",
+        "created_at": "2026-10-22T22:11:02+00:00",
+        "expires_epoch": 1792714262.6399968,
         "ttl_seconds": 7200
       }
     ]
@@ -1236,5 +1250,5 @@
     "task_id": "UI-008",
     "timestamp": "2026-10-22T22:09:12+00:00"
   },
-  "updated_at": "2026-10-22T22:09:12+00:00"
+  "updated_at": "2026-10-22T22:11:02+00:00"
 }
