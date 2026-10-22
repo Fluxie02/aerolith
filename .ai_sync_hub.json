@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "project": {
+    "name": "Hyprland Desktop Shell",
+    "description": "Shared coordination state for Claude Code and Codex.",
+    "repository_root": "."
+  },
+  "system_state": "Astra_Design_Phase",
+  "workflow": {
+    "current_task_id": null,
+    "current_owner": "Astra",
+    "last_transition_at": null,
+    "transition_reason": "Initial design phase",
+    "max_review_cycles": 1,
+    "require_explicit_completion_event": true
+  },
+  "active_file_locks": {
+    "locked_by": "None",
+    "files": [],
+    "locks": []
+  },
+  "design_tokens": {
+    "theme_name": "To be determined by Astra",
+    "colors": {},
+    "effects": [
+      "backdrop-blur",
+      "shadows"
+    ]
+  },
+  "audit_logs": {
+    "claude_performance_notes": [],
+    "astra_design_notes": []
+  },
+  "communication_channel": {
+    "astra_to_claude_requests": [],
+    "claude_to_astra_responses": []
+  },
+  "events": [],
+  "changed_files_since_last_completion": [],
+  "last_agent_event": null
+}
