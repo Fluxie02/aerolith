@@ -239,5 +239,7 @@ FocusScope {
                 }
             }
         }
+        ScrollMark { viewport: keysView }
+        ScrollMark { viewport: list }
     }
 }

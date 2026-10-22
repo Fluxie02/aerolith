@@ -110,24 +110,24 @@ Item {
                 width: parent.width - Theme.du(10)
                 spacing: Theme.du(3)
                 Text {
-                    visible: route.shortcuts
-                    width: parent.width
-                    horizontalAlignment: Text.AlignHCenter
-                    text: station.modelData.key === "F1" ? "F1" : "Ctrl+" + station.modelData.key
-                    textFormat: Text.PlainText
-                    color: station.selected ? Theme.signal : Theme.textDim
-                    font.family: Theme.mono; font.pixelSize: Theme.fontXs
-                }
-                Text {
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter
                     text: station.modelData.label === "AI" ? "AI" : station.modelData.label.charAt(0) + station.modelData.label.slice(1).toLowerCase()
                     textFormat: Text.PlainText
                     elide: Text.ElideRight
                     color: station.selected ? Theme.signal : pointer.containsMouse ? Theme.text : Theme.textDim
-                    font.family: Theme.sans; font.pixelSize: route.shortcuts && !route.compact ? Theme.fontMd : Theme.fontSm
+                    font.family: Theme.sans; font.pixelSize: route.shortcuts ? Theme.fontMd : Theme.fontSm
                     font.weight: station.selected ? Font.DemiBold : Font.Normal
                     Behavior on color { enabled: Theme.animate; ColorAnimation { duration: Theme.fast } }
+                }
+                Text {
+                    visible: route.shortcuts
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    text: station.modelData.key === "F1" ? "F1" : "Ctrl+" + station.modelData.key
+                    textFormat: Text.PlainText
+                    color: Theme.textDim
+                    font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 }
             }
             MouseArea {

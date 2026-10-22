@@ -36,6 +36,16 @@ Item {
     Instrumentation { anchors.fill: parent; instrument: true }
 
 
+    // A navigation bus shields names from the instrument engraving beneath.
+    // The circular field remains exposed around the retained chord.
+    Rectangle {
+        x: view.compactScreen ? 0 : railRow.x - Theme.pad
+        y: Config.strip.edge === "top" ? Theme.stripHeight : 0
+        width: view.compactScreen ? view.width : railRow.width + 2 * Theme.pad
+        height: railRow.y - y + railRow.height + Theme.du(4)
+        color: Theme.bg
+        radius: view.compactScreen ? 0 : Theme.panelRadius
+    }
     InstrumentTabs {
         id: railRow
         x: view.width * (view.compactScreen ? .045 : .37)

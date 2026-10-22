@@ -15,8 +15,9 @@ Item {
     property color accent: active ? Theme.signal : Theme.grid
     property alias headerRight: headerRightSlot.data
     default property alias content: body.data
-    property int contentPadding: Theme.contentInset
-    property int titleHeight: Theme.headerHeight
+    readonly property bool compact: height < Theme.du(600)
+    property int contentPadding: compact ? Theme.pad : Theme.contentInset
+    property int titleHeight: compact ? Theme.du(42) : Theme.headerHeight
     readonly property int headerHeight: showHeader ? titleHeight : 0
 
     Canvas {
@@ -24,6 +25,8 @@ Item {
         anchors.fill: parent
         onWidthChanged: requestPaint()
         onHeightChanged: requestPaint()
+        onVisibleChanged: if (visible) requestPaint()
+        onAvailableChanged: if (available) requestPaint()
         onPaint: {
             const c = getContext("2d");
             const w = width;
@@ -75,6 +78,10 @@ Item {
         Connections {
             target: root
             function onAccentChanged() { face.requestPaint(); }
+        }
+        Connections {
+            target: face.Window.window
+            function onVisibleChanged() { if (face.Window.window.visible) face.requestPaint(); }
         }
     }
 

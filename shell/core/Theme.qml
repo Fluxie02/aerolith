@@ -23,19 +23,27 @@ Singleton {
     // Process lifetime latch survives hidden/recreated views. Freeze the selected
     // startup duration so changing intensity during assembly cannot retime it.
     property bool bootPlayed: false
+    property bool bootRequested: false
     property bool bootInsane: false
     property real bootProgress: 1
     readonly property int ignitionDuration: slow * (bootInsane ? 10 : 8)
     function ignite() {
-        if (bootPlayed) return;
+        bootRequested = true;
+        if (bootPlayed || !Config.loaded) return;
         bootPlayed = true;
         bootInsane = insane;
         if (travel) { bootProgress = 0; ignition.restart(); }
     }
+    Connections {
+        target: Config
+        function onLoadedChanged() {
+            if (Config.loaded && root.bootRequested) root.ignite();
+        }
+    }
     onTravelChanged: if (!travel) { ignition.stop(); bootProgress = 1; }
     NumberAnimation {
         id: ignition; target: root; property: "bootProgress"
-        to: 1; duration: root.ignitionDuration; easing.type: Easing.OutCubic
+        to: 1; duration: root.ignitionDuration; easing.type: Easing.Linear
     }
 
     // Colour roles

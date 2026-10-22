@@ -300,14 +300,7 @@ FocusScope {
                 }
             }
 
-            Rectangle {
-                anchors.right: instrumentsView.right
-                y: instrumentsView.y + instrumentsView.contentY / Math.max(1, instrumentsView.contentHeight) * instrumentsView.height
-                width: Theme.px(2)
-                height: instrumentsView.height * instrumentsView.height / Math.max(1, instrumentsView.contentHeight)
-                visible: instrumentsView.contentHeight > instrumentsView.height
-                color: Theme.signal
-            }
+            ScrollMark { viewport: instrumentsView }
 
             StatusLine {
                 id: systemsStatus

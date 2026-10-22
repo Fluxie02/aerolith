@@ -15,6 +15,7 @@ Item {
     readonly property string cpu: T.formatPercent(Telemetry.cpu.total)
     readonly property string mem: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)
     readonly property real ignition: instrument ? 1 : Theme.bootProgress
+    readonly property var entryBays: [{label:"Command",bay:"command"}, {label:"Navigator",bay:"navigator"}, {label:"Systems",bay:"systems"}, {label:"Settings",bay:"settings"}]
     opacity: Math.min(1, ignition * 2)
 
     Text {
@@ -41,7 +42,8 @@ Item {
 
     // The hub's focused workspace is the dominant number, not fake telemetry.
     Column {
-        x: parent.width * .125; y: parent.height * .36
+        x: parent.width * .125
+        y: rig.compact ? parent.height * .55 - implicitHeight / 2 : parent.height * .36
         width: parent.width * (rig.level === 3 ? .16 : .28)
         visible: !instrument
         opacity: Math.max(0, Math.min(1, (rig.ignition - .1) / .3))
@@ -52,7 +54,7 @@ Item {
         }
         Text {
             text: rig.ws; textFormat: Text.PlainText
-            font.family: Theme.displaySans; font.pixelSize: Theme.du(rig.level === 2 ? 136 : 162)
+            font.family: Theme.displaySans; font.pixelSize: rig.compact ? Math.min(Theme.du(136), rig.height * .19) : Theme.du(rig.level === 2 ? 136 : 162)
             font.weight: Font.Light; font.letterSpacing: -5; color: Theme.text
         }
         Text {
@@ -73,7 +75,7 @@ Item {
     Item {
         x: parent.width * (rig.level === 3 ? .60 : .66); y: parent.height * .105
         width: parent.width * (rig.level === 3 ? .32 : .26); height: parent.height * .085
-        visible: rig.level > 1 && !compact
+        visible: rig.level > 1 && !compact && !rig.instrument
         Text {
             text: "CORE ARRAY / " + Math.min(rig.level === 3 ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
             textFormat: Text.PlainText; color: Theme.textDim
@@ -125,17 +127,10 @@ Item {
             font.weight: Font.Light; font.letterSpacing: rig.level === 3 ? 7 : 1; lineHeight: .9
         }
         Rectangle { width: parent.width; height: Theme.du(rig.level === 3 ? 5 : 2); color: Theme.signal }
-        Flow {
-            width: parent.width; spacing: Theme.du(16)
-            Repeater {
-                model: [{t:"01 COMMAND",b:"command"},{t:"02 NAVIGATOR",b:"navigator"},{t:"03 SYSTEMS",b:"systems"},{t:"04 SOUND",b:"signal"}]
-                delegate: Text {
-                    required property var modelData
-                    text: modelData.t; textFormat: Text.PlainText; color: Theme.signal
-                    font.family: Theme.mono; font.pixelSize: Theme.fontSm
-                    MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(modelData.b) }
-                }
-            }
+        InstrumentTabs {
+            width: parent.width; height: implicitHeight
+            entries: rig.entryBays; currentIndex: -1
+            onChosen: index => Ui.open(rig.entryBays[index].bay)
         }
     }
 
@@ -288,7 +283,7 @@ Item {
             Rectangle { width: parent.width; height: 1; color: Theme.grid }
             Text { text: "ACTIVE ROUTE / " + rig.ws; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
             Text { text: rig.instrument ? (Ui.activeBay || "CLOSING").toUpperCase() : "DESKTOP"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.du(22) }
-            Text { text: "F1 HELP / ESC RETURN"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+            Text { text: rig.instrument ? "F1 HELP / ESC RETURN" : "SELECT A BAY ABOVE"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
         }
     }
 
@@ -302,14 +297,32 @@ Item {
 
     // Compact ground retains one strong workspace hub and an explicit entry.
     Column {
-        x: parent.width * .55; y: parent.height * .43; width: parent.width * .39
-        visible: rig.compact && !rig.instrument; spacing: Theme.du(18)
-        Text { text: "AEROLITH"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(34) }
+        x: parent.width * .55; y: parent.height * .36; width: parent.width * .39
+        visible: rig.compact && !rig.instrument; spacing: Theme.du(12)
+        Text { width: parent.width; text: "AEROLITH"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Math.min(Theme.du(40), rig.width * .043) }
         Text { width: parent.width; text: "LIMB / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
-        Text { text: rig.cpu + " CPU\n" + rig.mem + " MEMORY"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontMd; lineHeight: 1.8 }
-        Text {
-            text: "OPEN COMMAND →"; textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
-            MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open("command") }
+        Text { width: parent.width; text: windows.length + " WINDOWS  /  " + rig.cpu + " CPU  /  " + rig.mem + " RAM"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm; wrapMode: Text.WordWrap }
+        Rectangle { width: parent.width; height: Theme.px(2); color: Theme.signal }
+        Flow {
+            width: parent.width; spacing: Theme.du(6)
+            Repeater {
+                model: rig.entryBays
+                delegate: Rectangle {
+                    required property var modelData
+                    width: (parent.width - Theme.du(6)) / 2; height: Theme.du(36)
+                    radius: Theme.radius
+                    color: entryPointer.containsMouse ? Theme.surface2 : Theme.bg
+                    border.color: entryPointer.containsMouse ? Theme.signal : Theme.grid
+                    Text {
+                        anchors.centerIn: parent
+                        text: modelData.label; textFormat: Text.PlainText
+                        color: Theme.signal; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                    }
+                    MouseArea { id: entryPointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(modelData.bay) }
+                    Accessible.role: Accessible.Button; Accessible.name: modelData.label
+                    Accessible.onPressAction: Ui.open(modelData.bay)
+                }
+            }
         }
     }
     Text {

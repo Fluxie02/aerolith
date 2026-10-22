@@ -8,7 +8,8 @@ Item {
     property var hints: []        // [{ key, action }]
     property string message: ""
     property string messageState: "" // ok | error | caution | busy | ""
-    implicitHeight: hintsFlow.implicitHeight + messageText.implicitHeight + Theme.du(22)
+    implicitHeight: Theme.du(10) + hintsFlow.implicitHeight
+                    + (message !== "" ? Theme.du(8) + messageText.implicitHeight : 0) + Theme.du(4)
 
     Rectangle {
         anchors.left: parent.left
@@ -37,7 +38,10 @@ Item {
         textFormat: Text.PlainText
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        y: hintsFlow.y + hintsFlow.implicitHeight + Theme.du(8)
+        visible: root.message !== ""
+        wrapMode: Text.WrapAnywhere
+        maximumLineCount: 2
         elide: Text.ElideRight
         text: root.messageState === "busy" ? "◌ " + root.message : root.message
         color: root.messageState === "ok" ? Theme.signal : root.messageState === "error" ? Theme.critical : root.messageState === "caution" ? Theme.caution : Theme.textDim

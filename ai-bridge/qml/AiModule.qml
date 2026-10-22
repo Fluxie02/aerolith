@@ -668,12 +668,7 @@ Scope {
                         }
                     }
                 }
-                Rectangle {
-                    Layout.alignment: Qt.AlignRight
-                    Layout.preferredWidth: Theme.du(48); implicitHeight: Theme.px(2)
-                    visible: responseView.contentHeight > responseView.height
-                    color: Theme.signal
-                }
+                ScrollMark { viewport: responseView }
                 StatusLine {
                     Layout.fillWidth: true
                     hints: console_.inProposals ? [{key:"↑↓",action:"select"},{key:"A",action:"approve"},{key:"D",action:"dismiss"},{key:"TAB",action:"prompt"}] : [{key:"⏎",action:"send"},{key:"TAB",action:"review"},{key:"ESC",action:console_.module && console_.module.busy ? "cancel" : "close"}]

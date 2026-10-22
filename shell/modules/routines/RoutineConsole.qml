@@ -355,13 +355,7 @@ FocusScope {
                     }
                 }
             }
-            Rectangle {
-                Layout.alignment: Qt.AlignRight
-                Layout.preferredWidth: Math.max(Theme.du(24), contentView.width * Math.min(1, contentView.height / Math.max(1, contentView.contentHeight)))
-                implicitHeight: Theme.px(2)
-                visible: contentView.contentHeight > contentView.height
-                color: Theme.signal
-            }
+            ScrollMark { viewport: contentView }
 
             StatusLine {
                 Layout.fillWidth: true

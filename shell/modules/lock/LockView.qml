@@ -104,7 +104,7 @@ FocusScope {
         width: Math.min(Theme.du(520), root.narrow ? root.width-Theme.du(48) : root.width*.42)
         height: Math.min(Theme.du(480),root.height-(root.narrow ? Theme.du(root.compact ? 200 : 296) : Theme.du(100)))
         designation: "01"; title: "Unlock session"; accent: root.accent
-        status: root.state === "checking" ? "VERIFYING" : "LOCKED"
+        status: root.state === "checking" ? "VERIFYING" : root.state === "failed" ? "TRY AGAIN" : root.state === "locked-out" ? "PLEASE WAIT" : "LOCKED"
         statusColor: root.accent
         // Force an opaque authentication plane even when effects are enabled.
         Rectangle { anchors.fill: parent; color: Theme.surface }
@@ -113,18 +113,13 @@ FocusScope {
             anchors.fill: parent; anchors.bottomMargin: submitButton.height + Theme.du(16)
             contentHeight: form.height; clip: true
             boundsBehavior: Flickable.StopAtBounds
-            Rectangle {
-                x: promptScroll.width-Theme.du(3)
-                y: promptScroll.visibleArea.yPosition*promptScroll.height
-                width: Theme.du(3); height: promptScroll.visibleArea.heightRatio*promptScroll.height
-                visible: promptScroll.contentHeight > promptScroll.height; color: Theme.textDim
-            }
+            ScrollMark { viewport: promptScroll }
             Column {
                 id: form; width: parent.width; spacing: Theme.du(root.compact ? 10 : 16)
                 Text {
                     width: parent.width; text: root.user || "Your session"; elide: Text.ElideRight
                     textFormat: Text.PlainText; color: Theme.text
-                    font.family: Theme.sans; font.pixelSize: Theme.du(root.compact ? 24 : 28); font.weight: Font.Medium
+                    font.family: Theme.sans; font.pixelSize: Theme.du(root.compact ? 20 : 28); font.weight: Font.Medium
                 }
                 Text {
                     text: "PASSWORD"; textFormat: Text.PlainText; color: Theme.textDim
@@ -133,7 +128,7 @@ FocusScope {
                 Rectangle {
                     width: parent.width; height: Theme.du(root.compact ? 48 : 60); color: Theme.bg
                     radius: Theme.radius
-            border.width: Theme.border; border.color: root.editable ? root.accent : Theme.grid
+                    border.width: Theme.border; border.color: root.editable ? root.accent : Theme.grid
                     TextInput {
                         id: entry
                         anchors.fill: parent; anchors.margins: Theme.du(16)
@@ -161,7 +156,7 @@ FocusScope {
                           + (root.message || (root.state === "checking" ? "Verifying your password…" : root.state === "failed" ? "Check your password and try again." : root.state === "locked-out" ? "Please wait for authentication to become available." : "Enter your password to continue."))
                     textFormat: Text.PlainText; wrapMode: Text.Wrap
                     color: root.state === "failed" || root.state === "locked-out" ? root.accent : Theme.textDim
-                    font.family: Theme.sans; font.pixelSize: Theme.fontLg
+                    font.family: Theme.sans; font.pixelSize: root.compact ? Theme.fontMd : Theme.fontLg
                     Accessible.role: Accessible.StaticText
                     Accessible.name: text
                 }
