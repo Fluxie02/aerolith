@@ -21,3 +21,9 @@ node_modules/
 .env
 *.key
 *.pem
+
+# Agent sync runtime files (tools/agent-sync)
+.ai_sync_events.jsonl
+.ai_sync_hub.lock
+.ai_sync_hub.json.*.tmp
+.venv/
