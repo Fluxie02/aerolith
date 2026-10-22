@@ -843,6 +843,18 @@
       "notes": "",
       "task_id": "UI-008",
       "timestamp": "2026-10-22T22:03:28+00:00"
+    },
+    {
+      "id": "1aad678e-1ef8-4db1-96e8-8e6c14f3b4cb",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/modules/settings/SettingsBay.qml"
+      ],
+      "summary": "Single review of merged SHELL-008: P2 hidden editor retains focus after text commit; subsequent text edits bypass the visible editing state.",
+      "notes": "Reproduced on untouched SettingsBay from merged commit 5649b02 in build/ui008/text-focus-baseline. Save theme.fontSans=Noto Sans, press Enter again, type Inter: editing remains false and the displayed value stays Noto Sans; another Enter saves Inter. Evidence 02-second-edit.png and config-final.json. Minimal proposed correction for Claude: disable the text editor outside editing (enabled: bay.editing), or explicitly clear its focus before bay.forceActiveFocus; verify arrows and repeated Enter/Escape. Protected functions/key handlers are unchanged in UI-008. One revision available; no dispatcher started.",
+      "task_id": "UI-008",
+      "timestamp": "2026-10-22T22:09:12+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -1219,10 +1231,10 @@
     "files": [
       "shell/modules/settings/SettingsBay.qml"
     ],
-    "summary": "UI-008 assigned by owner; preparing Settings presentation, Deck label and Help. SHELL-008 lock still active, awaiting release before SettingsBay edits.",
-    "notes": "",
+    "summary": "Single review of merged SHELL-008: P2 hidden editor retains focus after text commit; subsequent text edits bypass the visible editing state.",
+    "notes": "Reproduced on untouched SettingsBay from merged commit 5649b02 in build/ui008/text-focus-baseline. Save theme.fontSans=Noto Sans, press Enter again, type Inter: editing remains false and the displayed value stays Noto Sans; another Enter saves Inter. Evidence 02-second-edit.png and config-final.json. Minimal proposed correction for Claude: disable the text editor outside editing (enabled: bay.editing), or explicitly clear its focus before bay.forceActiveFocus; verify arrows and repeated Enter/Escape. Protected functions/key handlers are unchanged in UI-008. One revision available; no dispatcher started.",
     "task_id": "UI-008",
-    "timestamp": "2026-10-22T22:03:28+00:00"
+    "timestamp": "2026-10-22T22:09:12+00:00"
   },
-  "updated_at": "2026-10-22T22:03:28+00:00"
+  "updated_at": "2026-10-22T22:09:12+00:00"
 }
