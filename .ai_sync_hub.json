@@ -25,6 +25,7 @@
       "shell/components/Annunciator.qml",
       "shell/components/Bezel.qml",
       "shell/components/InstrumentTabs.qml",
+      "shell/components/WorkspaceOrbit.qml",
       "shell/core/Theme.qml",
       "shell/core/Ui.qml",
       "shell/lib/config.mjs",
@@ -45,6 +46,7 @@
       "shell/modules/signal/DeviceRow.qml",
       "shell/modules/signal/PlayerCard.qml",
       "shell/modules/signal/StreamRow.qml",
+      "shell/modules/strip/WorkspaceTape.qml",
       "shell/schema/config.schema.json",
       "shell/services/ShellCommands.qml",
       "tests/js/config.test.mjs",
@@ -134,6 +136,18 @@
         "task_id": "UI-008",
         "created_at": "2026-10-22T22:14:12+00:00",
         "expires_epoch": 1792714452.1020865,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "2333f26a-14aa-426d-ad9c-f4bec4b63054",
+        "agent": "Astra",
+        "files": [
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/modules/strip/WorkspaceTape.qml"
+        ],
+        "task_id": "UI-008",
+        "created_at": "2026-10-22T22:21:58+00:00",
+        "expires_epoch": 1792714918.9564657,
         "ttl_seconds": 7200
       }
     ]
@@ -911,6 +925,20 @@
       "notes": "Reproduced on untouched SettingsBay from merged commit 5649b02 in build/ui008/text-focus-baseline. Save theme.fontSans=Noto Sans, press Enter again, type Inter: editing remains false and the displayed value stays Noto Sans; another Enter saves Inter. Evidence 02-second-edit.png and config-final.json. Minimal proposed correction for Claude: disable the text editor outside editing (enabled: bay.editing), or explicitly clear its focus before bay.forceActiveFocus; verify arrows and repeated Enter/Escape. Protected functions/key handlers are unchanged in UI-008. One revision available; no dispatcher started.",
       "task_id": "UI-008",
       "timestamp": "2026-10-22T22:09:12+00:00"
+    },
+    {
+      "id": "5af2d366-c0b5-4dfe-9737-453bc6e1d288",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "themes",
+        "shell/components/InstrumentTabs.qml",
+        "shell/components/Bezel.qml"
+      ],
+      "summary": "Owner re-scoped UI-008: integrated rounded Limb across surfaces, fluent Deck/scopes, uninstalled app themes for kitty/Alacritty/foot/btop/Hyprland, then finish Settings.",
+      "notes": "Rail order and Ctrl+1..7/F1 retained. Theme palette roles and systems contracts unchanged. Settings draft and all verification saved in build/ui008; original SettingsBay source remains untouched pending Claude SHELL-008 lock release. Six uninstalled theme files saved; foot and both Hyprland native parsers pass; 16 ANSI foregrounds pass 4.5:1.",
+      "task_id": "UI-008",
+      "timestamp": "2026-10-22T22:20:10+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -1247,6 +1275,7 @@
     "shell/components/ChordSlot.qml",
     "shell/components/CircularField.qml",
     "shell/components/InstrumentField.qml",
+    "shell/components/InstrumentTabs.qml",
     "shell/components/Instrumentation.qml",
     "shell/components/KeyHint.qml",
     "shell/components/Label.qml",
@@ -1278,6 +1307,7 @@
     "shell/modules/systems/CoreBus.qml",
     "shell/modules/systems/SystemsBay.qml",
     "tests/js/launch.test.mjs",
+    "themes",
     "tools/headless/run.sh",
     "tools/headless/session.sh"
   ],
@@ -1285,12 +1315,14 @@
     "agent": "Astra",
     "type": "note",
     "files": [
-      "shell/modules/settings/SettingsBay.qml"
+      "themes",
+      "shell/components/InstrumentTabs.qml",
+      "shell/components/Bezel.qml"
     ],
-    "summary": "Single review of merged SHELL-008: P2 hidden editor retains focus after text commit; subsequent text edits bypass the visible editing state.",
-    "notes": "Reproduced on untouched SettingsBay from merged commit 5649b02 in build/ui008/text-focus-baseline. Save theme.fontSans=Noto Sans, press Enter again, type Inter: editing remains false and the displayed value stays Noto Sans; another Enter saves Inter. Evidence 02-second-edit.png and config-final.json. Minimal proposed correction for Claude: disable the text editor outside editing (enabled: bay.editing), or explicitly clear its focus before bay.forceActiveFocus; verify arrows and repeated Enter/Escape. Protected functions/key handlers are unchanged in UI-008. One revision available; no dispatcher started.",
+    "summary": "Owner re-scoped UI-008: integrated rounded Limb across surfaces, fluent Deck/scopes, uninstalled app themes for kitty/Alacritty/foot/btop/Hyprland, then finish Settings.",
+    "notes": "Rail order and Ctrl+1..7/F1 retained. Theme palette roles and systems contracts unchanged. Settings draft and all verification saved in build/ui008; original SettingsBay source remains untouched pending Claude SHELL-008 lock release. Six uninstalled theme files saved; foot and both Hyprland native parsers pass; 16 ANSI foregrounds pass 4.5:1.",
     "task_id": "UI-008",
-    "timestamp": "2026-10-22T22:09:12+00:00"
+    "timestamp": "2026-10-22T22:20:10+00:00"
   },
-  "updated_at": "2026-10-22T22:14:12+00:00"
+  "updated_at": "2026-10-22T22:21:58+00:00"
 }
