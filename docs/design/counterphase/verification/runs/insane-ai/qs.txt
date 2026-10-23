@@ -1,0 +1,43 @@
+[32m  INFO[0m: Launching config: "/home/pilot/aerolith-shell/shell.qml"
+[32m  INFO[0m: Shell ID: "708c8a7c755c1df55054faa3f0900d07" Path ID "708c8a7c755c1df55054faa3f0900d07"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/h1vk4dnt/log.qslog"
+[33m  WARN[0m: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.
+[33m  WARN[97m quickshell.service.upower[0m: Could not connect to DBus. UPower service will not work.
+[E][13:38:55.880722] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][13:38:55.880746] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[32m  INFO[97m qml[0m: [aerolith:shell] AEROLITH started on HEADLESS-1; Hyprland connected
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[32m  INFO[0m: Configuration Loaded
+[32m  INFO[97m qml[0m: [aerolith:ai] AI module loaded
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fa9fd17df60 but 0x7fa9fd17df60 has focus
+[32m  INFO[97m qml[0m: [aerolith:ai] request sent to claude (23 characters, context: none)
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[32m  INFO[97m qml[0m: [aerolith:ai] answer received (2 proposals)
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fa9fd17df60 but 0x7fa9fd17df60 has focus
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[32m  INFO[97m qml[0m: [aerolith:ai] user approved proposal audio.volume.set
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[32m  INFO[97m qml[0m: [aerolith:ai] AI module removed; unregistered 3 commands
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[33m  WARN[97m qt.qpa.wayland.textinput[0m: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fa9f8c80940 but 0x7fa9f8c80940 has focus
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug

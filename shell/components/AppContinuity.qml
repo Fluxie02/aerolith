@@ -67,7 +67,7 @@ Item {
                 Keys.onReturnPressed: activate()
                 Keys.onEnterPressed: activate()
                 Keys.onSpacePressed: activate()
-                Behavior on reach { enabled: Theme.travel && bus.exposed; NumberAnimation { id: latch; duration: Theme.slow; easing.type: Easing.OutCubic } }
+                Behavior on reach { enabled: Theme.travel && Theme.ambient && bus.exposed; NumberAnimation { id: latch; duration: Theme.slow; easing.type: Easing.OutCubic } }
                 Connections {
                     target: bus
                     function onExposedChanged() { if (!bus.exposed) latch.complete(); }
@@ -75,6 +75,7 @@ Item {
                 Connections {
                     target: Theme
                     function onTravelChanged() { if (!Theme.travel) latch.complete(); }
+                    function onAmbientChanged() { if (!Theme.ambient) latch.complete(); }
                 }
                 Rectangle {
                     anchors.fill: parent
@@ -90,7 +91,8 @@ Item {
                 }
                 Rectangle {
                     x: Theme.du(8); y: parent.height - Theme.du(3)
-                    width: (parent.width - Theme.du(16)) * socket.reach; height: Theme.du(3)
+                    width: parent.width - Theme.du(16); height: Theme.du(3)
+                    transform: Scale { xScale: socket.reach; yScale: 1 }
                     color: Theme.appLink; visible: Theme.integratedApps
                 }
                 Text {

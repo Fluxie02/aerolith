@@ -1,0 +1,32 @@
+{
+  "pattern": "TypeError|ReferenceError|SyntaxError|Unable to assign|Cannot assign|Binding loop|is not a type|Error loading|Failed to load QML|Segmentation fault|Aborted|ASSERT failure",
+  "logs": 5,
+  "matches": 0,
+  "records": [
+    {
+      "log": "runs/saturated-4k-scale2/qs.txt",
+      "lines": 28,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-compact-off/qs.txt",
+      "lines": 28,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-deck/qs.txt",
+      "lines": 29,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-full/qs.txt",
+      "lines": 38,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-smoke/qs.txt",
+      "lines": 28,
+      "matches": []
+    }
+  ]
+}

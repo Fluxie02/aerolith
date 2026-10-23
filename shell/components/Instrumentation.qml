@@ -23,7 +23,7 @@ Item {
         spacing: Theme.du(12)
         visible: !rig.instrument || !rig.compact
         Text {
-            text: "AEROLITH   /   LIMB — " + Theme.applicationName + " / SHEAR " + (Theme.insane ? "III" : "II")
+            text: "AEROLITH   /   " + Theme.applicationName + " / COUNTERPHASE " + (Theme.insane ? "III" : "II")
             textFormat: Text.PlainText; color: Theme.signal
             font.family: Theme.mono; font.pixelSize: Theme.fontSm; font.letterSpacing: 1.6
         }
@@ -54,7 +54,9 @@ Item {
         Text {
             text: rig.ws; textFormat: Text.PlainText
             font.family: Theme.displaySans
-            font.pixelSize: Math.min(Theme.du(Theme.insane ? 192 : 170), rig.height * (rig.compact ? .19 : .24))
+            // At 720p / uiScale 1.5 the application bus must leave both the
+            // focused class and the full title line visible above it.
+            font.pixelSize: Math.min(Theme.du(Theme.insane ? 192 : 170), rig.height * (rig.compact ? .15 : .24))
             font.weight: Font.ExtraLight; font.letterSpacing: -8; color: Theme.text
             lineHeight: .9
         }
@@ -97,7 +99,7 @@ Item {
         }
         Rectangle { width: parent.width * (Theme.integratedApps ? .72 : .22); height: Theme.du(5); color: Theme.appLink }
         Text {
-            text: Theme.integratedApps ? "TASK INSTRUMENT / " + (Compositor.activeClass || "NO FOCUS").toUpperCase() : "SHEAR / " + Theme.variantName.toUpperCase();
+            text: Theme.integratedApps ? "TASK INSTRUMENT / " + (Compositor.activeClass || "NO FOCUS").toUpperCase() : "COUNTERPHASE / " + (!Theme.ambient ? "HELD" : Theme.ambientReduced ? "REDUCED" : "ACTIVE");
             width: parent.width; elide: Text.ElideRight; textFormat: Text.PlainText
             color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
         }

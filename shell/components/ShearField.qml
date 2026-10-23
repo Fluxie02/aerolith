@@ -2,8 +2,8 @@ import QtQuick
 import qs.core
 import qs.services
 
-// An exploded airframe. Each face is cached CPU geometry; only the retained
-// items move when a real workspace or focus changes. There is no idle clock.
+// An exploded airframe. Faces are cached CPU geometry; the leading-edge
+// tension strip breathes through a retained opacity animator.
 Item {
     id: shear
     property bool instrument: false
@@ -13,9 +13,12 @@ Item {
     readonly property real route: Theme.travel ? station : 0
     property real recoil: 0
     readonly property bool exposed: visible && Window.window && Window.window.visible
+    readonly property bool breathing: Theme.ambient && exposed && (instrument || !Ui.deckOpen) && assembly >= 1
+    signal stroke()
+    function breathe() { if (breathing) stroke(); }
 
     function focusImpulse() {
-        if (!exposed || !Theme.animate || assembly < 1) return;
+        if (!exposed || !Theme.ambient || assembly < 1) return;
         impulse.stop(); recoil = 1; impulse.restart();
     }
     Connections {
@@ -26,6 +29,9 @@ Item {
         target: Theme
         function onAnimateChanged() {
             if (!Theme.animate) { impulse.stop(); shear.recoil = 0; }
+        }
+        function onAmbientChanged() {
+            if (!Theme.ambient) { impulse.stop(); shear.recoil = 0; }
         }
     }
     onExposedChanged: if (!exposed) { impulse.stop(); recoil = 0; }
@@ -48,7 +54,7 @@ Item {
             transformOrigin: Item.Center
             opacity: open
             z: 8 - index
-            Behavior on rotation { enabled: Theme.travel && shear.exposed; NumberAnimation { id: bladeMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+            Behavior on rotation { enabled: Theme.travel && Theme.ambient && shear.exposed; NumberAnimation { id: bladeMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
             Connections {
                 target: shear
                 function onExposedChanged() { if (!shear.exposed) bladeMotion.complete(); }
@@ -56,6 +62,7 @@ Item {
             Connections {
                 target: Theme
                 function onTravelChanged() { if (!Theme.travel) bladeMotion.complete(); }
+                function onAmbientChanged() { if (!Theme.ambient) bladeMotion.complete(); }
             }
             Canvas {
                 id: plate
@@ -104,6 +111,24 @@ Item {
                         c.save();c.translate(w*.43,h*.29);c.rotate(1.03);
                         c.fillText('AEROLITH / WORKSPACE STRUCTURE',0,0);c.restore();
                     }
+                }
+            }
+            Rectangle {
+                id: tension
+                x: parent.width * .27; y: parent.height * .10
+                width: Theme.du(3); height: parent.height * (Theme.insane ? .34 : .24)
+                rotation: -17; transformOrigin: Item.TopLeft
+                color: Theme.appLink; opacity: .42
+                visible: blade.index === 0
+                SequentialAnimation {
+                    id: respiration
+                    OpacityAnimator { target: tension; from: .42; to: Theme.ambientReduced ? .49 : .88; duration: Theme.carrierDuration; easing.type: Easing.InOutSine }
+                    OpacityAnimator { target: tension; from: Theme.ambientReduced ? .49 : .88; to: .42; duration: Theme.carrierDuration; easing.type: Easing.InOutSine }
+                }
+                Connections {
+                    target: shear
+                    function onStroke() { if (shear.breathing && blade.index === 0) respiration.restart(); }
+                    function onBreathingChanged() { if (!shear.breathing) { respiration.stop(); tension.opacity = .42; } }
                 }
             }
             // Focus is a short strain along the leading edge, not a pulse loop.

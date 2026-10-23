@@ -1,0 +1,19 @@
+{
+  "name": "saturated-full",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/full.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/runs/saturated-full"
+  ],
+  "environment": {
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/saturated-full-scale1.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "AUDIO": "1",
+    "MEDIA": "1",
+    "MPV_AO": "pipewire"
+  },
+  "exit_code": 1,
+  "elapsed_seconds": 27.98,
+  "stdout": "docs/design/counterphase/verification/runs/saturated-full.stdout.txt"
+}

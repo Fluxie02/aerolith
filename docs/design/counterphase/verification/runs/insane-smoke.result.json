@@ -1,0 +1,17 @@
+{
+  "name": "insane-smoke",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/runs/insane-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/frozen-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-full-scale1.json"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 5.83,
+  "stdout": "docs/design/counterphase/verification/runs/insane-smoke.stdout.txt",
+  "source_manifest_sha256": "bb90495e4f7cccefeb239b7479487cb7ddd6d3fbc9d046cca3f5e3926cb1354d"
+}

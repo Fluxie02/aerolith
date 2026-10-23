@@ -1,0 +1,21 @@
+{
+  "name": "insane-4k-scale1-uiScale1.5",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "docs/design/counterphase/scripts/capture.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/runs/insane-4k-scale1-uiScale1.5"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/frozen-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-full-scale1.5.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "RES": "3840x2160",
+    "SCALE": "1",
+    "HYPR_MOCK_ARGS": "--mode 3840x2160 --scale 1"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 11.76,
+  "stdout": "docs/design/counterphase/verification/runs/insane-4k-scale1-uiScale1.5.stdout.txt",
+  "source_manifest_sha256": "bb90495e4f7cccefeb239b7479487cb7ddd6d3fbc9d046cca3f5e3926cb1354d"
+}

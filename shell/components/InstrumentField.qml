@@ -36,12 +36,13 @@ Item {
             function onUnitChanged() { art.requestPaint(); }
             function onMonoChanged() { art.requestPaint(); }
             function onFontXsChanged() { art.requestPaint(); }
-            function onBootProgressChanged() { if (!field.instrument) art.requestPaint(); }
         }
         onPaint: {
             var c=getContext("2d"); c.reset();
             var w=width,h=height,x=w*.27,y=h*.55,r=h*.34,L=field.level;
-            var boot=field.instrument ? 1 : Theme.bootProgress;
+            // Assemble retained geometry with opacity, never repaint a
+            // screen-sized Canvas for each ignition frame.
+            var boot=1;
             function phase(start, end) {
                 var t=Math.max(0,Math.min(1,(boot-start)/(end-start)));
                 return t*t*(3-2*t);
@@ -152,6 +153,8 @@ Item {
                 line(xx-5,yy,xx+5,yy,Theme.textDim);line(xx,yy-5,xx,yy+5,Theme.textDim);
             }
         }
+        opacity: field.instrument ? 1 : Math.min(1, Theme.bootProgress * 2)
     }
-    ShearField { anchors.fill: parent; instrument: field.instrument }
+    ShearField { id: airframe; anchors.fill: parent; instrument: field.instrument }
+    Counterphase { anchors.fill: parent; instrument: field.instrument; onBeat: airframe.breathe() }
 }

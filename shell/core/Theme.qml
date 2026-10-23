@@ -38,7 +38,7 @@ Singleton {
         if (bootPlayed || !Config.loaded) return;
         bootPlayed = true;
         bootInsane = insane;
-        if (travel) { bootProgress = 0; ignition.restart(); }
+        if (travel && ambient) { bootProgress = 0; ignition.restart(); }
     }
     Connections {
         target: Config
@@ -112,6 +112,14 @@ Singleton {
     readonly property int slow: lowEffects ? 0 : motionSet.slow
     readonly property bool animate: cfg.motion !== "off" && !lowEffects
     readonly property bool travel: animate && cfg.motion === "full"
+    // UI-013: the only ambient-motion switch. Claude's fullscreen lifecycle
+    // hook sets ambientSuspended before unmapping/unloading visual surfaces.
+    property bool ambientSuspended: false
+    readonly property bool ambient: animate && !lowEffects && !ambientSuspended
+    onAmbientChanged: if (!ambient) { ignition.stop(); bootProgress = 1; }
+    readonly property bool ambientReduced: cfg.motion === "reduced"
+    readonly property int carrierDuration: ambientReduced ? slow * 10 : normal * 3
+    readonly property int carrierRest: slow * (ambientReduced ? 180 : insane ? 16 : 32)
 
     function stateColor(state) {
         return Tokens.stateColor(palette, state);

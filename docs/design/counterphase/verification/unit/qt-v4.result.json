@@ -1,0 +1,18 @@
+{
+  "name": "qt-v4",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "-v",
+    "/home/user/aerolith-astra:/src:ro",
+    "aerolith-dev",
+    "bash",
+    "-c",
+    "cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml"
+  ],
+  "environment": {},
+  "exit_code": 0,
+  "elapsed_seconds": 0.57,
+  "stdout": "docs/design/counterphase/verification/unit/qt-v4.stdout.txt"
+}
