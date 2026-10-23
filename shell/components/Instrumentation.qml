@@ -23,7 +23,7 @@ Item {
         spacing: Theme.du(12)
         visible: !rig.instrument || !rig.compact
         Text {
-            text: "AEROLITH   /   LIMB — SHEAR " + (Theme.insane ? "III" : "II")
+            text: "AEROLITH   /   LIMB — " + Theme.applicationName + " / SHEAR " + (Theme.insane ? "III" : "II")
             textFormat: Text.PlainText; color: Theme.signal
             font.family: Theme.mono; font.pixelSize: Theme.fontSm; font.letterSpacing: 1.6
         }
@@ -54,7 +54,7 @@ Item {
         Text {
             text: rig.ws; textFormat: Text.PlainText
             font.family: Theme.displaySans
-            font.pixelSize: Math.min(Theme.du(Theme.insane ? 192 : 170), rig.height * .24)
+            font.pixelSize: Math.min(Theme.du(Theme.insane ? 192 : 170), rig.height * (rig.compact ? .19 : .24))
             font.weight: Font.ExtraLight; font.letterSpacing: -8; color: Theme.text
             lineHeight: .9
         }
@@ -78,26 +78,27 @@ Item {
 
     Column {
         id: identity
-        x: parent.width * .69; y: parent.height * (rig.compact ? .30 : .26)
+        x: parent.width * .69; y: parent.height * (rig.compact ? .27 : .26)
         width: parent.width * .25
-        spacing: Theme.du(9); visible: !rig.instrument
+        spacing: Theme.du(rig.compact ? 6 : 9); visible: !rig.instrument
         opacity: Math.max(0, Math.min(1, (rig.ignition - .22) / .30))
         Text {
             width: parent.width
-            text: "PERSONAL / INSTRUMENT"; textFormat: Text.PlainText
-            color: Theme.textDim; font.family: Theme.mono
+            text: Theme.integratedApps ? "APPLICATION / INSTRUMENT" : "APPLICATION / RESONANCE"; textFormat: Text.PlainText
+            color: Theme.appLink; font.family: Theme.mono
             font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
         }
         Text {
-            text: "AERO\nLITH"; textFormat: Text.PlainText; color: Theme.text
+            text: rig.compact ? Theme.applicationName : Theme.integratedApps ? "PIY\nTI" : "THE\nARS"; textFormat: Text.PlainText; color: Theme.text
             font.family: Theme.displaySans
-            font.pixelSize: Math.min(Theme.du(Theme.insane ? 112 : 100), rig.width * .078)
+            font.pixelSize: Math.min(Theme.du(Theme.insane ? 112 : 100), rig.width * (rig.compact ? .045 : .078))
             font.weight: Font.Light; font.letterSpacing: Theme.insane ? 4 : 1
             lineHeight: .87
         }
-        Rectangle { width: parent.width * .22; height: Theme.du(5); color: Theme.signal }
+        Rectangle { width: parent.width * (Theme.integratedApps ? .72 : .22); height: Theme.du(5); color: Theme.appLink }
         Text {
-            text: "LIMB / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
+            text: Theme.integratedApps ? "TASK INSTRUMENT / " + (Compositor.activeClass || "NO FOCUS").toUpperCase() : "SHEAR / " + Theme.variantName.toUpperCase();
+            width: parent.width; elide: Text.ElideRight; textFormat: Text.PlainText
             color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
         }
         Flow {
@@ -196,44 +197,13 @@ Item {
         color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
     }
 
-    // The lower datum stays shared between the desktop and all bays.
-    Rectangle {
-        x: parent.width * .05; y: parent.height * .88
-        width: parent.width * .90; height: parent.height * .12
-        color: Theme.bg; visible: !rig.compact
-    }
-    Row {
-        x: parent.width * .055; y: parent.height * .895
-        width: parent.width * .885; spacing: parent.width * .025
-        visible: !rig.compact
-        opacity: Math.max(0, Math.min(1, (rig.ignition - .64) / .32))
-        MetricTape {
-            width: parent.width * .25; height: Theme.du(82)
-            label: "CPU LOAD"; reading: rig.cpu
-            values: { Telemetry.sampleSeq; return Telemetry.cpuHistory.values().slice(-36); }
-        }
-        MetricTape {
-            width: parent.width * .25; height: Theme.du(82)
-            label: "MEMORY"; reading: rig.mem; ink: Theme.text
-            values: { Telemetry.sampleSeq; return Telemetry.memHistory.values().slice(-36); }
-        }
-        Column {
-            width: parent.width * .18; spacing: Theme.du(9)
-            Rectangle { width: parent.width; height: 1; color: Theme.grid }
-            Text { text: "OUTPUT / SOUND"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
-            Text {
-                text: !Audio.volumeKnown ? "N/A" : Audio.muted ? "MUTED" : Audio.volumePercent + "%"
-                textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.displaySans; font.pixelSize: Theme.du(25)
-            }
-            Text { text: Media.playing ? "PLAYING" : "NO PLAYBACK"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
-        }
-        Column {
-            width: parent.width * .19; spacing: Theme.du(9)
-            Rectangle { width: parent.width; height: 1; color: Theme.grid }
-            Text { text: "ACTIVE ROUTE / " + rig.ws; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
-            Text { text: rig.instrument ? (Ui.activeBay || "CLOSING").toUpperCase() : "DESKTOP"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.du(22) }
-            Text { text: rig.instrument ? "F1 HELP / ESC RETURN" : "SELECT A BAY ABOVE"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
-        }
+    // THEARS offers native surfaces; PIYTI exposes real window continuity.
+    AppContinuity {
+        x: parent.width * .055; y: rig.compact ? parent.height - height - Theme.stripHeight - Theme.du(12) : parent.height * .87
+        width: parent.width * .885
+        height: rig.compact ? Theme.du(99) : parent.height * .125
+        visible: !rig.instrument
+        instrument: rig.instrument
     }
     Text {
         x: parent.width * .055; y: parent.height * .815

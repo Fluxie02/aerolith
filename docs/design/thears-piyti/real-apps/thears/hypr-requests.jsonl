@@ -1,0 +1,60 @@
+{"t": 1792746325.8441198, "kind": "event", "request": "openwindow>>5a00000001a0,1,foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746325.8442013, "kind": "event", "request": "activewindow>>foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746325.8442276, "kind": "event", "request": "activewindowv2>>5a00000001a0", "reply": null}
+{"t": 1792746325.84426, "kind": "event", "request": "openwindow>>5a0000000340,2,firefox,Hyprland Wiki \u2014 Mozilla Firefox", "reply": null}
+{"t": 1792746325.8442802, "kind": "event", "request": "openwindow>>5a00000004e0,2,org.gnome.Nautilus,Downloads", "reply": null}
+{"t": 1792746325.8442967, "kind": "event", "request": "openwindow>>5a0000000680,3,Code,aerolith \u2014 Visual Studio Code", "reply": null}
+{"t": 1792746325.8443186, "kind": "event", "request": "workspace>>1", "reply": null}
+{"t": 1792746325.8443315, "kind": "event", "request": "workspacev2>>1,1", "reply": null}
+{"t": 1792746325.8443449, "kind": "event", "request": "focusedmon>>DP-1,1", "reply": null}
+{"t": 1792746325.8443565, "kind": "event", "request": "focusedmonv2>>DP-1,1", "reply": null}
+{"t": 1792746326.2352402, "kind": "request", "request": "j/status", "reply": "{\n  \"configProvider\": \"lua\"\n}"}
+{"t": 1792746326.3343291, "kind": "subscribe", "request": "socket2", "reply": null}
+{"t": 1792746326.334728, "kind": "request", "request": "j/monitors", "reply": "[\n  {\n    \"id\": 0,\n    \"name\": \"DP-1\",\n    \"description\": \"Mock Display 1920x1080\",\n    \"make\": \"Mock\",\n    \"model\": \"Display\",\n    \"serial\": \"0\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"physicalWidth\": 530,\n    \"physicalHeight\": 300,\n    \"refreshRate\": 60.0,\n    \"x\": 0,\n    \"y\": 0,\n    \"reserved\": [\n      0,\n      0,\n      0,\n      0\n    ],\n    \"scale\": 1.0,\n    \"transform\": 0,\n    \"dpmsStatu..."}
+{"t": 1792746326.3355174, "kind": "request", "request": "j/clients", "reply": "[\n  {\n    \"address\": \"0x5a00000001a0\",\n    \"mapped\": true,\n    \"hidden\": false,\n    \"at\": [\n      8,\n      36\n    ],\n    \"size\": [\n      1904,\n      1036\n    ],\n    \"workspace\": {\n      \"id\": 1,\n      \"name\": \"1\"\n    },\n    \"floating\": false,\n    \"pseudo\": false,\n    \"monitor\": 0,\n    \"class\": \"foot\",\n    \"title\": \"pilot@aerolith: ~\",\n    \"initialClass\": \"foot\",\n    \"initialTitle\": \"pilot@aerolith..."}
+{"t": 1792746326.3356764, "kind": "request", "request": "j/workspaces", "reply": "[\n  {\n    \"id\": 1,\n    \"name\": \"1\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 1,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a00000001a0\",\n    \"lastwindowtitle\": \"pilot@aerolith: ~\",\n    \"ispersistent\": true\n  },\n  {\n    \"id\": 2,\n    \"name\": \"2\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 2,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a0000000340\",\n    \"l..."}
+{"t": 1792746423.0495615, "kind": "event", "request": "openwindow>>5a00000001a0,1,foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746423.0496335, "kind": "event", "request": "activewindow>>foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746423.0496554, "kind": "event", "request": "activewindowv2>>5a00000001a0", "reply": null}
+{"t": 1792746423.049682, "kind": "event", "request": "openwindow>>5a0000000340,2,firefox,Hyprland Wiki \u2014 Mozilla Firefox", "reply": null}
+{"t": 1792746423.049701, "kind": "event", "request": "openwindow>>5a00000004e0,2,org.gnome.Nautilus,Downloads", "reply": null}
+{"t": 1792746423.0497162, "kind": "event", "request": "openwindow>>5a0000000680,3,Code,aerolith \u2014 Visual Studio Code", "reply": null}
+{"t": 1792746423.0497353, "kind": "event", "request": "workspace>>1", "reply": null}
+{"t": 1792746423.0497928, "kind": "event", "request": "workspacev2>>1,1", "reply": null}
+{"t": 1792746423.0498135, "kind": "event", "request": "focusedmon>>DP-1,1", "reply": null}
+{"t": 1792746423.0498295, "kind": "event", "request": "focusedmonv2>>DP-1,1", "reply": null}
+{"t": 1792746423.4071133, "kind": "request", "request": "j/status", "reply": "{\n  \"configProvider\": \"lua\"\n}"}
+{"t": 1792746423.48992, "kind": "request", "request": "j/workspaces", "reply": "[\n  {\n    \"id\": 1,\n    \"name\": \"1\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 1,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a00000001a0\",\n    \"lastwindowtitle\": \"pilot@aerolith: ~\",\n    \"ispersistent\": true\n  },\n  {\n    \"id\": 2,\n    \"name\": \"2\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 2,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a0000000340\",\n    \"l..."}
+{"t": 1792746423.4902117, "kind": "subscribe", "request": "socket2", "reply": null}
+{"t": 1792746423.4903066, "kind": "request", "request": "j/monitors", "reply": "[\n  {\n    \"id\": 0,\n    \"name\": \"DP-1\",\n    \"description\": \"Mock Display 1920x1080\",\n    \"make\": \"Mock\",\n    \"model\": \"Display\",\n    \"serial\": \"0\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"physicalWidth\": 530,\n    \"physicalHeight\": 300,\n    \"refreshRate\": 60.0,\n    \"x\": 0,\n    \"y\": 0,\n    \"reserved\": [\n      0,\n      0,\n      0,\n      0\n    ],\n    \"scale\": 1.0,\n    \"transform\": 0,\n    \"dpmsStatu..."}
+{"t": 1792746423.490707, "kind": "request", "request": "j/clients", "reply": "[\n  {\n    \"address\": \"0x5a00000001a0\",\n    \"mapped\": true,\n    \"hidden\": false,\n    \"at\": [\n      8,\n      36\n    ],\n    \"size\": [\n      1904,\n      1036\n    ],\n    \"workspace\": {\n      \"id\": 1,\n      \"name\": \"1\"\n    },\n    \"floating\": false,\n    \"pseudo\": false,\n    \"monitor\": 0,\n    \"class\": \"foot\",\n    \"title\": \"pilot@aerolith: ~\",\n    \"initialClass\": \"foot\",\n    \"initialTitle\": \"pilot@aerolith..."}
+{"t": 1792746448.2002704, "kind": "event", "request": "openwindow>>5a00000001a0,1,foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746448.200348, "kind": "event", "request": "activewindow>>foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746448.200373, "kind": "event", "request": "activewindowv2>>5a00000001a0", "reply": null}
+{"t": 1792746448.2003963, "kind": "event", "request": "openwindow>>5a0000000340,2,firefox,Hyprland Wiki \u2014 Mozilla Firefox", "reply": null}
+{"t": 1792746448.200414, "kind": "event", "request": "openwindow>>5a00000004e0,2,org.gnome.Nautilus,Downloads", "reply": null}
+{"t": 1792746448.2004473, "kind": "event", "request": "openwindow>>5a0000000680,3,Code,aerolith \u2014 Visual Studio Code", "reply": null}
+{"t": 1792746448.2004724, "kind": "event", "request": "workspace>>1", "reply": null}
+{"t": 1792746448.200484, "kind": "event", "request": "workspacev2>>1,1", "reply": null}
+{"t": 1792746448.2004957, "kind": "event", "request": "focusedmon>>DP-1,1", "reply": null}
+{"t": 1792746448.2005067, "kind": "event", "request": "focusedmonv2>>DP-1,1", "reply": null}
+{"t": 1792746448.7216473, "kind": "request", "request": "j/status", "reply": "{\n  \"configProvider\": \"lua\"\n}"}
+{"t": 1792746448.813723, "kind": "request", "request": "j/monitors", "reply": "[\n  {\n    \"id\": 0,\n    \"name\": \"DP-1\",\n    \"description\": \"Mock Display 1920x1080\",\n    \"make\": \"Mock\",\n    \"model\": \"Display\",\n    \"serial\": \"0\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"physicalWidth\": 530,\n    \"physicalHeight\": 300,\n    \"refreshRate\": 60.0,\n    \"x\": 0,\n    \"y\": 0,\n    \"reserved\": [\n      0,\n      0,\n      0,\n      0\n    ],\n    \"scale\": 1.0,\n    \"transform\": 0,\n    \"dpmsStatu..."}
+{"t": 1792746448.8140962, "kind": "subscribe", "request": "socket2", "reply": null}
+{"t": 1792746448.8145316, "kind": "request", "request": "j/clients", "reply": "[\n  {\n    \"address\": \"0x5a00000001a0\",\n    \"mapped\": true,\n    \"hidden\": false,\n    \"at\": [\n      8,\n      36\n    ],\n    \"size\": [\n      1904,\n      1036\n    ],\n    \"workspace\": {\n      \"id\": 1,\n      \"name\": \"1\"\n    },\n    \"floating\": false,\n    \"pseudo\": false,\n    \"monitor\": 0,\n    \"class\": \"foot\",\n    \"title\": \"pilot@aerolith: ~\",\n    \"initialClass\": \"foot\",\n    \"initialTitle\": \"pilot@aerolith..."}
+{"t": 1792746448.8148453, "kind": "request", "request": "j/workspaces", "reply": "[\n  {\n    \"id\": 1,\n    \"name\": \"1\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 1,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a00000001a0\",\n    \"lastwindowtitle\": \"pilot@aerolith: ~\",\n    \"ispersistent\": true\n  },\n  {\n    \"id\": 2,\n    \"name\": \"2\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 2,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a0000000340\",\n    \"l..."}
+{"t": 1792746488.9242523, "kind": "event", "request": "openwindow>>5a00000001a0,1,foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746488.9243233, "kind": "event", "request": "activewindow>>foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792746488.9243443, "kind": "event", "request": "activewindowv2>>5a00000001a0", "reply": null}
+{"t": 1792746488.9243686, "kind": "event", "request": "openwindow>>5a0000000340,2,firefox,Hyprland Wiki \u2014 Mozilla Firefox", "reply": null}
+{"t": 1792746488.9244006, "kind": "event", "request": "openwindow>>5a00000004e0,2,org.gnome.Nautilus,Downloads", "reply": null}
+{"t": 1792746488.9244208, "kind": "event", "request": "openwindow>>5a0000000680,3,Code,aerolith \u2014 Visual Studio Code", "reply": null}
+{"t": 1792746488.924441, "kind": "event", "request": "workspace>>1", "reply": null}
+{"t": 1792746488.9244528, "kind": "event", "request": "workspacev2>>1,1", "reply": null}
+{"t": 1792746488.924465, "kind": "event", "request": "focusedmon>>DP-1,1", "reply": null}
+{"t": 1792746488.9244757, "kind": "event", "request": "focusedmonv2>>DP-1,1", "reply": null}
+{"t": 1792746489.4654639, "kind": "request", "request": "j/status", "reply": "{\n  \"configProvider\": \"lua\"\n}"}
+{"t": 1792746489.5442152, "kind": "subscribe", "request": "socket2", "reply": null}
+{"t": 1792746489.544934, "kind": "request", "request": "j/monitors", "reply": "[\n  {\n    \"id\": 0,\n    \"name\": \"DP-1\",\n    \"description\": \"Mock Display 1920x1080\",\n    \"make\": \"Mock\",\n    \"model\": \"Display\",\n    \"serial\": \"0\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"physicalWidth\": 530,\n    \"physicalHeight\": 300,\n    \"refreshRate\": 60.0,\n    \"x\": 0,\n    \"y\": 0,\n    \"reserved\": [\n      0,\n      0,\n      0,\n      0\n    ],\n    \"scale\": 1.0,\n    \"transform\": 0,\n    \"dpmsStatu..."}
+{"t": 1792746489.5463045, "kind": "request", "request": "j/workspaces", "reply": "[\n  {\n    \"id\": 1,\n    \"name\": \"1\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 1,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a00000001a0\",\n    \"lastwindowtitle\": \"pilot@aerolith: ~\",\n    \"ispersistent\": true\n  },\n  {\n    \"id\": 2,\n    \"name\": \"2\",\n    \"monitor\": \"DP-1\",\n    \"monitorID\": 0,\n    \"windows\": 2,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a0000000340\",\n    \"l..."}
+{"t": 1792746489.5468147, "kind": "request", "request": "j/clients", "reply": "[\n  {\n    \"address\": \"0x5a00000001a0\",\n    \"mapped\": true,\n    \"hidden\": false,\n    \"at\": [\n      8,\n      36\n    ],\n    \"size\": [\n      1904,\n      1036\n    ],\n    \"workspace\": {\n      \"id\": 1,\n      \"name\": \"1\"\n    },\n    \"floating\": false,\n    \"pseudo\": false,\n    \"monitor\": 0,\n    \"class\": \"foot\",\n    \"title\": \"pilot@aerolith: ~\",\n    \"initialClass\": \"foot\",\n    \"initialTitle\": \"pilot@aerolith..."}

@@ -110,7 +110,7 @@ PanelWindow {
                 textFormat: Text.PlainText
                 visible: Compositor.activeClass !== ""
                 text: Compositor.activeClass.toUpperCase()
-                color: Theme.signal
+                color: Theme.appLink
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
                 font.letterSpacing: 0.8

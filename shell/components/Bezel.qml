@@ -12,7 +12,7 @@ Item {
     property color statusColor: Theme.textDim
     property bool active: true
     property bool showHeader: title !== "" || designation !== ""
-    property color accent: active ? Theme.signal : Theme.grid
+    property color accent: active ? Theme.appLink : Theme.grid
     property alias headerRight: headerRightSlot.data
     default property alias content: body.data
     readonly property bool compact: height < Theme.du(600)

@@ -20,6 +20,12 @@ Singleton {
     readonly property bool insane: intensity === "insane"
     readonly property int variantLevel: insane ? 3 : 2
     readonly property string variantName: insane ? "Insane" : "Saturated"
+    // UI-012 visual seam. Claude will bind this to an approved setting; until
+    // then THEARS is the shipped composition, PIYTI is a review build choice.
+    property string applicationDirection: "thears"
+    readonly property bool integratedApps: applicationDirection === "piyti"
+    readonly property string applicationName: integratedApps ? "PIYTI" : "THEARS"
+    readonly property color appLink: integratedApps ? "#81e6ed" : signal
     // Process lifetime latch survives hidden/recreated views. Freeze the selected
     // startup duration so changing intensity during assembly cannot retime it.
     property bool bootPlayed: false

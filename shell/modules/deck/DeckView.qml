@@ -144,7 +144,7 @@ Item {
     Text {
         x: parent.width * .055; y: parent.height * .84
         visible: !view.compactScreen
-        text: "LIMB / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
+        text: Theme.applicationName + " / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
         color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
     }
     NoticeStack {
