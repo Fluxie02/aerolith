@@ -1,12 +1,12 @@
-E 13:41:43.724338             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-W 13:41:43.724374             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
-PipeWire 'pipewire-0' [1.6.9, pilot@20bbeef70451, cookie:2275362480]
+E 18:18:54.381489             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 18:18:54.381525             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+PipeWire 'pipewire-0' [1.6.9, pilot@0ca3f89e1f8b, cookie:2624052243]
  └─ Clients:
-        31. WirePlumber                         [1.6.9, pilot@20bbeef70451, pid:38]
-        40. WirePlumber [client]                [1.6.9, pilot@20bbeef70451, pid:38]
-        51. mpv                                 [1.6.9, pilot@20bbeef70451, pid:51]
-        54. quickshell                          [1.6.9, pilot@20bbeef70451, pid:230]
-        55. wpctl                               [1.6.9, pilot@20bbeef70451, pid:314]
+        31. WirePlumber                         [1.6.9, pilot@0ca3f89e1f8b, pid:37]
+        40. WirePlumber [client]                [1.6.9, pilot@0ca3f89e1f8b, pid:37]
+        51. mpv                                 [1.6.9, pilot@0ca3f89e1f8b, pid:50]
+        54. quickshell                          [1.6.9, pilot@0ca3f89e1f8b, pid:229]
+        55. wpctl                               [1.6.9, pilot@0ca3f89e1f8b, pid:313]
 
 Audio
  ├─ Devices:

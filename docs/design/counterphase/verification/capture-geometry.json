@@ -1,0 +1,710 @@
+{
+  "cases": 24,
+  "all_dimensions_match": true,
+  "records": [
+    {
+      "case": "insane-4k-scale1-uiScale1.5",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 3840,
+        "height": 2160
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1"
+    },
+    {
+      "case": "insane-4k-scale1.5-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.5,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1.5"
+    },
+    {
+      "case": "insane-4k-scale2-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 2.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 2"
+    },
+    {
+      "case": "insane-compact-lowEffects",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "insane-compact-off",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "insane-compact-reduced",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "piyti-insane-4k-scale1-uiScale1.5",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 3840,
+        "height": 2160
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1"
+    },
+    {
+      "case": "piyti-insane-4k-scale1.5-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.5,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1.5"
+    },
+    {
+      "case": "piyti-insane-4k-scale2-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 2.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ],
+        "03-remapped-idle.png": [
+          3840,
+          2160
+        ],
+        "04-reopened-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 2"
+    },
+    {
+      "case": "piyti-insane-compact-lowEffects",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "piyti-insane-compact-off",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "piyti-insane-compact-reduced",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "piyti-saturated-4k-scale1-uiScale1.5",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 3840,
+        "height": 2160
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1"
+    },
+    {
+      "case": "piyti-saturated-4k-scale1.5-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.5,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1.5"
+    },
+    {
+      "case": "piyti-saturated-4k-scale2-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 2.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 2"
+    },
+    {
+      "case": "piyti-saturated-compact-lowEffects",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "piyti-saturated-compact-off",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "piyti-saturated-compact-reduced",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "saturated-4k-scale1-uiScale1.5",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 3840,
+        "height": 2160
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1"
+    },
+    {
+      "case": "saturated-4k-scale1.5-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 1.5,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 1.5"
+    },
+    {
+      "case": "saturated-4k-scale2-uiScale1",
+      "physical_size": [
+        3840,
+        2160
+      ],
+      "scale": 2.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "images": {
+        "01-idle.png": [
+          3840,
+          2160
+        ],
+        "02-command.png": [
+          3840,
+          2160
+        ]
+      },
+      "hypr_mock_args": "--mode 3840x2160 --scale 2"
+    },
+    {
+      "case": "saturated-compact-lowEffects",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "saturated-compact-off",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    },
+    {
+      "case": "saturated-compact-reduced",
+      "physical_size": [
+        1280,
+        720
+      ],
+      "scale": 1.0,
+      "logical_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "images": {
+        "01-idle.png": [
+          1280,
+          720
+        ],
+        "02-command.png": [
+          1280,
+          720
+        ],
+        "03-settings.png": [
+          1280,
+          720
+        ],
+        "04-navigator.png": [
+          1280,
+          720
+        ]
+      },
+      "hypr_mock_args": "--mode 1280x720 --scale 1"
+    }
+  ]
+}

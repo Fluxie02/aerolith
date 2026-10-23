@@ -1,0 +1,17 @@
+{
+  "changes": {
+    "components/ShearField.qml": {
+      "capture_sha256": "9b239e9fc5743693671ee80476f92a6285587242b819d021de46b6375a078f4e",
+      "final_sha256": "16e206e3551fc275dc60e1ae884ca1e04182bc0a780fe560e3b51e9e0a542efa"
+    },
+    "components/Counterphase.qml": {
+      "capture_sha256": "c86dc4e9127e647ee8ec1972a6b7f3b254aacebc2645e8c2f32a1fc0f11a6175",
+      "final_sha256": "842ae08d2d0870737dfd66b59c4c633f4bcdcf106beff02ebe3485d7b1c4bb29"
+    },
+    "core/Theme.qml": {
+      "capture_sha256": "e02420db9851105f66d402e807835e1e60447c80532ebdc8fd9174241c6561af",
+      "final_sha256": "3f00705284ef147b135c8fa9f2a39e237798b35434ef32275cd7c2d218ecd3ed"
+    }
+  },
+  "meaning": "Only reduced focus impulse, queued cadence gate checks, live intensity return-stroke cancellation and installation comment changed. Retained static captures remain geometrically representative. Final scenarios use refreshed snapshots."
+}

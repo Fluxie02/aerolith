@@ -1,0 +1,21 @@
+{
+  "name": "piyti-insane-deck-native-output",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/deck.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/piyti-insane-deck-native-output"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/piyti-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-full-scale1.json",
+    "AUDIO": "1",
+    "RES": "1920x1080",
+    "SCALE": "1",
+    "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 24.8,
+  "stdout": "docs/design/counterphase/verification/final-runs/piyti-insane-deck-native-output.stdout.txt",
+  "source_manifest_sha256": "00b307e4d456e5c43f7464200a6bb5de121c66aa744551969b953421000a5c9a"
+}

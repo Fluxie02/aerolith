@@ -18,7 +18,7 @@ Item {
     function breathe() { if (breathing) stroke(); }
 
     function focusImpulse() {
-        if (!exposed || !Theme.ambient || assembly < 1) return;
+        if (!exposed || !Theme.ambient || !Theme.travel || assembly < 1) return;
         impulse.stop(); recoil = 1; impulse.restart();
     }
     Connections {
@@ -32,6 +32,9 @@ Item {
         }
         function onAmbientChanged() {
             if (!Theme.ambient) { impulse.stop(); shear.recoil = 0; }
+        }
+        function onTravelChanged() {
+            if (!Theme.travel) { impulse.stop(); shear.recoil = 0; }
         }
     }
     onExposedChanged: if (!exposed) { impulse.stop(); recoil = 0; }

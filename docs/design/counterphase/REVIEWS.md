@@ -4,6 +4,11 @@ Two actual Codex sub-agents reviewed the work while it was being built;
 another ran verification. These are local delegated agents, not a claim of
 a cloud dispatcher or an installed review-agent plugin.
 
+After the interruption, fresh focused review and verification agents resumed
+from saved evidence. The owner's new direction is authoritative: PIYTI is the
+base; THEARS is maintained in both intensities; selection is installation-only
+and belongs to Claude. New review screenshots and motion frames use PIYTI.
+
 ## Visual reviewer
 
 Read DESIGN_BRIEF.md and the owner's UI-013 instruction, then viewed the
@@ -30,6 +35,14 @@ actual motion frames in both intensities.
   Fixed with deferred cadence restarts after bindings settle, including
   scale, intensity and workspace-direction changes. Live frame evidence
   demonstrates a 2 px observed reduced stroke within the 3 px bound.
+* Resume review found a remaining 240 ms full-opacity focus flash in reduced
+  mode. Fixed by suppressing that impulse unless full travel is enabled, and
+  clearing any current impulse as travel is disabled. Actual PIYTI focus
+  before/after frames have identical fin pixels in reduced mode.
+* Fixed live Insane → Saturated return-stroke cancellation and a deferred
+  callback race: the callback now rechecks the ambient gate when it executes,
+  so a queued restart cannot reopen a disabled timer. Rapid setting changes
+  end with pixel-identical stationary off frames in both intensities.
 * P2: PauseAnimation makes a grouped sequence ineligible for the all-Animator
   render-thread path. Fixed by using a single slow Timer to start finite
   groups containing only X/Y/OpacityAnimator. No per-frame JavaScript or
@@ -37,6 +50,16 @@ actual motion frames in both intensities.
 * Every new ambient job is downstream of Theme.ambient plus local exposure.
   Finite background focus/orbit/app-latch and boot motion were also gated.
   The app latch now scales its fixed-width ink instead of animating width.
+
+Final PIYTI evidence includes actual five-app fixture windows and focused
+ArtCraft → Firefox handoff. Reviewers found the cyan integration port and
+active application text correct, the carrier motion confined to its tracks,
+and 1280×720/uiScale 1.5 class/title text fully visible. Technical pixel
+checks are in `motion-piyti/pixel-verification.json`.
+
+One PIYTI Insane 4K/scale 2 capture showed missing Canvas faces despite a
+clean log. It was rejected by visual review and retained as an attempt;
+targeted settling/remap verification is recorded in `verification/RESULTS.md`.
 
 Qt primary references checked during the review:
 [Animator semantics](https://doc.qt.io/qt-6/qml-qtquick-animator.html) and

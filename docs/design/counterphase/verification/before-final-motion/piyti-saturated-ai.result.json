@@ -1,0 +1,19 @@
+{
+  "name": "piyti-saturated-ai",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/ai.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/piyti-saturated-ai"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/piyti-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/saturated-full-scale1.json",
+    "AUDIO": "1",
+    "AI": "1"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 20.61,
+  "stdout": "docs/design/counterphase/verification/final-runs/piyti-saturated-ai.stdout.txt",
+  "source_manifest_sha256": "0208189ba59f0616ad22fff07d5fb4b4ee13fe41b1c7058549050fa1b9d3533d"
+}

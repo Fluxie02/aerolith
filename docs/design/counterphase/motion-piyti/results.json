@@ -1,0 +1,16 @@
+[
+  {
+    "intensity": "saturated",
+    "command": "AUDIO=1 SHELL_PATH=build/counterphase-piyti-motion-shell CONFIG=docs/design/counterphase/build-check/saturated-full.json tools/headless/run.sh docs/design/counterphase/build-check/piyti-motion.sh docs/design/counterphase/motion-piyti/saturated",
+    "exit": 0,
+    "evidence": "docs/design/counterphase/motion-piyti/saturated",
+    "source_manifest": "motion-piyti/source-hashes.json"
+  },
+  {
+    "intensity": "insane",
+    "command": "AUDIO=1 SHELL_PATH=build/counterphase-piyti-motion-shell CONFIG=docs/design/counterphase/build-check/insane-full.json tools/headless/run.sh docs/design/counterphase/build-check/piyti-motion.sh docs/design/counterphase/motion-piyti/insane",
+    "exit": 0,
+    "evidence": "docs/design/counterphase/motion-piyti/insane",
+    "source_manifest": "motion-piyti/source-hashes.json"
+  }
+]

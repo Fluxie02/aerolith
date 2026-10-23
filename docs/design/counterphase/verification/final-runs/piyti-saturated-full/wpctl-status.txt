@@ -1,0 +1,38 @@
+E 18:22:18.853798             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 18:22:18.853837             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+PipeWire 'pipewire-0' [1.6.9, pilot@baceba23a1a5, cookie:3636232645]
+ └─ Clients:
+        31. WirePlumber                         [1.6.9, pilot@baceba23a1a5, pid:38]
+        40. WirePlumber [client]                [1.6.9, pilot@baceba23a1a5, pid:38]
+        51. mpv                                 [1.6.9, pilot@baceba23a1a5, pid:52]
+        54. quickshell                          [1.6.9, pilot@baceba23a1a5, pid:231]
+        55. wpctl                               [1.6.9, pilot@baceba23a1a5, pid:315]
+
+Audio
+ ├─ Devices:
+ │  
+ ├─ Sinks:
+ │  *   42. Test Speakers                       [vol: 0.40]
+ │      47. Test Headphones                     [vol: 1.00]
+ │  
+ ├─ Sources:
+ │      52. Test Microphone                     [vol: 1.00]
+ │  
+ ├─ Filters:
+ │  
+ └─ Streams:
+        53. mpv                                                         
+
+Video
+ ├─ Devices:
+ │  
+ ├─ Sinks:
+ │  
+ ├─ Sources:
+ │  
+ ├─ Filters:
+ │  
+ └─ Streams:
+
+Settings
+ └─ Default Configured Devices:

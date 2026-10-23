@@ -22,14 +22,19 @@ Item {
         running: machine.driving; repeat: true; triggeredOnStart: true
         onTriggered: machine.beat()
     }
+    function restartCadence() {
+        // Recheck after the deferred callback: motion may have been disabled
+        // in the same event turn that changed scale, intensity or direction.
+        if (machine.driving) escapement.restart();
+    }
     Connections {
         target: Theme
-        function onAmbientReducedChanged() { if (machine.driving) Qt.callLater(function() { escapement.restart(); }); }
-        function onUnitChanged() { if (machine.driving) Qt.callLater(function() { escapement.restart(); }); }
-        function onInsaneChanged() { if (machine.driving) Qt.callLater(function() { escapement.restart(); }); }
+        function onAmbientReducedChanged() { Qt.callLater(machine.restartCadence); }
+        function onUnitChanged() { Qt.callLater(machine.restartCadence); }
+        function onInsaneChanged() { Qt.callLater(machine.restartCadence); }
     }
-    onDirectionChanged: if (driving) Qt.callLater(function() { escapement.restart(); })
-    Component.onCompleted: if (driving) Qt.callLater(function() { escapement.restart(); })
+    onDirectionChanged: Qt.callLater(machine.restartCadence)
+    Component.onCompleted: Qt.callLater(machine.restartCadence)
 
     // A pair of opposed linear bearings continues the fixed command datum.
     // Both are bounded within the same track even when motion is disabled.
@@ -108,6 +113,12 @@ Item {
                 target: machine
                 function onBeat() { if (machine.driving && Theme.insane) returnCycle.restart(); }
                 function onDrivingChanged() { if (!machine.driving) { returnCycle.stop(); returnMark.y = Qt.binding(function() { return vernier.height * .44; }); } }
+            }
+            Connections {
+                target: Theme
+                function onInsaneChanged() {
+                    if (!Theme.insane) { returnCycle.stop(); returnMark.y = Qt.binding(function() { return vernier.height * .44; }); }
+                }
             }
         }
     }

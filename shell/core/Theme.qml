@@ -20,8 +20,8 @@ Singleton {
     readonly property bool insane: intensity === "insane"
     readonly property int variantLevel: insane ? 3 : 2
     readonly property string variantName: insane ? "Insane" : "Saturated"
-    // UI-012 visual seam. Claude will bind this to an approved setting; until
-    // then THEARS is the shipped composition, PIYTI is a review build choice.
+    // Installation-only seam: Claude wires the one-time THEARS/PIYTI choice.
+    // THEARS remains shipped for now; UI-013 review builds develop PIYTI.
     property string applicationDirection: "thears"
     readonly property bool integratedApps: applicationDirection === "piyti"
     readonly property string applicationName: integratedApps ? "PIYTI" : "THEARS"

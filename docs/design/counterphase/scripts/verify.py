@@ -54,10 +54,15 @@ def config(intensity, motion="full", scale=1, low=False):
     return path
 
 def scenario(intensity, name, native_output=False, direction="thears"):
+    # A resumed coordinator can finish in-flight containers before replacing
+    # read-only snapshots. No production file is ever edited by this harness.
+    while (BASE / "snapshot-refresh.pending").exists():
+        time.sleep(0.2)
     env = os.environ.copy()
     snapshot = BASE / ("piyti-shell" if direction == "piyti" else "frozen-shell")
-    if snapshot.exists():
-        env["SHELL_PATH"] = str(snapshot.relative_to(REPO))
+    if not snapshot.exists():
+        raise SystemExit(f"Missing {snapshot.name}; run verify.py freeze --direction {direction} first")
+    env["SHELL_PATH"] = str(snapshot.relative_to(REPO))
     env["CONFIG"] = str(config(intensity))
     if name == "full":
         env.update(AUDIO="1", MEDIA="1", MPV_AO="pipewire", ROUTINES=str(BASE / "configs/valid-routines.json"))
@@ -70,10 +75,12 @@ def scenario(intensity, name, native_output=False, direction="thears"):
     label = ("piyti-" if direction == "piyti" else "") + f"{intensity}-{name}" + ("-native-output" if native_output else "")
     return run(label, ["bash", "tools/headless/run.sh", "tests/scenarios/"+name+".sh", str(RUN_AREA / label)], env=env)
 
-def capture(intensity, profile):
+def capture(intensity, profile, direction="piyti", stability=False):
     env = os.environ.copy()
-    if (BASE / "frozen-shell").exists():
-        env["SHELL_PATH"] = str((BASE / "frozen-shell").relative_to(REPO))
+    snapshot = BASE / ("piyti-shell" if direction == "piyti" else "frozen-shell")
+    if not snapshot.exists():
+        raise SystemExit(f"Missing {snapshot.name}; run verify.py freeze --direction {direction} first")
+    env["SHELL_PATH"] = str(snapshot.relative_to(REPO))
     motion = "full"
     low = False
     ui_scale = 1.5
@@ -88,8 +95,10 @@ def capture(intensity, profile):
         env.update(RES="3840x2160", SCALE=output_scale, HYPR_MOCK_ARGS="--mode 3840x2160 --scale " + output_scale)
     env["CONFIG"] = str(config(intensity, motion, ui_scale, low))
     env["ROUTINES"] = str(BASE / "configs/valid-routines.json")
-    label = intensity + "-" + profile + ("-uiScale" + str(ui_scale) if profile.startswith("4k-") else "")
+    label = ("piyti-" if direction == "piyti" else "") + intensity + "-" + profile + ("-uiScale" + str(ui_scale) if profile.startswith("4k-") else "")
     script = "capture-4k.sh" if ROUND == "final" and profile.startswith("4k-") else "capture.sh"
+    if stability:
+        script = "capture-4k-stability.sh"
     return run(label, ["bash", "tools/headless/run.sh", "docs/design/counterphase/scripts/"+script, str(RUN_AREA / label)], env=env)
 
 parser = argparse.ArgumentParser()
@@ -98,7 +107,8 @@ parser.add_argument("--intensity", choices=["saturated", "insane"], default="sat
 parser.add_argument("--scenario", choices=["smoke", "full", "deck", "ai"], default="smoke")
 parser.add_argument("--deck-native-output", action="store_true")
 parser.add_argument("--round", choices=["initial", "final"], default="initial")
-parser.add_argument("--direction", choices=["thears", "piyti"], default="thears")
+parser.add_argument("--direction", choices=["thears", "piyti"], default="piyti")
+parser.add_argument("--stability-capture", action="store_true")
 parser.add_argument("--profile", choices=["compact-off", "compact-reduced", "compact-lowEffects", "4k-scale2", "4k-scale1.5", "4k-scale1"], default="compact-off")
 args = parser.parse_args()
 ROUND = args.round
@@ -131,6 +141,6 @@ if args.kind == "configs":
     source["routines"] = [r for r in source["routines"] if r["id"] != "broken-example"]
     (BASE / "configs/valid-routines.json").write_text(json.dumps(source, indent=2) + "\n")
 elif args.kind == "capture":
-    raise SystemExit(capture(args.intensity, args.profile))
+    raise SystemExit(capture(args.intensity, args.profile, args.direction, args.stability_capture))
 else:
     raise SystemExit(scenario(args.intensity, args.scenario, args.deck_native_output, args.direction))

@@ -38,13 +38,21 @@ restore. Validate repeated enter/leave, output removal, active notice and
 Deck exit while suspending, plus real GPU VRAM before/during/after a game.
 This software-rendered Sway/Hyprland-mock environment cannot validate VRAM.
 
-## S2 — Existing app-direction setting seam (inherited)
+## S2 — Installation-only direction choice (owner decision on resume)
 
-`Theme.applicationDirection` remains `thears` by default; `piyti` selects
-the application instrument and its existing five app adapters. Neither the
-schema nor the adapters changed in this round. A supported persistent choice
-still belongs to Claude, as recorded in UI-012. Verification changes the
-default only in a disposable shell copy to exercise PIYTI.
+PIYTI is the design base from this point forward; THEARS is frozen and must
+continue working in both intensities. The owner wants the user to choose
+THEARS or PIYTI **once during installation**. Claude wires that choice.
+Do not add a direction control to Settings or a live-switching command.
+
+`Theme.applicationDirection` remains `thears` in the current shipped shell
+until installer wiring; `piyti` selects the application instrument and its
+existing five app adapters. The schema and adapters are unchanged. Final
+review builds, screenshots and new CPU/motion evidence use a disposable
+copy whose only direction difference is this default set to `piyti`.
+Earlier THEARS results remain compatibility evidence, not the forward
+design direction. The earlier UI-012 request for a persistent setting is
+superseded by this installation-only decision.
 
 ## S3 — Portrait headless Deck input observation
 
