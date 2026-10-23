@@ -1,0 +1,142 @@
+[
+  {
+    "start": 0,
+    "end": 0.8362134230000038,
+    "label": "First-boot assembly / waiting for shell"
+  },
+  {
+    "start": 0.8362134230000038,
+    "end": 4.935606212000039,
+    "label": "First-boot assembly / fresh process"
+  },
+  {
+    "start": 4.935606212000039,
+    "end": 17.9356626120001,
+    "label": "Idle desktop / ambient motion"
+  },
+  {
+    "start": 17.9356626120001,
+    "end": 21.935679416000085,
+    "label": "Workspace 2"
+  },
+  {
+    "start": 21.935679416000085,
+    "end": 25.935581477000028,
+    "label": "Workspace 3"
+  },
+  {
+    "start": 25.935581477000028,
+    "end": 29.935543543000108,
+    "label": "Workspace 1"
+  },
+  {
+    "start": 29.935543543000108,
+    "end": 33.935536666000075,
+    "label": "Deck / Command"
+  },
+  {
+    "start": 33.935536666000075,
+    "end": 37.93556358600006,
+    "label": "Ctrl+2 / Navigator"
+  },
+  {
+    "start": 37.93556358600006,
+    "end": 42.93555071600008,
+    "label": "Ctrl+3 / Systems"
+  },
+  {
+    "start": 42.93555071600008,
+    "end": 46.93558328600011,
+    "label": "Ctrl+4 / Signal"
+  },
+  {
+    "start": 46.93558328600011,
+    "end": 50.93562289400006,
+    "label": "Ctrl+5 / Routines"
+  },
+  {
+    "start": 50.93562289400006,
+    "end": 54.9355702470001,
+    "label": "Ctrl+6 / AI"
+  },
+  {
+    "start": 54.9355702470001,
+    "end": 58.93560979800009,
+    "label": "Ctrl+7 / Settings"
+  },
+  {
+    "start": 58.93560979800009,
+    "end": 62.93555647400001,
+    "label": "F1 / Help"
+  },
+  {
+    "start": 62.93555647400001,
+    "end": 65.93553477300009,
+    "label": "Ctrl+1 / Command"
+  },
+  {
+    "start": 65.93553477300009,
+    "end": 68.93557425200004,
+    "label": "Tab / Apps scope"
+  },
+  {
+    "start": 68.93557425200004,
+    "end": 71.93556440200007,
+    "label": "Tab / Windows scope"
+  },
+  {
+    "start": 71.93556440200007,
+    "end": 77.93564741400007,
+    "label": "Typing command input"
+  },
+  {
+    "start": 77.93564741400007,
+    "end": 79.9355447590001,
+    "label": "Clear input / Ctrl+L"
+  },
+  {
+    "start": 79.9355447590001,
+    "end": 83.9355706560001,
+    "label": "Typing command query"
+  },
+  {
+    "start": 83.9355706560001,
+    "end": 89.93554158000006,
+    "label": "Notification / arrival and expiry"
+  },
+  {
+    "start": 89.93554158000006,
+    "end": 92.93556875900003,
+    "label": "Notification expired"
+  },
+  {
+    "start": 92.93556875900003,
+    "end": 96.93556959700004,
+    "label": "Volume 40 / OSD attempt"
+  },
+  {
+    "start": 96.93556959700004,
+    "end": 100.935629328,
+    "label": "Volume down / OSD attempt"
+  },
+  {
+    "start": 100.935629328,
+    "end": 104.93560858100011,
+    "label": "Brightness / unavailable OSD attempt"
+  },
+  {
+    "start": 104.93560858100011,
+    "end": 106.93556136900008,
+    "label": "Close Deck / Escape clears query"
+  },
+  {
+    "start": 106.93556136900008,
+    "end": 107.93561154200006,
+    "label": "Close Deck / Escape"
+  },
+  {
+    "start": 107.93561154200006,
+    "end": 124.93554896400008,
+    "label": "Final idle / ambient motion"
+  }
+]

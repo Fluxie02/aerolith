@@ -1,0 +1,44 @@
+{
+  "file": "thears-saturated.mp4",
+  "bytes": 2173962,
+  "sha256": "a89cda5ec43b070389f40464dc02ed0235e68552b7f7dd39f034626f50613e02",
+  "duration": 49.91,
+  "codec": "h264",
+  "profile": "High",
+  "level": 40,
+  "pixel_format": "yuv420p",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": "30/1",
+  "faststart": true,
+  "decode_errors": 0,
+  "source_files_changed": [],
+  "qml_engine_errors": [],
+  "log_warnings": 57,
+  "raw_frames": 1489,
+  "raw_frame_span": 49.91,
+  "raw_effective_fps": 29.813664596273295,
+  "raw_median_interval": 0.03300000000000125,
+  "raw_max_interval": 0.06900000000000084,
+  "source_gaps_over_50ms": [
+    {
+      "start": 12.18,
+      "timecode": "00:12.05",
+      "duration": 0.06900000000000084
+    },
+    {
+      "start": 32.963,
+      "timecode": "00:32.29",
+      "duration": 0.054999999999999716
+    }
+  ],
+  "timing": {
+    "first_presentation_monotonic": 974.92648981,
+    "recorder_initialization_seconds": 0.08150179599999774,
+    "raw_duration": 49.91,
+    "timecode": "mm:ss.ff, frames 00..29",
+    "method": "real-time compositor PTS; fps=30 frame hold/drop only, no interpolation, no retiming"
+  }
+}
