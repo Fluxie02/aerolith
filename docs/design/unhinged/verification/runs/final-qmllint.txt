@@ -1,0 +1,1435 @@
+COMMAND: docker run --rm -v "$PWD:/src:ro" aerolith-dev bash -c 'cd /src/build/ui011-final-shell/shell && /usr/lib/qt6/bin/qmllint -I . components/Bezel.qml components/ChordSlot.qml components/InstrumentField.qml components/Instrumentation.qml components/WorkspaceOrbit.qml components/ShearField.qml modules/deck/DeckView.qml'
+Warning: components/Bezel.qml:42:35: Unqualified access [unqualified]
+            const step = Math.min(Theme.du(8), cut / 2);
+                                  ^^^^^
+Warning: components/Bezel.qml:43:39: Unqualified access [unqualified]
+            const shoulder = Math.min(Theme.du(Theme.insane ? 130 : 100), w / 3);
+                                      ^^^^^
+Warning: components/Bezel.qml:43:48: Unqualified access [unqualified]
+            const shoulder = Math.min(Theme.du(Theme.insane ? 130 : 100), w / 3);
+                                               ^^^^^
+Warning: components/Bezel.qml:44:26: Unqualified access [unqualified]
+            const seam = Theme.du(5);
+                         ^^^^^
+Warning: components/Bezel.qml:63:27: Unqualified access [unqualified]
+            c.fillStyle = Theme.alpha(Theme.surface, Theme.panelOpacity);
+                          ^^^^^
+Warning: components/Bezel.qml:63:39: Unqualified access [unqualified]
+            c.fillStyle = Theme.alpha(Theme.surface, Theme.panelOpacity);
+                                      ^^^^^
+Warning: components/Bezel.qml:63:54: Unqualified access [unqualified]
+            c.fillStyle = Theme.alpha(Theme.surface, Theme.panelOpacity);
+                                                     ^^^^^
+Warning: components/Bezel.qml:65:27: Unqualified access [unqualified]
+            c.lineWidth = Theme.border;
+                          ^^^^^
+Warning: components/Bezel.qml:66:29: Unqualified access [unqualified]
+            c.strokeStyle = Theme.grid;
+                            ^^^^^
+Warning: components/Bezel.qml:74:37: Unqualified access [unqualified]
+            c.lineTo(w - shoulder - Theme.du(12), seam + 0.5);
+                                    ^^^^^
+Warning: components/Bezel.qml:75:58: Unqualified access [unqualified]
+            c.moveTo(w - seam - 0.5, root.headerHeight + Theme.du(12));
+                                                         ^^^^^
+Warning: components/Bezel.qml:78:33: Unqualified access [unqualified]
+            c.lineTo(shoulder + Theme.du(12), h - seam - 0.5);
+                                ^^^^^
+Warning: components/Bezel.qml:79:27: Unqualified access [unqualified]
+            c.lineWidth = Theme.border;
+                          ^^^^^
+Warning: components/Bezel.qml:80:29: Unqualified access [unqualified]
+            c.strokeStyle = Theme.grid;
+                            ^^^^^
+Warning: components/Bezel.qml:85:34: Unqualified access [unqualified]
+            for (let i = 0; i < (Theme.insane ? 12 : 7); i++) {
+                                 ^^^^^
+Warning: components/Bezel.qml:86:33: Unqualified access [unqualified]
+                const x = cut + Theme.du(36 + i * 9);
+                                ^^^^^
+Warning: components/Bezel.qml:87:40: Unqualified access [unqualified]
+                if (x > w - shoulder - Theme.du(24)) break;
+                                       ^^^^^
+Warning: components/Bezel.qml:89:30: Unqualified access [unqualified]
+                c.lineTo(x - Theme.du(3) + 0.5, Theme.du(i % 4 === 0 ? 7 : 4));
+                             ^^^^^
+Warning: components/Bezel.qml:89:49: Unqualified access [unqualified]
+                c.lineTo(x - Theme.du(3) + 0.5, Theme.du(i % 4 === 0 ? 7 : 4));
+                                                ^^^^^
+Warning: components/Bezel.qml:95:27: Unqualified access [unqualified]
+            const reach = Theme.du(44 + (Theme.travel ? root.engagement * 18 : 18));
+                          ^^^^^
+Warning: components/Bezel.qml:95:42: Unqualified access [unqualified]
+            const reach = Theme.du(44 + (Theme.travel ? root.engagement * 18 : 18));
+                                         ^^^^^
+Warning: components/Bezel.qml:97:29: Unqualified access [unqualified]
+            c.strokeStyle = Theme.alpha(root.accent, root.engagement);
+                            ^^^^^
+Warning: components/Bezel.qml:98:27: Unqualified access [unqualified]
+            c.lineWidth = Theme.bracketWeight;
+                          ^^^^^
+Warning: components/Bezel.qml:99:33: Unqualified access [unqualified]
+            c.moveTo(0.5, cut + Theme.du(20));
+                                ^^^^^
+Warning: components/Bezel.qml:103:41: Unqualified access [unqualified]
+            c.moveTo(w - 0.5, h - cut - Theme.du(20));
+                                        ^^^^^
+Warning: components/Bezel.qml:111:44: Unqualified access [unqualified]
+            c.moveTo(w - shoulder + step + Theme.du(8), step + Theme.du(2));
+                                           ^^^^^
+Warning: components/Bezel.qml:111:64: Unqualified access [unqualified]
+            c.moveTo(w - shoulder + step + Theme.du(8), step + Theme.du(2));
+                                                               ^^^^^
+Warning: components/Bezel.qml:112:44: Unqualified access [unqualified]
+            c.lineTo(w - shoulder + step + Theme.du(32), step + Theme.du(2));
+                                           ^^^^^
+Warning: components/Bezel.qml:112:65: Unqualified access [unqualified]
+            c.lineTo(w - shoulder + step + Theme.du(32), step + Theme.du(2));
+                                                                ^^^^^
+Warning: components/Bezel.qml:113:44: Unqualified access [unqualified]
+            c.lineTo(w - shoulder + step + Theme.du(27), step + Theme.du(7));
+                                           ^^^^^
+Warning: components/Bezel.qml:113:65: Unqualified access [unqualified]
+            c.lineTo(w - shoulder + step + Theme.du(27), step + Theme.du(7));
+                                                                ^^^^^
+Warning: components/Bezel.qml:114:44: Unqualified access [unqualified]
+            c.lineTo(w - shoulder + step + Theme.du(3), step + Theme.du(7));
+                                           ^^^^^
+Warning: components/Bezel.qml:114:64: Unqualified access [unqualified]
+            c.lineTo(w - shoulder + step + Theme.du(3), step + Theme.du(7));
+                                                               ^^^^^
+Warning: components/Bezel.qml:119:21: Unqualified access [unqualified]
+            target: Theme
+                    ^^^^^
+Warning: components/Bezel.qml:151:71: Unqualified access [unqualified]
+            width: Math.max(0, header.width - headerRightSlot.width - Theme.du(20))
+                                                                      ^^^^^
+Warning: components/Bezel.qml:153:22: Unqualified access [unqualified]
+            spacing: Theme.du(16)
+                     ^^^^^
+Warning: components/Bezel.qml:160:30: Unqualified access [unqualified]
+                font.family: Theme.mono
+                             ^^^^^
+Warning: components/Bezel.qml:161:33: Unqualified access [unqualified]
+                font.pixelSize: Theme.fontXs
+                                ^^^^^
+Warning: components/Bezel.qml:162:37: Unqualified access [unqualified]
+                font.letterSpacing: Theme.du(1)
+                                    ^^^^^
+Warning: components/Bezel.qml:170:24: Unqualified access [unqualified]
+                color: Theme.text
+                       ^^^^^
+Warning: components/Bezel.qml:171:30: Unqualified access [unqualified]
+                font.family: Theme.sans
+                             ^^^^^
+Warning: components/Bezel.qml:172:33: Unqualified access [unqualified]
+                font.pixelSize: Theme.fontMd
+                                ^^^^^
+Warning: components/Bezel.qml:181:22: Unqualified access [unqualified]
+            spacing: Theme.gap
+                     ^^^^^
+Warning: components/Bezel.qml:189:30: Unqualified access [unqualified]
+                font.family: Theme.mono
+                             ^^^^^
+Warning: components/Bezel.qml:190:33: Unqualified access [unqualified]
+                font.pixelSize: Theme.fontXs
+                                ^^^^^
+Warning: components/Bezel.qml:200:17: Unqualified access [unqualified]
+        height: Theme.border
+                ^^^^^
+Warning: components/Bezel.qml:201:16: Unqualified access [unqualified]
+        color: Theme.grid
+               ^^^^^
+Warning: components/Bezel.qml:207:25: Unqualified access [unqualified]
+        width: Math.min(Theme.du(52), root.width / 5)
+                        ^^^^^
+Warning: components/Bezel.qml:208:17: Unqualified access [unqualified]
+        height: Theme.border
+                ^^^^^
+Warning: components/ChordSlot.qml:45:21: Unqualified access [unqualified]
+            var u = Theme.du(12), w = width, h = height;
+                    ^^^^^
+Warning: components/ChordSlot.qml:51:27: Unqualified access [unqualified]
+            c.fillStyle = Theme.surface2; c.fill();
+                          ^^^^^
+Warning: components/ChordSlot.qml:52:29: Unqualified access [unqualified]
+            c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+                            ^^^^^
+Warning: components/ChordSlot.qml:52:55: Unqualified access [unqualified]
+            c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+                                                      ^^^^^
+Warning: components/ChordSlot.qml:54:29: Unqualified access [unqualified]
+            c.strokeStyle = Theme.textDim; c.beginPath();
+                            ^^^^^
+Warning: components/ChordSlot.qml:55:34: Unqualified access [unqualified]
+            for (var i = 0; i < (Theme.insane ? 12 : 7); i++) {
+                                 ^^^^^
+Warning: components/ChordSlot.qml:56:30: Unqualified access [unqualified]
+                var px = w - Theme.du(30 + i * 7);
+                             ^^^^^
+Warning: components/ChordSlot.qml:57:34: Unqualified access [unqualified]
+                c.moveTo(px, h - Theme.du(6));
+                                 ^^^^^
+Warning: components/ChordSlot.qml:58:31: Unqualified access [unqualified]
+                c.lineTo(px + Theme.du(3), h - Theme.du(i % 3 === 0 ? 13 : 10));
+                              ^^^^^
+Warning: components/ChordSlot.qml:58:48: Unqualified access [unqualified]
+                c.lineTo(px + Theme.du(3), h - Theme.du(i % 3 === 0 ? 13 : 10));
+                                               ^^^^^
+Warning: components/ChordSlot.qml:63:21: Unqualified access [unqualified]
+            target: Theme
+                    ^^^^^
+Warning: components/ChordSlot.qml:75:13: Unqualified access [unqualified]
+        x: -Theme.du(8); y: Theme.du(24)
+            ^^^^^
+Warning: components/ChordSlot.qml:75:29: Unqualified access [unqualified]
+        x: -Theme.du(8); y: Theme.du(24)
+                            ^^^^^
+Warning: components/ChordSlot.qml:76:16: Unqualified access [unqualified]
+        width: Theme.du(3); height: Math.min(chord.height * .36, Theme.du(112))
+               ^^^^^
+Warning: components/ChordSlot.qml:76:66: Unqualified access [unqualified]
+        width: Theme.du(3); height: Math.min(chord.height * .36, Theme.du(112))
+                                                                 ^^^^^
+Warning: components/ChordSlot.qml:77:16: Unqualified access [unqualified]
+        color: Theme.signal
+               ^^^^^
+Warning: components/ChordSlot.qml:78:68: Unqualified access [unqualified]
+        visible: chord.slot.bay !== "" && !chord.compactScreen && !Theme.lowEffects
+                                                                   ^^^^^
+Warning: components/ChordSlot.qml:103:17: Unqualified access [unqualified]
+        target: Theme
+                ^^^^^
+Warning: components/ChordSlot.qml:105:18: Unqualified access [unqualified]
+            if (!Theme.animate) {
+                 ^^^^^
+Warning: components/ChordSlot.qml:116:19: Unqualified access [unqualified]
+        duration: Theme.normal
+                  ^^^^^
+Warning: components/InstrumentField.qml:44:45: Unqualified access [unqualified]
+            var boot=field.instrument ? 1 : Theme.bootProgress;
+                                            ^^^^^
+Warning: components/InstrumentField.qml:50:32: Unqualified access [unqualified]
+            var weak=field.mix(Theme.bg,Theme.grid,.28), rule=field.mix(Theme.bg,Theme.grid,.72);
+                               ^^^^^
+Warning: components/InstrumentField.qml:50:41: Unqualified access [unqualified]
+            var weak=field.mix(Theme.bg,Theme.grid,.28), rule=field.mix(Theme.bg,Theme.grid,.72);
+                                        ^^^^^
+Warning: components/InstrumentField.qml:50:73: Unqualified access [unqualified]
+            var weak=field.mix(Theme.bg,Theme.grid,.28), rule=field.mix(Theme.bg,Theme.grid,.72);
+                                                                        ^^^^^
+Warning: components/InstrumentField.qml:50:82: Unqualified access [unqualified]
+            var weak=field.mix(Theme.bg,Theme.grid,.28), rule=field.mix(Theme.bg,Theme.grid,.72);
+                                                                                 ^^^^^
+Warning: components/InstrumentField.qml:63:35: Unqualified access [unqualified]
+            c.fillStyle=field.mix(Theme.bg,Theme.surface,.45);
+                                  ^^^^^
+Warning: components/InstrumentField.qml:63:44: Unqualified access [unqualified]
+            c.fillStyle=field.mix(Theme.bg,Theme.surface,.45);
+                                           ^^^^^
+Warning: components/InstrumentField.qml:65:25: Unqualified access [unqualified]
+            c.fillStyle=Theme.bg;c.beginPath();c.arc(x,y,r*.91,0,Math.PI*2);c.fill();
+                        ^^^^^
+Warning: components/InstrumentField.qml:74:111: Unqualified access [unqualified]
+                line(x+Math.cos(a)*rr,y+Math.sin(a)*rr,x+Math.cos(a)*(rr+len),y+Math.sin(a)*(rr+len),i%15===0?Theme.textDim:rule);
+                                                                                                              ^^^^^
+Warning: components/InstrumentField.qml:75:111: Unqualified access [unqualified]
+                if(i%15===0) text(String(i*2).padStart(3,"0"),x+Math.cos(a)*(rr+37)-9,y+Math.sin(a)*(rr+37)+3,Theme.textDim);
+                                                                                                              ^^^^^
+Warning: components/InstrumentField.qml:82:60: Unqualified access [unqualified]
+                arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(Theme.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
+                                                           ^^^^^
+Warning: components/InstrumentField.qml:82:71: Unqualified access [unqualified]
+                arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(Theme.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
+                                                                      ^^^^^
+Warning: components/InstrumentField.qml:82:93: Unqualified access [unqualified]
+                arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(Theme.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
+                                                                                            ^^^^^
+Warning: components/InstrumentField.qml:88:104: Unqualified access [unqualified]
+                line(x+Math.cos(a)*(r-8),y+Math.sin(a)*(r-8),x+Math.cos(a)*(r+54),y+Math.sin(a)*(r+54),Theme.signal,3);
+                                                                                                       ^^^^^
+Warning: components/InstrumentField.qml:100:65: Unqualified access [unqualified]
+                line(xx,datum,xx,datum-(i%10===0?10:4),i%10===0?Theme.textDim:rule);
+                                                                ^^^^^
+Warning: components/InstrumentField.qml:107:59: Unqualified access [unqualified]
+                text(String(Math.round(yy)),w*.975+3,yy+3,Theme.textDim);
+                                                          ^^^^^
+Warning: components/InstrumentField.qml:114:39: Unqualified access [unqualified]
+                c.fillStyle=field.mix(Theme.bg,Theme.surface,.32);
+                                      ^^^^^
+Warning: components/InstrumentField.qml:114:48: Unqualified access [unqualified]
+                c.fillStyle=field.mix(Theme.bg,Theme.surface,.32);
+                                               ^^^^^
+Warning: components/InstrumentField.qml:124:58: Unqualified access [unqualified]
+                    c.strokeStyle=k%4===0?field.mix(rule,Theme.signal,.25):weak;c.lineWidth=1;
+                                                         ^^^^^
+Warning: components/InstrumentField.qml:136:68: Unqualified access [unqualified]
+                    line(xx,h*.945,xx,h*(i%4===0?.975:.96),i%4===0?Theme.textDim:rule,i%4===0?3:1);
+                                                                   ^^^^^
+Warning: components/InstrumentField.qml:140:46: Unqualified access [unqualified]
+                    line(w*.013,by,w*.032,by,Theme.signal,2);
+                                             ^^^^^
+Warning: components/InstrumentField.qml:142:66: Unqualified access [unqualified]
+                    text(String(k+1).padStart(2,"0"),w*.014,by-8,Theme.textDim);
+                                                                 ^^^^^
+Warning: components/InstrumentField.qml:145:29: Unqualified access [unqualified]
+                c.fillStyle=Theme.grid;c.fillRect(w*.968,h*.38,w*.004,h*.37);
+                            ^^^^^
+Warning: components/InstrumentField.qml:146:99: Unqualified access [unqualified]
+                for(i=0;i<40;i++) line(w*.968,h*(.38+i*.009),w*(i%5===0?.962:.965),h*(.38+i*.009),Theme.signal);
+                                                                                                  ^^^^^
+Warning: components/InstrumentField.qml:152:38: Unqualified access [unqualified]
+                line(xx-5,yy,xx+5,yy,Theme.textDim);line(xx,yy-5,xx,yy+5,Theme.textDim);
+                                     ^^^^^
+Warning: components/InstrumentField.qml:152:74: Unqualified access [unqualified]
+                line(xx-5,yy,xx+5,yy,Theme.textDim);line(xx,yy-5,xx,yy+5,Theme.textDim);
+                                                                         ^^^^^
+Warning: components/InstrumentField.qml:60:34: Unqualified access [unqualified]
+                c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px "'+Theme.mono+'"';c.fillText(s,tx,ty);
+                                 ^^^^^
+Warning: components/InstrumentField.qml:60:62: Unqualified access [unqualified]
+                c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px "'+Theme.mono+'"';c.fillText(s,tx,ty);
+                                                             ^^^^^
+Warning: components/InstrumentField.qml:60:83: Unqualified access [unqualified]
+                c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px "'+Theme.mono+'"';c.fillText(s,tx,ty);
+                                                                                  ^^^^^
+Warning: components/InstrumentField.qml:34:21: Unqualified access [unqualified]
+            target: Theme
+                    ^^^^^
+Warning: components/Instrumentation.qml:213:23: Expression statement has no obvious effect. [confusing-expression-statement]
+            values: { Telemetry.sampleSeq; return Telemetry.cpuHistory.values().slice(-36); }
+                      ^^^^^^^^^^^^^^^^^^^^
+Warning: components/Instrumentation.qml:218:23: Expression statement has no obvious effect. [confusing-expression-statement]
+            values: { Telemetry.sampleSeq; return Telemetry.memHistory.values().slice(-36); }
+                      ^^^^^^^^^^^^^^^^^^^^
+Warning: components/Instrumentation.qml:11:45: Unqualified access [unqualified]
+    readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
+                                            ^^^^^
+Warning: components/Instrumentation.qml:11:72: Unqualified access [unqualified]
+    readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
+                                                                       ^^^^^
+Warning: components/Instrumentation.qml:12:36: Unqualified access [unqualified]
+    readonly property var windows: Compositor.windows()
+                                   ^^^^^^^^^^
+Warning: components/Instrumentation.qml:13:34: Unqualified access [unqualified]
+    readonly property string ws: Compositor.focusedWorkspaceId > 0 ? ("0" + Compositor.focusedWorkspaceId).slice(-2) : "N/A"
+                                 ^^^^^^^^^^
+Warning: components/Instrumentation.qml:13:77: Unqualified access [unqualified]
+    readonly property string ws: Compositor.focusedWorkspaceId > 0 ? ("0" + Compositor.focusedWorkspaceId).slice(-2) : "N/A"
+                                                                            ^^^^^^^^^^
+Warning: components/Instrumentation.qml:14:51: Unqualified access [unqualified]
+    readonly property string cpu: T.formatPercent(Telemetry.cpu.total)
+                                                  ^^^^^^^^^
+Warning: components/Instrumentation.qml:15:51: Unqualified access [unqualified]
+    readonly property string mem: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)
+                                                  ^^^^^^^^^
+Warning: components/Instrumentation.qml:15:70: Unqualified access [unqualified]
+    readonly property string mem: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)
+                                                                     ^^^^^^^^^
+Warning: components/Instrumentation.qml:16:55: Unqualified access [unqualified]
+    readonly property real ignition: instrument ? 1 : Theme.bootProgress
+                                                      ^^^^^
+Warning: components/Instrumentation.qml:22:21: Unqualified access [unqualified]
+        y: Math.max(Theme.stripHeight + Theme.du(18), parent.height * .068)
+                    ^^^^^
+Warning: components/Instrumentation.qml:22:41: Unqualified access [unqualified]
+        y: Math.max(Theme.stripHeight + Theme.du(18), parent.height * .068)
+                                        ^^^^^
+Warning: components/Instrumentation.qml:23:18: Unqualified access [unqualified]
+        spacing: Theme.du(12)
+                 ^^^^^
+Warning: components/Instrumentation.qml:26:53: Unqualified access [unqualified]
+            text: "AEROLITH   /   LIMB — SHEAR " + (Theme.insane ? "III" : "II")
+                                                    ^^^^^
+Warning: components/Instrumentation.qml:27:48: Unqualified access [unqualified]
+            textFormat: Text.PlainText; color: Theme.signal
+                                               ^^^^^
+Warning: components/Instrumentation.qml:28:26: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; font.letterSpacing: 1.6
+                         ^^^^^
+Warning: components/Instrumentation.qml:28:54: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; font.letterSpacing: 1.6
+                                                     ^^^^^
+Warning: components/Instrumentation.qml:32:97: Unqualified access [unqualified]
+            text: "WORKSPACE " + rig.ws + "   /   " + rig.windows.length + " WINDOWS   /   " + (Compositor.available ? "COMPOSITOR LINKED" : "COMPOSITOR N/A")
+                                                                                                ^^^^^^^^^^
+Warning: components/Instrumentation.qml:33:48: Unqualified access [unqualified]
+            textFormat: Text.PlainText; color: Theme.textDim
+                                               ^^^^^
+Warning: components/Instrumentation.qml:34:26: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                         ^^^^^
+Warning: components/Instrumentation.qml:34:54: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                                     ^^^^^
+Warning: components/Instrumentation.qml:38:83: Unqualified access [unqualified]
+            text: "CPU " + rig.cpu + "    MEMORY " + rig.mem + "    SAMPLE / " + (Telemetry.interval > 0 ? Telemetry.interval + " MS" : "OFF")
+                                                                                  ^^^^^^^^^
+Warning: components/Instrumentation.qml:38:108: Unqualified access [unqualified]
+            text: "CPU " + rig.cpu + "    MEMORY " + rig.mem + "    SAMPLE / " + (Telemetry.interval > 0 ? Telemetry.interval + " MS" : "OFF")
+                                                                                                           ^^^^^^^^^
+Warning: components/Instrumentation.qml:39:48: Unqualified access [unqualified]
+            textFormat: Text.PlainText; color: Theme.textDim
+                                               ^^^^^
+Warning: components/Instrumentation.qml:40:26: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                         ^^^^^
+Warning: components/Instrumentation.qml:40:54: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                                     ^^^^^
+Warning: components/Instrumentation.qml:47:45: Unqualified access [unqualified]
+        width: parent.width * .24; spacing: Theme.du(5)
+                                            ^^^^^
+Warning: components/Instrumentation.qml:52:75: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; color: Theme.signal; font.letterSpacing: 1
+                                                                          ^^^^^
+Warning: components/Instrumentation.qml:52:26: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; color: Theme.signal; font.letterSpacing: 1
+                         ^^^^^
+Warning: components/Instrumentation.qml:52:54: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; color: Theme.signal; font.letterSpacing: 1
+                                                     ^^^^^
+Warning: components/Instrumentation.qml:58:74: Unqualified access [unqualified]
+            font.weight: Font.ExtraLight; font.letterSpacing: -8; color: Theme.text
+                                                                         ^^^^^
+Warning: components/Instrumentation.qml:56:26: Unqualified access [unqualified]
+            font.family: Theme.displaySans
+                         ^^^^^
+Warning: components/Instrumentation.qml:57:38: Unqualified access [unqualified]
+            font.pixelSize: Math.min(Theme.du(Theme.insane ? 192 : 170), rig.height * .24)
+                                     ^^^^^
+Warning: components/Instrumentation.qml:57:47: Unqualified access [unqualified]
+            font.pixelSize: Math.min(Theme.du(Theme.insane ? 192 : 170), rig.height * .24)
+                                              ^^^^^
+Warning: components/Instrumentation.qml:62:22: Unqualified access [unqualified]
+            spacing: Theme.du(7)
+                     ^^^^^
+Warning: components/Instrumentation.qml:63:32: Unqualified access [unqualified]
+            Rectangle { width: Theme.du(22); height: Theme.du(3); color: Theme.signal; anchors.verticalCenter: parent.verticalCenter }
+                               ^^^^^
+Warning: components/Instrumentation.qml:63:54: Unqualified access [unqualified]
+            Rectangle { width: Theme.du(22); height: Theme.du(3); color: Theme.signal; anchors.verticalCenter: parent.verticalCenter }
+                                                     ^^^^^
+Warning: components/Instrumentation.qml:63:74: Unqualified access [unqualified]
+            Rectangle { width: Theme.du(22); height: Theme.du(3); color: Theme.signal; anchors.verticalCenter: parent.verticalCenter }
+                                                                         ^^^^^
+Warning: components/Instrumentation.qml:66:23: Unqualified access [unqualified]
+                text: Compositor.activeClass ? Compositor.activeClass.toUpperCase() : "NO FOCUSED APPLICATION"
+                      ^^^^^^^^^^
+Warning: components/Instrumentation.qml:66:48: Unqualified access [unqualified]
+                text: Compositor.activeClass ? Compositor.activeClass.toUpperCase() : "NO FOCUSED APPLICATION"
+                                               ^^^^^^^^^^
+Warning: components/Instrumentation.qml:67:52: Unqualified access [unqualified]
+                textFormat: Text.PlainText; color: Theme.signal
+                                                   ^^^^^
+Warning: components/Instrumentation.qml:68:30: Unqualified access [unqualified]
+                font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                             ^^^^^
+Warning: components/Instrumentation.qml:68:58: Unqualified access [unqualified]
+                font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                                         ^^^^^
+Warning: components/Instrumentation.qml:73:19: Unqualified access [unqualified]
+            text: Compositor.activeTitle || "Open Command to begin"
+                  ^^^^^^^^^^
+Warning: components/Instrumentation.qml:74:48: Unqualified access [unqualified]
+            textFormat: Text.PlainText; color: Theme.textDim
+                                               ^^^^^
+Warning: components/Instrumentation.qml:75:26: Unqualified access [unqualified]
+            font.family: Theme.sans; font.pixelSize: Theme.fontMd
+                         ^^^^^
+Warning: components/Instrumentation.qml:75:54: Unqualified access [unqualified]
+            font.family: Theme.sans; font.pixelSize: Theme.fontMd
+                                                     ^^^^^
+Warning: components/Instrumentation.qml:83:18: Unqualified access [unqualified]
+        spacing: Theme.du(9); visible: !rig.instrument
+                 ^^^^^
+Warning: components/Instrumentation.qml:88:20: Unqualified access [unqualified]
+            color: Theme.textDim; font.family: Theme.mono
+                   ^^^^^
+Warning: components/Instrumentation.qml:88:48: Unqualified access [unqualified]
+            color: Theme.textDim; font.family: Theme.mono
+                                               ^^^^^
+Warning: components/Instrumentation.qml:89:29: Unqualified access [unqualified]
+            font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
+                            ^^^^^
+Warning: components/Instrumentation.qml:92:68: Unqualified access [unqualified]
+            text: "AERO\nLITH"; textFormat: Text.PlainText; color: Theme.text
+                                                                   ^^^^^
+Warning: components/Instrumentation.qml:93:26: Unqualified access [unqualified]
+            font.family: Theme.displaySans
+                         ^^^^^
+Warning: components/Instrumentation.qml:94:38: Unqualified access [unqualified]
+            font.pixelSize: Math.min(Theme.du(Theme.insane ? 112 : 100), rig.width * .078)
+                                     ^^^^^
+Warning: components/Instrumentation.qml:94:47: Unqualified access [unqualified]
+            font.pixelSize: Math.min(Theme.du(Theme.insane ? 112 : 100), rig.width * .078)
+                                              ^^^^^
+Warning: components/Instrumentation.qml:95:58: Unqualified access [unqualified]
+            font.weight: Font.Light; font.letterSpacing: Theme.insane ? 4 : 1
+                                                         ^^^^^
+Warning: components/Instrumentation.qml:98:56: Unqualified access [unqualified]
+        Rectangle { width: parent.width * .22; height: Theme.du(5); color: Theme.signal }
+                                                       ^^^^^
+Warning: components/Instrumentation.qml:98:76: Unqualified access [unqualified]
+        Rectangle { width: parent.width * .22; height: Theme.du(5); color: Theme.signal }
+                                                                           ^^^^^
+Warning: components/Instrumentation.qml:100:31: Unqualified access [unqualified]
+            text: "LIMB / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
+                              ^^^^^
+Warning: components/Instrumentation.qml:101:20: Unqualified access [unqualified]
+            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                   ^^^^^
+Warning: components/Instrumentation.qml:101:47: Unqualified access [unqualified]
+            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                              ^^^^^
+Warning: components/Instrumentation.qml:101:75: Unqualified access [unqualified]
+            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                                                          ^^^^^
+Warning: components/Instrumentation.qml:104:43: Unqualified access [unqualified]
+            width: parent.width; spacing: Theme.du(5)
+                                          ^^^^^
+Warning: components/Instrumentation.qml:109:44: Unqualified access [unqualified]
+                    width: (parent.width - Theme.du(5)) / 2; height: Theme.du(34)
+                                           ^^^^^
+Warning: components/Instrumentation.qml:109:70: Unqualified access [unqualified]
+                    width: (parent.width - Theme.du(5)) / 2; height: Theme.du(34)
+                                                                     ^^^^^
+Warning: components/Instrumentation.qml:110:57: Unqualified access [unqualified]
+                    color: entryPointer.containsMouse ? Theme.signal : Theme.bg
+                                                        ^^^^^
+Warning: components/Instrumentation.qml:110:72: Unqualified access [unqualified]
+                    color: entryPointer.containsMouse ? Theme.signal : Theme.bg
+                                                                       ^^^^^
+Warning: components/Instrumentation.qml:111:64: Unqualified access [unqualified]
+                    border.color: entryPointer.containsMouse ? Theme.signal : Theme.grid
+                                                               ^^^^^
+Warning: components/Instrumentation.qml:111:79: Unqualified access [unqualified]
+                    border.color: entryPointer.containsMouse ? Theme.signal : Theme.grid
+                                                                              ^^^^^
+Warning: components/Instrumentation.qml:113:57: Unqualified access [unqualified]
+                        anchors.centerIn: parent; text: modelData.label; textFormat: Text.PlainText
+                                                        ^^^^^^^^^
+Info: modelData is a member of a parent element.
+      You can qualify the access with its id to avoid this warning (You first have to give the element an id).
+
+Suggested change:
+                        anchors.centerIn: parent; text: <id>.modelData.label; textFormat: Text.PlainText
+                                                        ^^^^^
+Warning: components/Instrumentation.qml:114:61: Unqualified access [unqualified]
+                        color: entryPointer.containsMouse ? Theme.bg : Theme.text
+                                                            ^^^^^
+Warning: components/Instrumentation.qml:114:72: Unqualified access [unqualified]
+                        color: entryPointer.containsMouse ? Theme.bg : Theme.text
+                                                                       ^^^^^
+Warning: components/Instrumentation.qml:115:38: Unqualified access [unqualified]
+                        font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                                     ^^^^^
+Warning: components/Instrumentation.qml:115:66: Unqualified access [unqualified]
+                        font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                                                                 ^^^^^
+Warning: components/Instrumentation.qml:119:72: Unqualified access [unqualified]
+                        cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(modelData.bay)
+                                                                       ^^
+Warning: components/Instrumentation.qml:119:80: Unqualified access [unqualified]
+                        cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(modelData.bay)
+                                                                               ^^^^^^^^^
+Info: modelData is a member of a parent element.
+      You can qualify the access with its id to avoid this warning (You first have to give the element an id).
+
+Suggested change:
+                        cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(<id>.modelData.bay)
+                                                                               ^^^^^
+Warning: components/Instrumentation.qml:122:47: Unqualified access [unqualified]
+                    Accessible.onPressAction: Ui.open(modelData.bay)
+                                              ^^
+Warning: components/Instrumentation.qml:131:18: Unqualified access [unqualified]
+        spacing: Theme.du(8); visible: !rig.instrument && !rig.compact
+                 ^^^^^
+Warning: components/Instrumentation.qml:135:20: Unqualified access [unqualified]
+            color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                   ^^^^^
+Warning: components/Instrumentation.qml:135:48: Unqualified access [unqualified]
+            color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                                               ^^^^^
+Warning: components/Instrumentation.qml:135:76: Unqualified access [unqualified]
+            color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                                                                           ^^^^^
+Warning: components/Instrumentation.qml:141:46: Unqualified access [unqualified]
+                width: parent.width; height: Theme.du(32)
+                                             ^^^^^
+Warning: components/Instrumentation.qml:142:68: Unqualified access [unqualified]
+                Rectangle { width: parent.width; height: 1; color: Theme.grid }
+                                                                   ^^^^^
+Warning: components/Instrumentation.qml:144:24: Unqualified access [unqualified]
+                    y: Theme.du(9); width: parent.width - Theme.du(38); elide: Text.ElideRight
+                       ^^^^^
+Warning: components/Instrumentation.qml:144:59: Unqualified access [unqualified]
+                    y: Theme.du(9); width: parent.width - Theme.du(38); elide: Text.ElideRight
+                                                          ^^^^^
+Warning: components/Instrumentation.qml:145:27: Unqualified access [unqualified]
+                    text: modelData.title; textFormat: Text.PlainText; color: Theme.text
+                          ^^^^^^^^^
+Info: modelData is a member of a parent element.
+      You can qualify the access with its id to avoid this warning (You first have to give the element an id).
+
+Suggested change:
+                    text: <id>.modelData.title; textFormat: Text.PlainText; color: Theme.text
+                          ^^^^^
+Warning: components/Instrumentation.qml:145:79: Unqualified access [unqualified]
+                    text: modelData.title; textFormat: Text.PlainText; color: Theme.text
+                                                                              ^^^^^
+Warning: components/Instrumentation.qml:146:34: Unqualified access [unqualified]
+                    font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                                 ^^^^^
+Warning: components/Instrumentation.qml:146:62: Unqualified access [unqualified]
+                    font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                                                             ^^^^^
+Warning: components/Instrumentation.qml:149:53: Unqualified access [unqualified]
+                    anchors.right: parent.right; y: Theme.du(9)
+                                                    ^^^^^
+Warning: components/Instrumentation.qml:150:33: Unqualified access [unqualified]
+                    text: "W" + modelData.workspaceId; textFormat: Text.PlainText
+                                ^^^^^^^^^
+Info: modelData is a member of a parent element.
+      You can qualify the access with its id to avoid this warning (You first have to give the element an id).
+
+Suggested change:
+                    text: "W" + <id>.modelData.workspaceId; textFormat: Text.PlainText
+                                ^^^^^
+Warning: components/Instrumentation.qml:151:28: Unqualified access [unqualified]
+                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                           ^^^^^
+Warning: components/Instrumentation.qml:151:55: Unqualified access [unqualified]
+                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                                                      ^^^^^
+Warning: components/Instrumentation.qml:151:83: Unqualified access [unqualified]
+                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                                                                                  ^^^^^
+Warning: components/Instrumentation.qml:153:98: Unqualified access [unqualified]
+                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open("navigator") }
+                                                                                                 ^^
+Warning: components/Instrumentation.qml:164:46: Unqualified access [unqualified]
+            text: "CORE ARRAY / " + Math.min(Theme.insane ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
+                                             ^^^^^
+Warning: components/Instrumentation.qml:164:70: Unqualified access [unqualified]
+            text: "CORE ARRAY / " + Math.min(Theme.insane ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
+                                                                     ^^^^^^^^^
+Warning: components/Instrumentation.qml:164:109: Unqualified access [unqualified]
+            text: "CORE ARRAY / " + Math.min(Theme.insane ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
+                                                                                                            ^^^^^^^^^
+Warning: components/Instrumentation.qml:165:48: Unqualified access [unqualified]
+            textFormat: Text.PlainText; color: Theme.textDim
+                                               ^^^^^
+Warning: components/Instrumentation.qml:166:26: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                         ^^^^^
+Warning: components/Instrumentation.qml:166:54: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                                                     ^^^^^
+Warning: components/Instrumentation.qml:170:16: Unqualified access [unqualified]
+            y: Theme.du(21); height: parent.height - y; width: parent.width; spacing: Theme.du(3)
+               ^^^^^
+Warning: components/Instrumentation.qml:170:87: Unqualified access [unqualified]
+            y: Theme.du(21); height: parent.height - y; width: parent.width; spacing: Theme.du(3)
+                                                                                      ^^^^^
+Warning: components/Instrumentation.qml:172:24: Unqualified access [unqualified]
+                model: Telemetry.cpu.cores.slice(0, Theme.insane ? 64 : 32)
+                       ^^^^^^^^^
+Warning: components/Instrumentation.qml:172:53: Unqualified access [unqualified]
+                model: Telemetry.cpu.cores.slice(0, Theme.insane ? 64 : 32)
+                                                    ^^^^^
+Warning: components/Instrumentation.qml:177:49: Unqualified access [unqualified]
+                    width: Math.max(1, Math.min(Theme.du(14), (coreRow.width - Math.max(0, coreRepeater.count - 1) * coreRow.spacing) / Math.max(1, coreRepeater.count)))
+                                                ^^^^^
+Warning: components/Instrumentation.qml:177:64: Unqualified access [unqualified]
+                    width: Math.max(1, Math.min(Theme.du(14), (coreRow.width - Math.max(0, coreRepeater.count - 1) * coreRow.spacing) / Math.max(1, coreRepeater.count)))
+                                                               ^^^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/Instrumentation.qml:177:92: Unqualified access [unqualified]
+                    width: Math.max(1, Math.min(Theme.du(14), (coreRow.width - Math.max(0, coreRepeater.count - 1) * coreRow.spacing) / Math.max(1, coreRepeater.count)))
+                                                                                           ^^^^^^^^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/Instrumentation.qml:177:118: Unqualified access [unqualified]
+                    width: Math.max(1, Math.min(Theme.du(14), (coreRow.width - Math.max(0, coreRepeater.count - 1) * coreRow.spacing) / Math.max(1, coreRepeater.count)))
+                                                                                                                     ^^^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/Instrumentation.qml:177:149: Unqualified access [unqualified]
+                    width: Math.max(1, Math.min(Theme.du(14), (coreRow.width - Math.max(0, coreRepeater.count - 1) * coreRow.spacing) / Math.max(1, coreRepeater.count)))
+                                                                                                                                                    ^^^^^^^^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/Instrumentation.qml:178:29: Unqualified access [unqualified]
+                    height: coreRow.height
+                            ^^^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/Instrumentation.qml:179:62: Unqualified access [unqualified]
+                    Rectangle { anchors.fill: parent; color: Theme.surface; border.width: core.known ? 0 : Theme.border; border.color: Theme.textDim }
+                                                             ^^^^^
+Warning: components/Instrumentation.qml:179:108: Unqualified access [unqualified]
+                    Rectangle { anchors.fill: parent; color: Theme.surface; border.width: core.known ? 0 : Theme.border; border.color: Theme.textDim }
+                                                                                                           ^^^^^
+Warning: components/Instrumentation.qml:179:136: Unqualified access [unqualified]
+                    Rectangle { anchors.fill: parent; color: Theme.surface; border.width: core.known ? 0 : Theme.border; border.color: Theme.textDim }
+                                                                                                                                       ^^^^^
+Warning: components/Instrumentation.qml:182:88: Unqualified access [unqualified]
+                        height: core.known ? Math.max(1, parent.height * Math.min(100, modelData) / 100) : 0
+                                                                                       ^^^^^^^^^
+Info: modelData is a member of a parent element.
+      You can qualify the access with its id to avoid this warning.
+
+Suggested change:
+                        height: core.known ? Math.max(1, parent.height * Math.min(100, core.modelData) / 100) : 0
+                                                                                       ^^^^^
+Warning: components/Instrumentation.qml:183:32: Unqualified access [unqualified]
+                        color: Theme.signal
+                               ^^^^^
+Warning: components/Instrumentation.qml:196:16: Unqualified access [unqualified]
+        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+               ^^^^^
+Warning: components/Instrumentation.qml:196:44: Unqualified access [unqualified]
+        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                                           ^^^^^
+Warning: components/Instrumentation.qml:196:72: Unqualified access [unqualified]
+        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                                                                       ^^^^^
+Warning: components/Instrumentation.qml:203:16: Unqualified access [unqualified]
+        color: Theme.bg; visible: !rig.compact
+               ^^^^^
+Warning: components/Instrumentation.qml:211:48: Unqualified access [unqualified]
+            width: parent.width * .25; height: Theme.du(82)
+                                               ^^^^^
+Warning: components/Instrumentation.qml:213:23: Unqualified access [unqualified]
+            values: { Telemetry.sampleSeq; return Telemetry.cpuHistory.values().slice(-36); }
+                      ^^^^^^^^^
+Warning: components/Instrumentation.qml:213:51: Unqualified access [unqualified]
+            values: { Telemetry.sampleSeq; return Telemetry.cpuHistory.values().slice(-36); }
+                                                  ^^^^^^^^^
+Warning: components/Instrumentation.qml:216:48: Unqualified access [unqualified]
+            width: parent.width * .25; height: Theme.du(82)
+                                               ^^^^^
+Warning: components/Instrumentation.qml:217:53: Unqualified access [unqualified]
+            label: "MEMORY"; reading: rig.mem; ink: Theme.text
+                                                    ^^^^^
+Warning: components/Instrumentation.qml:218:23: Unqualified access [unqualified]
+            values: { Telemetry.sampleSeq; return Telemetry.memHistory.values().slice(-36); }
+                      ^^^^^^^^^
+Warning: components/Instrumentation.qml:218:51: Unqualified access [unqualified]
+            values: { Telemetry.sampleSeq; return Telemetry.memHistory.values().slice(-36); }
+                                                  ^^^^^^^^^
+Warning: components/Instrumentation.qml:221:49: Unqualified access [unqualified]
+            width: parent.width * .18; spacing: Theme.du(9)
+                                                ^^^^^
+Warning: components/Instrumentation.qml:222:64: Unqualified access [unqualified]
+            Rectangle { width: parent.width; height: 1; color: Theme.grid }
+                                                               ^^^^^
+Warning: components/Instrumentation.qml:223:79: Unqualified access [unqualified]
+            Text { text: "OUTPUT / SOUND"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+                                                                              ^^^^^
+Warning: components/Instrumentation.qml:223:107: Unqualified access [unqualified]
+            Text { text: "OUTPUT / SOUND"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+                                                                                                          ^^^^^
+Warning: components/Instrumentation.qml:223:135: Unqualified access [unqualified]
+            Text { text: "OUTPUT / SOUND"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+                                                                                                                                      ^^^^^
+Warning: components/Instrumentation.qml:225:24: Unqualified access [unqualified]
+                text: !Audio.volumeKnown ? "N/A" : Audio.muted ? "MUTED" : Audio.volumePercent + "%"
+                       ^^^^^
+Warning: components/Instrumentation.qml:225:52: Unqualified access [unqualified]
+                text: !Audio.volumeKnown ? "N/A" : Audio.muted ? "MUTED" : Audio.volumePercent + "%"
+                                                   ^^^^^
+Warning: components/Instrumentation.qml:225:76: Unqualified access [unqualified]
+                text: !Audio.volumeKnown ? "N/A" : Audio.muted ? "MUTED" : Audio.volumePercent + "%"
+                                                                           ^^^^^
+Warning: components/Instrumentation.qml:226:52: Unqualified access [unqualified]
+                textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.displaySans; font.pixelSize: Theme.du(25)
+                                                   ^^^^^
+Warning: components/Instrumentation.qml:226:79: Unqualified access [unqualified]
+                textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.displaySans; font.pixelSize: Theme.du(25)
+                                                                              ^^^^^
+Warning: components/Instrumentation.qml:226:114: Unqualified access [unqualified]
+                textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.displaySans; font.pixelSize: Theme.du(25)
+                                                                                                                 ^^^^^
+Warning: components/Instrumentation.qml:228:26: Unqualified access [unqualified]
+            Text { text: Media.playing ? "PLAYING" : "NO PLAYBACK"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                         ^^^^^
+Warning: components/Instrumentation.qml:228:104: Unqualified access [unqualified]
+            Text { text: Media.playing ? "PLAYING" : "NO PLAYBACK"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                                                                                                       ^^^^^
+Warning: components/Instrumentation.qml:228:132: Unqualified access [unqualified]
+            Text { text: Media.playing ? "PLAYING" : "NO PLAYBACK"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                                                                                                                                   ^^^^^
+Warning: components/Instrumentation.qml:228:160: Unqualified access [unqualified]
+            Text { text: Media.playing ? "PLAYING" : "NO PLAYBACK"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                                                                                                                                                               ^^^^^
+Warning: components/Instrumentation.qml:231:49: Unqualified access [unqualified]
+            width: parent.width * .19; spacing: Theme.du(9)
+                                                ^^^^^
+Warning: components/Instrumentation.qml:232:64: Unqualified access [unqualified]
+            Rectangle { width: parent.width; height: 1; color: Theme.grid }
+                                                               ^^^^^
+Warning: components/Instrumentation.qml:233:89: Unqualified access [unqualified]
+            Text { text: "ACTIVE ROUTE / " + rig.ws; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+                                                                                        ^^^^^
+Warning: components/Instrumentation.qml:233:117: Unqualified access [unqualified]
+            Text { text: "ACTIVE ROUTE / " + rig.ws; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+                                                                                                                    ^^^^^
+Warning: components/Instrumentation.qml:233:145: Unqualified access [unqualified]
+            Text { text: "ACTIVE ROUTE / " + rig.ws; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+                                                                                                                                                ^^^^^
+Warning: components/Instrumentation.qml:234:44: Unqualified access [unqualified]
+            Text { text: rig.instrument ? (Ui.activeBay || "CLOSING").toUpperCase() : "DESKTOP"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.du(22) }
+                                           ^^
+Warning: components/Instrumentation.qml:234:133: Unqualified access [unqualified]
+            Text { text: rig.instrument ? (Ui.activeBay || "CLOSING").toUpperCase() : "DESKTOP"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.du(22) }
+                                                                                                                                    ^^^^^
+Warning: components/Instrumentation.qml:234:158: Unqualified access [unqualified]
+            Text { text: rig.instrument ? (Ui.activeBay || "CLOSING").toUpperCase() : "DESKTOP"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.du(22) }
+                                                                                                                                                             ^^^^^
+Warning: components/Instrumentation.qml:234:186: Unqualified access [unqualified]
+            Text { text: rig.instrument ? (Ui.activeBay || "CLOSING").toUpperCase() : "DESKTOP"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.du(22) }
+                                                                                                                                                                                         ^^^^^
+Warning: components/Instrumentation.qml:235:125: Unqualified access [unqualified]
+            Text { text: rig.instrument ? "F1 HELP / ESC RETURN" : "SELECT A BAY ABOVE"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                                                                                                                            ^^^^^
+Warning: components/Instrumentation.qml:235:153: Unqualified access [unqualified]
+            Text { text: rig.instrument ? "F1 HELP / ESC RETURN" : "SELECT A BAY ABOVE"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                                                                                                                                                        ^^^^^
+Warning: components/Instrumentation.qml:235:181: Unqualified access [unqualified]
+            Text { text: rig.instrument ? "F1 HELP / ESC RETURN" : "SELECT A BAY ABOVE"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                                                                                                                                                                                    ^^^^^
+Warning: components/Instrumentation.qml:240:37: Unqualified access [unqualified]
+        visible: !rig.instrument && Theme.bootProgress < 1
+                                    ^^^^^
+Warning: components/Instrumentation.qml:241:44: Unqualified access [unqualified]
+        text: "ASSEMBLING / " + Math.round(Theme.bootProgress * 100) + "%"; textFormat: Text.PlainText
+                                           ^^^^^
+Warning: components/Instrumentation.qml:242:16: Unqualified access [unqualified]
+        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+               ^^^^^
+Warning: components/Instrumentation.qml:242:43: Unqualified access [unqualified]
+        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                          ^^^^^
+Warning: components/Instrumentation.qml:242:71: Unqualified access [unqualified]
+        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                                                      ^^^^^
+Warning: components/ShearField.qml:69:29: Unqualified access [unqualified]
+                    target: Theme
+                            ^^^^^
+Warning: components/ShearField.qml:112:24: Unqualified access [unqualified]
+                width: Theme.du(3); height: parent.height * .42
+                       ^^^^^
+Warning: components/ShearField.qml:114:24: Unqualified access [unqualified]
+                color: Theme.signal
+                       ^^^^^
+Warning: components/ShearField.qml:115:47: Unqualified access [unqualified]
+                visible: blade.index === 0 && shear.recoil > .01 && !Theme.lowEffects
+                                              ^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/ShearField.qml:115:70: Unqualified access [unqualified]
+                visible: blade.index === 0 && shear.recoil > .01 && !Theme.lowEffects
+                                                                     ^^^^^
+Warning: components/ShearField.qml:116:26: Unqualified access [unqualified]
+                opacity: shear.recoil
+                         ^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/WorkspaceOrbit.qml:10:34: Unqualified access [unqualified]
+    readonly property int count: Config.strip.workspaceCount
+                                 ^^^^^^
+Warning: components/WorkspaceOrbit.qml:18:79: Unqualified access [unqualified]
+    readonly property real focusAngle: -.92 + Math.max(0, Math.min(count - 1, Compositor.focusedWorkspaceId - 1)) * 1.84 / Math.max(1, count - 1)
+                                                                              ^^^^^^^^^^
+Warning: components/WorkspaceOrbit.qml:14:17: Unqualified access [unqualified]
+        target: Theme
+                ^^^^^
+Warning: components/WorkspaceOrbit.qml:15:43: Unqualified access [unqualified]
+        function onTravelChanged() { if (!Theme.travel) indexMotion.complete(); }
+                                          ^^^^^
+Warning: components/WorkspaceOrbit.qml:26:18: Unqualified access [unqualified]
+        visible: Compositor.focusedWorkspaceId > 0 && Compositor.focusedWorkspaceId <= orbit.count
+                 ^^^^^^^^^^
+Warning: components/WorkspaceOrbit.qml:26:55: Unqualified access [unqualified]
+        visible: Compositor.focusedWorkspaceId > 0 && Compositor.focusedWorkspaceId <= orbit.count
+                                                      ^^^^^^^^^^
+Warning: components/WorkspaceOrbit.qml:27:41: Unqualified access [unqualified]
+        Behavior on rotation { enabled: Theme.travel && orbit.exposed; NumberAnimation { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+                                        ^^^^^
+Warning: components/WorkspaceOrbit.qml:27:117: Unqualified access [unqualified]
+        Behavior on rotation { enabled: Theme.travel && orbit.exposed; NumberAnimation { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+                                                                                                                    ^^^^^
+Warning: components/WorkspaceOrbit.qml:28:79: Unqualified access [unqualified]
+        Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: Theme.signal }
+                                                                              ^^^^^
+Warning: components/WorkspaceOrbit.qml:28:99: Unqualified access [unqualified]
+        Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: Theme.signal }
+                                                                                                  ^^^^^
+Warning: components/WorkspaceOrbit.qml:29:51: Unqualified access [unqualified]
+        Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: Theme.signal }
+                                                  ^^^^^
+Warning: components/WorkspaceOrbit.qml:29:72: Unqualified access [unqualified]
+        Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: Theme.signal }
+                                                                       ^^^^^
+Warning: components/WorkspaceOrbit.qml:29:108: Unqualified access [unqualified]
+        Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: Theme.signal }
+                                                                                                           ^^^^^
+Warning: components/WorkspaceOrbit.qml:37:45: Unqualified access [unqualified]
+            readonly property bool current: Compositor.focusedWorkspaceId === workspaceId
+                                            ^^^^^^^^^^
+Warning: components/WorkspaceOrbit.qml:38:42: Unqualified access [unqualified]
+            readonly property var entry: Compositor.workspaces.filter(w => w.id === workspaceId)
+                                         ^^^^^^^^^^
+Warning: components/WorkspaceOrbit.qml:40:77: Unqualified access [unqualified]
+            readonly property real angle: -.92 + index * 1.84 / Math.max(1, orbit.count - 1)
+                                                                            ^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/WorkspaceOrbit.qml:41:16: Unqualified access [unqualified]
+            x: orbit.width * .27 + Math.sin(angle) * orbit.radius - width / 2
+               ^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/WorkspaceOrbit.qml:41:54: Unqualified access [unqualified]
+            x: orbit.width * .27 + Math.sin(angle) * orbit.radius - width / 2
+                                                     ^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/WorkspaceOrbit.qml:42:16: Unqualified access [unqualified]
+            y: orbit.height * .55 + Math.cos(angle) * orbit.radius - height / 2
+               ^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/WorkspaceOrbit.qml:42:55: Unqualified access [unqualified]
+            y: orbit.height * .55 + Math.cos(angle) * orbit.radius - height / 2
+                                                      ^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/WorkspaceOrbit.qml:43:20: Unqualified access [unqualified]
+            width: Theme.du(62); height: Theme.du(48)
+                   ^^^^^
+Warning: components/WorkspaceOrbit.qml:43:42: Unqualified access [unqualified]
+            width: Theme.du(62); height: Theme.du(48)
+                                         ^^^^^
+Warning: components/WorkspaceOrbit.qml:46:42: Unqualified access [unqualified]
+                color: station.current ? Theme.signal : hover.containsMouse ? Theme.surface2 : Theme.bg
+                                         ^^^^^
+Warning: components/WorkspaceOrbit.qml:46:79: Unqualified access [unqualified]
+                color: station.current ? Theme.signal : hover.containsMouse ? Theme.surface2 : Theme.bg
+                                                                              ^^^^^
+Warning: components/WorkspaceOrbit.qml:46:96: Unqualified access [unqualified]
+                color: station.current ? Theme.signal : hover.containsMouse ? Theme.surface2 : Theme.bg
+                                                                                               ^^^^^
+Warning: components/WorkspaceOrbit.qml:47:72: Unqualified access [unqualified]
+                border.color: station.current || hover.containsMouse ? Theme.signal : Theme.grid
+                                                                       ^^^^^
+Warning: components/WorkspaceOrbit.qml:47:87: Unqualified access [unqualified]
+                border.color: station.current || hover.containsMouse ? Theme.signal : Theme.grid
+                                                                                      ^^^^^
+Warning: components/WorkspaceOrbit.qml:48:31: Unqualified access [unqualified]
+                border.width: Theme.border
+                              ^^^^^
+Warning: components/WorkspaceOrbit.qml:51:21: Unqualified access [unqualified]
+                x: -Theme.du(4); y: -Theme.du(4)
+                    ^^^^^
+Warning: components/WorkspaceOrbit.qml:51:38: Unqualified access [unqualified]
+                x: -Theme.du(4); y: -Theme.du(4)
+                                     ^^^^^
+Warning: components/WorkspaceOrbit.qml:52:24: Unqualified access [unqualified]
+                width: Theme.du(12); height: Theme.du(2)
+                       ^^^^^
+Warning: components/WorkspaceOrbit.qml:52:46: Unqualified access [unqualified]
+                width: Theme.du(12); height: Theme.du(2)
+                                             ^^^^^
+Warning: components/WorkspaceOrbit.qml:53:42: Unqualified access [unqualified]
+                color: station.current ? Theme.signal : Theme.grid
+                                         ^^^^^
+Warning: components/WorkspaceOrbit.qml:53:57: Unqualified access [unqualified]
+                color: station.current ? Theme.signal : Theme.grid
+                                                        ^^^^^
+Warning: components/WorkspaceOrbit.qml:58:24: Unqualified access [unqualified]
+                width: Theme.du(12); height: Theme.du(2)
+                       ^^^^^
+Warning: components/WorkspaceOrbit.qml:58:46: Unqualified access [unqualified]
+                width: Theme.du(12); height: Theme.du(2)
+                                             ^^^^^
+Warning: components/WorkspaceOrbit.qml:59:42: Unqualified access [unqualified]
+                color: station.current ? Theme.signal : Theme.grid
+                                         ^^^^^
+Warning: components/WorkspaceOrbit.qml:59:57: Unqualified access [unqualified]
+                color: station.current ? Theme.signal : Theme.grid
+                                                        ^^^^^
+Warning: components/WorkspaceOrbit.qml:56:68: Unqualified access [unqualified]
+                anchors.right: parent.right; anchors.rightMargin: -Theme.du(4)
+                                                                   ^^^^^
+Warning: components/WorkspaceOrbit.qml:57:71: Unqualified access [unqualified]
+                anchors.bottom: parent.bottom; anchors.bottomMargin: -Theme.du(4)
+                                                                      ^^^^^
+Warning: components/WorkspaceOrbit.qml:62:20: Unqualified access [unqualified]
+                y: Theme.du(6); anchors.horizontalCenter: parent.horizontalCenter
+                   ^^^^^
+Warning: components/WorkspaceOrbit.qml:64:70: Unqualified access [unqualified]
+                textFormat: Text.PlainText; color: station.current ? Theme.bg : Theme.text
+                                                                     ^^^^^
+Warning: components/WorkspaceOrbit.qml:64:81: Unqualified access [unqualified]
+                textFormat: Text.PlainText; color: station.current ? Theme.bg : Theme.text
+                                                                                ^^^^^
+Warning: components/WorkspaceOrbit.qml:65:30: Unqualified access [unqualified]
+                font.family: Theme.mono; font.pixelSize: Theme.du(18)
+                             ^^^^^
+Warning: components/WorkspaceOrbit.qml:65:58: Unqualified access [unqualified]
+                font.family: Theme.mono; font.pixelSize: Theme.du(18)
+                                                         ^^^^^
+Warning: components/WorkspaceOrbit.qml:68:20: Unqualified access [unqualified]
+                y: Theme.du(32); anchors.horizontalCenter: parent.horizontalCenter; spacing: Theme.du(3)
+                   ^^^^^
+Warning: components/WorkspaceOrbit.qml:68:94: Unqualified access [unqualified]
+                y: Theme.du(32); anchors.horizontalCenter: parent.horizontalCenter; spacing: Theme.du(3)
+                                                                                             ^^^^^
+Warning: components/WorkspaceOrbit.qml:71:40: Unqualified access [unqualified]
+                    Rectangle { width: Theme.du(4); height: Theme.du(3); color: station.current ? Theme.bg : Theme.textDim }
+                                       ^^^^^
+Warning: components/WorkspaceOrbit.qml:71:61: Unqualified access [unqualified]
+                    Rectangle { width: Theme.du(4); height: Theme.du(3); color: station.current ? Theme.bg : Theme.textDim }
+                                                            ^^^^^
+Warning: components/WorkspaceOrbit.qml:71:81: Unqualified access [unqualified]
+                    Rectangle { width: Theme.du(4); height: Theme.du(3); color: station.current ? Theme.bg : Theme.textDim }
+                                                                                ^^^^^^^
+Info: Set "pragma ComponentBehavior: Bound" in order to use IDs from outer components in nested components.
+Suggested change:
+pragma ComponentBehavior: Bound
+import QtQuick
+Warning: components/WorkspaceOrbit.qml:71:99: Unqualified access [unqualified]
+                    Rectangle { width: Theme.du(4); height: Theme.du(3); color: station.current ? Theme.bg : Theme.textDim }
+                                                                                                  ^^^^^
+Warning: components/WorkspaceOrbit.qml:71:110: Unqualified access [unqualified]
+                    Rectangle { width: Theme.du(4); height: Theme.du(3); color: station.current ? Theme.bg : Theme.textDim }
+                                                                                                             ^^^^^
+Warning: components/WorkspaceOrbit.qml:77:28: Unqualified access [unqualified]
+                onClicked: Registry.execute("workspace.focus", {workspace: station.workspaceId}, {record: false})
+                           ^^^^^^^^
+Warning: components/WorkspaceOrbit.qml:80:39: Unqualified access [unqualified]
+            Accessible.onPressAction: Registry.execute("workspace.focus", {workspace: station.workspaceId}, {record: false})
+                                      ^^^^^^^^
+Warning: modules/deck/DeckView.qml:3:1: Warnings occurred while importing module "qs.core": [import]
+import qs.core
+^^^^^^
+---
+Warning: 3:1: Failed to import qs.core. Are your import paths set up properly? [import]
+---
+
+Warning: modules/deck/DeckView.qml:4:1: Warnings occurred while importing module "qs.components": [import]
+import qs.components
+^^^^^^
+---
+Warning: 4:1: Failed to import qs.components. Are your import paths set up properly? [import]
+---
+
+Warning: modules/deck/DeckView.qml:5:1: Warnings occurred while importing module "qs.services": [import]
+import qs.services
+^^^^^^
+---
+Warning: 5:1: Failed to import qs.services. Are your import paths set up properly? [import]
+---
+
+Warning: modules/deck/DeckView.qml:31:9: InstrumentField was not found. Did you add all imports and dependencies? [import]
+        InstrumentField {
+        ^^^^^^^^^^^^^^^
+Warning: modules/deck/DeckView.qml:38:5: Instrumentation was not found. Did you add all imports and dependencies? [import]
+    Instrumentation { anchors.fill: parent; instrument: true }
+    ^^^^^^^^^^^^^^^
+Warning: modules/deck/DeckView.qml:57:5: InstrumentTabs was not found. Did you add all imports and dependencies? [import]
+    InstrumentTabs {
+    ^^^^^^^^^^^^^^
+Warning: modules/deck/DeckView.qml:69:5: ChordSlot was not found. Did you add all imports and dependencies? [import]
+    ChordSlot { id: frameA; slot: view.deck.slotA }
+    ^^^^^^^^^
+Warning: modules/deck/DeckView.qml:70:5: ChordSlot was not found. Did you add all imports and dependencies? [import]
+    ChordSlot { id: frameB; slot: view.deck.slotB }
+    ^^^^^^^^^
+Warning: modules/deck/DeckView.qml:170:21: Label was not found. Did you add all imports and dependencies? [import]
+                    Label { width: parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
+                    ^^^^^
+Warning: modules/deck/DeckView.qml:164:13: Bezel was not found. Did you add all imports and dependencies? [import]
+            Bezel {
+            ^^^^^
+Warning: modules/deck/DeckView.qml:38:23: unknown grouped property scope anchors. [unqualified]
+    Instrumentation { anchors.fill: parent; instrument: true }
+                      ^^^^^^^
+Warning: modules/deck/DeckView.qml:165:17: unknown grouped property scope anchors. [unqualified]
+                anchors.fill: parent
+                ^^^^^^^
+Warning: modules/deck/DeckView.qml:38:23: Type anchors is used but it is not resolved [unresolved-type]
+    Instrumentation { anchors.fill: parent; instrument: true }
+                      ^^^^^^^
+Warning: modules/deck/DeckView.qml:165:17: Type anchors is used but it is not resolved [unresolved-type]
+                anchors.fill: parent
+                ^^^^^^^
+Info: modules/deck/DeckView.qml:2:1: Unused import [unused-imports]
+import Quickshell
+^^^^^^
+Warning: modules/deck/DeckView.qml:19:51: Unqualified access [unqualified]
+    readonly property bool compactScreen: width < Theme.du(1500) || height < Theme.du(850)
+                                                  ^^^^^
+Warning: modules/deck/DeckView.qml:19:78: Unqualified access [unqualified]
+    readonly property bool compactScreen: width < Theme.du(1500) || height < Theme.du(850)
+                                                                             ^^^^^
+Warning: modules/deck/DeckView.qml:20:52: Id for object ChordSlot shadows property "frameA". Rename one or the other. [id-shadows-member]
+    readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
+                                                   ^^^^^^
+Warning: modules/deck/DeckView.qml:69:21: Note: Id defined here [id-shadows-member]
+    ChordSlot { id: frameA; slot: view.deck.slotA }
+                    ^^^^^^^
+Warning: modules/deck/DeckView.qml:20:69: Id for object ChordSlot shadows property "frameB". Rename one or the other. [id-shadows-member]
+    readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
+                                                                    ^^^^^^
+Warning: modules/deck/DeckView.qml:70:21: Note: Id defined here [id-shadows-member]
+    ChordSlot { id: frameB; slot: view.deck.slotB }
+                    ^^^^^^^
+Warning: modules/deck/DeckView.qml:21:40: Unqualified access [unqualified]
+    readonly property string shownBay: Ui.activeBay || (deck.slotA.leaving ? deck.slotA.bay : deck.slotB.bay)
+                                       ^^
+Warning: modules/deck/DeckView.qml:27:28: Unqualified access [unqualified]
+        anchors.topMargin: Config.strip.edge === "top" ? Theme.stripHeight : 0
+                           ^^^^^^
+Warning: modules/deck/DeckView.qml:27:58: Unqualified access [unqualified]
+        anchors.topMargin: Config.strip.edge === "top" ? Theme.stripHeight : 0
+                                                         ^^^^^
+Warning: modules/deck/DeckView.qml:28:31: Unqualified access [unqualified]
+        anchors.bottomMargin: Config.strip.edge === "bottom" ? Theme.stripHeight : 0
+                              ^^^^^^
+Warning: modules/deck/DeckView.qml:28:64: Unqualified access [unqualified]
+        anchors.bottomMargin: Config.strip.edge === "bottom" ? Theme.stripHeight : 0
+                                                               ^^^^^
+Warning: modules/deck/DeckView.qml:30:50: Unqualified access [unqualified]
+        Rectangle { anchors.fill: parent; color: Theme.bg }
+                                                 ^^^^^
+Warning: modules/deck/DeckView.qml:32:16: Unqualified access [unqualified]
+            y: Config.strip.edge === "top" ? -Theme.stripHeight : 0
+               ^^^^^^
+Warning: modules/deck/DeckView.qml:32:47: Unqualified access [unqualified]
+            y: Config.strip.edge === "top" ? -Theme.stripHeight : 0
+                                              ^^^^^
+Warning: modules/deck/DeckView.qml:37:50: Unqualified access [unqualified]
+    MouseArea { anchors.fill: parent; onClicked: Ui.close() }
+                                                 ^^
+Warning: modules/deck/DeckView.qml:38:37: Unqualified access [unqualified]
+    Instrumentation { anchors.fill: parent; instrument: true }
+                                    ^^^^^^
+Info: parent is a member of a parent element.
+      You can qualify the access with its id to avoid this warning.
+
+Suggested change:
+    Instrumentation { anchors.fill: view.parent; instrument: true }
+                                    ^^^^^
+Warning: modules/deck/DeckView.qml:44:49: Unqualified access [unqualified]
+        x: view.compactScreen ? 0 : railRow.x - Theme.pad
+                                                ^^^^^
+Warning: modules/deck/DeckView.qml:45:12: Unqualified access [unqualified]
+        y: Config.strip.edge === "top" ? Theme.stripHeight : 0
+           ^^^^^^
+Warning: modules/deck/DeckView.qml:45:42: Unqualified access [unqualified]
+        y: Config.strip.edge === "top" ? Theme.stripHeight : 0
+                                         ^^^^^
+Warning: modules/deck/DeckView.qml:46:70: Unqualified access [unqualified]
+        width: view.compactScreen ? view.width : railRow.width + 2 * Theme.pad
+                                                                     ^^^^^
+Warning: modules/deck/DeckView.qml:47:50: Unqualified access [unqualified]
+        height: railRow.y - y + railRow.height + Theme.du(4)
+                                                 ^^^^^
+Warning: modules/deck/DeckView.qml:48:16: Unqualified access [unqualified]
+        color: Theme.bg
+               ^^^^^
+Warning: modules/deck/DeckView.qml:53:24: Unqualified access [unqualified]
+        x: railRow.x - Theme.du(12); y: railRow.y + Theme.du(10)
+                       ^^^^^
+Warning: modules/deck/DeckView.qml:53:53: Unqualified access [unqualified]
+        x: railRow.x - Theme.du(12); y: railRow.y + Theme.du(10)
+                                                    ^^^^^
+Warning: modules/deck/DeckView.qml:54:16: Unqualified access [unqualified]
+        width: Theme.du(3); height: railRow.height - Theme.du(20)
+               ^^^^^
+Warning: modules/deck/DeckView.qml:54:54: Unqualified access [unqualified]
+        width: Theme.du(3); height: railRow.height - Theme.du(20)
+                                                     ^^^^^
+Warning: modules/deck/DeckView.qml:55:16: Unqualified access [unqualified]
+        color: Theme.signal
+               ^^^^^
+Warning: modules/deck/DeckView.qml:60:13: Unqualified access [unqualified]
+        y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(8)
+            ^^^^^^
+Warning: modules/deck/DeckView.qml:60:43: Unqualified access [unqualified]
+        y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(8)
+                                          ^^^^^
+Warning: modules/deck/DeckView.qml:60:68: Unqualified access [unqualified]
+        y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(8)
+                                                                   ^^^^^
+Warning: modules/deck/DeckView.qml:61:29: Unqualified access [unqualified]
+        width: view.width - x - view.width * (view.compactScreen ? .045 : .08)
+                            ^
+Info: x is a member of a parent element.
+      You can qualify the access with its id to avoid this warning.
+
+Suggested change:
+        width: view.width - view.x - view.width * (view.compactScreen ? .045 : .08)
+                            ^^^^^
+Warning: modules/deck/DeckView.qml:62:17: Unqualified access [unqualified]
+        height: implicitHeight
+                ^^^^^^^^^^^^^^
+Info: implicitHeight is a member of a parent element.
+      You can qualify the access with its id to avoid this warning.
+
+Suggested change:
+        height: view.implicitHeight
+                ^^^^^
+Warning: modules/deck/DeckView.qml:66:64: Unqualified access [unqualified]
+        currentIndex: view.railEntries.map(r => r.bay).indexOf(Ui.activeBay)
+                                                               ^^
+Warning: modules/deck/DeckView.qml:67:28: Unqualified access [unqualified]
+        onChosen: index => Ui.open(view.railEntries[index].bay)
+                           ^^
+Warning: modules/deck/DeckView.qml:77:18: Unqualified access [unqualified]
+        spacing: Theme.du(10)
+                 ^^^^^
+Warning: modules/deck/DeckView.qml:79:20: Unqualified access [unqualified]
+            width: Theme.du(26); height: Theme.du(3)
+                   ^^^^^
+Warning: modules/deck/DeckView.qml:79:42: Unqualified access [unqualified]
+            width: Theme.du(26); height: Theme.du(3)
+                                         ^^^^^
+Warning: modules/deck/DeckView.qml:80:67: Unqualified access [unqualified]
+            anchors.verticalCenter: parent.verticalCenter; color: Theme.signal
+                                                                  ^^^^^
+Warning: modules/deck/DeckView.qml:83:50: Unqualified access [unqualified]
+            text: "CHORD / " + view.shownCode + (Ui.deckOpen ? "   /   ENGAGED" : "   /   RELEASE")
+                                                 ^^
+Warning: modules/deck/DeckView.qml:84:48: Unqualified access [unqualified]
+            textFormat: Text.PlainText; color: Theme.signal
+                                               ^^^^^
+Warning: modules/deck/DeckView.qml:85:26: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
+                         ^^^^^
+Warning: modules/deck/DeckView.qml:85:54: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
+                                                     ^^^^^
+Warning: modules/deck/DeckView.qml:95:17: Unqualified access [unqualified]
+            x: -Theme.du(18); y: -Theme.du(15)
+                ^^^^^
+Warning: modules/deck/DeckView.qml:95:35: Unqualified access [unqualified]
+            x: -Theme.du(18); y: -Theme.du(15)
+                                  ^^^^^
+Warning: modules/deck/DeckView.qml:96:35: Unqualified access [unqualified]
+            width: parent.width + Theme.du(30); height: parent.height + Theme.du(22)
+                                  ^^^^^
+Warning: modules/deck/DeckView.qml:96:73: Unqualified access [unqualified]
+            width: parent.width + Theme.du(30); height: parent.height + Theme.du(22)
+                                                                        ^^^^^
+Warning: modules/deck/DeckView.qml:104:48: Unqualified access [unqualified]
+                var cut = Math.min(width * .3, Theme.du(76));
+                                               ^^^^^
+Warning: modules/deck/DeckView.qml:106:64: Unqualified access [unqualified]
+                c.lineTo(width, cut); c.lineTo(width, height - Theme.du(30));
+                                                               ^^^^^
+Warning: modules/deck/DeckView.qml:107:34: Unqualified access [unqualified]
+                c.lineTo(width - Theme.du(30), height); c.lineTo(0, height); c.closePath();
+                                 ^^^^^
+Warning: modules/deck/DeckView.qml:108:31: Unqualified access [unqualified]
+                c.fillStyle = Theme.bg; c.fill();
+                              ^^^^^
+Warning: modules/deck/DeckView.qml:109:33: Unqualified access [unqualified]
+                c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+                                ^^^^^
+Warning: modules/deck/DeckView.qml:109:59: Unqualified access [unqualified]
+                c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+                                                          ^^^^^
+Warning: modules/deck/DeckView.qml:110:44: Unqualified access [unqualified]
+                c.beginPath(); c.moveTo(0, Theme.du(8)); c.lineTo(0, Theme.du(66));
+                                           ^^^^^
+Warning: modules/deck/DeckView.qml:110:70: Unqualified access [unqualified]
+                c.beginPath(); c.moveTo(0, Theme.du(8)); c.lineTo(0, Theme.du(66));
+                                                                     ^^^^^
+Warning: modules/deck/DeckView.qml:111:33: Unqualified access [unqualified]
+                c.strokeStyle = Theme.signal; c.lineWidth = Theme.du(3); c.stroke();
+                                ^^^^^
+Warning: modules/deck/DeckView.qml:111:61: Unqualified access [unqualified]
+                c.strokeStyle = Theme.signal; c.lineWidth = Theme.du(3); c.stroke();
+                                                            ^^^^^
+Warning: modules/deck/DeckView.qml:114:25: Unqualified access [unqualified]
+                target: Theme
+                        ^^^^^
+Warning: modules/deck/DeckView.qml:125:20: Unqualified access [unqualified]
+            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                   ^^^^^
+Warning: modules/deck/DeckView.qml:125:47: Unqualified access [unqualified]
+            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                                              ^^^^^
+Warning: modules/deck/DeckView.qml:125:75: Unqualified access [unqualified]
+            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                                                                          ^^^^^
+Warning: modules/deck/DeckView.qml:128:16: Unqualified access [unqualified]
+            y: Theme.du(24); text: "CMD"; textFormat: Text.PlainText
+               ^^^^^
+Warning: modules/deck/DeckView.qml:129:20: Unqualified access [unqualified]
+            color: Theme.text; font.family: Theme.displaySans
+                   ^^^^^
+Warning: modules/deck/DeckView.qml:129:45: Unqualified access [unqualified]
+            color: Theme.text; font.family: Theme.displaySans
+                                            ^^^^^
+Warning: modules/deck/DeckView.qml:130:38: Unqualified access [unqualified]
+            font.pixelSize: Math.min(Theme.du(98), parent.width * .34)
+                                     ^^^^^
+Warning: modules/deck/DeckView.qml:131:59: Unqualified access [unqualified]
+            font.weight: Font.Light; font.letterSpacing: -Theme.du(4)
+                                                          ^^^^^
+Warning: modules/deck/DeckView.qml:134:16: Unqualified access [unqualified]
+            x: Theme.du(2); y: Theme.du(138)
+               ^^^^^
+Warning: modules/deck/DeckView.qml:134:32: Unqualified access [unqualified]
+            x: Theme.du(2); y: Theme.du(138)
+                               ^^^^^
+Warning: modules/deck/DeckView.qml:135:48: Unqualified access [unqualified]
+            width: parent.width * .64; height: Theme.du(3); color: Theme.signal
+                                               ^^^^^
+Warning: modules/deck/DeckView.qml:135:68: Unqualified access [unqualified]
+            width: parent.width * .64; height: Theme.du(3); color: Theme.signal
+                                                                   ^^^^^
+Warning: modules/deck/DeckView.qml:138:16: Unqualified access [unqualified]
+            x: Theme.du(2); y: Theme.du(158); width: parent.width - Theme.du(20)
+               ^^^^^
+Warning: modules/deck/DeckView.qml:138:32: Unqualified access [unqualified]
+            x: Theme.du(2); y: Theme.du(158); width: parent.width - Theme.du(20)
+                               ^^^^^
+Warning: modules/deck/DeckView.qml:138:69: Unqualified access [unqualified]
+            x: Theme.du(2); y: Theme.du(158); width: parent.width - Theme.du(20)
+                                                                    ^^^^^
+Warning: modules/deck/DeckView.qml:140:48: Unqualified access [unqualified]
+            textFormat: Text.PlainText; color: Theme.textDim
+                                               ^^^^^
+Warning: modules/deck/DeckView.qml:141:26: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; lineHeight: 1.6
+                         ^^^^^
+Warning: modules/deck/DeckView.qml:141:54: Unqualified access [unqualified]
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; lineHeight: 1.6
+                                                     ^^^^^
+Warning: modules/deck/DeckView.qml:147:27: Unqualified access [unqualified]
+        text: "LIMB / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
+                          ^^^^^
+Warning: modules/deck/DeckView.qml:148:16: Unqualified access [unqualified]
+        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+               ^^^^^
+Warning: modules/deck/DeckView.qml:148:44: Unqualified access [unqualified]
+        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                           ^^^^^
+Warning: modules/deck/DeckView.qml:148:72: Unqualified access [unqualified]
+        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                                                       ^^^^^
+Warning: modules/deck/DeckView.qml:158:57: Unqualified access [unqualified]
+        width: Math.min(implicitWidth, view.width - 2 * Theme.pad)
+                                                        ^^^^^
+Warning: modules/deck/DeckView.qml:153:22: Unqualified access [unqualified]
+        anchors.top: Config.strip.edge === "top" ? parent.top : undefined
+                     ^^^^^^
+Warning: modules/deck/DeckView.qml:154:25: Unqualified access [unqualified]
+        anchors.bottom: Config.strip.edge === "bottom" ? parent.bottom : undefined
+                        ^^^^^^
+Warning: modules/deck/DeckView.qml:155:26: Unqualified access [unqualified]
+        anchors.margins: Theme.pad
+                         ^^^^^
+Warning: modules/deck/DeckView.qml:156:29: Unqualified access [unqualified]
+        anchors.topMargin: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.pad
+                            ^^^^^^
+Warning: modules/deck/DeckView.qml:156:59: Unqualified access [unqualified]
+        anchors.topMargin: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.pad
+                                                          ^^^^^
+Warning: modules/deck/DeckView.qml:156:84: Unqualified access [unqualified]
+        anchors.topMargin: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.pad
+                                                                                   ^^^^^
+Warning: modules/deck/DeckView.qml:157:32: Unqualified access [unqualified]
+        anchors.bottomMargin: (Config.strip.edge === "bottom" ? Theme.stripHeight : 0) + Theme.pad
+                               ^^^^^^
+Warning: modules/deck/DeckView.qml:157:65: Unqualified access [unqualified]
+        anchors.bottomMargin: (Config.strip.edge === "bottom" ? Theme.stripHeight : 0) + Theme.pad
+                                                                ^^^^^
+Warning: modules/deck/DeckView.qml:157:90: Unqualified access [unqualified]
+        anchors.bottomMargin: (Config.strip.edge === "bottom" ? Theme.stripHeight : 0) + Theme.pad
+                                                                                         ^^^^^
+Warning: modules/deck/DeckView.qml:166:99: Unqualified access [unqualified]
+                designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: Theme.caution
+                                                                                                  ^^^^^
+Warning: modules/deck/DeckView.qml:165:31: Unqualified access [unqualified]
+                anchors.fill: parent
+                              ^^^^^^
+Info: parent is a member of a parent element.
+      You can qualify the access with its id to avoid this warning (You first have to give the element an id).
+
+Suggested change:
+                anchors.fill: <id>.parent
+                              ^^^^^
+Warning: modules/deck/DeckView.qml:169:51: Unqualified access [unqualified]
+                    width: parent.width; spacing: Theme.pad
+                                                  ^^^^^
+Warning: modules/deck/DeckView.qml:170:36: Unqualified access [unqualified]
+                    Label { width: parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
+                                   ^^^^^^
+Info: parent is a member of a parent element.
+      You can qualify the access with its id to avoid this warning (You first have to give the element an id).
+
+Suggested change:
+                    Label { width: <id>.parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
+                                   ^^^^^
+Warning: modules/deck/DeckView.qml:173:32: Unqualified access [unqualified]
+                        color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
+                               ^^^^^
+Warning: modules/deck/DeckView.qml:173:57: Unqualified access [unqualified]
+                        color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
+                                                        ^^^^^
+Warning: modules/deck/DeckView.qml:173:92: Unqualified access [unqualified]
+                        color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
+                                                                                           ^^^^^
+Warning: modules/deck/DeckView.qml:178:32: Unqualified access [unqualified]
+                        color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                               ^^^^^
+Warning: modules/deck/DeckView.qml:178:60: Unqualified access [unqualified]
+                        color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                                                           ^^^^^
+Warning: modules/deck/DeckView.qml:178:88: Unqualified access [unqualified]
+                        color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                                                                                       ^^^^^
+Warning: modules/deck/DeckView.qml:183:32: Unqualified access [unqualified]
+                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
+                               ^^^^^
+Warning: modules/deck/DeckView.qml:183:59: Unqualified access [unqualified]
+                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
+                                                          ^^^^^
+Warning: modules/deck/DeckView.qml:183:87: Unqualified access [unqualified]
+                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
+                                                                                      ^^^^^
+
+EXIT: 0

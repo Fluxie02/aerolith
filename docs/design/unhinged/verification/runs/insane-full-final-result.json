@@ -1,0 +1,5 @@
+{
+  "scenario": "full",
+  "command": "CONFIG=build/ui011/insane.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json SHELL_PATH=build/ui011-final-shell/shell tools/headless/run.sh tests/scenarios/full.sh build/ui011/verify-insane-full-final",
+  "exitCode": 0
+}

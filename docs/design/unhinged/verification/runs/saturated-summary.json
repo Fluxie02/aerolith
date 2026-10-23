@@ -1,0 +1,104 @@
+{
+  "smoke": {
+    "exit": 0,
+    "pngs": 2,
+    "qml_engine_errors_or_shell_warnings": [],
+    "container_rtkit_warnings": 2,
+    "audio_disabled_pipewire_context_errors": 1,
+    "copied": [
+      "02-command-core.png",
+      "01-strip.png",
+      "status.json",
+      "qs.log"
+    ],
+    "application_warning_or_error_lines": [],
+    "known_harness_notes": [
+      "Headless sway lacks Hyprland toplevel mapping/global shortcuts; UPower and RTKit/system bus unavailable. Qt Wayland focus warnings are harness/compositor diagnostics when present."
+    ]
+  },
+  "full": {
+    "exit": 0,
+    "pngs": 9,
+    "qml_engine_errors_or_shell_warnings": [],
+    "container_rtkit_warnings": 2,
+    "audio_disabled_pipewire_context_errors": 0,
+    "copied": [
+      "mock-after-routine.json",
+      "status-idle.json",
+      "09-help.png",
+      "05-systems.png",
+      "status-systems.json",
+      "02-command-vol.png",
+      "volume-after.txt",
+      "07-routines.png",
+      "03-command-search.png",
+      "04-navigator.png",
+      "01-strip.png",
+      "mock-after-ws.json",
+      "08-routine-ran.png",
+      "06-signal.png",
+      "status.json",
+      "qs.log"
+    ],
+    "application_warning_or_error_lines": [
+      "  WARN qml: [aerolith:routines] broken-example step 1: unknown action \"rm.rf\"",
+      "  WARN qml: [aerolith:routines] broken-example step 1: unknown action \"rm.rf\""
+    ],
+    "known_harness_notes": [
+      "Two broken-example routine warnings are the fixture validator rejecting intentional invalid rm.rf action.",
+      "Harness stdout warned mpv stream not linked; media control scene still present and full scenario passed.",
+      "Headless sway lacks Hyprland toplevel mapping/global shortcuts; UPower and RTKit/system bus unavailable. Qt Wayland focus warnings are harness/compositor diagnostics when present."
+    ]
+  },
+  "deck": {
+    "exit": 0,
+    "pngs": 1,
+    "qml_engine_errors_or_shell_warnings": [],
+    "container_rtkit_warnings": 2,
+    "audio_disabled_pipewire_context_errors": 0,
+    "copied": [
+      "d1-notices.png",
+      "qs.log"
+    ],
+    "application_warning_or_error_lines": [
+      " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3"
+    ],
+    "known_harness_notes": [
+      "One config save error is deliberate deck.sh check 7: chmod 444, then assert save failure and rollback.",
+      "Headless sway lacks Hyprland toplevel mapping/global shortcuts; UPower and RTKit/system bus unavailable. Qt Wayland focus warnings are harness/compositor diagnostics when present."
+    ]
+  },
+  "ai": {
+    "exit": 0,
+    "pngs": 3,
+    "qml_engine_errors_or_shell_warnings": [],
+    "container_rtkit_warnings": 2,
+    "audio_disabled_pipewire_context_errors": 0,
+    "copied": [
+      "a3-after-removal.png",
+      "a2-approved.png",
+      "qs.log",
+      "a1-answer.png"
+    ],
+    "application_warning_or_error_lines": [],
+    "known_harness_notes": [
+      "Headless sway lacks Hyprland toplevel mapping/global shortcuts; UPower and RTKit/system bus unavailable. Qt Wayland focus warnings are harness/compositor diagnostics when present."
+    ]
+  },
+  "notify": {
+    "exit": 0,
+    "pngs": 2,
+    "qml_engine_errors_or_shell_warnings": [],
+    "container_rtkit_warnings": 2,
+    "audio_disabled_pipewire_context_errors": 1,
+    "copied": [
+      "n1-popup.png",
+      "qs.log",
+      "n2-two-popups.png"
+    ],
+    "application_warning_or_error_lines": [],
+    "known_harness_notes": [
+      "Headless sway lacks Hyprland toplevel mapping/global shortcuts; UPower and RTKit/system bus unavailable. Qt Wayland focus warnings are harness/compositor diagnostics when present."
+    ]
+  }
+}

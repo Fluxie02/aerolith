@@ -5,7 +5,7 @@ import qs.components
 import qs.services
 import "../notices"
 
-// Limb's circular field intersected by the retained, left-origin chord.
+// An exposed airframe carries the retained, left-origin machine planes.
 // Surface, focus, input lifetime and all bay demand belong to Deck.qml.
 Item {
     id: view
@@ -18,6 +18,8 @@ Item {
     readonly property var railEntries: deck.rail.filter(r => r.bay !== "ai" || deck.aiBay !== null).map(r => ({bay:r.bay, key:r.key, label:bayNames[r.bay] || r.bay}))
     readonly property bool compactScreen: width < Theme.du(1500) || height < Theme.du(850)
     readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
+    readonly property string shownBay: Ui.activeBay || (deck.slotA.leaving ? deck.slotA.bay : deck.slotB.bay)
+    readonly property string shownCode: codes[shownBay] || "—"
 
     // Keep the strip, especially its sharing indicator, visible above the ground.
     Item {
@@ -44,7 +46,13 @@ Item {
         width: view.compactScreen ? view.width : railRow.width + 2 * Theme.pad
         height: railRow.y - y + railRow.height + Theme.du(4)
         color: Theme.bg
-        radius: view.compactScreen ? 0 : Theme.panelRadius
+        radius: 0
+    }
+    Rectangle {
+        visible: !view.compactScreen
+        x: railRow.x - Theme.du(12); y: railRow.y + Theme.du(10)
+        width: Theme.du(3); height: railRow.height - Theme.du(20)
+        color: Theme.signal
     }
     InstrumentTabs {
         id: railRow
@@ -61,17 +69,76 @@ Item {
     ChordSlot { id: frameA; slot: view.deck.slotA }
     ChordSlot { id: frameB; slot: view.deck.slotB }
 
-    Column {
+    // A clipped elevation sits beside the command plane, leaving the live
+    // controls rectangular. Its label changes only with actual bay state.
+    Row {
+        visible: !view.compactScreen
+        x: parent.width * .055; y: parent.height * .184
+        spacing: Theme.du(10)
+        Rectangle {
+            width: Theme.du(26); height: Theme.du(3)
+            anchors.verticalCenter: parent.verticalCenter; color: Theme.signal
+        }
+        Text {
+            text: "CHORD / " + view.shownCode + (Ui.deckOpen ? "   /   ENGAGED" : "   /   RELEASE")
+            textFormat: Text.PlainText; color: Theme.signal
+            font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
+        }
+    }
+    Item {
         visible: !view.compactScreen && (view.deck.slotA.bay === "command" || view.deck.slotB.bay === "command")
         x: parent.width * .105; y: parent.height * .43
-        opacity: view.fieldProgress
-        spacing: Theme.du(16)
-        Text { text: "COMMAND"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(34); font.weight: Font.Medium; font.letterSpacing: 1 }
-        Text { text: "C O R E"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(34); font.weight: Font.Medium; font.letterSpacing: 3 }
-        Rectangle { width: Theme.du(92); height: Theme.px(2); color: Theme.signal }
+        width: parent.width * .225; height: parent.height * .34
+        opacity: .8 + view.fieldProgress * .2
+        Canvas {
+            id: commandElevation
+            x: -Theme.du(18); y: -Theme.du(15)
+            width: parent.width + Theme.du(30); height: parent.height + Theme.du(22)
+            renderTarget: Canvas.Image
+            onWidthChanged: requestPaint()
+            onHeightChanged: requestPaint()
+            onVisibleChanged: if (visible) requestPaint()
+            onAvailableChanged: if (available) requestPaint()
+            onPaint: {
+                var c = getContext("2d"); c.reset();
+                var cut = Math.min(width * .3, Theme.du(76));
+                c.beginPath(); c.moveTo(0, 0); c.lineTo(width - cut, 0);
+                c.lineTo(width, cut); c.lineTo(width, height - Theme.du(30));
+                c.lineTo(width - Theme.du(30), height); c.lineTo(0, height); c.closePath();
+                c.fillStyle = Theme.bg; c.fill();
+                c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+                c.beginPath(); c.moveTo(0, Theme.du(8)); c.lineTo(0, Theme.du(66));
+                c.strokeStyle = Theme.signal; c.lineWidth = Theme.du(3); c.stroke();
+            }
+            Connections {
+                target: Theme
+                function onPaletteChanged() { commandElevation.requestPaint(); }
+                function onUnitChanged() { commandElevation.requestPaint(); }
+            }
+            Connections {
+                target: commandElevation.Window.window
+                function onVisibleChanged() { if (commandElevation.Window.window.visible) commandElevation.requestPaint(); }
+            }
+        }
         Text {
+            text: "01 / COMMAND CORE"; textFormat: Text.PlainText
+            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+        }
+        Text {
+            y: Theme.du(24); text: "CMD"; textFormat: Text.PlainText
+            color: Theme.text; font.family: Theme.displaySans
+            font.pixelSize: Math.min(Theme.du(98), parent.width * .34)
+            font.weight: Font.Light; font.letterSpacing: -Theme.du(4)
+        }
+        Rectangle {
+            x: Theme.du(2); y: Theme.du(138)
+            width: parent.width * .64; height: Theme.du(3); color: Theme.signal
+        }
+        Text {
+            x: Theme.du(2); y: Theme.du(158); width: parent.width - Theme.du(20)
             text: "KEYBOARD / FIRST\n>  COMMANDS\n@  WINDOWS\n!  ROUTINES\n?  AI IF INSTALLED"
-            textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm; lineHeight: 1.7
+            textFormat: Text.PlainText; color: Theme.textDim
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm; lineHeight: 1.6
         }
     }
     Text {

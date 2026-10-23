@@ -1,0 +1,31 @@
+{
+  "event": "00-assembly",
+  "clock": "date +%s.%N before each grim request; requests are not compositor presentation timestamps",
+  "frames": [
+    {
+      "file": "frame-00.png",
+      "capture_request_ms_from_event": 0.0
+    },
+    {
+      "file": "frame-02.png",
+      "capture_request_ms_from_event": 361.3
+    },
+    {
+      "file": "frame-04.png",
+      "capture_request_ms_from_event": 694.5
+    },
+    {
+      "file": "frame-07.png",
+      "capture_request_ms_from_event": 1278.6
+    },
+    {
+      "file": "frame-11.png",
+      "capture_request_ms_from_event": 1974.0
+    },
+    {
+      "file": "frame-17.png",
+      "capture_request_ms_from_event": 3012.4
+    }
+  ],
+  "animated_preview": "motion.webp retains all 18 captured frames with measured intervals"
+}

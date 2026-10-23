@@ -1,0 +1,27 @@
+[
+  {
+    "scenario": "smoke",
+    "command": "CONFIG=build/ui011/insane.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui011/verify-insane-smoke",
+    "exitCode": 0
+  },
+  {
+    "scenario": "full",
+    "command": "CONFIG=build/ui011/insane.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/ui011/verify-insane-full",
+    "exitCode": 0
+  },
+  {
+    "scenario": "deck",
+    "command": "CONFIG=build/ui011/insane.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' tools/headless/run.sh tests/scenarios/deck.sh build/ui011/verify-insane-deck",
+    "exitCode": 0
+  },
+  {
+    "scenario": "ai",
+    "command": "CONFIG=build/ui011/insane.json AI=1 AUDIO=1 tools/headless/run.sh tests/scenarios/ai.sh build/ui011/verify-insane-ai",
+    "exitCode": 0
+  },
+  {
+    "scenario": "notify",
+    "command": "CONFIG=build/ui011/insane-notify.json tools/headless/run.sh tests/scenarios/notify.sh build/ui011/verify-insane-notify",
+    "exitCode": 1
+  }
+]

@@ -1,0 +1,147 @@
+[
+  {
+    "log": "docs/design/unhinged/accessibility/final-opaque-navigator/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/accessibility/insane-low-effects/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/accessibility/insane-off/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/accessibility/insane-reduced/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/accessibility/saturated-low-effects/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/accessibility/saturated-off/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/accessibility/saturated-off-attempt1/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/accessibility/saturated-reduced/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/insane/ai/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/insane/deck/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/insane/full/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/insane/motion/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/insane/notify/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/insane/notify-development-reload/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 1
+  },
+  {
+    "log": "docs/design/unhinged/insane/smoke/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/ai/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/deck/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/final-deck/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/final-smoke/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/full/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/last-smoke/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/motion/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/notify/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/saturated/smoke/qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/verification/performance/baseline-qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/verification/performance/confirm-insane-qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/verification/performance/confirm-saturated-qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/verification/performance/insane-qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  },
+  {
+    "log": "docs/design/unhinged/verification/performance/saturated-qs.log",
+    "qml_engine_errors": [],
+    "development_reloads": 0
+  }
+]

@@ -47,7 +47,7 @@ Item {
                 return t*t*(3-2*t);
             }
             var ringPhase=phase(.04,.60), indexPhase=phase(.20,.78), outerPhase=phase(.38,.96);
-            var weak=field.mix(Theme.bg,Theme.grid,.48), rule=Theme.grid;
+            var weak=field.mix(Theme.bg,Theme.grid,.28), rule=field.mix(Theme.bg,Theme.grid,.72);
             function line(a,b,d,e,col,weight) {
                 c.strokeStyle=col||rule;c.lineWidth=weight||1;
                 c.beginPath();c.moveTo(a,b);c.lineTo(d,e);c.stroke();
@@ -60,7 +60,7 @@ Item {
                 c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px "'+Theme.mono+'"';c.fillText(s,tx,ty);
             }
             // Machined annulus: the original exposed circular Limb instrument.
-            c.fillStyle=field.mix(Theme.bg,Theme.surface,.7);
+            c.fillStyle=field.mix(Theme.bg,Theme.surface,.45);
             c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();
             c.fillStyle=Theme.bg;c.beginPath();c.arc(x,y,r*.91,0,Math.PI*2);c.fill();
             var rings=L===2 ? [.61,.69,.79,.86,1,1.055,1.17,1.27] : [.43,.48,.61,.69,.79,.86,1,1.055,1.17,1.27,1.39,1.48];
@@ -142,8 +142,8 @@ Item {
                     text(String(k+1).padStart(2,"0"),w*.014,by-8,Theme.textDim);
                 }
                 // An opaque phosphor index spine at the screen's right edge.
-                c.fillStyle=Theme.signal;c.fillRect(w*.948,h*.38,w*.008,h*.37);
-                for(i=0;i<40;i++) line(w*.948,h*(.38+i*.009),w*(i%5===0?.942:.945),h*(.38+i*.009),Theme.signal);
+                c.fillStyle=Theme.grid;c.fillRect(w*.968,h*.38,w*.004,h*.37);
+                for(i=0;i<40;i++) line(w*.968,h*(.38+i*.009),w*(i%5===0?.962:.965),h*(.38+i*.009),Theme.signal);
             }
             // All four registration points survive every intensity level.
             c.globalAlpha=1;
@@ -153,4 +153,5 @@ Item {
             }
         }
     }
+    ShearField { anchors.fill: parent; instrument: field.instrument }
 }

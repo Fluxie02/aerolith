@@ -1,0 +1,34 @@
+{
+  "baseline": {
+    "command": "SHELL_PATH=build/ui011-baseline/shell CONFIG=build/ui011/saturated.json AUDIO=1 MEDIA=1 MPV_AO=pipewire tools/headless/run.sh tests/scenarios/perf.sh build/ui011/baseline-perf",
+    "exit_code": 0
+  },
+  "default_length": [
+    {
+      "intensity": "saturated",
+      "command": "CONFIG=build/ui011/saturated.json SHELL_PATH=build/ui011-final-shell/shell AUDIO=1 MEDIA=1 MPV_AO=pipewire tools/headless/run.sh tests/scenarios/perf.sh build/ui011/final-saturated-perf",
+      "exit_code": 143,
+      "measurement_result": "Complete valid perf.json, all four windows; wrapper terminated during shutdown. Confirmed with shorter successful run."
+    },
+    {
+      "intensity": "insane",
+      "command": "CONFIG=build/ui011/insane.json SHELL_PATH=build/ui011-final-shell/shell AUDIO=1 MEDIA=1 MPV_AO=pipewire tools/headless/run.sh tests/scenarios/perf.sh build/ui011/final-insane-perf",
+      "exit_code": 143,
+      "measurement_result": "Complete valid perf.json, all four windows; wrapper terminated during shutdown. Confirmed with shorter successful run."
+    }
+  ],
+  "confirmation": [
+    {
+      "intensity": "saturated",
+      "command": "CONFIG=build/ui011/saturated.json SHELL_PATH=build/ui011-final-shell/shell AUDIO=1 MEDIA=1 MPV_AO=pipewire tools/headless/run.sh docs/design/unhinged/verification/scripts/perf-confirm.sh build/ui011/confirm-saturated-perf",
+      "exit_code": 0,
+      "result": "perf: ok"
+    },
+    {
+      "intensity": "insane",
+      "command": "CONFIG=build/ui011/insane.json SHELL_PATH=build/ui011-final-shell/shell AUDIO=1 MEDIA=1 MPV_AO=pipewire tools/headless/run.sh docs/design/unhinged/verification/scripts/perf-confirm.sh build/ui011/confirm-insane-perf",
+      "exit_code": 0,
+      "result": "perf: ok"
+    }
+  ]
+}

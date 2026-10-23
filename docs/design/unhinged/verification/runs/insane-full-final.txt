@@ -1,0 +1,24 @@
+$ CONFIG=build/ui011/insane.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json SHELL_PATH=build/ui011-final-shell/shell tools/headless/run.sh tests/scenarios/full.sh build/ui011/verify-insane-full-final
+
+[E][08:15:43.348820] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][08:15:43.348855] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][08:15:43.358862] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][08:15:43.358892] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][08:15:43.366926] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][08:15:43.366948] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+warning: mpv stream not linked
+ok
+E 08:15:56.872170             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 08:15:56.872213             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+ok
+ok
+ok
+ok
+ok
+ok
+E 08:16:16.020000             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 08:16:16.020030             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+ok
+full: ok
+
+EXIT CODE: 0
