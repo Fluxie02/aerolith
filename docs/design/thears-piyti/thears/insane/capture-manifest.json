@@ -1,0 +1,112 @@
+{
+  "source": "build/ui012/final3-thears-insane-motion",
+  "stills": [
+    {
+      "file": "00-settled.png",
+      "sha256": "5c2d1e5588cd4ac7be13e3e1478617449a92f08344b82398cadaf96156d704da",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "01-firefox-handoff-settled.png",
+      "sha256": "7787b7e9887053e48f9fb5d498a6cb96e97f57f4d34e6535253e544f0b859e89",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "02-creative-handoff-settled.png",
+      "sha256": "c993cbc38786ce188d4eefd8c1b29b2d2017dd983662ca940ec735358c0879a7",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "03-dock-settled.png",
+      "sha256": "12fefc92eb9481828146d0daff386e67f7be5a52588b55ba25ffcf4726bc6e67",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "04-input.png",
+      "sha256": "ce02ef3d41e7906809038e76cbf0fd50479bb253358be057299467e80f2c8aca",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "05-window-bay-settled.png",
+      "sha256": "ad39c7692ccad6e8c7190af692421548377e518cb08ad6ef2c2c10eacf9dfe9a",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "06-release-settled.png",
+      "sha256": "c8f2580c8eb6076caa07c91f55f4d410f6e55b85acefcacdbc1953aa418fdb56",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "07-sharing.png",
+      "sha256": "d653aed77b4191fa046ffb81fa3b38ceab53cec9c56cc74fdc918d92ddf7d527",
+      "size": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "gestures": [
+    {
+      "gesture": "01-firefox-handoff",
+      "capture_start_utc": "2026-10-23T13:20:05.058+00:00",
+      "trigger_utc": "2026-10-23T13:20:05.119+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:06.613+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "02-creative-handoff",
+      "capture_start_utc": "2026-10-23T13:20:07.929+00:00",
+      "trigger_utc": "2026-10-23T13:20:07.992+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:09.600+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "03-dock",
+      "capture_start_utc": "2026-10-23T13:20:10.494+00:00",
+      "trigger_utc": "2026-10-23T13:20:10.553+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:12.254+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "05-window-bay",
+      "capture_start_utc": "2026-10-23T13:20:13.570+00:00",
+      "trigger_utc": "2026-10-23T13:20:13.632+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:15.264+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "06-release",
+      "capture_start_utc": "2026-10-23T13:20:16.070+00:00",
+      "trigger_utc": "2026-10-23T13:20:16.130+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:17.700+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    }
+  ],
+  "raw_ppms_removed_after_archive": true
+}

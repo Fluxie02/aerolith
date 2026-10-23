@@ -95,7 +95,11 @@ suite-wide class matcher is installed.
 [PhotoCraft window identity](https://github.com/storytold/photocraft/blob/main/apps/photocraft/src/main.rs),
 [Linux desktop entry](https://github.com/storytold/photocraft/blob/main/packaging/linux/ai.storyteller.photocraft.desktop).
 
-Fullscreen/maximize decoration matching is false. These fragments do not add
+The `fullscreen = false` / `match:fullscreen 0` condition excludes
+Hyprland's covering and non-covering fullscreen windows, including maximize,
+as described by the [current rule match reference](https://github.com/hyprwm/hyprland-wiki/blob/main/content/configuring/core/rules/window-rules.md).
+Native parsing confirms syntax; live state transitions still need a real
+Hyprland session. These fragments do not add
 an overlay. The shell has no verified fullscreen surface-unmapping mechanism;
 that inherited systems gap is the required S1 handoff in
 [SYSTEMS-REQUESTS.md](SYSTEMS-REQUESTS.md). CPU measurements and decoration
@@ -117,3 +121,9 @@ rules do not demonstrate GPU-memory release.
   could recolour a whole unread text container in Discord. Removed it immediately;
   native unread signalling remains intact. Real Steam/Discord account-state
   rendering remains unverified and is clearly separated from format validation.
+- Numeric review caught secondary Discord text at **4.371:1** on the highest
+  surface. Both themes now use `#304446` for that surface, bringing `#abc0bd`
+  secondary text to **5.393:1**; separators keep their original mineral colour.
+  [Pair-by-pair evidence](verification/app-contrast.json) also covers selection
+  labels and focus cues. [Exact native config output](verification/hyprland-validation.log)
+  archives all four successful Hyprland parser runs.

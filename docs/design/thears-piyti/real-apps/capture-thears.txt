@@ -1,0 +1,59 @@
+[
+  {
+    "success": true
+  }
+]
+[
+  {
+    "success": true
+  }
+]
+[
+  {
+    "success": true
+  }
+]
+[
+  {
+    "success": true
+  }
+]
+[
+  {
+    "success": true
+  },
+  {
+    "success": true
+  },
+  {
+    "success": true
+  }
+]
+[
+  {
+    "success": true
+  },
+  {
+    "success": true
+  },
+  {
+    "success": true
+  }
+]
+[
+  {
+    "success": true
+  }
+]
+[
+  {
+    "success": true
+  },
+  {
+    "success": true
+  },
+  {
+    "success": true
+  }
+]
+real-apps thears: capture complete

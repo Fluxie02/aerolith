@@ -1,4 +1,4 @@
-# AEROLITH application appearance — UI-008 / UI-010
+# AEROLITH application appearance — UI-008 / UI-010 / UI-012
 
 Optional, uninstalled theme fragments for owner review. Claude will integrate
 these with the installer after approval. They share Limb's palette and work
@@ -129,3 +129,132 @@ Format references checked for UI-010 on 23 October 2026:
 - [libadwaita named-colour compatibility mapping](https://github.com/GNOME/libadwaita/blob/main/src/stylesheet/_colors.scss)
 - [qt6ct palette reader](https://github.com/trialuser02/qt6ct/blob/master/src/qt6ct-common/qt6ct.cpp)
 - [Qt QPalette roles](https://doc.qt.io/qt-6/qpalette.html)
+
+## THEARS and PIYTI — UI-012
+
+**THEARS — The Harmonized Exterior: Apps Resonate with SHEAR; visual integration makes familiar apps feel native to the same mineral airframe.**
+
+**PIYTI — Place Into Your Task Instrument; deeper integration carries known app windows into a shared shell bus, with richer task adapters specified for Claude.**
+
+Choose one direction per app. Both build on SHEAR/Limb and work with either
+Saturated or Insane shell intensity. THEARS uses the existing phosphor focus;
+PIYTI adds ice `#81e6ed` as the application-link cue. Fonts fall back to system
+sans/mono. App content, native layouts, document colours and security indicators
+stay under the app's control. These are uninstalled, opt-in review files.
+Claude will wire installation after owner approval.
+
+The shell's direction is currently a visual seam in `Theme.applicationDirection`,
+defaulting to THEARS. PIYTI captures use the same production components with
+that default changed in a disposable copy. A supported user setting, reliable
+app events and full-screen GPU-resource suspension are explicit
+[systems requests](../docs/design/thears-piyti/SYSTEMS-REQUESTS.md).
+Shell motion preferences and each app's reduced-motion preference are separate;
+the added app CSS respects `prefers-reduced-motion`.
+
+### Firefox
+
+Use `firefox/thears/` or `firefox/piyti/`. Merge `userChrome.css` and optional
+`userContent.css` into `<Firefox profile>/chrome/` (find that profile in
+`about:profiles`). Set `toolkit.legacyUserProfileCustomizations.stylesheets=true`
+in `about:config`, then restart Firefox. Keep any existing customization and
+make removal reversible. The content file only styles `about:home` and
+`about:newtab`; it does not recolour websites or permission/error pages.
+
+Each directory also contains an independent static-theme `manifest.json` for
+Firefox 128+. It supplies native colour roles without the stylesheet preference.
+Temporary review: `about:debugging` → This Firefox → Load Temporary Add-on →
+select the manifest. Permanent distribution needs Mozilla signing. The CSS
+adds the SHEAR shape treatment; the manifest alone adds colours. No mod or
+shell bridge is required. Internal chrome selectors can change across Firefox
+updates. [Format sources and placement](../docs/design/thears-piyti/APP-FORMATS.md#firefox).
+
+### LibreOffice suite
+
+`libreoffice/thears.xcu` and `libreoffice/piyti.xcu` register selectable
+**AEROLITH THEARS** and **AEROLITH PIYTI** application colour schemes for
+LibreOffice **25.8+**. The directory is an extension source: package both XCU
+files, `description.xml` and `META-INF/manifest.xml` at the root of an `.oxt`
+ZIP, then offer it through Extension Manager after approval. Do not replace
+`registrymodifications.xcu` with these fragments. In Tools → Options →
+LibreOffice → Appearance choose the desired scheme and enable application
+theming. Keep **Use white document background** enabled. No mod is needed.
+
+With the GTK 3 VCL backend, the existing `gtk-3.0/gtk.css` is the companion
+widget theme; the XCU supplies application-owned colours for Writer, Calc,
+Draw and the shared suite. It does not change the active backend, icons,
+document styles, printed output or ribbon arrangement. Other backends and
+sandboxed dialogs can differ. [Package command, native-test profile values
+and schema references](../docs/design/thears-piyti/APP-FORMATS.md#libreoffice).
+
+### Steam — requires Millennium
+
+Copy the **whole** `steam/thears/` or `steam/piyti/` directory into the installed
+Millennium version's active themes folder, then select **AEROLITH THEARS** or
+**AEROLITH PIYTI** in Steam → Millennium → Themes. The documented Linux quick
+start uses `~/.steam/steam/steamui/skins/`; newer installations may keep themes
+under `~/.local/share/millennium/`. Resolve the installed version's path before
+writing files. Do not put these CSS files directly into Steam's base UI tree.
+
+Each folder contains Millennium's `skin.json` with `UseDefaultPatches: true`,
+plus its three standard targets: `libraryroot.custom.css`, `friends.custom.css`
+and `bigpicture.custom.css`. No JavaScript plugin, remote asset, account access
+or store-page injection is needed. Native game artwork and controller layout
+remain visible. Syntax/format validation passed; signed-in rendering remains
+unverified. [Official format and path references](../docs/design/thears-piyti/MOD-FORMATS.md#steam--millennium).
+
+### Discord — requires Vencord
+
+Copy **one** of `discord/thears.theme.css` or `discord/piyti.theme.css` into
+Vencord's local themes directory, opened through Settings → Vencord → Themes
+→ Local Themes → Open Themes Folder. Enable that theme and choose Discord's
+**Dark** appearance. The standalone CSS includes Vencord's name/author/version/
+description metadata header; it needs no additional Vencord plugin or remote
+import. Discord's role, presence and mention colours retain their meaning.
+
+These files cover legacy and Visual Refresh colour variables with limited
+chrome selectors. Discord can change those internal names. No account session
+was used, so live rendering and selector coverage remain unverified. CSS does
+not provide call state, unread data or shell commands.
+[Format references and limits](../docs/design/thears-piyti/MOD-FORMATS.md#discord--vencord).
+
+### ArtCraft / Crafting Apps
+
+The identified suite is [ArtCraft's thirteen Crafting Apps](https://getartcraft.com/apps),
+including the Linux-native [PhotoCraft](https://getartcraft.com/apps/photocraft).
+It is distinct from ArtCraft's AI compositor. `artcraft/thears/tokens.json`
+and `artcraft/piyti/tokens.json` are exact-key **PhotoCraft debug-build** palette
+adapters. For debug review, select **Studio (Dark)**, then load with
+`PHOTOCRAFT_THEME_FILE=/absolute/path/to/tokens.json`.
+That upstream debug loader polls and is compiled out of release builds; it is
+not a production idle-power integration or a universal suite theme format.
+
+For a released app, choose its built-in Pro/Studio dark appearance. The
+Hyprland fragments below cover the confirmed PhotoCraft window identity
+`ai.storyteller.photocraft`. GTK CSS does not recolour its egui/wgpu interface.
+The actual PhotoCraft screenshot shows its release UI and CPU-renderer fallback,
+**without AEROLITH token recolouring**. Artwork, ICC and export pixels stay
+with the app. No mod is required; deeper creative-task events need Claude's
+approved adapter. [Adapter instructions and primary sources](artcraft/README.md).
+
+### Hyprland — per-app rules
+
+Alongside the existing `hyprland/aerolith.lua` or `.conf` base decoration
+fragment, include **one** app-rule direction matching the user's config syntax:
+
+| Direction | Hyprland 0.55+ Lua | Hyprland 0.54 hyprlang |
+| --- | --- | --- |
+| THEARS | `dofile("/absolute/path/to/themes/hyprland/thears.lua")` | `source = /absolute/path/to/themes/hyprland/thears.conf` |
+| PIYTI | `dofile("/absolute/path/to/themes/hyprland/piyti.lua")` | `source = /absolute/path/to/themes/hyprland/piyti.conf` |
+
+These add 20 px rounding, 2 px focused/inactive borders, no blur/shadow,
+modal-dialog placement, Steam Friends/Settings windows, Discord popouts and
+Firefox Picture-in-Picture rules. Full-screen/maximized windows are excluded;
+Steam game classes are not decorated as the Steam client. Localized auxiliary
+titles may need adjustment; check actual app identities with `hyprctl clients`.
+All four fragments pass native `Hyprland --verify-config` on 0.56.2. Real
+Hyprland rendering and GPU-memory release remain unverified. These rules do
+not implement shell suspension. [Matching rules and format sources](../docs/design/thears-piyti/MOD-FORMATS.md#hyprland-app-rules).
+
+The [design and evidence](../docs/design/thears-piyti/README.md) distinguish
+actual apps, shell renders with compositor fixtures, and untested account apps.
+No host application or profile was installed or changed for UI-012.

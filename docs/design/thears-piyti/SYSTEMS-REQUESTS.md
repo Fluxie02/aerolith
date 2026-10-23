@@ -4,7 +4,7 @@ These requests describe future behavior. UI-012 adds visual code and uninstalled
 app files; it does not implement process automation, new config/schema keys,
 installer writes or host lifecycle policy. Claude implements the approved work.
 
-## S1 · full-screen/game resource release — required before PIYTI ships
+## S1 · full-screen/game resource release — required before either direction ships
 
 **Invariant:** while a game or full-screen app owns the selected output, AEROLITH
 releases its rendered surfaces and GPU allocations to near zero. A transparent,
@@ -64,6 +64,10 @@ individually. Expose plain data with stable IDs; no title-based shell commands.
 route through existing window.focus, with normal error feedback if it vanishes.
 Users can always open full Navigator or Command. The current visual implementation
 routes to these existing bays and does not guess which window to focus.
+Current `windows()` metadata is a snapshot: newly opened clients can lack a class
+until Navigator refreshes it. PIYTI therefore labels known windows and snapshot
+freshness explicitly. The future adapter must refresh/invalidate metadata on
+relevant open/close/focus/class events, without visual-layer polling.
 **Acceptance:** missing compositor, unknown app, duplicate windows, app closing
 between paint and action, forged markup in titles and no app installed all remain
 usable; zero extra periodic work at idle.

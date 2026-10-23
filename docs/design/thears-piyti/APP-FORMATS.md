@@ -119,9 +119,14 @@ For a released native app, choose its built-in Pro (Dark) or Studio (Dark)
 theme, then apply the compositor fragment from `themes/hyprland/` after
 approval. Any release screenshot must label that scope accurately: actual
 app and exterior integration, **AEROLITH token recolour not applied**.
-The JSON designs are usable in a PhotoCraft debug build with
-`PHOTOCRAFT_THEME_FILE=/absolute/path/to/tokens.json`; palette and layout
-must be judged there before a future production loader is approved.
+For the JSON designs, select **Studio (Dark)** in a PhotoCraft debug build,
+then use `PHOTOCRAFT_THEME_FILE=/absolute/path/to/tokens.json`. These tokens
+use light `accent_text` on dark rows and an alpha `accent_soft` tint, matching
+Studio's semantic roles; the bright primary button has its separate dark
+`primary_text`. They are not a Pro-theme override. The loader updates token
+consumers after applying built-in egui visuals, so complete native-widget
+recolouring is not proven by accepting JSON. Palette, selection and layout
+must be judged in that debug build before a production loader is approved.
 Deeper creative-suite continuity should use verified, opt-in document/
 render events. Artwork pixels, ICC settings and media timing stay with the
 creative app; the shell never invents progress or polls its render engine.
@@ -141,8 +146,17 @@ creative app; the shell never invents progress or polls its render engine.
   was tightened to 25.8 after checking the actual older schema.
 - ArtCraft: both JSON objects parse; every key and value type matches
   PhotoCraft's debug `apply_overrides` implementation. All foregrounds use
-  the established palette; the pressed fill is slightly darker than the
-  separator so dim text stays above 4.5:1 there. Neither release loading
-  nor recoloured native rendering is claimed.
+  the established palette. Review corrected `accent_text` to light text and
+  made `accent_soft` an alpha tint for Studio's selection semantics; the
+  pressed fill is darker than the separator so dim text stays above 4.5:1
+  there. Neither release loading nor recoloured native rendering is claimed.
+
+The final cross-app syntax run covers **22 payloads: 12 CSS, six JSON and
+four XML/XCU files**, with 123 style rules, 451 declarations, 14 at-rules
+and no errors. [Numeric colour-pair checks](verification/app-contrast.json)
+separate text (4.5:1) from focus/icon cues (3:1), including alpha-composited
+Studio selection tints. These are palette checks, not a claim that every
+unseen app widget or account state was exercised. Exact parser output is in
+[theme-validation.log](verification/theme-validation.log).
 
 Real-app screenshots and exact shell checks are listed in the main README.

@@ -1,0 +1,37 @@
+{
+  "source": "build/ui012/final2-piyti-saturated-off-small",
+  "stills": [
+    {
+      "file": "01-idle.png",
+      "sha256": "df2b53743094a66188981ac6d1a5de14ebd757f64a253085a06e9039ff456f5e",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "02-app-focus.png",
+      "sha256": "4fb3786b95425681e949aadaa68b4d7a08e5ff2cf64f3d6b19e04bf3d7b873fb",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "03-command.png",
+      "sha256": "9181107d109ce5f73cba615afb70f73b36868a4ab61d5a5ef8162ed6d4f9d82c",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "04-settings.png",
+      "sha256": "f80ab5db366ca0f583c66343c7febde20a730f8466478bd6edd9c6a16ad341b3",
+      "size": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "source": "build/ui012/final3-piyti-saturated-motion",
+  "stills": [
+    {
+      "file": "00-settled.png",
+      "sha256": "245b4a6ef499e087337a944cbe1bf09131909c2d025ee9f5ef53fadbe9864f39",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "01-firefox-handoff-settled.png",
+      "sha256": "ef6b311e4ac8c8542454d07812fe2adc36bf2743fd7e797cb699e5f22a2a5c52",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "02-creative-handoff-settled.png",
+      "sha256": "1fcdbc0f26b6f80e2581717b40481fb7d673ea12b6e83d977022ddcb23283f87",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "03-dock-settled.png",
+      "sha256": "a18b6e46d44230e9062cbb4a362ad6eb2c1b90feac84ec790913fd8e3c9d908f",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "04-input.png",
+      "sha256": "a0fa5fd96d85594af30e20d94e00183eb0c853428418efad53f061b340ebf6da",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "05-window-bay-settled.png",
+      "sha256": "59afa4bfd8730fecff34164b6fd645ecacd82a39a844ed85f9db455620a14417",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "06-release-settled.png",
+      "sha256": "9f3ae8b1930b0157402f893f3fdb3cf0ca769012c3656a63f8128214da1ddc48",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "07-sharing.png",
+      "sha256": "a642edbc54e2bc69702a0fb7f5a089c2d1e115e5be9cfc36fad7a28e50866bc4",
+      "size": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "gestures": [
+    {
+      "gesture": "01-firefox-handoff",
+      "capture_start_utc": "2026-10-23T13:20:30.801+00:00",
+      "trigger_utc": "2026-10-23T13:20:30.861+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:32.520+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "02-creative-handoff",
+      "capture_start_utc": "2026-10-23T13:20:33.848+00:00",
+      "trigger_utc": "2026-10-23T13:20:33.909+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:35.548+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "03-dock",
+      "capture_start_utc": "2026-10-23T13:20:36.438+00:00",
+      "trigger_utc": "2026-10-23T13:20:36.499+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:38.145+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "05-window-bay",
+      "capture_start_utc": "2026-10-23T13:20:39.447+00:00",
+      "trigger_utc": "2026-10-23T13:20:39.509+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:41.057+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "06-release",
+      "capture_start_utc": "2026-10-23T13:20:41.868+00:00",
+      "trigger_utc": "2026-10-23T13:20:41.931+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:43.553+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    }
+  ],
+  "raw_ppms_removed_after_archive": true
+}

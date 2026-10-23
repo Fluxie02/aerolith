@@ -9,8 +9,12 @@ landing page advertises macOS, Windows and web.
 `thears/tokens.json` and `piyti/tokens.json` are **PhotoCraft debug-build token
 overrides**, checked against the upstream `live::apply_overrides` accepted keys.
 They are not release-build themes, GTK CSS, or a universal ArtCraft format.
-For a debug build only, launch with `PHOTOCRAFT_THEME_FILE` pointing to the
-chosen absolute file path. Upstream's debug watcher polls at 400 ms; this
+For a debug build only, choose **Studio (Dark)** and launch with
+`PHOTOCRAFT_THEME_FILE` pointing to the chosen absolute file path. The selection
+uses light text over a translucent accent tint; primary buttons keep dark text
+on phosphor. Native debug rendering still needs review: token consumers can
+coexist with widgets whose colours are separately hardcoded upstream.
+Upstream's debug watcher polls at 400 ms; this
 development workflow is unsuitable for a production idle-power target.
 
 Released PhotoCraft currently compiles that loader out. Choose its built-in

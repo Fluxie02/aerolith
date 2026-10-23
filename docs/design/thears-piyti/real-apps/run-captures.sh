@@ -2,6 +2,17 @@
 # After start-container.sh finishes. Every process and package stays inside
 # the disposable container. No accounts, host configuration or image commit.
 set -euo pipefail
+# Recreate the review-only direction copy; it is generated workspace output.
+python3 - <<'PY'
+from pathlib import Path
+import shutil
+target = Path('build/ui012/piyti-shell')
+shutil.copytree('shell', target, dirs_exist_ok=True)
+theme = target / 'core/Theme.qml'
+theme.write_text(theme.read_text().replace(
+    'property string applicationDirection: "thears"',
+    'property string applicationDirection: "piyti"'))
+PY
 docker exec aerolith-ui012-apps python3 /src/docs/design/thears-piyti/real-apps/prepare.py
 docker exec aerolith-ui012-apps chown -R pilot:pilot /home/pilot
 for direction in thears piyti; do

@@ -1,0 +1,23 @@
+PASS themes/artcraft/piyti/tokens.json
+PASS themes/artcraft/thears/tokens.json
+PASS themes/discord/piyti.theme.css
+PASS themes/discord/thears.theme.css
+PASS themes/firefox/piyti/manifest.json
+PASS themes/firefox/piyti/userChrome.css
+PASS themes/firefox/piyti/userContent.css
+PASS themes/firefox/thears/manifest.json
+PASS themes/firefox/thears/userChrome.css
+PASS themes/firefox/thears/userContent.css
+PASS themes/libreoffice/META-INF/manifest.xml
+PASS themes/libreoffice/description.xml
+PASS themes/libreoffice/piyti.xcu
+PASS themes/libreoffice/thears.xcu
+PASS themes/steam/piyti/bigpicture.custom.css
+PASS themes/steam/piyti/friends.custom.css
+PASS themes/steam/piyti/libraryroot.custom.css
+PASS themes/steam/piyti/skin.json
+PASS themes/steam/thears/bigpicture.custom.css
+PASS themes/steam/thears/friends.custom.css
+PASS themes/steam/thears/libraryroot.custom.css
+PASS themes/steam/thears/skin.json
+{"at_rules": 14, "css": 12, "declarations": 451, "errors": 0, "files": 22, "json": 6, "style_rules": 123, "xml": 4}

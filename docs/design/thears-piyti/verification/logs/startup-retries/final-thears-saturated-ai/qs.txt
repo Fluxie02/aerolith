@@ -1,0 +1,17 @@
+[32m  INFO[0m: Launching config: "/home/pilot/aerolith-shell/shell.qml"
+[32m  INFO[0m: Shell ID: "708c8a7c755c1df55054faa3f0900d07" Path ID "708c8a7c755c1df55054faa3f0900d07"
+[33m  WARN[97m [0m: Failed to create wl_display (Connection refused)
+[32m  INFO[97m qt.qpa.plugin[0m: Could not load the Qt platform plugin "wayland" in "" even though it was found.
+[31m FATAL: This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: minimal, linuxfb, offscreen, xcb, wayland-brcm, wayland-egl, wayland, eglfs, vnc, vkkhrdisplay, minimalegl.
+[0m
+[31m ERROR[0m: Quickshell has crashed under pid 402 (Coredumps will be available under that pid.)
+[33m  WARN[97m [0m: Failed to create wl_display (Connection refused)
+[32m  INFO[97m qt.qpa.plugin[0m: Could not load the Qt platform plugin "wayland" in "" even though it was found.
+[31m FATAL: This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: minimal, linuxfb, offscreen, xcb, wayland-brcm, wayland-egl, wayland, eglfs, vnc, vkkhrdisplay, minimalegl.
+[0m
+[31m ERROR[0m: Further crash information is stored under "/home/pilot/.cache/quickshell/crashes/o7ub3dnt"
+[31m ERROR[0m: Quickshell crashed within 10 seconds of launching. Not restarting to avoid a crash loop.

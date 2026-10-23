@@ -5,6 +5,7 @@ set -euo pipefail
 out="$PWD/docs/design/thears-piyti/real-apps"
 mkdir -p "$out"
 chmod 777 "$out"
+rm -f "$out/install.ready"
 docker run --rm -d --name aerolith-ui012-apps --cap-add=SYS_NICE \
   -v "$PWD:/src:ro" -v "$out:/out" \
   -v /etc/ssl/certs/ca-certificates.crt:/etc/ssl/cert.pem:ro \

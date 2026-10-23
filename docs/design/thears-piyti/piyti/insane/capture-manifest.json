@@ -1,0 +1,112 @@
+{
+  "source": "build/ui012/final3-piyti-insane-motion",
+  "stills": [
+    {
+      "file": "00-settled.png",
+      "sha256": "7629ef8ec021bf1c781c3df93ecf508389f64a377a080fd12a4a94e4f9a546c9",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "01-firefox-handoff-settled.png",
+      "sha256": "a2e9d94a49c5735e77b2cb4ed9eb44ec1f10ea03d7e9cab0ec80daa08534a78e",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "02-creative-handoff-settled.png",
+      "sha256": "0304ef5914d9ccf78badbfa0374c83865c29b7aa098032966754c63447764c70",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "03-dock-settled.png",
+      "sha256": "72945a05cd5797e8a4a60764a2cb74b973a804e6c5a990b8c0116a602e3a74a3",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "04-input.png",
+      "sha256": "24f1bc47437cb6f268213ea504218ccf0d61188459bed65c76d3db5db0706814",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "05-window-bay-settled.png",
+      "sha256": "45ece070e708d25fcc1500d4b4ea7ebd1403b3bc5b60407f152d6ca5fc8fb666",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "06-release-settled.png",
+      "sha256": "b8237b13fc8228c94e9a797c732365caf37a65deea024fdcecb22e6c3029b49a",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "file": "07-sharing.png",
+      "sha256": "e677a02da1d50e94a74437c7e97aec86fa5a1b01c52f8c9d6093a6f22a8c1553",
+      "size": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "gestures": [
+    {
+      "gesture": "01-firefox-handoff",
+      "capture_start_utc": "2026-10-23T13:20:30.906+00:00",
+      "trigger_utc": "2026-10-23T13:20:30.972+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:32.616+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "02-creative-handoff",
+      "capture_start_utc": "2026-10-23T13:20:33.972+00:00",
+      "trigger_utc": "2026-10-23T13:20:34.038+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:35.709+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "03-dock",
+      "capture_start_utc": "2026-10-23T13:20:36.630+00:00",
+      "trigger_utc": "2026-10-23T13:20:36.691+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:38.412+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "05-window-bay",
+      "capture_start_utc": "2026-10-23T13:20:39.719+00:00",
+      "trigger_utc": "2026-10-23T13:20:39.775+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:41.294+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    },
+    {
+      "gesture": "06-release",
+      "capture_start_utc": "2026-10-23T13:20:42.130+00:00",
+      "trigger_utc": "2026-10-23T13:20:42.189+00:00",
+      "capture_end_start_utc": "2026-10-23T13:20:43.762+00:00",
+      "source_frames": 18,
+      "full_resolution_samples": 6
+    }
+  ],
+  "raw_ppms_removed_after_archive": true
+}
