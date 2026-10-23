@@ -1,0 +1,735 @@
+{
+  "method": "WCAG sRGB relative luminance; opaque emitted colour pairs",
+  "scope": "Enabled text >=4.5, focus >=3. Toolkit disabled opacity, private app CSS and compositor pixels are excluded.",
+  "checks": [
+    {
+      "pair": "GTK 3.0 aerolith_text / aerolith_obsidian",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_text / aerolith_surface",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_text / aerolith_surface2",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_dim / aerolith_obsidian",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_dim / aerolith_surface",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_dim / aerolith_surface2",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_signal / aerolith_obsidian",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_signal / aerolith_surface",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 aerolith_signal / aerolith_surface2",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 warning_color / aerolith_obsidian",
+      "foreground": "#ffd071",
+      "background": "#0d1215",
+      "ratio": 13.0222,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 warning_color / aerolith_surface",
+      "foreground": "#ffd071",
+      "background": "#1b282b",
+      "ratio": 10.4785,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 warning_color / aerolith_surface2",
+      "foreground": "#ffd071",
+      "background": "#25373a",
+      "ratio": 8.6066,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 error_color / aerolith_obsidian",
+      "foreground": "#ff9591",
+      "background": "#0d1215",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 error_color / aerolith_surface",
+      "foreground": "#ff9591",
+      "background": "#1b282b",
+      "ratio": 7.1912,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 error_color / aerolith_surface2",
+      "foreground": "#ff9591",
+      "background": "#25373a",
+      "ratio": 5.9066,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 success_color / aerolith_obsidian",
+      "foreground": "#b3e6bd",
+      "background": "#0d1215",
+      "ratio": 13.4327,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 success_color / aerolith_surface",
+      "foreground": "#b3e6bd",
+      "background": "#1b282b",
+      "ratio": 10.8089,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 success_color / aerolith_surface2",
+      "foreground": "#b3e6bd",
+      "background": "#25373a",
+      "ratio": 8.8779,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 focus / aerolith_obsidian",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 focus / aerolith_surface",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 focus / aerolith_surface2",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 focus / aerolith_grid",
+      "foreground": "#ceebac",
+      "background": "#3b5253",
+      "ratio": 6.3959,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 filled control + inset focus / aerolith_signal",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 filled control + inset focus / error_color",
+      "foreground": "#0d1215",
+      "background": "#ff9591",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 hovered button",
+      "foreground": "#edf3f5",
+      "background": "#3b5253",
+      "ratio": 7.4429,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 selection",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 3.0 unfocused_selection",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_text / aerolith_obsidian",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_text / aerolith_surface",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_text / aerolith_surface2",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_dim / aerolith_obsidian",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_dim / aerolith_surface",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_dim / aerolith_surface2",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_signal / aerolith_obsidian",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_signal / aerolith_surface",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 aerolith_signal / aerolith_surface2",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 warning_color / aerolith_obsidian",
+      "foreground": "#ffd071",
+      "background": "#0d1215",
+      "ratio": 13.0222,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 warning_color / aerolith_surface",
+      "foreground": "#ffd071",
+      "background": "#1b282b",
+      "ratio": 10.4785,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 warning_color / aerolith_surface2",
+      "foreground": "#ffd071",
+      "background": "#25373a",
+      "ratio": 8.6066,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 error_color / aerolith_obsidian",
+      "foreground": "#ff9591",
+      "background": "#0d1215",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 error_color / aerolith_surface",
+      "foreground": "#ff9591",
+      "background": "#1b282b",
+      "ratio": 7.1912,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 error_color / aerolith_surface2",
+      "foreground": "#ff9591",
+      "background": "#25373a",
+      "ratio": 5.9066,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 success_color / aerolith_obsidian",
+      "foreground": "#b3e6bd",
+      "background": "#0d1215",
+      "ratio": 13.4327,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 success_color / aerolith_surface",
+      "foreground": "#b3e6bd",
+      "background": "#1b282b",
+      "ratio": 10.8089,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 success_color / aerolith_surface2",
+      "foreground": "#b3e6bd",
+      "background": "#25373a",
+      "ratio": 8.8779,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 focus / aerolith_obsidian",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 focus / aerolith_surface",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 focus / aerolith_surface2",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 focus / aerolith_grid",
+      "foreground": "#ceebac",
+      "background": "#3b5253",
+      "ratio": 6.3959,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 filled control + inset focus / aerolith_signal",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 filled control + inset focus / error_color",
+      "foreground": "#0d1215",
+      "background": "#ff9591",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 hovered button",
+      "foreground": "#edf3f5",
+      "background": "#3b5253",
+      "ratio": 7.4429,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 selection",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "GTK 4.0 unfocused_selection",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active WindowText / Window (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active Text / Base (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active Text / AlternateBase (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active ButtonText / Button (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active ToolTipText / ToolTipBase (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active PlaceholderText / Base (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active Link / Base (palette values)",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active LinkVisited / Base (palette values)",
+      "foreground": "#b3e6bd",
+      "background": "#0d1215",
+      "ratio": 13.4327,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active HighlightedText / Highlight (palette values)",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt active focus / Base",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt active focus / Button",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt active focus / Light",
+      "foreground": "#ceebac",
+      "background": "#3b5253",
+      "ratio": 6.3959,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt active focus / Window",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt active hovered button",
+      "foreground": "#edf3f5",
+      "background": "#3b5253",
+      "ratio": 7.4429,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive WindowText / Window (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive Text / Base (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive Text / AlternateBase (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive ButtonText / Button (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive ToolTipText / ToolTipBase (palette values)",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive PlaceholderText / Base (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive Link / Base (palette values)",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive LinkVisited / Base (palette values)",
+      "foreground": "#b3e6bd",
+      "background": "#0d1215",
+      "ratio": 13.4327,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive HighlightedText / Highlight (palette values)",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive focus / Base",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive focus / Button",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive focus / Light",
+      "foreground": "#ceebac",
+      "background": "#3b5253",
+      "ratio": 6.3959,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive focus / Window",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "passed": true
+    },
+    {
+      "pair": "Qt inactive hovered button",
+      "foreground": "#edf3f5",
+      "background": "#3b5253",
+      "ratio": 7.4429,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled WindowText / Window (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled Text / Base (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled Text / AlternateBase (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled ButtonText / Button (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled ToolTipText / ToolTipBase (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled PlaceholderText / Base (palette values)",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled Link / Base (palette values)",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled LinkVisited / Base (palette values)",
+      "foreground": "#b3e6bd",
+      "background": "#0d1215",
+      "ratio": 13.4327,
+      "minimum": 4.5,
+      "passed": true
+    },
+    {
+      "pair": "Qt disabled HighlightedText / Highlight (palette values)",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

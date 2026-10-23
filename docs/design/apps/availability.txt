@@ -1,0 +1,15 @@
+2026-10-23 / aerolith-dev:latest / no packages installed
+gtk4-demo: unavailable
+gtk3-demo: unavailable
+pavucontrol: unavailable
+nm-connection-editor: unavailable
+zenity: unavailable
+qt5ct: unavailable
+qt6ct: unavailable
+assistant: unavailable
+designer: unavailable
+qdbusviewer: unavailable
+gtk+-3.0: unavailable
+gtk4: unavailable
+Qt5Widgets: unavailable
+Qt6Widgets: 6.12.0
