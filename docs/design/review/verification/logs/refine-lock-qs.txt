@@ -1,0 +1,4 @@
+[32m  INFO[0m: Launching config: "/src/build/ui009/previews-after/lock/shell.qml"
+[32m  INFO[0m: Shell ID: "e0bfad68b06c91913df4f3ff1dae5468" Path ID "e0bfad68b06c91913df4f3ff1dae5468"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/yrzybnt/log.qslog"
+[32m  INFO[0m: Configuration Loaded

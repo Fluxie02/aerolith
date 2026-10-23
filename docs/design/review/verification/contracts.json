@@ -1,0 +1,50 @@
+{
+  "protected": {
+    "shell/shell.qml": "5e97017facc53b3bde8e28192e9e5f5479e45c48cfe25718dda251ebe960897a",
+    "shell/core/Ui.qml": "b62dbf1717085ca23ba5e84e70965d37d2629d7f48f39c84dfb715b15ffad4d1",
+    "shell/core/Config.qml": "6138102250de12c56b1eb645ab5141d49b014a3eba5442cb87ee460bc01f1537",
+    "shell/modules/ControlSurface.qml": "5db1bc586667795ac94f69a8382cadabcd40d3fd4171a308b007e12210293417",
+    "shell/modules/AiLoader.qml": "cf5dbe37eea46468ed9075a7ddc33be55d912f9f99584d734386a594dcfd741b",
+    "shell/modules/deck/Deck.qml": "ec9b33bade6661728e0bb0553fd7561642175cb5c8821fc625a25b34e867e592",
+    "shell/modules/ground/GroundSurface.qml": "0ab46b6fdee7fbd046c0a266a1f69be62f67f8155da4c13358c1f392cb72f873",
+    "shell/modules/notices/NoticeColumn.qml": "230f47b9fccdfc46dd49d0632e30ddd462e50f49bbf2839e044d00abc1dac2b5",
+    "shell/modules/strip/FlightStrip.qml": "8e1fb961cca3c80e95fedac1f5028fe20a412fb6b559329e10900969896617f7",
+    "shell/modules/settings/SettingsBay.qml": "1316828a6ccf274f8ebac8dd62130371ff5177d8dced869763f2417e88d24eac",
+    "shell/lib/config.mjs": "30bc3d2560c4f0975eef2e6e243ca6ba7350f06af50a0b6f6dffc2be529fec38",
+    "shell/schema/config.schema.json": "36b484cfc0617da37a3a0c57229ea002ad64a7834135ddb9cdc1494acc99d05d",
+    "shell/lib/tokens.mjs": "459e6c1a058617ddf19b27988e11566868814a70253b6b79ae10af81442b2317",
+    "shell/services/Audio.qml": "6c5208c6e49d955cb05055d153bb1a523c63d348a362430335d1b713a8d2b05c",
+    "shell/services/Apps.qml": "272ddfb8182423942d7a3b436dba885dfee91112857df4c57d9424fa6dc7c766",
+    "shell/services/ShellCommands.qml": "cb34887a816c4217707837a5bd65aa298c1b3431a6f51a7ae90a97279aa65d17",
+    "shell/services/Power.qml": "ebee7fa3d2f0c556bc4d843817b0d612a62dfd250f6446593d72f63d20965ee1",
+    "shell/services/Compositor.qml": "2089f7f5893333600e7d0fb18b7a4e035e8dbfcbe602db91159dc43215964636",
+    "shell/services/Media.qml": "5ada8bf017b674ccc26fb87ad164ca179484b7b6ca950c72cf1a8a85830a6ac9",
+    "shell/services/Telemetry.qml": "a968f74b6d3e6986940002d484f0ea7ac538dc07bdd363d665f445e3ea6ea930",
+    "shell/services/Routines.qml": "1c6fc424ce8c7848ac350b96f03fa65ac4ac330ceae89ef0cb256c413801edd8",
+    "shell/services/Notifications.qml": "05881fc6c4981b6fd6e022f71dafce7e40497a3aff05a920c2dafc22b6723d64"
+  },
+  "unchanged_behaviour_prefixes": {
+    "modules/systems/SystemsBay.qml": true,
+    "modules/signal/SignalRack.qml": true,
+    "modules/routines/RoutineConsole.qml": true,
+    "modules/help/HelpBay.qml": true,
+    "ai-bridge/qml/AiModule.qml": true
+  },
+  "snapshot_matches": true,
+  "changed_visual_files": [
+    "shell/components/Bezel.qml",
+    "shell/components/InstrumentField.qml",
+    "shell/components/Instrumentation.qml",
+    "shell/components/ScrollMark.qml",
+    "shell/components/InstrumentTabs.qml",
+    "shell/components/StatusLine.qml",
+    "shell/core/Theme.qml",
+    "shell/modules/signal/SignalRack.qml",
+    "shell/modules/lock/LockView.qml",
+    "shell/modules/systems/SystemsBay.qml",
+    "shell/modules/deck/DeckView.qml",
+    "shell/modules/routines/RoutineConsole.qml",
+    "shell/modules/help/HelpBay.qml",
+    "ai-bridge/qml/AiModule.qml"
+  ]
+}

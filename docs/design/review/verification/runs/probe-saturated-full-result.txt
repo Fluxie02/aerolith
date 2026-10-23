@@ -1,0 +1,3 @@
+ok
+started
+probe: ok (90 startup events; no replay on switch/remap/motion changes)

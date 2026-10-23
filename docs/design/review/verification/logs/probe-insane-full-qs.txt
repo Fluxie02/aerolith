@@ -1,0 +1,84 @@
+[32m  INFO[0m: Launching config: "/src/build/ui009/probe-shell/shell.qml"
+[32m  INFO[0m: Shell ID: "af3237644cd6f70acbc71203846cc803" Path ID "af3237644cd6f70acbc71203846cc803"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/yabzbnt/log.qslog"
+[33m  WARN[0m: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.
+[E][22:47:34.475968] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][22:47:34.475985] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[31m ERROR[97m quickshell.service.pipewire.loop[0m: Failed to connect pipewire context. Errno: 112
+[33m  WARN[97m quickshell.service.upower[0m: Could not connect to DBus. UPower service will not work.
+[32m  INFO[97m qml[0m: [aerolith:shell] AEROLITH started on HEADLESS-1; Hyprland connected
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254578,"progress":0,"insane":false}
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[32m  INFO[0m: Configuration Loaded
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254767,"progress":0.05625,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254798,"progress":0.07115384615384615,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254818,"progress":0.08125,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254851,"progress":0.09711538461538462,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254874,"progress":0.10817307692307693,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254900,"progress":0.1201923076923077,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254926,"progress":0.13317307692307692,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254958,"progress":0.1485576923076923,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709254987,"progress":0.1625,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255014,"progress":0.175,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255043,"progress":0.1889423076923077,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255046,"progress":0.1908653846153846,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255087,"progress":0.21009615384615385,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255117,"progress":0.225,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255119,"progress":0.22548076923076923,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255148,"progress":0.23990384615384616,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255151,"progress":0.24086538461538462,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255183,"progress":0.2567307692307692,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255218,"progress":0.27307692307692305,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255250,"progress":0.28846153846153844,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255296,"progress":0.3105769230769231,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255323,"progress":0.32403846153846155,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255350,"progress":0.3370192307692308,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255377,"progress":0.35,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255405,"progress":0.3629807692307692,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255435,"progress":0.37740384615384615,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255437,"progress":0.37884615384615383,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255464,"progress":0.3918269230769231,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255502,"progress":0.4096153846153846,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255548,"progress":0.4322115384615385,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255592,"progress":0.4528846153846154,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255646,"progress":0.47884615384615387,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255691,"progress":0.5009615384615385,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255740,"progress":0.5240384615384616,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255775,"progress":0.5408653846153846,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255823,"progress":0.5639423076923077,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255865,"progress":0.5841346153846154,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255909,"progress":0.6052884615384615,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709255953,"progress":0.6269230769230769,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256005,"progress":0.6519230769230769,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256074,"progress":0.6846153846153846,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256140,"progress":0.7168269230769231,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256200,"progress":0.7456730769230769,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256255,"progress":0.7716346153846154,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256310,"progress":0.7980769230769231,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256365,"progress":0.825,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256419,"progress":0.8504807692307692,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256475,"progress":0.8774038461538461,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256547,"progress":0.9120192307692307,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256612,"progress":0.94375,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256670,"progress":0.9711538461538461,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256719,"progress":0.9947115384615385,"insane":false}
+[34m DEBUG[97m qml[0m: UI009_BOOT {"at":1792709256769,"progress":1,"insane":false}
+[33m  WARN[97m qt.qpa.wayland[0m: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug
+[32m  INFO[97m qml[0m: [aerolith:ipc] settings.intensity: ok: Intensity saturated (saved to config.json)

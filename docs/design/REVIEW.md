@@ -28,7 +28,9 @@ Changes:
   usable Command, Navigator, Systems and Settings controls in both layouts.
 - First boot now assembles datum, annulus, index band and outer architecture
   in distinct phases, using the existing finite, process-latched animation.
-  It is immediately complete with motion off/lowEffects.
+  Startup now waits for saved configuration, fixing Insane’s duration latch
+  and preventing a brief animation under motion off. Reduced/off/lowEffects
+  start complete with zero animation events.
 - A shared vertical position marker replaces misleading horizontal marks in
   Signal, Routines and AI and aligns Systems, Help and lock scrolling.
 - Lock failure/wait state remains in the header; compact identity and message
@@ -41,6 +43,9 @@ components refine it alongside the other bays. Existing optional application
 fragments retain matching opaque mineral colours, phosphor selection and
 rounded compositor decoration; installer integration remains Claude's work.
 
-Before/after captures and final verification are being saved in [review/](review/).
-No commit was made. Final test counts, measured idle cost and the systems
-review are recorded in the verification report on completion.
+[Before/after captures](review/README.md) and [verification](review/verification/RESULTS.md)
+are saved. Node and Qt each pass 104 tests; Python passes 71 with one skip.
+All six required scenarios pass in both intensities; every qs.log was read.
+Initial idle is 0.24% / 0.26% of one core (Saturated / Insane), versus 0.25%
+before; idle after use is 0.23% in both. Git was used read-only. The systems
+review records two harness findings for Claude. No production systems code was changed.

@@ -1,0 +1,4 @@
+[32m  INFO[0m: Launching config: "/src/build/ui009/previews-after/osd/shell.qml"
+[32m  INFO[0m: Shell ID: "969c3519fcc97e3f7d9d1c8e5b6aba37" Path ID "969c3519fcc97e3f7d9d1c8e5b6aba37"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/vkbzbnt/log.qslog"
+[32m  INFO[0m: Configuration Loaded
