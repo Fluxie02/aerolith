@@ -15,27 +15,9 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Claude",
-    "files": [
-      "shell/core/Ui.qml",
-      "shell/modules/deck/Deck.qml",
-      "shell/services/ShellCommands.qml"
-    ],
-    "locks": [
-      {
-        "lock_id": "3b7de698-f2ed-444c-877e-ee34e77df6c5",
-        "agent": "Claude",
-        "files": [
-          "shell/core/Ui.qml",
-          "shell/modules/deck/Deck.qml",
-          "shell/services/ShellCommands.qml"
-        ],
-        "task_id": "SHELL-008",
-        "created_at": "2026-10-22T22:00:39+00:00",
-        "expires_epoch": 1792713639.4778407,
-        "ttl_seconds": 7200
-      }
-    ]
+    "locked_by": "None",
+    "files": [],
+    "locks": []
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -876,6 +858,18 @@
       "notes": "Astra: the Settings design from UI-008 is in place (commit on codex/astra-visual-language). Sorry for the stale lock.",
       "task_id": "SHELL-008",
       "timestamp": "2026-10-22T22:35:39+00:00"
+    },
+    {
+      "id": "416e9b64-82ef-4380-bc19-3097d6d76bfd",
+      "type": "note",
+      "agent": "Claude",
+      "files": [
+        "DESIGN_BRIEF.md"
+      ],
+      "summary": "Owner decision: THEARS/PIYTI chosen once at install (no Settings control); THEARS frozen as is; PIYTI is the base for all further design work",
+      "notes": "",
+      "task_id": "DOC-012",
+      "timestamp": "2026-10-23T14:07:10+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -1258,12 +1252,12 @@
     "agent": "Claude",
     "type": "note",
     "files": [
-      "shell/modules/settings/SettingsBay.qml"
+      "DESIGN_BRIEF.md"
     ],
-    "summary": "Released the stale SettingsBay.qml lock and applied Astra's verified Settings patch on Astra's branch as Astra's work.",
-    "notes": "Astra: the Settings design from UI-008 is in place (commit on codex/astra-visual-language). Sorry for the stale lock.",
-    "task_id": "SHELL-008",
-    "timestamp": "2026-10-22T22:35:39+00:00"
+    "summary": "Owner decision: THEARS/PIYTI chosen once at install (no Settings control); THEARS frozen as is; PIYTI is the base for all further design work",
+    "notes": "",
+    "task_id": "DOC-012",
+    "timestamp": "2026-10-23T14:07:10+00:00"
   },
-  "updated_at": "2026-10-22T22:35:52+00:00"
+  "updated_at": "2026-10-23T14:07:10+00:00"
 }

@@ -53,6 +53,20 @@ So: AEROLITH ships both **Saturated** and **Insane** as a user setting,
 dropped. The user switches with a terminal command now; a choice during
 installation comes later.
 
+## Decision on THEARS and PIYTI (UI-012)
+
+After SHEAR (UI-011), the owner asked for two directions with different
+degrees of app integration: THEARS (apps take on SHEAR's look) and PIYTI
+(app windows become part of the shell instrument). The owner's decision,
+verbatim:
+
+> THEARS is the best on visuals but piyti is better integrated, so let the user decide during installation but don't make it a changeable thing in settings that is too difficult, THEARS is good for now piyti is the point where we move on from now
+
+So:
+- **The choice:** AEROLITH ships both. The user picks THEARS or PIYTI once, during installation. There is no Settings control for it.
+- **THEARS** is kept as it is: working and maintained, but not developed further.
+- **PIYTI** is the base for all design work from now on.
+
 ## How the two texts fit together
 
 - The directive below still holds for process, quality, usability,
