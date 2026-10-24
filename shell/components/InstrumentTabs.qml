@@ -77,8 +77,12 @@ Item {
         y: route.rise(Math.max(0, route.currentIndex))
         width: Math.max(0, route.stride - 2 * route.inset)
         height: route.stationHeight
-        Behavior on x { enabled: Theme.travel; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
-        Behavior on y { enabled: Theme.travel; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
+        Behavior on x { enabled: Theme.travel; XAnimator { id: routeX; duration: Theme.normal; easing.type: Easing.OutCubic } }
+        Behavior on y { enabled: Theme.travel; YAnimator { id: routeY; duration: Theme.normal; easing.type: Easing.OutCubic } }
+        Connections {
+            target: Theme
+            function onTravelChanged() { if (!Theme.travel) { routeX.complete(); routeY.complete(); } }
+        }
         Rectangle { anchors.fill: parent; radius: Theme.radius; color: Theme.surface2; border.color: Theme.signal; border.width: Theme.border }
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -118,7 +122,11 @@ Item {
                     color: station.selected ? Theme.signal : pointer.containsMouse ? Theme.text : Theme.textDim
                     font.family: Theme.sans; font.pixelSize: route.shortcuts ? Theme.fontMd : Theme.fontSm
                     font.weight: station.selected ? Font.DemiBold : Font.Normal
-                    Behavior on color { enabled: Theme.animate; ColorAnimation { duration: Theme.fast } }
+                    Behavior on color { enabled: Theme.animate; ColorAnimation { id: colorFade; duration: Theme.fast } }
+                    Connections {
+                        target: Theme
+                        function onAnimateChanged() { if (!Theme.animate) colorFade.complete(); }
+                    }
                 }
                 Text {
                     visible: route.shortcuts

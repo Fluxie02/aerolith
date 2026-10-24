@@ -22,11 +22,6 @@ Item {
     readonly property real cut: Math.min(Theme.du(Theme.insane ? 30 : 22), width / 8, height / 8, contentPadding * 1.25)
     property real engagement: active ? 1 : 0.24
 
-    Behavior on engagement {
-        enabled: Theme.animate
-        NumberAnimation { duration: Theme.fast; easing.type: Easing.OutCubic }
-    }
-
     Canvas {
         id: face
         anchors.fill: parent
@@ -90,22 +85,6 @@ Item {
             }
             c.stroke();
 
-            // The live signal insert identifies the current bay. Its only
-            // animation follows actual activation and dies with the event.
-            const reach = Theme.du(44 + (Theme.travel ? root.engagement * 18 : 18));
-            c.beginPath();
-            c.strokeStyle = Theme.lowEffects ? root.accent : Theme.alpha(root.accent, root.engagement);
-            c.lineWidth = Theme.bracketWeight;
-            c.moveTo(0.5, cut + Theme.du(20));
-            c.lineTo(0.5, cut + 0.5);
-            c.lineTo(cut + 0.5, 0.5);
-            c.lineTo(cut + reach, 0.5);
-            c.moveTo(w - 0.5, h - cut - Theme.du(20));
-            c.lineTo(w - 0.5, h - cut - 0.5);
-            c.lineTo(w - cut - 0.5, h - 0.5);
-            c.lineTo(w - cut - reach, h - 0.5);
-            c.stroke();
-
             c.fillStyle = root.accent;
             c.beginPath();
             c.moveTo(w - shoulder + step + Theme.du(8), step + Theme.du(2));
@@ -121,17 +100,59 @@ Item {
             function onPanelOpacityChanged() { face.requestPaint(); }
             function onUnitChanged() { face.requestPaint(); }
             function onInsaneChanged() { face.requestPaint(); }
-            function onTravelChanged() { face.requestPaint(); }
         }
         Connections {
             target: root
             function onAccentChanged() { face.requestPaint(); }
-            function onEngagementChanged() { face.requestPaint(); }
             function onHeaderHeightChanged() { face.requestPaint(); }
         }
         Connections {
             target: face.Window.window
             function onVisibleChanged() { if (face.Window.window.visible) face.requestPaint(); }
+        }
+    }
+
+    // Small retained inserts carry activation feedback. The pressure skin
+    // above is painted only on events, never on each animation frame.
+    Repeater {
+        model: 2
+        delegate: Canvas {
+            id: insert
+            required property int index
+            width: root.cut + Theme.du(64)
+            height: root.cut + Theme.du(22)
+            x: index === 0 ? 0 : root.width - width
+            y: index === 0 ? 0 : root.height - height
+            rotation: index === 0 ? 0 : 180
+            opacity: Theme.lowEffects ? 1 : root.engagement
+            Behavior on opacity { enabled: Theme.animate; OpacityAnimator { id: insertFade; duration: Theme.fast; easing.type: Easing.OutCubic } }
+            onWidthChanged: requestPaint()
+            onHeightChanged: requestPaint()
+            onAvailableChanged: if (available) requestPaint()
+            onVisibleChanged: if (visible) requestPaint()
+            onPaint: {
+                const c = getContext("2d"); c.reset();
+                const cut = root.cut;
+                c.strokeStyle = root.accent; c.lineWidth = Theme.bracketWeight;
+                c.beginPath(); c.moveTo(.5, cut + Theme.du(20));
+                c.lineTo(.5, cut + .5); c.lineTo(cut + .5, .5);
+                c.lineTo(cut + Theme.du(62), .5); c.stroke();
+            }
+            Connections {
+                target: root
+                function onAccentChanged() { insert.requestPaint(); }
+                function onCutChanged() { insert.requestPaint(); }
+            }
+            Connections {
+                target: Theme
+                function onPaletteChanged() { insert.requestPaint(); }
+                function onUnitChanged() { insert.requestPaint(); }
+                function onAnimateChanged() { if (!Theme.animate) insertFade.complete(); }
+            }
+            Connections {
+                target: insert.Window.window
+                function onVisibleChanged() { if (insert.Window.window.visible) insert.requestPaint(); }
+            }
         }
     }
 

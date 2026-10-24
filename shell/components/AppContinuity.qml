@@ -67,16 +67,6 @@ Item {
                 Keys.onReturnPressed: activate()
                 Keys.onEnterPressed: activate()
                 Keys.onSpacePressed: activate()
-                Behavior on reach { enabled: Theme.travel && Theme.ambient && bus.exposed; NumberAnimation { id: latch; duration: Theme.slow; easing.type: Easing.OutCubic } }
-                Connections {
-                    target: bus
-                    function onExposedChanged() { if (!bus.exposed) latch.complete(); }
-                }
-                Connections {
-                    target: Theme
-                    function onTravelChanged() { if (!Theme.travel) latch.complete(); }
-                    function onAmbientChanged() { if (!Theme.ambient) latch.complete(); }
-                }
                 Rectangle {
                     anchors.fill: parent
                     color: pointer.containsMouse || socket.current ? Theme.surface2 : Theme.surface
@@ -89,11 +79,25 @@ Item {
                     x: Theme.du(8); y: 0; width: parent.width - Theme.du(16); height: Theme.du(2)
                     color: socket.ink
                 }
-                Rectangle {
+                Item {
                     x: Theme.du(8); y: parent.height - Theme.du(3)
                     width: parent.width - Theme.du(16); height: Theme.du(3)
-                    transform: Scale { xScale: socket.reach; yScale: 1 }
-                    color: Theme.appLink; visible: Theme.integratedApps
+                    clip: true; visible: Theme.integratedApps
+                    Rectangle {
+                        width: parent.width; height: parent.height
+                        x: (socket.reach - 1) * width
+                        color: Theme.appLink
+                        Behavior on x { enabled: Theme.travel && Theme.ambient && bus.exposed; XAnimator { id: latch; duration: Theme.slow; easing.type: Easing.OutCubic } }
+                        Connections {
+                            target: bus
+                            function onExposedChanged() { if (!bus.exposed) latch.complete(); }
+                        }
+                        Connections {
+                            target: Theme
+                            function onTravelChanged() { if (!Theme.travel) latch.complete(); }
+                            function onAmbientChanged() { if (!Theme.ambient) latch.complete(); }
+                        }
+                    }
                 }
                 Text {
                     x: Theme.du(11); y: Theme.du(10)

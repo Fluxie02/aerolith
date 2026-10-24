@@ -30,6 +30,12 @@ FocusScope {
     property bool spectra: true
     readonly property var schemeRow: rows.filter(r => r.path === "theme.scheme")[0]
 
+    // Unknown stays N/A; Theme reads the current output's live monitor data.
+    readonly property real outputRefreshRate: Theme.refreshRate
+    readonly property string refreshLabel: isFinite(outputRefreshRate) ? String(Math.round(outputRefreshRate * 100) / 100) + " Hz" : "Refresh rate unavailable"
+    readonly property string motionLabel: !Theme.animate ? (Theme.lowEffects ? "Motion: off · low effects" : "Motion: off") :
+        "Motion: " + (Theme.travel ? "" : "reduced · ") + "synced to " + (isFinite(outputRefreshRate) ? refreshLabel : "display")
+
     function showRegister() { spectra = false; bay.forceActiveFocus(); }
     function showSpectra() { editing = false; spectra = true; spectrum.forceActiveFocus(); }
 
@@ -200,6 +206,34 @@ FocusScope {
                     color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                     elide: Text.ElideRight
                 }
+            }
+
+            Rectangle {
+                width: parent.width
+                height: Theme.du(36)
+                radius: Theme.radius
+                color: Theme.surface
+                border.color: Theme.grid
+                border.width: Theme.border
+                Text {
+                    x: Theme.du(12); width: Math.max(0, parent.width * .64 - x)
+                    height: parent.height; verticalAlignment: Text.AlignVCenter
+                    text: bay.motionLabel; textFormat: Text.PlainText
+                    color: Theme.animate ? Theme.signal : Theme.textDim
+                    font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    elide: Text.ElideRight
+                }
+                Text {
+                    x: parent.width * .64; width: Math.max(0, parent.width - x - Theme.du(12))
+                    height: parent.height; verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignRight
+                    text: (Ui.screenName ? Ui.screenName + " · " : "") + bay.refreshLabel
+                    textFormat: Text.PlainText
+                    color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    elide: Text.ElideLeft
+                }
+                Accessible.role: Accessible.StaticText
+                Accessible.name: bay.motionLabel + ". " + (Ui.screenName || "Current output") + ". " + bay.refreshLabel
             }
 
             Item {

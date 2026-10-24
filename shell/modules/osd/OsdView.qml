@@ -36,14 +36,24 @@ Item {
     Bezel {
         id: face; anchors.fill: parent
         opacity: root.ready && root.presentationOpen ? 1 : 0
-        onOpacityChanged: if (opacity <= 0) Qt.callLater(root.finishExit)
         transform: Translate { y: Theme.travel && !Theme.lowEffects && (!root.ready || !root.presentationOpen) ? Theme.du(8) : 0
-            Behavior on y { enabled: Theme.animate && !Theme.lowEffects; NumberAnimation { duration: Theme.fast; easing.type: Easing.OutCubic } }
+            Behavior on y { enabled: Theme.travel; NumberAnimation { id: osdTravel; duration: Theme.fast; easing.type: Easing.OutCubic } }
         }
         Behavior on opacity {
             enabled: Theme.animate && !Theme.lowEffects
             NumberAnimation {
+                id: osdFade
                 duration: Theme.fast; easing.type: Easing.OutCubic
+                // Opacity remains observable for the host's presentation
+                // lifetime. Only completion, never every frame, calls JS.
+                onRunningChanged: if (!running) Qt.callLater(root.finishExit)
+            }
+        }
+        Connections {
+            target: Theme
+            function onTravelChanged() { if (!Theme.travel) osdTravel.complete(); }
+            function onAnimateChanged() {
+                if (!Theme.animate) { osdFade.complete(); Qt.callLater(root.finishExit); }
             }
         }
         designation: root.kind === "brightness" ? "☀" : root.kind === "mic" ? "MIC" : "VOL"

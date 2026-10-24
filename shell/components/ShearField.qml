@@ -11,15 +11,16 @@ Item {
     readonly property int workspace: Compositor.focusedWorkspaceId
     readonly property real station: workspace > 0 ? (workspace - 1) % 9 : 0
     readonly property real route: Theme.travel ? station : 0
-    property real recoil: 0
     readonly property bool exposed: visible && Window.window && Window.window.visible
     readonly property bool breathing: Theme.ambient && exposed && (instrument || !Ui.deckOpen) && assembly >= 1
     signal stroke()
+    signal focusStroke()
+    signal settleFocus()
     function breathe() { if (breathing) stroke(); }
 
     function focusImpulse() {
         if (!exposed || !Theme.ambient || !Theme.travel || assembly < 1) return;
-        impulse.stop(); recoil = 1; impulse.restart();
+        focusStroke();
     }
     Connections {
         target: Compositor
@@ -28,20 +29,16 @@ Item {
     Connections {
         target: Theme
         function onAnimateChanged() {
-            if (!Theme.animate) { impulse.stop(); shear.recoil = 0; }
+            if (!Theme.animate) shear.settleFocus();
         }
         function onAmbientChanged() {
-            if (!Theme.ambient) { impulse.stop(); shear.recoil = 0; }
+            if (!Theme.ambient) shear.settleFocus();
         }
         function onTravelChanged() {
-            if (!Theme.travel) { impulse.stop(); shear.recoil = 0; }
+            if (!Theme.travel) shear.settleFocus();
         }
     }
-    onExposedChanged: if (!exposed) { impulse.stop(); recoil = 0; }
-    NumberAnimation {
-        id: impulse; target: shear; property: "recoil"; to: 0
-        duration: Theme.slow * 2; easing.type: Easing.OutCubic
-    }
+    onExposedChanged: if (!exposed) settleFocus()
 
     Repeater {
         model: Theme.insane ? 5 : 3
@@ -50,17 +47,27 @@ Item {
             required property int index
             readonly property real open: Math.max(0, Math.min(1, (shear.assembly - index * .075) / .62))
             x: shear.width * (.405 + index * .024) + (Theme.travel ? (1 - open) * Theme.du(140 + index * 18) : 0)
-            y: shear.height * (.18 + index * .038) + (Theme.travel ? shear.recoil * Theme.du(index % 2 ? -10 : 9) : 0)
+            readonly property real restY: shear.height * (.18 + index * .038)
+            y: restY
             width: shear.width * .135; height: shear.height * .52
             rotation: -24 + (Theme.insane ? index * 2.2 : index * 1.4) + shear.route * (index % 2 ? -.34 : .34)
             scale: shear.instrument ? .84 : 1
             transformOrigin: Item.Center
             opacity: open
             z: 8 - index
-            Behavior on rotation { enabled: Theme.travel && Theme.ambient && shear.exposed; NumberAnimation { id: bladeMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+            Behavior on rotation { enabled: Theme.travel && Theme.ambient && shear.exposed; RotationAnimator { id: bladeMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+            SequentialAnimation {
+                id: focusTravel
+                // No explicit from: a second focus continues at the current
+                // visible position instead of injecting a fresh displacement.
+                YAnimator { target: blade; to: blade.restY + Theme.du(blade.index % 2 ? -10 : 9); duration: Theme.fast; easing.type: Easing.OutCubic }
+                YAnimator { target: blade; to: blade.restY; duration: Theme.slow * 2; easing.type: Easing.OutCubic }
+            }
             Connections {
                 target: shear
                 function onExposedChanged() { if (!shear.exposed) bladeMotion.complete(); }
+                function onFocusStroke() { focusTravel.restart(); }
+                function onSettleFocus() { focusTravel.stop(); blade.y = Qt.binding(function() { return blade.restY; }); }
             }
             Connections {
                 target: Theme
@@ -125,23 +132,45 @@ Item {
                 visible: blade.index === 0
                 SequentialAnimation {
                     id: respiration
-                    OpacityAnimator { target: tension; from: .42; to: Theme.ambientReduced ? .49 : .88; duration: Theme.carrierDuration; easing.type: Easing.InOutSine }
-                    OpacityAnimator { target: tension; from: Theme.ambientReduced ? .49 : .88; to: .42; duration: Theme.carrierDuration; easing.type: Easing.InOutSine }
+                    property real peak: .42
+                    property int strokeMs: 0
+                    OpacityAnimator { target: tension; from: .42; to: respiration.peak; duration: respiration.strokeMs; easing.type: Easing.InOutSine }
+                    OpacityAnimator { target: tension; from: respiration.peak; to: .42; duration: respiration.strokeMs; easing.type: Easing.InOutSine }
                 }
                 Connections {
                     target: shear
-                    function onStroke() { if (shear.breathing && blade.index === 0) respiration.restart(); }
+                    function onStroke() {
+                        if (!shear.breathing || blade.index !== 0 || respiration.running) return;
+                        respiration.peak = Theme.ambientReduced ? .49 : .88;
+                        respiration.strokeMs = Theme.carrierDuration;
+                        respiration.start();
+                    }
                     function onBreathingChanged() { if (!shear.breathing) { respiration.stop(); tension.opacity = .42; } }
+                }
+                Connections {
+                    target: Theme
+                    function onAmbientReducedChanged() { respiration.stop(); tension.opacity = .42; }
                 }
             }
             // Focus is a short strain along the leading edge, not a pulse loop.
             Rectangle {
+                id: focusMark
                 x: parent.width * .28; y: parent.height * .08
                 width: Theme.du(3); height: parent.height * .42
                 rotation: -17; transformOrigin: Item.TopLeft
                 color: Theme.signal
-                visible: blade.index === 0 && shear.recoil > .01 && !Theme.lowEffects
-                opacity: shear.recoil
+                visible: blade.index === 0 && !Theme.lowEffects
+                opacity: 0
+                SequentialAnimation {
+                    id: focusFlash
+                    OpacityAnimator { target: focusMark; to: 1; duration: Theme.fast; easing.type: Easing.OutCubic }
+                    OpacityAnimator { target: focusMark; to: 0; duration: Theme.slow * 2; easing.type: Easing.OutCubic }
+                }
+                Connections {
+                    target: shear
+                    function onFocusStroke() { if (blade.index === 0) focusFlash.restart(); }
+                    function onSettleFocus() { focusFlash.stop(); focusMark.opacity = 0; }
+                }
             }
         }
     }

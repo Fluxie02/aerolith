@@ -22,19 +22,15 @@ Item {
         running: machine.driving; repeat: true; triggeredOnStart: true
         onTriggered: machine.beat()
     }
-    function restartCadence() {
-        // Recheck after the deferred callback: motion may have been disabled
-        // in the same event turn that changed scale, intensity or direction.
-        if (machine.driving) escapement.restart();
+    function beginCadence() {
+        // Recheck after construction: the Timer's first beat can precede its
+        // delegate Connections. Their running guard makes this catch-up beat
+        // harmless if a finite stroke has already started.
+        if (!machine.driving) return;
+        if (!escapement.running) escapement.start();
+        else machine.beat();
     }
-    Connections {
-        target: Theme
-        function onAmbientReducedChanged() { Qt.callLater(machine.restartCadence); }
-        function onUnitChanged() { Qt.callLater(machine.restartCadence); }
-        function onInsaneChanged() { Qt.callLater(machine.restartCadence); }
-    }
-    onDirectionChanged: Qt.callLater(machine.restartCadence)
-    Component.onCompleted: Qt.callLater(machine.restartCadence)
+    Component.onCompleted: Qt.callLater(machine.beginCadence)
 
     // A pair of opposed linear bearings continues the fixed command datum.
     // Both are bounded within the same track even when motion is disabled.
@@ -59,25 +55,39 @@ Item {
                 // Animator changes the scene-graph transform, not layout.
                 SequentialAnimation {
                     id: cycle
+                    property real home: 0
+                    property real tip: 0
+                    property int strokeMs: 0
                     XAnimator {
                         target: carrier
-                        from: bearing.width * .42
-                        to: bearing.width * .42 + Math.min(machine.stroke, bearing.width * .30) * (bearing.index % 2 ? -machine.direction : machine.direction)
-                        duration: Theme.carrierDuration
+                        from: cycle.home
+                        to: cycle.tip
+                        duration: cycle.strokeMs
                         easing.type: Easing.InOutSine
                     }
                     XAnimator {
                         target: carrier
-                        from: bearing.width * .42 + Math.min(machine.stroke, bearing.width * .30) * (bearing.index % 2 ? -machine.direction : machine.direction)
-                        to: bearing.width * .42
-                        duration: Theme.carrierDuration
+                        from: cycle.tip
+                        to: cycle.home
+                        duration: cycle.strokeMs
                         easing.type: Easing.InOutSine
                     }
                 }
                 Connections {
                     target: machine
-                    function onBeat() { if (machine.driving) cycle.restart(); }
+                    function onBeat() {
+                        if (!machine.driving || cycle.running) return;
+                        cycle.home = bearing.width * .42;
+                        cycle.tip = cycle.home + Math.min(machine.stroke, bearing.width * .30) * (bearing.index % 2 ? -machine.direction : machine.direction);
+                        cycle.strokeMs = Theme.carrierDuration;
+                        cycle.start();
+                    }
                     function onDrivingChanged() { if (!machine.driving) { cycle.stop(); carrier.x = Qt.binding(function() { return bearing.width * .42; }); } }
+                }
+                Connections {
+                    target: Theme
+                    // Reduced motion cancels a full-travel stroke at once.
+                    function onAmbientReducedChanged() { cycle.stop(); carrier.x = Qt.binding(function() { return bearing.width * .42; }); }
                 }
             }
         }
@@ -106,12 +116,21 @@ Item {
             color: Theme.appLink
             SequentialAnimation {
                 id: returnCycle
-                YAnimator { target: returnMark; from: vernier.height * .44; to: vernier.height * .44 + machine.stroke * .5; duration: Theme.carrierDuration; easing.type: Easing.InOutSine }
-                YAnimator { target: returnMark; from: vernier.height * .44 + machine.stroke * .5; to: vernier.height * .44; duration: Theme.carrierDuration; easing.type: Easing.InOutSine }
+                property real home: 0
+                property real tip: 0
+                property int strokeMs: 0
+                YAnimator { target: returnMark; from: returnCycle.home; to: returnCycle.tip; duration: returnCycle.strokeMs; easing.type: Easing.InOutSine }
+                YAnimator { target: returnMark; from: returnCycle.tip; to: returnCycle.home; duration: returnCycle.strokeMs; easing.type: Easing.InOutSine }
             }
             Connections {
                 target: machine
-                function onBeat() { if (machine.driving && Theme.insane) returnCycle.restart(); }
+                function onBeat() {
+                    if (!machine.driving || !Theme.insane || returnCycle.running) return;
+                    returnCycle.home = vernier.height * .44;
+                    returnCycle.tip = returnCycle.home + machine.stroke * .5;
+                    returnCycle.strokeMs = Theme.carrierDuration;
+                    returnCycle.start();
+                }
                 function onDrivingChanged() { if (!machine.driving) { returnCycle.stop(); returnMark.y = Qt.binding(function() { return vernier.height * .44; }); } }
             }
             Connections {
@@ -119,6 +138,7 @@ Item {
                 function onInsaneChanged() {
                     if (!Theme.insane) { returnCycle.stop(); returnMark.y = Qt.binding(function() { return vernier.height * .44; }); }
                 }
+                function onAmbientReducedChanged() { returnCycle.stop(); returnMark.y = Qt.binding(function() { return vernier.height * .44; }); }
             }
         }
     }

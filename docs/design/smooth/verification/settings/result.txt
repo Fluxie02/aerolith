@@ -1,0 +1,1 @@
+PASS: Settings full/reduced/off/lowEffects, unknown metadata and compact captures

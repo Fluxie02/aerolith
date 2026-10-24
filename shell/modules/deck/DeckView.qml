@@ -90,6 +90,11 @@ Item {
         x: parent.width * .105; y: parent.height * .43
         width: parent.width * .225; height: parent.height * .34
         opacity: .8 + view.fieldProgress * .2
+        Behavior on opacity { enabled: Theme.animate; OpacityAnimator { id: elevationFade; duration: Theme.normal; easing.type: Easing.OutCubic } }
+        Connections {
+            target: Theme
+            function onAnimateChanged() { if (!Theme.animate) elevationFade.complete(); }
+        }
         Canvas {
             id: commandElevation
             x: -Theme.du(18); y: -Theme.du(15)

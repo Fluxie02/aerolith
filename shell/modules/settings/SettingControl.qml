@@ -15,6 +15,10 @@ Item {
     readonly property bool numeric: setting.type === "int" || setting.type === "number"
     readonly property color ink: editing ? Theme.caution : selected ? Theme.signal : Theme.text
     implicitHeight: setting.type === "enum" ? choices.implicitHeight : numeric ? Theme.du(49) : Theme.du(34)
+    Connections {
+        target: Theme
+        function onTravelChanged() { if (!Theme.travel) knobMotion.complete(); }
+    }
 
     Row {
         visible: control.setting.type === "bool"
@@ -38,7 +42,7 @@ Item {
                 y: Theme.du(4); width: Theme.du(15); height: parent.height - 2 * y
                 radius: height / 2
                 color: control.value ? control.ink : Theme.textDim
-                Behavior on x { enabled: Theme.animate; NumberAnimation { duration: Theme.fast; easing.type: Easing.OutCubic } }
+                Behavior on x { enabled: Theme.travel; XAnimator { id: knobMotion; duration: Theme.fast; easing.type: Easing.OutCubic } }
             }
             MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: control.stepped(1) }
         }

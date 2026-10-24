@@ -2,6 +2,7 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import "../lib/tokens.mjs" as Tokens
 import "../lib/schemes.mjs" as Schemes
 
@@ -115,6 +116,20 @@ Singleton {
     readonly property int slow: lowEffects ? 0 : motionSet.slow
     readonly property bool animate: cfg.motion !== "off" && !lowEffects
     readonly property bool travel: animate && cfg.motion === "full"
+    // Hz is output metadata, never an animation clock or a guessed 60 Hz.
+    // The monitor snapshot already maintained by Quickshell is event-driven.
+    readonly property real refreshRate: {
+        if (!Ui.screen || !Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE")) return NaN;
+        const monitors = Hyprland.monitors.values;
+        for (let i = 0; i < monitors.length; i++) {
+            const monitor = monitors[i];
+            if (monitor.name !== Ui.screenName) continue;
+            const ipc = monitor.lastIpcObject;
+            const rate = ipc ? ipc.refreshRate : null;
+            return typeof rate === "number" && isFinite(rate) && rate > 0 ? rate : NaN;
+        }
+        return NaN;
+    }
     // UI-013: the only ambient-motion switch. Claude's fullscreen lifecycle
     // hook sets ambientSuspended before unmapping/unloading visual surfaces.
     property bool ambientSuspended: false
@@ -122,7 +137,11 @@ Singleton {
     onAmbientChanged: if (!ambient) { ignition.stop(); bootProgress = 1; }
     readonly property bool ambientReduced: cfg.motion === "reduced"
     readonly property int carrierDuration: ambientReduced ? slow * 10 : normal * 3
-    readonly property int carrierRest: slow * (ambientReduced ? 180 : insane ? 16 : 32)
+    // Keep the same wall-time stroke at full output cadence, but amortize its
+    // repaint cost over a longer rest on high-Hz outputs (UI-013 CPU budget).
+    // Unknown outputs retain the established cadence; there is no FPS cap.
+    readonly property real ambientCadenceScale: isFinite(refreshRate) ? Math.max(1, refreshRate / 60) : 1
+    readonly property int carrierRest: Math.round((slow * (ambientReduced ? 180 : insane ? 16 : 32) + carrierDuration * 2) * ambientCadenceScale - carrierDuration * 2)
 
     function stateColor(state) {
         return Tokens.stateColor(palette, state);

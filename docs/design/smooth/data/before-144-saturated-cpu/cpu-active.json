@@ -1,0 +1,6 @@
+{
+  "seconds": 13.1832,
+  "cpu_seconds": 7.81,
+  "cpu_percent_one_core": 59.242,
+  "method": "Uninstrumented shell process utime+stime; no screenshots, logging or parallel tests."
+}

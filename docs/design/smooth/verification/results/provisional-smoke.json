@@ -1,0 +1,15 @@
+{
+  "name": "results/provisional-smoke",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "build/ui016/verification/provisional-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/provisional-shell"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/provisional-shell tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/provisional-smoke",
+  "started_at": "2026-10-24T22:28:21.616549+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 5.406788409000001
+}

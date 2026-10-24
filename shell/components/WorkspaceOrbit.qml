@@ -25,7 +25,7 @@ Item {
         rotation: 90 - orbit.focusAngle * 180 / Math.PI
         transformOrigin: Item.Left
         visible: Compositor.focusedWorkspaceId > 0 && Compositor.focusedWorkspaceId <= orbit.count
-        Behavior on rotation { enabled: Theme.travel && Theme.ambient && orbit.exposed; NumberAnimation { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+        Behavior on rotation { enabled: Theme.travel && Theme.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
         Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: Theme.signal }
         Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: Theme.signal }
     }

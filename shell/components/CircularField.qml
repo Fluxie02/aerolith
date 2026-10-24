@@ -2,8 +2,8 @@ import QtQuick
 import qs.core
 import qs.services
 
-// Limb's collimator. Static between workspace, palette and layout changes;
-// only the Deck's bounded opening transition supplies changing progress.
+// Limb's collimator. The engraving is event-painted; the workspace needle
+// is a retained transform, including for legacy users of progress.
 Item {
     id: field
     property bool instrument: false
@@ -25,7 +25,6 @@ Item {
             target: field
             function onWorkspaceChanged() { art.requestPaint(); }
             function onInstrumentChanged() { art.requestPaint(); }
-            function onProgressChanged() { if (field.instrument) art.requestPaint(); }
         }
         Connections {
             target: Theme
@@ -60,12 +59,6 @@ Item {
                      x + Math.cos(a) * (inner + len), y + Math.sin(a) * (inner + len),
                      field.blend(Theme.grid, Theme.textDim, i % 5 === 0 ? .3 : 0));
             }
-            // An unavailable workspace has no marker, rather than claiming WS 1.
-            if (field.workspace > 0) {
-                var angle = -1.6 + field.workspace * .24 + (field.instrument && Theme.travel ? (1 - field.progress) * .4 : 0);
-                line(x + Math.cos(angle) * (r - Theme.px(8)), y + Math.sin(angle) * (r - Theme.px(8)),
-                     x + Math.cos(angle) * (r + Theme.px(38)), y + Math.sin(angle) * (r + Theme.px(38)), Theme.signal, Theme.px(3));
-            }
             var registration = field.blend(Theme.grid, Theme.textDim, .25);
             line(x - r * .22, y, x + r * .22, y, registration);
             line(x, y - Theme.px(16), x, y + Theme.px(16), registration);
@@ -79,5 +72,18 @@ Item {
                 line(xx, yy - 5, xx, yy + 5, Theme.grid);
             }
         }
+    }
+    Item {
+        x: field.width * .27; y: field.height * .55
+        width: field.height * .34; height: 0
+        transformOrigin: Item.Left
+        visible: field.workspace > 0
+        rotation: (-1.6 + field.workspace * .24 + (field.instrument && Theme.travel ? (1 - field.progress) * .4 : 0)) * 180 / Math.PI
+        Behavior on rotation { enabled: Theme.travel; RotationAnimator { id: needle; duration: Theme.normal; easing.type: Easing.OutCubic } }
+        Connections {
+            target: Theme
+            function onTravelChanged() { if (!Theme.travel) needle.complete(); }
+        }
+        Rectangle { x: parent.width - Theme.px(8); y: -height / 2; width: Theme.px(46); height: Theme.px(3); color: Theme.signal }
     }
 }

@@ -10,21 +10,28 @@ Item {
     readonly property bool compactScreen: parent.width < Theme.du(1500) || parent.height < Theme.du(850)
     readonly property real leftOrigin: compactScreen ? parent.width * .045 : parent.width * (wide ? .12 : .37)
     readonly property real topOrigin: compactScreen ? Math.max(Theme.stripHeight + Theme.du(78), parent.height * .14) : parent.height * .22
-    readonly property real unsettled: 1 - progress
-    property real progress: 0
+    // Progress is a presentation target kept for DeckView's compatibility.
+    // No JavaScript binding fans a per-frame scalar out across this plane.
+    property bool presented: false
+    readonly property real progress: presented && slot.current ? 1 : 0
 
-    x: leftOrigin + (Theme.travel ? unsettled * Theme.du(slot.current ? (compactScreen ? 14 : 34) : -24) : 0)
-    y: topOrigin + (Theme.travel ? unsettled * Theme.du(slot.current ? -12 : 16) : 0)
+    x: leftOrigin + (Theme.travel ? !presented ? Theme.du(compactScreen ? 14 : 34) : slot.current ? 0 : -Theme.du(24) : 0)
+    y: topOrigin + (Theme.travel ? !presented ? -Theme.du(12) : slot.current ? 0 : Theme.du(16) : 0)
     width: parent.width - leftOrigin - parent.width * (compactScreen ? .045 : .08)
     height: Math.max(0, parent.height - topOrigin - (compactScreen ? Theme.du(28) : Theme.du(130)) - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0))
     // Incoming text is present immediately. The outgoing plane alone fades
     // away; no input, load or service action waits for the docking stroke.
-    opacity: !Theme.animate ? 1 : slot.current ? .84 + progress * .16 : progress
-    scale: Theme.travel ? 1 - unsettled * .012 : 1
-    rotation: Theme.travel && !compactScreen ? unsettled * (slot.current ? -.55 : .4) : 0
+    opacity: !Theme.animate ? (slot.current ? 1 : 0) : !presented ? .84 : slot.current ? 1 : 0
+    scale: Theme.travel && (!presented || !slot.current) ? .988 : 1
+    rotation: Theme.travel && !compactScreen ? !presented ? -.55 : slot.current ? 0 : .4 : 0
     transformOrigin: Item.TopLeft
     z: slot.current ? 2 : 1
     visible: slot.bay !== ""
+    Behavior on x { enabled: chord.presented && Theme.travel; XAnimator { id: dockX; duration: Theme.normal; easing.type: Easing.OutCubic } }
+    Behavior on y { enabled: chord.presented && Theme.travel; YAnimator { id: dockY; duration: Theme.normal; easing.type: Easing.OutCubic } }
+    Behavior on scale { enabled: chord.presented && Theme.travel; ScaleAnimator { id: dockScale; duration: Theme.normal; easing.type: Easing.OutCubic } }
+    Behavior on rotation { enabled: chord.presented && Theme.travel; RotationAnimator { id: dockRotation; duration: Theme.normal; easing.type: Easing.OutCubic } }
+    Behavior on opacity { enabled: chord.presented && Theme.animate; OpacityAnimator { id: dockOpacity; duration: Theme.normal; easing.type: Easing.OutCubic } }
 
     // A solid offset undercarriage carries depth on the software renderer.
     // The bay itself remains an ordinary, rectangular functional surface.
@@ -81,39 +88,30 @@ Item {
     // The whole chord, including its header, shields backdrop clicks.
     MouseArea { anchors.fill: parent; z: -1 }
 
-    function transition() {
-        motion.stop();
-        if (slot.current) {
-            progress = Theme.animate ? 0 : 1;
-            motion.to = 1;
-        } else {
-            motion.to = 0;
-        }
-        if (Theme.animate)
-            motion.restart();
-        else
-            progress = slot.current ? 1 : 0;
+    function settleTravel() {
+        dockX.complete(); dockY.complete(); dockScale.complete(); dockRotation.complete();
+    }
+    function dock() {
+        if (slot.bay !== "") presented = true;
     }
 
     Connections {
         target: chord.slot
-        function onCurrentChanged() { chord.transition(); }
+        // A new host incarnation starts at its entry pose. Interrupting a
+        // live incarnation only retargets Behaviors from their current pose.
+        function onBayChanged() {
+            if (chord.slot.bay === "") chord.presented = false;
+            else Qt.callLater(chord.dock);
+        }
     }
     Connections {
         target: Theme
         function onAnimateChanged() {
             if (!Theme.animate) {
-                motion.stop();
-                chord.progress = chord.slot.current ? 1 : 0;
+                chord.settleTravel(); dockOpacity.complete();
             }
         }
+        function onTravelChanged() { if (!Theme.travel) chord.settleTravel(); }
     }
-    Component.onCompleted: transition()
-    NumberAnimation {
-        id: motion
-        target: chord
-        property: "progress"
-        duration: Theme.normal
-        easing.type: Easing.OutCubic
-    }
+    Component.onCompleted: if (slot.bay !== "") Qt.callLater(dock)
 }

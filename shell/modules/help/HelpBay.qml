@@ -9,6 +9,12 @@ import qs.services
 // each bay. Generated from the live registry, so it is never out of date.
 FocusScope {
     id: help
+    Connections {
+        target: Theme
+        function onAnimateChanged() {
+            if (!Theme.animate) { list.cancelFlick(); keysView.cancelFlick(); }
+        }
+    }
 
     property string filter: ""
 
