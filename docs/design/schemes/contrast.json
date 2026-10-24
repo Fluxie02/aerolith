@@ -1,0 +1,2948 @@
+{
+  "method": "WCAG 2.x sRGB contrast; actual opaque surfaces, white-underlay 97% panel, 12% caution confirmation, 15% signal navigator tile over obsidian, PIYTI edge, inverse selection, focus/cursor",
+  "textMinimum": 4.5,
+  "focusMinimum": 3,
+  "pairs": 540,
+  "schemes": [
+    {
+      "id": "limb",
+      "name": "Limb",
+      "description": "Mineral green / phosphor",
+      "palette": {
+        "obsidian": "#0d1215",
+        "surface": "#1b282b",
+        "surface2": "#25373a",
+        "grid": "#3b5253",
+        "text": "#edf3f5",
+        "textDim": "#abc0bd",
+        "signal": "#ceebac",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#81e6ed",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.81494672811454,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.530411697051782,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 11.113306135150344,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.46680349153486,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 10.12406766208566,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.651489735660302,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 9.875835133434554,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 7.946746270932797,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.527120243243148,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.322062800084173,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 5.946115960232088,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 6.8432088158740605,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 14.449460161585051,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 11.626985678135203,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 9.549912756777411,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 10.71300333601719,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 8.699837990679228,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 10.012385973072817,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 13.022222590293204,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.47853648936728,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.606625316512456,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.654832256159949,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.840516223250134,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 9.023417992314881,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.936891070697541,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 7.191210143774414,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.906554922299769,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.625918393030303,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.380789564866873,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.192591404696202,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.432725273644417,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.808853938378263,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.877934055288,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.959183876705415,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 8.087674719135622,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.307865387769937,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 12.988336458405536,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 10.451269479683916,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 8.584229351571688,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 9.62970867092578,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 7.820113809993391,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 8.99993745893857,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 14.449460161585051,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 9.549912756777411,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.81494672811454,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "bathyal",
+      "name": "Bathyal",
+      "description": "Deep petrol / sea glass",
+      "palette": {
+        "obsidian": "#091619",
+        "surface": "#122b30",
+        "surface2": "#1d383e",
+        "grid": "#385b63",
+        "text": "#e1f4f1",
+        "textDim": "#acc8cc",
+        "signal": "#80e1cf",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#a1c9ff",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.144941345927418,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.021643067722167,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.910973763097484,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.003143241464732,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.771370710870688,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.598919957568564,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.42405810081811,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.407485725570096,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 7.044722059130947,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.749886472832101,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.308931933062863,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.488897788714022,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 11.915753933233344,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 9.610607513325597,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 8.052830651244854,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 8.858904979962979,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 7.211748032179066,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 8.560568486705586,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.725877074215099,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.264009353365568,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.600323029615106,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.461200392258313,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.70205724807377,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 9.142580726123954,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.733515066477356,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 7.043984458384493,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.902229788774569,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.493032715220207,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.285767937772745,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.274370407040396,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.127037985936648,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.587564211400261,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.871433099871151,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.759448108561413,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.944851068079251,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.430784517358985,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 10.797871168166488,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 8.70898328030038,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 7.297350079434657,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 8.027802118158723,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 6.535174071660045,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 7.757454220996184,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 11.915753933233344,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 8.052830651244854,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.144941345927418,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "corona",
+      "name": "Corona",
+      "description": "Indigo field / ion blue",
+      "palette": {
+        "obsidian": "#101222",
+        "surface": "#1e253c",
+        "surface2": "#2a3450",
+        "grid": "#495a7b",
+        "text": "#edf0ff",
+        "textDim": "#b6c0df",
+        "signal": "#a7bcff",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#edbaff",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.355668070495184,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.36308504829081,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.852614593008694,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.196148966390119,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.962487399322905,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 12.116437087700659,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.245556240520232,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.370935312394938,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.7983204776541255,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.639940454546623,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.240724897649909,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.5900071511419345,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 9.968061062044661,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 8.144213196583044,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 6.614191757846818,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 7.433016926901285,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 6.0716983432456395,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 7.3844360391795405,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.824427122366622,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.4779523277892,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.509500457902035,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.562961471145925,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.8115545668593525,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 9.500459641527359,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.801147994668788,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 7.190809245359817,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.839900073203177,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.562869309622544,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.360913758982222,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.519975553265101,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.228694651175237,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.808251362132978,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.777747506186326,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.864417026637339,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 8.05780009742112,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.799944936673821,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 11.548122640120072,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 9.435172218149873,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 7.6626233637075,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 8.61124249978635,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 7.034137999876184,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 8.554960937516151,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 9.968061062044661,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 6.614191757846818,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.355668070495184,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "cinder",
+      "name": "Cinder",
+      "description": "Carbon brown / fired copper",
+      "palette": {
+        "obsidian": "#1a1210",
+        "surface": "#30241f",
+        "surface2": "#40322b",
+        "grid": "#685144",
+        "text": "#fff0e4",
+        "textDim": "#d4baaa",
+        "signal": "#ffc08a",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#f6e2b3",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.55319026540762,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.475576657701136,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 11.02105068158634,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.308161655868838,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.910914309503204,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.955749891345022,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.02122949964928,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.158055586973253,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.6720962205241205,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.451307614702128,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.000024481954081,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.237959062909683,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 11.563878957886004,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 9.413891513288464,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 7.6991863216195044,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 8.59834807070383,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 6.92365710775289,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 8.352157039068993,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.753718512499919,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.382512901159036,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.491376940110722,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.483055933534306,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.636051376093983,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 9.21153362435003,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.75262208906722,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 7.125311074542234,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.827462265202602,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.5080317363412465,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.240469427182895,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.3216914028368185,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.155757076637945,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.709803375292946,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.759052676344899,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.78199260736963,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.876764476976689,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.501911034531473,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 14.454391954797803,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 11.76699256785471,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 9.62367880457741,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 10.747595476427662,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 8.654297918591942,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 10.439866410777142,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 11.563878957886004,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 7.6991863216195044,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.55319026540762,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "ferrite",
+      "name": "Ferrite",
+      "description": "Oxide red / rose alloy",
+      "palette": {
+        "obsidian": "#1b1016",
+        "surface": "#33212b",
+        "surface2": "#432e39",
+        "grid": "#6b4859",
+        "text": "#ffeaf0",
+        "textDim": "#d7b4c3",
+        "signal": "#ffa8ad",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#ffcc9c",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.14352498438942,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.120544938970859,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.825567703174158,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.011381825117223,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.750869896865028,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.974545383023923,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 9.896584087844712,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.04338435332013,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.636477546057522,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.363425915865936,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 5.977647630072923,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.340843800310263,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 10.117845105660065,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 8.22321280654184,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 6.784851344887054,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 7.528052326179927,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 6.1112917629405406,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 7.5049653352220025,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.817050968217012,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.41697481660209,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.594891954863538,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.536361680618766,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.741642334832296,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 9.50711561718131,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.79608588751322,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 7.14896159827324,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.898502550730906,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.544614405070244,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.312934391573708,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.524543416314294,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.221085976728096,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.7453516420608,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.865830820032006,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.836978724457328,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.985684005135403,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.80681073026379,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 12.690234614027899,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 10.313905649506077,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 8.509851108488816,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 9.442005605764749,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 7.665043836568222,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 9.41304891303735,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 10.117845105660065,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 6.784851344887054,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.14352498438942,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "description": "Violet shale / lilac light",
+      "palette": {
+        "obsidian": "#161121",
+        "surface": "#292137",
+        "surface2": "#372e46",
+        "grid": "#5c4b73",
+        "text": "#f3ecff",
+        "textDim": "#c8b8dc",
+        "signal": "#d7b7ff",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#a9d9f6",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.064276600241886,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.352751286628202,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 11.118544729312413,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.235891008090846,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.942407525060705,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.771521566463266,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 9.985018343659382,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.299624679849975,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.910916429023025,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.60542159520363,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.179868785151109,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.316785044161148,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 10.655008441860483,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 8.856525645166284,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 7.3746357150152235,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 8.11574185562328,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 6.5945351134170505,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 7.807737925921932,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.772483279457719,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.616587150936397,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.84020053818715,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.728587050583664,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.9050701772329,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 9.359373355110437,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.76549997355323,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 7.285951553401413,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 6.066852928146846,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.676534834205079,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.4250916531568425,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.423150854982249,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.175113369898972,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.951256404458446,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 9.118872325366834,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 10.035263661414852,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 8.154263623077744,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.654411153006976,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 12.270930604075302,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 10.199692677678662,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 8.493061604133826,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 9.346562760071683,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 7.594652147337835,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 8.991847428988587,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 10.655008441860483,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 7.3746357150152235,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.064276600241886,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "argent",
+      "name": "Argent",
+      "description": "Graphite / silver inscription",
+      "palette": {
+        "obsidian": "#121415",
+        "surface": "#25292b",
+        "surface2": "#34393b",
+        "grid": "#545e62",
+        "text": "#f3f5f5",
+        "textDim": "#bec7ca",
+        "signal": "#e2e6e8",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#bdced3",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.883895916783153,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.4131001481562,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.694511105558956,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.316937771646874,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.960493609536393,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.469299871133027,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.74391987311614,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.535309264648037,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.805358844107817,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.837775899174376,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.338273214013841,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.298388915896153,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 14.7083928082517,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 11.68481177139883,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 9.3165150394235,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 10.729890768877176,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 8.677076268132723,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 9.991471670502703,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.76849003999807,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.143691745753179,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.087751737336895,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.314716107922628,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.532649103836765,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 8.673687749090028,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.762759493130426,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 6.961412889233129,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.550462356349356,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.392503478862896,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.169506514575782,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 5.952578529308952,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.170994250582634,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.463453802640695,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.342703898339733,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.60834616457726,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.770102629794232,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 8.947110513204509,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 11.3784931502731,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 9.039434317290016,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 7.207307007807412,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 8.300702205094264,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 6.712633675785081,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 7.729457150490403,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 14.7083928082517,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 9.3165150394235,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.883895916783153,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "lichen",
+      "name": "Lichen",
+      "description": "Olive stone / living lime",
+      "palette": {
+        "obsidian": "#14170e",
+        "surface": "#282e1e",
+        "surface2": "#353d29",
+        "grid": "#576343",
+        "text": "#f0f3e3",
+        "textDim": "#c1c9a9",
+        "signal": "#bddd84",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#8dd9b2",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.083021996201776,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 12.424915437069886,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.067841471607139,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 11.403669061169044,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.232271222674369,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.350901408500269,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.525287713376237,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.131295836094417,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.588744837030744,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.462956768030115,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.041918669856952,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.428423784960793,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 11.94459233220334,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 9.22777757146319,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 7.477218029795493,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 8.469314912284059,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 6.856653934889906,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 8.430125256285038,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.525675290601043,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 9.676692372532226,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 7.840971254057835,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 8.881331867568793,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.190217830783883,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 8.840235705209977,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.596120584090622,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 6.640920553948473,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.381101843414874,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.095080537353184,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 4.93450277652303,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.066877062571683,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 12.920525192906542,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 9.981733094831787,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.088144093989916,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.161300247627603,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.416876812609049,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.118908600968258,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 10.961567219678937,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 8.46834293918349,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 6.861852273419498,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 7.772300814765932,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 6.292359832720015,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 7.736336418778035,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 11.94459233220334,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 7.477218029795493,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.083021996201776,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "helios",
+      "name": "Helios",
+      "description": "Blue charcoal / solar gold",
+      "palette": {
+        "obsidian": "#11151c",
+        "surface": "#232c35",
+        "surface2": "#303c46",
+        "grid": "#506373",
+        "text": "#f5f2e7",
+        "textDim": "#c2c8cb",
+        "signal": "#f4db83",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#b9d8ed",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.323519949310242,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 12.63344999734299,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.071309199090212,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 11.581630356330226,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.382572498601794,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.361586544749027,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.81825861336271,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.372699618382127,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.674665012768933,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.675616089435834,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.218211272060105,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.5297841323979116,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 13.335122478215238,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 10.32060508763586,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 8.227523359109735,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 9.461345333523191,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 7.6648758244618564,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 9.281585625621917,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.643262461978566,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 9.785145888429486,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 7.800658554971609,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 8.970466712290742,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.267202603160179,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 8.800033394501778,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.676818309430969,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 6.715350034099615,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.3534360438171955,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.156251999625482,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 4.987335887004664,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.03928702031136,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.041819093227103,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.093605417233544,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.046560607906057,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.253244911693734,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.496288394650017,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.07743898306206,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 12.290685650724628,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 9.512272051840862,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 7.583125198588037,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 8.720311457000399,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 7.064545486117498,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 8.554630934298794,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 13.335122478215238,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 8.227523359109735,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.323519949310242,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "umbra",
+      "name": "Umbra",
+      "description": "Aubergine / spectral pink",
+      "palette": {
+        "obsidian": "#1a101d",
+        "surface": "#302034",
+        "surface2": "#3f2c43",
+        "grid": "#68476d",
+        "text": "#fcecff",
+        "textDim": "#d1b5d5",
+        "signal": "#f5abe2",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#c5b9ff",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.359913071775583,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.446496200342718,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 11.2431505472677,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.320496482286435,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 10.013143170790453,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 12.07107182496805,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 9.932755893048112,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.163904281693563,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.8261652347936295,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.480264931898399,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.0793786862590515,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.328829271819931,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 10.394487951183613,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 8.543409865742587,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 7.143484955218879,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 7.827990997010059,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 6.361983439986679,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 7.6695157298219385,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.777821787468975,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.502313267805784,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.781402039997444,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.622857266606998,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.820711418663186,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 9.428045484500814,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.769163684893273,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 7.207527671557682,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 6.026500694125467,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.603974596828076,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.367197923344639,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.470279164738843,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 13.180620164993984,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.833380237974373,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 9.058220307847646,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.926200931796101,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 8.067245602886835,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.72524805059961,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 10.352042458027988,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 8.508523179001969,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 7.114314808194991,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 7.79602569579981,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 6.33600452444737,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 7.638197556291318,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 10.394487951183613,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 7.143484955218879,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.359913071775583,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "vellum",
+      "name": "Vellum",
+      "description": "Warm slate / pale ceramic",
+      "palette": {
+        "obsidian": "#181612",
+        "surface": "#2d2923",
+        "surface2": "#3c372f",
+        "grid": "#625b4d",
+        "text": "#f7f1e6",
+        "textDim": "#cfc4b2",
+        "signal": "#e9ccb0",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#c7d6ae",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.070722907478526,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 12.855672115272442,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.49618717523821,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 11.816531234948195,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.509607897700773,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.423400092455154,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.489151337160667,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.390729597811605,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.8507245366669345,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.712495891891681,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.206797103671298,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.455904320205663,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 11.811376714681963,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 9.448435340967443,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 7.7143026799908565,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 8.684705889106608,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 6.989204028674383,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 8.395769289988355,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.485888253744521,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 9.988006537240189,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.154842872651637,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.180662836130857,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.3883360587571545,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 8.875225953017726,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.568815535974057,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 6.854569242524423,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.596505661473338,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.300505397938777,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.0704673563203775,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.090890170244073,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 12.879483939630436,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.302860891513228,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.411909963796763,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.470067098962584,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.621240369568206,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.155001854850168,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 11.750685566920273,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 9.399885845066374,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 7.674663788171602,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 8.6400807127944,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 6.953290957345991,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 8.352628774969615,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 11.811376714681963,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 7.7143026799908565,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.070722907478526,
+          "minimum": 3
+        }
+      ]
+    },
+    {
+      "id": "glacial",
+      "name": "Glacial",
+      "description": "Polar blue / ice edge",
+      "palette": {
+        "obsidian": "#0d1620",
+        "surface": "#1b2b39",
+        "surface2": "#273b4b",
+        "grid": "#425f73",
+        "text": "#e9f5ff",
+        "textDim": "#b1c9db",
+        "signal": "#9be1f2",
+        "caution": "#ffd071",
+        "critical": "#ff9591",
+        "nominal": "#b3e6bd"
+      },
+      "link": "#c1caff",
+      "pairs": [
+        {
+          "pair": "text / field",
+          "ratio": 16.45626371743112,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane",
+          "ratio": 13.07141535617838,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / selection",
+          "ratio": 10.460537307197416,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / plane over white desktop",
+          "ratio": 12.012842173455406,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / confirmation",
+          "ratio": 9.768675402131718,
+          "minimum": 4.5
+        },
+        {
+          "pair": "text / navigator selection",
+          "ratio": 11.614717873703515,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / field",
+          "ratio": 10.624287281613901,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane",
+          "ratio": 8.439003792473093,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / selection",
+          "ratio": 6.753401341884542,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / plane over white desktop",
+          "ratio": 7.755581006172677,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / confirmation",
+          "ratio": 6.306730106855859,
+          "minimum": 4.5
+        },
+        {
+          "pair": "textDim / navigator selection",
+          "ratio": 7.498548972232001,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / field",
+          "ratio": 12.53191277378173,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane",
+          "ratio": 9.954254494596164,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / selection",
+          "ratio": 7.9659966169496546,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / plane over white desktop",
+          "ratio": 9.14812091419559,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / confirmation",
+          "ratio": 7.43912410234588,
+          "minimum": 4.5
+        },
+        {
+          "pair": "signal / navigator selection",
+          "ratio": 8.844937938807998,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / field",
+          "ratio": 12.589898447133354,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane",
+          "ratio": 10.000313237583121,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / selection",
+          "ratio": 8.002855609354786,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / plane over white desktop",
+          "ratio": 9.190449644109949,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / confirmation",
+          "ratio": 7.473545234060368,
+          "minimum": 4.5
+        },
+        {
+          "pair": "caution / navigator selection",
+          "ratio": 8.885863828685569,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / field",
+          "ratio": 8.640195652702445,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane",
+          "ratio": 6.863015084978882,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / selection",
+          "ratio": 5.4921998406505645,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / plane over white desktop",
+          "ratio": 6.307221888632476,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / confirmation",
+          "ratio": 5.128944710138336,
+          "minimum": 4.5
+        },
+        {
+          "pair": "critical / navigator selection",
+          "ratio": 6.098190731681105,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / field",
+          "ratio": 12.98677287158989,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane",
+          "ratio": 10.315555538958044,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / selection",
+          "ratio": 8.255131569110015,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / plane over white desktop",
+          "ratio": 9.480162418864968,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / confirmation",
+          "ratio": 7.709135614385711,
+          "minimum": 4.5
+        },
+        {
+          "pair": "nominal / navigator selection",
+          "ratio": 9.16597507085462,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / field",
+          "ratio": 11.416082042621586,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane",
+          "ratio": 9.06793623884696,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / selection",
+          "ratio": 7.256711131967154,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / plane over white desktop",
+          "ratio": 8.333580098863383,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / confirmation",
+          "ratio": 6.776750892752693,
+          "minimum": 4.5
+        },
+        {
+          "pair": "PIYTI edge / navigator selection",
+          "ratio": 8.057392274751486,
+          "minimum": 4.5
+        },
+        {
+          "pair": "inverse selection",
+          "ratio": 12.53191277378173,
+          "minimum": 4.5
+        },
+        {
+          "pair": "focus rim / selection",
+          "ratio": 7.9659966169496546,
+          "minimum": 3
+        },
+        {
+          "pair": "cursor / field",
+          "ratio": 16.45626371743112,
+          "minimum": 3
+        }
+      ]
+    }
+  ]
+}

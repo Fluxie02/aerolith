@@ -1,0 +1,41 @@
+# AEROLITH / Iris — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#161121"
+foreground = "#f3ecff"
+[colors.cursor]
+text = "#161121"
+cursor = "#d7b7ff"
+[colors.selection]
+text = "#161121"
+background = "#d7b7ff"
+
+[colors.normal]
+black = "#9c8ead"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#adcaf2"
+magenta = "#dbadf2"
+cyan = "#adf2f2"
+white = "#c8b8dc"
+
+[colors.bright]
+black = "#c8b8dc"
+red = "#fbafb2"
+green = "#c6e8d1"
+yellow = "#fbd89c"
+blue = "#c2d4f6"
+magenta = "#e2c0f6"
+cyan = "#c2f0f6"
+white = "#f3ecff"

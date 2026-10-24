@@ -1,0 +1,41 @@
+# AEROLITH / Ferrite — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#1b1016"
+foreground = "#ffeaf0"
+[colors.cursor]
+text = "#1b1016"
+cursor = "#ffa8ad"
+[colors.selection]
+text = "#1b1016"
+background = "#ffa8ad"
+
+[colors.normal]
+black = "#a88b98"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#aac8f1"
+magenta = "#d9aaf1"
+cyan = "#aaf1f1"
+white = "#d7b4c3"
+
+[colors.bright]
+black = "#d7b4c3"
+red = "#ffafae"
+green = "#cae7cc"
+yellow = "#ffd897"
+blue = "#c4d2f1"
+magenta = "#e4bdf1"
+cyan = "#c4eff1"
+white = "#ffeaf0"

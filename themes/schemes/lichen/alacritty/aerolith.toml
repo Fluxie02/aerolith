@@ -1,0 +1,41 @@
+# AEROLITH / Lichen — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#14170e"
+foreground = "#f0f3e3"
+[colors.cursor]
+text = "#14170e"
+cursor = "#bddd84"
+[colors.selection]
+text = "#14170e"
+background = "#bddd84"
+
+[colors.normal]
+black = "#969d82"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#8dadd9"
+magenta = "#c08dd9"
+cyan = "#8dd9d9"
+white = "#c1c9a9"
+
+[colors.bright]
+black = "#c1c9a9"
+red = "#fbb1aa"
+green = "#c5eac8"
+yellow = "#fbdb93"
+blue = "#abc2dc"
+magenta = "#ceacdc"
+cyan = "#abe1dc"
+white = "#f0f3e3"

@@ -1,0 +1,41 @@
+# AEROLITH / Helios — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#11151c"
+foreground = "#f5f2e7"
+[colors.cursor]
+text = "#11151c"
+cursor = "#f4db83"
+[colors.selection]
+text = "#11151c"
+background = "#f4db83"
+
+[colors.normal]
+black = "#969b9f"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#b9cfed"
+magenta = "#dcb9ed"
+cyan = "#b9eded"
+white = "#c2c8cb"
+
+[colors.bright]
+black = "#c2c8cb"
+red = "#fcb1ab"
+green = "#c7eaca"
+yellow = "#fcda94"
+blue = "#cbdaeb"
+magenta = "#e4caeb"
+cyan = "#cbefeb"
+white = "#f5f2e7"

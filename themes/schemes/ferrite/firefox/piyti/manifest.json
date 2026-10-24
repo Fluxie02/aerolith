@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Ferrite / PIYTI",
+  "version": "1.0.0",
+  "description": "Oxide red / rose alloy. PIYTI application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ferrite-piyti-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#1b1016",
+      "frame_inactive": "#1b1016",
+      "tab_background_text": "#d7b4c3",
+      "tab_text": "#ffeaf0",
+      "tab_selected": "#33212b",
+      "tab_loading": "#ffa8ad",
+      "tab_line": "#ffcc9c",
+      "toolbar": "#1b1016",
+      "toolbar_text": "#ffeaf0",
+      "bookmark_text": "#ffeaf0",
+      "icons": "#d7b4c3",
+      "icons_attention": "#ffcc9c",
+      "toolbar_field": "#33212b",
+      "toolbar_field_text": "#ffeaf0",
+      "toolbar_field_border": "#6b4859",
+      "toolbar_field_focus": "#432e39",
+      "toolbar_field_text_focus": "#ffeaf0",
+      "toolbar_field_border_focus": "#ffcc9c",
+      "toolbar_field_highlight": "#ffcc9c",
+      "toolbar_field_highlight_text": "#1b1016",
+      "toolbar_top_separator": "#6b4859",
+      "toolbar_bottom_separator": "#6b4859",
+      "toolbar_vertical_separator": "#6b4859",
+      "button_background_hover": "#432e39",
+      "button_background_active": "#513744",
+      "popup": "#33212b",
+      "popup_text": "#ffeaf0",
+      "popup_border": "#6b4859",
+      "popup_highlight": "#ffcc9c",
+      "popup_highlight_text": "#1b1016",
+      "sidebar": "#33212b",
+      "sidebar_text": "#ffeaf0",
+      "sidebar_border": "#6b4859",
+      "sidebar_highlight": "#ffcc9c",
+      "sidebar_highlight_text": "#1b1016",
+      "ntp_background": "#1b1016",
+      "ntp_text": "#ffeaf0"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

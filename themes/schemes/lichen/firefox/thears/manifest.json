@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Lichen / THEARS",
+  "version": "1.0.0",
+  "description": "Olive stone / living lime. THEARS application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "lichen-thears-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#14170e",
+      "frame_inactive": "#14170e",
+      "tab_background_text": "#c1c9a9",
+      "tab_text": "#f0f3e3",
+      "tab_selected": "#353d29",
+      "tab_loading": "#bddd84",
+      "tab_line": "#bddd84",
+      "toolbar": "#282e1e",
+      "toolbar_text": "#f0f3e3",
+      "bookmark_text": "#f0f3e3",
+      "icons": "#c1c9a9",
+      "icons_attention": "#bddd84",
+      "toolbar_field": "#14170e",
+      "toolbar_field_text": "#f0f3e3",
+      "toolbar_field_border": "#576343",
+      "toolbar_field_focus": "#353d29",
+      "toolbar_field_text_focus": "#f0f3e3",
+      "toolbar_field_border_focus": "#bddd84",
+      "toolbar_field_highlight": "#bddd84",
+      "toolbar_field_highlight_text": "#14170e",
+      "toolbar_top_separator": "#576343",
+      "toolbar_bottom_separator": "#576343",
+      "toolbar_vertical_separator": "#576343",
+      "button_background_hover": "#353d29",
+      "button_background_active": "#3f4831",
+      "popup": "#282e1e",
+      "popup_text": "#f0f3e3",
+      "popup_border": "#576343",
+      "popup_highlight": "#bddd84",
+      "popup_highlight_text": "#14170e",
+      "sidebar": "#282e1e",
+      "sidebar_text": "#f0f3e3",
+      "sidebar_border": "#576343",
+      "sidebar_highlight": "#bddd84",
+      "sidebar_highlight_text": "#14170e",
+      "ntp_background": "#14170e",
+      "ntp_text": "#f0f3e3"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

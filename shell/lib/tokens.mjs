@@ -6,18 +6,9 @@
 //
 // V4-compatible JavaScript (see docs/RESEARCH.md).
 
-export const PALETTE = {
-  obsidian: "#0d1215", // deep mineral field
-  surface: "#1b282b", // smoked chord plane
-  surface2: "#25373a", // recessed and selected planes
-  grid: "#3b5253", // engraved rules
-  text: "#edf3f5", // cool instrument text
-  textDim: "#abc0bd", // secondary inscriptions
-  signal: "#ceebac", // phosphor: focus and interaction
-  caution: "#ffd071", // amber: caution
-  critical: "#ff9591", // red: errors and critical states
-  nominal: "#b3e6bd", // restrained success
-};
+import { paletteForScheme, DEFAULT_SCHEME } from "./schemes.mjs";
+
+export const PALETTE = paletteForScheme(DEFAULT_SCHEME);
 
 // Contrast-checked against obsidian and surface in tests/js/tokens.test.mjs.
 export const MIN_TEXT_CONTRAST = 4.5;
@@ -98,8 +89,8 @@ export function motionTokens(name) {
 }
 
 // Merge user palette overrides; only known keys with valid colours apply.
-export function resolvePalette(overrides) {
-  const out = Object.assign({}, PALETTE);
+export function resolvePalette(overrides, scheme) {
+  const out = paletteForScheme(scheme);
   const o = overrides || {};
   for (const k in o) {
     if (Object.prototype.hasOwnProperty.call(PALETTE, k) && isColor(o[k])) out[k] = o[k];

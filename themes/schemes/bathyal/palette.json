@@ -1,0 +1,40 @@
+{
+  "id": "bathyal",
+  "name": "Bathyal",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#091619",
+  "surface": "#122b30",
+  "surface2": "#1d383e",
+  "grid": "#385b63",
+  "text": "#e1f4f1",
+  "textDim": "#acc8cc",
+  "signal": "#80e1cf",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#a1c9ff",
+  "lower": "#0f2529",
+  "pressed": "#26444b",
+  "ansi": {
+    "normal": [
+      "#839c9f",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#aecaf2",
+      "#dbaef2",
+      "#aef2f2",
+      "#acc8cc"
+    ],
+    "bright": [
+      "#acc8cc",
+      "#f6b2ae",
+      "#c1eacd",
+      "#f6db97",
+      "#bdd7f2",
+      "#ddc3f2",
+      "#bdf3f2",
+      "#e1f4f1"
+    ]
+  }
+}

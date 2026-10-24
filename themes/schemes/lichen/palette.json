@@ -1,0 +1,40 @@
+{
+  "id": "lichen",
+  "name": "Lichen",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#14170e",
+  "surface": "#282e1e",
+  "surface2": "#353d29",
+  "grid": "#576343",
+  "text": "#f0f3e3",
+  "textDim": "#c1c9a9",
+  "signal": "#bddd84",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#8dd9b2",
+  "lower": "#222719",
+  "pressed": "#3f4831",
+  "ansi": {
+    "normal": [
+      "#969d82",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#8dadd9",
+      "#c08dd9",
+      "#8dd9d9",
+      "#c1c9a9"
+    ],
+    "bright": [
+      "#c1c9a9",
+      "#fbb1aa",
+      "#c5eac8",
+      "#fbdb93",
+      "#abc2dc",
+      "#ceacdc",
+      "#abe1dc",
+      "#f0f3e3"
+    ]
+  }
+}

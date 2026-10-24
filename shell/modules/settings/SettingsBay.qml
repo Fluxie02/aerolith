@@ -27,6 +27,11 @@ FocusScope {
     property bool editing: false
     property string message: ""
     property string messageState: ""
+    property bool spectra: true
+    readonly property var schemeRow: rows.filter(r => r.path === "theme.scheme")[0]
+
+    function showRegister() { spectra = false; bay.forceActiveFocus(); }
+    function showSpectra() { editing = false; spectra = true; spectrum.forceActiveFocus(); }
 
     function buildRows() {
         const out = [];
@@ -111,6 +116,12 @@ FocusScope {
     Keys.onPressed: event => {
         if (editing)
             return;
+        if (event.key === Qt.Key_Tab) {
+            if (spectra) showRegister(); else showSpectra();
+            event.accepted = true;
+            return;
+        }
+        if (spectra) return;
         const row = rows[current];
         const k = event.key;
         if (k === Qt.Key_Down || k === Qt.Key_J)
@@ -126,7 +137,9 @@ FocusScope {
         else if (k === Qt.Key_Left || k === Qt.Key_H)
             change(row, -1);
         else if (k === Qt.Key_Return || k === Qt.Key_Enter || k === Qt.Key_Space) {
-            if (row.type === "string") {
+            if (row.path === "theme.scheme") {
+                showSpectra();
+            } else if (row.type === "string") {
                 editing = true;
                 editor.text = valueOf(row.path);
                 editor.forceActiveFocus();
@@ -161,15 +174,31 @@ FocusScope {
 
             Row {
                 width: parent.width
-                Text {
-                    width: parent.width * .65
-                    text: "CONFIGURATION REGISTER"; textFormat: Text.PlainText
-                    color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 2
+                height: Theme.du(32)
+                spacing: Theme.du(6)
+                Repeater {
+                    model: ["SPECTRA / " + spectrum.schemeCount, "REGISTER / " + bay.rows.length]
+                    Rectangle {
+                        required property string modelData
+                        required property int index
+                        readonly property bool chosen: index === (bay.spectra ? 0 : 1)
+                        width: Math.min(Theme.du(180), (content.width - Theme.du(6)) / 2); height: Theme.du(32)
+                        color: chosen ? Theme.surface2 : Theme.bg
+                        border.color: chosen ? Theme.signal : Theme.grid; radius: Theme.du(4)
+                        Text {
+                            anchors.centerIn: parent; text: modelData; textFormat: Text.PlainText
+                            color: parent.chosen ? Theme.signal : Theme.textDim
+                            font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                        }
+                        MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: if (index === 0) bay.showSpectra(); else bay.showRegister(); }
+                    }
                 }
                 Text {
-                    width: parent.width * .35; horizontalAlignment: Text.AlignRight
-                    text: (bay.current + 1) + " / " + bay.rows.length + " SETTINGS"; textFormat: Text.PlainText
+                    width: Math.max(0, parent.width - x); height: parent.height
+                    horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter
+                    text: "TAB / " + (bay.spectra ? "REGISTER" : "SPECTRA"); textFormat: Text.PlainText
                     color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    elide: Text.ElideRight
                 }
             }
 
@@ -177,8 +206,18 @@ FocusScope {
                 width: parent.width
                 height: Math.max(0, content.height - y - feedback.height - status.height - content.spacing * 3)
 
+                SchemePicker {
+                    id: spectrum
+                    anchors.fill: parent
+                    visible: bay.spectra
+                    focus: bay.spectra
+                    onPicked: scheme => bay.apply(bay.schemeRow, scheme)
+                    onRegisterRequested: bay.showRegister()
+                }
+
                 ListView {
                     id: list
+                    visible: !bay.spectra
                     width: bay.inspectorVisible ? parent.width * .68 - Theme.pad : parent.width
                     height: parent.height
                     clip: true
@@ -211,7 +250,7 @@ FocusScope {
                         required property int index
                         readonly property bool selected: index === bay.current
                         width: list.width
-                        height: Math.max(Theme.du(74), valueControl.implicitHeight + Theme.du(24), rowLabels.implicitHeight + Theme.du(24))
+                        height: Math.max(Theme.du(74), row.modelData.path === "theme.scheme" ? 0 : valueControl.implicitHeight + Theme.du(24), rowLabels.implicitHeight + Theme.du(24))
                         radius: Theme.radius
                         color: selected ? Theme.surface2 : Theme.surface
                         border.color: selected ? (bay.editing ? Theme.caution : Theme.grid) : "transparent"
@@ -246,6 +285,7 @@ FocusScope {
                         }
                         SettingControl {
                             id: valueControl
+                            visible: row.modelData.path !== "theme.scheme"
                             z: 1
                             width: parent.width * .43
                             anchors.right: parent.right; anchors.rightMargin: Theme.du(14)
@@ -262,6 +302,18 @@ FocusScope {
                                 editor.forceActiveFocus();
                                 editor.selectAll();
                             }
+                        }
+                        Rectangle {
+                            z: 2; visible: row.modelData.path === "theme.scheme"
+                            x: valueControl.x; width: valueControl.width; height: Theme.du(34); anchors.verticalCenter: parent.verticalCenter
+                            color: Theme.bg; border.color: Theme.signal; radius: Theme.du(4)
+                            Text {
+                                anchors.fill: parent; anchors.margins: Theme.du(8)
+                                text: Theme.specimen.name + "  /  OPEN SPECTRA"; textFormat: Text.PlainText
+                                verticalAlignment: Text.AlignVCenter; elide: Text.ElideRight
+                                color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                            }
+                            MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: bay.showSpectra(); }
                         }
                         MouseArea {
                             anchors.fill: parent
@@ -284,7 +336,7 @@ FocusScope {
                 }
 
                 Item {
-                    visible: bay.inspectorVisible
+                    visible: bay.inspectorVisible && !bay.spectra
                     x: parent.width * .68 + Theme.pad
                     width: Math.max(0, parent.width - x)
                     height: parent.height
@@ -339,7 +391,11 @@ FocusScope {
             StatusLine {
                 id: status
                 width: parent.width
-                hints: bay.editing ? [{key: "⏎", action: "save text"}, {key: "Esc", action: "cancel"}] : [
+                hints: bay.editing ? [{key: "⏎", action: "save text"}, {key: "Esc", action: "cancel"}] : bay.spectra ? [
+                    {key: "↑↓←→ / h j k l", action: "browse"},
+                    {key: "⏎ / Space", action: "apply"},
+                    {key: "Tab", action: "register"}
+                ] : [
                     {key: "↑↓ / j k", action: "select"},
                     {key: "←→ / h l", action: "change"},
                     {key: "⏎ / Space", action: "toggle / edit"},

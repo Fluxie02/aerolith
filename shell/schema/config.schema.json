@@ -33,6 +33,24 @@
       "type": "object",
       "description": "AEROLITH Instrument System appearance.",
       "properties": {
+        "scheme": {
+          "enum": [
+            "limb",
+            "bathyal",
+            "corona",
+            "cinder",
+            "ferrite",
+            "iris",
+            "argent",
+            "lichen",
+            "helios",
+            "umbra",
+            "vellum",
+            "glacial"
+          ],
+          "description": "Colour spectrum. Choose in Settings; applies live. Palette overrides take precedence.",
+          "default": "limb"
+        },
         "density": {
           "enum": [
             "compact",

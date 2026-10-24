@@ -1,0 +1,23 @@
+[
+  {
+    "name": "lock-compact",
+    "command": "SHELL_PATH=\"build/ui015/verification/preview-lock\" RES=\"1280x720\" tools/headless/run.sh build/ui015/verification/compact-preview.sh build/ui015/verification/lock-compact",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 2.3
+  },
+  {
+    "name": "osd-compact",
+    "command": "SHELL_PATH=\"build/ui015/verification/preview-osd\" RES=\"1280x720\" tools/headless/run.sh build/ui015/verification/compact-preview.sh build/ui015/verification/osd-compact",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 2.2
+  },
+  {
+    "name": "session-compact",
+    "command": "SHELL_PATH=\"build/ui015/verification/preview-session\" RES=\"1280x720\" tools/headless/run.sh build/ui015/verification/compact-preview.sh build/ui015/verification/session-compact",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 2.3
+  }
+]

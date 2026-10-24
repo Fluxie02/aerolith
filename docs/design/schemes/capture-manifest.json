@@ -1,0 +1,2063 @@
+{
+  "method": "Unmodified screenshots from real Quickshell under headless sway/pixman. All-bay and lock/OSD/session data use fixtures; this is not real Hyprland/account/PAM verification.",
+  "files": [
+    {
+      "path": "spectra/argent.png",
+      "source": "build/ui015/register-final/scheme-argent.png",
+      "bytes": 317759,
+      "sha256": "b4c2dd2835c755ddcdefd7f93976eb074ede41c4afbaf7b8253686d0579c57b2"
+    },
+    {
+      "path": "spectra/bathyal.png",
+      "source": "build/ui015/register-final/scheme-bathyal.png",
+      "bytes": 315091,
+      "sha256": "6a1ae26562d2ec2d4a212cd90f618a6dd0a13c6853f05d043c16eca5075b97d6"
+    },
+    {
+      "path": "spectra/cinder.png",
+      "source": "build/ui015/register-final/scheme-cinder.png",
+      "bytes": 314732,
+      "sha256": "0132ac88bd0f588c97aa5b76fb9e5b8650732e53a80413f440cee9a4611b0672"
+    },
+    {
+      "path": "spectra/corona.png",
+      "source": "build/ui015/register-final/scheme-corona.png",
+      "bytes": 320054,
+      "sha256": "d7e0e5ee91369e4cd306f21c59c952f256d47af9f02f7dcef4e861fed41ca091"
+    },
+    {
+      "path": "spectra/ferrite.png",
+      "source": "build/ui015/register-final/scheme-ferrite.png",
+      "bytes": 316199,
+      "sha256": "4bb09c08655833dd00bea862ab56b58b9410e2ebb255ff4962d4d1cdbc3f9f2c"
+    },
+    {
+      "path": "spectra/glacial.png",
+      "source": "build/ui015/register-final/scheme-glacial.png",
+      "bytes": 318571,
+      "sha256": "e29eb84df01052210d52ad56b1f07de1cd2a28e0be4ec4aa384f9c10ca0909f6"
+    },
+    {
+      "path": "spectra/helios.png",
+      "source": "build/ui015/register-final/scheme-helios.png",
+      "bytes": 321465,
+      "sha256": "9614cb08308744d7f2ec6df6c02b804583f7c335e7e7e887613299ee52cef2e3"
+    },
+    {
+      "path": "spectra/iris.png",
+      "source": "build/ui015/register-final/scheme-iris.png",
+      "bytes": 318722,
+      "sha256": "e05d2a46d5d0d5437e77060cf753e79275431e0d5ed472ca4e9fa129478ecd24"
+    },
+    {
+      "path": "spectra/lichen.png",
+      "source": "build/ui015/register-final/scheme-lichen.png",
+      "bytes": 314344,
+      "sha256": "e7b0897ca4cde964bdf1bb4bccf84b5276248d826510ee46e6751780781b3c4a"
+    },
+    {
+      "path": "spectra/limb.png",
+      "source": "build/ui015/register-final/scheme-limb.png",
+      "bytes": 309118,
+      "sha256": "91ebb61a0d5b91c4339f681ab232703b667bd0d3cfebb193dfd2b6c5529d513a"
+    },
+    {
+      "path": "spectra/umbra.png",
+      "source": "build/ui015/register-final/scheme-umbra.png",
+      "bytes": 318368,
+      "sha256": "aca5d84a5f4c9ffe8025c31c073f45704fe04b91dffe3d71e2daf9f19712c2f7"
+    },
+    {
+      "path": "spectra/vellum.png",
+      "source": "build/ui015/register-final/scheme-vellum.png",
+      "bytes": 315040,
+      "sha256": "1db27451053bacc3f21307d8a81c0e8c339f509142f32a571071734e630bfae3"
+    },
+    {
+      "path": "picker/argent.png",
+      "source": "build/ui015/register-final/picker-argent.png",
+      "bytes": 197070,
+      "sha256": "9db941fa425d5552bc4e5ba2951feb3c49fbab0190d742933c5c77fa38a4268d"
+    },
+    {
+      "path": "picker/bathyal.png",
+      "source": "build/ui015/register-final/picker-bathyal.png",
+      "bytes": 195709,
+      "sha256": "85684f9a58223190fab5135e3362e7ef68f329a9d70cd26e85ea14e0c8dbeb2f"
+    },
+    {
+      "path": "picker/cinder.png",
+      "source": "build/ui015/register-final/picker-cinder.png",
+      "bytes": 195967,
+      "sha256": "0ec7618ce28bec49aa5b5c713f17cdc4fcf17950e7ccd8234f3efc8a121766ad"
+    },
+    {
+      "path": "picker/corona.png",
+      "source": "build/ui015/register-final/picker-corona.png",
+      "bytes": 197572,
+      "sha256": "89904a3107bbce33872cfae7aa84f6e48861c17ceba57b3b8a85695bbefd3995"
+    },
+    {
+      "path": "picker/ferrite.png",
+      "source": "build/ui015/register-final/picker-ferrite.png",
+      "bytes": 195613,
+      "sha256": "0d57d641751a7bd973754312ae5bcfad404e2399d04b7338ae7aef3ea17b145a"
+    },
+    {
+      "path": "picker/glacial.png",
+      "source": "build/ui015/register-final/picker-glacial.png",
+      "bytes": 197071,
+      "sha256": "a1c77d8b401e2cf123f457a30ffb15bb91991a4dc8940f5c1265f1aacdb6106f"
+    },
+    {
+      "path": "picker/helios.png",
+      "source": "build/ui015/register-final/picker-helios.png",
+      "bytes": 196929,
+      "sha256": "a9010465d7b0564b81ef8be02be87f168baa5d4aebfe52bb33957850ba59825b"
+    },
+    {
+      "path": "picker/iris.png",
+      "source": "build/ui015/register-final/picker-iris.png",
+      "bytes": 195109,
+      "sha256": "b4832b57ff8e92a75f0064528c4839443e11d7fb35def05b8945462272517884"
+    },
+    {
+      "path": "picker/lichen.png",
+      "source": "build/ui015/register-final/picker-lichen.png",
+      "bytes": 194513,
+      "sha256": "7c4beb36e6ab9ed053628da958498ec0b67701935314114db8ef3d8c0b75ed94"
+    },
+    {
+      "path": "picker/limb.png",
+      "source": "build/ui015/register-final/picker-limb.png",
+      "bytes": 193419,
+      "sha256": "a1ee215d4eed70c5822beaeb2de3d710b307ae73fe000fdf09170b398cada0cb"
+    },
+    {
+      "path": "picker/umbra.png",
+      "source": "build/ui015/register-final/picker-umbra.png",
+      "bytes": 196896,
+      "sha256": "09c7202549ef2f99c979095c45e312af487599bf50079f515a1c620f78b48ffe"
+    },
+    {
+      "path": "picker/vellum.png",
+      "source": "build/ui015/register-final/picker-vellum.png",
+      "bytes": 195434,
+      "sha256": "9e8de2c4ba54c781f1140f515845498ad5650b1935805a6f23a5e0a0ac0719c8"
+    },
+    {
+      "path": "picker/cursor-bathyal-active-limb.png",
+      "source": "build/ui015/register-final/cursor-bathyal-active-limb.png",
+      "bytes": 193387,
+      "sha256": "725637f402550a4fb11d77051492c17382a551d5734e685760e20a161d3a94ce"
+    },
+    {
+      "path": "picker/applied-bathyal.png",
+      "source": "build/ui015/register-final/applied-bathyal.png",
+      "bytes": 193416,
+      "sha256": "c881f8501555f3d7191f5a25d6d435809861b4090b5ed79e81693827fdfdce4c"
+    },
+    {
+      "path": "picker/register.png",
+      "source": "build/ui015/register-final/register.png",
+      "bytes": 176014,
+      "sha256": "d5f96be98f7f72d441657e582ace2e8962196d70e5da68f34ddcfca7168ccebc"
+    },
+    {
+      "path": "picker/returned-spectrum.png",
+      "source": "build/ui015/register-final/returned-spectrum.png",
+      "bytes": 193416,
+      "sha256": "c881f8501555f3d7191f5a25d6d435809861b4090b5ed79e81693827fdfdce4c"
+    },
+    {
+      "path": "picker/live-systems-cinder.png",
+      "source": "build/ui015/register-final/live-systems-cinder.png",
+      "bytes": 164971,
+      "sha256": "21cea4403a9e48e95e4f5d48bd3ccdb14f7b94120734f779176853b4d2604e6c"
+    },
+    {
+      "path": "bays/argent-ai.png",
+      "source": "build/ui015/all-bays/argent-ai.png",
+      "bytes": 216147,
+      "sha256": "d35b3d9133143ec5d455122056bb623af8141a1012d103173b7532ae3cd6442c"
+    },
+    {
+      "path": "bays/argent-command.png",
+      "source": "build/ui015/all-bays/argent-command.png",
+      "bytes": 221878,
+      "sha256": "406f8423a1dca659d702bc05262fd4fc2e68201fa86031b220a2419b2dd0877f"
+    },
+    {
+      "path": "bays/argent-ground.png",
+      "source": "build/ui015/all-bays/argent-ground.png",
+      "bytes": 321674,
+      "sha256": "ba0065255128da390eb2268457f716aeb4b1b97a7d597cfca9d556f2d282d40e"
+    },
+    {
+      "path": "bays/argent-help.png",
+      "source": "build/ui015/all-bays/argent-help.png",
+      "bytes": 256714,
+      "sha256": "210943db4a707b452fe0c8b1ebf15f2481fa9eb900579f12a4e50605b8e11d03"
+    },
+    {
+      "path": "bays/argent-navigator.png",
+      "source": "build/ui015/all-bays/argent-navigator.png",
+      "bytes": 163023,
+      "sha256": "f7307f83baae27a4d7fcc87aa907b118f2fe01cc9ac0c0902fa8bb2a53059f42"
+    },
+    {
+      "path": "bays/argent-notice.png",
+      "source": "build/ui015/all-bays/argent-notice.png",
+      "bytes": 322012,
+      "sha256": "6314d78f52431b82d25b01938b172cba1daaf08227ca1c1aacdcf02297bbb487"
+    },
+    {
+      "path": "bays/argent-routines.png",
+      "source": "build/ui015/all-bays/argent-routines.png",
+      "bytes": 150166,
+      "sha256": "61138b05bd549471b808eb8dbf224ea110ea17aeead326abaa60f1aec7af5137"
+    },
+    {
+      "path": "bays/argent-settings.png",
+      "source": "build/ui015/all-bays/argent-settings.png",
+      "bytes": 199495,
+      "sha256": "8ac12614228aa6a992f34c92c33d96faf5cb5022d1088af52e55dac756b1cba5"
+    },
+    {
+      "path": "bays/argent-signal.png",
+      "source": "build/ui015/all-bays/argent-signal.png",
+      "bytes": 148375,
+      "sha256": "bb27ff4b46781efc29ee3cd9d13ba573540a8d37838991cf0b80feec4435e42a"
+    },
+    {
+      "path": "bays/argent-systems.png",
+      "source": "build/ui015/all-bays/argent-systems.png",
+      "bytes": 166301,
+      "sha256": "2c85b2ee2aba4ff3a913304d3abde480a27c47ed7c8c9af702cbd3efba63e073"
+    },
+    {
+      "path": "bays/bathyal-ai.png",
+      "source": "build/ui015/all-bays/bathyal-ai.png",
+      "bytes": 214614,
+      "sha256": "7835e6e546c19dd7c65d0a04f513003f2b69d58711de337e3cda54d5fb2ac2f3"
+    },
+    {
+      "path": "bays/bathyal-command.png",
+      "source": "build/ui015/all-bays/bathyal-command.png",
+      "bytes": 223450,
+      "sha256": "582b39176b26d0829e823f686262bd1e8cbd657d1fd9ee43c1b07019cf6edafa"
+    },
+    {
+      "path": "bays/bathyal-ground.png",
+      "source": "build/ui015/all-bays/bathyal-ground.png",
+      "bytes": 318622,
+      "sha256": "862f1790da3af9261c1572f82550f7c95d0740f2076e138157499bb5a446b3de"
+    },
+    {
+      "path": "bays/bathyal-help.png",
+      "source": "build/ui015/all-bays/bathyal-help.png",
+      "bytes": 256468,
+      "sha256": "2e779462c4d1bd3afd5db27c2787e2f79754e14ec443216dbcbc67d5e6d8ce08"
+    },
+    {
+      "path": "bays/bathyal-navigator.png",
+      "source": "build/ui015/all-bays/bathyal-navigator.png",
+      "bytes": 162460,
+      "sha256": "d242e3d3bca318ba930a61870469e39a56dbad08fc066092067470633fc5fadf"
+    },
+    {
+      "path": "bays/bathyal-notice.png",
+      "source": "build/ui015/all-bays/bathyal-notice.png",
+      "bytes": 319046,
+      "sha256": "86e2a95011f7dc7e7fec3d140c5c005ef8eda4f3dd843f4d90b15c8f5cde4143"
+    },
+    {
+      "path": "bays/bathyal-routines.png",
+      "source": "build/ui015/all-bays/bathyal-routines.png",
+      "bytes": 149399,
+      "sha256": "b9e9175a10b2aca039dd3c45e7a821a8233418b068e9bcfe7fc42bcaa81f143b"
+    },
+    {
+      "path": "bays/bathyal-settings.png",
+      "source": "build/ui015/all-bays/bathyal-settings.png",
+      "bytes": 198560,
+      "sha256": "b0cf22c38b8bcaa34c711b74b83b310b6cced41e7e72a34fff3512c0f9e52485"
+    },
+    {
+      "path": "bays/bathyal-signal.png",
+      "source": "build/ui015/all-bays/bathyal-signal.png",
+      "bytes": 147832,
+      "sha256": "c20428c73a0aad7e066a0c37aae19ccbf4ee14e30996a35593124473cfaecc3e"
+    },
+    {
+      "path": "bays/bathyal-systems.png",
+      "source": "build/ui015/all-bays/bathyal-systems.png",
+      "bytes": 165619,
+      "sha256": "21d5a98d5c56a17940d5295f584a445119c9014190c844d5d7927f9d2224f767"
+    },
+    {
+      "path": "bays/cinder-ai.png",
+      "source": "build/ui015/all-bays/cinder-ai.png",
+      "bytes": 214198,
+      "sha256": "61bbfc8dd46e133b0dd6313ecef233519bd63f8a332105eccf5ede3d6914586b"
+    },
+    {
+      "path": "bays/cinder-command.png",
+      "source": "build/ui015/all-bays/cinder-command.png",
+      "bytes": 221667,
+      "sha256": "eb1d9316abe8a448ed37e98692663a2a7b7f473d6bf3cffe0913f853af80e858"
+    },
+    {
+      "path": "bays/cinder-ground.png",
+      "source": "build/ui015/all-bays/cinder-ground.png",
+      "bytes": 318710,
+      "sha256": "fc61bccca7e843f6153f615edce3970cebbf2c082cf7ddc068d332cf554ba7ab"
+    },
+    {
+      "path": "bays/cinder-help.png",
+      "source": "build/ui015/all-bays/cinder-help.png",
+      "bytes": 256242,
+      "sha256": "f33a2f78380a72a497d3127c86fb86c5eb5baeb83d02c965eefd250659baeb75"
+    },
+    {
+      "path": "bays/cinder-navigator.png",
+      "source": "build/ui015/all-bays/cinder-navigator.png",
+      "bytes": 162477,
+      "sha256": "e268a6a908d7b8dc362378e37c18d677d2a2528643432036e1cad15d873477de"
+    },
+    {
+      "path": "bays/cinder-notice.png",
+      "source": "build/ui015/all-bays/cinder-notice.png",
+      "bytes": 318734,
+      "sha256": "504579ca03f921b764e92b3434d70cbba9f32b38155c1a3e9149b30e1e77199f"
+    },
+    {
+      "path": "bays/cinder-routines.png",
+      "source": "build/ui015/all-bays/cinder-routines.png",
+      "bytes": 149374,
+      "sha256": "d2b1400ef7968185b5e3b59637bfda2ed5c6b6e55d15794c7224c46f6e815759"
+    },
+    {
+      "path": "bays/cinder-settings.png",
+      "source": "build/ui015/all-bays/cinder-settings.png",
+      "bytes": 198497,
+      "sha256": "947295d4af6449a01a1b2d880033c90ed341a7595d37e7339691154024f7156f"
+    },
+    {
+      "path": "bays/cinder-signal.png",
+      "source": "build/ui015/all-bays/cinder-signal.png",
+      "bytes": 147679,
+      "sha256": "def6b83dcfa3a58805b4777f794b35b1b4256b53337c75c70e7fa824e317bf9a"
+    },
+    {
+      "path": "bays/cinder-systems.png",
+      "source": "build/ui015/all-bays/cinder-systems.png",
+      "bytes": 165481,
+      "sha256": "bff3afbc546f4fe6e84fc05ad028a356ba3d16d1f91d76d8d9b4abceb54edf15"
+    },
+    {
+      "path": "bays/corona-ai.png",
+      "source": "build/ui015/all-bays/corona-ai.png",
+      "bytes": 217503,
+      "sha256": "51d581e5177692c1e59146b5516bcc5b0e0bc516b39f09e7958d7284bcbdf48b"
+    },
+    {
+      "path": "bays/corona-command.png",
+      "source": "build/ui015/all-bays/corona-command.png",
+      "bytes": 225225,
+      "sha256": "7b142e97eabe045deb9f2202c6e223493f8219ada3bbb941f8209b7c5736bcad"
+    },
+    {
+      "path": "bays/corona-ground.png",
+      "source": "build/ui015/all-bays/corona-ground.png",
+      "bytes": 323913,
+      "sha256": "1355db11d5fc3ffa345672fe5f1205716aaeda94d1238945d5f180ba59842d18"
+    },
+    {
+      "path": "bays/corona-help.png",
+      "source": "build/ui015/all-bays/corona-help.png",
+      "bytes": 258814,
+      "sha256": "0f103b7d02f48f4bbd400df2e55a80cca8c9f644df7c71b1fa0072fbdc42e09e"
+    },
+    {
+      "path": "bays/corona-navigator.png",
+      "source": "build/ui015/all-bays/corona-navigator.png",
+      "bytes": 164649,
+      "sha256": "10705da25c7c4cf399239300d76ce07c6578ad81ed8578fa8d12b7cac51dfabc"
+    },
+    {
+      "path": "bays/corona-notice.png",
+      "source": "build/ui015/all-bays/corona-notice.png",
+      "bytes": 323870,
+      "sha256": "915cead9fdd8456ec3b1811384b147e8c0250accfabdc0693ca11da8f8fd66e9"
+    },
+    {
+      "path": "bays/corona-routines.png",
+      "source": "build/ui015/all-bays/corona-routines.png",
+      "bytes": 151052,
+      "sha256": "072bd065d1386d3b8b69138e941dec18253a84da255361775b18951ac4874562"
+    },
+    {
+      "path": "bays/corona-settings.png",
+      "source": "build/ui015/all-bays/corona-settings.png",
+      "bytes": 200761,
+      "sha256": "585f678c4b2fa98054607998bd6c9935a1c03e5a1218ea3fef0970aed8d11129"
+    },
+    {
+      "path": "bays/corona-signal.png",
+      "source": "build/ui015/all-bays/corona-signal.png",
+      "bytes": 149901,
+      "sha256": "dcded072390fab234b03fa791c54203d9f24edcc95f3c10ea2e494c41150ca26"
+    },
+    {
+      "path": "bays/corona-systems.png",
+      "source": "build/ui015/all-bays/corona-systems.png",
+      "bytes": 167965,
+      "sha256": "8abe635e15f94c4d2687caaddc2bbf61efea813d7526b0b78ac4dbfcc815bfb2"
+    },
+    {
+      "path": "bays/ferrite-ai.png",
+      "source": "build/ui015/all-bays/ferrite-ai.png",
+      "bytes": 215496,
+      "sha256": "acc6bab941c592b909a9b3b9a3e87e0e41ffec7242db97d61136b3cc0a1515d6"
+    },
+    {
+      "path": "bays/ferrite-command.png",
+      "source": "build/ui015/all-bays/ferrite-command.png",
+      "bytes": 222966,
+      "sha256": "1493b1ebf68f9b76c4a3ee9993ae08567245050a99556f93e7bf22d15975512c"
+    },
+    {
+      "path": "bays/ferrite-ground.png",
+      "source": "build/ui015/all-bays/ferrite-ground.png",
+      "bytes": 320343,
+      "sha256": "14c8b8126b9dc9b8acf8d7300c354dd831d833126482f842c829f16ccb3c35ba"
+    },
+    {
+      "path": "bays/ferrite-help.png",
+      "source": "build/ui015/all-bays/ferrite-help.png",
+      "bytes": 257290,
+      "sha256": "a84499badf6f7c917a6d942fe146505a2dcf479aff1278643cb9243a96038703"
+    },
+    {
+      "path": "bays/ferrite-navigator.png",
+      "source": "build/ui015/all-bays/ferrite-navigator.png",
+      "bytes": 163401,
+      "sha256": "0afa64650a26a672ee2299f6764f4af053c178f01f5bc1d4635f0a98d4d4261d"
+    },
+    {
+      "path": "bays/ferrite-notice.png",
+      "source": "build/ui015/all-bays/ferrite-notice.png",
+      "bytes": 320228,
+      "sha256": "ada38cacf1c2244da278e3eab9e34a1e897831f164feddc68f58934368a1c4be"
+    },
+    {
+      "path": "bays/ferrite-routines.png",
+      "source": "build/ui015/all-bays/ferrite-routines.png",
+      "bytes": 150093,
+      "sha256": "6f7bca459b04a26110a71786f9e81bd8ac24907273b07743d2fb92070187b33b"
+    },
+    {
+      "path": "bays/ferrite-settings.png",
+      "source": "build/ui015/all-bays/ferrite-settings.png",
+      "bytes": 198312,
+      "sha256": "7bc78cd624ead8a9d33d1e42ebe9a3ccaae3f1accb434b8a19a5e345cc325ea4"
+    },
+    {
+      "path": "bays/ferrite-signal.png",
+      "source": "build/ui015/all-bays/ferrite-signal.png",
+      "bytes": 148753,
+      "sha256": "75b8281d31f088886aa0f60d1bc8fa8c6c808602f1dd2d551e4a026952ed977a"
+    },
+    {
+      "path": "bays/ferrite-systems.png",
+      "source": "build/ui015/all-bays/ferrite-systems.png",
+      "bytes": 166278,
+      "sha256": "2a4d5b3a846e0c8232fffb15efb0c0098b5bffe414de8f4499badecb84e6dbe2"
+    },
+    {
+      "path": "bays/glacial-ai.png",
+      "source": "build/ui015/all-bays/glacial-ai.png",
+      "bytes": 217279,
+      "sha256": "fcd342f28d622deafe4300859d9a025a6721ea456c4107b7a4c76497c34b446c"
+    },
+    {
+      "path": "bays/glacial-command.png",
+      "source": "build/ui015/all-bays/glacial-command.png",
+      "bytes": 222481,
+      "sha256": "8b8e6af95b04a87075b106e617ae67a7cf90658f1859aa2adc169c005139e451"
+    },
+    {
+      "path": "bays/glacial-ground.png",
+      "source": "build/ui015/all-bays/glacial-ground.png",
+      "bytes": 322141,
+      "sha256": "82de45ac38a80b24aa3b5a390933f81148a16de28bf9b5e8b7af28cba9929dc2"
+    },
+    {
+      "path": "bays/glacial-help.png",
+      "source": "build/ui015/all-bays/glacial-help.png",
+      "bytes": 258529,
+      "sha256": "5c6dab8592dac6b67eda6de68d90ff50a4c1763e10c940764e4d697f0ead3ea7"
+    },
+    {
+      "path": "bays/glacial-navigator.png",
+      "source": "build/ui015/all-bays/glacial-navigator.png",
+      "bytes": 164275,
+      "sha256": "6966762b5b32305dc13c099ff6f3f1aad80eff52b930eea67045f69463a91940"
+    },
+    {
+      "path": "bays/glacial-notice.png",
+      "source": "build/ui015/all-bays/glacial-notice.png",
+      "bytes": 322999,
+      "sha256": "a412937aea87058acb1403857f5862cc800056016da14e12d13cc9617355525d"
+    },
+    {
+      "path": "bays/glacial-routines.png",
+      "source": "build/ui015/all-bays/glacial-routines.png",
+      "bytes": 151106,
+      "sha256": "5a8066af5ccbb42930696d2e11c704e22bf7a5cec32933b7f5b16c478f6c081f"
+    },
+    {
+      "path": "bays/glacial-settings.png",
+      "source": "build/ui015/all-bays/glacial-settings.png",
+      "bytes": 200549,
+      "sha256": "2646571e27b44184357937d8bdc3eb5a4ce1f2ac2c2cb77b4f6be2b9428e5631"
+    },
+    {
+      "path": "bays/glacial-signal.png",
+      "source": "build/ui015/all-bays/glacial-signal.png",
+      "bytes": 149587,
+      "sha256": "3cf5ecb18a0648320fd7e1085af09f8889daacb728c7ef0112135f17d00561f6"
+    },
+    {
+      "path": "bays/glacial-systems.png",
+      "source": "build/ui015/all-bays/glacial-systems.png",
+      "bytes": 167910,
+      "sha256": "186f0e071f1cce9f4f1644b53c3a783be8f21f38a21ea9ea8b42be26a4dc3e88"
+    },
+    {
+      "path": "bays/helios-ai.png",
+      "source": "build/ui015/all-bays/helios-ai.png",
+      "bytes": 217898,
+      "sha256": "877c51b72d2090bf22aa6b7bb6d6af8f34a79d6f73557104fc7d5928e1c79984"
+    },
+    {
+      "path": "bays/helios-command.png",
+      "source": "build/ui015/all-bays/helios-command.png",
+      "bytes": 223523,
+      "sha256": "ad85c44030f9ef692751a86c27c6027e7ad641569140b6e03de8bb5b1b542036"
+    },
+    {
+      "path": "bays/helios-ground.png",
+      "source": "build/ui015/all-bays/helios-ground.png",
+      "bytes": 324863,
+      "sha256": "78813e34bf4563cf5571b239a8b94e5c8b21ee90d94f0b2df8712de331df75b4"
+    },
+    {
+      "path": "bays/helios-help.png",
+      "source": "build/ui015/all-bays/helios-help.png",
+      "bytes": 258117,
+      "sha256": "0a49cd86b37af4373312141b162620236262b79fad8fea59a9b60d3e1bdf278f"
+    },
+    {
+      "path": "bays/helios-navigator.png",
+      "source": "build/ui015/all-bays/helios-navigator.png",
+      "bytes": 164595,
+      "sha256": "cef0ad1368c2643d3d2d4e9b599daf2a79d29a11ade3878605afafd5fc16cb30"
+    },
+    {
+      "path": "bays/helios-notice.png",
+      "source": "build/ui015/all-bays/helios-notice.png",
+      "bytes": 324890,
+      "sha256": "5297745d32296821eec4f9fa82a496bd2dd91141764850e130861f173a767578"
+    },
+    {
+      "path": "bays/helios-routines.png",
+      "source": "build/ui015/all-bays/helios-routines.png",
+      "bytes": 150969,
+      "sha256": "950397e1ce4bb6350db12c96131220ea0184c6d045f609e5624ff7518a0ea84c"
+    },
+    {
+      "path": "bays/helios-settings.png",
+      "source": "build/ui015/all-bays/helios-settings.png",
+      "bytes": 199555,
+      "sha256": "7d9dd8fba9d2ce401517a357e2d9143e8dd022a588f9f90ca4d30c031fff5026"
+    },
+    {
+      "path": "bays/helios-signal.png",
+      "source": "build/ui015/all-bays/helios-signal.png",
+      "bytes": 149821,
+      "sha256": "0392851de20f9ccf495d5d6a2c1524010ccbe6bc00588fbe00434715b75e05e1"
+    },
+    {
+      "path": "bays/helios-systems.png",
+      "source": "build/ui015/all-bays/helios-systems.png",
+      "bytes": 167446,
+      "sha256": "33a09d18ab99c514cf8adf8ab08f700f482aa58a4000bbbd755bd28a906006d3"
+    },
+    {
+      "path": "bays/iris-ai.png",
+      "source": "build/ui015/all-bays/iris-ai.png",
+      "bytes": 216538,
+      "sha256": "768220fcf28e8eeafd711e60298bd4716d81ba9003cc0bda04aa16558ea84c25"
+    },
+    {
+      "path": "bays/iris-command.png",
+      "source": "build/ui015/all-bays/iris-command.png",
+      "bytes": 223543,
+      "sha256": "a71080bfcd0843804ed56b6a4296154afd8720866d447f7e965094e002f6b441"
+    },
+    {
+      "path": "bays/iris-ground.png",
+      "source": "build/ui015/all-bays/iris-ground.png",
+      "bytes": 322469,
+      "sha256": "9656e4cbf00912cb476fb00ec47e32a2553e426465169350ae3792a99e020639"
+    },
+    {
+      "path": "bays/iris-help.png",
+      "source": "build/ui015/all-bays/iris-help.png",
+      "bytes": 257721,
+      "sha256": "934dfc7e16a8db55074a6481a550134eed9003ad9441fa28d9076f4bad88c52e"
+    },
+    {
+      "path": "bays/iris-navigator.png",
+      "source": "build/ui015/all-bays/iris-navigator.png",
+      "bytes": 163783,
+      "sha256": "4cad08e20e0e871ad2f6b5b9274e7da659129746f1799acced4bcb97c72edb07"
+    },
+    {
+      "path": "bays/iris-notice.png",
+      "source": "build/ui015/all-bays/iris-notice.png",
+      "bytes": 322337,
+      "sha256": "ce9acac604e48e2f403b0d064a7453e778dd04b7c989797baf902884d4491e48"
+    },
+    {
+      "path": "bays/iris-routines.png",
+      "source": "build/ui015/all-bays/iris-routines.png",
+      "bytes": 150527,
+      "sha256": "c21de012147efd055784aec9f31976568e3c7ef194be8671d6a73be2764d7bff"
+    },
+    {
+      "path": "bays/iris-settings.png",
+      "source": "build/ui015/all-bays/iris-settings.png",
+      "bytes": 197816,
+      "sha256": "099935d359b1918019bf043c4a2bc6117cfd30065fb7726d4799a3cf9a5cbb53"
+    },
+    {
+      "path": "bays/iris-signal.png",
+      "source": "build/ui015/all-bays/iris-signal.png",
+      "bytes": 149183,
+      "sha256": "1d993cb56a256516b13bc88f401fa3fb8b8d59187a4cc475846fde40d2b65c68"
+    },
+    {
+      "path": "bays/iris-systems.png",
+      "source": "build/ui015/all-bays/iris-systems.png",
+      "bytes": 167394,
+      "sha256": "2ba06b1ee43cfb76fc45c216039a76cfc2faac7e72cb052e4679b8fdb674dc23"
+    },
+    {
+      "path": "bays/lichen-ai.png",
+      "source": "build/ui015/all-bays/lichen-ai.png",
+      "bytes": 213926,
+      "sha256": "6399958daa685356933e5d9712ae65ad9f1c2131f1a78b3ebea4310947e0ca38"
+    },
+    {
+      "path": "bays/lichen-command.png",
+      "source": "build/ui015/all-bays/lichen-command.png",
+      "bytes": 220311,
+      "sha256": "ded63da40349382d40441c1e2b29af793f13c19cb5f573b7bf1139e2e7cb7b63"
+    },
+    {
+      "path": "bays/lichen-ground.png",
+      "source": "build/ui015/all-bays/lichen-ground.png",
+      "bytes": 318732,
+      "sha256": "5cfdbbcc760825ac0e72a2a0d70bcee318f7895db591a425cd6ebe96917fd64f"
+    },
+    {
+      "path": "bays/lichen-help.png",
+      "source": "build/ui015/all-bays/lichen-help.png",
+      "bytes": 255881,
+      "sha256": "bc0c08a30c0e3196bdbc3218b614718373909ffda5f32484c555f12fa56a3e45"
+    },
+    {
+      "path": "bays/lichen-navigator.png",
+      "source": "build/ui015/all-bays/lichen-navigator.png",
+      "bytes": 162435,
+      "sha256": "9aaedfb65a4a261a5800208d9574352a13339001589244842c8ac4060da1d02f"
+    },
+    {
+      "path": "bays/lichen-notice.png",
+      "source": "build/ui015/all-bays/lichen-notice.png",
+      "bytes": 318461,
+      "sha256": "a23b43fe433aee0186e69e20463bdec1a1b84eb736899350f70cb6712371de40"
+    },
+    {
+      "path": "bays/lichen-routines.png",
+      "source": "build/ui015/all-bays/lichen-routines.png",
+      "bytes": 149217,
+      "sha256": "895597bff209821c36044a57b05ab2090b0d408cbc2e9849fdb2173419fe9207"
+    },
+    {
+      "path": "bays/lichen-settings.png",
+      "source": "build/ui015/all-bays/lichen-settings.png",
+      "bytes": 197305,
+      "sha256": "efda4fe51dd2db002a00668e4aa2e9e0fb597311649cf59906c132f57a55eb50"
+    },
+    {
+      "path": "bays/lichen-signal.png",
+      "source": "build/ui015/all-bays/lichen-signal.png",
+      "bytes": 147902,
+      "sha256": "f3a8899caa3b45d87dbef90f779d71239d1fb1d1e40172f11b77c9f7ca851399"
+    },
+    {
+      "path": "bays/lichen-systems.png",
+      "source": "build/ui015/all-bays/lichen-systems.png",
+      "bytes": 166019,
+      "sha256": "93a9c03e92df31d637d43c5016f74f9954ffbc347aefcd89e98cb1f9e4ea6730"
+    },
+    {
+      "path": "bays/limb-ai.png",
+      "source": "build/ui015/all-bays/limb-ai.png",
+      "bytes": 211392,
+      "sha256": "2ee7f2a38d5e701ea25102c704812d0364df964196c7b0e11c5d46b067a1a722"
+    },
+    {
+      "path": "bays/limb-command.png",
+      "source": "build/ui015/all-bays/limb-command.png",
+      "bytes": 222034,
+      "sha256": "21d544df679ffe1286d460e1e39c8362c0b20582d88945d7ad38decace34d584"
+    },
+    {
+      "path": "bays/limb-ground.png",
+      "source": "build/ui015/all-bays/limb-ground.png",
+      "bytes": 311294,
+      "sha256": "086a513e5e013aba7a447a7b8694a359a9f793d37078dfa5ae2ab747f1daeea1"
+    },
+    {
+      "path": "bays/limb-help.png",
+      "source": "build/ui015/all-bays/limb-help.png",
+      "bytes": 254662,
+      "sha256": "144adc151444a154fdd8681f8d72012f34a8a4e7e3dc4a76ffa89b942733eddf"
+    },
+    {
+      "path": "bays/limb-navigator.png",
+      "source": "build/ui015/all-bays/limb-navigator.png",
+      "bytes": 160738,
+      "sha256": "7118830e53e96b09d050126e5c199240fb8b907ea065edb921c8022d2e212c70"
+    },
+    {
+      "path": "bays/limb-notice.png",
+      "source": "build/ui015/all-bays/limb-notice.png",
+      "bytes": 313107,
+      "sha256": "46bc5cf2e5d29e6ce5cb71e5e48e5b5ac2b214d49603e2a5e07d6c27b839ddfa"
+    },
+    {
+      "path": "bays/limb-routines.png",
+      "source": "build/ui015/all-bays/limb-routines.png",
+      "bytes": 148130,
+      "sha256": "8f07f2e8bbdc0f38651e0030dac2207588d803e5da5ce9bc108ac25fffe1e4ee"
+    },
+    {
+      "path": "bays/limb-settings.png",
+      "source": "build/ui015/all-bays/limb-settings.png",
+      "bytes": 195970,
+      "sha256": "d5a6cf04ddcfbd414e908511f26ef533e02bdeb862224cdb3f4ca6a4577fc3f7"
+    },
+    {
+      "path": "bays/limb-signal.png",
+      "source": "build/ui015/all-bays/limb-signal.png",
+      "bytes": 145981,
+      "sha256": "a7f1bc7630a4264922c6911a9fd438b3f43d0bae28da3a5e6a229ebf555145ee"
+    },
+    {
+      "path": "bays/limb-systems.png",
+      "source": "build/ui015/all-bays/limb-systems.png",
+      "bytes": 164307,
+      "sha256": "de7191ba69539196ff93236cc35c9c280f4b39a7a5068cda776b7ee0178d1f1e"
+    },
+    {
+      "path": "bays/umbra-ai.png",
+      "source": "build/ui015/all-bays/umbra-ai.png",
+      "bytes": 216463,
+      "sha256": "e5a038ebf54a342c9f658bf021a3022f51e980783da1b4595c98f838176514bb"
+    },
+    {
+      "path": "bays/umbra-command.png",
+      "source": "build/ui015/all-bays/umbra-command.png",
+      "bytes": 222324,
+      "sha256": "c767436b48b612e30fdccd915f4941279f16ebdc0e45c7e07a1edae057515f3c"
+    },
+    {
+      "path": "bays/umbra-ground.png",
+      "source": "build/ui015/all-bays/umbra-ground.png",
+      "bytes": 322144,
+      "sha256": "a0f62cd1463dd6c7a539dcd8e45a8dba90f930341b860c191594e0f3bfd912b7"
+    },
+    {
+      "path": "bays/umbra-help.png",
+      "source": "build/ui015/all-bays/umbra-help.png",
+      "bytes": 257676,
+      "sha256": "28997024913939ffa28170842a1859f99727ccb46f2ba8d957cfee6bb4988486"
+    },
+    {
+      "path": "bays/umbra-navigator.png",
+      "source": "build/ui015/all-bays/umbra-navigator.png",
+      "bytes": 163650,
+      "sha256": "038752642cbde6f888ff0e3a6d33843acdfb844a079d6b3e2d148e8bf6f2dd45"
+    },
+    {
+      "path": "bays/umbra-notice.png",
+      "source": "build/ui015/all-bays/umbra-notice.png",
+      "bytes": 322343,
+      "sha256": "33801dcd80767090e84e0c0f4b227bf95ae1ab6da95e21296d0ba16749d6dd78"
+    },
+    {
+      "path": "bays/umbra-routines.png",
+      "source": "build/ui015/all-bays/umbra-routines.png",
+      "bytes": 150573,
+      "sha256": "ebb1b9e552103d0f26c3ec728d8d36f7c668b525b08bf57972613c466a6c7c66"
+    },
+    {
+      "path": "bays/umbra-settings.png",
+      "source": "build/ui015/all-bays/umbra-settings.png",
+      "bytes": 199625,
+      "sha256": "dfac8fb8e9804bb2ad7d45bf8edd0e4cebd2dbb74e1d2fd5a158daab746bd4d3"
+    },
+    {
+      "path": "bays/umbra-signal.png",
+      "source": "build/ui015/all-bays/umbra-signal.png",
+      "bytes": 148994,
+      "sha256": "07a455bbe82743f53feada524d09557ea353a0afacf019e79f5e9b8a7fa8a5d8"
+    },
+    {
+      "path": "bays/umbra-systems.png",
+      "source": "build/ui015/all-bays/umbra-systems.png",
+      "bytes": 167166,
+      "sha256": "37c3f5d3581dc6a7b1c17ccb145ee4bc511f750f977e05b05461a5704a257f1f"
+    },
+    {
+      "path": "bays/vellum-ai.png",
+      "source": "build/ui015/all-bays/vellum-ai.png",
+      "bytes": 215120,
+      "sha256": "68afd4bc641a6297f3322db1385781183a71cbb7679fcfffb9fe13073e7e8e17"
+    },
+    {
+      "path": "bays/vellum-command.png",
+      "source": "build/ui015/all-bays/vellum-command.png",
+      "bytes": 221231,
+      "sha256": "87687027ed4e27f42b409d95c786cee8fdec04b2e127e69f2d8a3551cccadefe"
+    },
+    {
+      "path": "bays/vellum-ground.png",
+      "source": "build/ui015/all-bays/vellum-ground.png",
+      "bytes": 319352,
+      "sha256": "0d4ca768f43c45dabb36477c47a0c367709f257804ca767158fa6e7978a9a293"
+    },
+    {
+      "path": "bays/vellum-help.png",
+      "source": "build/ui015/all-bays/vellum-help.png",
+      "bytes": 256860,
+      "sha256": "ce4e705c40cc3190e929c7082edc184ac0b03297b7def35a181aebb5c637b414"
+    },
+    {
+      "path": "bays/vellum-navigator.png",
+      "source": "build/ui015/all-bays/vellum-navigator.png",
+      "bytes": 162921,
+      "sha256": "cafacb8d2adf2279d90a0b373c09415c72c6646201b2046f2a703061e25048f6"
+    },
+    {
+      "path": "bays/vellum-notice.png",
+      "source": "build/ui015/all-bays/vellum-notice.png",
+      "bytes": 319173,
+      "sha256": "0f2d00c55f381eb1ea1994bfee1107c445bf59ca91be5694653bbc12413278dd"
+    },
+    {
+      "path": "bays/vellum-routines.png",
+      "source": "build/ui015/all-bays/vellum-routines.png",
+      "bytes": 149878,
+      "sha256": "a5df88035eefef7034b177a2dcc124b47bdb3bc06b22938d764bddf543984a7e"
+    },
+    {
+      "path": "bays/vellum-settings.png",
+      "source": "build/ui015/all-bays/vellum-settings.png",
+      "bytes": 198287,
+      "sha256": "c6feaff82c21e081cd857d93a011c109e7c03b20c8e80f69ba29c69b23576ce3"
+    },
+    {
+      "path": "bays/vellum-signal.png",
+      "source": "build/ui015/all-bays/vellum-signal.png",
+      "bytes": 147930,
+      "sha256": "042fe742b3527595ea1b390abb332a585eb92a1f5421baf969999af0c224b742"
+    },
+    {
+      "path": "bays/vellum-systems.png",
+      "source": "build/ui015/all-bays/vellum-systems.png",
+      "bytes": 166846,
+      "sha256": "b168517b3a18d55cf8318e25be352c7411ebe38f911f18455a1d5f7d255936e4"
+    },
+    {
+      "path": "4k/piyti-insane/argent-ground.png",
+      "source": "build/ui015/4k-piyti-insane/argent-ground.png",
+      "bytes": 1385270,
+      "sha256": "53a6f5386d95bbc42c43ede7fab869334c4603747ccfe8d038e8a02dc0e61208"
+    },
+    {
+      "path": "4k/piyti-insane/argent-picker.png",
+      "source": "build/ui015/4k-piyti-insane/argent-picker.png",
+      "bytes": 768385,
+      "sha256": "f07af2f0fc5fb3617f35dec6b8fc32a5410691aac6549da0c69c2e728478f98e"
+    },
+    {
+      "path": "4k/piyti-insane/bathyal-ground.png",
+      "source": "build/ui015/4k-piyti-insane/bathyal-ground.png",
+      "bytes": 1360663,
+      "sha256": "91a991a10ebc83da7415fce2ed8d4a2eaa65d7f6c20f164b113aa133ea1b592e"
+    },
+    {
+      "path": "4k/piyti-insane/bathyal-picker.png",
+      "source": "build/ui015/4k-piyti-insane/bathyal-picker.png",
+      "bytes": 762837,
+      "sha256": "6afb7c4ef606a0cd9054bb95a595a89973044bfe5041e7949f740b20df5260bd"
+    },
+    {
+      "path": "4k/piyti-insane/cinder-ground.png",
+      "source": "build/ui015/4k-piyti-insane/cinder-ground.png",
+      "bytes": 1366426,
+      "sha256": "dcc6481ce1187797ae8a4a20ae8af3efe1035135bdd3c449a4befd2b66d3ba7c"
+    },
+    {
+      "path": "4k/piyti-insane/cinder-picker.png",
+      "source": "build/ui015/4k-piyti-insane/cinder-picker.png",
+      "bytes": 764135,
+      "sha256": "2b43065b39ea4d81a5efc267bbbc995f23cbde2ad28e2e2a21b240bcb67b7e75"
+    },
+    {
+      "path": "4k/piyti-insane/corona-ground.png",
+      "source": "build/ui015/4k-piyti-insane/corona-ground.png",
+      "bytes": 1394545,
+      "sha256": "2adb61d0014015a6049e989d408c05251ef7747fdf4ab5897e6299beed0785d5"
+    },
+    {
+      "path": "4k/piyti-insane/corona-picker.png",
+      "source": "build/ui015/4k-piyti-insane/corona-picker.png",
+      "bytes": 774014,
+      "sha256": "0f69c609d4e8d87b8ad9c2f6b8ccba341d51d31403060e643b2824a627dc013a"
+    },
+    {
+      "path": "4k/piyti-insane/ferrite-ground.png",
+      "source": "build/ui015/4k-piyti-insane/ferrite-ground.png",
+      "bytes": 1375511,
+      "sha256": "3807e2135168c0ea59e5696656c719682b445b8d0461765cdd33a9217c17e4e9"
+    },
+    {
+      "path": "4k/piyti-insane/ferrite-picker.png",
+      "source": "build/ui015/4k-piyti-insane/ferrite-picker.png",
+      "bytes": 765583,
+      "sha256": "bf393db5ea835315c4e1b889c877e92d5cb2a103f5db930b5139e40c4a62a424"
+    },
+    {
+      "path": "4k/piyti-insane/glacial-ground.png",
+      "source": "build/ui015/4k-piyti-insane/glacial-ground.png",
+      "bytes": 1383610,
+      "sha256": "987714add6733b9835668d4242fc757273c529043c906dc4dd16d568fd25a954"
+    },
+    {
+      "path": "4k/piyti-insane/glacial-picker.png",
+      "source": "build/ui015/4k-piyti-insane/glacial-picker.png",
+      "bytes": 767152,
+      "sha256": "759aa4c49ab757bcaa2027edc962c528bd81554da55881984c882ae088c18530"
+    },
+    {
+      "path": "4k/piyti-insane/helios-ground.png",
+      "source": "build/ui015/4k-piyti-insane/helios-ground.png",
+      "bytes": 1397599,
+      "sha256": "440793fa80c3cd7ec068e4c589c1ace1073f0fcd0e62c4e6cedace00ebdd800b"
+    },
+    {
+      "path": "4k/piyti-insane/helios-picker.png",
+      "source": "build/ui015/4k-piyti-insane/helios-picker.png",
+      "bytes": 772664,
+      "sha256": "ac5299abecf06e965bc2f635015bfca26c6c654f9613b7b079670653550d1778"
+    },
+    {
+      "path": "4k/piyti-insane/iris-ground.png",
+      "source": "build/ui015/4k-piyti-insane/iris-ground.png",
+      "bytes": 1388423,
+      "sha256": "a793538cc9d2a1fbd59641f05685d6a1743ecf224834af114e17b34cd88c94d4"
+    },
+    {
+      "path": "4k/piyti-insane/iris-picker.png",
+      "source": "build/ui015/4k-piyti-insane/iris-picker.png",
+      "bytes": 768031,
+      "sha256": "1901cc1f3e095854e81991c3eba105d4ff96050eba4c9ef8e605c90b5284da4c"
+    },
+    {
+      "path": "4k/piyti-insane/lichen-ground.png",
+      "source": "build/ui015/4k-piyti-insane/lichen-ground.png",
+      "bytes": 1359086,
+      "sha256": "88a21b493c146646b9970f702010d6d631857391ccf4eaf7b3ae0027b0a636a9"
+    },
+    {
+      "path": "4k/piyti-insane/lichen-picker.png",
+      "source": "build/ui015/4k-piyti-insane/lichen-picker.png",
+      "bytes": 758080,
+      "sha256": "0e2aadaa8045ef2e37d4e16a7dc3e714fd9a3e0df60fe93296d2165db69746de"
+    },
+    {
+      "path": "4k/piyti-insane/limb-ground.png",
+      "source": "build/ui015/4k-piyti-insane/limb-ground.png",
+      "bytes": 1327997,
+      "sha256": "5c94696c6d17b495cf349c8daa886fd92d5efedf90b738d26255ac4d26a83bac"
+    },
+    {
+      "path": "4k/piyti-insane/limb-picker.png",
+      "source": "build/ui015/4k-piyti-insane/limb-picker.png",
+      "bytes": 1327997,
+      "sha256": "5c94696c6d17b495cf349c8daa886fd92d5efedf90b738d26255ac4d26a83bac"
+    },
+    {
+      "path": "4k/piyti-insane/umbra-ground.png",
+      "source": "build/ui015/4k-piyti-insane/umbra-ground.png",
+      "bytes": 1380792,
+      "sha256": "44cc552ad1cb403330696925e0e3e7eb1aa0405f25d968ae7f738abad5f0b8c8"
+    },
+    {
+      "path": "4k/piyti-insane/umbra-picker.png",
+      "source": "build/ui015/4k-piyti-insane/umbra-picker.png",
+      "bytes": 767076,
+      "sha256": "dca6eb21dbd0aedd1e9dd5eb1302b3aef4b81f047161467361c553bbed7a3a31"
+    },
+    {
+      "path": "4k/piyti-insane/vellum-ground.png",
+      "source": "build/ui015/4k-piyti-insane/vellum-ground.png",
+      "bytes": 1368771,
+      "sha256": "b02f7b546f4d69b274eec7caa033bae5531b2941e054b5cf986b7bf73aca4c8b"
+    },
+    {
+      "path": "4k/piyti-insane/vellum-picker.png",
+      "source": "build/ui015/4k-piyti-insane/vellum-picker.png",
+      "bytes": 763162,
+      "sha256": "c985d7f02be007f284abfcffde5c84b2bbd85e9176a016d44d6cddab470c2da9"
+    },
+    {
+      "path": "4k/piyti-saturated/argent-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/argent-ground.png",
+      "bytes": 816162,
+      "sha256": "c974cfceda4927289a90bcecc45fc148dd58b3a96d79f26b384dbb8b0278ef19"
+    },
+    {
+      "path": "4k/piyti-saturated/argent-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/argent-picker.png",
+      "bytes": 505690,
+      "sha256": "a573b66b82a94f6474791a66bd5ee51a5724dbd8dbcaca1458a28fdb50165796"
+    },
+    {
+      "path": "4k/piyti-saturated/bathyal-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/bathyal-ground.png",
+      "bytes": 806932,
+      "sha256": "a916599faceae0f1f94c0c77170983f6dcb111bc50c797cfd91aaa12eb4cfa11"
+    },
+    {
+      "path": "4k/piyti-saturated/bathyal-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/bathyal-picker.png",
+      "bytes": 504149,
+      "sha256": "8f94944bc81971284541ea0b9667a7aeada48fee8cd780a51d475441c966fafe"
+    },
+    {
+      "path": "4k/piyti-saturated/cinder-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/cinder-ground.png",
+      "bytes": 807423,
+      "sha256": "c7012fcaa9092989509232e70b5d38391c554604c01cde4dbb483fc5662b458e"
+    },
+    {
+      "path": "4k/piyti-saturated/cinder-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/cinder-picker.png",
+      "bytes": 504263,
+      "sha256": "344ed670cd4f24f1c3ee7368c859e7ac5d4eaf58fbebabbc901cb52e6e8b9257"
+    },
+    {
+      "path": "4k/piyti-saturated/corona-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/corona-ground.png",
+      "bytes": 821676,
+      "sha256": "f44772061613dd2a5d07ebfe78fa0ae3ebd09e5d15b769b8bd3bd1a255172730"
+    },
+    {
+      "path": "4k/piyti-saturated/corona-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/corona-picker.png",
+      "bytes": 508374,
+      "sha256": "9a66c87fd4c88bcd84834a86ccdcfc7a89755e088ea4cee110a51b6a8cc20902"
+    },
+    {
+      "path": "4k/piyti-saturated/ferrite-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/ferrite-ground.png",
+      "bytes": 812514,
+      "sha256": "be0da9377bcf694a9af723c51e62b75af19dd57eefa199b50bb700a45de74634"
+    },
+    {
+      "path": "4k/piyti-saturated/ferrite-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/ferrite-picker.png",
+      "bytes": 502712,
+      "sha256": "c7f724bf74d63959abfe6069b418ba7e4e29e2518893094c7a3c405558ba0772"
+    },
+    {
+      "path": "4k/piyti-saturated/glacial-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/glacial-ground.png",
+      "bytes": 818154,
+      "sha256": "e61bbb46489b0a60726c7ae23735045e4df610894aece1a8950e41fe9000d0bd"
+    },
+    {
+      "path": "4k/piyti-saturated/glacial-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/glacial-picker.png",
+      "bytes": 506528,
+      "sha256": "20ac2bf7ae1984642effa87f0acef7387278b4ad7760ee3517ad9ac9f8abb8c3"
+    },
+    {
+      "path": "4k/piyti-saturated/helios-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/helios-ground.png",
+      "bytes": 825365,
+      "sha256": "854eea7c79ccb680a95ccd6d8dc64343fdda35abed32983423cb0c18a3da5e54"
+    },
+    {
+      "path": "4k/piyti-saturated/helios-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/helios-picker.png",
+      "bytes": 507763,
+      "sha256": "d7139d1524e57361656a211f19eaa1e2dc455240b273ce69f0013c87d9748c13"
+    },
+    {
+      "path": "4k/piyti-saturated/iris-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/iris-ground.png",
+      "bytes": 819638,
+      "sha256": "8aa23796fcdf32b8bb3d0298965e1eb482140a69fb57a7cbf894e38e95fb3930"
+    },
+    {
+      "path": "4k/piyti-saturated/iris-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/iris-picker.png",
+      "bytes": 502751,
+      "sha256": "9918b2bf03a3def2a0550a0df313217a8b239c053e184a6e4bbfc9a3d96409b5"
+    },
+    {
+      "path": "4k/piyti-saturated/lichen-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/lichen-ground.png",
+      "bytes": 806252,
+      "sha256": "185f0cae469dcbb57f20190c505b8b6f1c7dd1c7a9bf3f997f479e8067bbc659"
+    },
+    {
+      "path": "4k/piyti-saturated/lichen-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/lichen-picker.png",
+      "bytes": 500623,
+      "sha256": "d45dd1165d5c28b4f0f641a88bb4c7119094af7005d2ac913c68ce0774411d3b"
+    },
+    {
+      "path": "4k/piyti-saturated/limb-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/limb-ground.png",
+      "bytes": 791997,
+      "sha256": "99bf488bcd864eebc3de86de3fbb2c71d9af5abfd42c454ce36c59644917eac5"
+    },
+    {
+      "path": "4k/piyti-saturated/limb-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/limb-picker.png",
+      "bytes": 792845,
+      "sha256": "3f6261b886cd4298af12169f715fb3db985a2bb5eaaef01879eab7f845224ecc"
+    },
+    {
+      "path": "4k/piyti-saturated/umbra-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/umbra-ground.png",
+      "bytes": 817875,
+      "sha256": "0f2ab43f49467c48ef89a2d1e3411a72b167ebd969cfc034c9374e6a4251f411"
+    },
+    {
+      "path": "4k/piyti-saturated/umbra-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/umbra-picker.png",
+      "bytes": 506739,
+      "sha256": "5bb0ee086f857dcc7709bbd6be118d07ff05baf007c42b655b2acc49aa9ad308"
+    },
+    {
+      "path": "4k/piyti-saturated/vellum-ground.png",
+      "source": "build/ui015/4k-piyti-saturated/vellum-ground.png",
+      "bytes": 808910,
+      "sha256": "3f60681947332cc05f91e6672225847f778fccb92108d64bc2e0491547834cba"
+    },
+    {
+      "path": "4k/piyti-saturated/vellum-picker.png",
+      "source": "build/ui015/4k-piyti-saturated/vellum-picker.png",
+      "bytes": 502791,
+      "sha256": "839d4f0750fda28b2b8c9b0e9ed50e2d51dda1aaf0c717fb88e085dbd8558f68"
+    },
+    {
+      "path": "4k/thears-insane/argent-ground.png",
+      "source": "build/ui015/4k-thears-insane/argent-ground.png",
+      "bytes": 1389547,
+      "sha256": "d46205310d0761995f1b1a23f06655a75e79de8ca4ac58c851eccbf3323b35f4"
+    },
+    {
+      "path": "4k/thears-insane/argent-picker.png",
+      "source": "build/ui015/4k-thears-insane/argent-picker.png",
+      "bytes": 769449,
+      "sha256": "72d980cb7d9361f553fa3213ebc8b65649ce1a966781c77b6e2a4d2b42fad43c"
+    },
+    {
+      "path": "4k/thears-insane/bathyal-ground.png",
+      "source": "build/ui015/4k-thears-insane/bathyal-ground.png",
+      "bytes": 1363866,
+      "sha256": "4d65c99a4e634cc2f9c1eb2d321fd787df0de76b18c20dec875b04345f3b6418"
+    },
+    {
+      "path": "4k/thears-insane/bathyal-picker.png",
+      "source": "build/ui015/4k-thears-insane/bathyal-picker.png",
+      "bytes": 764795,
+      "sha256": "1439635743b04e13f6af8a2c2ab65713029fef3eda5251b3c938a0321616dba3"
+    },
+    {
+      "path": "4k/thears-insane/cinder-ground.png",
+      "source": "build/ui015/4k-thears-insane/cinder-ground.png",
+      "bytes": 1369550,
+      "sha256": "2bfb1d5d52e41029795e59ce032f140a079583f5f1e0e1cf8a74cf2b0dd284d2"
+    },
+    {
+      "path": "4k/thears-insane/cinder-picker.png",
+      "source": "build/ui015/4k-thears-insane/cinder-picker.png",
+      "bytes": 764968,
+      "sha256": "dc1b814e07c89337e5d39f2a4f4156ff71e005e23c33c66038b49eb6c4d82e2e"
+    },
+    {
+      "path": "4k/thears-insane/corona-ground.png",
+      "source": "build/ui015/4k-thears-insane/corona-ground.png",
+      "bytes": 1397203,
+      "sha256": "d0beef341efdf781cf294f40d57fae11f837c708d2ad211c7f474839620b219a"
+    },
+    {
+      "path": "4k/thears-insane/corona-picker.png",
+      "source": "build/ui015/4k-thears-insane/corona-picker.png",
+      "bytes": 776034,
+      "sha256": "0cb7bbf675818d2df7135d86427b95fd3a89107e3e5f56bb9de24c8f295564f3"
+    },
+    {
+      "path": "4k/thears-insane/ferrite-ground.png",
+      "source": "build/ui015/4k-thears-insane/ferrite-ground.png",
+      "bytes": 1378488,
+      "sha256": "c7186d5c9e3c77791562448abbea800151fabfd8571d34a8dd27dbdda6103f30"
+    },
+    {
+      "path": "4k/thears-insane/ferrite-picker.png",
+      "source": "build/ui015/4k-thears-insane/ferrite-picker.png",
+      "bytes": 766177,
+      "sha256": "a5cf4febf1cbd649e8164b4d6fb31692bd3bb3453dfd540c262f0914ca7b93e8"
+    },
+    {
+      "path": "4k/thears-insane/glacial-ground.png",
+      "source": "build/ui015/4k-thears-insane/glacial-ground.png",
+      "bytes": 1387122,
+      "sha256": "81ad96282da5231af9572f9353adc57582e094064754bbae1fccade68658e68a"
+    },
+    {
+      "path": "4k/thears-insane/glacial-picker.png",
+      "source": "build/ui015/4k-thears-insane/glacial-picker.png",
+      "bytes": 768377,
+      "sha256": "020612ef13603fa4d8420ad46b3ac1cea92e25af90b61ebde67f89d9d6cb3f7f"
+    },
+    {
+      "path": "4k/thears-insane/helios-ground.png",
+      "source": "build/ui015/4k-thears-insane/helios-ground.png",
+      "bytes": 1404103,
+      "sha256": "633bc2719133f1811b01cce04f6465fea2df2ddaa9371e7cd75c8208b1f30de4"
+    },
+    {
+      "path": "4k/thears-insane/helios-picker.png",
+      "source": "build/ui015/4k-thears-insane/helios-picker.png",
+      "bytes": 777050,
+      "sha256": "16719da8ae43bdf43bd3f8fd297d9c078ce89cd3a8a52b4dd6aab8b6351919be"
+    },
+    {
+      "path": "4k/thears-insane/iris-ground.png",
+      "source": "build/ui015/4k-thears-insane/iris-ground.png",
+      "bytes": 1391087,
+      "sha256": "ccf29b49f6488c56572f0042fff4b33838d8d1c47065b06bd74cfec8741b1913"
+    },
+    {
+      "path": "4k/thears-insane/iris-picker.png",
+      "source": "build/ui015/4k-thears-insane/iris-picker.png",
+      "bytes": 769004,
+      "sha256": "25c54aa080394c5f2028a049859892857f53d0b57c542ab4f2fad1a45476b8de"
+    },
+    {
+      "path": "4k/thears-insane/lichen-ground.png",
+      "source": "build/ui015/4k-thears-insane/lichen-ground.png",
+      "bytes": 1363079,
+      "sha256": "c4bc1f08e44e429060ebcfd30e9deddd59986f66205f7b9a5480d16be6302e0d"
+    },
+    {
+      "path": "4k/thears-insane/lichen-picker.png",
+      "source": "build/ui015/4k-thears-insane/lichen-picker.png",
+      "bytes": 758998,
+      "sha256": "7b7183b8b0aa44039b46a1a4e85b8557bd5f4ffcc57297ca7c47b9c34af9ded6"
+    },
+    {
+      "path": "4k/thears-insane/limb-ground.png",
+      "source": "build/ui015/4k-thears-insane/limb-ground.png",
+      "bytes": 1332746,
+      "sha256": "0abe7ac4aa634dbcb91f05a60e25015002688cfb43ac525acb5e1dba66351463"
+    },
+    {
+      "path": "4k/thears-insane/limb-picker.png",
+      "source": "build/ui015/4k-thears-insane/limb-picker.png",
+      "bytes": 1332746,
+      "sha256": "0abe7ac4aa634dbcb91f05a60e25015002688cfb43ac525acb5e1dba66351463"
+    },
+    {
+      "path": "4k/thears-insane/umbra-ground.png",
+      "source": "build/ui015/4k-thears-insane/umbra-ground.png",
+      "bytes": 1388477,
+      "sha256": "4e0dbaff30504c77d30d7cfae6d2753a1fc004c439bd2b8cf7be46c1040ba037"
+    },
+    {
+      "path": "4k/thears-insane/umbra-picker.png",
+      "source": "build/ui015/4k-thears-insane/umbra-picker.png",
+      "bytes": 771500,
+      "sha256": "90eb66131aeb59c7987617875d5b5aa05181abcd3dfd39e898470a136201bf11"
+    },
+    {
+      "path": "4k/thears-insane/vellum-ground.png",
+      "source": "build/ui015/4k-thears-insane/vellum-ground.png",
+      "bytes": 1372271,
+      "sha256": "6874215c6818d0e2e8ecc3afbed3ecd4e2766fc9bf87daa58912c8bb154519ff"
+    },
+    {
+      "path": "4k/thears-insane/vellum-picker.png",
+      "source": "build/ui015/4k-thears-insane/vellum-picker.png",
+      "bytes": 764840,
+      "sha256": "0f15e7bde5fb3d4a14560ed86ca2e6f3b3f54050010664d031ce9e89d4ca11a4"
+    },
+    {
+      "path": "4k/thears-saturated/argent-ground.png",
+      "source": "build/ui015/4k-thears-saturated/argent-ground.png",
+      "bytes": 599006,
+      "sha256": "059e404bca4a362455db9c487cf717832f122da121877b7b44af4fe9d52f7f85"
+    },
+    {
+      "path": "4k/thears-saturated/argent-picker.png",
+      "source": "build/ui015/4k-thears-saturated/argent-picker.png",
+      "bytes": 294102,
+      "sha256": "bd74a6fa1f83f270c2ec74b2db4e57ea1a46b8ebe0f408f0081c15d70f6fcce1"
+    },
+    {
+      "path": "4k/thears-saturated/bathyal-ground.png",
+      "source": "build/ui015/4k-thears-saturated/bathyal-ground.png",
+      "bytes": 590000,
+      "sha256": "2ea85b777021fc30771adbdc5b58efc688e09f91f03e5d73a6433896819dec0d"
+    },
+    {
+      "path": "4k/thears-saturated/bathyal-picker.png",
+      "source": "build/ui015/4k-thears-saturated/bathyal-picker.png",
+      "bytes": 291774,
+      "sha256": "285a85c43f63c2c00c3cae6bd0e02975cf102a365510cd77df4d1b726a3b0a51"
+    },
+    {
+      "path": "4k/thears-saturated/cinder-ground.png",
+      "source": "build/ui015/4k-thears-saturated/cinder-ground.png",
+      "bytes": 590750,
+      "sha256": "403baba792f08fa5c4d645d93827da5f2f1d046a4220f715fd343d998a11916d"
+    },
+    {
+      "path": "4k/thears-saturated/cinder-picker.png",
+      "source": "build/ui015/4k-thears-saturated/cinder-picker.png",
+      "bytes": 291361,
+      "sha256": "c889964413e5a2ea4f47a2d8cd07609ade35d98b92df53ebb9d4cdf48b4c3bc9"
+    },
+    {
+      "path": "4k/thears-saturated/corona-ground.png",
+      "source": "build/ui015/4k-thears-saturated/corona-ground.png",
+      "bytes": 603786,
+      "sha256": "ae8f291e9b432a9eccd73b9b09af4092bb2fdbe04909f641c02e7a3b200f12db"
+    },
+    {
+      "path": "4k/thears-saturated/corona-picker.png",
+      "source": "build/ui015/4k-thears-saturated/corona-picker.png",
+      "bytes": 294939,
+      "sha256": "f96221eb83586b52b3cf37040ff0b30874bd5e26c84d6b8c924e0965437e0919"
+    },
+    {
+      "path": "4k/thears-saturated/ferrite-ground.png",
+      "source": "build/ui015/4k-thears-saturated/ferrite-ground.png",
+      "bytes": 594478,
+      "sha256": "0559fb077d9952d16c308e0086f89e55c9799b737be8145f66d25647885b13e3"
+    },
+    {
+      "path": "4k/thears-saturated/ferrite-picker.png",
+      "source": "build/ui015/4k-thears-saturated/ferrite-picker.png",
+      "bytes": 291481,
+      "sha256": "c36ae92890dfdf56e602b67a594dd20eebe70b1f895bb4a55c658089395af23d"
+    },
+    {
+      "path": "4k/thears-saturated/glacial-ground.png",
+      "source": "build/ui015/4k-thears-saturated/glacial-ground.png",
+      "bytes": 597911,
+      "sha256": "b12eeed5bcd1206d85c597f9a3fe8a5c60f044b831f64339eda00769fc68314d"
+    },
+    {
+      "path": "4k/thears-saturated/glacial-picker.png",
+      "source": "build/ui015/4k-thears-saturated/glacial-picker.png",
+      "bytes": 292289,
+      "sha256": "fd5b619dd7fbfc2cee42cbadac895b380996b535263af564632cdffbff77bd44"
+    },
+    {
+      "path": "4k/thears-saturated/helios-ground.png",
+      "source": "build/ui015/4k-thears-saturated/helios-ground.png",
+      "bytes": 604254,
+      "sha256": "8a024ccc31564c932c7abe06559faa054a30b4ce3c8c6e12c51ee971211e639a"
+    },
+    {
+      "path": "4k/thears-saturated/helios-picker.png",
+      "source": "build/ui015/4k-thears-saturated/helios-picker.png",
+      "bytes": 293622,
+      "sha256": "63a56de39b0d356484c36f730b8faa58b620a0708b2f677eee57d6192111836d"
+    },
+    {
+      "path": "4k/thears-saturated/iris-ground.png",
+      "source": "build/ui015/4k-thears-saturated/iris-ground.png",
+      "bytes": 599743,
+      "sha256": "88e903438495a6e9a909ccafadb8d2236b41f699688e7c12da8f26e3bbaa14d8"
+    },
+    {
+      "path": "4k/thears-saturated/iris-picker.png",
+      "source": "build/ui015/4k-thears-saturated/iris-picker.png",
+      "bytes": 291990,
+      "sha256": "10aa89ae2d406dd7bd08979c237015693906a6e9cc7947370cefe4aba9492679"
+    },
+    {
+      "path": "4k/thears-saturated/lichen-ground.png",
+      "source": "build/ui015/4k-thears-saturated/lichen-ground.png",
+      "bytes": 590900,
+      "sha256": "03f3406fc7eb08104412edda08c140c5d275ce69f9dfd566c065ad7967571149"
+    },
+    {
+      "path": "4k/thears-saturated/lichen-picker.png",
+      "source": "build/ui015/4k-thears-saturated/lichen-picker.png",
+      "bytes": 290678,
+      "sha256": "73f5fc2de1da8a4db39e0d27be53765d2ef310a8c8da1a62ceeaff59009d0d5a"
+    },
+    {
+      "path": "4k/thears-saturated/limb-ground.png",
+      "source": "build/ui015/4k-thears-saturated/limb-ground.png",
+      "bytes": 579203,
+      "sha256": "ea4e5a86cbe1486af9fe9ca74e4bd8b9556fe05a9be8701552b9e25e9133828f"
+    },
+    {
+      "path": "4k/thears-saturated/limb-picker.png",
+      "source": "build/ui015/4k-thears-saturated/limb-picker.png",
+      "bytes": 522429,
+      "sha256": "9af3a590e5e0bebfbd2f318787212ffa1d7b58b1328b6eaa3229828d739ec310"
+    },
+    {
+      "path": "4k/thears-saturated/umbra-ground.png",
+      "source": "build/ui015/4k-thears-saturated/umbra-ground.png",
+      "bytes": 598160,
+      "sha256": "987c04d5ee26c0978561db39ab6d702fd35a28d03fec373994b28c08a1f541e6"
+    },
+    {
+      "path": "4k/thears-saturated/umbra-picker.png",
+      "source": "build/ui015/4k-thears-saturated/umbra-picker.png",
+      "bytes": 292000,
+      "sha256": "7b10698ba01746d99299c4309b3afd164d02d0a7b9efdf698bb3e2fba696a650"
+    },
+    {
+      "path": "4k/thears-saturated/vellum-ground.png",
+      "source": "build/ui015/4k-thears-saturated/vellum-ground.png",
+      "bytes": 592218,
+      "sha256": "ef77dfb1930c2e0b03f84ceeed3da4691ea33630bc9298788ace1d5c1f3dd2eb"
+    },
+    {
+      "path": "4k/thears-saturated/vellum-picker.png",
+      "source": "build/ui015/4k-thears-saturated/vellum-picker.png",
+      "bytes": 290115,
+      "sha256": "980fcdf42cec6be08d455b9013af0858a5f438318612a4d0983195504a35bac0"
+    },
+    {
+      "path": "compact/compact-active-glacial.png",
+      "source": "build/ui015/compact-final/compact-active-glacial.png",
+      "bytes": 127167,
+      "sha256": "1e5514d4d3852b09a2324aa97578e34970dd4a5c020c93a0da25fc0f10ef68c9"
+    },
+    {
+      "path": "compact/compact-applied-limb.png",
+      "source": "build/ui015/compact-final/compact-applied-limb.png",
+      "bytes": 124767,
+      "sha256": "dcab029f22bc650aa43d6700a5e5840988c228951db9ae551245dc0edab5cec3"
+    },
+    {
+      "path": "compact/compact-cursor-limb.png",
+      "source": "build/ui015/compact-final/compact-cursor-limb.png",
+      "bytes": 128888,
+      "sha256": "56f65f87978dd69155d69654775abf7ff54b1cba270e56d5ebc73d54d3c25d82"
+    },
+    {
+      "path": "compact/compact-last-reachable.png",
+      "source": "build/ui015/compact-final/compact-last-reachable.png",
+      "bytes": 125151,
+      "sha256": "f04c258c2e389f6e67dbf74331e664702df5ce4abe2fb7ef2fbfff1f8fb3246f"
+    },
+    {
+      "path": "compact/compact-register.png",
+      "source": "build/ui015/compact-final/compact-register.png",
+      "bytes": 102762,
+      "sha256": "834fcf74ab96be42ba5b466a388c972f907fc1add44f31e074fce9d6fc7d4737"
+    },
+    {
+      "path": "compact/before-clipped-active.png",
+      "source": "build/ui015/compact/compact-active-glacial.png",
+      "bytes": 123469,
+      "sha256": "484386686fc8bb12b0e551a12e3c6aa16f1d3734e1250f8233decf4961814050"
+    },
+    {
+      "path": "verification/capture-logs/register-final.log",
+      "source": "build/ui015/register-final/qs.log",
+      "bytes": 12921,
+      "sha256": "33baa986f46be422c1ae6afa4522e078e54c9aef13a2d24867f0aebd88d0d127"
+    },
+    {
+      "path": "verification/capture-logs/compact-final.log",
+      "source": "build/ui015/compact-final/qs.log",
+      "bytes": 4699,
+      "sha256": "42444b27c149d4bdd3e61a2249a4963c0f5fa0cf9b8a9dcc404883da142afb71"
+    },
+    {
+      "path": "verification/capture-logs/all-bays.log",
+      "source": "build/ui015/all-bays/qs.log",
+      "bytes": 3497,
+      "sha256": "7751a3091b473f9a1daccdb2f149e7745c0d64a24eaa8ba379eaf256dcbfddc2"
+    },
+    {
+      "path": "verification/capture-logs/live-switch-final.log",
+      "source": "build/ui015/live-switch-final/qs.log",
+      "bytes": 3643,
+      "sha256": "0db9e40fd277e040212851e34ffe95c9afff75032c058691727cd5f7efb15b7b"
+    },
+    {
+      "path": "verification/capture-logs/4k-piyti-saturated.log",
+      "source": "build/ui015/4k-piyti-saturated/qs.log",
+      "bytes": 2243,
+      "sha256": "f1a18d4f841a2b40a3ba2ad917db6b529c657ca818c9ddf2d952f02bb9e89dd5"
+    },
+    {
+      "path": "verification/capture-logs/4k-piyti-insane.log",
+      "source": "build/ui015/4k-piyti-insane/qs.log",
+      "bytes": 2243,
+      "sha256": "c6d4dc415a663a92a0ec595b60789783ad4ad6af27d4c0142e401927b7725903"
+    },
+    {
+      "path": "verification/capture-logs/4k-thears-saturated.log",
+      "source": "build/ui015/4k-thears-saturated/qs.log",
+      "bytes": 2262,
+      "sha256": "bbd032e38dba9b592f0e89f49d0a67c1883fcfb15f026b27ee7072cc4803000d"
+    },
+    {
+      "path": "verification/capture-logs/4k-thears-insane.log",
+      "source": "build/ui015/4k-thears-insane/qs.log",
+      "bytes": 2262,
+      "sha256": "97af0717f650beb3bff7023085b553c3864240135c249785ddfb892014cb4baa"
+    },
+    {
+      "path": "picker/review-cursor-limb-active-glacial.png",
+      "source": "build/ui015/register/cursor-bathyal-active-limb.png",
+      "bytes": 198009,
+      "sha256": "88b36a8e47f198b91f11639bb75777ecb0d72697b2d2ce7d83ced7695a1c82dc"
+    },
+    {
+      "path": "live-switch/frames/frame-00.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 193345,
+      "sha256": "9ef0792a63ed98769bfa9abcf164218b9885dcc06358caee00e73dede3a06839"
+    },
+    {
+      "path": "live-switch/frames/frame-01.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 193345,
+      "sha256": "9ef0792a63ed98769bfa9abcf164218b9885dcc06358caee00e73dede3a06839"
+    },
+    {
+      "path": "live-switch/frames/frame-02.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 193345,
+      "sha256": "9ef0792a63ed98769bfa9abcf164218b9885dcc06358caee00e73dede3a06839"
+    },
+    {
+      "path": "live-switch/frames/frame-03.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 193345,
+      "sha256": "9ef0792a63ed98769bfa9abcf164218b9885dcc06358caee00e73dede3a06839"
+    },
+    {
+      "path": "live-switch/frames/frame-04.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 193390,
+      "sha256": "b0134a4dec309e7d771077c856b42bfaa3eacefea1d61f78e67dba32c8a6d701"
+    },
+    {
+      "path": "live-switch/frames/frame-05.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 195663,
+      "sha256": "a87fe9722e117cd49a4ea7531bd436bdfcfdc8edde9a995f5383e849d6ae3436"
+    },
+    {
+      "path": "live-switch/frames/frame-06.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 195663,
+      "sha256": "a87fe9722e117cd49a4ea7531bd436bdfcfdc8edde9a995f5383e849d6ae3436"
+    },
+    {
+      "path": "live-switch/frames/frame-07.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 195663,
+      "sha256": "a87fe9722e117cd49a4ea7531bd436bdfcfdc8edde9a995f5383e849d6ae3436"
+    },
+    {
+      "path": "live-switch/frames/frame-08.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 195659,
+      "sha256": "6545c5cdc7c6fecd8474257a792660aee7c364d237954a51e8ca12e08f647114"
+    },
+    {
+      "path": "live-switch/frames/frame-09.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 195659,
+      "sha256": "6545c5cdc7c6fecd8474257a792660aee7c364d237954a51e8ca12e08f647114"
+    },
+    {
+      "path": "live-switch/frames/frame-10.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 195699,
+      "sha256": "13dbc057dc5df8da68fc68a818509832b7513950d76847f922d51c04f30c15a6"
+    },
+    {
+      "path": "live-switch/frames/frame-11.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 197516,
+      "sha256": "9e264032fffdd87b1d2acbcd6841f01a043bd65987536f3c4d7cb91e73bc3ac6"
+    },
+    {
+      "path": "live-switch/frames/frame-12.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 197516,
+      "sha256": "9e264032fffdd87b1d2acbcd6841f01a043bd65987536f3c4d7cb91e73bc3ac6"
+    },
+    {
+      "path": "live-switch/frames/frame-13.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 197516,
+      "sha256": "9e264032fffdd87b1d2acbcd6841f01a043bd65987536f3c4d7cb91e73bc3ac6"
+    },
+    {
+      "path": "live-switch/frames/frame-14.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 197516,
+      "sha256": "9e264032fffdd87b1d2acbcd6841f01a043bd65987536f3c4d7cb91e73bc3ac6"
+    },
+    {
+      "path": "live-switch/frames/frame-15.png",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 197516,
+      "sha256": "9e264032fffdd87b1d2acbcd6841f01a043bd65987536f3c4d7cb91e73bc3ac6"
+    },
+    {
+      "path": "live-switch/switch.mp4",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 140498,
+      "sha256": "922bc3c1f3af804b5b824eda8a77752b3eb41e6c579b31482fbbf66354507f89"
+    },
+    {
+      "path": "live-switch/timing.json",
+      "source": "build/ui015/live-switch-final (MP4 encodes unmodified 5fps samples)",
+      "bytes": 2040,
+      "sha256": "1c8cd9248cdfd3ce48c9c40ab140de6c3a366c105b15119c069d8f14cdcd1d9b"
+    },
+    {
+      "path": "verification/runs/ai/a1-answer.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 340617,
+      "sha256": "810ef341c00883830be08f6665ec5b7bba0b9dc984189f6538d119aa15018b7a"
+    },
+    {
+      "path": "verification/runs/ai/a2-approved.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 341247,
+      "sha256": "d64efafd92160cc85fc76adf64986b345fe4d790dc96da911fd9a9ba2fb8fde5"
+    },
+    {
+      "path": "verification/runs/ai/a3-after-removal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 303811,
+      "sha256": "2e804593d357d164eb7365b7a79060779663519915c60590cf1c29ecb6130d6d"
+    },
+    {
+      "path": "verification/runs/deck/d1-notices.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 527477,
+      "sha256": "091bdd29228e8f5bac627287f5dc3009a6e62122ee1eb57749b6f3998ab6ae14"
+    },
+    {
+      "path": "verification/runs/full/01-strip.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 322067,
+      "sha256": "d02aae4c57b8610f858168f39465413ce5113a6e081b4487e61dfe577c870340"
+    },
+    {
+      "path": "verification/runs/full/02-command-vol.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 201298,
+      "sha256": "c0cfe7070a14a413a480d2bed92cd13cf7b97c54cf7199370bad3f7222bb8f92"
+    },
+    {
+      "path": "verification/runs/full/03-command-search.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 217339,
+      "sha256": "c99b79051c88fffffda628cffbed205431c0de97eb76e06399ed8c220b8481e1"
+    },
+    {
+      "path": "verification/runs/full/04-navigator.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 164804,
+      "sha256": "de7f88277abaacf09bf6349d6baabeb3a1ab5801a27649f16ed43566a1d5914b"
+    },
+    {
+      "path": "verification/runs/full/05-systems.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 174937,
+      "sha256": "87b1704ca4ed0ccefee8177d83aa052d1679c22dfd84c9e61e1e044db5be84e9"
+    },
+    {
+      "path": "verification/runs/full/06-signal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 149691,
+      "sha256": "51e0cb7a5132de1c7a603f96c8a0413257961ff098d9731900b87be3fecd074e"
+    },
+    {
+      "path": "verification/runs/full/07-routines.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 151188,
+      "sha256": "71d15bbe093d6da701ab6279c3a0c113bcf63bfb6d5a3c72e9b6f638413b716d"
+    },
+    {
+      "path": "verification/runs/full/08-routine-ran.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 154783,
+      "sha256": "ec7d689f38093a94436fcee3cb36478552bb70602a523db06d02328fb252bac7"
+    },
+    {
+      "path": "verification/runs/full/09-help.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 260632,
+      "sha256": "5c40067da9b3c5ec01685d522f4cf255817925b5c744436d680253689830ff7e"
+    },
+    {
+      "path": "verification/runs/lock-compact/01-compact-literal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 74703,
+      "sha256": "5af37d977fc9aed31bedc7c765b3c08a67928f115ec6f72f8275d0caeff55537"
+    },
+    {
+      "path": "verification/runs/lock-schemes/argent.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 84556,
+      "sha256": "60d4c94611de86599924595e0e7d206d10cca318c5152f50c3716baf9440244b"
+    },
+    {
+      "path": "verification/runs/lock-schemes/bathyal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 83742,
+      "sha256": "355b359b5450d4b78bc60fe6b8444249f0fc99b5cf57f1a8f5b2df41983332cb"
+    },
+    {
+      "path": "verification/runs/lock-schemes/cinder.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 84059,
+      "sha256": "2903c2d71d39a22f9e9810a59403dd6a668adbdceb7418d9e997e67fa2ad23e8"
+    },
+    {
+      "path": "verification/runs/lock-schemes/corona.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 84869,
+      "sha256": "ad3f6e874c016eb7b4c3ae76954b81448118571c0b6d49241fe23dec0efbe29c"
+    },
+    {
+      "path": "verification/runs/lock-schemes/ferrite.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 84499,
+      "sha256": "bd28ae2d3aa87665679df5ea445233749da8cd2f1d2dd917c1de21b79cae42e5"
+    },
+    {
+      "path": "verification/runs/lock-schemes/glacial.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 86513,
+      "sha256": "9a61ed6a80917bb365e512fd894dd9e725f40c4f84304b606fb02b787305d0e7"
+    },
+    {
+      "path": "verification/runs/lock-schemes/helios.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 87117,
+      "sha256": "1ec965a761cbedd6dc08413f4cf269f2a71a7166bfa6021226cc1ab1d81fdec3"
+    },
+    {
+      "path": "verification/runs/lock-schemes/insane-off-low-literal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 164769,
+      "sha256": "3b60009f9cd3449363dfeca170fa66081150ab9afd89869d20938aa04ca62143"
+    },
+    {
+      "path": "verification/runs/lock-schemes/insane-reduced.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 117455,
+      "sha256": "2fe9b1a14a3016044a0488cef621632baf2bc8e30135e33fea6355ee06b49950"
+    },
+    {
+      "path": "verification/runs/lock-schemes/iris.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 84806,
+      "sha256": "5248fab346001aeb987c2aa47500584743bda9c5f0a4f5628658d0b6903f880c"
+    },
+    {
+      "path": "verification/runs/lock-schemes/lichen.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 86135,
+      "sha256": "f44c77e7a8c723e0ef5a061a8679411ef0a7aac48e7bfe2243cd38898439f8da"
+    },
+    {
+      "path": "verification/runs/lock-schemes/limb.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 83267,
+      "sha256": "75c26064147b28360a4daf60158a0bbc922893c4d3fde6b336d90a6edf954e52"
+    },
+    {
+      "path": "verification/runs/lock-schemes/umbra.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 86832,
+      "sha256": "413a89a3917110ffedab1e04a8aba6d8f2df60f26f678fbabae7ea3e7840a67f"
+    },
+    {
+      "path": "verification/runs/lock-schemes/vellum.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 86310,
+      "sha256": "aefc2723a72c2d5dd0ee0c2041b4456be90bf16d8e1acd6fbeb238ab3d15ad6d"
+    },
+    {
+      "path": "verification/runs/osd-compact/01-compact-literal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 20726,
+      "sha256": "18afcf6888f59f8d9f973e77ce5746a85789bc5c08746e425c842b92a59152df"
+    },
+    {
+      "path": "verification/runs/osd-schemes/argent.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17450,
+      "sha256": "4d12ac7b562ce7ac5e0ed5f8cd1a9cb9412f3240dc5935e651e8e0f740aca62c"
+    },
+    {
+      "path": "verification/runs/osd-schemes/bathyal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17416,
+      "sha256": "d21b8f1d64123d91cb11705aba0d98f119d19d2f49e7385c303a6514370e8797"
+    },
+    {
+      "path": "verification/runs/osd-schemes/cinder.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17445,
+      "sha256": "f78d6e25a12a7fe92c9a9a73efbf44aaa8459b9e42b401890a46bd6d00d46fc7"
+    },
+    {
+      "path": "verification/runs/osd-schemes/corona.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17429,
+      "sha256": "009015f6dd5110cba452b21a1017cda49a15a1525d2d2a7d05c525873b9fb486"
+    },
+    {
+      "path": "verification/runs/osd-schemes/ferrite.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17407,
+      "sha256": "85093e95a6e0b2764886cd2213a1a364ca13921a2df5dc6a23d52453f199e842"
+    },
+    {
+      "path": "verification/runs/osd-schemes/glacial.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17467,
+      "sha256": "dd67ac4f762a726c255ee0612f70692b7ae3405153f8fd8c4098bc0bf7b1b69e"
+    },
+    {
+      "path": "verification/runs/osd-schemes/helios.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17420,
+      "sha256": "a10028621603b5dd4220572af3dccc50fa6e9f8dceb80fccb23d78e5abd1a2b5"
+    },
+    {
+      "path": "verification/runs/osd-schemes/insane-off-low-literal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 25342,
+      "sha256": "dff46f8d6ee079d38e3b51625477ba85e99e9f29448cca31485db0e01be8f70e"
+    },
+    {
+      "path": "verification/runs/osd-schemes/insane-reduced.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17453,
+      "sha256": "750772413bf54512877c65c0710b3ea5818aedd10d8eff6de1139536a07bf14d"
+    },
+    {
+      "path": "verification/runs/osd-schemes/iris.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17443,
+      "sha256": "9cff0ca44d3458fc725e5eeb2a398bd4fb47fcccdb0d2f4eb849db7b474c034b"
+    },
+    {
+      "path": "verification/runs/osd-schemes/lichen.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17427,
+      "sha256": "7488ce96b7845ccd95eb804b004d385c1c25a23f0d6c15d3414328169dd2bbfc"
+    },
+    {
+      "path": "verification/runs/osd-schemes/limb.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17447,
+      "sha256": "8b5d9eaf0fbbe148ede99069405c0fdbda9770f7df6911009bc7fceacc6e4556"
+    },
+    {
+      "path": "verification/runs/osd-schemes/umbra.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17430,
+      "sha256": "8307651f072637276837112b906f7d2dd084d238297fc9c590457b9428fda576"
+    },
+    {
+      "path": "verification/runs/osd-schemes/vellum.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 17460,
+      "sha256": "71d16524878395e4f6bb3e4728de95adee260a60ffa6cdcc39a8f64cf81f80d1"
+    },
+    {
+      "path": "verification/runs/rapid-settings/rapid-settings-settled.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 197128,
+      "sha256": "c05a1fe3d6e99860607dc9445d54b41833f1de59821d679ceca95066ae5f8ab1"
+    },
+    {
+      "path": "verification/runs/session-compact/01-compact-literal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 52133,
+      "sha256": "a6bc1943948c22752d9663c1833e7971f0448607071be83abae36834e063941c"
+    },
+    {
+      "path": "verification/runs/session-schemes/argent.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38369,
+      "sha256": "eb6d3afbdf419ddf3ce196654a6f73f59d371631a154c89cf37a312bf8011aa1"
+    },
+    {
+      "path": "verification/runs/session-schemes/bathyal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38331,
+      "sha256": "f02ee48c07cc319ab5344bb1f048fc9b5d2fd8d6fd17d9a1a868a750846e81d2"
+    },
+    {
+      "path": "verification/runs/session-schemes/cinder.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38306,
+      "sha256": "878541a96fe1b54a870b3cb4f4f6fdde98f1577d145bb69e9b666beb3cb51b83"
+    },
+    {
+      "path": "verification/runs/session-schemes/corona.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38366,
+      "sha256": "4189d52454c81bd4a34d64a3cd57901036f688a1abb13206a794efd4edf07f16"
+    },
+    {
+      "path": "verification/runs/session-schemes/ferrite.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38369,
+      "sha256": "dff081d8fb098b4a68b98a0fa31c1230e7817a87dfa010ae005b585b23682865"
+    },
+    {
+      "path": "verification/runs/session-schemes/glacial.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38346,
+      "sha256": "aa89d9da4393602751aa1121daed6779dd723851a5574194eb4b82d6f2da2bc6"
+    },
+    {
+      "path": "verification/runs/session-schemes/helios.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38473,
+      "sha256": "f32df8af866986e37d143e2f3e7cbbead2631cae42d035c4b21d5bedd2a370be"
+    },
+    {
+      "path": "verification/runs/session-schemes/insane-off-low-literal.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 58816,
+      "sha256": "dc54dba017a1907966c7cf0519d3e176ba847d901c50452eef8b1b35e01708c4"
+    },
+    {
+      "path": "verification/runs/session-schemes/insane-reduced.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38764,
+      "sha256": "42bd38d5185554422bd819638ab1bb7436270c9f8fc8f3e2ae87c61d81f1091b"
+    },
+    {
+      "path": "verification/runs/session-schemes/iris.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38340,
+      "sha256": "14abc2edbc75532de3342677e40dbccda851f23d7ecfacf776c838a0dad012f7"
+    },
+    {
+      "path": "verification/runs/session-schemes/lichen.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38334,
+      "sha256": "1ae9cda2b2c846fa3f49a334b56b57dcf51b5f85a9657df0d6d040eece60c0d0"
+    },
+    {
+      "path": "verification/runs/session-schemes/limb.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38243,
+      "sha256": "500808f100cd4dca7cc1bdcdcc9e32d8de690c653278c3b0b6db3a7d9ec28f09"
+    },
+    {
+      "path": "verification/runs/session-schemes/umbra.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38286,
+      "sha256": "69df897e9a86ed276285dc4d3f5eb3963bd1eb0ec3a833ca2737dd14513122ef"
+    },
+    {
+      "path": "verification/runs/session-schemes/vellum.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 38336,
+      "sha256": "7aff64f4a673bf789e4e059dba9940b4a6792b09cd8daba518d08750c5a6955e"
+    },
+    {
+      "path": "verification/runs/settings-focus/01-initial-picker.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 198618,
+      "sha256": "3c0f2d66fb17037b3ce3643d72f5e469786acc1f70a8bbfa7b32ee1a69162042"
+    },
+    {
+      "path": "verification/runs/settings-focus/02-live-glacial.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 197014,
+      "sha256": "599fa8da7c2dc465f2b487a135487b66bf6f38f3f46da8d0621ec836910fe54a"
+    },
+    {
+      "path": "verification/runs/settings-focus/03-register.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 178924,
+      "sha256": "a001a5020ffaac54cc6c8fa97fb4958c2a309d80343d4bc289602a9aff0a685f"
+    },
+    {
+      "path": "verification/runs/settings-focus/04-back-to-picker.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 197014,
+      "sha256": "599fa8da7c2dc465f2b487a135487b66bf6f38f3f46da8d0621ec836910fe54a"
+    },
+    {
+      "path": "verification/runs/smoke/01-strip.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 321421,
+      "sha256": "a9ce650321ee5d035b554347d5058afd2c8a4c30f5bd79103d34a5aeeecf6d8f"
+    },
+    {
+      "path": "verification/runs/smoke/02-command-core.png",
+      "source": "Disposable headless verification scenario; see verification/RESULTS.md",
+      "bytes": 225304,
+      "sha256": "d9790042ed460865f0315a041c80249b7998eec9b962f00826731379fb970220"
+    }
+  ]
+}

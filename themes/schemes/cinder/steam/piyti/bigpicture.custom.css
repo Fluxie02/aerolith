@@ -1,0 +1,10 @@
+/* AEROLITH PIYTI / Big Picture. Keep native controller layout,
+ * game art and fullscreen rendering intact. No persistent overlay or motion. */
+:root {
+  --aero-signal: #ffc08a;
+  --aero-obsidian: #1a1210;
+}
+.DialogButton:focus-visible {
+  outline: 3px solid var(--aero-signal) !important;
+  outline-offset: 3px;
+}

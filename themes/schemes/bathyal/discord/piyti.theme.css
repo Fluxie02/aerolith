@@ -1,0 +1,93 @@
+/**
+ * @name AEROLITH Bathyal PIYTI
+ * @author Astra / AEROLITH
+ * @version 0.1.0
+ * @description Deep petrol / sea glass. PIYTI communication bay. Requires Vencord; no remote assets.
+ */
+
+/* Standalone theme: select this OR THEARS. These are visual state cues from
+ * Discord's own DOM, never a claim of shell IPC or unread-state integration. */
+.theme-dark {
+  --background-primary: #091619;
+  --background-secondary: #122b30;
+  --background-secondary-alt: #0f2529;
+  --background-tertiary: #091619;
+  --background-floating: #122b30;
+  --background-base-lowest: #091619;
+  --background-base-lower: #0f2529;
+  --background-base-low: #122b30;
+  --background-surface-high: #1d383e;
+  --background-surface-higher: #1d383e;
+  --background-surface-highest: #26444b;
+  --bg-base-primary: #091619;
+  --bg-base-secondary: #122b30;
+  --bg-base-tertiary: #0f2529;
+  --background-modifier-hover: #1d383e;
+  --background-modifier-selected: #1d383e;
+  --background-modifier-accent: #385b63;
+  --channeltextarea-background: #122b30;
+  --input-background: #091619;
+  --modal-background: #122b30;
+  --modal-footer-background: #0f2529;
+  --text-normal: #e1f4f1;
+  --text-primary: #e1f4f1;
+  --text-secondary: #acc8cc;
+  --text-muted: #acc8cc;
+  --text-link: #a1c9ff;
+  --header-primary: #e1f4f1;
+  --header-secondary: #acc8cc;
+  --channels-default: #acc8cc;
+  --interactive-normal: #acc8cc;
+  --interactive-hover: #e1f4f1;
+  --interactive-active: #e1f4f1;
+  --border-subtle: #385b63;
+  --border-strong: #385b63;
+  --scrollbar-auto-track: #091619;
+  --scrollbar-auto-thumb: #385b63;
+  --scrollbar-thin-thumb: #385b63;
+  --font-primary: "Inter", "Noto Sans", "gg sans", sans-serif;
+  --font-display: "Inter", "Noto Sans", "gg sans", sans-serif;
+  --font-code: "JetBrains Mono", "Noto Sans Mono", monospace;
+}
+
+/* A thin, static cross-section makes the channel column read as a bay. */
+.theme-dark [class*="sidebar_"] {
+  border-inline-end: 1px solid #a1c9ff;
+  box-shadow: inset 3px 0 #385b63;
+}
+.theme-dark [class*="title_"][class*="container_"] {
+  border-bottom: 1px solid #385b63;
+  background-image: linear-gradient(90deg, #a1c9ff 0 42px, transparent 42px);
+  background-size: 100% 2px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+.theme-dark [class*="channelTextArea_"] {
+  border: 1px solid #385b63;
+  border-inline-start: 3px solid #a1c9ff;
+  border-radius: 2px 14px 14px 2px;
+}
+.theme-dark [class*="channelTextArea_"]:focus-within {
+  border-color: #80e1cf;
+  box-shadow: inset 0 -2px #80e1cf;
+}
+.theme-dark [class*="containerDefault_"] [aria-selected="true"] {
+  box-shadow: inset 4px 0 #80e1cf;
+  border-radius: 0 12px 12px 0;
+}
+.theme-dark [role="menu"],
+.theme-dark [role="dialog"] {
+  border: 1px solid #385b63;
+  border-top: 2px solid #a1c9ff;
+  border-radius: 2px 16px 16px 16px;
+}
+.theme-dark [class*="channelTextArea_"],
+.theme-dark [class*="containerDefault_"] [aria-selected="true"] {
+  transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-dark [class*="channelTextArea_"],
+  .theme-dark [class*="containerDefault_"] [aria-selected="true"] {
+    transition: none;
+  }
+}

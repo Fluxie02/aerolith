@@ -1,0 +1,16 @@
+SHELL_PATH="build/ui015/verification/final-shell" AUDIO="1" AI="1" CONFIG="/home/user/aerolith-astra/build/ui015/verification/insane.json" tools/headless/run.sh tests/scenarios/ai.sh build/ui015/verification/ai
+[E][17:17:24.282755] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:17:24.282789] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][17:17:24.294683] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:17:24.294705] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][17:17:24.304005] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:17:24.304028] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+ok
+E 17:17:36.206700             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 17:17:36.206731             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+ok
+ai: ok
+E 17:17:42.216485             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 17:17:42.216510             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+
+exit 0

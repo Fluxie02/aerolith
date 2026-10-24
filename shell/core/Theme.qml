@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import "../lib/tokens.mjs" as Tokens
+import "../lib/schemes.mjs" as Schemes
 
 // Limb's mineral planes and phosphor inscriptions, resolved against config.
 // Every visual value used by components comes from here.
@@ -10,7 +11,9 @@ Singleton {
     id: root
 
     readonly property var cfg: Config.theme
-    readonly property var palette: Tokens.resolvePalette(cfg.palette)
+    readonly property string scheme: Schemes.schemeById(cfg.scheme).id
+    readonly property var specimen: Schemes.schemeById(scheme)
+    readonly property var palette: Tokens.resolvePalette(cfg.palette, scheme)
     readonly property var density: Tokens.densityTokens(cfg.density)
     readonly property var motionSet: Tokens.motionTokens(cfg.motion)
     readonly property real scale: cfg.uiScale
@@ -21,11 +24,11 @@ Singleton {
     readonly property int variantLevel: insane ? 3 : 2
     readonly property string variantName: insane ? "Insane" : "Saturated"
     // Installation-only seam: Claude wires the one-time THEARS/PIYTI choice.
-    // THEARS remains shipped for now; UI-013 review builds develop PIYTI.
-    property string applicationDirection: "thears"
+    // PIYTI is the base; THEARS remains available through the same visual seam.
+    property string applicationDirection: "piyti"
     readonly property bool integratedApps: applicationDirection === "piyti"
     readonly property string applicationName: integratedApps ? "PIYTI" : "THEARS"
-    readonly property color appLink: integratedApps ? "#81e6ed" : signal
+    readonly property color appLink: integratedApps ? specimen.link : signal
     // Process lifetime latch survives hidden/recreated views. Freeze the selected
     // startup duration so changing intensity during assembly cannot retime it.
     property bool bootPlayed: false

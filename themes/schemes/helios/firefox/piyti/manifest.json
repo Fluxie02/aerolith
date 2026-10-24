@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Helios / PIYTI",
+  "version": "1.0.0",
+  "description": "Blue charcoal / solar gold. PIYTI application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "helios-piyti-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#11151c",
+      "frame_inactive": "#11151c",
+      "tab_background_text": "#c2c8cb",
+      "tab_text": "#f5f2e7",
+      "tab_selected": "#232c35",
+      "tab_loading": "#f4db83",
+      "tab_line": "#b9d8ed",
+      "toolbar": "#11151c",
+      "toolbar_text": "#f5f2e7",
+      "bookmark_text": "#f5f2e7",
+      "icons": "#c2c8cb",
+      "icons_attention": "#b9d8ed",
+      "toolbar_field": "#232c35",
+      "toolbar_field_text": "#f5f2e7",
+      "toolbar_field_border": "#506373",
+      "toolbar_field_focus": "#303c46",
+      "toolbar_field_text_focus": "#f5f2e7",
+      "toolbar_field_border_focus": "#b9d8ed",
+      "toolbar_field_highlight": "#b9d8ed",
+      "toolbar_field_highlight_text": "#11151c",
+      "toolbar_top_separator": "#506373",
+      "toolbar_bottom_separator": "#506373",
+      "toolbar_vertical_separator": "#506373",
+      "button_background_hover": "#303c46",
+      "button_background_active": "#394753",
+      "popup": "#232c35",
+      "popup_text": "#f5f2e7",
+      "popup_border": "#506373",
+      "popup_highlight": "#b9d8ed",
+      "popup_highlight_text": "#11151c",
+      "sidebar": "#232c35",
+      "sidebar_text": "#f5f2e7",
+      "sidebar_border": "#506373",
+      "sidebar_highlight": "#b9d8ed",
+      "sidebar_highlight_text": "#11151c",
+      "ntp_background": "#11151c",
+      "ntp_text": "#f5f2e7"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

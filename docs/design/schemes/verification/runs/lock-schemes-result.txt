@@ -1,0 +1,5 @@
+SHELL_PATH="build/ui015/verification/preview-lock" tools/headless/run.sh build/ui015/verification/capture-lock.sh build/ui015/verification/lock-schemes
+
+lock-schemes: ok
+
+exit 0

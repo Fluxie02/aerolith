@@ -1,0 +1,40 @@
+{
+  "id": "limb",
+  "name": "Limb",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#0d1215",
+  "surface": "#1b282b",
+  "surface2": "#25373a",
+  "grid": "#3b5253",
+  "text": "#edf3f5",
+  "textDim": "#abc0bd",
+  "signal": "#ceebac",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#81e6ed",
+  "lower": "#172124",
+  "pressed": "#2d4043",
+  "ansi": {
+    "normal": [
+      "#849593",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#83aeeb",
+      "#c883eb",
+      "#83ebeb",
+      "#abc0bd"
+    ],
+    "bright": [
+      "#abc0bd",
+      "#fab1af",
+      "#c4eace",
+      "#fadb99",
+      "#a3c3ee",
+      "#d3a5ee",
+      "#a3edee",
+      "#edf3f5"
+    ]
+  }
+}

@@ -1,5 +1,16 @@
 # AEROLITH application appearance — UI-008 / UI-010 / UI-012
 
+UI-015 adds twelve generated colour schemes in [`schemes/`](schemes/).
+Choose `schemes/<scheme-id>/` as the root for any fragment below; its layout
+matches these original Limb files, including separate PIYTI/THEARS app shapes.
+[`schemes/index.json`](schemes/index.json) lists the choices. All scheme colours
+come from `shell/lib/schemes.mjs`; regenerate with
+`node tools/gen-scheme-themes.mjs` and verify with the same command plus `--check`.
+The original paths below remain compatibility templates. Generated files are
+opt-in payloads; the shell picker currently changes the shell immediately and
+does not install or reload app themes.
+[Generation, contrast and format evidence](../docs/design/schemes/APP-THEMES.md).
+
 Optional, uninstalled theme fragments for owner review. Claude will integrate
 these with the installer after approval. They share Limb's palette and work
 with both Saturated and Insane; intensity changes shell instrumentation, not

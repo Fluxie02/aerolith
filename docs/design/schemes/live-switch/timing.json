@@ -1,0 +1,101 @@
+{
+  "method": "Actual grim captures, target cadence 200ms; no synthetic interpolation. Two keyboard selections in the same live production Settings bay.",
+  "frames": [
+    {
+      "frame": 0,
+      "capture_start_s": 0.0002,
+      "capture_end_s": 0.0938,
+      "input": null
+    },
+    {
+      "frame": 1,
+      "capture_start_s": 0.2001,
+      "capture_end_s": 0.3155,
+      "input": null
+    },
+    {
+      "frame": 2,
+      "capture_start_s": 0.4001,
+      "capture_end_s": 0.4999,
+      "input": null
+    },
+    {
+      "frame": 3,
+      "capture_start_s": 0.6001,
+      "capture_end_s": 0.6823,
+      "input": null
+    },
+    {
+      "frame": 4,
+      "capture_start_s": 0.8164,
+      "capture_end_s": 0.9015,
+      "input": "Right, Return"
+    },
+    {
+      "frame": 5,
+      "capture_start_s": 1.0001,
+      "capture_end_s": 1.0905,
+      "input": null
+    },
+    {
+      "frame": 6,
+      "capture_start_s": 1.2007,
+      "capture_end_s": 1.2727,
+      "input": null
+    },
+    {
+      "frame": 7,
+      "capture_start_s": 1.4001,
+      "capture_end_s": 1.5033,
+      "input": null
+    },
+    {
+      "frame": 8,
+      "capture_start_s": 1.6001,
+      "capture_end_s": 1.6869,
+      "input": null
+    },
+    {
+      "frame": 9,
+      "capture_start_s": 1.8001,
+      "capture_end_s": 1.8716,
+      "input": null
+    },
+    {
+      "frame": 10,
+      "capture_start_s": 2.0173,
+      "capture_end_s": 2.1011,
+      "input": "Right, Return"
+    },
+    {
+      "frame": 11,
+      "capture_start_s": 2.2022,
+      "capture_end_s": 2.3209,
+      "input": null
+    },
+    {
+      "frame": 12,
+      "capture_start_s": 2.4001,
+      "capture_end_s": 2.5457,
+      "input": null
+    },
+    {
+      "frame": 13,
+      "capture_start_s": 2.6001,
+      "capture_end_s": 2.6752,
+      "input": null
+    },
+    {
+      "frame": 14,
+      "capture_start_s": 2.8002,
+      "capture_end_s": 2.9339,
+      "input": null
+    },
+    {
+      "frame": 15,
+      "capture_start_s": 3.0001,
+      "capture_end_s": 3.082,
+      "input": null
+    }
+  ]
+}

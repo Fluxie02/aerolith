@@ -1,0 +1,148 @@
+/* AEROLITH / Lichen — GTK 3.24 overrides over Adwaita. No theme replacement.
+ * 20px windows, 10px controls; native sizing, icons and motion stay intact.
+ * Optional user CSS: see ../README.md. */
+@define-color aerolith_obsidian #14170e;
+@define-color aerolith_surface #282e1e;
+@define-color aerolith_surface2 #353d29;
+@define-color aerolith_grid #576343;
+@define-color aerolith_text #f0f3e3;
+@define-color aerolith_dim #c1c9a9;
+@define-color aerolith_signal #bddd84;
+
+@define-color theme_bg_color @aerolith_surface;
+@define-color theme_fg_color @aerolith_text;
+@define-color theme_base_color @aerolith_obsidian;
+@define-color theme_text_color @aerolith_text;
+@define-color theme_selected_bg_color @aerolith_signal;
+@define-color theme_selected_fg_color @aerolith_obsidian;
+@define-color theme_unfocused_bg_color @aerolith_surface;
+@define-color theme_unfocused_fg_color @aerolith_text;
+@define-color theme_unfocused_base_color @aerolith_obsidian;
+@define-color theme_unfocused_text_color @aerolith_text;
+@define-color theme_unfocused_selected_bg_color @aerolith_signal;
+@define-color theme_unfocused_selected_fg_color @aerolith_obsidian;
+@define-color insensitive_bg_color @aerolith_surface;
+@define-color insensitive_base_color @aerolith_obsidian;
+@define-color insensitive_fg_color @aerolith_dim;
+@define-color unfocused_insensitive_color @aerolith_dim;
+@define-color borders @aerolith_grid;
+@define-color unfocused_borders @aerolith_grid;
+@define-color content_view_bg @aerolith_obsidian;
+@define-color text_view_bg @aerolith_obsidian;
+@define-color accent_color @aerolith_signal;
+@define-color accent_bg_color @aerolith_signal;
+@define-color accent_fg_color @aerolith_obsidian;
+@define-color warning_color #ffd071;
+@define-color error_color #ff9591;
+@define-color success_color #b3e6bd;
+
+/* Inherit size from GTK settings; change the family only. */
+window {
+  font-family: "Inter", "Inter Variable", "Noto Sans", "Cantarell", "DejaVu Sans", sans-serif;
+}
+.monospace {
+  font-family: "JetBrains Mono", "JetBrains Mono NL", "Noto Sans Mono", monospace;
+}
+window.background {
+  background-color: @theme_bg_color;
+  color: @theme_fg_color;
+}
+window.csd, window.csd decoration { border-radius: 20px; }
+/* A maximized/tiled edge must meet the work area without a corner cutout. */
+window.maximized, window.fullscreen, window.tiled,
+window.maximized decoration, window.fullscreen decoration, window.tiled decoration {
+  border-radius: 0;
+}
+headerbar, headerbar:backdrop {
+  background-image: none;
+  background-color: @aerolith_surface;
+  color: @aerolith_text;
+  border-color: @aerolith_grid;
+  border-radius: 20px 20px 0 0;
+}
+window.maximized headerbar, window.fullscreen headerbar, window.tiled headerbar {
+  border-radius: 0;
+}
+.view, textview text, treeview.view, iconview.view {
+  background-color: @aerolith_obsidian;
+  color: @aerolith_text;
+}
+.dim-label, .subtitle { color: @aerolith_dim; opacity: 1; }
+entry, spinbutton:not(.vertical), button:not(.flat):not(.titlebutton) {
+  border-radius: 10px;
+  border-color: @aerolith_grid;
+}
+entry, spinbutton:not(.vertical),
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):not(:checked) {
+  background-image: none;
+  background-color: @aerolith_surface2;
+  color: @aerolith_text;
+  text-shadow: none;
+}
+entry { background-color: @aerolith_obsidian; }
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):not(:checked):hover {
+  background-color: #3f4831;
+}
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):not(:checked):active {
+  background-color: @aerolith_surface;
+}
+/* Preserve the connected geometry of Adwaita's linked controls. */
+.linked > button:not(:first-child), .linked > entry:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.linked > button:not(:last-child), .linked > entry:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+popover, menu, tooltip {
+  background-color: @aerolith_surface;
+  color: @aerolith_text;
+  border-radius: 10px;
+}
+/* Keep selection legible even in an unfocused window. */
+selection, row:selected, treeview.view:selected, iconview.view:selected,
+menuitem:hover, modelbutton:hover, button.suggested-action,
+button.suggested-action:hover, button.suggested-action:active,
+button:checked, switch:checked, check:checked, radio:checked {
+  background-image: none;
+  background-color: @aerolith_signal;
+  color: @aerolith_obsidian;
+  text-shadow: none;
+}
+button.destructive-action, button.destructive-action:hover,
+button.destructive-action:active {
+  background-image: none;
+  background-color: @error_color;
+  color: @aerolith_obsidian;
+  text-shadow: none;
+}
+/* Inherited by children so selected rows cannot retain pale label text. */
+row:selected label, menuitem:hover label, modelbutton:hover label,
+button.suggested-action label, button.destructive-action label,
+button:checked label { color: inherit; }
+entry selection, textview text selection {
+  background-color: @aerolith_signal;
+  color: @aerolith_obsidian;
+}
+/* 2px opaque keyboard ring; no translucent focus tint or removed outline. */
+button:focus, entry:focus, spinbutton:focus, switch:focus,
+checkbutton:focus, radiobutton:focus, scale:focus, treeview:focus, row:focus {
+  outline: 2px solid @aerolith_signal;
+  outline-offset: 2px;
+  -gtk-outline-radius: 10px;
+}
+/* A dark inset ring stays visible on a filled accent/error control. */
+button.suggested-action:focus, button.destructive-action:focus,
+button:checked:focus, row:selected:focus, switch:checked:focus {
+  outline-color: @aerolith_obsidian;
+  outline-offset: -4px;
+}
+entry:focus { border-color: @aerolith_signal; }
+scale highlight, progressbar progress {
+  background-color: @aerolith_signal;
+  border-color: @aerolith_signal;
+  border-radius: 10px;
+}
+*:link, *:visited { color: @aerolith_signal; }
+/* Disabled widgets keep Adwaita's sensitivity cues; no global opacity reset. */

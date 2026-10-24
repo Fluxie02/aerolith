@@ -1,0 +1,40 @@
+{
+  "id": "umbra",
+  "name": "Umbra",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#1a101d",
+  "surface": "#302034",
+  "surface2": "#3f2c43",
+  "grid": "#68476d",
+  "text": "#fcecff",
+  "textDim": "#d1b5d5",
+  "signal": "#f5abe2",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#c5b9ff",
+  "lower": "#291b2d",
+  "pressed": "#4d3552",
+  "ansi": {
+    "normal": [
+      "#a38ca7",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#c3d8f5",
+      "#e4c3f5",
+      "#c3f5f5",
+      "#d1b5d5"
+    ],
+    "bright": [
+      "#d1b5d5",
+      "#feafb2",
+      "#c9e8d1",
+      "#fed89c",
+      "#d4def8",
+      "#ebcff8",
+      "#d4f2f8",
+      "#fcecff"
+    ]
+  }
+}

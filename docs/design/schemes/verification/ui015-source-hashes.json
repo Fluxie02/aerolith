@@ -1,0 +1,13 @@
+{
+  "shell/lib/schemes.mjs": "aebd88c9b44bf25e0d7529c2b7ee868fddffc51beac1558286086c0236852c64",
+  "shell/lib/tokens.mjs": "3f9598cfaa82e4038e5dbc4eb9eb710f1c3441b0e733755a10e11756a92c13dc",
+  "shell/core/Theme.qml": "defdbc6d09da4b0e2fd99a6389c1d351efec1937e3dbd3c07351e08f5ebfb031",
+  "shell/components/Trace.qml": "3543adb7a501149f6c0bd63721559c8df959662ab62acce8e9aad3a7c37d43d4",
+  "shell/modules/settings/SettingsBay.qml": "e256a5e6db72fbc1550e05cbf21556bd8c97d467419be9a7ee86c3457e3664ae",
+  "shell/modules/settings/SchemePicker.qml": "edb1f29ae858ca407ddfe64ec2cda89ab7bff5acda7fd91cdd2bc8c32386819a",
+  "shell/lib/config.mjs": "1c9e4494c74b61640d3e297c332546ea4bb429d7591a4d661010c31ecaccc40e",
+  "shell/schema/config.schema.json": "a9f155b63e40fc7c568bdcfed1e41ce0a8d18929e76b5f66494b0334e2868312",
+  "tests/js/schemes.test.mjs": "02eaa266575e3e6ad06a9e352f52c520b926519094a61b6347c89ab913eda8c9",
+  "tests/js/index.mjs": "0eebe770bbd95e38ab9477c73bcfd52dce9497ffcf6ee2bbeb95afd532ccb14d",
+  "tools/gen-scheme-themes.mjs": "cd5e9443e88d399c802663d8a2352dc8e761d8b61ecb46a87b8db98fa138ceac"
+}

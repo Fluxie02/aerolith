@@ -2,7 +2,7 @@ import QtQuick
 import qs.core
 
 // Flight-recorder style trace of a bounded history. Repaints only when
-// `seq` changes while visible, so a hidden trace costs nothing.
+// samples or visual tokens change while visible; a hidden trace costs nothing.
 Canvas {
     id: root
     property var values: []
@@ -22,6 +22,12 @@ Canvas {
         requestPaint()
     onWidthChanged: requestPaint()
     onHeightChanged: requestPaint()
+    onColorChanged: if (visible) requestPaint()
+    Connections {
+        target: Theme
+        function onPaletteChanged() { if (root.visible) root.requestPaint(); }
+        function onLowEffectsChanged() { if (root.visible) root.requestPaint(); }
+    }
 
     onPaint: {
         const ctx = getContext("2d");

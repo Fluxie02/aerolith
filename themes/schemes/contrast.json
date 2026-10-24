@@ -1,0 +1,6331 @@
+{
+  "method": "WCAG 2.x sRGB relative luminance, opaque pairs and composited Studio selection tint",
+  "textMinimum": 4.5,
+  "focusMinimum": 3,
+  "schemes": [
+    {
+      "id": "limb",
+      "name": "Limb",
+      "minimumTextRatio": 5.1713,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#edf3f5",
+          "background": "#0d1215",
+          "ratio": 16.8149,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#abc0bd",
+          "background": "#0d1215",
+          "ratio": 9.8758,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#edf3f5",
+          "background": "#1b282b",
+          "ratio": 13.5304,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#abc0bd",
+          "background": "#1b282b",
+          "ratio": 7.9467,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#edf3f5",
+          "background": "#25373a",
+          "ratio": 11.1133,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#abc0bd",
+          "background": "#25373a",
+          "ratio": 6.5271,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#edf3f5",
+          "background": "#2d4043",
+          "ratio": 9.7299,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#abc0bd",
+          "background": "#2d4043",
+          "ratio": 5.7146,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#edf3f5",
+          "background": "#172124",
+          "ratio": 14.6467,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#abc0bd",
+          "background": "#172124",
+          "ratio": 8.6023,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#ceebac",
+          "background": "#0d1215",
+          "ratio": 14.4495,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#ceebac",
+          "background": "#1b282b",
+          "ratio": 11.627,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#ceebac",
+          "background": "#25373a",
+          "ratio": 9.5499,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#ceebac",
+          "background": "#2d4043",
+          "ratio": 8.3611,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#ceebac",
+          "background": "#172124",
+          "ratio": 12.5862,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#0d1215",
+          "background": "#ceebac",
+          "ratio": 14.4495,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#0d1215",
+          "background": "#ceebac",
+          "ratio": 14.4495,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#0d1215",
+          "ratio": 13.0222,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#1b282b",
+          "ratio": 10.4785,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#25373a",
+          "ratio": 8.6066,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#2d4043",
+          "ratio": 7.5353,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#172124",
+          "ratio": 11.343,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#0d1215",
+          "background": "#ffd071",
+          "ratio": 13.0222,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#0d1215",
+          "background": "#ffd071",
+          "ratio": 13.0222,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#0d1215",
+          "ratio": 8.9369,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#1b282b",
+          "ratio": 7.1912,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#25373a",
+          "ratio": 5.9066,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#2d4043",
+          "ratio": 5.1713,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#172124",
+          "ratio": 7.7845,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#0d1215",
+          "background": "#ff9591",
+          "ratio": 8.9369,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#0d1215",
+          "background": "#ff9591",
+          "ratio": 8.9369,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#0d1215",
+          "ratio": 13.4327,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#1b282b",
+          "ratio": 10.8089,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#25373a",
+          "ratio": 8.8779,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#2d4043",
+          "ratio": 7.7728,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#172124",
+          "ratio": 11.7006,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#0d1215",
+          "background": "#b3e6bd",
+          "ratio": 13.4327,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#0d1215",
+          "background": "#b3e6bd",
+          "ratio": 13.4327,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#81e6ed",
+          "background": "#0d1215",
+          "ratio": 12.9883,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#81e6ed",
+          "background": "#1b282b",
+          "ratio": 10.4513,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#81e6ed",
+          "background": "#25373a",
+          "ratio": 8.5842,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#81e6ed",
+          "background": "#2d4043",
+          "ratio": 7.5157,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#81e6ed",
+          "background": "#172124",
+          "ratio": 11.3135,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#0d1215",
+          "background": "#81e6ed",
+          "ratio": 12.9883,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#0d1215",
+          "background": "#81e6ed",
+          "ratio": 12.9883,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#849593",
+          "background": "#0d1215",
+          "ratio": 6.0131,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#abc0bd",
+          "background": "#0d1215",
+          "ratio": 9.8758,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#0d1215",
+          "ratio": 8.9369,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#fab1af",
+          "background": "#0d1215",
+          "ratio": 10.743,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#0d1215",
+          "ratio": 13.4327,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c4eace",
+          "background": "#0d1215",
+          "ratio": 14.3634,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#0d1215",
+          "ratio": 13.0222,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fadb99",
+          "background": "#0d1215",
+          "ratio": 14.0493,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#83aeeb",
+          "background": "#0d1215",
+          "ratio": 8.2722,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#a3c3ee",
+          "background": "#0d1215",
+          "ratio": 10.4068,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#c883eb",
+          "background": "#0d1215",
+          "ratio": 7.0904,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#d3a5ee",
+          "background": "#0d1215",
+          "ratio": 9.3197,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#83ebeb",
+          "background": "#0d1215",
+          "ratio": 13.5025,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#a3edee",
+          "background": "#0d1215",
+          "ratio": 14.272,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#abc0bd",
+          "background": "#0d1215",
+          "ratio": 9.8758,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#edf3f5",
+          "background": "#0d1215",
+          "ratio": 16.8149,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#edf3f5",
+          "background": "#294346",
+          "ratio": 9.4379,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#abc0bd",
+          "background": "#294346",
+          "ratio": 5.5431,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#edf3f5",
+          "background": "#34443d",
+          "ratio": 9.185,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#abc0bd",
+          "background": "#34443d",
+          "ratio": 5.3946,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "bathyal",
+      "name": "Bathyal",
+      "minimumTextRatio": 4.953,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#e1f4f1",
+          "background": "#091619",
+          "ratio": 16.1449,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#acc8cc",
+          "background": "#091619",
+          "ratio": 10.4241,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#e1f4f1",
+          "background": "#122b30",
+          "ratio": 13.0216,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#acc8cc",
+          "background": "#122b30",
+          "ratio": 8.4075,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#e1f4f1",
+          "background": "#1d383e",
+          "ratio": 10.911,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#acc8cc",
+          "background": "#1d383e",
+          "ratio": 7.0447,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#e1f4f1",
+          "background": "#26444b",
+          "ratio": 9.1562,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#acc8cc",
+          "background": "#26444b",
+          "ratio": 5.9118,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#e1f4f1",
+          "background": "#0f2529",
+          "ratio": 13.9807,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#acc8cc",
+          "background": "#0f2529",
+          "ratio": 9.0267,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#80e1cf",
+          "background": "#091619",
+          "ratio": 11.9158,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#80e1cf",
+          "background": "#122b30",
+          "ratio": 9.6106,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#80e1cf",
+          "background": "#1d383e",
+          "ratio": 8.0528,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#80e1cf",
+          "background": "#26444b",
+          "ratio": 6.7578,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#80e1cf",
+          "background": "#0f2529",
+          "ratio": 10.3184,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#091619",
+          "background": "#80e1cf",
+          "ratio": 11.9158,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#091619",
+          "background": "#80e1cf",
+          "ratio": 11.9158,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#091619",
+          "ratio": 12.7259,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#122b30",
+          "ratio": 10.264,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#1d383e",
+          "ratio": 8.6003,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#26444b",
+          "ratio": 7.2172,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#0f2529",
+          "ratio": 11.0199,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#091619",
+          "background": "#ffd071",
+          "ratio": 12.7259,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#091619",
+          "background": "#ffd071",
+          "ratio": 12.7259,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#091619",
+          "ratio": 8.7335,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#122b30",
+          "ratio": 7.044,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#1d383e",
+          "ratio": 5.9022,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#26444b",
+          "ratio": 4.953,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#0f2529",
+          "ratio": 7.5628,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#091619",
+          "background": "#ff9591",
+          "ratio": 8.7335,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#091619",
+          "background": "#ff9591",
+          "ratio": 8.7335,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#091619",
+          "ratio": 13.127,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#122b30",
+          "ratio": 10.5876,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#1d383e",
+          "ratio": 8.8714,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#26444b",
+          "ratio": 7.4447,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#0f2529",
+          "ratio": 11.3673,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#091619",
+          "background": "#b3e6bd",
+          "ratio": 13.127,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#091619",
+          "background": "#b3e6bd",
+          "ratio": 13.127,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#a1c9ff",
+          "background": "#091619",
+          "ratio": 10.7979,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#a1c9ff",
+          "background": "#122b30",
+          "ratio": 8.709,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#a1c9ff",
+          "background": "#1d383e",
+          "ratio": 7.2974,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#a1c9ff",
+          "background": "#26444b",
+          "ratio": 6.1238,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#a1c9ff",
+          "background": "#0f2529",
+          "ratio": 9.3504,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#091619",
+          "background": "#a1c9ff",
+          "ratio": 10.7979,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#091619",
+          "background": "#a1c9ff",
+          "ratio": 10.7979,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#839c9f",
+          "background": "#091619",
+          "ratio": 6.332,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#acc8cc",
+          "background": "#091619",
+          "ratio": 10.4241,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#091619",
+          "ratio": 8.7335,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#f6b2ae",
+          "background": "#091619",
+          "ratio": 10.433,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#091619",
+          "ratio": 13.127,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c1eacd",
+          "background": "#091619",
+          "ratio": 13.9582,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#091619",
+          "ratio": 12.7259,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#f6db97",
+          "background": "#091619",
+          "ratio": 13.5898,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#aecaf2",
+          "background": "#091619",
+          "ratio": 10.9873,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#bdd7f2",
+          "background": "#091619",
+          "ratio": 12.4219,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#dbaef2",
+          "background": "#091619",
+          "ratio": 9.9513,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#ddc3f2",
+          "background": "#091619",
+          "ratio": 11.542,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#aef2f2",
+          "background": "#091619",
+          "ratio": 14.7163,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#bdf3f2",
+          "background": "#091619",
+          "ratio": 15.1402,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#acc8cc",
+          "background": "#091619",
+          "ratio": 10.4241,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#e1f4f1",
+          "background": "#091619",
+          "ratio": 16.1449,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#e1f4f1",
+          "background": "#26414d",
+          "ratio": 9.4629,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#acc8cc",
+          "background": "#26414d",
+          "ratio": 6.1098,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#e1f4f1",
+          "background": "#224546",
+          "ratio": 9.1707,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#acc8cc",
+          "background": "#224546",
+          "ratio": 5.9211,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "corona",
+      "name": "Corona",
+      "minimumTextRatio": 4.8052,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#edf0ff",
+          "background": "#101222",
+          "ratio": 16.3557,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#b6c0df",
+          "background": "#101222",
+          "ratio": 10.2456,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#edf0ff",
+          "background": "#1e253c",
+          "ratio": 13.3631,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#b6c0df",
+          "background": "#1e253c",
+          "ratio": 8.3709,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#edf0ff",
+          "background": "#2a3450",
+          "ratio": 10.8526,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#b6c0df",
+          "background": "#2a3450",
+          "ratio": 6.7983,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#edf0ff",
+          "background": "#35415f",
+          "ratio": 8.9297,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#b6c0df",
+          "background": "#35415f",
+          "ratio": 5.5938,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#edf0ff",
+          "background": "#1a1f34",
+          "ratio": 14.3535,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#b6c0df",
+          "background": "#1a1f34",
+          "ratio": 8.9914,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#a7bcff",
+          "background": "#101222",
+          "ratio": 9.9681,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#a7bcff",
+          "background": "#1e253c",
+          "ratio": 8.1442,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#a7bcff",
+          "background": "#2a3450",
+          "ratio": 6.6142,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#a7bcff",
+          "background": "#35415f",
+          "ratio": 5.4423,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#a7bcff",
+          "background": "#1a1f34",
+          "ratio": 8.7479,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#101222",
+          "background": "#a7bcff",
+          "ratio": 9.9681,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#101222",
+          "background": "#a7bcff",
+          "ratio": 9.9681,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#101222",
+          "ratio": 12.8244,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#1e253c",
+          "ratio": 10.478,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#2a3450",
+          "ratio": 8.5095,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#35415f",
+          "ratio": 7.0017,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#1a1f34",
+          "ratio": 11.2546,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#101222",
+          "background": "#ffd071",
+          "ratio": 12.8244,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#101222",
+          "background": "#ffd071",
+          "ratio": 12.8244,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#101222",
+          "ratio": 8.8011,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#1e253c",
+          "ratio": 7.1908,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#2a3450",
+          "ratio": 5.8399,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#35415f",
+          "ratio": 4.8052,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#1a1f34",
+          "ratio": 7.7238,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#101222",
+          "background": "#ff9591",
+          "ratio": 8.8011,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#101222",
+          "background": "#ff9591",
+          "ratio": 8.8011,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#101222",
+          "ratio": 13.2287,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#1e253c",
+          "ratio": 10.8083,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#2a3450",
+          "ratio": 8.7777,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#35415f",
+          "ratio": 7.2225,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#1a1f34",
+          "ratio": 11.6093,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#101222",
+          "background": "#b3e6bd",
+          "ratio": 13.2287,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#101222",
+          "background": "#b3e6bd",
+          "ratio": 13.2287,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#edbaff",
+          "background": "#101222",
+          "ratio": 11.5481,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#edbaff",
+          "background": "#1e253c",
+          "ratio": 9.4352,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#edbaff",
+          "background": "#2a3450",
+          "ratio": 7.6626,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#edbaff",
+          "background": "#35415f",
+          "ratio": 6.3049,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#edbaff",
+          "background": "#1a1f34",
+          "ratio": 10.1345,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#101222",
+          "background": "#edbaff",
+          "ratio": 11.5481,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#101222",
+          "background": "#edbaff",
+          "ratio": 11.5481,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#8d95b0",
+          "background": "#101222",
+          "ratio": 6.2373,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#b6c0df",
+          "background": "#101222",
+          "ratio": 10.2456,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#101222",
+          "ratio": 8.8011,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#fab0b2",
+          "background": "#101222",
+          "ratio": 10.5313,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#101222",
+          "ratio": 13.2287,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c4e9d1",
+          "background": "#101222",
+          "ratio": 14.0709,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#101222",
+          "ratio": 12.8244,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fada9c",
+          "background": "#101222",
+          "ratio": 13.7617,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#c4d8f5",
+          "background": "#101222",
+          "ratio": 12.8025,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#d0dff8",
+          "background": "#101222",
+          "ratio": 13.7785,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#e5c4f5",
+          "background": "#101222",
+          "ratio": 11.9702,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#e7d1f8",
+          "background": "#101222",
+          "ratio": 13.1431,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#c4f5f5",
+          "background": "#101222",
+          "ratio": 15.6644,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#d0f4f8",
+          "background": "#101222",
+          "ratio": 15.8862,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#b6c0df",
+          "background": "#101222",
+          "ratio": 10.2456,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#edf0ff",
+          "background": "#101222",
+          "ratio": 16.3557,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#edf0ff",
+          "background": "#3b3a58",
+          "ratio": 9.5797,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#b6c0df",
+          "background": "#3b3a58",
+          "ratio": 6.0009,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#edf0ff",
+          "background": "#313a58",
+          "ratio": 9.8623,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#b6c0df",
+          "background": "#313a58",
+          "ratio": 6.178,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "cinder",
+      "name": "Cinder",
+      "minimumTextRatio": 4.8798,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#fff0e4",
+          "background": "#1a1210",
+          "ratio": 16.5532,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#d4baaa",
+          "background": "#1a1210",
+          "ratio": 10.0212,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#fff0e4",
+          "background": "#30241f",
+          "ratio": 13.4756,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#d4baaa",
+          "background": "#30241f",
+          "ratio": 8.1581,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#fff0e4",
+          "background": "#40322b",
+          "ratio": 11.0211,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#d4baaa",
+          "background": "#40322b",
+          "ratio": 6.6721,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#fff0e4",
+          "background": "#4e3d34",
+          "ratio": 9.2289,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#d4baaa",
+          "background": "#4e3d34",
+          "ratio": 5.5871,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#fff0e4",
+          "background": "#291f1b",
+          "ratio": 14.4218,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#d4baaa",
+          "background": "#291f1b",
+          "ratio": 8.7309,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#ffc08a",
+          "background": "#1a1210",
+          "ratio": 11.5639,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#ffc08a",
+          "background": "#30241f",
+          "ratio": 9.4139,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#ffc08a",
+          "background": "#40322b",
+          "ratio": 7.6992,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#ffc08a",
+          "background": "#4e3d34",
+          "ratio": 6.4472,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#ffc08a",
+          "background": "#291f1b",
+          "ratio": 10.0749,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#1a1210",
+          "background": "#ffc08a",
+          "ratio": 11.5639,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#1a1210",
+          "background": "#ffc08a",
+          "ratio": 11.5639,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#1a1210",
+          "ratio": 12.7537,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#30241f",
+          "ratio": 10.3825,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#40322b",
+          "ratio": 8.4914,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#4e3d34",
+          "ratio": 7.1105,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#291f1b",
+          "ratio": 11.1115,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#1a1210",
+          "background": "#ffd071",
+          "ratio": 12.7537,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#1a1210",
+          "background": "#ffd071",
+          "ratio": 12.7537,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#1a1210",
+          "ratio": 8.7526,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#30241f",
+          "ratio": 7.1253,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#40322b",
+          "ratio": 5.8275,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#4e3d34",
+          "ratio": 4.8798,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#291f1b",
+          "ratio": 7.6256,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#1a1210",
+          "background": "#ff9591",
+          "ratio": 8.7526,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#1a1210",
+          "background": "#ff9591",
+          "ratio": 8.7526,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#1a1210",
+          "ratio": 13.1558,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#30241f",
+          "ratio": 10.7098,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#40322b",
+          "ratio": 8.7591,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#4e3d34",
+          "ratio": 7.3347,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#291f1b",
+          "ratio": 11.4618,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#1a1210",
+          "background": "#b3e6bd",
+          "ratio": 13.1558,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#1a1210",
+          "background": "#b3e6bd",
+          "ratio": 13.1558,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#f6e2b3",
+          "background": "#1a1210",
+          "ratio": 14.4544,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#f6e2b3",
+          "background": "#30241f",
+          "ratio": 11.767,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#f6e2b3",
+          "background": "#40322b",
+          "ratio": 9.6237,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#f6e2b3",
+          "background": "#4e3d34",
+          "ratio": 8.0587,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#f6e2b3",
+          "background": "#291f1b",
+          "ratio": 12.5932,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#1a1210",
+          "background": "#f6e2b3",
+          "ratio": 14.4544,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#1a1210",
+          "background": "#f6e2b3",
+          "ratio": 14.4544,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#a69084",
+          "background": "#1a1210",
+          "ratio": 6.1022,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#d4baaa",
+          "background": "#1a1210",
+          "ratio": 10.0212,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#1a1210",
+          "ratio": 8.7526,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#ffb0aa",
+          "background": "#1a1210",
+          "ratio": 10.5829,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#1a1210",
+          "ratio": 13.1558,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#cae9c9",
+          "background": "#1a1210",
+          "ratio": 14.0697,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#1a1210",
+          "ratio": 12.7537,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#ffda94",
+          "background": "#1a1210",
+          "ratio": 13.8042,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#b6cff3",
+          "background": "#1a1210",
+          "ratio": 11.6074,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#ccd9ef",
+          "background": "#1a1210",
+          "ratio": 12.9525,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#dfb6f3",
+          "background": "#1a1210",
+          "ratio": 10.6536,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#e9c7ef",
+          "background": "#1a1210",
+          "ratio": 12.1981,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#b6f3f3",
+          "background": "#1a1210",
+          "ratio": 15.0304,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#ccf2ef",
+          "background": "#1a1210",
+          "ratio": 15.3918,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#d4baaa",
+          "background": "#1a1210",
+          "ratio": 10.0212,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#fff0e4",
+          "background": "#1a1210",
+          "ratio": 16.5532,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#fff0e4",
+          "background": "#4c3f34",
+          "ratio": 9.109,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#d4baaa",
+          "background": "#4c3f34",
+          "ratio": 5.5145,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#fff0e4",
+          "background": "#4d3a2e",
+          "ratio": 9.6092,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#d4baaa",
+          "background": "#4d3a2e",
+          "ratio": 5.8174,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "ferrite",
+      "name": "Ferrite",
+      "minimumTextRatio": 5.0307,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#ffeaf0",
+          "background": "#1b1016",
+          "ratio": 16.1435,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#d7b4c3",
+          "background": "#1b1016",
+          "ratio": 9.8966,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#ffeaf0",
+          "background": "#33212b",
+          "ratio": 13.1205,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#d7b4c3",
+          "background": "#33212b",
+          "ratio": 8.0434,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#ffeaf0",
+          "background": "#432e39",
+          "ratio": 10.8256,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#d7b4c3",
+          "background": "#432e39",
+          "ratio": 6.6365,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#ffeaf0",
+          "background": "#513744",
+          "ratio": 9.2329,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#d7b4c3",
+          "background": "#513744",
+          "ratio": 5.6601,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#ffeaf0",
+          "background": "#2c1c25",
+          "ratio": 14.062,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#d7b4c3",
+          "background": "#2c1c25",
+          "ratio": 8.6206,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#ffa8ad",
+          "background": "#1b1016",
+          "ratio": 10.1178,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#ffa8ad",
+          "background": "#33212b",
+          "ratio": 8.2232,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#ffa8ad",
+          "background": "#432e39",
+          "ratio": 6.7849,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#ffa8ad",
+          "background": "#513744",
+          "ratio": 5.7866,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#ffa8ad",
+          "background": "#2c1c25",
+          "ratio": 8.8133,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#1b1016",
+          "background": "#ffa8ad",
+          "ratio": 10.1178,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#1b1016",
+          "background": "#ffa8ad",
+          "ratio": 10.1178,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#1b1016",
+          "ratio": 12.8171,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#33212b",
+          "ratio": 10.417,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#432e39",
+          "ratio": 8.5949,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#513744",
+          "ratio": 7.3304,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#2c1c25",
+          "ratio": 11.1645,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#1b1016",
+          "background": "#ffd071",
+          "ratio": 12.8171,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#1b1016",
+          "background": "#ffd071",
+          "ratio": 12.8171,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#1b1016",
+          "ratio": 8.7961,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#33212b",
+          "ratio": 7.149,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#432e39",
+          "ratio": 5.8985,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#513744",
+          "ratio": 5.0307,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#2c1c25",
+          "ratio": 7.6619,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#1b1016",
+          "background": "#ff9591",
+          "ratio": 8.7961,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#1b1016",
+          "background": "#ff9591",
+          "ratio": 8.7961,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#1b1016",
+          "ratio": 13.2211,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#33212b",
+          "ratio": 10.7454,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#432e39",
+          "ratio": 8.8658,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#513744",
+          "ratio": 7.5615,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#2c1c25",
+          "ratio": 11.5164,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#1b1016",
+          "background": "#b3e6bd",
+          "ratio": 13.2211,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#1b1016",
+          "background": "#b3e6bd",
+          "ratio": 13.2211,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#ffcc9c",
+          "background": "#1b1016",
+          "ratio": 12.6902,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#ffcc9c",
+          "background": "#33212b",
+          "ratio": 10.3139,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#ffcc9c",
+          "background": "#432e39",
+          "ratio": 8.5099,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#ffcc9c",
+          "background": "#513744",
+          "ratio": 7.2579,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#ffcc9c",
+          "background": "#2c1c25",
+          "ratio": 11.054,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#1b1016",
+          "background": "#ffcc9c",
+          "ratio": 12.6902,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#1b1016",
+          "background": "#ffcc9c",
+          "ratio": 12.6902,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#a88b98",
+          "background": "#1b1016",
+          "ratio": 6.0155,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#d7b4c3",
+          "background": "#1b1016",
+          "ratio": 9.8966,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#1b1016",
+          "ratio": 8.7961,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#ffafae",
+          "background": "#1b1016",
+          "ratio": 10.5936,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#1b1016",
+          "ratio": 13.2211,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#cae7cc",
+          "background": "#1b1016",
+          "ratio": 13.9659,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#1b1016",
+          "ratio": 12.8171,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#ffd897",
+          "background": "#1b1016",
+          "ratio": 13.7076,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#aac8f1",
+          "background": "#1b1016",
+          "ratio": 10.8108,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#c4d2f1",
+          "background": "#1b1016",
+          "ratio": 12.2193,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#d9aaf1",
+          "background": "#1b1016",
+          "ratio": 9.6886,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#e4bdf1",
+          "background": "#1b1016",
+          "ratio": 11.3468,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#aaf1f1",
+          "background": "#1b1016",
+          "ratio": 14.6264,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#c4eff1",
+          "background": "#1b1016",
+          "ratio": 14.9818,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#d7b4c3",
+          "background": "#1b1016",
+          "ratio": 9.8966,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#ffeaf0",
+          "background": "#1b1016",
+          "ratio": 16.1435,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#ffeaf0",
+          "background": "#50393b",
+          "ratio": 9.1879,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#d7b4c3",
+          "background": "#50393b",
+          "ratio": 5.6325,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#ffeaf0",
+          "background": "#50343d",
+          "ratio": 9.6224,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#d7b4c3",
+          "background": "#50343d",
+          "ratio": 5.8989,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "minimumTextRatio": 5.1185,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#f3ecff",
+          "background": "#161121",
+          "ratio": 16.0643,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#c8b8dc",
+          "background": "#161121",
+          "ratio": 9.985,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#f3ecff",
+          "background": "#292137",
+          "ratio": 13.3528,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#c8b8dc",
+          "background": "#292137",
+          "ratio": 8.2996,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#f3ecff",
+          "background": "#372e46",
+          "ratio": 11.1185,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#c8b8dc",
+          "background": "#372e46",
+          "ratio": 6.9109,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#f3ecff",
+          "background": "#443856",
+          "ratio": 9.3806,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#c8b8dc",
+          "background": "#443856",
+          "ratio": 5.8307,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#f3ecff",
+          "background": "#231c30",
+          "ratio": 14.2575,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#c8b8dc",
+          "background": "#231c30",
+          "ratio": 8.862,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#d7b7ff",
+          "background": "#161121",
+          "ratio": 10.655,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#d7b7ff",
+          "background": "#292137",
+          "ratio": 8.8565,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#d7b7ff",
+          "background": "#372e46",
+          "ratio": 7.3746,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#d7b7ff",
+          "background": "#443856",
+          "ratio": 6.2219,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#d7b7ff",
+          "background": "#231c30",
+          "ratio": 9.4566,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#161121",
+          "background": "#d7b7ff",
+          "ratio": 10.655,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#161121",
+          "background": "#d7b7ff",
+          "ratio": 10.655,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#161121",
+          "ratio": 12.7725,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#292137",
+          "ratio": 10.6166,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#372e46",
+          "ratio": 8.8402,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#443856",
+          "ratio": 7.4584,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#231c30",
+          "ratio": 11.3359,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#161121",
+          "background": "#ffd071",
+          "ratio": 12.7725,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#161121",
+          "background": "#ffd071",
+          "ratio": 12.7725,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#161121",
+          "ratio": 8.7655,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#292137",
+          "ratio": 7.286,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#372e46",
+          "ratio": 6.0669,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#443856",
+          "ratio": 5.1185,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#231c30",
+          "ratio": 7.7796,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#161121",
+          "background": "#ff9591",
+          "ratio": 8.7655,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#161121",
+          "background": "#ff9591",
+          "ratio": 8.7655,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#161121",
+          "ratio": 13.1751,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#292137",
+          "ratio": 10.9513,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#372e46",
+          "ratio": 9.1189,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#443856",
+          "ratio": 7.6935,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#231c30",
+          "ratio": 11.6933,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#161121",
+          "background": "#b3e6bd",
+          "ratio": 13.1751,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#161121",
+          "background": "#b3e6bd",
+          "ratio": 13.1751,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#a9d9f6",
+          "background": "#161121",
+          "ratio": 12.2709,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#a9d9f6",
+          "background": "#292137",
+          "ratio": 10.1997,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#a9d9f6",
+          "background": "#372e46",
+          "ratio": 8.4931,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#a9d9f6",
+          "background": "#443856",
+          "ratio": 7.1655,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#a9d9f6",
+          "background": "#231c30",
+          "ratio": 10.8908,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#161121",
+          "background": "#a9d9f6",
+          "ratio": 12.2709,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#161121",
+          "background": "#a9d9f6",
+          "ratio": 12.2709,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#9c8ead",
+          "background": "#161121",
+          "ratio": 6.0604,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#c8b8dc",
+          "background": "#161121",
+          "ratio": 9.985,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#161121",
+          "ratio": 8.7655,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#fbafb2",
+          "background": "#161121",
+          "ratio": 10.4525,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#161121",
+          "ratio": 13.1751,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c6e8d1",
+          "background": "#161121",
+          "ratio": 13.9621,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#161121",
+          "ratio": 12.7725,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fbd89c",
+          "background": "#161121",
+          "ratio": 13.557,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#adcaf2",
+          "background": "#161121",
+          "ratio": 11.0074,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#c2d4f6",
+          "background": "#161121",
+          "ratio": 12.3582,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#dbadf2",
+          "background": "#161121",
+          "ratio": 9.92,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#e2c0f6",
+          "background": "#161121",
+          "ratio": 11.5329,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#adf2f2",
+          "background": "#161121",
+          "ratio": 14.7501,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#c2f0f6",
+          "background": "#161121",
+          "ratio": 15.0395,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#c8b8dc",
+          "background": "#161121",
+          "ratio": 9.985,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#f3ecff",
+          "background": "#161121",
+          "ratio": 16.0643,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#f3ecff",
+          "background": "#3b3b52",
+          "ratio": 9.441,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#c8b8dc",
+          "background": "#3b3b52",
+          "ratio": 5.8682,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#f3ecff",
+          "background": "#423653",
+          "ratio": 9.6873,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#c8b8dc",
+          "background": "#423653",
+          "ratio": 6.0213,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "argent",
+      "name": "Argent",
+      "minimumTextRatio": 4.5612,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#f3f5f5",
+          "background": "#121415",
+          "ratio": 16.8839,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#bec7ca",
+          "background": "#121415",
+          "ratio": 10.7439,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#f3f5f5",
+          "background": "#25292b",
+          "ratio": 13.4131,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#bec7ca",
+          "background": "#25292b",
+          "ratio": 8.5353,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#f3f5f5",
+          "background": "#34393b",
+          "ratio": 10.6945,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#bec7ca",
+          "background": "#34393b",
+          "ratio": 6.8054,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#f3f5f5",
+          "background": "#3f4649",
+          "ratio": 8.7883,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#bec7ca",
+          "background": "#3f4649",
+          "ratio": 5.5924,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#f3f5f5",
+          "background": "#1f2324",
+          "ratio": 14.4926,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#bec7ca",
+          "background": "#1f2324",
+          "ratio": 9.2223,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#e2e6e8",
+          "background": "#121415",
+          "ratio": 14.7084,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#e2e6e8",
+          "background": "#25292b",
+          "ratio": 11.6848,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#e2e6e8",
+          "background": "#34393b",
+          "ratio": 9.3165,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#e2e6e8",
+          "background": "#3f4649",
+          "ratio": 7.656,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#e2e6e8",
+          "background": "#1f2324",
+          "ratio": 12.6253,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#121415",
+          "background": "#e2e6e8",
+          "ratio": 14.7084,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#121415",
+          "background": "#e2e6e8",
+          "ratio": 14.7084,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#121415",
+          "ratio": 12.7685,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#25292b",
+          "ratio": 10.1437,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#34393b",
+          "ratio": 8.0878,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#3f4649",
+          "ratio": 6.6462,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#1f2324",
+          "ratio": 10.9601,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#121415",
+          "background": "#ffd071",
+          "ratio": 12.7685,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#121415",
+          "background": "#ffd071",
+          "ratio": 12.7685,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#121415",
+          "ratio": 8.7628,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#25292b",
+          "ratio": 6.9614,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#34393b",
+          "ratio": 5.5505,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#3f4649",
+          "ratio": 4.5612,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#1f2324",
+          "ratio": 7.5217,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#121415",
+          "background": "#ff9591",
+          "ratio": 8.7628,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#121415",
+          "background": "#ff9591",
+          "ratio": 8.7628,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#121415",
+          "ratio": 13.171,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#25292b",
+          "ratio": 10.4635,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#34393b",
+          "ratio": 8.3427,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#3f4649",
+          "ratio": 6.8557,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#1f2324",
+          "ratio": 11.3056,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#121415",
+          "background": "#b3e6bd",
+          "ratio": 13.171,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#121415",
+          "background": "#b3e6bd",
+          "ratio": 13.171,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#bdced3",
+          "background": "#121415",
+          "ratio": 11.3785,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#bdced3",
+          "background": "#25292b",
+          "ratio": 9.0394,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#bdced3",
+          "background": "#34393b",
+          "ratio": 7.2073,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#bdced3",
+          "background": "#3f4649",
+          "ratio": 5.9227,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#bdced3",
+          "background": "#1f2324",
+          "ratio": 9.767,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#121415",
+          "background": "#bdced3",
+          "ratio": 11.3785,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#121415",
+          "background": "#bdced3",
+          "ratio": 11.3785,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#939a9d",
+          "background": "#121415",
+          "ratio": 6.4663,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#bec7ca",
+          "background": "#121415",
+          "ratio": 10.7439,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#121415",
+          "ratio": 8.7628,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#fbb2af",
+          "background": "#121415",
+          "ratio": 10.636,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#121415",
+          "ratio": 13.171,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c6ebce",
+          "background": "#121415",
+          "ratio": 14.2316,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#121415",
+          "ratio": 12.7685,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fbdb99",
+          "background": "#121415",
+          "ratio": 13.8081,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#bdc6d3",
+          "background": "#121415",
+          "ratio": 10.7179,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#cdd4dd",
+          "background": "#121415",
+          "ratio": 12.3677,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#ccbdd3",
+          "background": "#121415",
+          "ratio": 10.3704,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#d8cedd",
+          "background": "#121415",
+          "ratio": 12.1347,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#bdd3d3",
+          "background": "#121415",
+          "ratio": 11.8089,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#cddddd",
+          "background": "#121415",
+          "ratio": 13.1817,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#bec7ca",
+          "background": "#121415",
+          "ratio": 10.7439,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#f3f5f5",
+          "background": "#121415",
+          "ratio": 16.8839,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#f3f5f5",
+          "background": "#3a4043",
+          "ratio": 9.6226,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#bec7ca",
+          "background": "#3a4043",
+          "ratio": 6.1232,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#f3f5f5",
+          "background": "#404446",
+          "ratio": 8.9957,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#bec7ca",
+          "background": "#404446",
+          "ratio": 5.7243,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "lichen",
+      "name": "Lichen",
+      "minimumTextRatio": 4.5632,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#f0f3e3",
+          "background": "#14170e",
+          "ratio": 16.083,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#c1c9a9",
+          "background": "#14170e",
+          "ratio": 10.5253,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#f0f3e3",
+          "background": "#282e1e",
+          "ratio": 12.4249,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#c1c9a9",
+          "background": "#282e1e",
+          "ratio": 8.1313,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#f0f3e3",
+          "background": "#353d29",
+          "ratio": 10.0678,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#c1c9a9",
+          "background": "#353d29",
+          "ratio": 6.5887,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#f0f3e3",
+          "background": "#3f4831",
+          "ratio": 8.5376,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#c1c9a9",
+          "background": "#3f4831",
+          "ratio": 5.5873,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#f0f3e3",
+          "background": "#222719",
+          "ratio": 13.5794,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#c1c9a9",
+          "background": "#222719",
+          "ratio": 8.8868,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#bddd84",
+          "background": "#14170e",
+          "ratio": 11.9446,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#bddd84",
+          "background": "#282e1e",
+          "ratio": 9.2278,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#bddd84",
+          "background": "#353d29",
+          "ratio": 7.4772,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#bddd84",
+          "background": "#3f4831",
+          "ratio": 6.3407,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#bddd84",
+          "background": "#222719",
+          "ratio": 10.0852,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#14170e",
+          "background": "#bddd84",
+          "ratio": 11.9446,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#14170e",
+          "background": "#bddd84",
+          "ratio": 11.9446,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#14170e",
+          "ratio": 12.5257,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#282e1e",
+          "ratio": 9.6767,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#353d29",
+          "ratio": 7.841,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#3f4831",
+          "ratio": 6.6492,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#222719",
+          "ratio": 10.5758,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#14170e",
+          "background": "#ffd071",
+          "ratio": 12.5257,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#14170e",
+          "background": "#ffd071",
+          "ratio": 12.5257,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#14170e",
+          "ratio": 8.5961,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#282e1e",
+          "ratio": 6.6409,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#353d29",
+          "ratio": 5.3811,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#3f4831",
+          "ratio": 4.5632,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#222719",
+          "ratio": 7.258,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#14170e",
+          "background": "#ff9591",
+          "ratio": 8.5961,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#14170e",
+          "background": "#ff9591",
+          "ratio": 8.5961,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#14170e",
+          "ratio": 12.9205,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#282e1e",
+          "ratio": 9.9817,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#353d29",
+          "ratio": 8.0881,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#3f4831",
+          "ratio": 6.8588,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#222719",
+          "ratio": 10.9092,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#14170e",
+          "background": "#b3e6bd",
+          "ratio": 12.9205,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#14170e",
+          "background": "#b3e6bd",
+          "ratio": 12.9205,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#8dd9b2",
+          "background": "#14170e",
+          "ratio": 10.9616,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#8dd9b2",
+          "background": "#282e1e",
+          "ratio": 8.4683,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#8dd9b2",
+          "background": "#353d29",
+          "ratio": 6.8619,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#8dd9b2",
+          "background": "#3f4831",
+          "ratio": 5.8189,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#8dd9b2",
+          "background": "#222719",
+          "ratio": 9.2552,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#14170e",
+          "background": "#8dd9b2",
+          "ratio": 10.9616,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#14170e",
+          "background": "#8dd9b2",
+          "ratio": 10.9616,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#969d82",
+          "background": "#14170e",
+          "ratio": 6.423,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#c1c9a9",
+          "background": "#14170e",
+          "ratio": 10.5253,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#14170e",
+          "ratio": 8.5961,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#fbb1aa",
+          "background": "#14170e",
+          "ratio": 10.332,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#14170e",
+          "ratio": 12.9205,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c5eac8",
+          "background": "#14170e",
+          "ratio": 13.7896,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#14170e",
+          "ratio": 12.5257,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fbdb93",
+          "background": "#14170e",
+          "ratio": 13.5121,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#8dadd9",
+          "background": "#14170e",
+          "ratio": 7.8643,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#abc2dc",
+          "background": "#14170e",
+          "ratio": 9.9097,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#c08dd9",
+          "background": "#14170e",
+          "ratio": 6.9505,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#ceacdc",
+          "background": "#14170e",
+          "ratio": 9.1131,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#8dd9d9",
+          "background": "#14170e",
+          "ratio": 11.2715,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#abe1dc",
+          "background": "#14170e",
+          "ratio": 12.5449,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#c1c9a9",
+          "background": "#14170e",
+          "ratio": 10.5253,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#f0f3e3",
+          "background": "#14170e",
+          "ratio": 16.083,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#f0f3e3",
+          "background": "#364633",
+          "ratio": 8.9558,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#c1c9a9",
+          "background": "#364633",
+          "ratio": 5.861,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#f0f3e3",
+          "background": "#3d472c",
+          "ratio": 8.7237,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#c1c9a9",
+          "background": "#3d472c",
+          "ratio": 5.7091,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "helios",
+      "name": "Helios",
+      "minimumTextRatio": 4.5268,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#f5f2e7",
+          "background": "#11151c",
+          "ratio": 16.3235,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#c2c8cb",
+          "background": "#11151c",
+          "ratio": 10.8183,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#f5f2e7",
+          "background": "#232c35",
+          "ratio": 12.6334,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#c2c8cb",
+          "background": "#232c35",
+          "ratio": 8.3727,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#f5f2e7",
+          "background": "#303c46",
+          "ratio": 10.0713,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#c2c8cb",
+          "background": "#303c46",
+          "ratio": 6.6747,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#f5f2e7",
+          "background": "#394753",
+          "ratio": 8.5163,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#c2c8cb",
+          "background": "#394753",
+          "ratio": 5.6441,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#f5f2e7",
+          "background": "#1e252e",
+          "ratio": 13.7847,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#c2c8cb",
+          "background": "#1e252e",
+          "ratio": 9.1357,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#f4db83",
+          "background": "#11151c",
+          "ratio": 13.3351,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#f4db83",
+          "background": "#232c35",
+          "ratio": 10.3206,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#f4db83",
+          "background": "#303c46",
+          "ratio": 8.2275,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#f4db83",
+          "background": "#394753",
+          "ratio": 6.9572,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#f4db83",
+          "background": "#1e252e",
+          "ratio": 11.2611,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#11151c",
+          "background": "#f4db83",
+          "ratio": 13.3351,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#11151c",
+          "background": "#f4db83",
+          "ratio": 13.3351,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#11151c",
+          "ratio": 12.6433,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#232c35",
+          "ratio": 9.7851,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#303c46",
+          "ratio": 7.8007,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#394753",
+          "ratio": 6.5962,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#1e252e",
+          "ratio": 10.6768,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#11151c",
+          "background": "#ffd071",
+          "ratio": 12.6433,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#11151c",
+          "background": "#ffd071",
+          "ratio": 12.6433,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#11151c",
+          "ratio": 8.6768,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#232c35",
+          "ratio": 6.7154,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#303c46",
+          "ratio": 5.3534,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#394753",
+          "ratio": 4.5268,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#1e252e",
+          "ratio": 7.3273,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#11151c",
+          "background": "#ff9591",
+          "ratio": 8.6768,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#11151c",
+          "background": "#ff9591",
+          "ratio": 8.6768,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#11151c",
+          "ratio": 13.0418,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#232c35",
+          "ratio": 10.0936,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#303c46",
+          "ratio": 8.0466,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#394753",
+          "ratio": 6.8041,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#1e252e",
+          "ratio": 11.0134,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#11151c",
+          "background": "#b3e6bd",
+          "ratio": 13.0418,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#11151c",
+          "background": "#b3e6bd",
+          "ratio": 13.0418,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#b9d8ed",
+          "background": "#11151c",
+          "ratio": 12.2907,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#b9d8ed",
+          "background": "#232c35",
+          "ratio": 9.5123,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#b9d8ed",
+          "background": "#303c46",
+          "ratio": 7.5831,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#b9d8ed",
+          "background": "#394753",
+          "ratio": 6.4123,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#b9d8ed",
+          "background": "#1e252e",
+          "ratio": 10.3791,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#11151c",
+          "background": "#b9d8ed",
+          "ratio": 12.2907,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#11151c",
+          "background": "#b9d8ed",
+          "ratio": 12.2907,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#969b9f",
+          "background": "#11151c",
+          "ratio": 6.5216,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#c2c8cb",
+          "background": "#11151c",
+          "ratio": 10.8183,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#11151c",
+          "ratio": 8.6768,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#fcb1ab",
+          "background": "#11151c",
+          "ratio": 10.4681,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#11151c",
+          "ratio": 13.0418,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c7eaca",
+          "background": "#11151c",
+          "ratio": 13.9828,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#11151c",
+          "ratio": 12.6433,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fcda94",
+          "background": "#11151c",
+          "ratio": 13.5863,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#b9cfed",
+          "background": "#11151c",
+          "ratio": 11.509,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#cbdaeb",
+          "background": "#11151c",
+          "ratio": 12.8651,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#dcb9ed",
+          "background": "#11151c",
+          "ratio": 10.6333,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#e4caeb",
+          "background": "#11151c",
+          "ratio": 12.15,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#b9eded",
+          "background": "#11151c",
+          "ratio": 14.2868,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#cbefeb",
+          "background": "#11151c",
+          "ratio": 14.8846,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#c2c8cb",
+          "background": "#11151c",
+          "ratio": 10.8183,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#f5f2e7",
+          "background": "#11151c",
+          "ratio": 16.3235,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#f5f2e7",
+          "background": "#38444f",
+          "ratio": 8.8891,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#c2c8cb",
+          "background": "#38444f",
+          "ratio": 5.8911,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#f5f2e7",
+          "background": "#414540",
+          "ratio": 8.7148,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#c2c8cb",
+          "background": "#414540",
+          "ratio": 5.7757,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "umbra",
+      "name": "Umbra",
+      "minimumTextRatio": 5.1164,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#fcecff",
+          "background": "#1a101d",
+          "ratio": 16.3599,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#d1b5d5",
+          "background": "#1a101d",
+          "ratio": 9.9328,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#fcecff",
+          "background": "#302034",
+          "ratio": 13.4465,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#d1b5d5",
+          "background": "#302034",
+          "ratio": 8.1639,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#fcecff",
+          "background": "#3f2c43",
+          "ratio": 11.2432,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#d1b5d5",
+          "background": "#3f2c43",
+          "ratio": 6.8262,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#fcecff",
+          "background": "#4d3552",
+          "ratio": 9.5453,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#d1b5d5",
+          "background": "#4d3552",
+          "ratio": 5.7953,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#fcecff",
+          "background": "#291b2d",
+          "ratio": 14.4158,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#d1b5d5",
+          "background": "#291b2d",
+          "ratio": 8.7524,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#f5abe2",
+          "background": "#1a101d",
+          "ratio": 10.3945,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#f5abe2",
+          "background": "#302034",
+          "ratio": 8.5434,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#f5abe2",
+          "background": "#3f2c43",
+          "ratio": 7.1435,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#f5abe2",
+          "background": "#4d3552",
+          "ratio": 6.0647,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#f5abe2",
+          "background": "#291b2d",
+          "ratio": 9.1593,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#1a101d",
+          "background": "#f5abe2",
+          "ratio": 10.3945,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#1a101d",
+          "background": "#f5abe2",
+          "ratio": 10.3945,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#1a101d",
+          "ratio": 12.7778,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#302034",
+          "ratio": 10.5023,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#3f2c43",
+          "ratio": 8.7814,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#4d3552",
+          "ratio": 7.4553,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#291b2d",
+          "ratio": 11.2594,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#1a101d",
+          "background": "#ffd071",
+          "ratio": 12.7778,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#1a101d",
+          "background": "#ffd071",
+          "ratio": 12.7778,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#1a101d",
+          "ratio": 8.7692,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#302034",
+          "ratio": 7.2075,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#3f2c43",
+          "ratio": 6.0265,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#4d3552",
+          "ratio": 5.1164,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#291b2d",
+          "ratio": 7.7271,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#1a101d",
+          "background": "#ff9591",
+          "ratio": 8.7692,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#1a101d",
+          "background": "#ff9591",
+          "ratio": 8.7692,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#1a101d",
+          "ratio": 13.1806,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#302034",
+          "ratio": 10.8334,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#3f2c43",
+          "ratio": 9.0582,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#4d3552",
+          "ratio": 7.6903,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#291b2d",
+          "ratio": 11.6143,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#1a101d",
+          "background": "#b3e6bd",
+          "ratio": 13.1806,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#1a101d",
+          "background": "#b3e6bd",
+          "ratio": 13.1806,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#c5b9ff",
+          "background": "#1a101d",
+          "ratio": 10.352,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#c5b9ff",
+          "background": "#302034",
+          "ratio": 8.5085,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#c5b9ff",
+          "background": "#3f2c43",
+          "ratio": 7.1143,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#c5b9ff",
+          "background": "#4d3552",
+          "ratio": 6.04,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#c5b9ff",
+          "background": "#291b2d",
+          "ratio": 9.1219,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#1a101d",
+          "background": "#c5b9ff",
+          "ratio": 10.352,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#1a101d",
+          "background": "#c5b9ff",
+          "ratio": 10.352,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#a38ca7",
+          "background": "#1a101d",
+          "ratio": 6.0457,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#d1b5d5",
+          "background": "#1a101d",
+          "ratio": 9.9328,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#1a101d",
+          "ratio": 8.7692,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#feafb2",
+          "background": "#1a101d",
+          "ratio": 10.5558,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#1a101d",
+          "ratio": 13.1806,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c9e8d1",
+          "background": "#1a101d",
+          "ratio": 14.0404,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#1a101d",
+          "ratio": 12.7778,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fed89c",
+          "background": "#1a101d",
+          "ratio": 13.6616,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#c3d8f5",
+          "background": "#1a101d",
+          "ratio": 12.7325,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#d4def8",
+          "background": "#1a101d",
+          "ratio": 13.738,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#e4c3f5",
+          "background": "#1a101d",
+          "ratio": 11.8186,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#ebcff8",
+          "background": "#1a101d",
+          "ratio": 13.0422,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#c3f5f5",
+          "background": "#1a101d",
+          "ratio": 15.5839,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#d4f2f8",
+          "background": "#1a101d",
+          "ratio": 15.7211,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#d1b5d5",
+          "background": "#1a101d",
+          "ratio": 9.9328,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#fcecff",
+          "background": "#1a101d",
+          "ratio": 16.3599,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#fcecff",
+          "background": "#453651",
+          "ratio": 9.7821,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#d1b5d5",
+          "background": "#453651",
+          "ratio": 5.9391,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#fcecff",
+          "background": "#4c344d",
+          "ratio": 9.7506,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#d1b5d5",
+          "background": "#4c344d",
+          "ratio": 5.92,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "vellum",
+      "name": "Vellum",
+      "minimumTextRatio": 4.5872,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#f7f1e6",
+          "background": "#181612",
+          "ratio": 16.0707,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#cfc4b2",
+          "background": "#181612",
+          "ratio": 10.4892,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#f7f1e6",
+          "background": "#2d2923",
+          "ratio": 12.8557,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#cfc4b2",
+          "background": "#2d2923",
+          "ratio": 8.3907,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#f7f1e6",
+          "background": "#3c372f",
+          "ratio": 10.4962,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#cfc4b2",
+          "background": "#3c372f",
+          "ratio": 6.8507,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#f7f1e6",
+          "background": "#49443a",
+          "ratio": 8.6032,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#cfc4b2",
+          "background": "#49443a",
+          "ratio": 5.6152,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#f7f1e6",
+          "background": "#27231e",
+          "ratio": 13.8838,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#cfc4b2",
+          "background": "#27231e",
+          "ratio": 9.0617,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#e9ccb0",
+          "background": "#181612",
+          "ratio": 11.8114,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#e9ccb0",
+          "background": "#2d2923",
+          "ratio": 9.4484,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#e9ccb0",
+          "background": "#3c372f",
+          "ratio": 7.7143,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#e9ccb0",
+          "background": "#49443a",
+          "ratio": 6.323,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#e9ccb0",
+          "background": "#27231e",
+          "ratio": 10.204,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#181612",
+          "background": "#e9ccb0",
+          "ratio": 11.8114,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#181612",
+          "background": "#e9ccb0",
+          "ratio": 11.8114,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#181612",
+          "ratio": 12.4859,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#2d2923",
+          "ratio": 9.988,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#3c372f",
+          "ratio": 8.1548,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#49443a",
+          "ratio": 6.6841,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#27231e",
+          "ratio": 10.7868,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#181612",
+          "background": "#ffd071",
+          "ratio": 12.4859,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#181612",
+          "background": "#ffd071",
+          "ratio": 12.4859,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#181612",
+          "ratio": 8.5688,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#2d2923",
+          "ratio": 6.8546,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#3c372f",
+          "ratio": 5.5965,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#49443a",
+          "ratio": 4.5872,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#27231e",
+          "ratio": 7.4027,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#181612",
+          "background": "#ff9591",
+          "ratio": 8.5688,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#181612",
+          "background": "#ff9591",
+          "ratio": 8.5688,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#181612",
+          "ratio": 12.8795,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#2d2923",
+          "ratio": 10.3029,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#3c372f",
+          "ratio": 8.4119,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#49443a",
+          "ratio": 6.8948,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#27231e",
+          "ratio": 11.1268,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#181612",
+          "background": "#b3e6bd",
+          "ratio": 12.8795,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#181612",
+          "background": "#b3e6bd",
+          "ratio": 12.8795,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#c7d6ae",
+          "background": "#181612",
+          "ratio": 11.7507,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#c7d6ae",
+          "background": "#2d2923",
+          "ratio": 9.3999,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#c7d6ae",
+          "background": "#3c372f",
+          "ratio": 7.6747,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#c7d6ae",
+          "background": "#49443a",
+          "ratio": 6.2905,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#c7d6ae",
+          "background": "#27231e",
+          "ratio": 10.1516,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#181612",
+          "background": "#c7d6ae",
+          "ratio": 11.7507,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#181612",
+          "background": "#c7d6ae",
+          "ratio": 11.7507,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#a1998a",
+          "background": "#181612",
+          "ratio": 6.4,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#cfc4b2",
+          "background": "#181612",
+          "ratio": 10.4892,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#181612",
+          "ratio": 8.5688,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#fdb1ab",
+          "background": "#181612",
+          "ratio": 10.37,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#181612",
+          "ratio": 12.8795,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c7e9c9",
+          "background": "#181612",
+          "ratio": 13.7029,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#181612",
+          "ratio": 12.4859,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#fdda94",
+          "background": "#181612",
+          "ratio": 13.4494,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#aebfd6",
+          "background": "#181612",
+          "ratio": 9.6556,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#c4cedb",
+          "background": "#181612",
+          "ratio": 11.3552,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#c9aed6",
+          "background": "#181612",
+          "ratio": 9.0412,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#d7c2db",
+          "background": "#181612",
+          "ratio": 10.8652,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#aed6d6",
+          "background": "#181612",
+          "ratio": 11.5194,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#c4dedb",
+          "background": "#181612",
+          "ratio": 12.7489,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#cfc4b2",
+          "background": "#181612",
+          "ratio": 10.4892,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#f7f1e6",
+          "background": "#181612",
+          "ratio": 16.0707,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#f7f1e6",
+          "background": "#434137",
+          "ratio": 9.1122,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#cfc4b2",
+          "background": "#434137",
+          "ratio": 5.9474,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#f7f1e6",
+          "background": "#484037",
+          "ratio": 9.0499,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#cfc4b2",
+          "background": "#484037",
+          "ratio": 5.9067,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "glacial",
+      "name": "Glacial",
+      "minimumTextRatio": 4.5336,
+      "pairs": [
+        {
+          "name": "text / obsidian",
+          "foreground": "#e9f5ff",
+          "background": "#0d1620",
+          "ratio": 16.4563,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / obsidian",
+          "foreground": "#b1c9db",
+          "background": "#0d1620",
+          "ratio": 10.6243,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface",
+          "foreground": "#e9f5ff",
+          "background": "#1b2b39",
+          "ratio": 13.0714,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface",
+          "foreground": "#b1c9db",
+          "background": "#1b2b39",
+          "ratio": 8.439,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / surface2",
+          "foreground": "#e9f5ff",
+          "background": "#273b4b",
+          "ratio": 10.4605,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / surface2",
+          "foreground": "#b1c9db",
+          "background": "#273b4b",
+          "ratio": 6.7534,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / pressed",
+          "foreground": "#e9f5ff",
+          "background": "#304859",
+          "ratio": 8.6349,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / pressed",
+          "foreground": "#b1c9db",
+          "background": "#304859",
+          "ratio": 5.5747,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "text / lower",
+          "foreground": "#e9f5ff",
+          "background": "#172532",
+          "ratio": 14.0817,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "textDim / lower",
+          "foreground": "#b1c9db",
+          "background": "#172532",
+          "ratio": 9.0913,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / obsidian",
+          "foreground": "#9be1f2",
+          "background": "#0d1620",
+          "ratio": 12.5319,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface",
+          "foreground": "#9be1f2",
+          "background": "#1b2b39",
+          "ratio": 9.9543,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / surface2",
+          "foreground": "#9be1f2",
+          "background": "#273b4b",
+          "ratio": 7.966,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / pressed",
+          "foreground": "#9be1f2",
+          "background": "#304859",
+          "ratio": 6.5757,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "signal / lower",
+          "foreground": "#9be1f2",
+          "background": "#172532",
+          "ratio": 10.7236,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / signal",
+          "foreground": "#0d1620",
+          "background": "#9be1f2",
+          "ratio": 12.5319,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / signal",
+          "foreground": "#0d1620",
+          "background": "#9be1f2",
+          "ratio": 12.5319,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "caution / obsidian",
+          "foreground": "#ffd071",
+          "background": "#0d1620",
+          "ratio": 12.5899,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface",
+          "foreground": "#ffd071",
+          "background": "#1b2b39",
+          "ratio": 10.0003,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / surface2",
+          "foreground": "#ffd071",
+          "background": "#273b4b",
+          "ratio": 8.0029,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / pressed",
+          "foreground": "#ffd071",
+          "background": "#304859",
+          "ratio": 6.6061,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "caution / lower",
+          "foreground": "#ffd071",
+          "background": "#172532",
+          "ratio": 10.7732,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / caution",
+          "foreground": "#0d1620",
+          "background": "#ffd071",
+          "ratio": 12.5899,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / caution",
+          "foreground": "#0d1620",
+          "background": "#ffd071",
+          "ratio": 12.5899,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "critical / obsidian",
+          "foreground": "#ff9591",
+          "background": "#0d1620",
+          "ratio": 8.6402,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface",
+          "foreground": "#ff9591",
+          "background": "#1b2b39",
+          "ratio": 6.863,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / surface2",
+          "foreground": "#ff9591",
+          "background": "#273b4b",
+          "ratio": 5.4922,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / pressed",
+          "foreground": "#ff9591",
+          "background": "#304859",
+          "ratio": 4.5336,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "critical / lower",
+          "foreground": "#ff9591",
+          "background": "#172532",
+          "ratio": 7.3935,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / critical",
+          "foreground": "#0d1620",
+          "background": "#ff9591",
+          "ratio": 8.6402,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / critical",
+          "foreground": "#0d1620",
+          "background": "#ff9591",
+          "ratio": 8.6402,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "nominal / obsidian",
+          "foreground": "#b3e6bd",
+          "background": "#0d1620",
+          "ratio": 12.9868,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface",
+          "foreground": "#b3e6bd",
+          "background": "#1b2b39",
+          "ratio": 10.3156,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / surface2",
+          "foreground": "#b3e6bd",
+          "background": "#273b4b",
+          "ratio": 8.2551,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / pressed",
+          "foreground": "#b3e6bd",
+          "background": "#304859",
+          "ratio": 6.8144,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "nominal / lower",
+          "foreground": "#b3e6bd",
+          "background": "#172532",
+          "ratio": 11.1128,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / nominal",
+          "foreground": "#0d1620",
+          "background": "#b3e6bd",
+          "ratio": 12.9868,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / nominal",
+          "foreground": "#0d1620",
+          "background": "#b3e6bd",
+          "ratio": 12.9868,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "link / obsidian",
+          "foreground": "#c1caff",
+          "background": "#0d1620",
+          "ratio": 11.4161,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface",
+          "foreground": "#c1caff",
+          "background": "#1b2b39",
+          "ratio": 9.0679,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / surface2",
+          "foreground": "#c1caff",
+          "background": "#273b4b",
+          "ratio": 7.2567,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / pressed",
+          "foreground": "#c1caff",
+          "background": "#304859",
+          "ratio": 5.9902,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "link / lower",
+          "foreground": "#c1caff",
+          "background": "#172532",
+          "ratio": 9.7688,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "selection ink / link",
+          "foreground": "#0d1620",
+          "background": "#c1caff",
+          "ratio": 11.4161,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "focus / link",
+          "foreground": "#0d1620",
+          "background": "#c1caff",
+          "ratio": 11.4161,
+          "minimum": 3,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 0 / terminal",
+          "foreground": "#889cac",
+          "background": "#0d1620",
+          "ratio": 6.4177,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 0 / terminal",
+          "foreground": "#b1c9db",
+          "background": "#0d1620",
+          "ratio": 10.6243,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 1 / terminal",
+          "foreground": "#ff9591",
+          "background": "#0d1620",
+          "ratio": 8.6402,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 1 / terminal",
+          "foreground": "#f8b2b2",
+          "background": "#0d1620",
+          "ratio": 10.412,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 2 / terminal",
+          "foreground": "#b3e6bd",
+          "background": "#0d1620",
+          "ratio": 12.9868,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 2 / terminal",
+          "foreground": "#c3ebd1",
+          "background": "#0d1620",
+          "ratio": 13.988,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 3 / terminal",
+          "foreground": "#ffd071",
+          "background": "#0d1620",
+          "ratio": 12.5899,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 3 / terminal",
+          "foreground": "#f8db9c",
+          "background": "#0d1620",
+          "ratio": 13.5365,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 4 / terminal",
+          "foreground": "#cadcf6",
+          "background": "#0d1620",
+          "ratio": 13.0814,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 4 / terminal",
+          "foreground": "#d3e4f9",
+          "background": "#0d1620",
+          "ratio": 14.084,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 5 / terminal",
+          "foreground": "#e7caf6",
+          "background": "#0d1620",
+          "ratio": 12.2984,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 5 / terminal",
+          "foreground": "#e8d7f9",
+          "background": "#0d1620",
+          "ratio": 13.463,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 6 / terminal",
+          "foreground": "#caf6f6",
+          "background": "#0d1620",
+          "ratio": 15.6362,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 6 / terminal",
+          "foreground": "#d3f6f9",
+          "background": "#0d1620",
+          "ratio": 15.8927,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI normal 7 / terminal",
+          "foreground": "#b1c9db",
+          "background": "#0d1620",
+          "ratio": 10.6243,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ANSI bright 7 / terminal",
+          "foreground": "#e9f5ff",
+          "background": "#0d1620",
+          "ratio": 16.4563,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti text / tinted selection",
+          "foreground": "#e9f5ff",
+          "background": "#324155",
+          "ratio": 9.3774,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft piyti textDim / tinted selection",
+          "foreground": "#b1c9db",
+          "background": "#324155",
+          "ratio": 6.0541,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears text / tinted selection",
+          "foreground": "#e9f5ff",
+          "background": "#2d4553",
+          "ratio": 9.0863,
+          "minimum": 4.5,
+          "pass": true
+        },
+        {
+          "name": "ArtCraft thears textDim / tinted selection",
+          "foreground": "#b1c9db",
+          "background": "#2d4553",
+          "ratio": 5.8662,
+          "minimum": 4.5,
+          "pass": true
+        }
+      ]
+    }
+  ]
+}
