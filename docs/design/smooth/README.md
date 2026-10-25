@@ -68,8 +68,8 @@ At 144 Hz, compositor callback intervals (median/p95 milliseconds) were:
 | Spectra atomic redraw | 7 / 126 | 8 / 104 |
 
 [All 60/144 Hz intervals, counts and estimates](TIMING.md),
-[aggregate JSON](data/aggregate.json) and raw per-surface callback logs are
-retained. Spectra applies palette changes atomically, avoiding a whole-scene
+[aggregate JSON](data/aggregate.json) and
+[raw benchmark logs](raw-benchmark-logs.tar.gz) are retained. Spectra applies palette changes atomically, avoiding a whole-scene
 Canvas repaint on every colour-tween frame. Its redraw gaps are not a
 continuous-animation fps measure. Long ambient rests remain in raw data and
 are excluded only from active-stroke statistics.

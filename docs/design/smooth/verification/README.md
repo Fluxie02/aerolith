@@ -6,7 +6,7 @@ Node passed 118/118, Qt V4 passed 118/118, and pytest passed 71 with 1 skipped. 
 
 ## Final scenarios
 
-Every case below exited 0 without a retry. Full uses audio, media, PipeWire output and the routines fixture. Deck uses audio and the rotated/scaled Hyprland monitor fixture on a native 1920×1080 physical Sway output. AI uses the fake provider and audio, checks one-proposal approval, then removes the module while the core keeps working.
+Every case below exited 0 without a retry. Full uses audio, media, PipeWire output and the routines fixture. Deck uses audio and the rotated/scaled Hyprland monitor fixture on a native 1920×1080 headless Sway output. AI uses the fake provider and audio, checks one-proposal approval, then removes the module while the core keeps working.
 
 | Scenario | PIYTI Saturated | PIYTI Insane | THEARS Saturated | THEARS Insane |
 | --- | --- | --- | --- | --- |
