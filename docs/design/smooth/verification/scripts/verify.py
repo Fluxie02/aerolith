@@ -31,6 +31,10 @@ def run(name, command, env=None):
     result = {'name': name, 'command': command, 'environment': overrides,
               'display_command': display, 'started_at': began,
               'exit_code': process.returncode, 'elapsed_seconds': elapsed}
+    if overrides.get('SHELL_PATH'):
+        source_manifest = manifest(ROOT/overrides['SHELL_PATH'])
+        result['shell_source_manifest_sha256'] = hashlib.sha256(
+            json.dumps(source_manifest,sort_keys=True).encode()).hexdigest()
     target.with_suffix('.json').write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result), flush=True)
     return process.returncode

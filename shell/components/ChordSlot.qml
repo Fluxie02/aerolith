@@ -13,6 +13,9 @@ Item {
     // Progress is a presentation target kept for DeckView's compatibility.
     // No JavaScript binding fans a per-frame scalar out across this plane.
     property bool presented: false
+    property int presentationGeneration: 0
+    property bool entrySyncArmed: false
+    property bool dockQueued: false
     readonly property real progress: presented && slot.current ? 1 : 0
 
     x: leftOrigin + (Theme.travel ? !presented ? Theme.du(compactScreen ? 14 : 34) : slot.current ? 0 : -Theme.du(24) : 0)
@@ -91,8 +94,16 @@ Item {
     function settleTravel() {
         dockX.complete(); dockY.complete(); dockScale.complete(); dockRotation.complete();
     }
-    function dock() {
-        if (slot.bay !== "") presented = true;
+    function queueDock() {
+        if (!entrySyncArmed || dockQueued) return;
+        dockQueued = true;
+        const generation = presentationGeneration;
+        Qt.callLater(function() {
+            // Release/reuse can happen before a queued render callback runs.
+            if (generation !== chord.presentationGeneration) return;
+            chord.dockQueued = false;
+            if (chord.slot.bay !== "") chord.presented = true;
+        });
     }
 
     Connections {
@@ -100,9 +111,21 @@ Item {
         // A new host incarnation starts at its entry pose. Interrupting a
         // live incarnation only retargets Behaviors from their current pose.
         function onBayChanged() {
-            if (chord.slot.bay === "") chord.presented = false;
-            else Qt.callLater(chord.dock);
+            chord.presentationGeneration++;
+            chord.presented = false;
+            chord.entrySyncArmed = false;
+            chord.dockQueued = false;
         }
+    }
+    // A cold Animator reads its scene-graph transform, which does not exist
+    // until the entry pose has been synced. Wait for that first render,
+    // rather than using a guessed delay. These handlers disconnect as soon
+    // as docking starts; they do not perform ongoing per-frame work.
+    Connections {
+        target: chord.Window.window
+        enabled: chord.visible && !chord.presented
+        function onAfterAnimating() { chord.entrySyncArmed = true; }
+        function onFrameSwapped() { chord.queueDock(); }
     }
     Connections {
         target: Theme
@@ -113,5 +136,4 @@ Item {
         }
         function onTravelChanged() { if (!Theme.travel) chord.settleTravel(); }
     }
-    Component.onCompleted: if (slot.bay !== "") Qt.callLater(dock)
 }

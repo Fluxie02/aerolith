@@ -14,7 +14,8 @@ diagnostic=repo/'build/ui016'/f'{phase}-position-shell'
 shutil.copytree(source,diagnostic,dirs_exist_ok=True)
 chord=diagnostic/'components/ChordSlot.qml'
 text=chord.read_text(); point=text.rfind('}')
-chord.write_text(text[:point]+'''    // UI-016 measurement fiducial; diagnostic copy only.
+start_log='    onPresentedChanged: if (presented) console.log("UI016_DOCK_START " + Date.now() + " generation=" + presentationGeneration)\n' if phase=='after' else ''
+chord.write_text(text[:point]+start_log+'''    // UI-016 measurement fiducial; diagnostic copy only.
     Rectangle { x: 0; y: 0; width: 10; height: 10; color: "#ff00ff"; z: 100000 }
 '''+text[point:])
 out=repo/'docs/design/smooth/data'/f'{phase}-{rate}-position'
@@ -43,6 +44,14 @@ for row in rows:
     if points:
         row['marker_screen_x']=round(680+sum(p[0] for p in points)/len(points),3)
         row['marker_screen_y']=round(195+sum(p[1] for p in points)/len(points),3)
+if phase=='after':
+    import re
+    starts=[int(s) for s in re.findall(r'UI016_DOCK_START (\d+)',(out/'qs.log').read_text())]
+    for row in rows:
+        if row['repeat']<len(starts):
+            row['docking_start_unix_ms']=starts[row['repeat']]
+            row['capture_start_after_dock_ms']=row['capture_start_unix_ms']-starts[row['repeat']]
+            row['capture_end_after_dock_ms']=row['capture_end_unix_ms']-starts[row['repeat']]
 temporary=out/'positions-host.tmp'
 temporary.write_text(json.dumps(rows,indent=2)+'\n')
 temporary.replace(out/'positions.json')

@@ -1,0 +1,6 @@
+$ SHELL_PATH=build/ui016/verification/final-shell CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/notify.sh build/ui016/verification/piyti-saturated-full-notify
+
+notify: ok
+
+EXIT 0
+ELAPSED 33.161 s

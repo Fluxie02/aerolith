@@ -1,0 +1,243 @@
+[
+  {
+    "name": "results/piyti-insane-full-ai",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/ai.sh",
+      "build/ui016/verification/piyti-insane-full-ai"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json",
+      "AUDIO": "1",
+      "AI": "1"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json AUDIO=1 AI=1 tools/headless/run.sh tests/scenarios/ai.sh build/ui016/verification/piyti-insane-full-ai",
+    "started_at": "2026-10-25T03:47:51.983079+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 20.12104164099992,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-insane-full-deck",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/deck.sh",
+      "build/ui016/verification/piyti-insane-full-deck"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json",
+      "AUDIO": "1",
+      "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' tools/headless/run.sh tests/scenarios/deck.sh build/ui016/verification/piyti-insane-full-deck",
+    "started_at": "2026-10-25T03:47:27.319925+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 24.607975979000003,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-insane-full-full",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/full.sh",
+      "build/ui016/verification/piyti-insane-full-full"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json",
+      "AUDIO": "1",
+      "MEDIA": "1",
+      "MPV_AO": "pipewire",
+      "ROUTINES": "tests/fixtures/routines.json"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/ui016/verification/piyti-insane-full-full",
+    "started_at": "2026-10-25T03:47:17.108905+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 38.090788801999906,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-insane-full-smoke",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/smoke.sh",
+      "build/ui016/verification/piyti-insane-full-smoke"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/piyti-insane-full-smoke",
+    "started_at": "2026-10-25T03:47:10.994984+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 6.0492886720001025,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-saturated-full-ai",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/ai.sh",
+      "build/ui016/verification/piyti-saturated-full-ai"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json",
+      "AUDIO": "1",
+      "AI": "1"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json AUDIO=1 AI=1 tools/headless/run.sh tests/scenarios/ai.sh build/ui016/verification/piyti-saturated-full-ai",
+    "started_at": "2026-10-25T03:47:06.179713+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 21.057546466000076,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-saturated-full-deck",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/deck.sh",
+      "build/ui016/verification/piyti-saturated-full-deck"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json",
+      "AUDIO": "1",
+      "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' tools/headless/run.sh tests/scenarios/deck.sh build/ui016/verification/piyti-saturated-full-deck",
+    "started_at": "2026-10-25T03:46:38.716687+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 27.38718083699996,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-saturated-full-full",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/full.sh",
+      "build/ui016/verification/piyti-saturated-full-full"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json",
+      "AUDIO": "1",
+      "MEDIA": "1",
+      "MPV_AO": "pipewire",
+      "ROUTINES": "tests/fixtures/routines.json"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/ui016/verification/piyti-saturated-full-full",
+    "started_at": "2026-10-25T03:46:31.071118+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 39.83155050000005,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-saturated-full-notify",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/notify.sh",
+      "build/ui016/verification/piyti-saturated-full-notify"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "tests/fixtures/notify-config.json"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/notify.sh build/ui016/verification/piyti-saturated-full-notify",
+    "started_at": "2026-10-25T03:48:24.102743+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 33.16056225800003,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/piyti-saturated-full-smoke",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/smoke.sh",
+      "build/ui016/verification/piyti-saturated-full-smoke"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/piyti-saturated-full-smoke",
+    "started_at": "2026-10-25T03:46:31.071199+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 7.585554865999939,
+    "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+  },
+  {
+    "name": "results/thears-insane-full-deck",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/deck.sh",
+      "build/ui016/verification/thears-insane-full-deck"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-thears-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json",
+      "AUDIO": "1",
+      "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-thears-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' tools/headless/run.sh tests/scenarios/deck.sh build/ui016/verification/thears-insane-full-deck",
+    "started_at": "2026-10-25T03:48:17.569907+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 24.044274000000087,
+    "shell_source_manifest_sha256": "21336b9c6a46c278369629e7208ae70ae31e9f81e7fcb0f5b2af74898a3fc2f0"
+  },
+  {
+    "name": "results/thears-insane-full-smoke",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/smoke.sh",
+      "build/ui016/verification/thears-insane-full-smoke"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-thears-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-thears-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/thears-insane-full-smoke",
+    "started_at": "2026-10-25T03:48:12.197072+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 5.295801849999862,
+    "shell_source_manifest_sha256": "21336b9c6a46c278369629e7208ae70ae31e9f81e7fcb0f5b2af74898a3fc2f0"
+  },
+  {
+    "name": "results/thears-saturated-full-deck",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/deck.sh",
+      "build/ui016/verification/thears-saturated-full-deck"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-thears-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json",
+      "AUDIO": "1",
+      "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-thears-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' tools/headless/run.sh tests/scenarios/deck.sh build/ui016/verification/thears-saturated-full-deck",
+    "started_at": "2026-10-25T03:48:00.438759+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 23.6101358169999,
+    "shell_source_manifest_sha256": "21336b9c6a46c278369629e7208ae70ae31e9f81e7fcb0f5b2af74898a3fc2f0"
+  },
+  {
+    "name": "results/thears-saturated-full-smoke",
+    "command": [
+      "tools/headless/run.sh",
+      "tests/scenarios/smoke.sh",
+      "build/ui016/verification/thears-saturated-full-smoke"
+    ],
+    "environment": {
+      "SHELL_PATH": "build/ui016/verification/final-thears-shell",
+      "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json"
+    },
+    "display_command": "SHELL_PATH=build/ui016/verification/final-thears-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/thears-saturated-full-smoke",
+    "started_at": "2026-10-25T03:47:55.272520+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 5.1103639499999645,
+    "shell_source_manifest_sha256": "21336b9c6a46c278369629e7208ae70ae31e9f81e7fcb0f5b2af74898a3fc2f0"
+  }
+]

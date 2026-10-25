@@ -74,3 +74,22 @@ event in `Compositor.qml`; do not add a timer in a visual component.
 Physical Hyprland/GPU pacing, VRR and compositor animation cannot be approved
 from the pixman/Sway harness. Its measured timings and renderer limits belong
 in the adjacent README and data rather than being inferred from mock metadata.
+
+
+## Measured follow-up — real-output presentation and cold-start latency
+
+The final software-rendered marker probes preserve a 160 ms curve at both
+rates but expose render-job startup latency: warm settled samples are about
+190–206 ms and cold samples about 322–325 ms after the diagnostic docking
+start event, excluding the preceding render-gate wait. See POSITION.md and
+TIMING.md. CPU-active cost is also reported alongside idle cost.
+
+Claude should repeat open/close, bay replacement, workspace and palette
+operations on a GPU-backed 144 Hz Hyprland output using presentation feedback
+or QSG timing, including the first use of both retained slots. Check the
+one-shot first-render gate with rapid release/reuse and verify there is no
+cold wrong-way entry or added compositor transition. Report presentation
+intervals, cold input-to-first-frame latency and actual dropped frames where
+available. Do not infer achieved fps from Theme.refreshRate or replace the
+wall-time strokes with a 60 Hz timer to hide renderer cost. The current
+headless callback estimates are not a hardware presentation certificate.

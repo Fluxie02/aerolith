@@ -3,7 +3,7 @@
   "components/AppContinuity.qml": "015b19dc09a1a80899790e960fcffeccbec655a691c91e35ce504648e45f1082",
   "components/AppGlyph.qml": "099a5600c3482901c97f951265450e10de73f733ad64224d04f0094c05158985",
   "components/Bezel.qml": "f746dee31d5998bd8465440dd9645da0075baf4c27a003ffc2b37b0d0ec22a44",
-  "components/ChordSlot.qml": "d830e6c75a3599059a987225a8f65158bd52f1899689f0f843fab17a8e647da9",
+  "components/ChordSlot.qml": "fbfee720c7d07b869fa6d1959b5d97e3b4c3537cfc0e52efe6d12a50dca317ed",
   "components/CircularField.qml": "5c72bb2d3d4827cb0a77f8f6c9751d383a1d851b7f93b1380b3f028be857be45",
   "components/Counterphase.qml": "17da5880bd67f3f0cd70e76b4031b3b5ab216393b37f82e1e6d9221496912f04",
   "components/InstrumentField.qml": "b85d0e0392f3b75aa78bc0e412fff99d8d7aa5eddb3736aa8b62e5c402b30558",

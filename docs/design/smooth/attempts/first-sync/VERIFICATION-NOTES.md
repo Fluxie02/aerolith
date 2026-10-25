@@ -1,0 +1,11 @@
+# Rejected first-use Animator initialization
+
+The first UI-016 after implementation passed the functional smoke and OSD checks, but actual cold-slot pixel probes exposed an incorrect entry path. This directory preserves that rejected implementation's evidence before corrected reruns.
+
+`interruption/after-{60,144}/` contains the original source manifest, exact Docker command/result (sessions exited 0), raw timing data, native 115×115 PNG crops, compositor output geometry and QML logs. `captures-markers.json` adds host-side pixel centroids without changing the raw container-owned `captures.json`. Both fast-close cases requested a one-shot Qt close 35 or 70 ms after open; the logs retain actual delayed open/close times, so these requests must not be described as measured exact event intervals.
+
+All 84 crops at each rate lacked a visible marker in the expected region. The separately preserved normal-open probes explain why: the first two retained slots' transforms began far to the left of their intended pose and moved right toward the final origin. In the first after-60 repeat, the marker was partly visible at screen x680 around the 200–220 ms capture interval, then x714.5 around 240–264 ms. After-144 likewise moved x687.5 to x714.5. Correct entry should begin near x748.6 and move left to x714.5. The third after-144 open reused an initialized slot and followed that expected path.
+
+`initial-position-pixel-review.json` preserves the independently measured centroids and original capture intervals for all three normal opens at each rate. Normal-position PNGs and the wide full-shot trajectory are archived by the timing harness beside this note. Before-source CPU/timing/position evidence is unchanged and remains in its original location.
+
+This was a real cold scene-graph initialization defect, not evidence that the diagnostic crop was universally misplaced. Source-level Behavior retargeting semantics alone did not establish a valid first render. The candidate correction waits for one actual Window.frameSwapped event before starting the entry Animator; its generation/queue guards must invalidate stale callbacks when a retained slot is released or reused. Acceptance requires corrected rendered pixels and the final functional scenarios. No continuity or 144 fps claim is derived from this rejected attempt.

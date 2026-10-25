@@ -35,6 +35,8 @@ c=json.load(open(p));t=c.setdefault('theme',{});t.update({'motion':'reduced','lo
 json.dump(c,open(p,'w'))
 PY
 ipc reload
+# Let action-result notices expire before the compact documentation frames.
+sleep 4.2
 swaymsg output HEADLESS-1 resolution 1280x720@144Hz scale 1 >/dev/null
 sleep .5
 shot settings-compact-register

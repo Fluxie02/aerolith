@@ -1,0 +1,15 @@
+{
+  "name": "results/corrected-cold-rapid",
+  "command": [
+    "tools/headless/run.sh",
+    "docs/design/smooth/verification/scripts/cold-rapid.sh",
+    "build/ui016/verification/corrected-cold-rapid"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/corrected-shell"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/corrected-shell tools/headless/run.sh docs/design/smooth/verification/scripts/cold-rapid.sh build/ui016/verification/corrected-cold-rapid",
+  "started_at": "2026-10-25T03:29:29.688781+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 14.437888498000007
+}

@@ -21,6 +21,13 @@ unsupported Sway/Hyprland-protocol warnings, plus Qt/Sway focus notices from
 synthetic keyboard input. The screenshots establish presentation and
 reactivity; achieved frame rate is measured by the separate timing runs.
 
+The cosmetic replay on 2026-10-25 added a 4.2 second wait before the compact
+frames so earlier action-result notices had expired. It passed the same
+checks, and those clean compact frames are the archived versions. Settings
+source was unchanged. These settled presentation checks used the provisional
+snapshot; they do not validate the later first-render ChordSlot correction,
+whose motion validation is documented separately.
+
 The exact initial command was run from the repository root after the
 provisional `build/ui016/after-shell` snapshot and diagnostic session were
 prepared. The mounted scenario is archived here as `scenario.sh`:
@@ -51,3 +58,11 @@ For replay, first copy the archived `scenario.sh` to
 diagnostic mock's exact output-name match is deliberate; ordinary smoke
 fixtures advertising a different monitor name correctly show unavailable
 refresh metadata.
+
+Saved views: [full motion](settings-full-144.png),
+[Register](settings-register-144.png), [reduced](settings-reduced-144.png),
+[off](settings-off-144.png), [low effects](settings-low-effects-144.png),
+[unavailable metadata](settings-unavailable.png),
+[compact Register](settings-compact-register.png), and
+[compact Spectra](settings-compact-spectra.png). The selected output reports
+are [full size](outputs-144.json) and [compact](outputs-compact.json).

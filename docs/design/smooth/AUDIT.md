@@ -13,7 +13,7 @@ frame cadence rather than a 60 Hz motion clock.
 | Path | Baseline behavior and cost | UI-016 disposition |
 | --- | --- | --- |
 | `core/Theme.qml` | One process-latched, time-based startup scalar; shared palette/motion tokens and the sole ambient gate. | Keep wall-time startup and latching. Read selected-output monitor metadata without polling. Space ambient strokes farther apart at higher refresh to preserve the idle budget; do not slow individual strokes or cap their cadence. |
-| `components/ChordSlot.qml` | Time-based Deck progress scalar fed x/y/opacity; restarting with fixed endpoints can jump on rapid retirement/reopen. | Retained-item Animators for docking and fading, explicit current-value interruption behavior, bounded lifecycle. No animated size or anchor. |
+| `components/ChordSlot.qml` | Time-based Deck progress scalar fed x/y/opacity; restarting with fixed endpoints can jump on rapid retirement/reopen. | Retained-item Animators for docking and fading, with a first-render synchronization gate before entry. One-shot `afterAnimating`/`frameSwapped` handlers disconnect when presented; queued docking is guarded by the slot's generation. No ongoing per-frame JavaScript, animated size or anchor. |
 | `components/Bezel.qml` | Engagement NumberAnimation caused a large face Canvas repaint on every engagement change. | Keep the engraved face cached and animate a small retained engagement mark. |
 | `components/InstrumentTabs.qml` | Highlight x/y NumberAnimations; static track Canvas; short color feedback. | Move highlight with Animators; preserve finite color feedback and complete it on live motion-off. Track repaints only for discrete geometry/tokens. |
 | `components/ShearField.qml` | Workspace rotation is time-based; focus recoil restarts from a fixed impulse; finite opacity breathing uses Animators. | Retained transforms/opacity and retargetable focus response. Do not repaint blade geometry during movement. |
@@ -69,6 +69,15 @@ enforces process deadlines; `Registry` supplies V4-safe deferred jobs;
 None advances a visual position per tick. These files are not changed.
 
 ## Remaining integration findings
+
+Rendered self-review exposed a first-use scene-graph initialization defect in
+the first native Animator candidate: a cold Deck plane began near x=0 rather
+than its intended entry pose. The correction waits for the entry pose's first
+actual render before enabling docking, and invalidates stale queued callbacks
+on slot release/reuse. The rejected pixels are preserved in
+[attempts/first-sync](attempts/first-sync/README.md); they are not final AFTER
+evidence. See [SOURCE-REVIEW.md](SOURCE-REVIEW.md) for this correction and its
+separate rendered acceptance requirement.
 
 The two actionable systems findings and minimal corrections are recorded in
 [SYSTEMS-REQUESTS.md](SYSTEMS-REQUESTS.md). The read-only host review is in

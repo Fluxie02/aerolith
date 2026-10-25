@@ -1,0 +1,7 @@
+$ SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/piyti-saturated-full-smoke
+
+ok
+smoke: ok
+
+EXIT 0
+ELAPSED 7.586 s

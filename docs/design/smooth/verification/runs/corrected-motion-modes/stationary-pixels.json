@@ -1,0 +1,22 @@
+[
+  {
+    "mode": "off",
+    "roi": [
+      100,
+      220,
+      1400,
+      1000
+    ],
+    "difference_bbox": null
+  },
+  {
+    "mode": "low",
+    "roi": [
+      100,
+      220,
+      1400,
+      1000
+    ],
+    "difference_bbox": null
+  }
+]

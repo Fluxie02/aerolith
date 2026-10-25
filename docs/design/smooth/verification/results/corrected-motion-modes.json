@@ -1,0 +1,15 @@
+{
+  "name": "results/corrected-motion-modes",
+  "command": [
+    "tools/headless/run.sh",
+    "docs/design/smooth/verification/scripts/motion-modes.sh",
+    "build/ui016/verification/corrected-motion-modes"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/corrected-shell"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/corrected-shell tools/headless/run.sh docs/design/smooth/verification/scripts/motion-modes.sh build/ui016/verification/corrected-motion-modes",
+  "started_at": "2026-10-25T03:29:29.663131+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 22.373182101999987
+}

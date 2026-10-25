@@ -1,0 +1,59 @@
+{
+  "patterns": "TypeError|ReferenceError|SyntaxError|Unable to assign|binding loop|Cannot assign|is not a type|Cannot read property|Cannot call method|Error loading",
+  "logs": [
+    {
+      "file": "docs/design/smooth/data/after-144-insane-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/after-144-saturated-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/after-60-insane-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/after-60-saturated-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/before-144-insane-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/before-144-saturated-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/before-60-insane-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/before-60-saturated-cpu/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/after-144-saturated-timing/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/after-60-saturated-timing/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/before-144-saturated-timing/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/data/before-60-saturated-timing/qs.log",
+      "matches": []
+    },
+    {
+      "file": "docs/design/smooth/video/qs.log",
+      "matches": []
+    }
+  ],
+  "total_logs": 13,
+  "total_matches": 0
+}

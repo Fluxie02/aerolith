@@ -33,6 +33,41 @@ cadence. This fixes the source-level discontinuity; pixel continuity and
 timing evidence is separate from this source review and was pending when
 this review was written.
 
+## High finding R2 — corrected in source: cold docking starts before scene-graph synchronization
+
+Runtime follow-up and source correction reviewed on 2026-10-25.
+
+**Affected file:** `shell/components/ChordSlot.qml`.
+
+**Rendered evidence:** the first native Animator candidate's normal-open
+captures missed the marker in its expected region. A full-frame follow-up
+showed the cold bay starting around x=0 before settling around x=710, instead
+of entering from its intended x=744 pose. An initialized slot later followed
+the expected path. This was a real initialization defect that source-only
+Behavior review did not detect. The rejected captures, event times, marker
+centroids and explanation are retained in
+[attempts/first-sync](attempts/first-sync/README.md). Their software-renderer
+load delayed nominal fast-close timers; actual logged event times remain
+authoritative.
+
+**Minimal correction applied:** keep the initial entry pose registered until
+the host window has animated and swapped its first frame, then queue docking
+on the GUI event loop. `afterAnimating` arms that one-shot synchronization;
+`frameSwapped` queues the dock. Both Connections handlers are enabled only
+while the visible chord is not presented. `presentationGeneration` changes
+on slot release/reuse, and the deferred callback verifies its captured
+generation before presenting. `dockQueued` prevents duplicate requests.
+Focus, keyboard handling, bay creation and service demand never wait for
+this visual gate.
+
+**Source verification:** the final gate replaces the earlier
+`Component.onCompleted`/`onBayChanged` immediate `Qt.callLater(dock)` path.
+Once `presented` becomes true, those render-event handlers disconnect, so
+there is no ongoing per-frame JavaScript or independent motion clock. Off
+and lowEffects retain immediate settled geometry/opacity. Corrected rendered
+entry/interrupt probes and final scenarios remain required separately;
+the rejected samples must not be described as final AFTER results.
+
 ## Geometry verification
 
 **TapeGauge:** for a fixed inner width `W` and clamped fraction `f`, the new
@@ -65,8 +100,9 @@ than once per frame. Help cancels existing kinetic scrolling on motion-off.
 The one finite startup scalar remains GUI-driven and time-based, as recorded
 in the audit; it is not a steady-state ambient loop.
 
-No additional actionable source regression was found in this pass. Rendered
+The initial source-only pass found no further regression; subsequent rendered
+self-review exposed R2 and led to the first-sync correction above. Final
 interruption continuity, docking initialization and software-renderer
-throughput still require the saved capture/timing observations. The protected
+throughput require the corrected capture/timing observations. The protected
 host findings remain in [SYSTEMS-REQUESTS.md](SYSTEMS-REQUESTS.md), not silently
 treated as fixed by the visual diff.

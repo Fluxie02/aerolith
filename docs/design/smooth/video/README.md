@@ -1,0 +1,7 @@
+# Illustrative motion recording
+
+`motion.mp4` records the actual 1920×1080 shell on the configured 144 Hz headless output, encoded by wf-recorder at 30 fps. It includes Deck open, bay switches, two Spectra selections, close, workspace changes and the resumed ambient carrier stroke. No frames are interpolated and playback is not sped up or slowed down. A 30 fps movie cannot demonstrate 144 fps physical smoothness; this recording is excluded from all CPU and callback timing measurements.
+
+`outputs.json` proves the configured output mode. `events.jsonl` records the actual IPC/key command windows, `clock.json` records the recording epoch, and `ffprobe.json` retains the codec/frame-rate/duration metadata. wf-recorder uses a constant 30 fps encoder and may repeat or omit captured frames to maintain wall time. `raw.mkv` is the original encoder stream; `motion.mp4` remuxes it with its moov atom at the front. The recorder marks limited-range samples as full-range; motion.mp4 corrects only H.264/stream range metadata, without re-encoding, changing sample values or changing timestamps. The existing recorder binary checksum is in recorder-sha256.txt; no package was installed.
+
+Reproduce with `bash docs/design/smooth/record-motion.sh` after creating the final `build/ui016/after-shell` snapshot. The recorder defaults to the existing `/tmp/ui014-recorder/wf-recorder`; override UI016_RECORDER if the same binary is stored elsewhere. Record only outside CPU/pacing benchmark windows.

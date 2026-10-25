@@ -1,0 +1,2332 @@
+{
+  "output_mode": {
+    "width": 1920,
+    "height": 1080,
+    "refresh": 60000
+  },
+  "refresh_hz": 60.0,
+  "segments": [
+    {
+      "event": "background",
+      "seconds": 30.040557542999974,
+      "surfaces": {
+        "aerolith-ground": {
+          "callbacks": 206,
+          "all_intervals_ms": [
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            2639,
+            16,
+            5135,
+            16,
+            468,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            3508,
+            16,
+            4987,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            4007,
+            16,
+            4029,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            18,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            18,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "median_ms": 16.0,
+          "p95_ms": 17,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 7
+        },
+        "aerolith-strip": {
+          "callbacks": 6,
+          "all_intervals_ms": [
+            5151,
+            4998,
+            5019,
+            4981,
+            4858
+          ],
+          "analysed_intervals_ms": [],
+          "median_ms": null,
+          "p95_ms": null,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 5
+        }
+      }
+    },
+    {
+      "event": "deck-open-1",
+      "seconds": 0.4544031909999903,
+      "surfaces": {
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            95
+          ],
+          "analysed_intervals_ms": [
+            95
+          ],
+          "median_ms": 95,
+          "p95_ms": 95,
+          "missed_refresh_opportunities_estimate": 5,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-deck": {
+          "callbacks": 13,
+          "all_intervals_ms": [
+            74,
+            21,
+            20,
+            23,
+            21,
+            20,
+            21,
+            20,
+            19,
+            19,
+            18,
+            16
+          ],
+          "analysed_intervals_ms": [
+            74,
+            21,
+            20,
+            23,
+            21,
+            20,
+            21,
+            20,
+            19,
+            19,
+            18,
+            16
+          ],
+          "median_ms": 20.0,
+          "p95_ms": 74,
+          "missed_refresh_opportunities_estimate": 3,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            74
+          ],
+          "analysed_intervals_ms": [
+            74
+          ],
+          "median_ms": 74,
+          "p95_ms": 74,
+          "missed_refresh_opportunities_estimate": 3,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "bay-switch-1",
+      "seconds": 0.45382303500012494,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 18,
+          "all_intervals_ms": [
+            16,
+            16,
+            59,
+            47,
+            44,
+            47,
+            28,
+            27,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            16,
+            59,
+            47,
+            44,
+            47,
+            28,
+            27,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "median_ms": 16,
+          "p95_ms": 59,
+          "missed_refresh_opportunities_estimate": 11,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-close-1",
+      "seconds": 0.42280308800004424,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 7,
+          "all_intervals_ms": [
+            17,
+            19,
+            36,
+            21,
+            35,
+            35
+          ],
+          "analysed_intervals_ms": [
+            17,
+            19,
+            36,
+            21,
+            35,
+            35
+          ],
+          "median_ms": 28.0,
+          "p95_ms": 36,
+          "missed_refresh_opportunities_estimate": 3,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 22,
+          "all_intervals_ms": [
+            16,
+            20,
+            21,
+            16,
+            19,
+            16,
+            19,
+            32,
+            19,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            20,
+            21,
+            16,
+            19,
+            16,
+            19,
+            32,
+            19,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "median_ms": 16,
+          "p95_ms": 21,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            36,
+            142
+          ],
+          "analysed_intervals_ms": [
+            36,
+            142
+          ],
+          "median_ms": 89.0,
+          "p95_ms": 142,
+          "missed_refresh_opportunities_estimate": 9,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "workspace-switch-1",
+      "seconds": 0.7929722209998872,
+      "surfaces": {
+        "aerolith-ground": {
+          "callbacks": 36,
+          "all_intervals_ms": [
+            16,
+            17,
+            16,
+            18,
+            24,
+            17,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18
+          ],
+          "analysed_intervals_ms": [
+            16,
+            17,
+            16,
+            18,
+            24,
+            17,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18
+          ],
+          "median_ms": 18,
+          "p95_ms": 18,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            41
+          ],
+          "analysed_intervals_ms": [
+            41
+          ],
+          "median_ms": 41,
+          "p95_ms": 41,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-open-2",
+      "seconds": 0.4521024919999763,
+      "surfaces": {
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            40
+          ],
+          "analysed_intervals_ms": [
+            40
+          ],
+          "median_ms": 40,
+          "p95_ms": 40,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-deck": {
+          "callbacks": 16,
+          "all_intervals_ms": [
+            40,
+            21,
+            19,
+            19,
+            18,
+            24,
+            17,
+            19,
+            18,
+            18,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "analysed_intervals_ms": [
+            40,
+            21,
+            19,
+            19,
+            18,
+            24,
+            17,
+            19,
+            18,
+            18,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "median_ms": 18,
+          "p95_ms": 40,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            40
+          ],
+          "analysed_intervals_ms": [
+            40
+          ],
+          "median_ms": 40,
+          "p95_ms": 40,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "bay-switch-2",
+      "seconds": 0.44777269300003536,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 19,
+          "all_intervals_ms": [
+            16,
+            16,
+            33,
+            55,
+            43,
+            45,
+            31,
+            24,
+            24,
+            18,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            16,
+            33,
+            55,
+            43,
+            45,
+            31,
+            24,
+            24,
+            18,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "median_ms": 17.0,
+          "p95_ms": 55,
+          "missed_refresh_opportunities_estimate": 8,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            33
+          ],
+          "analysed_intervals_ms": [
+            33
+          ],
+          "median_ms": 33,
+          "p95_ms": 33,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 1,
+          "all_intervals_ms": [],
+          "analysed_intervals_ms": [],
+          "median_ms": null,
+          "p95_ms": null,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-close-2",
+      "seconds": 0.4477977429998573,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 7,
+          "all_intervals_ms": [
+            16,
+            17,
+            19,
+            36,
+            41,
+            35
+          ],
+          "analysed_intervals_ms": [
+            16,
+            17,
+            19,
+            36,
+            41,
+            35
+          ],
+          "median_ms": 27.0,
+          "p95_ms": 41,
+          "missed_refresh_opportunities_estimate": 3,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 21,
+          "all_intervals_ms": [
+            17,
+            19,
+            41,
+            35,
+            16,
+            19,
+            18,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            17,
+            17
+          ],
+          "analysed_intervals_ms": [
+            17,
+            19,
+            41,
+            35,
+            16,
+            19,
+            18,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            17,
+            17
+          ],
+          "median_ms": 17.0,
+          "p95_ms": 35,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            53,
+            112
+          ],
+          "analysed_intervals_ms": [
+            53,
+            112
+          ],
+          "median_ms": 82.5,
+          "p95_ms": 112,
+          "missed_refresh_opportunities_estimate": 8,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "workspace-switch-2",
+      "seconds": 0.82614797800011,
+      "surfaces": {
+        "aerolith-ground": {
+          "callbacks": 39,
+          "all_intervals_ms": [
+            16,
+            16,
+            17,
+            16,
+            16,
+            19,
+            24,
+            21,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            17,
+            17,
+            18,
+            17,
+            17,
+            17,
+            18
+          ],
+          "analysed_intervals_ms": [
+            16,
+            16,
+            17,
+            16,
+            16,
+            19,
+            24,
+            21,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            17,
+            17,
+            18,
+            17,
+            17,
+            17,
+            18
+          ],
+          "median_ms": 18.0,
+          "p95_ms": 21,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            24
+          ],
+          "analysed_intervals_ms": [
+            24
+          ],
+          "median_ms": 24,
+          "p95_ms": 24,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-open-3",
+      "seconds": 0.46864241400011813,
+      "surfaces": {
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            44
+          ],
+          "analysed_intervals_ms": [
+            44
+          ],
+          "median_ms": 44,
+          "p95_ms": 44,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-deck": {
+          "callbacks": 17,
+          "all_intervals_ms": [
+            44,
+            21,
+            18,
+            19,
+            19,
+            18,
+            18,
+            18,
+            18,
+            18,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "analysed_intervals_ms": [
+            44,
+            21,
+            18,
+            19,
+            19,
+            18,
+            18,
+            18,
+            18,
+            18,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "median_ms": 18.0,
+          "p95_ms": 44,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            21
+          ],
+          "analysed_intervals_ms": [
+            21
+          ],
+          "median_ms": 21,
+          "p95_ms": 21,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "bay-switch-3",
+      "seconds": 0.43522438600007446,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 18,
+          "all_intervals_ms": [
+            16,
+            16,
+            43,
+            44,
+            47,
+            52,
+            26,
+            21,
+            18,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            16,
+            43,
+            44,
+            47,
+            52,
+            26,
+            21,
+            18,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "median_ms": 17,
+          "p95_ms": 52,
+          "missed_refresh_opportunities_estimate": 9,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-close-3",
+      "seconds": 0.4405072170000058,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 8,
+          "all_intervals_ms": [
+            16,
+            16,
+            20,
+            38,
+            22,
+            16,
+            36
+          ],
+          "analysed_intervals_ms": [
+            16,
+            16,
+            20,
+            38,
+            22,
+            16,
+            36
+          ],
+          "median_ms": 20,
+          "p95_ms": 38,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 21,
+          "all_intervals_ms": [
+            17,
+            21,
+            22,
+            32,
+            20,
+            16,
+            39,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17
+          ],
+          "analysed_intervals_ms": [
+            17,
+            21,
+            22,
+            32,
+            20,
+            16,
+            39,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            17
+          ],
+          "median_ms": 16.5,
+          "p95_ms": 32,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            38,
+            129
+          ],
+          "analysed_intervals_ms": [
+            38,
+            129
+          ],
+          "median_ms": 83.5,
+          "p95_ms": 129,
+          "missed_refresh_opportunities_estimate": 8,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "workspace-switch-3",
+      "seconds": 0.8128704849998467,
+      "surfaces": {
+        "aerolith-ground": {
+          "callbacks": 38,
+          "all_intervals_ms": [
+            16,
+            17,
+            16,
+            18,
+            33,
+            16,
+            18,
+            18,
+            18,
+            18,
+            17,
+            19,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            19,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            17,
+            17,
+            18,
+            17
+          ],
+          "analysed_intervals_ms": [
+            16,
+            17,
+            16,
+            18,
+            33,
+            16,
+            18,
+            18,
+            18,
+            18,
+            17,
+            19,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            19,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            17,
+            17,
+            18,
+            17
+          ],
+          "median_ms": 18,
+          "p95_ms": 19,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            49
+          ],
+          "analysed_intervals_ms": [
+            49
+          ],
+          "median_ms": 49,
+          "p95_ms": 49,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-open-4",
+      "seconds": 0.450620004999917,
+      "surfaces": {
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            41
+          ],
+          "analysed_intervals_ms": [
+            41
+          ],
+          "median_ms": 41,
+          "p95_ms": 41,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-deck": {
+          "callbacks": 17,
+          "all_intervals_ms": [
+            41,
+            19,
+            18,
+            18,
+            18,
+            18,
+            19,
+            18,
+            18,
+            18,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            41,
+            19,
+            18,
+            18,
+            18,
+            18,
+            19,
+            18,
+            18,
+            18,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "median_ms": 18.0,
+          "p95_ms": 41,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            21
+          ],
+          "analysed_intervals_ms": [
+            21
+          ],
+          "median_ms": 21,
+          "p95_ms": 21,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "bay-switch-4",
+      "seconds": 0.4536590070000384,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 19,
+          "all_intervals_ms": [
+            16,
+            17,
+            16,
+            49,
+            49,
+            45,
+            44,
+            30,
+            21,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            17,
+            16,
+            49,
+            49,
+            45,
+            44,
+            30,
+            21,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "median_ms": 16.5,
+          "p95_ms": 49,
+          "missed_refresh_opportunities_estimate": 9,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-close-4",
+      "seconds": 0.42336936300015077,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 6,
+          "all_intervals_ms": [
+            16,
+            19,
+            37,
+            24,
+            42
+          ],
+          "analysed_intervals_ms": [
+            16,
+            19,
+            37,
+            24,
+            42
+          ],
+          "median_ms": 24,
+          "p95_ms": 42,
+          "missed_refresh_opportunities_estimate": 3,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 20,
+          "all_intervals_ms": [
+            16,
+            21,
+            24,
+            42,
+            31,
+            19,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            21,
+            24,
+            42,
+            31,
+            19,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "median_ms": 16,
+          "p95_ms": 42,
+          "missed_refresh_opportunities_estimate": 3,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            37,
+            116
+          ],
+          "analysed_intervals_ms": [
+            37,
+            116
+          ],
+          "median_ms": 76.5,
+          "p95_ms": 116,
+          "missed_refresh_opportunities_estimate": 7,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "workspace-switch-4",
+      "seconds": 0.8072770819999278,
+      "surfaces": {
+        "aerolith-ground": {
+          "callbacks": 36,
+          "all_intervals_ms": [
+            16,
+            16,
+            16,
+            18,
+            27,
+            18,
+            17,
+            18,
+            18,
+            21,
+            18,
+            17,
+            18,
+            17,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            17,
+            17
+          ],
+          "analysed_intervals_ms": [
+            16,
+            16,
+            16,
+            18,
+            27,
+            18,
+            17,
+            18,
+            18,
+            21,
+            18,
+            17,
+            18,
+            17,
+            17,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            17,
+            17
+          ],
+          "median_ms": 18,
+          "p95_ms": 21,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            45
+          ],
+          "analysed_intervals_ms": [
+            45
+          ],
+          "median_ms": 45,
+          "p95_ms": 45,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-open-5",
+      "seconds": 0.4555415010000579,
+      "surfaces": {
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            42
+          ],
+          "analysed_intervals_ms": [
+            42
+          ],
+          "median_ms": 42,
+          "p95_ms": 42,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-deck": {
+          "callbacks": 16,
+          "all_intervals_ms": [
+            42,
+            19,
+            20,
+            18,
+            20,
+            19,
+            18,
+            19,
+            18,
+            19,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "analysed_intervals_ms": [
+            42,
+            19,
+            20,
+            18,
+            20,
+            19,
+            18,
+            19,
+            18,
+            19,
+            16,
+            16,
+            16,
+            17,
+            16
+          ],
+          "median_ms": 18,
+          "p95_ms": 42,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            22
+          ],
+          "analysed_intervals_ms": [
+            22
+          ],
+          "median_ms": 22,
+          "p95_ms": 22,
+          "missed_refresh_opportunities_estimate": 0,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "bay-switch-5",
+      "seconds": 0.45221264800010247,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 18,
+          "all_intervals_ms": [
+            17,
+            16,
+            48,
+            46,
+            51,
+            34,
+            25,
+            24,
+            22,
+            26,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            17,
+            16,
+            48,
+            46,
+            51,
+            34,
+            25,
+            24,
+            22,
+            26,
+            17,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16
+          ],
+          "median_ms": 17,
+          "p95_ms": 51,
+          "missed_refresh_opportunities_estimate": 9,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "deck-close-5",
+      "seconds": 0.4410127139999531,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 9,
+          "all_intervals_ms": [
+            16,
+            17,
+            19,
+            24,
+            35,
+            20,
+            44,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            17,
+            19,
+            24,
+            35,
+            20,
+            44,
+            16
+          ],
+          "median_ms": 19.5,
+          "p95_ms": 44,
+          "missed_refresh_opportunities_estimate": 3,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 19,
+          "all_intervals_ms": [
+            24,
+            16,
+            39,
+            60,
+            19,
+            19,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "analysed_intervals_ms": [
+            24,
+            16,
+            39,
+            60,
+            19,
+            19,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16,
+            16,
+            17,
+            16,
+            16,
+            16
+          ],
+          "median_ms": 16.0,
+          "p95_ms": 60,
+          "missed_refresh_opportunities_estimate": 4,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            79,
+            98
+          ],
+          "analysed_intervals_ms": [
+            79,
+            98
+          ],
+          "median_ms": 88.5,
+          "p95_ms": 98,
+          "missed_refresh_opportunities_estimate": 9,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "workspace-switch-5",
+      "seconds": 0.8419684770000168,
+      "surfaces": {
+        "aerolith-ground": {
+          "callbacks": 37,
+          "all_intervals_ms": [
+            16,
+            17,
+            16,
+            16,
+            18,
+            25,
+            18,
+            19,
+            18,
+            18,
+            25,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            19,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18
+          ],
+          "analysed_intervals_ms": [
+            16,
+            17,
+            16,
+            16,
+            18,
+            25,
+            18,
+            19,
+            18,
+            18,
+            25,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            19,
+            18,
+            18,
+            17,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            17,
+            18,
+            17,
+            18
+          ],
+          "median_ms": 18.0,
+          "p95_ms": 25,
+          "missed_refresh_opportunities_estimate": 2,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            25
+          ],
+          "analysed_intervals_ms": [
+            25
+          ],
+          "median_ms": 25,
+          "p95_ms": 25,
+          "missed_refresh_opportunities_estimate": 1,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "spectra-switch-1",
+      "seconds": 0.4063941680002026,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 6,
+          "all_intervals_ms": [
+            17,
+            84,
+            60,
+            57,
+            49
+          ],
+          "analysed_intervals_ms": [
+            17,
+            84,
+            60,
+            57,
+            49
+          ],
+          "median_ms": 57,
+          "p95_ms": 84,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 6,
+          "all_intervals_ms": [
+            66,
+            85,
+            16,
+            49,
+            17
+          ],
+          "analysed_intervals_ms": [
+            66,
+            85,
+            16,
+            49,
+            17
+          ],
+          "median_ms": 49,
+          "p95_ms": 85,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 2,
+          "all_intervals_ms": [
+            216
+          ],
+          "analysed_intervals_ms": [
+            216
+          ],
+          "median_ms": 216,
+          "p95_ms": 216,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "spectra-switch-2",
+      "seconds": 0.4061880580000579,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 5,
+          "all_intervals_ms": [
+            16,
+            74,
+            113,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            74,
+            113,
+            16
+          ],
+          "median_ms": 45.0,
+          "p95_ms": 113,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 1,
+          "all_intervals_ms": [],
+          "analysed_intervals_ms": [],
+          "median_ms": null,
+          "p95_ms": null,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            37,
+            27
+          ],
+          "analysed_intervals_ms": [
+            37,
+            27
+          ],
+          "median_ms": 32.0,
+          "p95_ms": 37,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "spectra-switch-3",
+      "seconds": 0.4182791870001238,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 4,
+          "all_intervals_ms": [
+            16,
+            97,
+            93
+          ],
+          "analysed_intervals_ms": [
+            16,
+            97,
+            93
+          ],
+          "median_ms": 93,
+          "p95_ms": 97,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 1,
+          "all_intervals_ms": [],
+          "analysed_intervals_ms": [],
+          "median_ms": null,
+          "p95_ms": null,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            58,
+            72
+          ],
+          "analysed_intervals_ms": [
+            58,
+            72
+          ],
+          "median_ms": 65.0,
+          "p95_ms": 72,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "spectra-switch-4",
+      "seconds": 0.414019109999761,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 5,
+          "all_intervals_ms": [
+            16,
+            86,
+            82,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            86,
+            82,
+            16
+          ],
+          "median_ms": 49.0,
+          "p95_ms": 86,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 1,
+          "all_intervals_ms": [],
+          "analysed_intervals_ms": [],
+          "median_ms": null,
+          "p95_ms": null,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            48,
+            28
+          ],
+          "analysed_intervals_ms": [
+            48,
+            28
+          ],
+          "median_ms": 38.0,
+          "p95_ms": 48,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    },
+    {
+      "event": "spectra-switch-5",
+      "seconds": 0.4202340049999766,
+      "surfaces": {
+        "aerolith-deck": {
+          "callbacks": 5,
+          "all_intervals_ms": [
+            16,
+            77,
+            78,
+            16
+          ],
+          "analysed_intervals_ms": [
+            16,
+            77,
+            78,
+            16
+          ],
+          "median_ms": 46.5,
+          "p95_ms": 78,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-strip": {
+          "callbacks": 1,
+          "all_intervals_ms": [],
+          "analysed_intervals_ms": [],
+          "median_ms": null,
+          "p95_ms": null,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        },
+        "aerolith-ground": {
+          "callbacks": 3,
+          "all_intervals_ms": [
+            41,
+            31
+          ],
+          "analysed_intervals_ms": [
+            41,
+            31
+          ],
+          "median_ms": 36.0,
+          "p95_ms": 41,
+          "missed_refresh_opportunities_estimate": null,
+          "long_ambient_rest_gaps_omitted": 0
+        }
+      }
+    }
+  ],
+  "method": "wl_surface.frame to wl_callback.done; uint32 compositor monotonic timestamps in ms. Full gaps retained. Only background rests >=100ms omitted from active statistics. Spectra is an atomic palette redraw, with no expected animation or opportunity estimate. Other opportunity estimates include event/render latency and are not GPU presentation/drop telemetry."
+}

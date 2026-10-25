@@ -1,0 +1,17 @@
+{
+  "name": "results/thears-insane-full-smoke",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "build/ui016/verification/thears-insane-full-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/final-thears-shell",
+    "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/final-thears-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/thears-insane-full-smoke",
+  "started_at": "2026-10-25T03:48:12.197072+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 5.295801849999862,
+  "shell_source_manifest_sha256": "21336b9c6a46c278369629e7208ae70ae31e9f81e7fcb0f5b2af74898a3fc2f0"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "results/corrected-smoke",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "build/ui016/verification/corrected-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/corrected-shell"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/corrected-shell tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/corrected-smoke",
+  "started_at": "2026-10-25T03:29:29.674350+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 5.502813384999968
+}

@@ -5,9 +5,9 @@
     "sample": 0,
     "file": "close-35-0-00.png",
     "target_after_scheduled_open_ms": 0,
-    "capture_start_after_scheduled_open_ms": 0.1552104949951172,
-    "capture_end_after_scheduled_open_ms": 9.570598602294922,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 0.18835067749023438,
+    "capture_end_after_scheduled_open_ms": 11.1236572265625,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -16,9 +16,9 @@
     "sample": 1,
     "file": "close-35-0-01.png",
     "target_after_scheduled_open_ms": 16.0,
-    "capture_start_after_scheduled_open_ms": 16.1287784576416,
-    "capture_end_after_scheduled_open_ms": 28.62834930419922,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 16.150236129760742,
+    "capture_end_after_scheduled_open_ms": 26.606082916259766,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -27,9 +27,9 @@
     "sample": 2,
     "file": "close-35-0-02.png",
     "target_after_scheduled_open_ms": 32.0,
-    "capture_start_after_scheduled_open_ms": 32.14550018310547,
-    "capture_end_after_scheduled_open_ms": 42.081356048583984,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 32.1042537689209,
+    "capture_end_after_scheduled_open_ms": 42.01364517211914,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -38,9 +38,9 @@
     "sample": 3,
     "file": "close-35-0-03.png",
     "target_after_scheduled_open_ms": 48.0,
-    "capture_start_after_scheduled_open_ms": 48.105716705322266,
-    "capture_end_after_scheduled_open_ms": 58.6245059967041,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 48.1412410736084,
+    "capture_end_after_scheduled_open_ms": 58.895111083984375,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -49,9 +49,9 @@
     "sample": 4,
     "file": "close-35-0-04.png",
     "target_after_scheduled_open_ms": 64.0,
-    "capture_start_after_scheduled_open_ms": 64.10622596740723,
-    "capture_end_after_scheduled_open_ms": 77.28099822998047,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 64.13722038269043,
+    "capture_end_after_scheduled_open_ms": 74.75018501281738,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -60,9 +60,9 @@
     "sample": 5,
     "file": "close-35-0-05.png",
     "target_after_scheduled_open_ms": 80.0,
-    "capture_start_after_scheduled_open_ms": 80.13534545898438,
-    "capture_end_after_scheduled_open_ms": 92.0557975769043,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 80.1393985748291,
+    "capture_end_after_scheduled_open_ms": 92.96154975891113,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -71,9 +71,9 @@
     "sample": 6,
     "file": "close-35-0-06.png",
     "target_after_scheduled_open_ms": 96.0,
-    "capture_start_after_scheduled_open_ms": 96.11058235168457,
-    "capture_end_after_scheduled_open_ms": 110.37683486938477,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 96.10509872436523,
+    "capture_end_after_scheduled_open_ms": 122.35116958618164,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -82,9 +82,9 @@
     "sample": 7,
     "file": "close-35-0-07.png",
     "target_after_scheduled_open_ms": 112.0,
-    "capture_start_after_scheduled_open_ms": 112.14995384216309,
-    "capture_end_after_scheduled_open_ms": 123.16083908081055,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 122.45702743530273,
+    "capture_end_after_scheduled_open_ms": 136.8269920349121,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -93,9 +93,9 @@
     "sample": 8,
     "file": "close-35-0-08.png",
     "target_after_scheduled_open_ms": 128.0,
-    "capture_start_after_scheduled_open_ms": 128.18050384521484,
-    "capture_end_after_scheduled_open_ms": 138.58771324157715,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 136.9309425354004,
+    "capture_end_after_scheduled_open_ms": 149.85322952270508,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -104,9 +104,9 @@
     "sample": 9,
     "file": "close-35-0-09.png",
     "target_after_scheduled_open_ms": 160.0,
-    "capture_start_after_scheduled_open_ms": 160.11738777160645,
-    "capture_end_after_scheduled_open_ms": 177.29592323303223,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 160.22062301635742,
+    "capture_end_after_scheduled_open_ms": 174.04747009277344,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -115,9 +115,9 @@
     "sample": 10,
     "file": "close-35-0-10.png",
     "target_after_scheduled_open_ms": 200.0,
-    "capture_start_after_scheduled_open_ms": 200.20461082458496,
-    "capture_end_after_scheduled_open_ms": 216.03655815124512,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 200.12593269348145,
+    "capture_end_after_scheduled_open_ms": 218.07384490966797,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -126,9 +126,9 @@
     "sample": 11,
     "file": "close-35-0-11.png",
     "target_after_scheduled_open_ms": 240.0,
-    "capture_start_after_scheduled_open_ms": 240.13471603393555,
-    "capture_end_after_scheduled_open_ms": 252.1340847015381,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 240.1137351989746,
+    "capture_end_after_scheduled_open_ms": 250.7948875427246,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -138,8 +138,8 @@
     "file": "close-35-0-12.png",
     "target_after_scheduled_open_ms": 280.0,
     "capture_start_after_scheduled_open_ms": 280.1249027252197,
-    "capture_end_after_scheduled_open_ms": 293.9894199371338,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_end_after_scheduled_open_ms": 294.1617965698242,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -148,9 +148,9 @@
     "sample": 13,
     "file": "close-35-0-13.png",
     "target_after_scheduled_open_ms": 320.0,
-    "capture_start_after_scheduled_open_ms": 320.16634941101074,
-    "capture_end_after_scheduled_open_ms": 335.5414867401123,
-    "scheduled_open_unix_ms": 1792881023332,
+    "capture_start_after_scheduled_open_ms": 320.10817527770996,
+    "capture_end_after_scheduled_open_ms": 341.13168716430664,
+    "scheduled_open_unix_ms": 1792899077900,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -159,9 +159,9 @@
     "sample": 0,
     "file": "close-35-1-00.png",
     "target_after_scheduled_open_ms": 0,
-    "capture_start_after_scheduled_open_ms": 0.14281272888183594,
-    "capture_end_after_scheduled_open_ms": 9.523153305053711,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 0.18167495727539062,
+    "capture_end_after_scheduled_open_ms": 9.407997131347656,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -170,9 +170,9 @@
     "sample": 1,
     "file": "close-35-1-01.png",
     "target_after_scheduled_open_ms": 16.0,
-    "capture_start_after_scheduled_open_ms": 16.107559204101562,
-    "capture_end_after_scheduled_open_ms": 26.71360969543457,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 16.22176170349121,
+    "capture_end_after_scheduled_open_ms": 25.88343620300293,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -181,9 +181,9 @@
     "sample": 2,
     "file": "close-35-1-02.png",
     "target_after_scheduled_open_ms": 32.0,
-    "capture_start_after_scheduled_open_ms": 32.102108001708984,
-    "capture_end_after_scheduled_open_ms": 43.14374923706055,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 32.176971435546875,
+    "capture_end_after_scheduled_open_ms": 41.474103927612305,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -192,9 +192,9 @@
     "sample": 3,
     "file": "close-35-1-03.png",
     "target_after_scheduled_open_ms": 48.0,
-    "capture_start_after_scheduled_open_ms": 48.096656799316406,
-    "capture_end_after_scheduled_open_ms": 58.36653709411621,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 48.12431335449219,
+    "capture_end_after_scheduled_open_ms": 57.33823776245117,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -203,9 +203,9 @@
     "sample": 4,
     "file": "close-35-1-04.png",
     "target_after_scheduled_open_ms": 64.0,
-    "capture_start_after_scheduled_open_ms": 64.10884857177734,
-    "capture_end_after_scheduled_open_ms": 90.4386043548584,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 64.09287452697754,
+    "capture_end_after_scheduled_open_ms": 73.8980770111084,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -214,9 +214,9 @@
     "sample": 5,
     "file": "close-35-1-05.png",
     "target_after_scheduled_open_ms": 80.0,
-    "capture_start_after_scheduled_open_ms": 90.56711196899414,
-    "capture_end_after_scheduled_open_ms": 101.49526596069336,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 80.75332641601562,
+    "capture_end_after_scheduled_open_ms": 104.16579246520996,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -225,9 +225,9 @@
     "sample": 6,
     "file": "close-35-1-06.png",
     "target_after_scheduled_open_ms": 96.0,
-    "capture_start_after_scheduled_open_ms": 101.59897804260254,
-    "capture_end_after_scheduled_open_ms": 121.79112434387207,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 104.25758361816406,
+    "capture_end_after_scheduled_open_ms": 117.91777610778809,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -236,9 +236,9 @@
     "sample": 7,
     "file": "close-35-1-07.png",
     "target_after_scheduled_open_ms": 112.0,
-    "capture_start_after_scheduled_open_ms": 121.88172340393066,
-    "capture_end_after_scheduled_open_ms": 130.20658493041992,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 118.0412769317627,
+    "capture_end_after_scheduled_open_ms": 127.32529640197754,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -247,9 +247,9 @@
     "sample": 8,
     "file": "close-35-1-08.png",
     "target_after_scheduled_open_ms": 128.0,
-    "capture_start_after_scheduled_open_ms": 130.30219078063965,
-    "capture_end_after_scheduled_open_ms": 138.83614540100098,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 128.09038162231445,
+    "capture_end_after_scheduled_open_ms": 143.7203884124756,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -258,9 +258,9 @@
     "sample": 9,
     "file": "close-35-1-09.png",
     "target_after_scheduled_open_ms": 160.0,
-    "capture_start_after_scheduled_open_ms": 160.10332107543945,
-    "capture_end_after_scheduled_open_ms": 169.59095001220703,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 160.10189056396484,
+    "capture_end_after_scheduled_open_ms": 175.53472518920898,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -269,9 +269,9 @@
     "sample": 10,
     "file": "close-35-1-10.png",
     "target_after_scheduled_open_ms": 200.0,
-    "capture_start_after_scheduled_open_ms": 200.1199722290039,
-    "capture_end_after_scheduled_open_ms": 218.77622604370117,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 200.12903213500977,
+    "capture_end_after_scheduled_open_ms": 215.58761596679688,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -280,9 +280,9 @@
     "sample": 11,
     "file": "close-35-1-11.png",
     "target_after_scheduled_open_ms": 240.0,
-    "capture_start_after_scheduled_open_ms": 240.13829231262207,
-    "capture_end_after_scheduled_open_ms": 259.4289779663086,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 240.10968208312988,
+    "capture_end_after_scheduled_open_ms": 254.7612190246582,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -291,9 +291,9 @@
     "sample": 12,
     "file": "close-35-1-12.png",
     "target_after_scheduled_open_ms": 280.0,
-    "capture_start_after_scheduled_open_ms": 280.123233795166,
-    "capture_end_after_scheduled_open_ms": 292.9370403289795,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 280.1065444946289,
+    "capture_end_after_scheduled_open_ms": 291.78690910339355,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -302,9 +302,9 @@
     "sample": 13,
     "file": "close-35-1-13.png",
     "target_after_scheduled_open_ms": 320.0,
-    "capture_start_after_scheduled_open_ms": 320.13988494873047,
-    "capture_end_after_scheduled_open_ms": 337.19849586486816,
-    "scheduled_open_unix_ms": 1792881024585,
+    "capture_start_after_scheduled_open_ms": 320.12367248535156,
+    "capture_end_after_scheduled_open_ms": 334.15913581848145,
+    "scheduled_open_unix_ms": 1792899079155,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -313,9 +313,9 @@
     "sample": 0,
     "file": "close-35-2-00.png",
     "target_after_scheduled_open_ms": 0,
-    "capture_start_after_scheduled_open_ms": 0.1316070556640625,
-    "capture_end_after_scheduled_open_ms": 12.773990631103516,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 0.13256072998046875,
+    "capture_end_after_scheduled_open_ms": 9.40847396850586,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -324,9 +324,9 @@
     "sample": 1,
     "file": "close-35-2-01.png",
     "target_after_scheduled_open_ms": 16.0,
-    "capture_start_after_scheduled_open_ms": 16.095638275146484,
-    "capture_end_after_scheduled_open_ms": 29.146671295166016,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 16.098499298095703,
+    "capture_end_after_scheduled_open_ms": 26.451826095581055,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -335,9 +335,9 @@
     "sample": 2,
     "file": "close-35-2-02.png",
     "target_after_scheduled_open_ms": 32.0,
-    "capture_start_after_scheduled_open_ms": 32.11331367492676,
-    "capture_end_after_scheduled_open_ms": 42.93465614318848,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 32.102346420288086,
+    "capture_end_after_scheduled_open_ms": 41.73779487609863,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -346,9 +346,9 @@
     "sample": 3,
     "file": "close-35-2-03.png",
     "target_after_scheduled_open_ms": 48.0,
-    "capture_start_after_scheduled_open_ms": 48.10309410095215,
-    "capture_end_after_scheduled_open_ms": 58.803558349609375,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 48.10142517089844,
+    "capture_end_after_scheduled_open_ms": 68.75276565551758,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -357,9 +357,9 @@
     "sample": 4,
     "file": "close-35-2-04.png",
     "target_after_scheduled_open_ms": 64.0,
-    "capture_start_after_scheduled_open_ms": 64.09955024719238,
-    "capture_end_after_scheduled_open_ms": 74.7523307800293,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 68.84479522705078,
+    "capture_end_after_scheduled_open_ms": 90.03591537475586,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -368,9 +368,9 @@
     "sample": 5,
     "file": "close-35-2-05.png",
     "target_after_scheduled_open_ms": 80.0,
-    "capture_start_after_scheduled_open_ms": 80.1248550415039,
-    "capture_end_after_scheduled_open_ms": 95.00360488891602,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 90.19112586975098,
+    "capture_end_after_scheduled_open_ms": 100.81863403320312,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -379,9 +379,9 @@
     "sample": 6,
     "file": "close-35-2-06.png",
     "target_after_scheduled_open_ms": 96.0,
-    "capture_start_after_scheduled_open_ms": 96.22979164123535,
-    "capture_end_after_scheduled_open_ms": 105.91959953308105,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 100.95095634460449,
+    "capture_end_after_scheduled_open_ms": 118.36934089660645,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -390,9 +390,9 @@
     "sample": 7,
     "file": "close-35-2-07.png",
     "target_after_scheduled_open_ms": 112.0,
-    "capture_start_after_scheduled_open_ms": 112.10012435913086,
-    "capture_end_after_scheduled_open_ms": 125.26369094848633,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 118.46923828125,
+    "capture_end_after_scheduled_open_ms": 131.42752647399902,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -401,9 +401,9 @@
     "sample": 8,
     "file": "close-35-2-08.png",
     "target_after_scheduled_open_ms": 128.0,
-    "capture_start_after_scheduled_open_ms": 128.0994415283203,
-    "capture_end_after_scheduled_open_ms": 137.0391845703125,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 131.61611557006836,
+    "capture_end_after_scheduled_open_ms": 141.61014556884766,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -412,9 +412,9 @@
     "sample": 9,
     "file": "close-35-2-09.png",
     "target_after_scheduled_open_ms": 160.0,
-    "capture_start_after_scheduled_open_ms": 160.54391860961914,
-    "capture_end_after_scheduled_open_ms": 174.3006706237793,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 160.13574600219727,
+    "capture_end_after_scheduled_open_ms": 169.75951194763184,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -423,9 +423,9 @@
     "sample": 10,
     "file": "close-35-2-10.png",
     "target_after_scheduled_open_ms": 200.0,
-    "capture_start_after_scheduled_open_ms": 200.12950897216797,
-    "capture_end_after_scheduled_open_ms": 214.33639526367188,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 200.12617111206055,
+    "capture_end_after_scheduled_open_ms": 209.61833000183105,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -434,9 +434,9 @@
     "sample": 11,
     "file": "close-35-2-11.png",
     "target_after_scheduled_open_ms": 240.0,
-    "capture_start_after_scheduled_open_ms": 240.13400077819824,
-    "capture_end_after_scheduled_open_ms": 269.420862197876,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 240.10705947875977,
+    "capture_end_after_scheduled_open_ms": 251.44338607788086,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -445,9 +445,9 @@
     "sample": 12,
     "file": "close-35-2-12.png",
     "target_after_scheduled_open_ms": 280.0,
-    "capture_start_after_scheduled_open_ms": 280.11035919189453,
-    "capture_end_after_scheduled_open_ms": 296.7681884765625,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 280.11202812194824,
+    "capture_end_after_scheduled_open_ms": 289.3710136413574,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -456,9 +456,9 @@
     "sample": 13,
     "file": "close-35-2-13.png",
     "target_after_scheduled_open_ms": 320.0,
-    "capture_start_after_scheduled_open_ms": 320.13893127441406,
-    "capture_end_after_scheduled_open_ms": 335.9220027923584,
-    "scheduled_open_unix_ms": 1792881025841,
+    "capture_start_after_scheduled_open_ms": 320.173978805542,
+    "capture_end_after_scheduled_open_ms": 331.7732810974121,
+    "scheduled_open_unix_ms": 1792899080404,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -468,8 +468,8 @@
     "file": "close-70-0-00.png",
     "target_after_scheduled_open_ms": 0,
     "capture_start_after_scheduled_open_ms": 0.18978118896484375,
-    "capture_end_after_scheduled_open_ms": 11.554956436157227,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_end_after_scheduled_open_ms": 9.170293807983398,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -478,9 +478,9 @@
     "sample": 1,
     "file": "close-70-0-01.png",
     "target_after_scheduled_open_ms": 16.0,
-    "capture_start_after_scheduled_open_ms": 16.115427017211914,
-    "capture_end_after_scheduled_open_ms": 25.528907775878906,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 16.13640785217285,
+    "capture_end_after_scheduled_open_ms": 25.276899337768555,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -489,9 +489,9 @@
     "sample": 2,
     "file": "close-70-0-02.png",
     "target_after_scheduled_open_ms": 32.0,
-    "capture_start_after_scheduled_open_ms": 32.11236000061035,
-    "capture_end_after_scheduled_open_ms": 41.664838790893555,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 32.12165832519531,
+    "capture_end_after_scheduled_open_ms": 41.39351844787598,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -500,9 +500,9 @@
     "sample": 3,
     "file": "close-70-0-03.png",
     "target_after_scheduled_open_ms": 48.0,
-    "capture_start_after_scheduled_open_ms": 48.108816146850586,
-    "capture_end_after_scheduled_open_ms": 58.72654914855957,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 48.096418380737305,
+    "capture_end_after_scheduled_open_ms": 57.17825889587402,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -511,9 +511,9 @@
     "sample": 4,
     "file": "close-70-0-04.png",
     "target_after_scheduled_open_ms": 64.0,
-    "capture_start_after_scheduled_open_ms": 64.22924995422363,
-    "capture_end_after_scheduled_open_ms": 74.5539665222168,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 64.11075592041016,
+    "capture_end_after_scheduled_open_ms": 75.90723037719727,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -522,9 +522,9 @@
     "sample": 5,
     "file": "close-70-0-05.png",
     "target_after_scheduled_open_ms": 80.0,
-    "capture_start_after_scheduled_open_ms": 80.13176918029785,
-    "capture_end_after_scheduled_open_ms": 89.35785293579102,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 80.10268211364746,
+    "capture_end_after_scheduled_open_ms": 93.4760570526123,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -533,9 +533,9 @@
     "sample": 6,
     "file": "close-70-0-06.png",
     "target_after_scheduled_open_ms": 96.0,
-    "capture_start_after_scheduled_open_ms": 96.10414505004883,
-    "capture_end_after_scheduled_open_ms": 107.49435424804688,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 96.10819816589355,
+    "capture_end_after_scheduled_open_ms": 104.74085807800293,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -544,9 +544,9 @@
     "sample": 7,
     "file": "close-70-0-07.png",
     "target_after_scheduled_open_ms": 112.0,
-    "capture_start_after_scheduled_open_ms": 112.14423179626465,
-    "capture_end_after_scheduled_open_ms": 126.01542472839355,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 112.18547821044922,
+    "capture_end_after_scheduled_open_ms": 122.85256385803223,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -555,9 +555,9 @@
     "sample": 8,
     "file": "close-70-0-08.png",
     "target_after_scheduled_open_ms": 128.0,
-    "capture_start_after_scheduled_open_ms": 128.09514999389648,
-    "capture_end_after_scheduled_open_ms": 137.52508163452148,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 128.10659408569336,
+    "capture_end_after_scheduled_open_ms": 137.65549659729004,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -566,9 +566,9 @@
     "sample": 9,
     "file": "close-70-0-09.png",
     "target_after_scheduled_open_ms": 160.0,
-    "capture_start_after_scheduled_open_ms": 160.12215614318848,
-    "capture_end_after_scheduled_open_ms": 172.11556434631348,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 160.16244888305664,
+    "capture_end_after_scheduled_open_ms": 175.56452751159668,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -577,9 +577,9 @@
     "sample": 10,
     "file": "close-70-0-10.png",
     "target_after_scheduled_open_ms": 200.0,
-    "capture_start_after_scheduled_open_ms": 200.1333236694336,
-    "capture_end_after_scheduled_open_ms": 214.15162086486816,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 200.1488208770752,
+    "capture_end_after_scheduled_open_ms": 210.71887016296387,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -588,9 +588,9 @@
     "sample": 11,
     "file": "close-70-0-11.png",
     "target_after_scheduled_open_ms": 240.0,
-    "capture_start_after_scheduled_open_ms": 240.14949798583984,
-    "capture_end_after_scheduled_open_ms": 261.1813545227051,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 240.1144504547119,
+    "capture_end_after_scheduled_open_ms": 260.4842185974121,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -599,9 +599,9 @@
     "sample": 12,
     "file": "close-70-0-12.png",
     "target_after_scheduled_open_ms": 280.0,
-    "capture_start_after_scheduled_open_ms": 280.1470756530762,
-    "capture_end_after_scheduled_open_ms": 299.685001373291,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 280.1098823547363,
+    "capture_end_after_scheduled_open_ms": 293.9753532409668,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -610,9 +610,9 @@
     "sample": 13,
     "file": "close-70-0-13.png",
     "target_after_scheduled_open_ms": 320.0,
-    "capture_start_after_scheduled_open_ms": 320.131778717041,
-    "capture_end_after_scheduled_open_ms": 335.30330657958984,
-    "scheduled_open_unix_ms": 1792881027106,
+    "capture_start_after_scheduled_open_ms": 320.10674476623535,
+    "capture_end_after_scheduled_open_ms": 332.22079277038574,
+    "scheduled_open_unix_ms": 1792899081652,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -621,9 +621,9 @@
     "sample": 0,
     "file": "close-70-1-00.png",
     "target_after_scheduled_open_ms": 0,
-    "capture_start_after_scheduled_open_ms": 0.12993812561035156,
-    "capture_end_after_scheduled_open_ms": 11.222600936889648,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 0.18644332885742188,
+    "capture_end_after_scheduled_open_ms": 11.396408081054688,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -632,9 +632,9 @@
     "sample": 1,
     "file": "close-70-1-01.png",
     "target_after_scheduled_open_ms": 16.0,
-    "capture_start_after_scheduled_open_ms": 16.114473342895508,
-    "capture_end_after_scheduled_open_ms": 27.22477912902832,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 16.116857528686523,
+    "capture_end_after_scheduled_open_ms": 27.353286743164062,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -643,9 +643,9 @@
     "sample": 2,
     "file": "close-70-1-02.png",
     "target_after_scheduled_open_ms": 32.0,
-    "capture_start_after_scheduled_open_ms": 32.10759162902832,
-    "capture_end_after_scheduled_open_ms": 43.660879135131836,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 32.10258483886719,
+    "capture_end_after_scheduled_open_ms": 41.689395904541016,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -654,9 +654,9 @@
     "sample": 3,
     "file": "close-70-1-03.png",
     "target_after_scheduled_open_ms": 48.0,
-    "capture_start_after_scheduled_open_ms": 48.126220703125,
-    "capture_end_after_scheduled_open_ms": 60.930728912353516,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 48.122406005859375,
+    "capture_end_after_scheduled_open_ms": 57.9988956451416,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -665,9 +665,9 @@
     "sample": 4,
     "file": "close-70-1-04.png",
     "target_after_scheduled_open_ms": 64.0,
-    "capture_start_after_scheduled_open_ms": 64.12291526794434,
-    "capture_end_after_scheduled_open_ms": 77.53443717956543,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 64.1014575958252,
+    "capture_end_after_scheduled_open_ms": 83.3125114440918,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -676,9 +676,9 @@
     "sample": 5,
     "file": "close-70-1-05.png",
     "target_after_scheduled_open_ms": 80.0,
-    "capture_start_after_scheduled_open_ms": 80.352783203125,
-    "capture_end_after_scheduled_open_ms": 93.68753433227539,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 83.41026306152344,
+    "capture_end_after_scheduled_open_ms": 93.10650825500488,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -687,9 +687,9 @@
     "sample": 6,
     "file": "close-70-1-06.png",
     "target_after_scheduled_open_ms": 96.0,
-    "capture_start_after_scheduled_open_ms": 96.09651565551758,
-    "capture_end_after_scheduled_open_ms": 105.27944564819336,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 96.09222412109375,
+    "capture_end_after_scheduled_open_ms": 114.03059959411621,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -698,9 +698,9 @@
     "sample": 7,
     "file": "close-70-1-07.png",
     "target_after_scheduled_open_ms": 112.0,
-    "capture_start_after_scheduled_open_ms": 112.12325096130371,
-    "capture_end_after_scheduled_open_ms": 127.54225730895996,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 114.12382125854492,
+    "capture_end_after_scheduled_open_ms": 125.89120864868164,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -709,9 +709,9 @@
     "sample": 8,
     "file": "close-70-1-08.png",
     "target_after_scheduled_open_ms": 128.0,
-    "capture_start_after_scheduled_open_ms": 128.36647033691406,
-    "capture_end_after_scheduled_open_ms": 145.50280570983887,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 128.08942794799805,
+    "capture_end_after_scheduled_open_ms": 138.93437385559082,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -720,9 +720,9 @@
     "sample": 9,
     "file": "close-70-1-09.png",
     "target_after_scheduled_open_ms": 160.0,
-    "capture_start_after_scheduled_open_ms": 160.1417064666748,
-    "capture_end_after_scheduled_open_ms": 174.20315742492676,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 160.11476516723633,
+    "capture_end_after_scheduled_open_ms": 179.84366416931152,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -731,9 +731,9 @@
     "sample": 10,
     "file": "close-70-1-10.png",
     "target_after_scheduled_open_ms": 200.0,
-    "capture_start_after_scheduled_open_ms": 200.13689994812012,
-    "capture_end_after_scheduled_open_ms": 215.23642539978027,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 200.1016139984131,
+    "capture_end_after_scheduled_open_ms": 211.0145092010498,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -742,9 +742,9 @@
     "sample": 11,
     "file": "close-70-1-11.png",
     "target_after_scheduled_open_ms": 240.0,
-    "capture_start_after_scheduled_open_ms": 240.1111125946045,
-    "capture_end_after_scheduled_open_ms": 254.90355491638184,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 240.12255668640137,
+    "capture_end_after_scheduled_open_ms": 249.15099143981934,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -753,9 +753,9 @@
     "sample": 12,
     "file": "close-70-1-12.png",
     "target_after_scheduled_open_ms": 280.0,
-    "capture_start_after_scheduled_open_ms": 280.09867668151855,
-    "capture_end_after_scheduled_open_ms": 309.1771602630615,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 280.1518440246582,
+    "capture_end_after_scheduled_open_ms": 296.8475818634033,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -764,9 +764,9 @@
     "sample": 13,
     "file": "close-70-1-13.png",
     "target_after_scheduled_open_ms": 320.0,
-    "capture_start_after_scheduled_open_ms": 320.16754150390625,
-    "capture_end_after_scheduled_open_ms": 336.88831329345703,
-    "scheduled_open_unix_ms": 1792881028369,
+    "capture_start_after_scheduled_open_ms": 320.148229598999,
+    "capture_end_after_scheduled_open_ms": 333.90212059020996,
+    "scheduled_open_unix_ms": 1792899082910,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -775,9 +775,9 @@
     "sample": 0,
     "file": "close-70-2-00.png",
     "target_after_scheduled_open_ms": 0,
-    "capture_start_after_scheduled_open_ms": 0.2472400665283203,
-    "capture_end_after_scheduled_open_ms": 11.25192642211914,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 0.15473365783691406,
+    "capture_end_after_scheduled_open_ms": 9.500980377197266,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -786,9 +786,9 @@
     "sample": 1,
     "file": "close-70-2-01.png",
     "target_after_scheduled_open_ms": 16.0,
-    "capture_start_after_scheduled_open_ms": 16.106843948364258,
-    "capture_end_after_scheduled_open_ms": 27.0383358001709,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 16.099929809570312,
+    "capture_end_after_scheduled_open_ms": 25.51746368408203,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -797,9 +797,9 @@
     "sample": 2,
     "file": "close-70-2-02.png",
     "target_after_scheduled_open_ms": 32.0,
-    "capture_start_after_scheduled_open_ms": 32.12451934814453,
-    "capture_end_after_scheduled_open_ms": 45.79877853393555,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 32.12094306945801,
+    "capture_end_after_scheduled_open_ms": 41.013240814208984,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -808,9 +808,9 @@
     "sample": 3,
     "file": "close-70-2-03.png",
     "target_after_scheduled_open_ms": 48.0,
-    "capture_start_after_scheduled_open_ms": 48.172950744628906,
-    "capture_end_after_scheduled_open_ms": 60.32824516296387,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 48.11239242553711,
+    "capture_end_after_scheduled_open_ms": 67.09551811218262,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -819,9 +819,9 @@
     "sample": 4,
     "file": "close-70-2-04.png",
     "target_after_scheduled_open_ms": 64.0,
-    "capture_start_after_scheduled_open_ms": 64.25237655639648,
-    "capture_end_after_scheduled_open_ms": 77.8512954711914,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 67.22617149353027,
+    "capture_end_after_scheduled_open_ms": 75.79803466796875,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -830,9 +830,9 @@
     "sample": 5,
     "file": "close-70-2-05.png",
     "target_after_scheduled_open_ms": 80.0,
-    "capture_start_after_scheduled_open_ms": 80.09767532348633,
-    "capture_end_after_scheduled_open_ms": 96.85444831848145,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 80.10244369506836,
+    "capture_end_after_scheduled_open_ms": 94.38943862915039,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -841,9 +841,9 @@
     "sample": 6,
     "file": "close-70-2-06.png",
     "target_after_scheduled_open_ms": 96.0,
-    "capture_start_after_scheduled_open_ms": 97.25093841552734,
-    "capture_end_after_scheduled_open_ms": 109.88521575927734,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 96.099853515625,
+    "capture_end_after_scheduled_open_ms": 110.1386547088623,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -852,9 +852,9 @@
     "sample": 7,
     "file": "close-70-2-07.png",
     "target_after_scheduled_open_ms": 112.0,
-    "capture_start_after_scheduled_open_ms": 112.09940910339355,
-    "capture_end_after_scheduled_open_ms": 133.59355926513672,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 112.08701133728027,
+    "capture_end_after_scheduled_open_ms": 121.23298645019531,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -863,9 +863,9 @@
     "sample": 8,
     "file": "close-70-2-08.png",
     "target_after_scheduled_open_ms": 128.0,
-    "capture_start_after_scheduled_open_ms": 133.68797302246094,
-    "capture_end_after_scheduled_open_ms": 154.82306480407715,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 128.08966636657715,
+    "capture_end_after_scheduled_open_ms": 145.07484436035156,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -874,9 +874,9 @@
     "sample": 9,
     "file": "close-70-2-09.png",
     "target_after_scheduled_open_ms": 160.0,
-    "capture_start_after_scheduled_open_ms": 160.12334823608398,
-    "capture_end_after_scheduled_open_ms": 170.67289352416992,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 160.1550579071045,
+    "capture_end_after_scheduled_open_ms": 173.8295555114746,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -885,9 +885,9 @@
     "sample": 10,
     "file": "close-70-2-10.png",
     "target_after_scheduled_open_ms": 200.0,
-    "capture_start_after_scheduled_open_ms": 200.12187957763672,
-    "capture_end_after_scheduled_open_ms": 218.2786464691162,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 200.14095306396484,
+    "capture_end_after_scheduled_open_ms": 211.17758750915527,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -896,9 +896,9 @@
     "sample": 11,
     "file": "close-70-2-11.png",
     "target_after_scheduled_open_ms": 240.0,
-    "capture_start_after_scheduled_open_ms": 240.16666412353516,
-    "capture_end_after_scheduled_open_ms": 255.35845756530762,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 240.1447296142578,
+    "capture_end_after_scheduled_open_ms": 253.3102035522461,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -907,9 +907,9 @@
     "sample": 12,
     "file": "close-70-2-12.png",
     "target_after_scheduled_open_ms": 280.0,
-    "capture_start_after_scheduled_open_ms": 280.11035919189453,
-    "capture_end_after_scheduled_open_ms": 290.71736335754395,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 280.17425537109375,
+    "capture_end_after_scheduled_open_ms": 292.2377586364746,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   },
   {
@@ -918,9 +918,9 @@
     "sample": 13,
     "file": "close-70-2-13.png",
     "target_after_scheduled_open_ms": 320.0,
-    "capture_start_after_scheduled_open_ms": 320.13845443725586,
-    "capture_end_after_scheduled_open_ms": 333.8623046875,
-    "scheduled_open_unix_ms": 1792881029625,
+    "capture_start_after_scheduled_open_ms": 320.159912109375,
+    "capture_end_after_scheduled_open_ms": 335.5367183685303,
+    "scheduled_open_unix_ms": 1792899084175,
     "method": "Actual software-rendered crop. Native frame lies within capture interval. Qt one-shot Timer logs actual open/close wall times; no frame interpolation or per-frame production JS."
   }
 ]
