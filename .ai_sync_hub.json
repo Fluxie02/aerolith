@@ -7,9 +7,9 @@
   },
   "system_state": "Claude_Performance_Audit",
   "workflow": {
-    "current_task_id": "UI-015",
+    "current_task_id": "UI-016",
     "current_owner": "Claude",
-    "last_transition_at": "2026-10-24T17:29:43+00:00",
+    "last_transition_at": "2026-10-25T08:35:13+00:00",
     "transition_reason": "Astra explicitly published design_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
@@ -2450,6 +2450,32 @@
         "request": "Performance/stability audit of the completed design layer",
         "summary": "UI-015 Spectra complete: twelve live colour environments, instrument scheme register and generated application palettes.",
         "notes": "Serpantinum confidently identified from primary picker QML; sources and design rationale in docs/design/schemes/README.md. Node 118/118, Qt V4 118/118, pytest 71 passed and 1 skipped. Required smoke, full, scaled/rotated deck and ai passed; focused Settings, rapid containment, all 12 schemes across every bay/notices, lock/OSD/session fixtures, four 4K direction/intensity matrices, compact Noto/off/lowEffects and sampled live-switch MP4 delivered. 540 shell contrast pairs minimum 4.935:1; 780 app pairs minimum 4.527:1. 446 generated app files pass reproducibility/format checks; 72 Hyprland and 12 foot native parses passed. PIYTI Saturated idle 0.98%, after-use 0.93%, peak RSS 207.5 MiB; Insane idle 2.36%, after-use 2.47%, peak 203.6 MiB, within UI-013 budgets. Trace stale colours, initial compact selected-card clipping and two app pressed-fill contrast failures fixed; independent review accepted one revision. Only config addition theme.scheme; no production services, GroundSurface, Deck or NoticeColumn edits. App activation, terminal and installer support documented in SYSTEMS-REQUESTS.md; real Hyprland/GPU/VRAM, PAM and authenticated apps unverified. No commit attempted. Current Claude systems contract reviewed once with no new findings. Please perform one systems/performance audit; no dispatcher has been started or claimed. Exact commands/results, source hashes and evidence in docs/design/schemes/verification/RESULTS.md.",
+        "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-25T08:35:13+00:00",
+        "task_id": "UI-016",
+        "files": [
+          "shell/core/Theme.qml",
+          "shell/components/ChordSlot.qml",
+          "shell/components/Bezel.qml",
+          "shell/components/TapeGauge.qml",
+          "shell/components/CircularField.qml",
+          "shell/components/Counterphase.qml",
+          "shell/components/ShearField.qml",
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/components/AppContinuity.qml",
+          "shell/components/InstrumentTabs.qml",
+          "shell/modules/settings/SettingsBay.qml",
+          "shell/modules/settings/SettingControl.qml",
+          "shell/modules/deck/DeckView.qml",
+          "shell/modules/help/HelpBay.qml",
+          "shell/modules/osd/OsdView.qml",
+          "docs/design/smooth"
+        ],
+        "request": "Performance/stability audit of the completed design layer",
+        "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
+        "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
         "status": "pending"
       }
     ],
@@ -5287,6 +5313,129 @@
       "notes": "Serpantinum confidently identified from primary picker QML; sources and design rationale in docs/design/schemes/README.md. Node 118/118, Qt V4 118/118, pytest 71 passed and 1 skipped. Required smoke, full, scaled/rotated deck and ai passed; focused Settings, rapid containment, all 12 schemes across every bay/notices, lock/OSD/session fixtures, four 4K direction/intensity matrices, compact Noto/off/lowEffects and sampled live-switch MP4 delivered. 540 shell contrast pairs minimum 4.935:1; 780 app pairs minimum 4.527:1. 446 generated app files pass reproducibility/format checks; 72 Hyprland and 12 foot native parses passed. PIYTI Saturated idle 0.98%, after-use 0.93%, peak RSS 207.5 MiB; Insane idle 2.36%, after-use 2.47%, peak 203.6 MiB, within UI-013 budgets. Trace stale colours, initial compact selected-card clipping and two app pressed-fill contrast failures fixed; independent review accepted one revision. Only config addition theme.scheme; no production services, GroundSurface, Deck or NoticeColumn edits. App activation, terminal and installer support documented in SYSTEMS-REQUESTS.md; real Hyprland/GPU/VRAM, PAM and authenticated apps unverified. No commit attempted. Current Claude systems contract reviewed once with no new findings. Please perform one systems/performance audit; no dispatcher has been started or claimed. Exact commands/results, source hashes and evidence in docs/design/schemes/verification/RESULTS.md.",
       "task_id": "UI-015",
       "timestamp": "2026-10-24T17:29:43+00:00"
+    },
+    {
+      "id": "aaa1efa6-8e0a-4fd0-ae95-54bfb0c72035",
+      "type": "state_transition",
+      "state": "Astra_Design_Phase",
+      "reason": "Owner explicitly assigned UI-016 refresh-synced motion to Astra",
+      "timestamp": "2026-10-24T17:55:16+00:00"
+    },
+    {
+      "id": "dea0a5d3-d4be-420b-84c8-aa9dd2d813bc",
+      "type": "note",
+      "agent": "Astra",
+      "files": [],
+      "summary": "Starting owner-assigned UI-016: time-based motion, refresh readout, 60/144 Hz evidence. No active locks; prior UI-015 review state superseded by explicit owner assignment.",
+      "notes": "",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-24T17:55:17+00:00"
+    },
+    {
+      "id": "0fea2732-fdaa-4e1c-a923-f958450e1a44",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/components/ChordSlot.qml",
+        "shell/components/Bezel.qml",
+        "docs/design/smooth"
+      ],
+      "summary": "UI-016 saved checkpoint: motion implementation provisionally complete; independent 60/144 Hz baseline measurements running; settings refresh/audit saved.",
+      "notes": "PIYTI base, THEARS preserved, no direction selector. Production hosts/services/config/schema untouched. All locks renewed after pause. Final tests and renderer timing evidence still pending; no completion claim.",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-24T22:18:49+00:00"
+    },
+    {
+      "id": "00cd83c8-495c-42d8-a437-62090b32f916",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "docs/design/smooth",
+        "shell/core/Theme.qml",
+        "shell/components/ChordSlot.qml"
+      ],
+      "summary": "UI-016 checkpoint: provisional visual source passes Node118, Qt V4 118, pytest71/1 skipped, smoke and extra-view lifecycle probes; baseline 60/144 CPU and timing complete.",
+      "notes": "144 Hz baseline Insane idle5.139% core exceeds UI0134% budget. Pixel interruption checks next, then final after CPU/timing and required full/deck/ai matrix. Settings144/full/reduced/off/lowEffects/unknown/compact verified. Host live-disable exit-deadline finding confirmed; prohibited files remain unchanged. No completion claim yet.",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-24T22:30:21+00:00"
+    },
+    {
+      "id": "97b6ec82-7c24-462d-b8c9-1bcb4692a95c",
+      "type": "note",
+      "agent": "Astra",
+      "files": [],
+      "summary": "Resumed UI-016 after pause; all 80 production files still match the verified provisional snapshot. Renewed expired Astra locks; baseline data and unit results preserved. Continuing pending pixel diagnostic, after measurements and final scenarios.",
+      "notes": "",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-25T03:22:58+00:00"
+    },
+    {
+      "id": "642bd229-e7aa-4463-98e8-26a9b517a0eb",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/components/ChordSlot.qml",
+        "docs/design/smooth/SELF-REVIEW.md"
+      ],
+      "summary": "UI-016 self-review caught cold-slot Animator initialization defect in actual pixels; final freeze held.",
+      "notes": "Original provisional AFTER marker enters from scene-graph x≈0 instead of entry x744 on first slot use; later reuse settles correctly. Before measurements and saved unit/lifecycle checks remain preserved, no after CPU yet. Testing one-shot frameSwapped gate in diagnostic copy before production correction. No protected-file changes.",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-25T03:26:54+00:00"
+    },
+    {
+      "id": "2bc0842c-3632-406b-aa8e-271b7703d1cc",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/components/ChordSlot.qml",
+        "docs/design/smooth/SELF-REVIEW.md"
+      ],
+      "summary": "UI-016 cold-slot correction saved: entry pose now waits for first render before Animator start, with generation and duplicate-queue guards.",
+      "notes": "Diagnostic simple gate confirmed intended entry. Corrected final60/144 pixel/rapid-switch probes running before final freeze and after CPU matrix. Initial rejected source/frames preserved. Other source remains unchanged; shared unit suites already passed.",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-25T03:28:58+00:00"
+    },
+    {
+      "id": "26e8de45-412f-4860-9321-5b4c21299ff9",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "docs/design/smooth/after-source-hashes.json",
+        "docs/design/smooth/after-source.tar.gz",
+        "shell/components/ChordSlot.qml"
+      ],
+      "summary": "UI-016 final visual source frozen after actual-pixel correction checks at60/144; after performance matrix starting.",
+      "notes": "All80files match measured snapshot;15visualfiles differ frombefore;14protectedfiles byteidentical. Corrected marker stays intended714–749 band, no cold sweep fromx0. Capture delayed requested35/70ms closes to57–122ms; strict35ms continuity notclaimed. Baseline/unit data preserved; final scenarios wait exclusive after measurements.",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-25T03:33:39+00:00"
+    },
+    {
+      "id": "d0991246-01d0-4125-8c30-a31b4c28afbf",
+      "type": "design_complete",
+      "agent": "Astra",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/components/ChordSlot.qml",
+        "shell/components/Bezel.qml",
+        "shell/components/TapeGauge.qml",
+        "shell/components/CircularField.qml",
+        "shell/components/Counterphase.qml",
+        "shell/components/ShearField.qml",
+        "shell/components/WorkspaceOrbit.qml",
+        "shell/components/AppContinuity.qml",
+        "shell/components/InstrumentTabs.qml",
+        "shell/modules/settings/SettingsBay.qml",
+        "shell/modules/settings/SettingControl.qml",
+        "shell/modules/deck/DeckView.qml",
+        "shell/modules/help/HelpBay.qml",
+        "shell/modules/osd/OsdView.qml",
+        "docs/design/smooth"
+      ],
+      "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
+      "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
+      "task_id": "UI-016",
+      "timestamp": "2026-10-25T08:35:13+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7048,6 +7197,10 @@
     "docs/design/shots/parallax/04-active.png",
     "docs/design/shots/parallax/05-notice.png",
     "docs/design/shots/parallax/06-sound.png",
+    "docs/design/smooth",
+    "docs/design/smooth/SELF-REVIEW.md",
+    "docs/design/smooth/after-source-hashes.json",
+    "docs/design/smooth/after-source.tar.gz",
     "docs/design/thears-piyti/APP-FORMATS.md",
     "docs/design/thears-piyti/CLAUDE-REVIEW.md",
     "docs/design/thears-piyti/MOD-FORMATS.md",
@@ -7704,6 +7857,7 @@
     "shell/components/CircularField.qml",
     "shell/components/Counterphase.qml",
     "shell/components/InstrumentField.qml",
+    "shell/components/InstrumentTabs.qml",
     "shell/components/Instrumentation.qml",
     "shell/components/KeyHint.qml",
     "shell/components/Label.qml",
@@ -7726,8 +7880,10 @@
     "shell/modules/navigator/Sector.qml",
     "shell/modules/navigator/SpatialNavigator.qml",
     "shell/modules/notices/NoticeStack.qml",
+    "shell/modules/osd/OsdView.qml",
     "shell/modules/routines/RoutineConsole.qml",
     "shell/modules/settings/SchemePicker.qml",
+    "shell/modules/settings/SettingControl.qml",
     "shell/modules/settings/SettingsBay.qml",
     "shell/modules/signal/DeviceRow.qml",
     "shell/modules/signal/PlayerCard.qml",
@@ -7780,25 +7936,27 @@
     "agent": "Astra",
     "type": "design_complete",
     "files": [
-      "shell/lib/schemes.mjs",
-      "shell/lib/tokens.mjs",
       "shell/core/Theme.qml",
-      "shell/components/Trace.qml",
-      "shell/modules/settings/SchemePicker.qml",
+      "shell/components/ChordSlot.qml",
+      "shell/components/Bezel.qml",
+      "shell/components/TapeGauge.qml",
+      "shell/components/CircularField.qml",
+      "shell/components/Counterphase.qml",
+      "shell/components/ShearField.qml",
+      "shell/components/WorkspaceOrbit.qml",
+      "shell/components/AppContinuity.qml",
+      "shell/components/InstrumentTabs.qml",
       "shell/modules/settings/SettingsBay.qml",
-      "shell/lib/config.mjs",
-      "shell/schema/config.schema.json",
-      "tests/js/schemes.test.mjs",
-      "tests/js/index.mjs",
-      "tools/gen-scheme-themes.mjs",
-      "themes/README.md",
-      "themes/schemes",
-      "docs/design/schemes"
+      "shell/modules/settings/SettingControl.qml",
+      "shell/modules/deck/DeckView.qml",
+      "shell/modules/help/HelpBay.qml",
+      "shell/modules/osd/OsdView.qml",
+      "docs/design/smooth"
     ],
-    "summary": "UI-015 Spectra complete: twelve live colour environments, instrument scheme register and generated application palettes.",
-    "notes": "Serpantinum confidently identified from primary picker QML; sources and design rationale in docs/design/schemes/README.md. Node 118/118, Qt V4 118/118, pytest 71 passed and 1 skipped. Required smoke, full, scaled/rotated deck and ai passed; focused Settings, rapid containment, all 12 schemes across every bay/notices, lock/OSD/session fixtures, four 4K direction/intensity matrices, compact Noto/off/lowEffects and sampled live-switch MP4 delivered. 540 shell contrast pairs minimum 4.935:1; 780 app pairs minimum 4.527:1. 446 generated app files pass reproducibility/format checks; 72 Hyprland and 12 foot native parses passed. PIYTI Saturated idle 0.98%, after-use 0.93%, peak RSS 207.5 MiB; Insane idle 2.36%, after-use 2.47%, peak 203.6 MiB, within UI-013 budgets. Trace stale colours, initial compact selected-card clipping and two app pressed-fill contrast failures fixed; independent review accepted one revision. Only config addition theme.scheme; no production services, GroundSurface, Deck or NoticeColumn edits. App activation, terminal and installer support documented in SYSTEMS-REQUESTS.md; real Hyprland/GPU/VRAM, PAM and authenticated apps unverified. No commit attempted. Current Claude systems contract reviewed once with no new findings. Please perform one systems/performance audit; no dispatcher has been started or claimed. Exact commands/results, source hashes and evidence in docs/design/schemes/verification/RESULTS.md.",
-    "task_id": "UI-015",
-    "timestamp": "2026-10-24T17:29:43+00:00"
+    "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
+    "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
+    "task_id": "UI-016",
+    "timestamp": "2026-10-25T08:35:13+00:00"
   },
-  "updated_at": "2026-10-24T17:29:44+00:00"
+  "updated_at": "2026-10-25T08:35:13+00:00"
 }
