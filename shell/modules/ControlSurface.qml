@@ -23,6 +23,11 @@ Scope {
             Ui.toggle(bay);
             return "ok";
         }
+        // Lock the session with AEROLITH's lock screen (lock.enabled); for
+        // hypridle: lock_cmd = qs -p <shell> ipc call aerolith lock
+        function lock(): string {
+            return Registry.get("session.lock") ? (Registry.execute("session.lock", {}, { origin: "ipc" }), "started") : "error: no lock command";
+        }
         // Session menu: lock, suspend, log out, reboot, power off.
         function session(): void {
             Ui.sessionOpen = true;
@@ -90,6 +95,9 @@ Scope {
                 ambient: Theme.ambient,
                 osd: Ui.osdKind,
                 session: Ui.sessionOpen,
+                locked: Ui.locked,
+                lockState: Ui.lockState,
+                lockAttempts: Ui.lockAttempts,
                 osdValue: isFinite(Ui.osdValue) ? Math.round(Ui.osdValue * 100) / 100 : null,
                 brightness: Brightness.available ? Brightness.percent : null
             });

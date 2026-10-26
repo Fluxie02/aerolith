@@ -101,6 +101,14 @@ Signal Rack audio behaviour.
 | `audio.maxVolume` | integer 100–150 | `100` | Upper volume limit in percent. Above 100 amplifies. |
 | `audio.showStreams` | bool | `true` | List per-application streams in the Signal Rack. |
 
+### `lock`
+
+Session lock.
+
+| Key | Type | Default | Meaning |
+|---|---|---|---|
+| `lock.enabled` | bool | `false` | Lock with AEROLITH's own lock screen (Wayland session lock and PAM). Off: the lock command asks logind, for a locker such as hyprlock. |
+
 ### `navigator`
 
 Spatial Navigator overview.

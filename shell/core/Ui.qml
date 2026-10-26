@@ -77,6 +77,11 @@ Singleton {
     property bool deckMapped: false
     // The OSD being presented ("volume", "mic"), "" when none. Written by
     // modules/osd/OsdHost.qml.
+    // The session lock (modules/lock/LockHost.qml): set true to lock; only a
+    // successful PAM authentication there sets it false again.
+    property bool locked: false
+    property string lockState: ""
+    property int lockAttempts: 0
     // The session menu (modules/session/SessionHost.qml).
     property bool sessionOpen: false
     property string osdKind: ""

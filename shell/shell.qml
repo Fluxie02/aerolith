@@ -14,6 +14,7 @@ import "modules/notices"
 import "modules/ground"
 import "modules/osd"
 import "modules/session"
+import "modules/lock"
 import "modules"
 
 ShellRoot {
@@ -57,6 +58,11 @@ ShellRoot {
     // Lock, suspend, log out, reboot, power off. Opened explicitly, so it also
     // opens over a fullscreen window; its surface exists only while open.
     SessionHost {}
+
+    // AEROLITH's own lock screen (lock.enabled), through the Wayland
+    // session-lock protocol: the compositor keeps the session locked even if
+    // the shell stops.
+    LockHost {}
 
     ControlSurface {}
 
