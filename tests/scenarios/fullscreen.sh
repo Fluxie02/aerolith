@@ -113,12 +113,19 @@ for i in $(seq 20); do
   [ "$(field telemetryIntervalMs)" = 0 ] || fail "cycle $i: telemetry still sampling"
   [ "$(field ambient)" = False ] || fail "cycle $i: ambient still running"
   if [ "$notifications" = 1 ]; then
-    if [ $((i % 2)) = 1 ]; then send_pair; fi
-    [ "$(field popups)" = 2 ] || fail "cycle $i: popups lost or duplicated while suspended"
+    # The pair is sent, checked and dismissed within one even cycle, so its
+    # 5 s lifetime after restore is never shared with other cycles' work
+    # (across cycles, slow software rendering could let it run out between
+    # the restore and the dismissal). Survival across repeated suspensions
+    # is checked in section 7 with a bounded gap.
+    if [ $((i % 2)) = 0 ]; then
+      send_pair
+      [ "$(field popups)" = 2 ] || fail "cycle $i: popups lost or duplicated while suspended"
+    fi
   fi
   fullscreen_mode 0
   restored "cycle $i"
-  if [ "$notifications" = 1 ]; then
+  if [ "$notifications" = 1 ] && [ $((i % 2)) = 0 ]; then
     [ "$(field popups)" = 2 ] || fail "cycle $i: popups lost or duplicated on restore"
   fi
   # Read the actual shell PID, never the short-lived `qs ipc` client. Sample
@@ -130,7 +137,7 @@ for i in $(seq 20); do
   if [ "$notifications" = 1 ] && [ $((i % 2)) = 0 ]; then
     # Check identity as well as count: dismiss one of the two known ids.
     # A duplicated survivor masking a lost popup cannot pass this check.
-    notice_id=$(head -1 "$OUT/cycle-$((i - 1))-notice-1.txt")
+    notice_id=$(head -1 "$OUT/cycle-$i-notice-1.txt")
     [[ "$notice_id" =~ ^[0-9]+$ ]] || fail "cycle $i: invalid notification id"
     ipc run notifications.dismiss "{\"id\":$notice_id}" >/dev/null
     wait_field popups 1 2 || fail "cycle $i: dismissing one id did not leave exactly one popup"
@@ -143,7 +150,7 @@ alive || fail "quickshell died during the cycles"
 
 # 7. With the notification server on (CONFIG=tests/fixtures/notify-config.json,
 #    popupTimeoutMs 5000), a popup that arrives during fullscreen is kept
-#    until the shell is back and then gets its full time.
+#    across two suspensions and then gets its remaining time.
 if [ "$notifications" = 1 ]; then
   mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":2}" >/dev/null
   wait_field surfacesReleased True 3 || fail "not released before the notification test"
@@ -151,10 +158,18 @@ if [ "$notifications" = 1 ]; then
   wait_field popups 1 5 || fail "the notification sent during fullscreen has no popup"
   sleep 7
   [ "$(field popups)" = 1 ] || fail "the popup expired during fullscreen"
+  # A second suspension right after a brief restore: the popup's clock runs
+  # only for that short gap and stops again.
+  mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
+  wait_field phase desktop 3 || fail "not restored between the two suspensions"
+  mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":2}" >/dev/null
+  wait_field surfacesReleased True 3 || fail "not released for the second suspension"
+  sleep 6
+  [ "$(field popups)" = 1 ] || fail "the popup expired across two suspensions"
   mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
   wait_field phase desktop 3 || fail "not restored for the notification test"
-  sleep 3
-  [ "$(field popups)" = 1 ] || fail "the popup did not get its full time after fullscreen"
+  sleep 2
+  [ "$(field popups)" = 1 ] || fail "the popup did not get its remaining time after fullscreen"
   wait_field popups 0 4 || fail "the popup never expired after fullscreen"
 fi
 
