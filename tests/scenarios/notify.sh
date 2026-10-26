@@ -57,5 +57,22 @@ grep -q "^closed" "$OUT/n2.txt" && fail "hiding a popup closed the notification"
 ipc run notifications.dismiss "{\"id\":$first}" >/dev/null
 saw "^closed 2" "$OUT/n2.txt" || fail "the sender was not told the notification was dismissed"
 
+# 4. Evicting the oldest of 101 retained notifications closes its sender.
+ipc run notifications.clear '{}' >/dev/null
+wait_field popups 0 3 || fail "clear did not remove popups"
+send "$OUT/evicted.txt" --summary "Oldest retained notification" --wait 30 >/dev/null
+python3 - <<'PY'
+import gi
+gi.require_version("Gio", "2.0")
+from gi.repository import Gio, GLib
+conn = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+for i in range(100):
+    conn.call_sync("org.freedesktop.Notifications", "/org/freedesktop/Notifications",
+                   "org.freedesktop.Notifications", "Notify",
+                   GLib.Variant("(susssasa{sv}i)", ("overflow-test", 0, "", f"Overflow {i}", "", [], {}, 0)),
+                   GLib.VariantType("(u)"), Gio.DBusCallFlags.NONE, 5000, None)
+PY
+saw "^closed 2" "$OUT/evicted.txt" || fail "the evicted sender was left open"
+
 alive || fail "quickshell died"
 echo "notify: ok"

@@ -41,8 +41,8 @@ svg=['<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="570" viewBox=
 colors=['#ffbd6b','#80dcff','#bee69b']
 for panel,rate in enumerate((60,144)):
     x0=65+panel*530;y0=100;w=455;h=330
-    sx=lambda t:x0+(t+50)/550*w
-    sy=lambda x:y0+(752-x)/42*h
+    sx=lambda t,x0=x0,w=w:x0+(t+50)/550*w
+    sy=lambda x,y0=y0,h=h:y0+(752-x)/42*h
     svg.append(f'<text x="{x0}" y="82" font-size="18">{rate} Hz output</text>')
     for t in range(0,501,100):
         x=sx(t);svg.append(f'<path d="M{x},{y0}V{y0+h}" stroke="#2e4249"/><text x="{x-9}" y="{y0+h+21}">{t}</text>')

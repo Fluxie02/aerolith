@@ -8,6 +8,12 @@ export default suite("launch", (test) => {
     assert.deepEqual(buildLaunchArgv({ command: ["gimp", "%F", "--new"] }, {}).argv, ["gimp", "--new"]);
   });
 
+  test("strips embedded field codes and unescapes literal percent once", (assert) => {
+    assert.deepEqual(buildLaunchArgv({ command: ["browser", "--url=%u", "pre%Fpost", "%%", "%%u", "100%%", ""] }, {}).argv,
+      ["browser", "--url=", "prepost", "%", "%u", "100%", ""]);
+    assert.ok(buildLaunchArgv({ command: ["%u"] }, {}).error);
+  });
+
   test("terminal applications need a terminal", (assert) => {
     assert.match(buildLaunchArgv({ command: ["htop"], runInTerminal: true }, {}).error, /terminal/);
     assert.deepEqual(buildLaunchArgv({ command: ["htop"], runInTerminal: true }, { terminal: ["kitty", "-e"] }).argv, ["kitty", "-e", "htop"]);

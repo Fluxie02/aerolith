@@ -68,8 +68,11 @@ the root of a ZIP archive named `aerolith-appearance.oxt`. To prepare a
 review package without installing it, run from the repository root:
 
 ```sh
-(cd themes/libreoffice && python3 -m zipfile -c /tmp/aerolith-appearance.oxt description.xml META-INF/manifest.xml thears.xcu piyti.xcu)
+(cd themes/libreoffice && python3 -m zipfile -c /tmp/aerolith-appearance.oxt description.xml META-INF thears.xcu piyti.xcu)
+python3 -m zipfile -l /tmp/aerolith-appearance.oxt
 ```
+
+The listing must contain `META-INF/manifest.xml` with that full path.
 
 After owner approval Claude can offer that package through LibreOffice's
 Extension Manager. In Tools → Options → LibreOffice → Appearance, select

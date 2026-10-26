@@ -4,7 +4,7 @@
 
 // Desktop Entry Exec field codes that must not reach the program as literal
 // arguments when launching without files/URLs.
-const FIELD_CODE = /^%[fFuUdDnNickvm]$/;
+const FIELD_CODE = /%%|%[fFuUdDnNickvm]/g;
 
 // Terminals tried in order when commandCore.terminal is empty.
 export const KNOWN_TERMINALS = [
@@ -24,7 +24,13 @@ export const KNOWN_TERMINALS = [
 // Returns { argv } or { error }.
 export function buildLaunchArgv(entry, options) {
   const opts = options || {};
-  const cmd = (entry && Array.isArray(entry.command) ? entry.command : []).filter((a) => typeof a === "string" && !FIELD_CODE.test(a));
+  const cmd = [];
+  for (const arg of entry && Array.isArray(entry.command) ? entry.command : []) {
+    if (typeof arg !== "string") continue;
+    // One pass: %%u becomes literal %u, never another field-code expansion.
+    const expanded = arg.replace(FIELD_CODE, code => code === "%%" ? "%" : "");
+    if (expanded !== "" || arg === "") cmd.push(expanded);
+  }
   if (cmd.length === 0) return { error: "application has no command" };
   let argv = cmd.slice();
   if (entry.runInTerminal) {
