@@ -6183,6 +6183,21 @@
       "notes": "Evidence and all exact commands: docs/verification/ALPHA2-SOL-B.md; artifacts build/alpha-runtime/. Fixed Claude settings/memory isolation and Haiku default, Codex global-context refusal plus hook/memory restrictions, missing-locker failure, notification eviction, workspace stepping, embedded Exec field codes, prompt Exec start failure and bounded streams, OXT archive paths, B023. Navigator already excludes negative ids. ControlSurface unchanged because scalar synchronous IPC cannot await Registry promises; qmllint 6.12.0 exits 0 with warnings. Installer B007 left untouched. Offline installed Codex sentinel leaked before guard; after guard 0 requests. Reviewed ALPHA2-ASTRA once with Medium stale-geometry finding and invited one revision; no response yet. No visual/installer edits, commits, lock/unlock, host configuration changes or real session locking.",
       "task_id": "ALPHA2-SOL-B",
       "timestamp": "2026-10-26T21:46:18+00:00"
+    },
+    {
+      "id": "cea3e68f-4fd1-4d81-8539-87592d938d6d",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/services/Compositor.qml",
+        "shell/core/Theme.qml",
+        "shell/services/ShellState.qml",
+        "docs/design/redesign-1/checks/thears-exit.log"
+      ],
+      "summary": "UI-017 systems review: low-severity undefined bindings during explicit IPC teardown; visual checks and required scenarios pass.",
+      "notes": "After Exiting due to IPC request: Compositor.qml:49 undefined->QString, Theme.qml:146 undefined->bool, ShellState.qml:35-36 undefined->bool/QString. Restarted THEARS process clean. Minimal proposed correction: guard dependency reads during teardown and coerce string/bool outputs while preserving release order. Files untouched. Baseline comparison pending; one systems revision requested, no dispatcher invoked.",
+      "task_id": "UI-017",
+      "timestamp": "2026-10-26T21:51:30+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7873,6 +7888,7 @@
     "docs/design/limb/verification/status-systems.json",
     "docs/design/limb/verification/windows-qs.txt",
     "docs/design/notices",
+    "docs/design/redesign-1/checks/thears-exit.log",
     "docs/design/round2/CONCEPTS.md",
     "docs/design/round2/VALIDATION.md",
     "docs/design/round2/fault/01-idle.png",
@@ -8767,32 +8783,18 @@
     "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
-    "agent": "Sol",
-    "type": "integration_complete",
+    "agent": "Astra",
+    "type": "note",
     "files": [
-      "ai-bridge/aerolith_ai/providers.py",
-      "docs/design/smooth/summarise-positions.py",
-      "docs/design/thears-piyti/APP-FORMATS.md",
-      "shell/core/Exec.qml",
-      "shell/lib/launch.mjs",
       "shell/services/Compositor.qml",
-      "shell/services/Notifications.qml",
-      "shell/services/Power.qml",
-      "tests/js/launch.test.mjs",
-      "tests/js/run-node.mjs",
-      "tests/py/conftest.py",
-      "tests/py/test_ai_bridge.py",
-      "tests/scenarios/ai.sh",
-      "tests/scenarios/notify.sh",
-      "docs/verification/ALPHA2-SOL-B.md",
-      "tests/js/runtime-qml.test.mjs",
-      "tests/py/test_runtime_docs.py",
-      "tests/scenarios/runtime.sh"
+      "shell/core/Theme.qml",
+      "shell/services/ShellState.qml",
+      "docs/design/redesign-1/checks/thears-exit.log"
     ],
-    "summary": "Runtime fixes delivered with regression tests: 267 Python passed/1 skipped, 153 Node passed, 145 Qt passed; runtime, notification overflow, smoke and both AI scenarios pass. IPC async result replies remain outstanding; qmllint crash not reproduced.",
-    "notes": "Evidence and all exact commands: docs/verification/ALPHA2-SOL-B.md; artifacts build/alpha-runtime/. Fixed Claude settings/memory isolation and Haiku default, Codex global-context refusal plus hook/memory restrictions, missing-locker failure, notification eviction, workspace stepping, embedded Exec field codes, prompt Exec start failure and bounded streams, OXT archive paths, B023. Navigator already excludes negative ids. ControlSurface unchanged because scalar synchronous IPC cannot await Registry promises; qmllint 6.12.0 exits 0 with warnings. Installer B007 left untouched. Offline installed Codex sentinel leaked before guard; after guard 0 requests. Reviewed ALPHA2-ASTRA once with Medium stale-geometry finding and invited one revision; no response yet. No visual/installer edits, commits, lock/unlock, host configuration changes or real session locking.",
-    "task_id": "ALPHA2-SOL-B",
-    "timestamp": "2026-10-26T21:46:18+00:00"
+    "summary": "UI-017 systems review: low-severity undefined bindings during explicit IPC teardown; visual checks and required scenarios pass.",
+    "notes": "After Exiting due to IPC request: Compositor.qml:49 undefined->QString, Theme.qml:146 undefined->bool, ShellState.qml:35-36 undefined->bool/QString. Restarted THEARS process clean. Minimal proposed correction: guard dependency reads during teardown and coerce string/bool outputs while preserving release order. Files untouched. Baseline comparison pending; one systems revision requested, no dispatcher invoked.",
+    "task_id": "UI-017",
+    "timestamp": "2026-10-26T21:51:30+00:00"
   },
-  "updated_at": "2026-10-26T21:50:58+00:00"
+  "updated_at": "2026-10-26T21:51:30+00:00"
 }
