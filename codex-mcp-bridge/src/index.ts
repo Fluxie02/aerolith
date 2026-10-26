@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { spawn } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync, renameSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync, renameSync, rmSync } from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import crypto from "node:crypto";
@@ -72,8 +72,22 @@ function saveUsage(name: string, u: Usage) {
   writeFileSync(tmp, JSON.stringify(all, null, 2) + "\n", { mode: 0o600 });
   renameSync(tmp, USAGE_FILE);
 }
-function usedPercent(name: string): number | undefined {
-  const live = (readUsage()[name]?.windows ?? []).filter(w => w.resetsAt > Date.now());
+// `codex exec --json` does not report rate limits; Codex writes them only to the
+// session logs in $CODEX_HOME/sessions/YYYY/MM/DD. Read the newest two of those,
+// so the cap also counts work done outside the bridge.
+function sessionWindows(a: Account): Window[] {
+  let dir = path.join(a.home ?? path.join(os.homedir(), ".codex"), "sessions");
+  for (let depth = 0; depth < 3; depth++) {
+    const sub = existsSync(dir) ? readdirSync(dir).filter(d => /^\d+$/.test(d)).sort() : [];
+    if (!sub.length) return [];
+    dir = path.join(dir, sub[sub.length - 1]);
+  }
+  const files = readdirSync(dir).filter(f => f.endsWith(".jsonl")).map(f => path.join(dir, f))
+    .sort((x, y) => statSync(x).mtimeMs - statSync(y).mtimeMs).slice(-2);
+  return files.flatMap(f => rateWindows(readFileSync(f, "utf8")));
+}
+function usedPercent(a: Account): number | undefined {
+  const live = [...(readUsage()[a.name]?.windows ?? []), ...sessionWindows(a)].filter(w => w.resetsAt > Date.now());
   return live.length ? Math.max(...live.map(w => w.used)) : undefined;
 }
 function toWindow(o: Record<string, unknown>): Window {
@@ -121,7 +135,7 @@ async function blocked(a: Account): Promise<string | undefined> {
   if (!(await loginStatus(a)).ok) return "not logged in";
   const hit = readUsage()[a.name]?.limitHitUntil;
   if (hit && hit > Date.now()) return `usage limit reached until ${new Date(hit).toISOString()}`;
-  const used = usedPercent(a.name);
+  const used = usedPercent(a);
   if (used !== undefined && used >= a.cap) return `${used}% used, cap is ${a.cap}%`;
   return undefined;
 }
@@ -233,7 +247,7 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
         observedAt: new Date().toISOString(),
         limitHitUntil: hit ? resetAt : undefined
       });
-      log.push(`account=${account.name}${account.model ? ` model=${account.model}` : ""} used_percent=${usedPercent(account.name) ?? "unknown"} cap=${account.cap}%${hit ? " (usage limit hit, trying next account)" : ""}`);
+      log.push(`account=${account.name}${account.model ? ` model=${account.model}` : ""} used_percent=${usedPercent(account) ?? "unknown"} cap=${account.cap}%${hit ? " (usage limit hit, trying next account)" : ""}`);
       job.status = r.timedOut ? "timed_out" : (r.code === 0 ? "succeeded" : "failed");
       const changes = edit ? `\nCHANGES:\n${await closeWorktree(job, dir, role)}\n` : "";
       if (hit && edit) log.push(`account=${account.name} changes before the limit: ${changes.trim()}`);
@@ -294,7 +308,7 @@ server.tool("codex_status",
       const login = await loginStatus(acc);
       const why = await blocked(acc);
       if (!why) for (const r of ["design", "coding"] as Role[]) if ((!acc.role || acc.role === r) && !next[r]) next[r] = acc.name;
-      const used = usedPercent(acc.name);
+      const used = usedPercent(acc);
       lines.push(`- ${acc.name} (${acc.role ?? "design+coding"}${acc.model ? `, model ${acc.model}` : ""}): cap ${acc.cap}%, used ${used === undefined ? "unknown" : `${used}%`}, ${why ? `blocked (${why})` : "available"}` +
         `${acc.home ? `, CODEX_HOME=${acc.home}` : ""}\n  login: ${login.text}`);
     }
