@@ -58,9 +58,29 @@ Singleton {
     // fixed then, so later popups never extend earlier ones.
     property var popupExpiry: ({})
 
+    // While a fullscreen window owns the output the notice surfaces are
+    // released (ShellState), so popups cannot be seen: their clock stops and
+    // they get their remaining time after the game. A popup that arrives
+    // during it gets its full time.
+    readonly property bool held: ShellState.surfacesReleased
+    property real heldAt: 0
+    onHeldChanged: {
+        if (held) {
+            heldAt = Date.now();
+            popupTimer.stop();
+            return;
+        }
+        const shift = Date.now() - heldAt;
+        const expiry = {};
+        for (const k in popupExpiry)
+            expiry[k] = popupExpiry[k] + shift;
+        popupExpiry = expiry;
+        popupTimer.schedule();
+    }
+
     function showPopup(n) {
         const expiry = Object.assign({}, popupExpiry);
-        expiry[n.id] = Date.now() + Config.notifications.popupTimeoutMs;
+        expiry[n.id] = (held ? heldAt : Date.now()) + Config.notifications.popupTimeoutMs;
         const kept = popups.concat([n]).slice(-3);
         const ids = kept.map(x => String(x.id));
         for (const k in expiry)
@@ -111,6 +131,8 @@ Singleton {
         id: popupTimer
         function schedule() {
             stop();
+            if (root.held)
+                return;
             let next = -1;
             for (let i = 0; i < root.popups.length; i++) {
                 const at = root.popupExpiry[root.popups[i].id];

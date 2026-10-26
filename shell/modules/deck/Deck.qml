@@ -107,6 +107,9 @@ PanelWindow {
         if (visible)
             Ui.deckMaps++;
     }
+    // shell.qml unloads the Deck while a fullscreen window owns the output;
+    // a destroyed Deck is not mapped.
+    Component.onDestruction: Ui.deckMapped = false
     // The compositor closed the surface (e.g. its output went away): treat
     // it as closed, so no bay keeps its demand without being seen.
     onClosed: Ui.close()

@@ -19,17 +19,34 @@ ShellRoot {
 
     // Touch services so they initialise and register their commands even
     // before anything visible references them.
-    readonly property var services: [Compositor, Apps, Audio, Media, Telemetry, Power, Routines, Notifications, ShellCommands]
+    readonly property var services: [Compositor, ShellState, Apps, Audio, Media, Telemetry, Power, Routines, Notifications, ShellCommands]
 
-    GroundSurface {}
-
-    FlightStrip {}
-
-    Deck {
-        aiBay: aiLoader.bayComponent
+    // While a fullscreen window owns the output (ShellState), the visual
+    // surfaces are destroyed, not just hidden: a hidden window keeps its
+    // scene graph and render resources. They are rebuilt once when it ends.
+    // Summoning the Deck during fullscreen maps the Deck alone; ambient
+    // motion stays held until the shell is back to desktop.
+    LazyLoader {
+        active: !ShellState.surfacesReleased
+        GroundSurface {}
     }
 
-    NoticeColumn {}
+    LazyLoader {
+        active: !ShellState.surfacesReleased
+        FlightStrip {}
+    }
+
+    LazyLoader {
+        active: !ShellState.surfacesReleased || Ui.deckOpen || Ui.deckMapped
+        Deck {
+            aiBay: aiLoader.bayComponent
+        }
+    }
+
+    LazyLoader {
+        active: !ShellState.surfacesReleased
+        NoticeColumn {}
+    }
 
     ControlSurface {}
 

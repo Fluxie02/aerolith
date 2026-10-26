@@ -77,7 +77,12 @@ Scope {
                 notices: Ui.notices.length,
                 popups: Notifications.popups.length,
                 ground: Config.ground.enabled,
-                motion: Config.theme.motion
+                motion: Config.theme.motion,
+                phase: ShellState.phase,
+                fullscreen: ShellState.fullscreen,
+                fullscreenOwner: ShellState.ownerClass,
+                surfacesReleased: ShellState.surfacesReleased,
+                ambient: Theme.ambient
             });
         }
         // Diagnostics: how PipeWire nodes are classified (no volumes or
