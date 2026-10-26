@@ -17,7 +17,8 @@ Every job tool takes `wait` (block until done) and `timeout_minutes` (1 to 120).
 Editing jobs (`codex_design_task`, `codex_coding_buddy` in edit mode) each get a Git worktree in `~/.codex-mcp-bridge/worktrees/` on a new branch `codex/<kind>-<id>` made from the main checkout's `HEAD`, so Claude, Astra and Sol never write the same files on disk. When the job ends, the bridge commits its changes to that branch (author Astra or Sol), drops any worktree change to `.ai_sync_hub.json`, removes the worktree and reports the branch with a diffstat. A job that changed nothing leaves no branch. Read-only jobs run in the main checkout.
 
 - Uncommitted changes in the main checkout are not in a job's worktree; commit first.
-- Design jobs get `--add-dir <main checkout>` so Astra can write the shared agent-sync hub (`agent_sync.py --repo <main checkout>`). This also lets Astra write the main checkout, as it could before worktrees.
+- Editing jobs get `--add-dir <main checkout>` so Astra and Sol can write the shared agent-sync hub (`agent_sync.py --repo <main checkout>`). This also lets them write the main checkout, as Astra could before worktrees.
+- Editing jobs get network access (`sandbox_workspace_write.network_access=true`), which the Docker-based headless harness and package downloads need.
 - A worktree has no `node_modules` or build output; checks that need them must install or build first.
 - Each account runs one Codex process at a time; further jobs for it wait in a queue. Different accounts run side by side.
 - Jobs are owned by the bridge process. If it exits (session end, `/mcp` reconnect), its unfinished jobs are marked `abandoned` at the next start, with their branch named so the work can be recovered.

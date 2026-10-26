@@ -221,8 +221,9 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
           `Do not commit; the bridge commits your changes. Run agent-sync commands against the shared hub with ` +
           `\`python ${path.join(dir, "tools/agent-sync/agent_sync.py")} --repo ${ROOT} <command> ...\` and do not edit .ai_sync_hub.json directly.\n`
         : "";
-      // Astra needs write access to the shared hub in ROOT for its locks and events.
-      const extra = edit && role === "design" ? ["--add-dir", ROOT] : [];
+      // Astra and Sol both need write access to the shared hub in ROOT for their
+      // locks and events, and network access for the Docker-based headless harness.
+      const extra = edit ? ["--add-dir", ROOT, "-c", "sandbox_workspace_write.network_access=true"] : [];
       const args = ["exec", "--ephemeral", "--json", "--sandbox", sandbox, ...extra,
         ...(account.model ? ["-m", account.model] : []), "-C", dir, prompt + where];
       const exec = new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean}>((resolve, reject) => {
