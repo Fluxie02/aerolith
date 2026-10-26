@@ -15,9 +15,41 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Sol",
+    "files": [
+      "docs/verification/B05/README.md",
+      "tests/py/test_mock_hyprland.py",
+      "tests/scenarios/fullscreen-matrix.sh",
+      "tests/scenarios/fullscreen.sh",
+      "tools/mock-hyprland/mock_hyprland.py"
+    ],
+    "locks": [
+      {
+        "lock_id": "4aab9297-8573-4eeb-97bf-bb86fe7abc2b",
+        "agent": "Sol",
+        "files": [
+          "docs/verification/B05/README.md",
+          "tests/scenarios/fullscreen-matrix.sh",
+          "tests/scenarios/fullscreen.sh",
+          "tools/mock-hyprland/mock_hyprland.py"
+        ],
+        "task_id": "B05",
+        "created_at": "2026-10-26T15:41:05+00:00",
+        "expires_epoch": 1793043665.2762778,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "1b1c4338-66c3-4833-bd6a-57182ad79396",
+        "agent": "Sol",
+        "files": [
+          "tests/py/test_mock_hyprland.py"
+        ],
+        "task_id": "B05",
+        "created_at": "2026-10-26T15:44:20+00:00",
+        "expires_epoch": 1793043860.6917622,
+        "ttl_seconds": 14400
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -5497,6 +5529,21 @@
       "notes": "Baseline 0af92c40e1355b1a0d8f89a8a3ad7bc0f5ae4b1f. docs/design 766550087 -> 249832796 bytes; fresh working tree excluding .git 772631143 -> 255920807 bytes. ARCHIVE.md records restore command, per-round/kind inventory, removal counts and packaging audit. python tools/design_archive.py --check-links: zero broken local targets; fresh materialization 468 design targets passed after removing empty directories. Retention/removal invariants and materialized-file equality passed; git diff --check passed. 29 pre-existing missing targets marked unavailable across nine Markdown files including A03. Installer copy boundary reviewed once, no actionable findings. Runtime tests not rerun (assets/docs only); external packages, remote URLs/anchors and full historical replay not verified. Completion event is a note to avoid changing the unrelated legacy UI-016 workflow owner.",
       "task_id": "A05",
       "timestamp": "2026-10-26T15:38:38+00:00"
+    },
+    {
+      "id": "71208cd5-9eea-4834-8ea3-bf88f1a7db46",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "tests/scenarios/fullscreen.sh",
+        "tests/scenarios/fullscreen-matrix.sh",
+        "tools/mock-hyprland/mock_hyprland.py",
+        "docs/verification/B05/README.md"
+      ],
+      "summary": "B05 assigned explicitly to Sol by user and ROADMAP; shared workflow still names Claude/UI-016; no active locks",
+      "notes": "",
+      "task_id": "B05",
+      "timestamp": "2026-10-26T15:41:05+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7842,6 +7889,7 @@
     "docs/design/thears-piyti/verification/validate-themes.py",
     "docs/design/unhinged",
     "docs/verification/A03/README.md",
+    "docs/verification/B05/README.md",
     "prototypes/README.md",
     "prototypes/accessibility.json",
     "prototypes/capture.sh",
@@ -7961,6 +8009,8 @@
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/schemes.test.mjs",
+    "tests/scenarios/fullscreen-matrix.sh",
+    "tests/scenarios/fullscreen.sh",
     "themes",
     "themes/README.md",
     "themes/artcraft/README.md",
@@ -7994,20 +8044,22 @@
     "tools/design_archive.py",
     "tools/gen-scheme-themes.mjs",
     "tools/headless/run.sh",
-    "tools/headless/session.sh"
+    "tools/headless/session.sh",
+    "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
     "agent": "Sol",
     "type": "note",
     "files": [
-      "docs/design",
-      "tools/design_archive.py",
-      "docs/verification/A03/README.md"
+      "tests/scenarios/fullscreen.sh",
+      "tests/scenarios/fullscreen-matrix.sh",
+      "tools/mock-hyprland/mock_hyprland.py",
+      "docs/verification/B05/README.md"
     ],
-    "summary": "A05 complete: archived 2982 historical design assets (517087279 bytes); preserved documented evidence and reproducibility inputs; no runtime or visual changes.",
-    "notes": "Baseline 0af92c40e1355b1a0d8f89a8a3ad7bc0f5ae4b1f. docs/design 766550087 -> 249832796 bytes; fresh working tree excluding .git 772631143 -> 255920807 bytes. ARCHIVE.md records restore command, per-round/kind inventory, removal counts and packaging audit. python tools/design_archive.py --check-links: zero broken local targets; fresh materialization 468 design targets passed after removing empty directories. Retention/removal invariants and materialized-file equality passed; git diff --check passed. 29 pre-existing missing targets marked unavailable across nine Markdown files including A03. Installer copy boundary reviewed once, no actionable findings. Runtime tests not rerun (assets/docs only); external packages, remote URLs/anchors and full historical replay not verified. Completion event is a note to avoid changing the unrelated legacy UI-016 workflow owner.",
-    "task_id": "A05",
-    "timestamp": "2026-10-26T15:38:38+00:00"
+    "summary": "B05 assigned explicitly to Sol by user and ROADMAP; shared workflow still names Claude/UI-016; no active locks",
+    "notes": "",
+    "task_id": "B05",
+    "timestamp": "2026-10-26T15:41:05+00:00"
   },
-  "updated_at": "2026-10-26T15:38:38+00:00"
+  "updated_at": "2026-10-26T15:44:20+00:00"
 }
