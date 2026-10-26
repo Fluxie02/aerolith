@@ -1,5 +1,18 @@
 # aerolith
 
+AEROLITH is a desktop shell for Hyprland on Arch Linux, built with
+Quickshell: top bar, desktop, command overlay, window overview, system
+monitor, notifications, lock screen and app theming in one design.
+
+**Status: 0.1.0 alpha 1.** Usable day to day, with known gaps; the design is
+still being reworked. Start with **[docs/ALPHA.md](docs/ALPHA.md)**:
+requirements, install, update, known issues and how to report problems.
+
+```bash
+git clone https://github.com/Fluxie02/aerolith.git ~/aerolith
+cd ~/aerolith && ./install.sh
+```
+
 ## Installer
 
 Run `./install.sh` interactively, or choose the integrations explicitly:

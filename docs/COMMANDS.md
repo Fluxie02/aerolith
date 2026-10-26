@@ -127,7 +127,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 | `brightness.set`<br>Set brightness | `bright` | `level`: integer 1–100 | routine step, AI may propose |
 | `brightness.up`<br>Brightness up | — | — | routine step, AI may propose |
 | `power.profile.set`<br>Set power profile | `power` | `profile`: one of `balanced`, `performance`, `power-saver` | routine step, AI may propose |
-| `session.lock`<br>Lock session — loginctl lock-session (needs a locker such as hyprlock via hypridle) | `lock` | — | routine step, AI may propose |
+| `session.lock`<br>Lock session — AEROLITH's lock screen when lock.enabled is on; otherwise loginctl lock-session (needs a locker such as hyprlock via hypridle) | `lock` | — | routine step, AI may propose |
 | `session.logout`<br>Log out (exit Hyprland) | — | — | asks for confirmation |
 | `system.poweroff`<br>Power off | — | — | asks for confirmation |
 | `system.reboot`<br>Reboot | — | — | asks for confirmation |

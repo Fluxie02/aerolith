@@ -7,4 +7,4 @@ file AEROLITH does not own is one marker-delimited include block in the
 Hyprland config, made after showing it and taking a backup.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.0a1"

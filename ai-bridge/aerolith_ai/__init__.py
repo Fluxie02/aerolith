@@ -11,5 +11,5 @@ prints provider credentials; providers authenticate themselves with their
 own mechanisms.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.0a1"
 PROTOCOL_VERSION = 1
