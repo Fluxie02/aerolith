@@ -1,6 +1,10 @@
 // Visual exposure only: consume existing logical compositor snapshots. No IPC,
 // sampling, surface lifecycle changes or guessed coverage percentage.
-export function desktopCovered(windows, output, workspace) {
+// slack: logical pixels each window is widened by on every side before the
+// check, so ordinary Hyprland gaps (gaps_in / gaps_out) between tiled
+// windows count as covered; a real empty area larger than that does not.
+export function desktopCovered(windows, output, workspace, slack) {
+  const s = typeof slack === "number" && isFinite(slack) && slack > 0 ? slack : 0;
   if (!Array.isArray(windows) || !output || !Number.isInteger(workspace) || workspace === -1) return false;
   const x = output.x, y = output.y, width = output.width, height = output.height;
   if (![x, y, width, height].every(v => typeof v === "number" && isFinite(v)) || width <= 0 || height <= 0) return false;
@@ -17,8 +21,8 @@ export function desktopCovered(windows, output, workspace) {
     if (!Array.isArray(w.at) || !Array.isArray(w.size)) continue;
     const values = [w.at[0], w.at[1], w.size[0], w.size[1]];
     if (!values.every(v => typeof v === "number" && isFinite(v)) || w.size[0] <= 0 || w.size[1] <= 0) continue;
-    const r = { left: Math.max(x, w.at[0]), top: Math.max(y, w.at[1]),
-      right: Math.min(right, w.at[0] + w.size[0]), bottom: Math.min(bottom, w.at[1] + w.size[1]) };
+    const r = { left: Math.max(x, w.at[0] - s), top: Math.max(y, w.at[1] - s),
+      right: Math.min(right, w.at[0] + w.size[0] + s), bottom: Math.min(bottom, w.at[1] + w.size[1] + s) };
     if (r.right <= r.left || r.bottom <= r.top) continue;
     rects.push(r);
     cuts.push(r.left, r.right);

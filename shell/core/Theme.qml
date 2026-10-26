@@ -168,7 +168,8 @@ Singleton {
             workspaceId: w.workspaceId, at: w.at, size: w.size, floating: w.floating,
             ipc: w.toplevel ? w.toplevel.lastIpcObject : null
         }));
-        return Ambient.desktopCovered(windows, output, workspace);
+        // 40 logical px: Hyprland gaps between tiled windows still count as covered.
+        return Ambient.desktopCovered(windows, output, workspace, du(40));
     }
     readonly property bool ambientHeld: ambientSuspended || (desktopCovered && !Ui.deckOpen)
     readonly property bool ambient: animate && !lowEffects && !ambientHeld

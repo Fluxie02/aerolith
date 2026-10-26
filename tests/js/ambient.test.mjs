@@ -68,4 +68,16 @@ export default suite("ambient exposure", test => {
     a.equal(canvasFamily("Noto Sans Mono", { 0: "Noto Sans Mono", length: 1 }), "Noto Sans Mono, monospace");
     a.equal(canvasFamily("Odd;Face", ["Odd;Face"]), "monospace");
   });
+  test("ordinary tiling gaps count as covered with slack, a real empty area does not", a => {
+    const out = { x: 0, y: 0, width: 1920, height: 1080 };
+    // gaps_out 20, gaps_in 10 (5 per side): two tiled windows.
+    const tiled = [
+      { workspaceId: 1, at: [20, 20], size: [935, 1040] },
+      { workspaceId: 1, at: [965, 20], size: [935, 1040] },
+    ];
+    a.equal(desktopCovered(tiled, out, 1), false);
+    a.equal(desktopCovered(tiled, out, 1, 40), true);
+    const half = [{ workspaceId: 1, at: [20, 20], size: [935, 1040] }];
+    a.equal(desktopCovered(half, out, 1, 40), false);
+  });
 });
