@@ -297,17 +297,20 @@ def test_launcher_runs_isolated(home, fake_claude, tmp_path):
     assert json.loads(proc.stdout)["ok"] is True
 
 
-def test_sigterm_cancels_provider(home, fake_claude, monkeypatch):
+def test_sigterm_cancels_provider(home, fake_claude, monkeypatch, tmp_path):
     monkeypatch.setenv("FAKE_MODE", "slow")
     write_ai(home, timeoutSeconds=120)
-    proc = subprocess.Popen(
-        [sys.executable, "-I", str(ROOT / "ai-bridge" / "aerolith-ai-bridge"), "ask"],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        text=True,
-    )
-    proc.stdin.write(request())
-    proc.stdin.close()
+    # The request comes from a file: communicate() on Python 3.12 flushes a
+    # closed stdin pipe and raises.
+    req = tmp_path / "request.json"
+    req.write_text(request())
+    with req.open() as stdin:
+        proc = subprocess.Popen(
+            [sys.executable, "-I", str(ROOT / "ai-bridge" / "aerolith-ai-bridge"), "ask"],
+            stdin=stdin,
+            stdout=subprocess.PIPE,
+            text=True,
+        )
     for _ in range(100):
         if read_log(fake_claude):
             break
