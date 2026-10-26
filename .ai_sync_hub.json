@@ -15,21 +15,28 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Claude",
+    "locked_by": "Multiple",
     "files": [
       "ai-bridge/aerolith_ai/providers.py",
       "docs/design/thears-piyti/APP-FORMATS.md",
+      "docs/verification/ALPHA2-ASTRA.md",
       "install.sh",
       "installer/aerolith_install/checks.py",
       "installer/aerolith_install/cli.py",
       "installer/aerolith_install/hypr.py",
       "installer/aerolith_install/themes.py",
+      "shell/components/InstrumentField.qml",
+      "shell/components/ShearField.qml",
       "shell/core/Exec.qml",
+      "shell/core/Theme.qml",
+      "shell/lib/ambient.mjs",
       "shell/lib/launch.mjs",
       "shell/modules/ControlSurface.qml",
       "shell/services/Compositor.qml",
       "shell/services/Notifications.qml",
       "shell/services/Power.qml",
+      "tests/js/ambient.test.mjs",
+      "tests/js/index.mjs",
       "tests/py/test_installer.py"
     ],
     "locks": [
@@ -66,6 +73,23 @@
         "created_at": "2026-10-26T21:15:56+00:00",
         "expires_epoch": 1793051156.9098158,
         "ttl_seconds": 1800
+      },
+      {
+        "lock_id": "d14552ba-ea08-4f3b-ae3b-23aaf8cd1c49",
+        "agent": "Astra",
+        "files": [
+          "docs/verification/ALPHA2-ASTRA.md",
+          "shell/components/InstrumentField.qml",
+          "shell/components/ShearField.qml",
+          "shell/core/Theme.qml",
+          "shell/lib/ambient.mjs",
+          "tests/js/ambient.test.mjs",
+          "tests/js/index.mjs"
+        ],
+        "task_id": "ALPHA2-ASTRA",
+        "created_at": "2026-10-26T21:19:50+00:00",
+        "expires_epoch": 1793056790.428233,
+        "ttl_seconds": 7200
       }
     ]
   },
@@ -5965,6 +5989,33 @@
       "notes": "",
       "task_id": "D07-R2",
       "timestamp": "2026-10-26T20:12:03+00:00"
+    },
+    {
+      "id": "2d5600ab-42a6-46a6-b5ab-9d00e271c1b9",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/components/InstrumentField.qml",
+        "shell/components/ShearField.qml"
+      ],
+      "summary": "ALPHA2-ASTRA: visual owner verified (Astra_Design_Audit/Astra); Compositor.qml remains Claude locked and will only be read. Implement ambient coverage from existing snapshots in visual layer; Docker daemon unavailable for requested harness.",
+      "notes": "",
+      "task_id": "ALPHA2-ASTRA",
+      "timestamp": "2026-10-26T21:19:37+00:00"
+    },
+    {
+      "id": "3ed924e8-c3c4-45eb-a650-dab6596ae797",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/services/Compositor.qml",
+        "shell/services/ShellState.qml"
+      ],
+      "summary": "ALPHA2-ASTRA integration review: coverage can bind existing geometry snapshots without editing locked services. Continuous resize/move has no geometry refresh trigger in current ShellState raw-event list; please confirm system-side snapshot freshness after window resize/uncover. No polling or IPC changes planned in Astra patch.",
+      "notes": "",
+      "task_id": "ALPHA2-ASTRA",
+      "timestamp": "2026-10-26T21:20:39+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8457,8 +8508,10 @@
     "shell/modules/systems/SystemsBay.qml",
     "shell/schema/config.schema.json",
     "shell/services/AppThemes.qml",
+    "shell/services/Compositor.qml",
     "shell/services/Power.qml",
     "shell/services/ShellCommands.qml",
+    "shell/services/ShellState.qml",
     "shell/shaders",
     "shell/shell.qml",
     "tests",
@@ -8517,17 +8570,16 @@
     "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
-    "agent": "Claude",
-    "type": "integration_complete",
+    "agent": "Astra",
+    "type": "note",
     "files": [
-      "shell/modules/lock/LockHost.qml",
-      "tests/scenarios/lock.sh",
-      "tests/scenarios/lock-multistep.sh"
+      "shell/services/Compositor.qml",
+      "shell/services/ShellState.qml"
     ],
-    "summary": "D07 second revision after Sol's re-review: pending lock never withdrawn, single deadline, no PAM before confirmation, tighter tests. lock, lock-multistep, smoke, session pass. Residual fail-closed risks documented.",
+    "summary": "ALPHA2-ASTRA integration review: coverage can bind existing geometry snapshots without editing locked services. Continuous resize/move has no geometry refresh trigger in current ShellState raw-event list; please confirm system-side snapshot freshness after window resize/uncover. No polling or IPC changes planned in Astra patch.",
     "notes": "",
-    "task_id": "D07-R2",
-    "timestamp": "2026-10-26T20:12:03+00:00"
+    "task_id": "ALPHA2-ASTRA",
+    "timestamp": "2026-10-26T21:20:39+00:00"
   },
-  "updated_at": "2026-10-26T21:15:56+00:00"
+  "updated_at": "2026-10-26T21:20:39+00:00"
 }
