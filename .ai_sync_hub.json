@@ -15,28 +15,12 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Multiple",
+    "locked_by": "Astra",
     "files": [
-      "ARCHITECTURE.md",
-      "README.md",
-      "docs/INSTALLATION.md",
       "docs/design/notices",
-      "docs/verification/C01/README.md",
-      "installer/README.md",
-      "installer/aerolith_install/cli.py",
-      "installer/aerolith_install/paths.py",
-      "installer/aerolith_install/ui.py",
-      "shell/core/Config.qml",
-      "shell/core/Paths.qml",
-      "shell/core/Theme.qml",
-      "shell/modules/ControlSurface.qml",
       "shell/modules/deck/DeckView.qml",
       "shell/modules/notices/NoticeColumn.qml",
       "shell/modules/notices/NoticeStack.qml",
-      "tests/py/test_installer.py",
-      "tests/scenarios/direction.sh",
-      "tests/scenarios/fullscreen-matrix.sh",
-      "tests/scenarios/installed.sh",
       "tests/scenarios/notices-layout-matrix.sh",
       "tests/scenarios/notices-layout.sh"
     ],
@@ -57,41 +41,6 @@
         "ttl_seconds": 14400
       },
       {
-        "lock_id": "20fa200c-2cde-4f76-8c62-0758c493f268",
-        "agent": "Sol",
-        "files": [
-          "ARCHITECTURE.md",
-          "docs/verification/C01/README.md",
-          "installer/README.md",
-          "installer/aerolith_install/cli.py",
-          "installer/aerolith_install/paths.py",
-          "installer/aerolith_install/ui.py",
-          "shell/core/Config.qml",
-          "shell/core/Paths.qml",
-          "shell/core/Theme.qml",
-          "shell/modules/ControlSurface.qml",
-          "tests/py/test_installer.py",
-          "tests/scenarios/fullscreen-matrix.sh",
-          "tests/scenarios/installed.sh"
-        ],
-        "task_id": "C01",
-        "created_at": "2026-10-26T16:04:20+00:00",
-        "expires_epoch": 1793045060.217429,
-        "ttl_seconds": 14400
-      },
-      {
-        "lock_id": "6af2ce86-aae3-4d2a-ad25-9a1e2914031b",
-        "agent": "Sol",
-        "files": [
-          "README.md",
-          "docs/INSTALLATION.md"
-        ],
-        "task_id": "C01",
-        "created_at": "2026-10-26T16:04:31+00:00",
-        "expires_epoch": 1793045071.165106,
-        "ttl_seconds": 14400
-      },
-      {
         "lock_id": "1db4892c-a6df-46bd-b2c3-629ce01371fb",
         "agent": "Astra",
         "files": [
@@ -100,17 +49,6 @@
         "task_id": "D03",
         "created_at": "2026-10-26T16:05:13+00:00",
         "expires_epoch": 1793045113.7701554,
-        "ttl_seconds": 14400
-      },
-      {
-        "lock_id": "b8193dd1-90b0-488b-a42c-aa09cdc1d975",
-        "agent": "Sol",
-        "files": [
-          "tests/scenarios/direction.sh"
-        ],
-        "task_id": "C01",
-        "created_at": "2026-10-26T16:06:04+00:00",
-        "expires_epoch": 1793045164.5392368,
         "ttl_seconds": 14400
       }
     ]
@@ -5659,6 +5597,31 @@
       "notes": "Shared workflow currently Astra D03; explicit user assignment authorizes parallel bounded installer work. Preserving workflow and unrelated D03 locks. Opus review requested after completion.",
       "task_id": "C01",
       "timestamp": "2026-10-26T16:03:51+00:00"
+    },
+    {
+      "id": "0343b34d-3ab2-42ec-b7f6-a2b143b95c03",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "installer/aerolith_install/cli.py",
+        "installer/aerolith_install/paths.py",
+        "installer/aerolith_install/ui.py",
+        "shell/core/Config.qml",
+        "shell/core/Paths.qml",
+        "shell/core/Theme.qml",
+        "shell/modules/ControlSurface.qml",
+        "tests/py/test_installer.py",
+        "tests/scenarios/direction.sh",
+        "tests/scenarios/installed.sh",
+        "tests/scenarios/fullscreen-matrix.sh",
+        "README.md",
+        "ARCHITECTURE.md",
+        "docs/verification/C01/README.md"
+      ],
+      "summary": "C01/C02 implemented: installation-only direction, PIYTI default, preserved reinstall choice, startup loading and status; ready for Opus review",
+      "notes": "Base 4f9944bad72557ba0a2b57c2fcea57555688fd7d plus uncommitted worktree diff; no commit made. Store: XDG config aerolith/installation.json, config/config manifest ownership, independent of live Settings schema. Node 130/130; Qt V4 130/130; pytest 94 passed/1 skipped; smoke, installed THEARS and default PIYTI, startup-invalid/no-live-switch scenario, fullscreen 20 cycles pass; 17 shell logs without QML errors. Extra matrix: PIYTI/Saturated passes; PIYTI/Insane cycle14 popup-count assertion fails, isolated same-input retry passes20 cycles; matrix stops before THEARS cells. P2 evidence and minimal follow-up in docs/verification/C01/README.md; notification/fullscreen runtime untouched. Theme changed only seam line29; intensity/C03 untouched. Reviewed existing config/Settings/ownership contracts once. Independent Opus review pending; no dispatcher started. Preserved Astra D03 workflow and locks.",
+      "task_id": "C01",
+      "timestamp": "2026-10-26T16:16:37+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8008,7 +7971,11 @@
     "docs/verification/B05",
     "docs/verification/B05/README.md",
     "docs/verification/C01",
+    "docs/verification/C01/README.md",
     "installer",
+    "installer/aerolith_install/cli.py",
+    "installer/aerolith_install/paths.py",
+    "installer/aerolith_install/ui.py",
     "prototypes/README.md",
     "prototypes/accessibility.json",
     "prototypes/capture.sh",
@@ -8132,9 +8099,12 @@
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/schemes.test.mjs",
+    "tests/py/test_installer.py",
     "tests/py/test_mock_hyprland.py",
+    "tests/scenarios/direction.sh",
     "tests/scenarios/fullscreen-matrix.sh",
     "tests/scenarios/fullscreen.sh",
+    "tests/scenarios/installed.sh",
     "themes",
     "themes/README.md",
     "themes/artcraft/README.md",
@@ -8173,22 +8143,27 @@
   ],
   "last_agent_event": {
     "agent": "Sol",
-    "type": "note",
+    "type": "integration_complete",
     "files": [
-      "installer",
-      "shell/core/Theme.qml",
-      "shell/core/Paths.qml",
+      "installer/aerolith_install/cli.py",
+      "installer/aerolith_install/paths.py",
+      "installer/aerolith_install/ui.py",
       "shell/core/Config.qml",
+      "shell/core/Paths.qml",
+      "shell/core/Theme.qml",
       "shell/modules/ControlSurface.qml",
-      "tests",
+      "tests/py/test_installer.py",
+      "tests/scenarios/direction.sh",
+      "tests/scenarios/installed.sh",
+      "tests/scenarios/fullscreen-matrix.sh",
       "README.md",
       "ARCHITECTURE.md",
-      "docs/verification/C01"
+      "docs/verification/C01/README.md"
     ],
-    "summary": "Owner assigned Sol C01/C02 in isolated codex/coding-38c5b136; installation-only direction, no visuals",
-    "notes": "Shared workflow currently Astra D03; explicit user assignment authorizes parallel bounded installer work. Preserving workflow and unrelated D03 locks. Opus review requested after completion.",
+    "summary": "C01/C02 implemented: installation-only direction, PIYTI default, preserved reinstall choice, startup loading and status; ready for Opus review",
+    "notes": "Base 4f9944bad72557ba0a2b57c2fcea57555688fd7d plus uncommitted worktree diff; no commit made. Store: XDG config aerolith/installation.json, config/config manifest ownership, independent of live Settings schema. Node 130/130; Qt V4 130/130; pytest 94 passed/1 skipped; smoke, installed THEARS and default PIYTI, startup-invalid/no-live-switch scenario, fullscreen 20 cycles pass; 17 shell logs without QML errors. Extra matrix: PIYTI/Saturated passes; PIYTI/Insane cycle14 popup-count assertion fails, isolated same-input retry passes20 cycles; matrix stops before THEARS cells. P2 evidence and minimal follow-up in docs/verification/C01/README.md; notification/fullscreen runtime untouched. Theme changed only seam line29; intensity/C03 untouched. Reviewed existing config/Settings/ownership contracts once. Independent Opus review pending; no dispatcher started. Preserved Astra D03 workflow and locks.",
     "task_id": "C01",
-    "timestamp": "2026-10-26T16:03:51+00:00"
+    "timestamp": "2026-10-26T16:16:37+00:00"
   },
-  "updated_at": "2026-10-26T16:06:04+00:00"
+  "updated_at": "2026-10-26T16:16:38+00:00"
 }
