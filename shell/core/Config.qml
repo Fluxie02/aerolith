@@ -20,6 +20,37 @@ Singleton {
     property bool fileMissing: false
     property int revision: 0
 
+    // Installation-only metadata: never watched, written by setValue(), or
+    // included in the schema that generates Settings. Read before first use.
+    property bool installationMissing: false
+    readonly property string applicationDirection: {
+        const text = installation.text();
+        return installationMissing ? "piyti" : readDirection(text);
+    }
+
+    function readDirection(text) {
+        try {
+            const data = JSON.parse(text);
+            if (data && typeof data === "object" && !Array.isArray(data)) {
+                if (data.direction === undefined)
+                    return "piyti";
+                if (data.direction === "piyti" || data.direction === "thears")
+                    return data.direction;
+            }
+        } catch (e) {}
+        Log.warn("config", "invalid installation direction in " + Paths.installationFile + "; using piyti");
+        return "piyti";
+    }
+
+    FileView {
+        id: installation
+        path: Paths.installationFile
+        watchChanges: false
+        blockLoading: true
+        printErrors: false
+        onLoadFailed: root.installationMissing = true
+    }
+
     // Convenience accessors used across the shell.
     readonly property var display: data.display
     readonly property var theme: data.theme

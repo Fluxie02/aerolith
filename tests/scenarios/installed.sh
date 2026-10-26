@@ -31,6 +31,10 @@ cp "$hypr/aerolith/aerolith.lua" "$OUT/fragment.lua"
 luac -p "$hypr/hyprland.lua" "$hypr/aerolith/aerolith.lua" || fail "generated Lua does not parse"
 grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind missing from fragment"
 aerolith status --json >"$OUT/status.json"
+expected_direction=$(python3 -c 'import os,shlex; a=shlex.split(os.environ["INSTALL"]); print(a[a.index("--direction")+1] if "--direction" in a else "piyti")')
+python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction"] == sys.argv[2], s' "$OUT/status.json" "$expected_direction" || fail "installer direction"
+ipc status >"$OUT/shell-status.json"
+python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction"] == sys.argv[2], s' "$OUT/shell-status.json" "$expected_direction" || fail "running shell direction"
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["installed"] and s["mode"] == sys.argv[2] and s["ai_provider"] == "claude" and s["hyprland_dialect"] == "lua", s' "$OUT/status.json" "$mode" \
   || fail "status: $(cat "$OUT/status.json")"
 aerolith doctor >"$OUT/doctor.log" 2>&1 || true
@@ -72,6 +76,7 @@ fi
 [ ! -e "$hypr/aerolith" ] || fail "fragment dir left: $(find "$hypr/aerolith")"
 [ ! -e "$HOME/.local/bin/aerolith" ] || fail "maintenance tool left in ~/.local/bin"
 [ ! -e "$XDG_STATE_HOME/aerolith/manifest.json" ] || fail "manifest left"
+[ ! -e "$XDG_CONFIG_HOME/aerolith/installation.json" ] || fail "installation direction left"
 [ -x "$HOME/.local/bin/claude" ] || fail "uninstall removed the provider CLI"
 for _ in $(seq 30); do alive || break; sleep 0.1; done
 alive && fail "shell still running after uninstall"

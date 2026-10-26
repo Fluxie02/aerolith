@@ -57,6 +57,12 @@ STARTUP_CHOICES = [
     ("manual", "I will start it myself", "No autostart. Run `aerolith run` or `qs -p <shell dir>` yourself."),
 ]
 
+DIRECTION_CHOICES = [
+    ("piyti", "PIYTI (default)", "App windows become part of the shell instrument. The forward design."),
+    ("thears", "THEARS", "Apps take on SHEAR's look. The maintained original direction."),
+]
+DIRECTIONS = tuple(c[0] for c in DIRECTION_CHOICES)
+
 
 class Abort(RuntimeError):
     pass
@@ -74,6 +80,19 @@ class Plan:
 
 
 # --- helpers -------------------------------------------------------------------
+
+def read_installation(lay: Layout) -> dict:
+    """Installation metadata is separate from the live Settings schema."""
+    try:
+        data = json.loads(lay.installation_file.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return {}
+    except (OSError, ValueError) as exc:
+        raise Abort(f"{tilde(lay.installation_file)} is not valid JSON ({exc}); fix it first") from exc
+    if not isinstance(data, dict):
+        raise Abort(f"{tilde(lay.installation_file)} does not contain a JSON object; fix it first")
+    return data
+
 
 def require_source(args: argparse.Namespace) -> Path:
     src = Path(args.source).resolve() if getattr(args, "source", None) else source_root()
@@ -400,6 +419,18 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     if existing:
         ui.info(f"existing installation found (AI: {existing.ai_provider}); this updates it")
 
+    installation = read_installation(lay)
+    current_direction = installation.get("direction")
+    if "direction" in installation and current_direction not in DIRECTIONS and args.direction is None:
+        raise Abort(f"{tilde(lay.installation_file)} has an invalid direction; fix it or pass --direction piyti|thears")
+    if args.direction is not None:
+        direction = args.direction
+    elif current_direction in DIRECTIONS:
+        direction = current_direction
+    else:
+        ui.title("Application direction")
+        direction = ui.choose("Choose once during installation (no Settings control):", DIRECTION_CHOICES, default="piyti")
+
     # 1. environment
     ui.title("Environment")
     results = checks.run_checks(lay)
@@ -485,6 +516,13 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     else:
         plan.add(f"create {tilde(lay.config_file)} with a few common settings", install_config)
 
+    def install_direction() -> None:
+        # Keep unrelated metadata and all live user settings. Reading above
+        # refuses broken JSON before any planned action can run.
+        installation["direction"] = direction
+        atomic_write(lay.installation_file, json.dumps(installation, indent=2) + "\n")
+        manifest.record_file(lay.installation_file, "config", "config")
+
     if startup == "systemd":
         def install_service() -> None:
             qs = shutil.which("qs") or "/usr/bin/qs"
@@ -492,6 +530,7 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
             manifest.record_file(lay.service, "integration", "service")
 
         plan.add(f"install {tilde(lay.service)} (enable it with: systemctl --user enable aerolith.service)", install_service)
+    plan.add(f"application direction: {direction} (startup only; {tilde(lay.installation_file)})", install_direction)
     plan.add(f"record ownership in {tilde(lay.manifest)}")
 
     # 5. summary
@@ -678,7 +717,7 @@ def cmd_uninstall(args: argparse.Namespace, ui: Ui) -> int:
         ui.say(f"  • {comp}: {n} file(s)")
     keep_config = not args.remove_config
     if not args.remove_config and manifest.component_files("config"):
-        keep_config = ui.confirm("Keep your AEROLITH settings (config.json, routines.json) for a later reinstall?", default=True)
+        keep_config = ui.confirm("Keep your AEROLITH settings (config.json, routines.json, installation.json) for a later reinstall?", default=True)
     if args.dry_run:
         ui.info("dry run: nothing was changed")
         return 0
@@ -809,11 +848,13 @@ def cmd_ai(args: argparse.Namespace, ui: Ui) -> int:
 def cmd_status(args: argparse.Namespace, ui: Ui) -> int:
     lay = layout()
     manifest = load_manifest(lay)
+    direction = read_installation(lay).get("direction", "piyti")
     info = {
         "installed": manifest is not None,
         "mode": lay.mode,
         "shell": str(lay.shell),
         "running": shell_running(lay),
+        "direction": direction if direction in DIRECTIONS else "piyti",
         "ai_provider": manifest.ai_provider if manifest else None,
         "startup": manifest.startup if manifest else None,
         "hyprland_dialect": manifest.hypr_dialect if manifest else None,
@@ -999,6 +1040,7 @@ def build_parser() -> argparse.ArgumentParser:
     i = sub.add_parser("install", parents=[yes], help="install or update AEROLITH for this user")
     i.add_argument("--ai", choices=[c[0] for c in AI_CHOICES], help="AI integration (required when not interactive)")
     i.add_argument("--startup", choices=[c[0] for c in STARTUP_CHOICES])
+    i.add_argument("--direction", choices=DIRECTIONS, help="installation-only application direction (default: piyti; reinstall keeps the existing choice)")
     i.add_argument("--no-hypr", action="store_true", help="do not touch Hyprland configuration")
     i.add_argument("--media-keys", action="store_true", help="also bind volume/play keys")
     i.add_argument("--install-deps", dest="install_deps", action="store_true", default=None)

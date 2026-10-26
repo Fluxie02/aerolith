@@ -25,6 +25,7 @@ Singleton {
     readonly property string stateDir: envOr("AEROLITH_STATE_DIR", stateHome + "/aerolith")
 
     readonly property string configFile: configDir + "/config.json"
+    readonly property string installationFile: configDir + "/installation.json"
     readonly property string routinesFile: configDir + "/routines.json"
     readonly property string aiConfigFile: configDir + "/ai.json"
     readonly property string stateFile: stateDir + "/state.json"

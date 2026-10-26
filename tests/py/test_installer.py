@@ -311,7 +311,7 @@ def test_uninstall_keeps_config_by_default_and_modified_files(system, home):
     assert lay.config_file.exists(), "settings kept by default"
     assert edited.exists(), "a modified AEROLITH file is not deleted without --force"
     m = Manifest.load(lay.manifest)
-    assert {Path(f.path).name for f in m.files} == {"config.json", "Theme.qml"}
+    assert {Path(f.path).name for f in m.files} == {"config.json", "installation.json", "Theme.qml"}
 
 
 def test_uninstall_without_manifest_removes_nothing(system, home, capsys):
@@ -464,6 +464,129 @@ def test_status_json(system, home, capsys):
     assert run("status", "--json") == 0
     s = json.loads(capsys.readouterr().out)
     assert s["installed"] is True and s["ai_provider"] == "none"
+    assert s["direction"] == "piyti"
+
+
+def test_direction_interactive_default(system, home, monkeypatch, capsys):
+    lua_main(home)
+    args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
+    answers = iter(["", "y"])
+    monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
+    assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
+    out = capsys.readouterr().out
+    assert out.index("PIYTI (default)") < out.index("THEARS")
+    assert json.loads(layout().installation_file.read_text()) == {"direction": "piyti"}
+
+
+def test_direction_interactive_thears(system, home, monkeypatch):
+    lua_main(home)
+    args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
+    answers = iter(["2", "y"])
+    monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
+    assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
+    assert json.loads(layout().installation_file.read_text())["direction"] == "thears"
+
+
+@pytest.mark.parametrize("direction", ["piyti", "thears"])
+def test_direction_install_reinstall_and_explicit_change(system, home, capsys, direction):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--direction", direction) == 0
+    lay = layout()
+    # Reinstall also preserves unrelated metadata and live user settings.
+    data = json.loads(lay.installation_file.read_text())
+    data["future"] = {"keep": True}
+    lay.installation_file.write_text(json.dumps(data))
+    config = '{"theme":{"intensity":"insane"},"user-note":"keep me"}\n'
+    lay.config_file.write_text(config)
+    assert run("--yes", "install", "--startup", "manual") == 0
+    assert json.loads(lay.installation_file.read_text()) == data
+    assert lay.config_file.read_text() == config
+    capsys.readouterr()
+    assert run("status", "--json") == 0
+    assert json.loads(capsys.readouterr().out)["direction"] == direction
+    assert run("status") == 0
+    assert f"direction: {direction}" in capsys.readouterr().out
+    other = "piyti" if direction == "thears" else "thears"
+    assert run("--yes", "install", "--startup", "manual", "--direction", other) == 0
+    assert json.loads(lay.installation_file.read_text()) == {"direction": other, "future": {"keep": True}}
+    assert lay.config_file.read_text() == config
+    assert any(f.path == str(lay.installation_file) and f.component == "config" for f in Manifest.load(lay.manifest).files)
+
+
+@pytest.mark.parametrize("direction", [None, "thears"])
+def test_direction_dry_run(system, home, capsys, direction):
+    lua_main(home)
+    flags = ["--direction", direction] if direction else []
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--dry-run", *flags) == 0
+    assert f"application direction: {direction or 'piyti'}" in capsys.readouterr().out
+    assert not layout().installation_file.exists()
+    assert not layout().manifest.exists()
+
+
+@pytest.mark.parametrize("text", ["{ broken", "", "[]", "null"])
+def test_direction_refuses_broken_metadata_without_writes(system, home, text):
+    lua_main(home)
+    lay = layout()
+    lay.installation_file.parent.mkdir(parents=True, exist_ok=True)
+    lay.installation_file.write_text(text)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--direction", "thears") == 2
+    assert lay.installation_file.read_text() == text
+    assert not lay.shell.exists()
+    assert not lay.manifest.exists()
+
+
+@pytest.mark.parametrize("value", ["other", "PIYTI", None, [], {}])
+def test_direction_invalid_value_requires_explicit_repair(system, home, value):
+    lua_main(home)
+    lay = layout()
+    lay.installation_file.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps({"direction": value, "keep": True})
+    lay.installation_file.write_text(text)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 2
+    assert lay.installation_file.read_text() == text
+    assert not lay.shell.exists()
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--direction", "thears") == 0
+    assert json.loads(lay.installation_file.read_text()) == {"direction": "thears", "keep": True}
+
+
+def test_direction_flag_rejects_invalid_value(system, home):
+    with pytest.raises(SystemExit) as exc:
+        run("install", "--direction", "invalid")
+    assert exc.value.code == 2
+    assert not layout().installation_file.exists()
+
+
+def test_direction_status_invalid_value_uses_shell_fallback(system, home, capsys):
+    lay = layout()
+    lay.installation_file.parent.mkdir(parents=True, exist_ok=True)
+    lay.installation_file.write_text('{"direction":"invalid"}')
+    assert run("status", "--json") == 0
+    status = json.loads(capsys.readouterr().out)
+    assert status["direction"] == "piyti"
+
+
+@pytest.mark.parametrize("remove_config", [False, True])
+def test_direction_uninstall_and_reinstall(system, home, remove_config):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--direction", "thears") == 0
+    lay = layout()
+    flags = ["--remove-config"] if remove_config else []
+    assert run("--yes", "uninstall", *flags) == 0
+    assert lay.installation_file.exists() is not remove_config
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    assert json.loads(lay.installation_file.read_text())["direction"] == ("piyti" if remove_config else "thears")
+
+
+def test_direction_modified_metadata_has_uninstall_protection(system, home):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    lay = layout()
+    text = '{"direction":"thears","user":"keep"}'
+    lay.installation_file.write_text(text)
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert lay.installation_file.read_text() == text
+    assert run("--yes", "uninstall", "--remove-config", "--force") == 0
+    assert not lay.installation_file.exists()
 
 
 def test_schema_file_is_up_to_date(tmp_path):
@@ -542,10 +665,12 @@ def snapshot(root: Path) -> dict[str, str]:
     return {str(p.relative_to(root)): sha256(p) for p in sorted(root.rglob("*")) if p.is_file()}
 
 
-def test_system_mode_none_writes_only_user_files(system, home, packaged):
+@pytest.mark.parametrize("direction", [None, "thears"])
+def test_system_mode_none_writes_only_user_files(system, home, packaged, direction):
     main = lua_main(home)
     before = snapshot(packaged)
-    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
+    flags = ["--direction", direction] if direction else []
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland", *flags) == 0
     lay = layout()
     assert lay.mode == "system" and lay.shell == packaged / "shell"
     assert snapshot(packaged) == before, "the packaged tree is pacman's and must not change"
@@ -553,11 +678,15 @@ def test_system_mode_none_writes_only_user_files(system, home, packaged):
     assert not (home / ".local" / "bin" / "aerolith").exists(), "the package provides /usr/bin/aerolith"
     m = Manifest.load(lay.manifest)
     assert m.mode == "system" and m.ai_provider == "none"
+    assert json.loads(lay.installation_file.read_text())["direction"] == (direction or "piyti")
     assert all(Path(f.path).is_relative_to(home) for f in m.files), [f.path for f in m.files]
     frag = (lay.hypr_fragment_dir / "aerolith.lua").read_text()
     assert str(packaged / "shell") in frag, "autostart runs the packaged shell"
     assert 'pcall(require, "aerolith/aerolith")' in main.read_text()
     assert not lay.ai_file.exists()
+    assert run("--yes", "install", "--startup", "hyprland") == 0
+    assert json.loads(lay.installation_file.read_text())["direction"] == (direction or "piyti")
+    assert snapshot(packaged) == before
 
 
 def test_system_mode_ai_needs_the_bridge_package(system, home, packaged, fake_claude, capsys):

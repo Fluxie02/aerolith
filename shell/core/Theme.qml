@@ -26,7 +26,7 @@ Singleton {
     readonly property string variantName: insane ? "Insane" : "Saturated"
     // Installation-only seam: Claude wires the one-time THEARS/PIYTI choice.
     // PIYTI is the base; THEARS remains available through the same visual seam.
-    property string applicationDirection: "piyti"
+    property string applicationDirection: Config.applicationDirection
     readonly property bool integratedApps: applicationDirection === "piyti"
     readonly property string applicationName: integratedApps ? "PIYTI" : "THEARS"
     readonly property color appLink: integratedApps ? specimen.link : signal
