@@ -5,7 +5,7 @@
 Run `./install.sh` interactively, or choose the integrations explicitly:
 
 ```bash
-./install.sh --yes --ai none --startup manual --direction piyti
+./install.sh --yes --ai none --startup manual --direction piyti --intensity insane --scheme iris
 aerolith install --yes --ai none --startup manual --direction thears --dry-run
 aerolith status --json
 ```
@@ -15,8 +15,26 @@ app windows become part of the shell instrument; the forward design) or
 **THEARS** (apps take on SHEAR's look; maintained). Non-interactive installs
 default to PIYTI. Reinstall/upgrade keeps the existing choice unless you pass
 `--direction piyti|thears`; restart the shell to apply an intentional change.
-There is no direction control in Settings. Intensity remains live-switchable
-with `aerolith intensity saturated|insane`.
+There is no direction control in Settings.
+
+Fresh interactive installs also offer **Saturated** (default, standard
+information density) or **Insane** (even denser), then the 12 Spectra scheme
+names from the generated catalog, with **Limb** as default. Use
+`--intensity saturated|insane` and `--scheme <id>` to choose explicitly.
+Reinstalls, non-interactive installs and `--yes` keep existing values; absent
+values use the schema defaults, Saturated/Limb. These are ordinary live
+`theme.intensity` and `theme.scheme` settings in `config.json`, separate from
+installation metadata. Writes preserve other keys and refuse malformed JSON.
+Settings and the CLI can change them while the shell runs:
+
+```bash
+aerolith intensity                 # show current value
+aerolith intensity insane --dry-run
+aerolith intensity insane
+aerolith scheme                    # show current ID
+aerolith scheme iris --dry-run
+aerolith scheme iris
+```
 
 The installation-owned `$XDG_CONFIG_HOME/aerolith/installation.json` (normally
 `~/.config/aerolith/installation.json`) holds `{"direction":"piyti"}` separately
@@ -42,8 +60,13 @@ aerolith themes remove kitty foot hyprland
 ```
 
 Exports use the installed direction and `config.json`'s `theme.scheme`
-(default `limb`); `--scheme` affects only this deployment. Changes to shell
-Settings do not refresh external apps yet (C06). Includes are backed up and
+(default `limb`); `themes apply --scheme` affects only that deployment.
+The installer's selected scheme is saved before exports deploy.
+`aerolith scheme` refreshes previously opted-in app themes through C06;
+Settings changes use the existing shell refresh service. Only opted-in apps
+are refreshed, and modified payloads are kept and reported. If refresh fails,
+the live shell scheme stays saved; resolve the reported app conflict and retry
+`aerolith themes refresh`. Includes are backed up and
 tracked separately in the ownership manifest. Removing themes, or a full
 uninstall, removes their blocks while retaining other user edits and modified
 theme files. btop and Qt exports need manual selection in the application.

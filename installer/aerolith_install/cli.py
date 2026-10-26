@@ -62,6 +62,11 @@ DIRECTION_CHOICES = [
     ("thears", "THEARS", "Apps take on SHEAR's look. The maintained original direction."),
 ]
 DIRECTIONS = tuple(c[0] for c in DIRECTION_CHOICES)
+INTENSITY_CHOICES = [
+    ("saturated", "Saturated (default)", "The standard information density."),
+    ("insane", "Insane", "An even denser interface with more information visible."),
+]
+INTENSITIES = tuple(c[0] for c in INTENSITY_CHOICES)
 
 
 class Abort(RuntimeError):
@@ -212,6 +217,30 @@ def starter_config(lay: Layout) -> str:
         },
         indent=2,
     ) + "\n"
+
+
+def read_live_config(lay: Layout) -> dict:
+    data = themes.read_object(lay.config_file)
+    if not isinstance(data.get("theme", {}), dict):
+        raise Abort(f"{tilde(lay.config_file)}: theme must be an object; fix it first")
+    return data
+
+
+def write_theme_values(lay: Layout, data: dict, values: dict) -> None:
+    """Atomically update live settings, retaining every unrelated key."""
+    data.setdefault("theme", {}).update(values)
+    data.setdefault("schemaVersion", 1)
+    atomic_write(lay.config_file, json.dumps(data, indent=2) + "\n")
+
+
+def scheme_choices(lay: Layout, manifest: Manifest | None, source: Path | None = None) -> list[tuple[str, str, str]]:
+    root = themes.assets_root(lay, manifest or Manifest(), source)
+    rows = themes.read_object(root / "schemes/index.json").get("schemes")
+    if (not isinstance(rows, list) or not rows
+        or any(not isinstance(row, dict) or not isinstance(row.get("id"), str)
+               or not isinstance(row.get("name"), str) for row in rows)):
+        raise Abort("invalid or missing scheme catalog")
+    return [(r["id"], r["name"] + (" (default)" if r["id"] == "limb" else ""), r.get("description", "")) for r in rows]
 
 
 LAUNCHER = """#!/bin/sh
@@ -431,6 +460,28 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
         ui.title("Application direction")
         direction = ui.choose("Choose once during installation (no Settings control):", DIRECTION_CHOICES, default="piyti")
 
+    # Live settings are validated before any install action, even with flags.
+    config = read_live_config(lay)
+    config_existed = lay.config_file.exists()
+    stored_theme = config.get("theme", {})
+    spectra = scheme_choices(lay, manifest, src)
+    chosen = {}
+    updates = {}
+    for key, options, default in (("intensity", INTENSITY_CHOICES, "saturated"), ("scheme", spectra, "limb")):
+        explicit = getattr(args, key)
+        current = stored_theme.get(key, default)
+        if explicit is not None:
+            value = ui.choose(f"Choose {key}:", options, given=explicit)
+        elif current not in [o[0] for o in options]:
+            raise Abort(f"config.json has an invalid theme.{key}; fix it or pass --{key}")
+        elif key in stored_theme or existing:
+            value = current
+        else:
+            value = ui.choose(f"Choose {key} (also available live in Settings):", options, default=default)
+        chosen[key] = value
+        if explicit is not None or value != current or not config_existed:
+            updates[key] = value
+
     # 1. environment
     ui.title("Environment")
     results = checks.run_checks(lay)
@@ -476,7 +527,7 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     )
     if args.no_hypr and "hyprland" in selected_themes:
         raise Abort("--no-hypr conflicts with --themes hyprland; omit one of them")
-    theme_selection = themes.selection(lay, direction=direction) if selected_themes else None
+    theme_selection = themes.selection(lay, scheme=chosen["scheme"], direction=direction) if selected_themes else None
     theme_root = themes.assets_root(lay, manifest, src) if selected_themes else None
     theme_plans = [themes.prepare_app(lay, manifest, theme_root, app, *theme_selection) for app in selected_themes]
 
@@ -525,9 +576,18 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
         plan.lines.insert(pos, f"copy the shell to {tilde(lay.shell)} and the `aerolith` tool to {tilde(lay.launcher)}")
         plan.actions.insert(pos, ("core", install_core))
     if lay.config_file.exists():
-        plan.add(f"keep your existing {tilde(lay.config_file)} unchanged")
+        plan.add(f"keep your existing settings in {tilde(lay.config_file)}")
     else:
         plan.add(f"create {tilde(lay.config_file)} with a few common settings", install_config)
+
+    def install_live_settings() -> None:
+        write_theme_values(lay, read_live_config(lay), updates)
+        # Retain modified-file protection for an existing user's config.
+        if not config_existed:
+            manifest.record_file(lay.config_file, "config", "config")
+
+    plan.add(f"live settings: intensity {chosen['intensity']}; scheme {chosen['scheme']} ({tilde(lay.config_file)})",
+             install_live_settings if updates else None)
 
     def install_direction() -> None:
         # Keep unrelated metadata and all live user settings. Reading above
@@ -985,35 +1045,69 @@ def cmd_config(args: argparse.Namespace, ui: Ui) -> int:
     raise Abort(f"unknown config command {args.config_cmd}")
 
 
-INTENSITIES = ("saturated", "insane")
-
-
 def cmd_intensity(args: argparse.Namespace, ui: Ui) -> int:
     """Show or set theme.intensity in config.json; the running shell applies it live."""
     lay = layout()
-    data: dict = {}
-    if lay.config_file.exists():
-        try:
-            data = json.loads(lay.config_file.read_text(encoding="utf-8") or "{}")
-        except (OSError, ValueError) as e:
-            raise Abort(f"{tilde(lay.config_file)} is not valid JSON ({e}); fix it first") from e
-        if not isinstance(data, dict):
-            raise Abort(f"{tilde(lay.config_file)} does not contain a JSON object; fix it first")
-    theme = data.get("theme") if isinstance(data.get("theme"), dict) else {}
+    data = read_live_config(lay)
+    theme = data.get("theme", {})
     current = theme.get("intensity", INTENSITIES[0])
     if not args.level:
         print(current)
         return 0
+    if args.dry_run:
+        ui.info(f"dry run: intensity {args.level}; would update {tilde(lay.config_file)}")
+        return 0
     if args.level == current and "intensity" in theme:
         ui.ok(f"intensity is already {current}")
         return 0
-    theme["intensity"] = args.level
-    data["theme"] = theme
-    data.setdefault("schemaVersion", 1)
-    lay.config_file.parent.mkdir(parents=True, exist_ok=True)
-    atomic_write(lay.config_file, json.dumps(data, indent=2) + "\n")
+    write_theme_values(lay, data, {"intensity": args.level})
     ui.ok(f"intensity set to {args.level}; a running shell switches at once")
     return 0
+
+
+def cmd_scheme(args: argparse.Namespace, ui: Ui) -> int:
+    """Use the generated catalog and C06's consent-preserving refresh."""
+    lay = layout()
+    data = read_live_config(lay)
+    manifest = load_manifest(lay)
+    options = scheme_choices(lay, manifest)
+    value = args.id if args.id is not None else data.get("theme", {}).get("scheme", "limb")
+    if value not in [o[0] for o in options]:
+        raise Abort(f"unknown scheme: {value}; choose from " + ", ".join(o[0] for o in options))
+    if args.id is None:
+        print(value)
+        return 0
+
+    def save() -> None:
+        if args.dry_run:
+            ui.info(f"dry run: scheme {value}; would update {tilde(lay.config_file)}")
+        else:
+            write_theme_values(lay, read_live_config(lay), {"scheme": value})
+            ui.ok(f"scheme set to {value}; a running shell switches at once")
+
+    if manifest and manifest.themes:
+        themes.refresh_plans(lay, manifest, value)
+        if args.dry_run:
+            save()
+            result = themes.refresh(lay, manifest, value, dry_run=True)
+        else:
+            with themes.refresh_lock(lay):
+                manifest = load_manifest(lay)
+                themes.refresh_plans(lay, manifest, value)
+                save()
+                result = themes.refresh(lay, manifest, value)
+        return report_theme_refresh(result, False, ui)
+    save()
+    return 0
+
+
+def report_theme_refresh(result: dict, as_json: bool, ui: Ui) -> int:
+    if as_json:
+        print(json.dumps(result, indent=2))
+    else:
+        for row in result["apps"]:
+            ui.say(f"{row['app']}: {row['status']}; {row.get('error', row.get('activation', ''))}")
+    return 2 if result.get("error") or any(r["status"] == "error" for r in result["apps"]) else 0
 
 
 def cmd_hypr(args: argparse.Namespace, ui: Ui) -> int:
@@ -1080,12 +1174,7 @@ def cmd_themes(args: argparse.Namespace, ui: Ui) -> int:
             if not args.json:
                 raise Abort(str(exc)) from None
             result = {"apps": [], "error": str(exc)}
-        if args.json:
-            print(json.dumps(result, indent=2))
-        else:
-            for row in result["apps"]:
-                ui.say(f"{row['app']}: {row['status']}; {row.get('error', row.get('activation', ''))}")
-        return 2 if result.get("error") or any(r["status"] == "error" for r in result["apps"]) else 0
+        return report_theme_refresh(result, args.json, ui)
     manifest = load_manifest(lay)
     if args.themes_cmd in ("list", "status"):
         rows = themes.status(lay, manifest)
@@ -1140,6 +1229,8 @@ def build_parser() -> argparse.ArgumentParser:
     i.add_argument("--ai", choices=[c[0] for c in AI_CHOICES], help="AI integration (required when not interactive)")
     i.add_argument("--startup", choices=[c[0] for c in STARTUP_CHOICES])
     i.add_argument("--direction", choices=DIRECTIONS, help="installation-only application direction (default: piyti; reinstall keeps the existing choice)")
+    i.add_argument("--intensity", choices=INTENSITIES, help="live intensity (default: saturated; reinstall keeps the current setting)")
+    i.add_argument("--scheme", help="Spectra ID from the generated catalog (default: limb; reinstall keeps the current setting)")
     tg = i.add_mutually_exclusive_group()
     tg.add_argument("--themes", metavar="APP,APP", help="explicitly opt in to application theme exports")
     tg.add_argument("--no-themes", action="store_true", help="skip optional application theme selection; keeps previously applied exports")
@@ -1206,6 +1297,10 @@ def build_parser() -> argparse.ArgumentParser:
     c.add_argument("config_cmd", choices=["validate", "path", "reset"])
     t = sub.add_parser("intensity", parents=[yes], help="show or set how much the interface shows")
     t.add_argument("level", nargs="?", choices=INTENSITIES)
+    t.add_argument("--dry-run", action="store_true")
+    s = sub.add_parser("scheme", parents=[yes], help="show or set the live Spectra scheme and refresh opted-in app themes")
+    s.add_argument("id", nargs="?")
+    s.add_argument("--dry-run", action="store_true")
     h = sub.add_parser("hypr", parents=[yes], help="Hyprland integration")
     h.add_argument("hypr_cmd", choices=["show", "apply", "remove"])
     for name in ("run", "restart", "stop"):
@@ -1222,6 +1317,7 @@ COMMANDS = {
     "ai": cmd_ai,
     "config": cmd_config,
     "intensity": cmd_intensity,
+    "scheme": cmd_scheme,
     "hypr": cmd_hypr,
     "run": cmd_run,
     "restart": cmd_run,
@@ -1244,7 +1340,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"aerolith: {exc}", file=sys.stderr)
         return 2
     except OSError as exc:
-        if args.cmd != "themes":
+        if args.cmd not in ("themes", "scheme"):
             raise
         print(f"aerolith: theme operation stopped: {exc}. Recorded changes can be removed with `aerolith themes remove <app>`.", file=sys.stderr)
         return 2
