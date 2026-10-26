@@ -41,6 +41,8 @@ MEDIA_BINDS: dict[str, tuple[str, str, str]] = {
     "volume-down": ("", "XF86AudioLowerVolume", "AEROLITH: volume down"),
     "mute": ("", "XF86AudioMute", "AEROLITH: mute"),
     "play-pause": ("", "XF86AudioPlay", "AEROLITH: play/pause"),
+    "brightness-up": ("", "XF86MonBrightnessUp", "AEROLITH: brightness up"),
+    "brightness-down": ("", "XF86MonBrightnessDown", "AEROLITH: brightness down"),
 }
 
 MODMASK = {"SHIFT": 1, "CAPS": 2, "CTRL": 4, "CONTROL": 4, "ALT": 8, "MOD2": 16, "MOD3": 32, "SUPER": 64, "WIN": 64, "LOGO": 64, "MOD4": 64, "MOD5": 128}

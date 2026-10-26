@@ -6,7 +6,7 @@ import qs.services
 
 // Host for the OSD (roadmap D01). Watches real state, not commands, so a
 // volume key, `wpctl` or another application all show it the same way:
-// output volume and mute, and input (microphone) mute.
+// output volume and mute, input (microphone) mute, and display brightness.
 //
 // - One OSD at a time: a new change updates the one already shown and
 //   restarts its expiry.
@@ -26,15 +26,24 @@ Scope {
     // Requested presentation, and whether the surface exists.
     property bool presenting: false
     property bool mapped: false
-    // Values PipeWire reports while the shell starts are not changes.
+    // Audio values PipeWire reports while the shell starts are not changes.
     property bool armed: false
     readonly property int lifetimeMs: 1500
 
     function show(nextKind) {
-        if (!armed || Ui.deckMapped)
+        // Audio values are guarded by `armed`, brightness by brightnessSeen
+        // (its first reading); a system without audio still gets brightness.
+        if ((nextKind !== "brightness" && !armed) || Ui.deckMapped)
             return;
         kind = nextKind;
-        if (nextKind === "mic") {
+        if (nextKind === "brightness") {
+            // From raw, not Brightness.percent: this runs in the rawChanged
+            // handler, where the binding derived from raw may not be updated.
+            value = Brightness.device && Brightness.device.max > 0 ? Brightness.raw / Brightness.device.max : NaN;
+            muted = false;
+            maxValue = 1;
+            label = Brightness.device ? Brightness.device.name : "";
+        } else if (nextKind === "mic") {
             value = Audio.source && Audio.source.audio ? Audio.source.audio.volume : NaN;
             muted = Audio.sourceMuted;
             maxValue = 1;
@@ -55,6 +64,11 @@ Scope {
         property: "osdKind"
         value: host.presenting ? host.kind : ""
     }
+    Binding {
+        target: Ui
+        property: "osdValue"
+        value: host.presenting ? host.value : NaN
+    }
 
     Connections {
         target: Audio
@@ -72,6 +86,19 @@ Scope {
                 arming.restart();
         }
     }
+    Connections {
+        target: Brightness
+        // The reading taken while probing is not a change; every one after
+        // the backlight became available is.
+        function onRawChanged() {
+            if (host.brightnessSeen)
+                host.show("brightness");
+        }
+        function onAvailableChanged() {
+            host.brightnessSeen = Brightness.available;
+        }
+    }
+    property bool brightnessSeen: false
     Timer {
         id: arming
         interval: 1000

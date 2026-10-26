@@ -83,7 +83,9 @@ Scope {
                 fullscreenOwner: ShellState.ownerClass,
                 surfacesReleased: ShellState.surfacesReleased,
                 ambient: Theme.ambient,
-                osd: Ui.osdKind
+                osd: Ui.osdKind,
+                osdValue: isFinite(Ui.osdValue) ? Math.round(Ui.osdValue * 100) / 100 : null,
+                brightness: Brightness.available ? Brightness.percent : null
             });
         }
         // Diagnostics: how PipeWire nodes are classified (no volumes or
@@ -175,6 +177,20 @@ Scope {
                 name: "mute"
                 description: "AEROLITH: toggle mute"
                 onPressed: Registry.execute("audio.mute.toggle", {}, {
+                    record: false
+                })
+            }
+            AeroShortcut {
+                name: "brightness-up"
+                description: "AEROLITH: brightness up"
+                onPressed: Registry.execute("brightness.up", {}, {
+                    record: false
+                })
+            }
+            AeroShortcut {
+                name: "brightness-down"
+                description: "AEROLITH: brightness down"
+                onPressed: Registry.execute("brightness.down", {}, {
                     record: false
                 })
             }

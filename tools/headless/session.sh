@@ -90,6 +90,27 @@ if [ "${AUDIO:-0}" = 1 ]; then
   start_audio
 fi
 
+# BACKLIGHT=1: a fake laptop backlight in sysfs format (the container has
+# none) and a brightnessctl stand-in that writes it, for the brightness
+# service. logind is absent here, so the service falls back to brightnessctl.
+if [ "${BACKLIGHT:-0}" = 1 ]; then
+  bl="$HOME/backlight/test_backlight"
+  mkdir -p "$bl" "$HOME/fake-bin"
+  echo raw >"$bl/type"
+  echo 1000 >"$bl/max_brightness"
+  echo 500 >"$bl/brightness"
+  cat >"$HOME/fake-bin/brightnessctl" <<'FAKE'
+#!/bin/sh
+# brightnessctl --quiet --device=NAME set VALUE
+dev=""; val=""
+for a in "$@"; do case $a in --device=*) dev=${a#--device=};; [0-9]*) val=$a;; esac; done
+[ -n "$dev" ] && [ -n "$val" ] && [ -d "$AEROLITH_BACKLIGHT_ROOT/$dev" ] || exit 1
+echo "$val" >"$AEROLITH_BACKLIGHT_ROOT/$dev/brightness"
+FAKE
+  chmod +x "$HOME/fake-bin/brightnessctl"
+  export AEROLITH_BACKLIGHT_ROOT="$HOME/backlight" PATH="$HOME/fake-bin:$PATH"
+fi
+
 if [ "${MEDIA:-0}" = 1 ]; then
   # Arch's mpv-mpris loads itself from /etc/mpv/scripts.
   mpv --no-video --ao="${MPV_AO:-null}" --idle=no --loop=inf --force-media-title="AEROLITH Test Tone" \
