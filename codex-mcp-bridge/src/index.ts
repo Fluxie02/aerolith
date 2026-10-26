@@ -41,11 +41,13 @@ type Window = { used: number; resetsAt: number };
 type Usage = { windows: Window[]; observedAt: string; limitHitUntil?: number };
 // CODEX_ACCOUNTS="mine:100,dad:80": ChatGPT logins in priority order, each with the
 // highest used_percent of its plan limit at which the bridge still starts a job.
-// Each account keeps its own login in ~/.codex-accounts/<name> (CODEX_HOME).
+// Each account keeps its own login in ~/.codex-accounts/<name> (CODEX_HOME), or in
+// the normal Codex login (~/.codex) when its entry ends in ":default".
 const ACCOUNTS: Account[] = (process.env.CODEX_ACCOUNTS ?? "").split(",").map(x => x.trim()).filter(Boolean).map(x => {
-  const [name, cap] = x.split(":");
+  const [name, cap, where] = x.split(":");
   if (!/^[a-z0-9_-]+$/i.test(name)) throw new Error(`Invalid account name in CODEX_ACCOUNTS: ${name}`);
-  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)), home: path.join(os.homedir(), ".codex-accounts", name) };
+  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)),
+    home: where === "default" ? undefined : path.join(os.homedir(), ".codex-accounts", name) };
 });
 if (!ACCOUNTS.length) ACCOUNTS.push({ name: "default", cap: 100 });
 const USAGE_FILE = path.join(STATE_DIR, "usage.json");

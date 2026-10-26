@@ -25,8 +25,9 @@ left to its owner). The bridge picks the account (`CODEX_ACCOUNTS` in
 `.mcp.json`, details in `codex-mcp-bridge/README.md`), so delegate through the
 bridge rather than the Codex plugin, which ignores the caps. Each account needs
 a login in each new cloud container. If `codex_status` reports an account is
-not logged in, run `CODEX_HOME=~/.codex-accounts/<name> codex login
---device-auth` in the background and give the user the link and one-time code,
+not logged in, run `CODEX_HOME=~/.codex-accounts/mine codex login
+--device-auth` (for `mine`) or `codex login --device-auth` (for `dad`, which
+uses the normal Codex login) in the background and give the user the link and one-time code,
 saying which account it is for; never store or ask for Codex tokens. If no
 account can take a job, tell the user and leave the visual work undone rather
 than doing it yourself.

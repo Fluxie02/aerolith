@@ -21,10 +21,10 @@ fi
 python3 -m pip install --quiet -r tools/agent-sync/requirements.txt pytest >&2
 
 # Anything printed to stdout is added to Claude's context for the session.
-# The bridge uses these ChatGPT accounts in this order (CODEX_ACCOUNTS in .mcp.json);
-# each keeps its own login in ~/.codex-accounts/<name>.
+# The bridge uses these ChatGPT accounts in this order (CODEX_ACCOUNTS in .mcp.json):
+# 'mine' logs in to ~/.codex-accounts/mine, 'dad' uses the normal Codex login (~/.codex).
 for account in mine dad; do
-  home="$HOME/.codex-accounts/$account"
+  if [ "$account" = dad ]; then home="${CODEX_HOME:-$HOME/.codex}"; else home="$HOME/.codex-accounts/$account"; fi
   mkdir -p "$home" && chmod 700 "$home"
   if CODEX_HOME="$home" codex login status >/dev/null 2>&1; then
     echo "Codex account '$account' is logged in."
