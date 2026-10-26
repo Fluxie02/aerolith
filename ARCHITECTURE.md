@@ -32,6 +32,19 @@ than working around it.
 Ui.qml is a state machine, not theming: it holds the open bay, the pending
 query, the chosen screen and the notice queue. The visual layer reads it.
 
+Application direction is installation metadata, separate from the live config
+schema: `installer/aerolith_install/cli.py` writes `installation.json` beside
+`config.json`, preserving unrelated keys and recording config ownership in the
+manifest. Reinstall/upgrade preserves the choice unless `install --direction`
+is explicit. Normal uninstall retains it; `--remove-config` uses the usual
+hash-protected config removal. This works for user copies and packaged shells.
+`Config.qml` reads it once through an unwatched, blocking `FileView` at
+`Paths.installationFile`; `Theme.applicationDirection` uses that value, with
+PIYTI fallback and an invalid-value warning. The Settings schema never includes
+direction, and `Config.reload()` reloads only live config. CLI status reports
+the stored choice; `ControlSurface.status()` reports the running direction.
+`theme.intensity` remains independent and live-switchable.
+
 ## Surfaces
 
 The shell has four windows, all `PanelWindow`s on wlr-layer-shell. Each

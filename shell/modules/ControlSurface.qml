@@ -63,6 +63,7 @@ Scope {
                 commands: Registry.api.size(),
                 configErrors: Config.errors.length,
                 configFileBroken: Config.fileBroken,
+                direction: Theme.applicationDirection,
                 stripEdge: Config.strip.edge,
                 routineErrors: Routines.errors.length,
                 ai: Registry.get("ai.ask") !== null,

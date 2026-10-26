@@ -70,14 +70,16 @@ class Ui:
             if ans == "" and default is not None:
                 return default
 
-    def choose(self, question: str, options: list[tuple[str, str, str]], given: str | None = None) -> str:
-        """Pick one of options [(key, label, explanation)]. There is no default:
-        an empty answer asks again. `given` comes from a command-line flag."""
+    def choose(self, question: str, options: list[tuple[str, str, str]], given: str | None = None, default: str | None = None) -> str:
+        """Pick one of options [(key, label, explanation)]. Only an explicit
+        default permits an empty/non-interactive answer. `given` is a flag."""
         keys = [o[0] for o in options]
         if given is not None:
             if given not in keys:
                 raise NeedAnswer(f"{question}: '{given}' is not one of {', '.join(keys)}")
             return given
+        if default is not None and (not self.interactive or self.assume_yes):
+            return default
         if not self.interactive:
             raise NeedAnswer(question)
         print(question)
@@ -87,9 +89,12 @@ class Ui:
                 print(self._c("2", "       " + line))
         while True:
             try:
-                ans = input(f"Choose 1-{len(options)}: ").strip().lower()
+                hint = f" [{default}]" if default is not None else ""
+                ans = input(f"Choose 1-{len(options)}{hint}: ").strip().lower()
             except EOFError:
                 raise NeedAnswer(question) from None
+            if ans == "" and default is not None:
+                return default
             if ans.isdigit() and 1 <= int(ans) <= len(options):
                 return options[int(ans) - 1][0]
             if ans in keys:

@@ -64,6 +64,10 @@ class Layout:
         return self.config / "config.json"
 
     @property
+    def installation_file(self) -> Path:
+        return self.config / "installation.json"
+
+    @property
     def routines_file(self) -> Path:
         return self.config / "routines.json"
 
