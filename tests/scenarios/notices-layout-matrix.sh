@@ -40,7 +40,9 @@ from pathlib import Path
 shell, direction, intensity, scale, motion, edge, config = sys.argv[1:]
 p = Path(shell) / 'core/Theme.qml'
 s = p.read_text()
-old = 'property string applicationDirection: "piyti"'
+# The direction comes from installation.json at startup (C01); the
+# disposable copy pins it instead.
+old = 'property string applicationDirection: Config.applicationDirection'
 assert s.count(old) == 1, 'inspect installation-only direction seam'
 p.write_text(s.replace(old, 'property string applicationDirection: "' + direction + '"'))
 cfg = json.loads(Path('tests/fixtures/notify-config.json').read_text())
