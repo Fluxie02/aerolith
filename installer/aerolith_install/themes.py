@@ -254,7 +254,7 @@ def prepare_app(lay: Layout, manifest: Manifest, root: Path, app: str, scheme: s
         shape = owned / ("direction." + ext)
         plan.files.append((shape, fragment(base / "hyprland" / (direction + "." + ext))))
         prefix = "--" if dialect == "lua" else "#"
-        body = "\n".join(f"dofile({hypr.lua_string(str(p))})" if dialect == "lua" else f"source = {p}" for p in (target, shape))
+        body = "\n".join(f"pcall(dofile, {hypr.lua_string(str(p))})" if dialect == "lua" else f"source = {p}" for p in (target, shape))
         plan.note = "Reload Hyprland manually. Loads shared appearance plus the installed direction's app rules."
     plan.files.append((target, fragment(base / source)))
     if app in ("kitty", "foot", "hyprland") and any(c in str(target) for c in '\\#$*?[]"\''):

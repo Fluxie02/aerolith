@@ -52,8 +52,8 @@ AI_CHOICES = [
 ]
 
 STARTUP_CHOICES = [
-    ("hyprland", "Start with Hyprland", "Adds an autostart line to AEROLITH's own Hyprland fragment."),
-    ("systemd", "systemd user service", "Installs aerolith.service bound to graphical-session.target (for uwsm setups)."),
+    ("hyprland", "Start with Hyprland", "Adds an autostart line to AEROLITH's own Hyprland fragment. Does not restart the shell after a crash."),
+    ("systemd", "systemd user service", "Installs aerolith.service bound to graphical-session.target (for uwsm setups); restarts the shell after a crash."),
     ("manual", "I will start it myself", "No autostart. Run `aerolith run` or `qs -p <shell dir>` yourself."),
 ]
 
@@ -166,6 +166,14 @@ def shell_running(lay: Layout) -> bool:
         if any(os.path.basename(c.decode(errors="replace")) in ("qs", "quickshell") for c in cmd[:1]) and str(lay.shell).encode() in cmd:
             return True
     return False
+
+
+def start_shell(lay: Layout) -> None:
+    """Leave the installer terminal's cgroup and disconnect its stdio."""
+    prefix = ["uwsm", "app", "--"] if checks.uwsm_active() else ["systemd-run", "--user", "--scope", "--collect"]
+    qs = shutil.which("qs") or shutil.which("quickshell") or "qs"
+    subprocess.Popen(prefix + [qs, "-p", str(lay.shell)], stdin=subprocess.DEVNULL,
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
 
 
 def kill_bridge_processes(lay: Layout) -> int:
@@ -499,6 +507,39 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     elif checks.failed(results):
         raise Abort("environment check failed: " + "; ".join(c.name + " " + c.detail for c in checks.failed(results)))
 
+    recommended = checks.recommended_packages(results)
+    if recommended:
+        ui.say("\nRecommended packages (optional): " + ", ".join(recommended))
+        want = args.install_deps is True or (args.install_deps is None and ui.interactive and not ui.assume_yes
+                                            and ui.confirm("Install Recommended packages now?", default=False))
+        if want:
+            def install_recommended() -> None:
+                ok, msg = packages.install_packages(recommended, manifest)
+                if not ok:
+                    ui.warn(f"Recommended packages could not be installed ({msg}); continuing with available features and font fallbacks")
+
+            plan.add("install Recommended packages " + ", ".join(recommended) + " with pacman (sudo)",
+                     install_recommended)
+    dependency_steps = len(plan.actions)
+
+    # Preserve explicit choices on upgrade, including false and an empty prefix.
+    session_updates = {}
+    for section in ("lock", "notifications", "commandCore"):
+        if not isinstance(config.get(section, {}), dict):
+            raise Abort(f"config.json: {section} must be an object; fix it first")
+    if "enabled" not in config.get("lock", {}):
+        locker = checks.installed_locker()
+        if locker:
+            ui.info(f"external locker installed: {locker}")
+        session_updates["lock"] = {"enabled": ui.confirm("Use AEROLITH's lock screen?", default=locker is None)}
+    owner = checks.notifications_owner()
+    ui.info(f"notifications: {owner}")
+    if ("server" not in config.get("notifications", {}) and owner == "nobody"
+            and not any(shutil.which(name) for name in ("mako", "dunst", "swaync", "fnott"))):
+        session_updates["notifications"] = {"server": ui.confirm("Use AEROLITH's notification server?", default=True)}
+    if "launchPrefix" not in config.get("commandCore", {}) and checks.uwsm_active():
+        session_updates["commandCore"] = {"launchPrefix": ["uwsm", "app", "--"]}
+
     # 2. AI provider: explicit choice, never defaulted.
     ui.title("AI integration")
     current = existing.ai_provider if existing else None
@@ -569,7 +610,7 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
 
     # Core files go after any dependency installation, before the AI module
     # (which lives inside the shell directory).
-    pos = 1 if missing else 0
+    pos = dependency_steps
     if lay.system:
         plan.lines.insert(pos, f"run the shell from {lay.shell} (the aerolith package; `pacman -Syu` updates it)")
     else:
@@ -581,13 +622,19 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
         plan.add(f"create {tilde(lay.config_file)} with a few common settings", install_config)
 
     def install_live_settings() -> None:
-        write_theme_values(lay, read_live_config(lay), updates)
+        data = read_live_config(lay)
+        for section, values in session_updates.items():
+            data.setdefault(section, {}).update(values)
+        write_theme_values(lay, data, updates)
         # Retain modified-file protection for an existing user's config.
         if not config_existed:
             manifest.record_file(lay.config_file, "config", "config")
 
     plan.add(f"live settings: intensity {chosen['intensity']}; scheme {chosen['scheme']} ({tilde(lay.config_file)})",
-             install_live_settings if updates else None)
+             install_live_settings if updates or session_updates else None)
+    for section, values in session_updates.items():
+        for key, value in values.items():
+            plan.add(f"set {section}.{key} = {json.dumps(value)}")
 
     def install_direction() -> None:
         # Keep unrelated metadata and all live user settings. Reading above
@@ -670,8 +717,12 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     for e in manifest.edits:
         ui.say(f"  Backup of {Path(e.file).name}: {tilde(e.backup)}")
     if os.environ.get("HYPRLAND_INSTANCE_SIGNATURE") and not shell_running(lay) and (args.start or (args.start is None and ui.interactive and ui.confirm("Start AEROLITH now?", default=False))):
-        subprocess.Popen([shutil.which("qs") or "qs", "-p", str(lay.shell), "-d"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        ui.ok("started")
+        try:
+            start_shell(lay)
+        except OSError as exc:
+            ui.warn(f"could not start AEROLITH: {exc}; start it later with `aerolith run`")
+        else:
+            ui.ok("start requested")
     return 0 if not problems and not errors else 2
 
 
@@ -955,6 +1006,7 @@ def cmd_status(args: argparse.Namespace, ui: Ui) -> int:
         "ai_provider": manifest.ai_provider if manifest else None,
         "startup": manifest.startup if manifest else None,
         "hyprland_dialect": manifest.hypr_dialect if manifest else None,
+        "notifications": checks.notifications_owner(),
         "files": len(manifest.files) if manifest else 0,
         "packages_installed_by_aerolith": [p.name for p in manifest.packages] if manifest else [],
         "version": manifest.aerolith_version if manifest else None,
