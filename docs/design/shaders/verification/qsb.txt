@@ -1,0 +1,4 @@
+annulus.frag: --build ok
+bevel.frag: --build ok
+catch.frag: --build ok
+undercarriage.frag: --build ok

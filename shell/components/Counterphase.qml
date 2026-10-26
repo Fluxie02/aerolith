@@ -52,6 +52,12 @@ Item {
                 x: bearing.width * .42; y: -Theme.du(2)
                 width: Theme.du(bearing.index === 2 ? 24 : 42); height: Theme.du(5)
                 color: bearing.index === 1 ? Theme.appLink : Theme.signal
+                Material {
+                    anchors.fill: parent
+                    shader: "catch"
+                    accent: carrier.color
+                    visible: Theme.ambient
+                }
                 // Animator changes the scene-graph transform, not layout.
                 SequentialAnimation {
                     id: cycle
@@ -114,6 +120,12 @@ Item {
             y: vernier.height * .44; x: -Theme.du(3)
             width: Theme.du(8); height: Theme.du(24)
             color: Theme.appLink
+            Material {
+                anchors.fill: parent
+                shader: "catch"
+                parameters: Qt.vector4d(1, 0, 0, 0)
+                visible: Theme.ambient
+            }
             SequentialAnimation {
                 id: returnCycle
                 property real home: 0

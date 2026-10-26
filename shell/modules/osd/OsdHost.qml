@@ -125,8 +125,8 @@ Scope {
         PanelWindow {
             screen: Ui.screen
             color: "transparent"
-            anchors.bottom: true
-            margins.bottom: Theme.du(96)
+            anchors.top: true
+            margins.top: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.pad
             exclusionMode: ExclusionMode.Ignore
             implicitWidth: view.implicitWidth
             implicitHeight: view.implicitHeight
