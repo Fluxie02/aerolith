@@ -1,2 +1,0 @@
-saturated full gallery: passed
-saturated small gallery: passed

@@ -1,8 +1,0 @@
-saturated full gallery: passed
-saturated small gallery: passed
-saturated reduced gallery: passed
-saturated terminal: passed
-insane full gallery: passed
-insane small gallery: passed
-insane reduced gallery: passed
-insane terminal: passed

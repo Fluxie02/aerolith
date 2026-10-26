@@ -97,7 +97,7 @@ formerly fixed cyan continuity edge now follows each spectrum's `link` colour;
 THEARS uses its interaction colour. The only config addition is `theme.scheme`,
 declared with `S.enumOf` and exported by `node tools/gen-schema.mjs`.
 
-[`tools/gen-scheme-themes.mjs`](../../../tools/gen-scheme-themes.mjs) derives
+`tools/gen-scheme-themes.mjs` (`../../../tools/gen-scheme-themes.mjs`; unavailable in baseline checkout) derives
 **446 files** from that catalog and the established app shapes: kitty,
 Alacritty, foot, btop, GTK 3/4, Qt, Hyprland, Firefox, Discord and Steam,
 plus the existing LibreOffice and PhotoCraft adapters. It preserves the

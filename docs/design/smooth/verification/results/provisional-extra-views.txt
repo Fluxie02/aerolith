@@ -1,7 +1,0 @@
-$ SHELL_PATH=build/ui016/verification/extra-views-shell tools/headless/run.sh docs/design/smooth/verification/scripts/extra-views.sh build/ui016/verification/provisional-extra-views
-
-show: The following argument was not expected: 1
-Run with --help for more information.
-
-EXIT 109
-ELAPSED 7.555 s

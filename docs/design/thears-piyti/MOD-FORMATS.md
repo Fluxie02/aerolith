@@ -125,5 +125,5 @@ rules do not demonstrate GPU-memory release.
   surface. Both themes now use `#304446` for that surface, bringing `#abc0bd`
   secondary text to **5.393:1**; separators keep their original mineral colour.
   [Pair-by-pair evidence](verification/app-contrast.json) also covers selection
-  labels and focus cues. [Exact native config output](verification/hyprland-validation.log)
+  labels and focus cues. Exact native config output (`verification/hyprland-validation.log`; unavailable in baseline checkout)
   archives all four successful Hyprland parser runs.

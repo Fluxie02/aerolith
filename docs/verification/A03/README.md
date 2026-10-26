@@ -10,23 +10,23 @@ Commands below ran sequentially in this order from the worktree root. Wall durat
 
 | Run | Exact command | Exit | Passed / failed / skipped | Duration (s) |
 |---|---|---:|---|---:|
-| [node](node.log) | `node tests/js/run-node.mjs` | 0 | 118 / 0 / 0 | 0.093 |
-| [qt](qt.log) | `docker run --rm -v "$PWD:/src:ro" aerolith-dev:latest bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'` | 0 | 118 / 0 / 0 | 17.870 |
-| [pytest](pytest.log) | `python3 -m pytest -q tests/py` | 0 | 71 / 0 / 1 | 19.338 |
-| [smoke-saturated](smoke-saturated.log) | `CONFIG=docs/verification/A03/saturated.json tools/headless/run.sh tests/scenarios/smoke.sh build/A03/smoke-saturated` | 0 | 1 / 0 / 0 | 19.202 |
-| [smoke-insane](smoke-insane.log) | `CONFIG=docs/verification/A03/insane.json tools/headless/run.sh tests/scenarios/smoke.sh build/A03/smoke-insane` | 0 | 1 / 0 / 0 | 5.548 |
-| [full-saturated](full-saturated.log) | `CONFIG=docs/verification/A03/saturated.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/A03/full-saturated` | 0 | 1 / 0 / 0 | 38.725 |
-| [full-insane](full-insane.log) | `CONFIG=docs/verification/A03/insane.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/A03/full-insane` | 0 | 1 / 0 / 0 | 37.639 |
-| [deck-saturated](deck-saturated.log) | `CONFIG=docs/verification/A03/saturated.json AUDIO=1 HYPR_MOCK_ARGS="--mode 2560x1440 --scale 1.5 --transform 1" tools/headless/run.sh tests/scenarios/deck.sh build/A03/deck-saturated` | 0 | 1 / 0 / 0 | 24.767 |
-| [deck-insane](deck-insane.log) | `CONFIG=docs/verification/A03/insane.json AUDIO=1 HYPR_MOCK_ARGS="--mode 2560x1440 --scale 1.5 --transform 1" tools/headless/run.sh tests/scenarios/deck.sh build/A03/deck-insane` | 0 | 1 / 0 / 0 | 24.886 |
-| [notify-saturated](notify-saturated.log) | `CONFIG=docs/verification/A03/saturated.json tools/headless/run.sh tests/scenarios/notify.sh build/A03/notify-saturated` | 0 | 1 / 0 / 0 | 33.803 |
-| [notify-insane](notify-insane.log) | `CONFIG=docs/verification/A03/insane.json tools/headless/run.sh tests/scenarios/notify.sh build/A03/notify-insane` | 0 | 1 / 0 / 0 | 32.808 |
-| [ai-saturated](ai-saturated.log) | `CONFIG=docs/verification/A03/saturated.json AI=1 AUDIO=1 AI_PROVIDER=claude tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-saturated` | 0 | 1 / 0 / 0 | 20.158 |
-| [ai-insane](ai-insane.log) | `CONFIG=docs/verification/A03/insane.json AI=1 AUDIO=1 AI_PROVIDER=claude tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-insane` | 0 | 1 / 0 / 0 | 20.439 |
-| [installed-saturated](installed-saturated.log) | `CONFIG=docs/verification/A03/saturated.json AUDIO=1 INSTALL="--ai claude --startup hyprland" tools/headless/run.sh tests/scenarios/installed.sh build/A03/installed-saturated` | 0 | 1 / 0 / 0 | 16.869 |
-| [installed-insane](installed-insane.log) | `CONFIG=docs/verification/A03/insane.json AUDIO=1 INSTALL="--ai claude --startup hyprland" tools/headless/run.sh tests/scenarios/installed.sh build/A03/installed-insane` | 0 | 1 / 0 / 0 | 16.304 |
-| [ai-codex-saturated](ai-codex-saturated.log) | `CONFIG=docs/verification/A03/saturated.json AI=1 AUDIO=1 AI_PROVIDER=codex tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-codex-saturated` | 1 | 0 / 1 / 0 | 12.067 |
-| [ai-codex-insane](ai-codex-insane.log) | `CONFIG=docs/verification/A03/insane.json AI=1 AUDIO=1 AI_PROVIDER=codex tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-codex-insane` | 1 | 0 / 1 / 0 | 12.076 |
+| node (`node.log`; unavailable in baseline checkout) | `node tests/js/run-node.mjs` | 0 | 118 / 0 / 0 | 0.093 |
+| qt (`qt.log`; unavailable in baseline checkout) | `docker run --rm -v "$PWD:/src:ro" aerolith-dev:latest bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'` | 0 | 118 / 0 / 0 | 17.870 |
+| pytest (`pytest.log`; unavailable in baseline checkout) | `python3 -m pytest -q tests/py` | 0 | 71 / 0 / 1 | 19.338 |
+| smoke-saturated (`smoke-saturated.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/saturated.json tools/headless/run.sh tests/scenarios/smoke.sh build/A03/smoke-saturated` | 0 | 1 / 0 / 0 | 19.202 |
+| smoke-insane (`smoke-insane.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/insane.json tools/headless/run.sh tests/scenarios/smoke.sh build/A03/smoke-insane` | 0 | 1 / 0 / 0 | 5.548 |
+| full-saturated (`full-saturated.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/saturated.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/A03/full-saturated` | 0 | 1 / 0 / 0 | 38.725 |
+| full-insane (`full-insane.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/insane.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/A03/full-insane` | 0 | 1 / 0 / 0 | 37.639 |
+| deck-saturated (`deck-saturated.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/saturated.json AUDIO=1 HYPR_MOCK_ARGS="--mode 2560x1440 --scale 1.5 --transform 1" tools/headless/run.sh tests/scenarios/deck.sh build/A03/deck-saturated` | 0 | 1 / 0 / 0 | 24.767 |
+| deck-insane (`deck-insane.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/insane.json AUDIO=1 HYPR_MOCK_ARGS="--mode 2560x1440 --scale 1.5 --transform 1" tools/headless/run.sh tests/scenarios/deck.sh build/A03/deck-insane` | 0 | 1 / 0 / 0 | 24.886 |
+| notify-saturated (`notify-saturated.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/saturated.json tools/headless/run.sh tests/scenarios/notify.sh build/A03/notify-saturated` | 0 | 1 / 0 / 0 | 33.803 |
+| notify-insane (`notify-insane.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/insane.json tools/headless/run.sh tests/scenarios/notify.sh build/A03/notify-insane` | 0 | 1 / 0 / 0 | 32.808 |
+| ai-saturated (`ai-saturated.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/saturated.json AI=1 AUDIO=1 AI_PROVIDER=claude tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-saturated` | 0 | 1 / 0 / 0 | 20.158 |
+| ai-insane (`ai-insane.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/insane.json AI=1 AUDIO=1 AI_PROVIDER=claude tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-insane` | 0 | 1 / 0 / 0 | 20.439 |
+| installed-saturated (`installed-saturated.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/saturated.json AUDIO=1 INSTALL="--ai claude --startup hyprland" tools/headless/run.sh tests/scenarios/installed.sh build/A03/installed-saturated` | 0 | 1 / 0 / 0 | 16.869 |
+| installed-insane (`installed-insane.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/insane.json AUDIO=1 INSTALL="--ai claude --startup hyprland" tools/headless/run.sh tests/scenarios/installed.sh build/A03/installed-insane` | 0 | 1 / 0 / 0 | 16.304 |
+| ai-codex-saturated (`ai-codex-saturated.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/saturated.json AI=1 AUDIO=1 AI_PROVIDER=codex tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-codex-saturated` | 1 | 0 / 1 / 0 | 12.067 |
+| ai-codex-insane (`ai-codex-insane.log`; unavailable in baseline checkout) | `CONFIG=docs/verification/A03/insane.json AI=1 AUDIO=1 AI_PROVIDER=codex tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-codex-insane` | 1 | 0 / 1 / 0 | 12.076 |
 
 ## Configuration and evidence
 

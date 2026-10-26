@@ -1,5 +1,0 @@
-saturated smoke: passed
-saturated full: passed
-saturated signal: passed
-saturated deck: passed
-saturated notify: passed

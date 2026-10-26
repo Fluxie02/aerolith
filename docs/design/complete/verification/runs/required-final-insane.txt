@@ -1,6 +1,0 @@
-insane smoke exit=0
-insane full exit=0
-insane signal exit=0
-insane deck exit=0
-insane notify exit=0
-insane ai exit=0

@@ -1,3 +1,0 @@
-saturated AI states verified exit=0
-insane AI states verified exit=0
-insane AI required verified exit=0

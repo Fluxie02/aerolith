@@ -1,3 +1,0 @@
-ok
-started
-probe: ok (67 startup events; no replay on switch/remap/motion changes)

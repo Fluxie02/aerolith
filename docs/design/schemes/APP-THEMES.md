@@ -79,7 +79,7 @@ that every third-party widget/state has been rendered.
 
 ## Verification
 
-[`app-themes-validation.log`](app-themes-validation.log) records the commands
+`app-themes-validation.log` (`app-themes-validation.log`; unavailable in baseline checkout) records the commands
 and results. The reusable [format validator](verify-app-themes.py) uses Python
 stdlib plus `tinycss2`/`cssselect2` installed in a temporary directory:
 

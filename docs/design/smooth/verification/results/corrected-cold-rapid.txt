@@ -1,6 +1,0 @@
-$ SHELL_PATH=build/ui016/verification/corrected-shell tools/headless/run.sh docs/design/smooth/verification/scripts/cold-rapid.sh build/ui016/verification/corrected-cold-rapid
-
-cold rapid slot lifecycle: ok
-
-EXIT 0
-ELAPSED 14.438 s

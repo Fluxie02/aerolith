@@ -1,6 +1,0 @@
-$ SHELL_PATH=build/ui016/verification/corrected-shell tools/headless/run.sh docs/design/smooth/verification/scripts/motion-modes.sh build/ui016/verification/corrected-motion-modes
-
-motion modes: ok
-
-EXIT 0
-ELAPSED 22.373 s
