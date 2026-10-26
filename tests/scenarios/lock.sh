@@ -8,7 +8,14 @@
 #   2. a wrong password is refused and the session stays locked,
 #   3. the right password unlocks it,
 #   4. five wrong passwords pause input, and nothing typed then unlocks,
-#   5. the password never appears in the shell's log.
+#   5. the password never appears in the shell's log,
+#   6. editing the shell's files while locked does not reload it and keeps
+#      the lock and the attempt count (a reload would rebuild the lock; see
+#      LockHost.qml),
+#   7. the pause ends and the right password then unlocks,
+#   8. once unlocked, file changes reload the shell again.
+# "locked" is the lock the shell holds; "lockSecure" is the compositor's
+# confirmation, and the lock command reports success only after it.
 fail() { echo "FAIL: $*"; exit 1; }
 field() { python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get(sys.argv[2]))' "$(ipc status)" "$1"; }
 wait_field() {
@@ -24,6 +31,7 @@ sleep 3
 # 1. Lock.
 ipc lock >/dev/null
 wait_field locked True 3 || fail "the lock command did not lock"
+wait_field lockSecure True 3 || fail "the compositor did not confirm the lock"
 grep -q "\[aerolith:lock\] locking" "$OUT/qs.log" || fail "no lock log line"
 sleep 1
 shot 01-locked
@@ -33,6 +41,17 @@ enter "not-the-password"
 wait_field lockState failed 10 || fail "a wrong password was not refused"
 [ "$(field locked)" = True ] || fail "a wrong password unlocked the session"
 shot 02-wrong
+loads() { grep -c "Configuration Loaded" "$OUT/qs.log"; }
+change_shell() { echo "// edit $RANDOM" >>"$SHELL_DIR/shell.qml"; }
+# Editing the shell while locked does not reload it (file watching pauses).
+before=$(loads)
+change_shell
+sleep 3
+[ "$(loads)" = "$before" ] || fail "a file change reloaded the shell while locked"
+[ "$(field locked)" = True ] || fail "a file change released the lock"
+[ "$(field lockSecure)" = True ] || fail "after a file change the compositor no longer holds the lock"
+[ "$(field lockAttempts)" = 1 ] || fail "a file change reset the attempt count (now $(field lockAttempts))"
+shot 02b-after-edit
 
 # 3. Right password.
 enter "aerolith-test"
@@ -52,6 +71,18 @@ shot 03-locked-out
 enter "aerolith-test"
 sleep 2
 [ "$(field locked)" = True ] || fail "typing during the pause unlocked the session"
+
+# 7. The pause ends (30 s from the fifth failure); the right password works.
+wait_field lockState idle 35 || fail "the pause did not end (state $(field lockState))"
+enter "aerolith-test"
+wait_field locked False 10 || fail "the right password did not unlock after the pause"
+
+# 8. Unlocked, file watching is back: a change reloads the shell.
+before=$(loads)
+change_shell
+for _ in $(seq 100); do [ "$(loads)" -gt "$before" ] && break; sleep 0.1; done
+[ "$(loads)" -gt "$before" ] || fail "file watching did not resume after unlocking"
+sleep 2
 
 # 5. No secret in the log.
 if grep -E "aerolith-test|not-the-password|wrong-[1-5]" "$OUT/qs.log"; then fail "a password reached the log"; fi

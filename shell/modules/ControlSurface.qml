@@ -97,6 +97,7 @@ Scope {
                 osd: Ui.osdKind,
                 session: Ui.sessionOpen,
                 locked: Ui.locked,
+                lockSecure: Ui.lockSecure,
                 lockState: Ui.lockState,
                 lockAttempts: Ui.lockAttempts,
                 osdValue: isFinite(Ui.osdValue) ? Math.round(Ui.osdValue * 100) / 100 : null,

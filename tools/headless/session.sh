@@ -181,6 +181,12 @@ if [ -n "${INSTALL:-}" ]; then
   "${installer[@]}" "${install_args[@]}" --yes --no-start </dev/null >"$OUT/install.log" 2>&1 || {
     echo "FAIL: installer exited $?"; cat "$OUT/install.log"; exit 1; }
 fi
+# LOCK=1: a writable copy, so the lock scenario can touch a file and make
+# Quickshell reload the configuration while the session is locked.
+if [ "${LOCK:-0}" = 1 ] && [ "$SHELL_DIR" = "$SHELL_SRC" ]; then
+  SHELL_DIR="$HOME/aerolith-shell"
+  cp -r "$SHELL_SRC" "$SHELL_DIR"
+fi
 export SHELL_DIR
 qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &
 QS_PID=$!

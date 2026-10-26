@@ -134,6 +134,7 @@ FocusScope {
                         anchors.fill: parent; anchors.margins: Theme.du(16)
                         verticalAlignment: TextInput.AlignVCenter
                         echoMode: TextInput.Password; passwordCharacter: "●"
+                        passwordMaskDelay: 0 // never show a typed character, whatever the platform default
                         color: Theme.text; selectionColor: Theme.signal; selectedTextColor: Theme.bg
                         font.family: Theme.sans; font.pixelSize: Theme.du(22)
                         enabled: root.editable; focus: true; clip: true

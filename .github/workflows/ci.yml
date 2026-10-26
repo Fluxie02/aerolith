@@ -280,7 +280,7 @@ jobs:
       - name: lock
         id: lock
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}
-        timeout-minutes: 4
+        timeout-minutes: 5
         run: |
           LOCK=1 CONFIG=tests/fixtures/lock-config.json tools/headless/run.sh tests/scenarios/lock.sh build/ci/lock
       - name: Upload failed lock output
@@ -289,6 +289,20 @@ jobs:
         with:
           name: lock-failure
           path: build/ci/lock/
+          if-no-files-found: warn
+          retention-days: 3
+      - name: lock-multistep
+        id: lock_multistep
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          LOCK=1 LOCK_PAM=double CONFIG=tests/fixtures/lock-config.json tools/headless/run.sh tests/scenarios/lock-multistep.sh build/ci/lock-multistep
+      - name: Upload failed lock-multistep output
+        if: ${{ failure() && steps.lock_multistep.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: lock-multistep-failure
+          path: build/ci/lock-multistep/
           if-no-files-found: warn
           retention-days: 3
           compression-level: 9

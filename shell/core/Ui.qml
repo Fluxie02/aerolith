@@ -77,9 +77,17 @@ Singleton {
     property bool deckMapped: false
     // The OSD being presented ("volume", "mic"), "" when none. Written by
     // modules/osd/OsdHost.qml.
-    // The session lock (modules/lock/LockHost.qml): set true to lock; only a
-    // successful PAM authentication there sets it false again.
-    property bool locked: false
+    // The session lock (modules/lock/LockHost.qml). Lock with
+    // requestLock(done): done(ok, text) runs once the compositor has
+    // confirmed the lock, or failed to. Only LockHost writes the properties
+    // below, as a mirror: writing them locks or unlocks nothing, and only a
+    // successful PAM authentication there ends the lock.
+    signal lockRequested(var done)
+    function requestLock(done) {
+        lockRequested(done);
+    }
+    property bool locked: false // the shell holds the lock (kept across reloads)
+    property bool lockSecure: false // the compositor confirmed it
     property string lockState: ""
     property int lockAttempts: 0
     // The session menu (modules/session/SessionHost.qml).

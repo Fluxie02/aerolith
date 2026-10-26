@@ -8,7 +8,11 @@
 # the scenario then runs against the packaged tree, see tools/package/build.sh),
 # APP_THEMES=1 (fake aerolith CLI for refresh debounce/restore checks).
 # BACKLIGHT=1 (a fake backlight and brightnessctl for the brightness service),
-# LOCK=1 (the test user gets the password aerolith-test, for the lock scenario).
+# LOCK=1 (the test user gets the password aerolith-test, for the lock scenario;
+# the shell runs from a writable copy so the scenario can trigger a reload),
+# LOCK_PAM=double (with LOCK=1: /etc/pam.d/login uses the test module
+# tests/fixtures/pam/pam_twice.c, which asks twice; for
+# tests/scenarios/lock-multistep.sh).
 #
 # Run scenarios one at a time. Keyboard input is injected with wtype, and
 # with several sessions rendering in software at once keys are dropped
@@ -37,7 +41,7 @@ fi
 
 docker run --rm --cap-add=SYS_NICE \
   -v "$here:/src:ro" -v "$out:/out" "${extra[@]}" \
-  -e APP_THEMES -e AUDIO -e BACKLIGHT -e LOCK -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
+  -e APP_THEMES -e AUDIO -e BACKLIGHT -e LOCK -e LOCK_PAM -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
   "$image" bash -c '
     set -e
     if [ -d /pkgs ]; then pacman -U --noconfirm /pkgs/*.pkg.tar.zst >/out/pacman.log 2>&1 || { cat /out/pacman.log; exit 1; }; fi
@@ -50,5 +54,9 @@ docker run --rm --cap-add=SYS_NICE \
     # LOCK=1: a known password for the throwaway test user, so the lock
     # scenario can authenticate through real PAM (pam_unix via /etc/pam.d/login).
     if [ "${LOCK:-0}" = 1 ]; then echo "pilot:aerolith-test" | chpasswd; fi
-    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} APP_THEMES=${APP_THEMES:-0} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
+    if [ "${LOCK_PAM:-}" = double ]; then
+      gcc -shared -fPIC -o /usr/lib/security/pam_twice.so /src/tests/fixtures/pam/pam_twice.c -lpam
+      printf "auth required pam_twice.so aerolith-test\naccount required pam_unix.so\n" >/etc/pam.d/login
+    fi
+    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} APP_THEMES=${APP_THEMES:-0} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} LOCK=${LOCK:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
   '

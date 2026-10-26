@@ -108,10 +108,9 @@ Singleton {
             description: "AEROLITH's lock screen when lock.enabled is on; otherwise loginctl lock-session (needs a locker such as hyprlock via hypridle)",
             routine: true,
             run: () => {
-                if (Config.lock.enabled) {
-                    Ui.locked = true;
-                    return Registry.ok("Locked");
-                }
+                // Reports "Locked" only once the compositor confirms it.
+                if (Config.lock.enabled)
+                    return new Promise(resolve => Ui.requestLock((ok, text) => resolve(ok ? Registry.ok(text) : Registry.fail(text))));
                 return root.runChecked(["loginctl", "lock-session"], "Lock requested");
             }
         });
