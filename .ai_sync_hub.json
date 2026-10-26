@@ -265,7 +265,7 @@
         ],
         "request": "Performance/stability audit of the completed design layer",
         "summary": "UI-005 complete: production Saturated default and live-switchable Insane reproduce round-three Limb through shared geometry/readouts; process-latched startup, remap repaint and 63 judged PNGs delivered.",
-        "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke, full, signal, scaled/rotated deck, notify and ai pass in BOTH intensities; known unlinked-mpv routing skip retained. Live IPC saturated→insane→saturated, open-bay keyboard input, rapid switches, real ground/strip unmap/remap, off/lowEffects and atomic terminal CLI switches pass. Compact 1280x720/uiScale1.25/Noto/off/lowEffects judged in both. All 18 qs.log files audited: no QML engine errors. perf.sh once per intensity, default 120/30s windows: Saturated idle 0.27% core/119.2 MiB, after-use 0.30%/122.1, peak178.5; Insane idle0.30%/119.6, after-use0.33%/122.1, peak171.1. Original verified eight source files remain saved and hash-checked in /home/user/aerolith-astra. Restart changed writable root to /home/user/aerolith (older systems branch); no source changes retained there. FINAL docs/evidence are /home/user/aerolith/docs/design/INTENSITY.md and intensity/. Complete portable eight-file source plus final-docs handoff: /home/user/aerolith/build/UI-005-astra.tar.gz; apply to Astra visual branch base0d614e5, including final docs, before committing as Astra author. No commit attempted. No hosts, FlightStrip visibility, services, schema, config logic or ai-bridge edited. No new setting needed. Existing full-screen host changes not present; config visibility proves remap, but real Hyprland/game/GPU-memory validation remains integration work. One review of Claude setting/CLI/available lifecycle contracts: no actionable findings. Ready for Claude ONE systems/performance review; one revision available. Exact commands, measured states, retries, restart provenance and limitations in intensity/verification/RESULTS.md. No dispatcher started or claimed.",
+        "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke, full, signal, scaled/rotated deck, notify and ai pass in BOTH intensities; known unlinked-mpv routing skip retained. Live IPC saturated\u2192insane\u2192saturated, open-bay keyboard input, rapid switches, real ground/strip unmap/remap, off/lowEffects and atomic terminal CLI switches pass. Compact 1280x720/uiScale1.25/Noto/off/lowEffects judged in both. All 18 qs.log files audited: no QML engine errors. perf.sh once per intensity, default 120/30s windows: Saturated idle 0.27% core/119.2 MiB, after-use 0.30%/122.1, peak178.5; Insane idle0.30%/119.6, after-use0.33%/122.1, peak171.1. Original verified eight source files remain saved and hash-checked in /home/user/aerolith-astra. Restart changed writable root to /home/user/aerolith (older systems branch); no source changes retained there. FINAL docs/evidence are /home/user/aerolith/docs/design/INTENSITY.md and intensity/. Complete portable eight-file source plus final-docs handoff: /home/user/aerolith/build/UI-005-astra.tar.gz; apply to Astra visual branch base0d614e5, including final docs, before committing as Astra author. No commit attempted. No hosts, FlightStrip visibility, services, schema, config logic or ai-bridge edited. No new setting needed. Existing full-screen host changes not present; config visibility proves remap, but real Hyprland/game/GPU-memory validation remains integration work. One review of Claude setting/CLI/available lifecycle contracts: no actionable findings. Ready for Claude ONE systems/performance review; one revision available. Exact commands, measured states, retries, restart provenance and limitations in intensity/verification/RESULTS.md. No dispatcher started or claimed.",
         "status": "pending"
       },
       {
@@ -2475,7 +2475,7 @@
         ],
         "request": "Performance/stability audit of the completed design layer",
         "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
-        "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
+        "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933\u21920.716%, Insane5.139\u21922.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
         "status": "pending"
       }
     ],
@@ -2578,7 +2578,7 @@
         "build/UI-001-astra.bundle",
         "build/UI-001-import.txt"
       ],
-      "summary": "UI-001 phases 1–4: explored Parallax, Cut and Interleaf and selected Interleaf, a readable index of work with an inverse navigation margin, opaque celadon fields, numbered workspace passages and a precise red selection rule. It fits all four fixture window titles and five workspace slots at 1080p, retains real service/key flows, and needs no shader, blur or ambient animation. RECON, CONCEPTS, DIRECTION, runnable prototypes, 22 judged PNGs and validation are delivered; production is untouched. Four phase commits are preserved in build/UI-001-astra.bundle because shared Git metadata is read-only; the actual assigned branch remains at 9fe38cd pending import.",
+      "summary": "UI-001 phases 1\u20134: explored Parallax, Cut and Interleaf and selected Interleaf, a readable index of work with an inverse navigation margin, opaque celadon fields, numbered workspace passages and a precise red selection rule. It fits all four fixture window titles and five workspace slots at 1080p, retains real service/key flows, and needs no shader, blur or ambient animation. RECON, CONCEPTS, DIRECTION, runnable prototypes, 22 judged PNGs and validation are delivered; production is untouched. Four phase commits are preserved in build/UI-001-astra.bundle because shared Git metadata is read-only; the actual assigned branch remains at 9fe38cd pending import.",
       "notes": "S01 ESSENTIAL: Production background-layer host on Ui.screen, behind windows, no focus/exclusive zone, safe output lifecycle and static idle behavior.\nS02 ESSENTIAL FOR FULL MOTION: Bounded Deck enter/exit/cross-bay visual retention with immediate telemetry/audio demand release, focus handling and rapid-switch cancellation; instant off/lowEffects.\nS03 ESSENTIAL: Stable keyed notice/popup identity and arrival-based expiry; deterministic notices above Deck; sharing indicator always visible; avoid duplicate shell.notify success annotation.\nS04 ESSENTIAL: Installer-managed Hyprland animation rules for shell namespaces, preserving user rules/dialects; prevent compositor motion stacking and motion-off violations; no blur requested.\nS05 ESSENTIAL FOR COMPLETE CONTROLS: Capability-aware brightness/network services and non-focusing real-value volume/brightness OSD; unavailable/permission/failure states, no visual polling.\nS06 ESSENTIAL FOR LOCK SURFACE: Secure WlSessionLock/PAM lifecycle with retry, output and suspend/resume handling; retain external locker until ready.\nS07 OPTIONAL: Capability-aware Bluetooth and display-configuration services, demand-driven with real acknowledged actions.\nS08 OPTIONAL PREREQUISITE: Reference-count Audio.detailed before any second detailed-volume consumer; current design has only one.\nS09 OPTIONAL: Implement actual notification action invocation and capability reporting before exposing action buttons.\nS10 OPTIONAL: Installer-supported static compositor focus-border palette mapping, preserving user overrides; no QML tracking border or app-animation change.\nNo new public config keys, palette renames, font packages, shaders, blur rules, classifiers or telemetry feeds requested. Exact surface/why/done criteria in docs/design/DIRECTION.md.\nValidation: Node 100/100, Qt V4 100/100, Python 68 passed/1 skipped; baseline and selected full scenarios passed; 720p compact/Noto/off/lowEffects and uiScale 2 checks passed; privacy-over-Deck PNG inspected; all final QML logs free of binding/type/reference errors. Stable idle: 0.12% core, 1.7 switches/s, 107.2 MiB versus baseline 0.13%, 2.2/s, 85.0 MiB. Real Hyprland/GPU/hardware/lock not verified.\nGit handoff: actual branch could not be committed because /home/user/aerolith/.git/worktrees/aerolith-astra is read-only. Verified portable bundle holds 7c58a40, ef30f58, 816f3a0, b71f9ea on codex/astra-visual-language; see build/UI-001-import.txt. No push or branch switch. One review of Claude handoff recorded in RECON.md.",
       "task_id": "UI-001",
       "timestamp": "2026-10-22T12:34:51+00:00"
@@ -2968,7 +2968,7 @@
         "docs/design/intensity/verification/terminal-small.sh"
       ],
       "summary": "UI-005 complete: production Saturated default and live-switchable Insane reproduce round-three Limb through shared geometry/readouts; process-latched startup, remap repaint and 63 judged PNGs delivered.",
-      "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke, full, signal, scaled/rotated deck, notify and ai pass in BOTH intensities; known unlinked-mpv routing skip retained. Live IPC saturated→insane→saturated, open-bay keyboard input, rapid switches, real ground/strip unmap/remap, off/lowEffects and atomic terminal CLI switches pass. Compact 1280x720/uiScale1.25/Noto/off/lowEffects judged in both. All 18 qs.log files audited: no QML engine errors. perf.sh once per intensity, default 120/30s windows: Saturated idle 0.27% core/119.2 MiB, after-use 0.30%/122.1, peak178.5; Insane idle0.30%/119.6, after-use0.33%/122.1, peak171.1. Original verified eight source files remain saved and hash-checked in /home/user/aerolith-astra. Restart changed writable root to /home/user/aerolith (older systems branch); no source changes retained there. FINAL docs/evidence are /home/user/aerolith/docs/design/INTENSITY.md and intensity/. Complete portable eight-file source plus final-docs handoff: /home/user/aerolith/build/UI-005-astra.tar.gz; apply to Astra visual branch base0d614e5, including final docs, before committing as Astra author. No commit attempted. No hosts, FlightStrip visibility, services, schema, config logic or ai-bridge edited. No new setting needed. Existing full-screen host changes not present; config visibility proves remap, but real Hyprland/game/GPU-memory validation remains integration work. One review of Claude setting/CLI/available lifecycle contracts: no actionable findings. Ready for Claude ONE systems/performance review; one revision available. Exact commands, measured states, retries, restart provenance and limitations in intensity/verification/RESULTS.md. No dispatcher started or claimed.",
+      "notes": "Node 104/104; Qt V4 104/104; pytest 71 passed/1 skipped. Smoke, full, signal, scaled/rotated deck, notify and ai pass in BOTH intensities; known unlinked-mpv routing skip retained. Live IPC saturated\u2192insane\u2192saturated, open-bay keyboard input, rapid switches, real ground/strip unmap/remap, off/lowEffects and atomic terminal CLI switches pass. Compact 1280x720/uiScale1.25/Noto/off/lowEffects judged in both. All 18 qs.log files audited: no QML engine errors. perf.sh once per intensity, default 120/30s windows: Saturated idle 0.27% core/119.2 MiB, after-use 0.30%/122.1, peak178.5; Insane idle0.30%/119.6, after-use0.33%/122.1, peak171.1. Original verified eight source files remain saved and hash-checked in /home/user/aerolith-astra. Restart changed writable root to /home/user/aerolith (older systems branch); no source changes retained there. FINAL docs/evidence are /home/user/aerolith/docs/design/INTENSITY.md and intensity/. Complete portable eight-file source plus final-docs handoff: /home/user/aerolith/build/UI-005-astra.tar.gz; apply to Astra visual branch base0d614e5, including final docs, before committing as Astra author. No commit attempted. No hosts, FlightStrip visibility, services, schema, config logic or ai-bridge edited. No new setting needed. Existing full-screen host changes not present; config visibility proves remap, but real Hyprland/game/GPU-memory validation remains integration work. One review of Claude setting/CLI/available lifecycle contracts: no actionable findings. Ready for Claude ONE systems/performance review; one revision available. Exact commands, measured states, retries, restart provenance and limitations in intensity/verification/RESULTS.md. No dispatcher started or claimed.",
       "task_id": "UI-005",
       "timestamp": "2026-10-22T21:25:38+00:00"
     },
@@ -5379,7 +5379,7 @@
         "docs/design/smooth/SELF-REVIEW.md"
       ],
       "summary": "UI-016 self-review caught cold-slot Animator initialization defect in actual pixels; final freeze held.",
-      "notes": "Original provisional AFTER marker enters from scene-graph x≈0 instead of entry x744 on first slot use; later reuse settles correctly. Before measurements and saved unit/lifecycle checks remain preserved, no after CPU yet. Testing one-shot frameSwapped gate in diagnostic copy before production correction. No protected-file changes.",
+      "notes": "Original provisional AFTER marker enters from scene-graph x\u22480 instead of entry x744 on first slot use; later reuse settles correctly. Before measurements and saved unit/lifecycle checks remain preserved, no after CPU yet. Testing one-shot frameSwapped gate in diagnostic copy before production correction. No protected-file changes.",
       "task_id": "UI-016",
       "timestamp": "2026-10-25T03:26:54+00:00"
     },
@@ -5406,7 +5406,7 @@
         "shell/components/ChordSlot.qml"
       ],
       "summary": "UI-016 final visual source frozen after actual-pixel correction checks at60/144; after performance matrix starting.",
-      "notes": "All80files match measured snapshot;15visualfiles differ frombefore;14protectedfiles byteidentical. Corrected marker stays intended714–749 band, no cold sweep fromx0. Capture delayed requested35/70ms closes to57–122ms; strict35ms continuity notclaimed. Baseline/unit data preserved; final scenarios wait exclusive after measurements.",
+      "notes": "All80files match measured snapshot;15visualfiles differ frombefore;14protectedfiles byteidentical. Corrected marker stays intended714\u2013749 band, no cold sweep fromx0. Capture delayed requested35/70ms closes to57\u2013122ms; strict35ms continuity notclaimed. Baseline/unit data preserved; final scenarios wait exclusive after measurements.",
       "task_id": "UI-016",
       "timestamp": "2026-10-25T03:33:39+00:00"
     },
@@ -5433,9 +5433,56 @@
         "docs/design/smooth"
       ],
       "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
-      "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
+      "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933\u21920.716%, Insane5.139\u21922.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
       "task_id": "UI-016",
       "timestamp": "2026-10-25T08:35:13+00:00"
+    },
+    {
+      "id": "0761c3e3-5bf1-49bc-80aa-6eb3d4ccc4ef",
+      "type": "integration_complete",
+      "agent": "Claude",
+      "files": [
+        "codex-mcp-bridge/src/index.ts",
+        "codex-mcp-bridge/README.md",
+        ".mcp.json",
+        ".claude/hooks/session-start.sh",
+        "CLAUDE.md"
+      ],
+      "summary": "codex-bridge routes Codex jobs across two ChatGPT accounts in order (mine up to 100%, dad up to 80%), each with its own CODEX_HOME login; fails over on a usage-limit error.",
+      "notes": "Tested with a fake codex CLI over MCP: priority, caps, both-blocked, logged-out and limit-hit failover. tsc build clean. No real Codex run (no account logged in in this container).",
+      "task_id": "SYS-CODEX-ACCOUNTS",
+      "timestamp": "2026-10-26T13:17:16+00:00"
+    },
+    {
+      "id": "13c3a994-a01e-4fda-a38d-88eb22c5f1c9",
+      "type": "integration_complete",
+      "agent": "Claude",
+      "files": [
+        "codex-mcp-bridge/src/index.ts",
+        "codex-mcp-bridge/README.md",
+        ".mcp.json",
+        ".claude/hooks/session-start.sh",
+        "CLAUDE.md"
+      ],
+      "summary": "Codex accounts get roles: dad does design (cap 80%, normal ~/.codex login); mine is a coding buddy on gpt-6.1-sol via new codex_coding_buddy tool and non-visual reviews. Reviews now run in the read-only sandbox.",
+      "notes": "tsc clean; fake-codex MCP run checked routing, -m flag, sandbox per tool, and no spillover when mine is logged out. Model id gpt-6.1-sol unverified against a real login.",
+      "task_id": "SYS-CODEX-ACCOUNTS",
+      "timestamp": "2026-10-26T13:24:03+00:00"
+    },
+    {
+      "id": "3ac8daad-23c0-40a9-9ba3-a461973c8e09",
+      "type": "integration_complete",
+      "agent": "Claude",
+      "files": [
+        "codex-mcp-bridge/src/index.ts",
+        "codex-mcp-bridge/README.md",
+        "CLAUDE.md",
+        "AGENTS.md"
+      ],
+      "summary": "codex-bridge runs Astra and Sol jobs in the background, in parallel, each editing job in its own git worktree/branch; per-account queue; codex_wait_job; timeouts up to 2h; Claude routes big tedious coding tasks to Sol.",
+      "notes": "tsc clean. Fake-codex MCP runs: design+Sol jobs overlapped (timeline), 2nd Sol job queued, branches committed as Astra/Sol, main checkout untouched, worktrees removed, abandoned job marked with branch after bridge restart. AGENTS.md gained a worktree section for Astra (--repo for agent-sync) - Astra should review it once.",
+      "task_id": "SYS-CODEX-PARALLEL",
+      "timestamp": "2026-10-26T13:29:14+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7954,7 +8001,7 @@
       "docs/design/smooth"
     ],
     "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
-    "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
+    "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933\u21920.716%, Insane5.139\u21922.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
     "task_id": "UI-016",
     "timestamp": "2026-10-25T08:35:13+00:00"
   },

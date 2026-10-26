@@ -5,6 +5,7 @@
       "args": ["codex-mcp-bridge/dist/index.js"],
       "env": {
         "CODEX_MCP_REPO": ".",
+        "CODEX_ACCOUNTS": "mine:100:role=coding:model=gpt-6.1-sol,dad:80:role=design:home=default",
         "CODEX_MCP_TIMEOUT_MS": "600000"
       }
     }
