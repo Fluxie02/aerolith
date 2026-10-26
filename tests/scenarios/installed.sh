@@ -39,7 +39,7 @@ import sys
 from aerolith_install import hypr
 Path(sys.argv[1]).write_text(hypr.fragment("hyprlang", hypr.default_binds(True, True), "qs -p /installed/shell"))
 PY
-for namespace in aerolith-ground aerolith-strip aerolith-deck aerolith-notices aerolith-osd; do
+for namespace in aerolith-ground aerolith-strip aerolith-deck aerolith-notices aerolith-osd aerolith-session; do
   grep -qxF "hl.layer_rule({ match = { namespace = \"^$namespace\$\" }, no_anim = true })" "$hypr/aerolith/aerolith.lua" || fail "Lua no_anim missing: $namespace"
   grep -qxF "layerrule = no_anim on, match:namespace ^$namespace\$" "$OUT/fragment.conf" || fail "hyprlang no_anim missing: $namespace"
 done

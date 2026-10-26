@@ -23,6 +23,10 @@ Scope {
             Ui.toggle(bay);
             return "ok";
         }
+        // Session menu: lock, suspend, log out, reboot, power off.
+        function session(): void {
+            Ui.sessionOpen = true;
+        }
         function close(): void {
             Ui.close();
         }
@@ -85,6 +89,7 @@ Scope {
                 surfacesReleased: ShellState.surfacesReleased,
                 ambient: Theme.ambient,
                 osd: Ui.osdKind,
+                session: Ui.sessionOpen,
                 osdValue: isFinite(Ui.osdValue) ? Math.round(Ui.osdValue * 100) / 100 : null,
                 brightness: Brightness.available ? Brightness.percent : null
             });
@@ -180,6 +185,11 @@ Scope {
                 onPressed: Registry.execute("audio.mute.toggle", {}, {
                     record: false
                 })
+            }
+            AeroShortcut {
+                name: "session"
+                description: "AEROLITH: session menu"
+                onPressed: Ui.sessionOpen = !Ui.sessionOpen
             }
             AeroShortcut {
                 name: "brightness-up"

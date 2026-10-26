@@ -13,6 +13,7 @@ import "modules/deck"
 import "modules/notices"
 import "modules/ground"
 import "modules/osd"
+import "modules/session"
 import "modules"
 
 ShellRoot {
@@ -52,6 +53,10 @@ ShellRoot {
     // Volume and microphone feedback. Shown during fullscreen too: it answers
     // a key the user pressed, and its surface exists only while shown.
     OsdHost {}
+
+    // Lock, suspend, log out, reboot, power off. Opened explicitly, so it also
+    // opens over a fullscreen window; its surface exists only while open.
+    SessionHost {}
 
     ControlSurface {}
 
