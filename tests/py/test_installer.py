@@ -323,6 +323,45 @@ def test_uninstall_without_manifest_removes_nothing(system, home, capsys):
 
 # --- hyprland details ---------------------------------------------------------------
 
+@pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
+def test_layer_rules_managed_roundtrip(system, home, dialect):
+    lay = layout()
+    if dialect == "lua":
+        main = lua_main(home)
+        user_rule = 'hl.layer_rule({ match = { namespace = "^other-panel$" }, no_anim = false })\n'
+        rule = lambda ns: f'hl.layer_rule({{ match = {{ namespace = "^{ns}$" }}, no_anim = true }})'
+    else:
+        main = lay.hypr / "hyprland.conf"
+        main.write_text(CONF_CONFIG)
+        user_rule = "layerrule = no_anim off, match:namespace ^other-panel$\n"
+        rule = lambda ns: f"layerrule = no_anim on, match:namespace ^{ns}$"
+    main.write_text(main.read_text() + user_rule)
+    original = main.read_bytes()
+    expected = [rule(ns) for ns in (
+        "aerolith-ground", "aerolith-strip", "aerolith-deck", "aerolith-notices", "aerolith-osd",
+    )]
+    frag = hypr.fragment_path(lay, dialect)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
+    first = frag.read_bytes()
+    included = main.read_bytes()
+    assert [line for line in first.decode().splitlines() if line.startswith(("hl.layer_rule(", "layerrule ="))] == expected
+    # Simulate an installed pre-D05 fragment, then upgrade through the real CLI.
+    frag.write_text("\n".join(line for line in first.decode().splitlines() if line not in expected) + "\n")
+    m = Manifest.load(lay.manifest)
+    m.record_file(frag, "integration", "fragment")
+    m.save(lay.manifest)
+    for args in [("install", "--startup", "hyprland"), ("hypr", "apply"), ("hypr", "apply")]:
+        assert run("--yes", *args) == 0
+        assert frag.read_bytes() == first
+        assert main.read_bytes() == included
+    # User changes made after installation survive removal too.
+    main.write_text(main.read_text() + user_rule)
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert main.read_bytes() == original + user_rule.encode()
+    assert not frag.exists()
+    assert not lay.hypr_fragment_dir.exists()
+
+
 def test_hyprlang_config_gets_source_block(system, home):
     p = home / ".config" / "hypr" / "hyprland.conf"
     p.write_text(CONF_CONFIG)
@@ -381,10 +420,13 @@ def test_bind_overrides(system, home):
     assert "aerolith:routines" not in frag
 
 
-def test_no_hypr_flag_leaves_hyprland_alone(system, home):
-    main = lua_main(home)
+@pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
+def test_no_hypr_flag_leaves_hyprland_alone(system, home, dialect):
+    main = home / ".config" / "hypr" / ("hyprland.lua" if dialect == "lua" else "hyprland.conf")
+    original = LUA_CONFIG if dialect == "lua" else CONF_CONFIG
+    main.write_text(original)
     assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr") == 0
-    assert main.read_text() == LUA_CONFIG
+    assert main.read_text() == original
     assert not (home / ".config" / "hypr" / "aerolith").exists()
 
 

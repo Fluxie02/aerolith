@@ -1,8 +1,8 @@
 """Hyprland integration: an AEROLITH-owned fragment plus one include block.
 
 Hyprland 0.55+ reads ~/.config/hypr/hyprland.lua when it exists, otherwise
-hyprland.conf (hyprlang, deprecated). AEROLITH writes its binds and
-(optionally) its autostart into its own file under ~/.config/hypr/aerolith/
+hyprland.conf (hyprlang, deprecated). AEROLITH writes its binds, layer rules
+and optional autostart into its own file under ~/.config/hypr/aerolith/
 and adds a single marker-delimited block to the main config that includes
 it. In Lua the include is `pcall(require, ...)`, so deleting the fragment can
 never break the user's config.
@@ -25,6 +25,12 @@ BEGIN_LUA = "-- >>> AEROLITH (managed block: remove with `aerolith uninstall`)"
 END_LUA = "-- <<< AEROLITH"
 BEGIN_CONF = "# >>> AEROLITH (managed block: remove with `aerolith uninstall`)"
 END_CONF = "# <<< AEROLITH"
+
+# Keep exact matches: other applications (and future surfaces) retain their policy.
+LAYER_NAMESPACES = (
+    "aerolith-ground", "aerolith-strip", "aerolith-deck",
+    "aerolith-notices", "aerolith-osd",
+)
 
 # name -> (modifiers, key, description). Function keys are rarely bound, so
 # the less frequent bays use them to avoid stepping on existing binds.
@@ -113,6 +119,11 @@ def fragment(dialect: str, binds: list[Bind], autostart_cmd: str | None) -> str:
                 "end)",
                 "",
             ]
+        # Hyprland 0.55+ Lua API: no_anim is a boolean layer effect.
+        # https://github.com/hyprwm/Hyprland/blob/v0.55.0/src/config/lua/bindings/LuaBindingsConfigRules.cpp
+        for namespace in LAYER_NAMESPACES:
+            lines.append(f'hl.layer_rule({{ match = {{ namespace = "^{namespace}$" }}, no_anim = true }})')
+        lines.append("")
         for b in binds:
             lines.append(f"hl.bind({lua_string(b.combo)}, hl.dsp.global({lua_string('aerolith:' + b.name)}), {{ description = {lua_string(b.description)} }})")
         return "\n".join(lines) + "\n"
@@ -124,6 +135,11 @@ def fragment(dialect: str, binds: list[Bind], autostart_cmd: str | None) -> str:
         ]
         if autostart_cmd:
             lines += [f"exec-once = {autostart_cmd}", ""]
+        # Hyprlang 0.54 syntax (also accepted by the 0.55+ legacy parser).
+        # https://wiki.hypr.land/0.54.0/Configuring/Window-Rules/#layer-rules
+        for namespace in LAYER_NAMESPACES:
+            lines.append(f"layerrule = no_anim on, match:namespace ^{namespace}$")
+        lines.append("")
         for b in binds:
             lines.append(f"bindd = {b.mods}, {b.key}, {b.description}, global, aerolith:{b.name}")
         return "\n".join(lines) + "\n"

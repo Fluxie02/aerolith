@@ -16,5 +16,7 @@ if mode == "unknownflag":
 if mode == "noauth":
     sys.stderr.write("Error: Not logged in. Run codex login\n"); sys.exit(1)
 out = argv[argv.index("-o") + 1]
-open(out, "w").write(json.dumps({"reply": "Done thinking.", "proposals": [
-    {"action": "media.play-pause", "argsJson": "", "reason": "pause it"}]}))
+# Match Claude's two accepted actions, using Codex's strict argsJson schema.
+open(out, "w").write(json.dumps({"reply": "Setting a calmer volume.", "proposals": [
+    {"action": "audio.volume.set", "argsJson": "{\"level\": 25}", "reason": "quieter"},
+    {"action": "workspace.focus", "argsJson": "{\"workspace\": 2}", "reason": "go"}]}))
