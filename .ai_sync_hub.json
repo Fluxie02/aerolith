@@ -15,9 +15,59 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Claude",
+    "files": [
+      "ai-bridge/aerolith_ai/providers.py",
+      "docs/design/thears-piyti/APP-FORMATS.md",
+      "install.sh",
+      "installer/aerolith_install/checks.py",
+      "installer/aerolith_install/cli.py",
+      "installer/aerolith_install/hypr.py",
+      "installer/aerolith_install/themes.py",
+      "shell/core/Exec.qml",
+      "shell/lib/launch.mjs",
+      "shell/modules/ControlSurface.qml",
+      "shell/services/Compositor.qml",
+      "shell/services/Notifications.qml",
+      "shell/services/Power.qml",
+      "tests/py/test_installer.py"
+    ],
+    "locks": [
+      {
+        "lock_id": "35446742-6375-43e5-bcac-fab038bb1394",
+        "agent": "Claude",
+        "files": [
+          "install.sh",
+          "installer/aerolith_install/checks.py",
+          "installer/aerolith_install/cli.py",
+          "installer/aerolith_install/hypr.py",
+          "installer/aerolith_install/themes.py",
+          "tests/py/test_installer.py"
+        ],
+        "task_id": "ALPHA2-SOL-A",
+        "created_at": "2026-10-26T21:15:56+00:00",
+        "expires_epoch": 1793051156.8037715,
+        "ttl_seconds": 1800
+      },
+      {
+        "lock_id": "a1de8aa0-ed6b-4570-aa9d-1c5e948ed0ad",
+        "agent": "Claude",
+        "files": [
+          "ai-bridge/aerolith_ai/providers.py",
+          "docs/design/thears-piyti/APP-FORMATS.md",
+          "shell/core/Exec.qml",
+          "shell/lib/launch.mjs",
+          "shell/modules/ControlSurface.qml",
+          "shell/services/Compositor.qml",
+          "shell/services/Notifications.qml",
+          "shell/services/Power.qml"
+        ],
+        "task_id": "ALPHA2-SOL-B",
+        "created_at": "2026-10-26T21:15:56+00:00",
+        "expires_epoch": 1793051156.9098158,
+        "ttl_seconds": 1800
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -8479,5 +8529,5 @@
     "task_id": "D07-R2",
     "timestamp": "2026-10-26T20:12:03+00:00"
   },
-  "updated_at": "2026-10-26T20:12:03+00:00"
+  "updated_at": "2026-10-26T21:15:56+00:00"
 }
