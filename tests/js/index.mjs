@@ -9,5 +9,6 @@ import routines from "./routines.test.mjs";
 import launch, { tokensSuite } from "./launch.test.mjs";
 import schemes from "./schemes.test.mjs";
 import shellstate from "./shellstate.test.mjs";
+import brightness from "./brightness.test.mjs";
 
-export const suites = [fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate];
+export const suites = [fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness];

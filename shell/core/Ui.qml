@@ -78,6 +78,7 @@ Singleton {
     // The OSD being presented ("volume", "mic"), "" when none. Written by
     // modules/osd/OsdHost.qml.
     property string osdKind: ""
+    property real osdValue: NaN
     // Number of times the Deck surface was mapped (diagnostics: one per
     // open-to-closed cycle; a remap during an exit would show up here).
     property int deckMaps: 0
