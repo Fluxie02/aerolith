@@ -8,6 +8,17 @@ Item {
     id: orbit
     property bool instrument: false
     readonly property int count: Config.strip.workspaceCount
+    readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
+    // At small logical sizes, register the targets along one lower chord.
+    // The ring remains visible, while labels and the app row keep clear.
+    function stationX(index) {
+        return compact ? width * (.055 + .47 * (index + .5) / count)
+            : width * .27 + Math.sin(-.92 + index * 1.84 / Math.max(1, count - 1)) * radius;
+    }
+    function stationY(index) {
+        return compact ? height - Theme.du(125)
+            : height * .55 + Math.cos(-.92 + index * 1.84 / Math.max(1, count - 1)) * radius;
+    }
     readonly property bool exposed: visible && Window.window && Window.window.visible
     onExposedChanged: if (!exposed) indexMotion.complete()
     Connections {
@@ -16,7 +27,8 @@ Item {
         function onAmbientChanged() { if (!Theme.ambient) indexMotion.complete(); }
     }
     readonly property real radius: height * .29
-    readonly property real focusAngle: -.92 + Math.max(0, Math.min(count - 1, Compositor.focusedWorkspaceId - 1)) * 1.84 / Math.max(1, count - 1)
+    readonly property int focusIndex: Math.max(0, Math.min(count - 1, Compositor.focusedWorkspaceId - 1))
+    readonly property real focusAngle: Math.atan2(stationX(focusIndex) - width * .27, stationY(focusIndex) - height * .55)
     visible: !instrument
 
     // Follow the machined annulus in InstrumentField, not the clickable
@@ -27,7 +39,7 @@ Item {
         x: orbit.width * .27 - width / 2
         y: orbit.height * .55 - height / 2
         width: ringRadius * 2 + Theme.du(8); height: width
-        parameters: Qt.vector4d(ringRadius, -1.6 + Compositor.focusedWorkspaceId * .24,
+        parameters: Qt.vector4d(ringRadius, Math.PI / 2 - orbit.focusAngle,
             Compositor.focusedWorkspaceId > 0 ? 1 : 0, 0)
     }
 
@@ -51,14 +63,18 @@ Item {
             readonly property var entry: Compositor.workspaces.filter(w => w.id === workspaceId)
             readonly property int occupancy: entry.length ? entry[0].windows : 0
             readonly property real angle: -.92 + index * 1.84 / Math.max(1, orbit.count - 1)
-            x: orbit.width * .27 + Math.sin(angle) * orbit.radius - width / 2
-            y: orbit.height * .55 + Math.cos(angle) * orbit.radius - height / 2
-            width: Theme.du(62); height: Theme.du(48)
+            x: orbit.stationX(index) - width / 2
+            y: orbit.stationY(index) - height / 2
+            width: Math.min(Theme.du(76), orbit.width * .47 / orbit.count - Theme.du(6)); height: Theme.du(56)
+            activeFocusOnTab: true
+            Keys.onReturnPressed: choose()
+            Keys.onSpacePressed: choose()
+            function choose() { Registry.execute("workspace.focus", {workspace: workspaceId}, {record: false}); }
             Rectangle {
                 anchors.fill: parent
                 color: station.current ? Theme.signal : hover.containsMouse ? Theme.surface2 : Theme.bg
-                border.color: station.current || hover.containsMouse ? Theme.signal : Theme.grid
-                border.width: Theme.border
+                border.color: station.current || hover.containsMouse || station.activeFocus ? Theme.signal : station.occupancy > 0 ? Theme.textDim : Theme.grid
+                border.width: station.activeFocus ? Theme.du(2) : Theme.border
             }
             Rectangle {
                 x: -Theme.du(4); y: -Theme.du(4)
@@ -77,20 +93,22 @@ Item {
                 textFormat: Text.PlainText; color: station.current ? Theme.bg : Theme.text
                 font.family: Theme.mono; font.pixelSize: Theme.du(18)
             }
-            Row {
-                y: Theme.du(32); anchors.horizontalCenter: parent.horizontalCenter; spacing: Theme.du(3)
-                Repeater {
-                    model: Math.min(9, station.occupancy)
-                    Rectangle { width: Theme.du(4); height: Theme.du(3); color: station.current ? Theme.bg : Theme.textDim }
-                }
+            Text {
+                y: Theme.du(34); width: parent.width; horizontalAlignment: Text.AlignHCenter
+                text: station.occupancy > 0 ? station.occupancy + " OPEN" : "EMPTY"
+                textFormat: Text.PlainText
+                color: station.current ? Theme.bg : station.occupancy > 0 ? Theme.text : Theme.textDim
+                font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                elide: Text.ElideRight
             }
             MouseArea {
                 id: hover; hoverEnabled: true
                 anchors.fill: parent; cursorShape: Qt.PointingHandCursor
-                onClicked: Registry.execute("workspace.focus", {workspace: station.workspaceId}, {record: false})
+                onClicked: station.choose()
             }
             Accessible.role: Accessible.Button; Accessible.name: "Workspace " + workspaceId + ", " + occupancy + " windows"
-            Accessible.onPressAction: Registry.execute("workspace.focus", {workspace: station.workspaceId}, {record: false})
+            Accessible.selected: current
+            Accessible.onPressAction: choose()
         }
     }
 }

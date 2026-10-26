@@ -14,8 +14,8 @@ Item {
     readonly property alias frameB: frameB
     readonly property alias missingAiBay: missingAiBay
     readonly property var codes: ({command:"CMD",navigator:"NAV",systems:"SYS",signal:"SIG",routines:"RTN",ai:"AI",settings:"SET",help:"HELP"})
-    readonly property var bayNames: ({command:"Command",navigator:"Navigator",systems:"Systems",signal:"Signal",routines:"Routines",ai:"AI",settings:"Settings",help:"Help"})
-    readonly property var railEntries: deck.rail.filter(r => r.bay !== "ai" || deck.aiBay !== null).map(r => ({bay:r.bay, key:r.key, label:bayNames[r.bay] || r.bay}))
+    readonly property var bayNames: ({command:"Search & launch",navigator:"Window overview",systems:"System monitor",signal:"Signal",routines:"Routines",ai:"AI",settings:"Settings",help:"Help"})
+    readonly property var railEntries: deck.rail.filter(r => ["command", "navigator", "systems"].indexOf(r.bay) !== -1).map(r => ({bay:r.bay, key:r.key, label:bayNames[r.bay] || r.bay}))
     readonly property bool compactScreen: width < Theme.du(1500) || height < Theme.du(850)
     readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
     readonly property string shownBay: Ui.activeBay || (deck.slotA.leaving ? deck.slotA.bay : deck.slotB.bay)
@@ -59,13 +59,34 @@ Item {
         id: railRow
         x: view.width * (view.compactScreen ? .045 : .37)
         y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(8)
-        width: view.width - x - view.width * (view.compactScreen ? .045 : .08)
+        width: view.width - x - view.width * (view.compactScreen ? .045 : .08) - Theme.du(68)
         height: implicitHeight
         arc: true; shortcuts: true
         compact: view.compactScreen
         entries: view.railEntries
         currentIndex: view.railEntries.map(r => r.bay).indexOf(Ui.activeBay)
         onChosen: index => Ui.open(view.railEntries[index].bay)
+    }
+    Rectangle {
+        x: railRow.x + railRow.width + Theme.du(8); y: railRow.y + Theme.du(10)
+        width: Theme.du(52); height: Theme.du(44)
+        color: settingsPointer.containsMouse ? Theme.surface2 : Theme.bg
+        border.color: Ui.activeBay === "settings" || activeFocus ? Theme.signal : Theme.grid
+        activeFocusOnTab: true
+        Keys.onReturnPressed: Ui.open("settings")
+        Keys.onSpacePressed: Ui.open("settings")
+        Text { anchors.centerIn: parent; text: "⚙"; color: Theme.text; font.pixelSize: Theme.du(23) }
+        MouseArea {
+            id: settingsPointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+            onClicked: Ui.open("settings")
+        }
+        Accessible.role: Accessible.Button; Accessible.name: "Settings"
+        Accessible.onPressAction: Ui.open("settings")
+    }
+    Text {
+        x: railRow.x + railRow.width + Theme.du(8); y: railRow.y + Theme.du(58)
+        text: "F1 HELP"; textFormat: Text.PlainText
+        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
     }
     // Notices own a lane below the rail, beside the working planes. Reserve
     // its width in the bays too: merely lowering a toast covers bay controls
@@ -92,7 +113,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter; color: Theme.signal
         }
         Text {
-            text: "CHORD / " + view.shownCode + (Ui.deckOpen ? "   /   ENGAGED" : "   /   RELEASE")
+            text: (view.bayNames[view.shownBay] || view.shownBay).toUpperCase()
             textFormat: Text.PlainText; color: Theme.signal
             font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
         }
@@ -138,11 +159,11 @@ Item {
             }
         }
         Text {
-            text: "01 / COMMAND CORE"; textFormat: Text.PlainText
+            text: "SEARCH & LAUNCH"; textFormat: Text.PlainText
             color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
         }
         Text {
-            y: Theme.du(24); text: "CMD"; textFormat: Text.PlainText
+            y: Theme.du(24); text: "FIND"; textFormat: Text.PlainText
             color: Theme.text; font.family: Theme.displaySans
             font.pixelSize: Math.min(Theme.du(98), parent.width * .34)
             font.weight: Font.Light; font.letterSpacing: -Theme.du(4)
@@ -153,7 +174,7 @@ Item {
         }
         Text {
             x: Theme.du(2); y: Theme.du(158); width: parent.width - Theme.du(20)
-            text: "KEYBOARD / FIRST\n>  COMMANDS\n@  WINDOWS\n!  ROUTINES\n?  AI IF INSTALLED"
+            text: "TYPE TO SEARCH\n>  COMMANDS\n@  WINDOWS\n!  ROUTINES\n?  AI IF INSTALLED"
             textFormat: Text.PlainText; color: Theme.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontSm; lineHeight: 1.6
         }
