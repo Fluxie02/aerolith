@@ -16,7 +16,7 @@ const JOBS_FILE = path.join(STATE_DIR, "jobs.json");
 const WORKTREES = path.join(STATE_DIR, "worktrees");
 type Job = { id: string; kind: string; status: string; startedAt: string; finishedAt?: string; summary: string;
   account?: string; pid?: number; base?: string; branch?: string; output?: string };
-const DONE = new Set(["succeeded", "failed", "timed_out", "no_account", "abandoned"]);
+const DONE = new Set(["succeeded", "failed", "timed_out", "stopped_at_cap", "no_account", "abandoned"]);
 
 function ensureState() {
   mkdirSync(STATE_DIR, { recursive: true, mode: 0o700 });
@@ -226,19 +226,27 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
       const extra = edit ? ["--add-dir", ROOT, "-c", "sandbox_workspace_write.network_access=true"] : [];
       const args = ["exec", "--ephemeral", "--json", "--sandbox", sandbox, ...extra,
         ...(account.model ? ["-m", account.model] : []), "-C", dir, prompt + where];
-      const exec = new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean}>((resolve, reject) => {
-        let stdout = "", stderr = "", timedOut = false;
+      const exec = new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean; capped: boolean}>((resolve, reject) => {
+        let stdout = "", stderr = "", timedOut = false, capped = false;
         const child = spawn(CODEX, args, { cwd: dir, env: accountEnv(account), stdio: ["ignore", "pipe", "pipe"] });
-        const timer = setTimeout(() => { timedOut = true; child.kill("SIGTERM"); setTimeout(() => child.kill("SIGKILL"), 5000).unref(); }, timeoutMs);
+        const stop = () => { child.kill("SIGTERM"); setTimeout(() => child.kill("SIGKILL"), 5000).unref(); };
+        const timer = setTimeout(() => { timedOut = true; stop(); }, timeoutMs);
+        // The cap is checked before a job starts, but a long job can cross it:
+        // stop the job when the account's usage reaches its cap. Its changes so
+        // far are still committed to the job branch.
+        const capWatch = setInterval(() => {
+          const used = usedPercent(account);
+          if (used !== undefined && used >= account.cap && !capped) { capped = true; stop(); }
+        }, 30_000);
         child.stdout.setEncoding("utf8"); child.stderr.setEncoding("utf8");
         child.stdout.on("data", (x: string) => stdout += x);
         child.stderr.on("data", (x: string) => stderr += x);
-        child.on("error", e => { clearTimeout(timer); reject(new Error(`Could not launch Codex CLI (${CODEX}): ${e.message}`)); });
-        child.on("close", code => { clearTimeout(timer); resolve({ code, stdout, stderr, timedOut }); });
+        child.on("error", e => { clearTimeout(timer); clearInterval(capWatch); reject(new Error(`Could not launch Codex CLI (${CODEX}): ${e.message}`)); });
+        child.on("close", code => { clearTimeout(timer); clearInterval(capWatch); resolve({ code, stdout, stderr, timedOut, capped }); });
       });
       const r = await exec.catch(async e => { if (edit) await closeWorktree(job, dir, role); throw e; });
       const windows = rateWindows(r.stdout);
-      const hit = r.code !== 0 && !r.timedOut && LIMIT_HIT.test(r.stderr + r.stdout.slice(-4000));
+      const hit = r.code !== 0 && !r.timedOut && !r.capped && LIMIT_HIT.test(r.stderr + r.stdout.slice(-4000));
       // Block until the window that ran out resets: the fullest one, else the soonest.
       const live = windows.filter(w => w.resetsAt > Date.now());
       const full = live.filter(w => w.used >= 95);
@@ -249,7 +257,8 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
         limitHitUntil: hit ? resetAt : undefined
       });
       log.push(`account=${account.name}${account.model ? ` model=${account.model}` : ""} used_percent=${usedPercent(account) ?? "unknown"} cap=${account.cap}%${hit ? " (usage limit hit, trying next account)" : ""}`);
-      job.status = r.timedOut ? "timed_out" : (r.code === 0 ? "succeeded" : "failed");
+      job.status = r.capped ? "stopped_at_cap" : r.timedOut ? "timed_out" : (r.code === 0 ? "succeeded" : "failed");
+      if (r.capped) log.push(`account=${account.name} stopped at its ${account.cap}% cap; its changes so far are on the job branch`);
       const changes = edit ? `\nCHANGES:\n${await closeWorktree(job, dir, role)}\n` : "";
       if (hit && edit) log.push(`account=${account.name} changes before the limit: ${changes.trim()}`);
       job.output = `exit_code=${r.code}\ntimed_out=${r.timedOut}\n${changes}\nSTDOUT:\n${r.stdout}\n\nSTDERR:\n${r.stderr}`;

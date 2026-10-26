@@ -40,7 +40,7 @@ Optional environment variables:
 
 ## Multiple accounts
 Each `CODEX_ACCOUNTS` entry is `name:cap[:option...]`:
-- `cap`: the highest `used_percent` of the account's plan limit at which the bridge still starts a job.
+- `cap`: the highest `used_percent` of the account's plan limit (5-hour or weekly, whichever is fuller) at which the bridge still starts a job. A running job is stopped when the account reaches its cap (checked every 30 s, status `stopped_at_cap`); its changes so far are committed to the job branch.
 - `role=design` or `role=coding`: which work the account takes. Without it the account takes both.
 - `model=<id>`: passed to `codex exec -m` for every job on that account.
 - `home=default`: use the normal Codex login (`~/.codex`, or `$CODEX_HOME`) instead of `~/.codex-accounts/<name>`.
