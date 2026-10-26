@@ -31,6 +31,21 @@ grep -qF -- "-p '$expect_shell'" "$hypr/aerolith/aerolith.lua" || fail "autostar
 grep -q 'pcall(require, "aerolith/aerolith")' "$hypr/hyprland.lua" || fail "include not added to hyprland.lua"
 cp "$hypr/aerolith/aerolith.lua" "$OUT/fragment.lua"
 luac -p "$hypr/hyprland.lua" "$hypr/aerolith/aerolith.lua" || fail "generated Lua does not parse"
+# Check real compositor parsing as well as Lua grammar. Generate the legacy
+# dialect with the same installer entry point; this session installs Lua.
+PYTHONPATH="$SRC/installer" python3 - "$OUT/fragment.conf" <<'PY'
+from pathlib import Path
+import sys
+from aerolith_install import hypr
+Path(sys.argv[1]).write_text(hypr.fragment("hyprlang", hypr.default_binds(True, True), "qs -p /installed/shell"))
+PY
+for namespace in aerolith-ground aerolith-strip aerolith-deck aerolith-notices aerolith-osd; do
+  grep -qxF "hl.layer_rule({ match = { namespace = \"^$namespace\$\" }, no_anim = true })" "$hypr/aerolith/aerolith.lua" || fail "Lua no_anim missing: $namespace"
+  grep -qxF "layerrule = no_anim on, match:namespace ^$namespace\$" "$OUT/fragment.conf" || fail "hyprlang no_anim missing: $namespace"
+done
+for config in "$hypr/aerolith/aerolith.lua" "$OUT/fragment.conf"; do
+  Hyprland --verify-config --config "$config" >"$OUT/verify-$(basename "$config").log" 2>&1 || fail "Hyprland rejected $config"
+done
 grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind missing from fragment"
 aerolith status --json >"$OUT/status.json"
 aerolith themes status --json >"$OUT/themes-status.json"
@@ -46,10 +61,11 @@ if [ -f "$XDG_CONFIG_HOME/foot/foot.ini" ]; then
   foot --check-config >"$OUT/foot-config.log" 2>&1 || fail "foot include does not parse"
 fi
 expected_direction=$(python3 -c 'import os,shlex; a=shlex.split(os.environ["INSTALL"]); print(a[a.index("--direction")+1] if "--direction" in a else "piyti")')
+expected_provider=$(python3 -c 'import os,shlex; a=shlex.split(os.environ["INSTALL"]); p=a[a.index("--ai")+1]; assert p in ("claude", "codex"), p; print(p)')
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction"] == sys.argv[2], s' "$OUT/status.json" "$expected_direction" || fail "installer direction"
 ipc status >"$OUT/shell-status.json"
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction"] == sys.argv[2], s' "$OUT/shell-status.json" "$expected_direction" || fail "running shell direction"
-python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["installed"] and s["mode"] == sys.argv[2] and s["ai_provider"] == "claude" and s["hyprland_dialect"] == "lua", s' "$OUT/status.json" "$mode" \
+python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["installed"] and s["mode"] == sys.argv[2] and s["ai_provider"] == sys.argv[3] and s["hyprland_dialect"] == "lua", s' "$OUT/status.json" "$mode" "$expected_provider" \
   || fail "status: $(cat "$OUT/status.json")"
 aerolith doctor >"$OUT/doctor.log" 2>&1 || true
 python3 -c 'import json,sys; s=json.loads(sys.argv[1]); assert s["ai"] is True, s' "$(ipc status)" || fail "AI commands not registered"
@@ -74,7 +90,7 @@ else
 fi
 [ ! -e "$XDG_CONFIG_HOME/aerolith/ai.json" ] || fail "ai.json left behind"
 ! grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind still in fragment"
-[ -x "$HOME/.local/bin/claude" ] || fail "independently installed provider CLI was removed"
+[ -x "$HOME/.local/bin/$expected_provider" ] || fail "independently installed provider CLI was removed"
 # Removing modules/ai makes Quickshell reload the shell; wait until the
 # Command Core is really open before typing (fixed sleeps lost keys).
 deck_mapped() { python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get("deckMapped"))' "$(ipc status 2>/dev/null)" 2>/dev/null; }
@@ -90,6 +106,8 @@ wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q "0.40" || fail "core shell broke
 aerolith --yes uninstall --remove-config >"$OUT/uninstall.log" 2>&1 || fail "uninstall exited $?"
 same() { [ "$(sha256sum <"$1")" = "$(sha256sum <"$2")" ]; }
 same "$hypr/hyprland.lua" "$OUT/hyprland.lua.orig" || fail "hyprland.lua not restored exactly"
+! grep -q 'no_anim' "$hypr/hyprland.lua" || fail "managed animation rules left in main config"
+[ ! -e "$hypr/aerolith/aerolith.lua" ] || fail "managed animation fragment left after uninstall"
 [ ! -e "$HOME/.local/share/aerolith" ] || fail "data left: $(find "$HOME/.local/share/aerolith")"
 if [ "$mode" = system ]; then
   [ "$(pkg_sum)" = "$pkg_before" ] || fail "the packaged tree changed"
@@ -102,7 +120,7 @@ fi
 for app_config in kitty/kitty.conf foot/foot.ini; do
   [ ! -e "$XDG_CONFIG_HOME/$app_config" ] || fail "owned theme config left: $app_config"
 done
-[ -x "$HOME/.local/bin/claude" ] || fail "uninstall removed the provider CLI"
+[ -x "$HOME/.local/bin/$expected_provider" ] || fail "uninstall removed the provider CLI"
 for _ in $(seq 30); do alive || break; sleep 0.1; done
 alive && fail "shell still running after uninstall"
 # What uninstall deliberately keeps (backups, history), for the record.
