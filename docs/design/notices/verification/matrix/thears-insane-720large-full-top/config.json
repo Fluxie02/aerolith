@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "notifications": {
+    "server": true,
+    "popupTimeoutMs": 5000
+  },
+  "theme": {
+    "intensity": "insane",
+    "uiScale": 1.5,
+    "motion": "full",
+    "lowEffects": false
+  },
+  "strip": {
+    "edge": "top"
+  }
+}

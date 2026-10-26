@@ -19,44 +19,70 @@ Item {
     readonly property var notices: Ui.notices
     readonly property var popups: Notifications.popups
     readonly property bool hasContent: notices.length > 0 || popups.length > 0
+    // Hosts reserve a finite lane. Overflow stays reachable without growing
+    // across navigation, bay controls or the output edge; expiry stays upstream.
+    property real maximumHeight: stack.implicitHeight
 
     implicitWidth: Theme.px(380)
-    implicitHeight: stack.implicitHeight
+    implicitHeight: Math.max(0, Math.min(stack.implicitHeight, maximumHeight))
 
-    Column {
-        id: stack
-        width: parent.width
-        spacing: Theme.du(12)
+    Flickable {
+        id: viewport
+        anchors.fill: parent
+        contentWidth: width
+        contentHeight: stack.implicitHeight
+        flickableDirection: Flickable.VerticalFlick
+        boundsBehavior: Flickable.StopAtBounds
+        clip: true
+        interactive: contentHeight > height
+        onFlickStarted: if (!Theme.animate) cancelFlick()
+        function constrainScroll() {
+            contentY = Math.max(0, Math.min(contentY, Math.max(0, contentHeight - height)));
+        }
+        onContentHeightChanged: constrainScroll()
+        onHeightChanged: constrainScroll()
 
-        Repeater {
-            model: ScriptModel {
-                values: column.popups
+        Column {
+            id: stack
+            // Keep the passive scroll register clear of text and pointer targets.
+            width: viewport.width - Theme.du(8)
+            spacing: Theme.du(12)
+
+            Repeater {
+                model: ScriptModel {
+                    values: column.popups
+                }
+                delegate: NoticeCard {
+                    required property var modelData
+                    width: stack.width
+                    severity: modelData.urgency === 2 ? "error" : "info"
+                    code: "NTF"
+                    message: modelData.summary || modelData.appName
+                    detail: (modelData.appName ? modelData.appName + " · " : "") + (modelData.body || "")
+                    onDismissed: Notifications.activate(modelData)
+                }
             }
-            delegate: NoticeCard {
-                required property var modelData
-                width: stack.width
-                severity: modelData.urgency === 2 ? "error" : "info"
-                code: "NTF"
-                message: modelData.summary || modelData.appName
-                detail: (modelData.appName ? modelData.appName + " · " : "") + (modelData.body || "")
-                onDismissed: Notifications.activate(modelData)
+            Repeater {
+                model: ScriptModel {
+                    values: column.notices
+                    objectProp: "id"
+                }
+                delegate: NoticeCard {
+                    required property var modelData
+                    width: stack.width
+                    severity: modelData.severity
+                    code: modelData.severity === "ok" ? "OK" : modelData.severity === "error" ? "FAULT" : modelData.severity === "caution" ? "CAUT" : "INFO"
+                    message: modelData.message
+                    detail: modelData.detail
+                    onDismissed: Ui.dismiss(modelData.id)
+                }
             }
         }
-        Repeater {
-            model: ScriptModel {
-                values: column.notices
-                objectProp: "id"
-            }
-            delegate: NoticeCard {
-                required property var modelData
-                width: stack.width
-                severity: modelData.severity
-                code: modelData.severity === "ok" ? "OK" : modelData.severity === "error" ? "FAULT" : modelData.severity === "caution" ? "CAUT" : "INFO"
-                message: modelData.message
-                detail: modelData.detail
-                onDismissed: Ui.dismiss(modelData.id)
-            }
-        }
+        ScrollMark { viewport: viewport }
+    }
+    Connections {
+        target: Theme
+        function onAnimateChanged() { if (!Theme.animate) viewport.cancelFlick(); }
     }
 
     component NoticeCard: Rectangle {

@@ -27,7 +27,7 @@ PanelWindow {
     }
     exclusionMode: ExclusionMode.Normal
     exclusiveZone: 0
-    implicitWidth: stack.implicitWidth
+    implicitWidth: Math.min(stack.implicitWidth, (Ui.screen ? Ui.screen.width : stack.implicitWidth) - 2 * Theme.pad)
     implicitHeight: Math.max(1, stack.implicitHeight)
     WlrLayershell.namespace: "aerolith-notices"
     WlrLayershell.layer: WlrLayer.Overlay
@@ -36,5 +36,6 @@ PanelWindow {
     NoticeStack {
         id: stack
         width: parent.width
+        maximumHeight: Math.max(0, (Ui.screen ? Ui.screen.height : 0) - Theme.stripHeight - 2 * Theme.pad)
     }
 }

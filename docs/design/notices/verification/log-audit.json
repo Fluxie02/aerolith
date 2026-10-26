@@ -1,0 +1,317 @@
+{
+  "logs": [
+    {
+      "file": "matrix/piyti-insane-1080-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "13a54122d143e885a6b18c7ea779e9282182c2a6c0ea907a2fe98596a8489fe8",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/piyti-insane-720-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "78fdf9f572d173c7f08e11b1dfa2114d1fa2ae35598e24baa568f6c765bafeaa",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/piyti-insane-720large-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "793073affa336f40dc05e65c9a3c1082380bea1481b13336c992cd4d9578df75",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/piyti-insane-720large-reduced-bottom/qs.txt",
+      "lines": 41,
+      "sha256": "0b429a304a17ee96ec3b9d4b5965533112df61edb6274f2adaae99292b654fa1",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/piyti-saturated-1080-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "50b58616b6137a4ccfc921d67239df28c6faaba1e5d61587d9a1b61dec702f6d",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/piyti-saturated-720-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "ce0ac973de3e4caf6a191cc31cb6cc2ab858f7aa6f9c1393e5c1dd7c963245ff",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/piyti-saturated-720-off-top/qs.txt",
+      "lines": 41,
+      "sha256": "444dc1374525960d67e012b3551b3ca75da7cae150928fd229ab1556c989e586",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/piyti-saturated-720large-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "a9736d1e6a5bd34ad12182a12a1c424994a448cf585334659242df63ffde8486",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/thears-insane-1080-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "7cab130f41b9f658849a64c46f96775bda24cb9270bb1ddf022f9aa39af6815b",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/thears-insane-720-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "6c6e9b73f4154e5d9e74d9fb12ab2449b5f09831a1d732b7f8cfab8652469e2c",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/thears-insane-720large-full-top/qs.txt",
+      "lines": 42,
+      "sha256": "cd04a81a62f7896f101b746638581a3ebdbc50e2905e7693157e3b4f0e6e6bb1",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.pipewire.loop: Pipewire error on object 0 with code -32 connection error",
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/thears-insane-720large-lowEffects-bottom/qs.txt",
+      "lines": 41,
+      "sha256": "944ae0c81f2e3fcd5ba778300e60c797d1a578c4d8c0c639e3a2e91b0b1fe9c6",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/thears-saturated-1080-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "515ea1168b4b4e4ab7993181ee123e46cecb7f3e05dc4a37c0013f7e15cdede4",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/thears-saturated-720-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "90b0f359b86f4cc05d44fb6b18106ee7e6e3759f3ab464ef2baf427b97305bdd",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix/thears-saturated-720large-full-top/qs.txt",
+      "lines": 41,
+      "sha256": "2f73edf358bc549af1a3e3e95fe8bf06e80424e74a32608944d960264f726ff8",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix-ai/piyti-insane-720large-full-top/qs.txt",
+      "lines": 44,
+      "sha256": "9e2184a4fecebfbb417830e390e15cd1c3b7e4813d4cd10d551d90bfcfcd7450",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "matrix-ai/thears-insane-720large-full-top/qs.txt",
+      "lines": 44,
+      "sha256": "9a9f4ce7be41308b5e9e8ec6978a60bd15c792a2769c3e7747e623275ff3940c",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "scenarios/deck/qs.txt",
+      "lines": 40,
+      "sha256": "b9c2c02a64bea0e51b2b8f9611159393281906f11a31ebf8e2d99affe701db70",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable <ptr> but <ptr> has focus",
+        "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "scenarios/fullscreen/qs.txt",
+      "lines": 110,
+      "sha256": "8221175bf3ee23826aaa0277918e78f8c108625557e026b3bf7c87937567b1c4",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "scenarios/notify/qs.txt",
+      "lines": 31,
+      "sha256": "a391660a21a5c1bf3b3f86594ed536d77a69b334f824171716b82e1611c6bab4",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    },
+    {
+      "file": "scenarios/smoke/qs.txt",
+      "lines": 28,
+      "sha256": "683693566153dc447e1a9a9eb26468f697603dadf2563a4ba687c181779758fb",
+      "qml_engine_errors": [],
+      "warnings": [
+        "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+        "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+        "  WARN: GlobalShortcut will not work.",
+        "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+        " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112",
+        "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+        "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+      ]
+    }
+  ],
+  "warning_groups": [
+    "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable <ptr> but <ptr> has focus",
+    "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+    "  WARN quickshell.service.pipewire.loop: Pipewire error on object 0 with code -32 connection error",
+    "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+    "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+    "  WARN: GlobalShortcut will not work.",
+    "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+    " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3",
+    " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112",
+    "[E][time] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+    "[W][time] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused"
+  ]
+}
