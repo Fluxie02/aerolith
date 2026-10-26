@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from aerolith_install import cli, hypr
+from aerolith_install import cli, hypr, themes
 from aerolith_install.manifest import Manifest
 from aerolith_install.paths import layout
 from conftest import ROOT, write_exe
@@ -470,7 +470,7 @@ def test_status_json(system, home, capsys):
 def test_direction_interactive_default(system, home, monkeypatch, capsys):
     lua_main(home)
     args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
-    answers = iter(["", "y"])
+    answers = iter(["", "", "y"])
     monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
     assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
     out = capsys.readouterr().out
@@ -481,7 +481,7 @@ def test_direction_interactive_default(system, home, monkeypatch, capsys):
 def test_direction_interactive_thears(system, home, monkeypatch):
     lua_main(home)
     args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
-    answers = iter(["2", "y"])
+    answers = iter(["2", "", "y"])
     monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
     assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
     assert json.loads(layout().installation_file.read_text())["direction"] == "thears"
@@ -609,7 +609,7 @@ def test_include_round_trip_is_byte_exact(tmp_path, home):
         assert hypr.BEGIN_LUA in main.read_text()
         hypr.remove_include(entry)
         got = main.read_text()
-        assert got == original or (not original.endswith("\n") and got == original + "\n"), repr((original, got))
+        assert got == original, repr((original, got))
 
 
 def test_prune_removes_bytecode_cache_but_not_user_files(tmp_path):
@@ -741,3 +741,439 @@ def test_user_and_system_installs_are_not_mixed(system, home, tmp_path, monkeypa
     assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 2
     assert "~/.local/bin/aerolith" in capsys.readouterr().err
     assert (home / ".local" / "share" / "aerolith" / "shell" / "shell.qml").is_file(), "user install untouched"
+
+
+# --- C05: opt-in application themes --------------------------------------------------
+
+@pytest.fixture
+def theme_home(home, monkeypatch):
+    """Only the C01 ownership contract; no host binaries or app processes."""
+    monkeypatch.setenv("AEROLITH_ALLOW_ROOT", "1")
+    lay = layout()
+    m = Manifest(source=str(ROOT))
+    m.save(lay.manifest)
+    lay.config.mkdir(parents=True, exist_ok=True)
+    lay.installation_file.write_text('{"direction":"thears"}')
+    lay.config_file.write_text('{"theme":{"scheme":"bathyal"}}')
+    return lay
+
+
+def theme_config(lay, app):
+    return lay.config.parent / {
+        "kitty": "kitty/kitty.conf", "alacritty": "alacritty/alacritty.toml",
+        "foot": "foot/foot.ini", "hyprland": "hypr/hyprland.lua",
+        "gtk3": "gtk-3.0/gtk.css", "gtk4": "gtk-4.0/gtk.css",
+        "btop": "btop/btop.conf", "qt5ct": "qt5ct/qt5ct.conf", "qt6ct": "qt6ct/qt6ct.conf",
+    }[app]
+
+
+def theme_original(app, state):
+    if state == "missing":
+        return None
+    existing = {
+        "alacritty": b'[window]\nopacity = 0.8',
+        "foot": b'font=monospace:size=10\n[colors-dark]\nbackground=000000',
+        "hyprland": b'-- keep my config\r\nhl.config({})',
+        "gtk3": b'/* custom */\r\nbutton { padding: 5px; }',
+        "gtk4": b'/* custom */\r\nbutton { padding: 5px; }',
+        "qt5ct": b'[Appearance]\nstyle=custom', "qt6ct": b'[Appearance]\nstyle=custom',
+    }.get(app, b'# my config without final newline')
+    if state == "include":
+        return {
+            "kitty": b'include other.conf\n# keep',
+            "alacritty": b'[general]\nimport = ["other.toml", # a ] in a comment\n "second.toml",]\n[window]\nopacity = 0.8',
+            "foot": b'include=/tmp/other.ini\n[main]\nfont=monospace:size=10',
+            "hyprland": b'dofile("/tmp/other.lua")\n-- keep',
+            "gtk3": b'@import url("other.css");\n/* keep */',
+            "gtk4": b'@import url("other.css");\n/* keep */',
+        }.get(app, existing)
+    return existing
+
+
+def home_bytes(home):
+    return {str(p.relative_to(home)): p.read_bytes() for p in home.rglob("*") if p.is_file()}
+
+
+@pytest.mark.parametrize("app", themes.SUPPORTED)
+@pytest.mark.parametrize("state", ["missing", "existing", "include"])
+def test_theme_roundtrip_and_idempotence(theme_home, app, state):
+    lay = theme_home
+    path = theme_config(lay, app)
+    original = theme_original(app, state)
+    if original is not None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(original)
+        path.chmod(0o640)
+    assert run("themes", "apply", app) == 0
+    m = Manifest.load(lay.manifest)
+    assert m.themes[app]["scheme"] == "bathyal"
+    assert m.themes[app]["direction"] == "thears"
+    entries = m.component_files(themes.component(app))
+    assert entries
+    for e in m.edits:
+        assert e.inserted
+        if original is not None:
+            assert Path(e.backup).read_bytes() == original
+            assert path.stat().st_mode & 0o777 == 0o640
+    if app == "alacritty":
+        import tomllib
+        imported = tomllib.loads(path.read_text())["general"]["import"]
+        assert any("aerolith.toml" in p for p in imported)
+        if state == "include":
+            assert imported[:2] == ["other.toml", "second.toml"]
+    before = home_bytes(lay.home)
+    assert run("themes", "apply", app) == 0
+    after = home_bytes(lay.home)
+    before.pop(str(lay.manifest.relative_to(lay.home)))
+    after.pop(str(lay.manifest.relative_to(lay.home)))
+    assert before == after
+    assert len(Manifest.load(lay.manifest).edits) == len(m.edits)
+    assert next(r for r in themes.status(lay, Manifest.load(lay.manifest)) if r["app"] == app)["applied"]
+    assert run("themes", "remove", app) == 0
+    assert not Manifest.load(lay.manifest).component_files(themes.component(app))
+    assert not Manifest.load(lay.manifest).edits
+    assert not Manifest.load(lay.manifest).themes
+    if original is None:
+        assert not path.exists()
+    else:
+        assert path.read_bytes() == original
+    assert all(not Path(e.path).exists() for e in entries)
+    assert run("themes", "remove", app) == 0
+
+
+@pytest.mark.parametrize("app", themes.SUPPORTED)
+def test_theme_remove_keeps_user_edits(theme_home, app):
+    lay = theme_home
+    path = theme_config(lay, app)
+    original = theme_original(app, "existing")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(original)
+    assert run("themes", "apply", app) == 0
+    extra = b'\n/* user addition */\n' if app in ("gtk3", "gtk4") else b'\n# user addition\n'
+    path.write_bytes(path.read_bytes() + extra)
+    assert run("themes", "remove", app) == 0
+    assert path.read_bytes() == original + extra
+
+
+@pytest.mark.parametrize("app", themes.SUPPORTED)
+def test_theme_dry_run_and_collision_refusal(theme_home, app):
+    lay = theme_home
+    before = home_bytes(lay.home)
+    assert run("themes", "apply", app, "--scheme", "iris", "--dry-run") == 0
+    assert home_bytes(lay.home) == before
+    m = Manifest.load(lay.manifest)
+    p = themes.prepare_app(lay, m, ROOT / "themes", app, "iris", "thears").files[0][0]
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text("user-owned theme")
+    before = home_bytes(lay.home)
+    assert run("themes", "apply", app) == 2
+    assert home_bytes(lay.home) == before
+
+
+@pytest.mark.parametrize("app", themes.SUPPORTED)
+def test_theme_full_uninstall_restores_original(theme_home, app):
+    lay = theme_home
+    path = theme_config(lay, app)
+    original = theme_original(app, "include")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(original)
+    assert run("themes", "apply", app) == 0
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert path.read_bytes() == original
+    assert not lay.manifest.exists()
+    assert not (lay.data / "themes").exists()
+
+
+def test_themes_default_none_and_explicit_install(system, home):
+    main = lua_main(home)
+    main.write_bytes(b'-- original without final newline')
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    lay = layout()
+    assert not Manifest.load(lay.manifest).themes
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--themes", "kitty,foot,hyprland", "--direction", "thears") == 0
+    m = Manifest.load(lay.manifest)
+    assert set(m.themes) == {"kitty", "foot", "hyprland"}
+    assert all(t["direction"] == "thears" for t in m.themes.values())
+    assert run("hypr", "remove") == 0
+    assert "theme:hyprland" in main.read_text()
+    assert "theme:kitty" in theme_config(lay, "kitty").read_text()
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    assert set(Manifest.load(lay.manifest).themes) == {"kitty", "foot", "hyprland"}
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert main.read_bytes() == b'-- original without final newline'
+    assert not lay.data.exists()
+
+
+def test_theme_interactive_selection(monkeypatch):
+    from aerolith_install.ui import Ui
+    ui = Ui(interactive=True)
+    answers = iter(["", "kitty,foot", "invalid", "gtk3"])
+    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+    assert ui.select_themes(themes.SUPPORTED) == []
+    assert ui.select_themes(themes.SUPPORTED) == ["kitty", "foot"]
+    assert ui.select_themes(themes.SUPPORTED) == ["gtk3"]
+    assert Ui(assume_yes=True, interactive=True).select_themes(themes.SUPPORTED) == []
+    assert Ui(interactive=False).select_themes(themes.SUPPORTED) == []
+
+
+@pytest.mark.parametrize("scheme", ["iris", "limb", "glacial"])
+def test_theme_explicit_scheme_and_direction(theme_home, scheme):
+    lay = theme_home
+    lay.installation_file.write_text('{"direction":"piyti"}')
+    assert run("themes", "apply", "hyprland", "kitty", "--scheme", scheme) == 0
+    m = Manifest.load(lay.manifest)
+    target = lay.data / "themes/hyprland/direction.lua"
+    assert target.read_bytes() == (ROOT / f"themes/schemes/{scheme}/hyprland/piyti.lua").read_bytes()
+    assert (lay.data / "themes/kitty/aerolith.conf").read_bytes() == (ROOT / f"themes/schemes/{scheme}/kitty/aerolith.conf").read_bytes()
+    assert m.themes["hyprland"]["direction"] == "piyti"
+
+
+def test_theme_status_without_install_and_detection(home, monkeypatch, capsys):
+    monkeypatch.setenv("AEROLITH_ALLOW_ROOT", "1")
+    (home / ".config/kitty").mkdir()
+    assert run("themes", "list") == 0
+    assert "Millennium" in capsys.readouterr().out
+    assert run("themes", "status", "--json") == 0
+    rows = json.loads(capsys.readouterr().out)["apps"]
+    assert next(r for r in rows if r["app"] == "kitty")["detected"]
+    assert not any(r["applied"] for r in rows)
+    assert not next(r for r in rows if r["app"] == "firefox")["supported"]
+    assert run("themes", "apply", "kitty") == 2
+
+
+@pytest.mark.parametrize("value", ["../limb", "absent", "Limb"])
+def test_theme_invalid_scheme_is_read_only(theme_home, value):
+    before = home_bytes(theme_home.home)
+    assert run("themes", "apply", "kitty", "--scheme", value) == 2
+    assert home_bytes(theme_home.home) == before
+
+
+@pytest.mark.parametrize("app", ["steam", "discord", "firefox", "libreoffice", "artcraft", "unknown"])
+def test_theme_deferred_apps_refuse_whole_batch(theme_home, app):
+    before = home_bytes(theme_home.home)
+    assert run("themes", "apply", "kitty", app) == 2
+    assert home_bytes(theme_home.home) == before
+
+
+def test_theme_missing_scheme_defaults_and_broken_metadata(theme_home):
+    lay = theme_home
+    lay.config_file.unlink()
+    lay.installation_file.unlink()
+    assert run("themes", "apply", "kitty") == 0
+    assert Manifest.load(lay.manifest).themes["kitty"]["scheme"] == "limb"
+    lay.installation_file.write_text("{")
+    before = home_bytes(lay.home)
+    assert run("themes", "apply", "foot") == 2
+    assert home_bytes(lay.home) == before
+
+
+def test_theme_symlink_and_modified_asset_protection(theme_home):
+    lay = theme_home
+    user = lay.home / "user.conf"
+    user.write_text("keep")
+    path = theme_config(lay, "kitty")
+    path.parent.mkdir(parents=True)
+    path.symlink_to(user)
+    assert run("themes", "apply", "kitty") == 2
+    assert user.read_text() == "keep"
+    path.unlink()
+    assert run("themes", "apply", "kitty") == 0
+    target = lay.data / "themes/kitty/aerolith.conf"
+    target.write_text("user-modified theme")
+    assert not next(r for r in themes.status(lay, Manifest.load(lay.manifest)) if r["app"] == "kitty")["applied"]
+    assert run("themes", "apply", "kitty", "--scheme", "iris") == 2
+    assert run("themes", "remove", "kitty") == 0
+    assert target.read_text() == "user-modified theme"
+    assert Manifest.load(lay.manifest).find(target)
+
+
+def test_theme_modified_and_incomplete_markers(theme_home):
+    lay = theme_home
+    assert run("themes", "apply", "kitty") == 0
+    path = theme_config(lay, "kitty")
+    entry = Manifest.load(lay.manifest).edits[0]
+    path.write_text("# outside\n" + path.read_text().replace("include ", "include  ") + "# user\n")
+    assert run("themes", "apply", "kitty") == 2
+    assert run("themes", "remove", "kitty") == 0
+    assert path.read_text() == "# outside\n# user\n"
+    assert run("themes", "apply", "kitty") == 0
+    path.write_text(path.read_text().replace(entry.end, "# user removed end"))
+    before = home_bytes(lay.home)
+    assert run("themes", "remove", "kitty") == 2
+    assert home_bytes(lay.home) == before
+
+
+@pytest.mark.parametrize("original", ['[general]\nimport=[]', '[general]\nimport=["other"]', '[general]\nimport=["other",]', '[general]', '[window]\nopacity=1.0\n[general]\n# comment\n[font]\nsize=12'])
+def test_alacritty_import_shapes(theme_home, original):
+    path = theme_config(theme_home, "alacritty")
+    path.parent.mkdir(parents=True)
+    path.write_text(original)
+    assert run("themes", "apply", "alacritty") == 0
+    assert run("themes", "remove", "alacritty") == 0
+    assert path.read_text() == original
+
+
+@pytest.mark.parametrize("original", ['import=["old"]', 'general={import=["other"]}', '[general\n', 'general.import=["other"]'])
+def test_alacritty_ambiguous_config_refused(theme_home, original):
+    path = theme_config(theme_home, "alacritty")
+    path.parent.mkdir(parents=True)
+    path.write_text(original)
+    before = home_bytes(theme_home.home)
+    assert run("themes", "apply", "alacritty") == 2
+    assert home_bytes(theme_home.home) == before
+
+
+def test_theme_install_preflight_and_dry_run(system, home):
+    lua_main(home)
+    before = home_bytes(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--themes", "kitty,foot,hyprland", "--dry-run") == 0
+    assert home_bytes(home) == before
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--themes", "kitty,steam") == 2
+    assert home_bytes(home) == before
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--themes", "hyprland", "--no-hypr") == 2
+    assert home_bytes(home) == before
+
+
+def test_theme_reapply_changes_scheme_and_direction(theme_home):
+    lay = theme_home
+    assert run("themes", "apply", "hyprland", "kitty") == 0
+    path = theme_config(lay, "hyprland")
+    before = path.read_bytes()
+    lay.installation_file.write_text('{"direction":"piyti"}')
+    assert run("themes", "apply", "hyprland", "kitty", "--scheme", "iris") == 0
+    assert path.read_bytes() == before
+    assert (lay.data / "themes/hyprland/direction.lua").read_bytes() == (ROOT / "themes/schemes/iris/hyprland/piyti.lua").read_bytes()
+    assert run("themes", "remove", "hyprland", "kitty") == 0
+    assert not path.exists()
+
+
+def test_theme_hyprlang_uses_existing_dialect(theme_home):
+    lay = theme_home
+    path = lay.hypr / "hyprland.conf"
+    path.parent.mkdir(parents=True)
+    original = b'source = /tmp/other.conf\r\n# keep'
+    path.write_bytes(original)
+    assert run("themes", "apply", "hyprland") == 0
+    assert "source = " + str(lay.data / "themes/hyprland/direction.conf") in path.read_text()
+    assert not (lay.hypr / "hyprland.lua").exists()
+    assert run("themes", "remove", "hyprland") == 0
+    assert path.read_bytes() == original
+
+
+def test_theme_catalog_survives_source_checkout_removal(system, home, monkeypatch):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    lay = layout()
+    m = Manifest.load(lay.manifest)
+    m.source = str(home / "nonexistent-checkout")
+    m.save(lay.manifest)
+    monkeypatch.setattr(themes, "source_root", lambda: None)
+    assert run("themes", "apply", "kitty", "--scheme", "corona") == 0
+    assert (lay.data / "themes/kitty/aerolith.conf").read_bytes() == (ROOT / "themes/schemes/corona/kitty/aerolith.conf").read_bytes()
+
+
+def test_theme_packaged_catalog_is_read_only(theme_home, monkeypatch):
+    lay = theme_home
+    package = lay.home / "package"
+    (package / "shell").mkdir(parents=True)
+    (package / "shell/shell.qml").write_text("// package")
+    (package / "PACKAGED").touch()
+    shutil.copytree(ROOT / "themes/schemes", package / "themes/schemes")
+    before = home_bytes(package)
+    monkeypatch.setenv("AEROLITH_SYSTEM_ROOT", str(package))
+    lay = layout()
+    m = Manifest.load(lay.manifest)
+    m.mode, m.source = "system", ""
+    m.save(lay.manifest)
+    monkeypatch.setattr(themes, "source_root", lambda: None)
+    assert run("themes", "apply", "kitty", "qt5ct") == 0
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert home_bytes(package) == before
+
+
+def test_theme_missing_assets_and_legacy_manifest(theme_home, monkeypatch):
+    lay = theme_home
+    data = json.loads(lay.manifest.read_text())
+    data.pop("themes")
+    data["source"] = ""
+    lay.manifest.write_text(json.dumps(data))
+    assert Manifest.load(lay.manifest).themes == {}
+    monkeypatch.setattr(themes, "source_root", lambda: None)
+    before = home_bytes(lay.home)
+    assert run("themes", "apply", "kitty") == 2
+    assert home_bytes(lay.home) == before
+
+
+def test_theme_unknown_or_unsafe_batch_removal_is_read_only(theme_home):
+    assert run("themes", "apply", "kitty") == 0
+    before = home_bytes(theme_home.home)
+    assert run("themes", "remove", "kitty", "unknown") == 2
+    assert home_bytes(theme_home.home) == before
+
+
+def test_theme_failure_records_recoverable_progress(theme_home, monkeypatch):
+    lay = theme_home
+    original_write = themes.atomic_write
+    def fail_on_config(path, data, mode=0o644):
+        if path == theme_config(lay, "kitty"):
+            raise OSError("simulated config write failure")
+        original_write(path, data, mode)
+    monkeypatch.setattr(themes, "atomic_write", fail_on_config)
+    assert run("themes", "apply", "kitty") == 2
+    assert Manifest.load(lay.manifest).component_files("theme:kitty")
+    assert not theme_config(lay, "kitty").exists()
+    assert run("themes", "remove", "kitty") == 0
+    assert not Manifest.load(lay.manifest).component_files("theme:kitty")
+
+
+def test_alacritty_section_text_in_string_is_refused(theme_home):
+    path = theme_config(theme_home, "alacritty")
+    path.parent.mkdir(parents=True)
+    original = 'note="""\n[general]\nhello\n"""\n[general]\nimport=["other"]'
+    path.write_text(original)
+    before = home_bytes(theme_home.home)
+    assert run("themes", "apply", "alacritty") == 2
+    assert home_bytes(theme_home.home) == before
+
+
+def test_theme_orphan_include_and_alternate_alacritty_refused(theme_home):
+    lay = theme_home
+    path = theme_config(lay, "kitty")
+    path.parent.mkdir(parents=True)
+    path.write_text("# >>> AEROLITH theme:kitty\ninclude orphan\n# <<< AEROLITH theme:kitty\n")
+    before = home_bytes(lay.home)
+    assert run("themes", "apply", "kitty") == 2
+    assert home_bytes(lay.home) == before
+    alternate = lay.home / ".alacritty.toml"
+    alternate.write_text("# real config")
+    before = home_bytes(lay.home)
+    assert run("themes", "apply", "alacritty") == 2
+    assert home_bytes(lay.home) == before
+
+
+def test_theme_install_switches_are_exclusive():
+    with pytest.raises(SystemExit) as exc:
+        cli.build_parser().parse_args(["install", "--themes", "kitty", "--no-themes"])
+    assert exc.value.code == 2
+
+
+def test_theme_created_hypr_config_with_later_startup_integration(system, home):
+    # First install skips startup integration because no Hyprland config
+    # exists yet, but explicit theming creates its minimal normal config.
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--themes", "hyprland") == 0
+    path = layout().hypr / "hyprland.lua"
+    assert path.is_file()
+    # A later installer run adds startup to that same owned config.
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert not path.exists()
+
+
+def test_gtk_import_keeps_unicode_paths(theme_home, monkeypatch):
+    lay = theme_home
+    monkeypatch.setenv("XDG_DATA_HOME", str(lay.home / "données"))
+    assert run("themes", "apply", "gtk3", "gtk4") == 0
+    for app in ("gtk3", "gtk4"):
+        text = theme_config(lay, app).read_text()
+        assert "données" in text and "\\u00e9" not in text
+    assert run("themes", "remove", "gtk3", "gtk4") == 0

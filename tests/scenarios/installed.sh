@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 # Installer integration scenario. Run with
 #   INSTALL="--ai claude --startup hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
+# C05 opt-in roundtrip:
+#   INSTALL="--ai claude --startup hyprland --themes kitty,foot,hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
 # or, against the Arch packages (built by tools/package/build.sh):
 #   PKGS=build/packages INSTALL="--ai claude --startup hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
 # session.sh has already run the real installer (install.sh, or
@@ -31,6 +33,18 @@ cp "$hypr/aerolith/aerolith.lua" "$OUT/fragment.lua"
 luac -p "$hypr/hyprland.lua" "$hypr/aerolith/aerolith.lua" || fail "generated Lua does not parse"
 grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind missing from fragment"
 aerolith status --json >"$OUT/status.json"
+aerolith themes status --json >"$OUT/themes-status.json"
+python3 - "$OUT/themes-status.json" <<'PY' || fail "opt-in themes not deployed"
+import json, os, shlex, sys
+args = shlex.split(os.environ["INSTALL"])
+wanted = args[args.index("--themes") + 1].split(",") if "--themes" in args else []
+rows = json.load(open(sys.argv[1]))["apps"]
+assert {r["app"] for r in rows if r["applied"]} == set(wanted), rows
+PY
+# Native parser check of the installed foot include, when opted in.
+if [ -f "$XDG_CONFIG_HOME/foot/foot.ini" ]; then
+  foot --check-config >"$OUT/foot-config.log" 2>&1 || fail "foot include does not parse"
+fi
 expected_direction=$(python3 -c 'import os,shlex; a=shlex.split(os.environ["INSTALL"]); print(a[a.index("--direction")+1] if "--direction" in a else "piyti")')
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction"] == sys.argv[2], s' "$OUT/status.json" "$expected_direction" || fail "installer direction"
 ipc status >"$OUT/shell-status.json"
@@ -77,6 +91,9 @@ fi
 [ ! -e "$HOME/.local/bin/aerolith" ] || fail "maintenance tool left in ~/.local/bin"
 [ ! -e "$XDG_STATE_HOME/aerolith/manifest.json" ] || fail "manifest left"
 [ ! -e "$XDG_CONFIG_HOME/aerolith/installation.json" ] || fail "installation direction left"
+for app_config in kitty/kitty.conf foot/foot.ini; do
+  [ ! -e "$XDG_CONFIG_HOME/$app_config" ] || fail "owned theme config left: $app_config"
+done
 [ -x "$HOME/.local/bin/claude" ] || fail "uninstall removed the provider CLI"
 for _ in $(seq 30); do alive || break; sleep 0.1; done
 alive && fail "shell still running after uninstall"

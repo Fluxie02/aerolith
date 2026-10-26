@@ -18,7 +18,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import __version__, checks, hypr, packages
+from . import __version__, checks, hypr, packages, themes
 from .manifest import Manifest, RemovalReport, atomic_write, copy_tree, prune_dirs, remove_files, sha256
 from .paths import Layout, layout, source_root, tilde
 from .schema import validate_file
@@ -470,6 +470,16 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     manifest.startup = startup
     plan_hypr(args, ui, lay, manifest, plan, choice != "none", startup)
 
+    selected_themes = [] if args.no_themes else (
+        list(dict.fromkeys(a.strip() for a in args.themes.split(",") if a.strip()))
+        if args.themes is not None else ui.select_themes(themes.SUPPORTED)
+    )
+    if args.no_hypr and "hyprland" in selected_themes:
+        raise Abort("--no-hypr conflicts with --themes hyprland; omit one of them")
+    theme_selection = themes.selection(lay, direction=direction) if selected_themes else None
+    theme_root = themes.assets_root(lay, manifest, src) if selected_themes else None
+    theme_plans = [themes.prepare_app(lay, manifest, theme_root, app, *theme_selection) for app in selected_themes]
+
     # 4. core files
     def install_core() -> None:
         old_core = [f for f in manifest.component_files("core")]
@@ -479,6 +489,9 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
         lay.cli.mkdir(parents=True, exist_ok=True)
         manifest.record_dir(lay.cli)
         written += copy_tree(src / "installer" / "aerolith_install", lay.cli / "aerolith_install", manifest, "core")
+        if (src / "themes/schemes/index.json").is_file():
+            written += copy_tree(src / "themes/schemes", lay.data / "theme-assets/schemes", manifest, "core")
+            manifest.record_dir(lay.data / "theme-assets")
         atomic_write(lay.cli / "aerolith", CLI_ENTRY, 0o755)
         manifest.record_file(lay.cli / "aerolith", "core", "launcher")
         atomic_write(lay.launcher, LAUNCHER.format(cli=lay.cli), 0o755)
@@ -531,6 +544,15 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
 
         plan.add(f"install {tilde(lay.service)} (enable it with: systemctl --user enable aerolith.service)", install_service)
     plan.add(f"application direction: {direction} (startup only; {tilde(lay.installation_file)})", install_direction)
+    for deployment in theme_plans:
+        for line in deployment.describe():
+            plan.add(line)
+        # Startup integration may have added its own block since preflight.
+        # Re-read, preserving it, before adding the separate theme block.
+        def apply_theme(app=deployment.app):
+            fresh = themes.prepare_app(lay, manifest, theme_root, app, *theme_selection)
+            themes.execute(lay, manifest, fresh)
+        plan.actions.append(("theme:" + deployment.app, apply_theme))
     plan.add(f"record ownership in {tilde(lay.manifest)}")
 
     # 5. summary
@@ -596,6 +618,10 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
 def rollback(lay: Layout, manifest: Manifest, snapshot: Manifest | None, ui: Ui) -> None:
     """Undo files created in this run (not present in the previous manifest)."""
     before = {f.path for f in snapshot.files} if snapshot else set()
+    for e in list(manifest.edits):
+        if e.component.startswith("theme:") and (not snapshot or e not in snapshot.edits):
+            ui.info(themes.remove_edit(lay, e))
+            manifest.edits.remove(e)
     created = [f for f in manifest.files if f.path not in before]
     report = remove_files(manifest, created, force_modified=True)
     for e in [e for e in manifest.edits if not snapshot or e.file not in {x.file for x in snapshot.edits}]:
@@ -729,9 +755,20 @@ def cmd_uninstall(args: argparse.Namespace, ui: Ui) -> int:
         ui.info("stopped the running shell")
     if (lay.service.exists()) and shutil.which("systemctl"):
         subprocess.run(["systemctl", "--user", "disable", "--now", "aerolith.service"], capture_output=True, check=False, timeout=15)
+    # Startup may have been added to a minimal config created by theming on
+    # an earlier install. Remove it first so the theme can delete that file
+    # only when no user content remains.
     for e in list(manifest.edits):
+        if e.component.startswith("theme:"):
+            continue
         ui.ok(hypr.remove_include(e))
         manifest.edits.remove(e)
+    themed_apps = set(manifest.themes)
+    themed_apps.update(f.component[6:] for f in manifest.files if f.component.startswith("theme:"))
+    themed_apps.update(e.component[6:] for e in manifest.edits if e.component.startswith("theme:"))
+    for app in sorted(themed_apps):
+        for note in themes.remove_app(lay, manifest, app):
+            ui.info(note)
     ai_remove(lay, manifest, ui, remove_provider=args.remove_provider, report=False)
     components = ["core", "integration"] + ([] if keep_config else ["config"])
     rep = remove_files(manifest, [f for f in manifest.files if f.component in components], force_modified=args.force)
@@ -745,7 +782,7 @@ def cmd_uninstall(args: argparse.Namespace, ui: Ui) -> int:
         for f in manifest.component_files("config"):
             ui.info("kept " + tilde(f.path))
     remaining = [f for f in manifest.files]
-    if remaining or manifest.packages:
+    if remaining or manifest.packages or manifest.edits or manifest.themes:
         manifest.save(lay.manifest)
         ui.info(f"{len(remaining)} kept file(s) remain listed in {tilde(lay.manifest)}")
     else:
@@ -1000,6 +1037,8 @@ def cmd_hypr(args: argparse.Namespace, ui: Ui) -> int:
         return 0
     if args.hypr_cmd == "remove":
         for e in list(manifest.edits):
+            if e.component != "integration":
+                continue
             ui.ok(hypr.remove_include(e))
             manifest.edits.remove(e)
         rep = remove_files(manifest, [f for f in manifest.files if f.kind == "fragment"], force_modified=True)
@@ -1025,6 +1064,46 @@ def cmd_run(args: argparse.Namespace, ui: Ui) -> int:
     return 0
 
 
+def cmd_themes(args: argparse.Namespace, ui: Ui) -> int:
+    lay = layout()
+    manifest = load_manifest(lay)
+    if args.themes_cmd in ("list", "status"):
+        rows = themes.status(lay, manifest)
+        if getattr(args, "json", False):
+            print(json.dumps({"apps": rows}, indent=2))
+        else:
+            for row in rows:
+                ui.say(f"{row['app']}: {'detected' if row['detected'] else 'not detected'}, "
+                       f"{'applied' if row['applied'] else 'not applied'}" +
+                       (f" ({row['scheme']}/{row['direction']})" if row['scheme'] else ""))
+                ui.say("  " + row["note"])
+        return 0
+    if manifest is None:
+        raise Abort("install AEROLITH first; no ownership manifest was found")
+    apps = list(dict.fromkeys(args.apps))
+    if args.themes_cmd == "apply":
+        root = themes.assets_root(lay, manifest)
+        scheme, direction = themes.selection(lay, args.scheme)
+        plans = [themes.prepare_app(lay, manifest, root, app, scheme, direction) for app in apps]
+        for deployment in plans:
+            for line in deployment.describe():
+                ui.say(line)
+        if args.dry_run:
+            ui.info("dry run: nothing was changed")
+            return 0
+        # Naming apps is explicit consent; unlike install, no second prompt.
+        for deployment in plans:
+            themes.execute(lay, manifest, deployment)
+    else:
+        for app in apps:
+            if app not in themes.SUPPORTED and app not in themes.DEFERRED:
+                raise Abort(f"unknown app: {app}; see `aerolith themes list`")
+        for app in apps:
+            for note in themes.remove_app(lay, manifest, app):
+                ui.info(note)
+    return 0
+
+
 # --- argument parsing ---------------------------------------------------------------
 
 def build_parser() -> argparse.ArgumentParser:
@@ -1041,6 +1120,9 @@ def build_parser() -> argparse.ArgumentParser:
     i.add_argument("--ai", choices=[c[0] for c in AI_CHOICES], help="AI integration (required when not interactive)")
     i.add_argument("--startup", choices=[c[0] for c in STARTUP_CHOICES])
     i.add_argument("--direction", choices=DIRECTIONS, help="installation-only application direction (default: piyti; reinstall keeps the existing choice)")
+    tg = i.add_mutually_exclusive_group()
+    tg.add_argument("--themes", metavar="APP,APP", help="explicitly opt in to application theme exports")
+    tg.add_argument("--no-themes", action="store_true", help="skip optional application theme selection; keeps previously applied exports")
     i.add_argument("--no-hypr", action="store_true", help="do not touch Hyprland configuration")
     i.add_argument("--media-keys", action="store_true", help="also bind volume/play keys")
     i.add_argument("--install-deps", dest="install_deps", action="store_true", default=None)
@@ -1065,6 +1147,15 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("status", parents=[yes], help="show what is installed")
     s.add_argument("--json", action="store_true")
     sub.add_parser("doctor", parents=[yes], help="check the environment and installation")
+    th = sub.add_parser("themes", parents=[yes], help="explicit optional app theme deployment")
+    ts = th.add_subparsers(dest="themes_cmd", required=True)
+    ts.add_parser("list", parents=[yes])
+    ts.add_parser("status", parents=[yes]).add_argument("--json", action="store_true")
+    ta = ts.add_parser("apply", parents=[yes])
+    ta.add_argument("apps", nargs="+")
+    ta.add_argument("--scheme", help="generated Spectra scheme ID (default: config.json theme.scheme, or limb)")
+    ta.add_argument("--dry-run", action="store_true")
+    ts.add_parser("remove", parents=[yes]).add_argument("apps", nargs="+")
 
     a = sub.add_parser("ai", parents=[yes], help="manage the optional AI integration")
     asub = a.add_subparsers(dest="ai_cmd", required=True)
@@ -1099,6 +1190,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 COMMANDS = {
+    "themes": cmd_themes,
     "install": cmd_install,
     "uninstall": cmd_uninstall,
     "status": cmd_status,
@@ -1124,8 +1216,13 @@ def main(argv: list[str] | None = None) -> int:
     except NeedAnswer as exc:
         print(f"aerolith: an answer is required: {exc}. Run interactively or pass the matching flag.", file=sys.stderr)
         return 2
-    except Abort as exc:
+    except (Abort, themes.ThemeError) as exc:
         print(f"aerolith: {exc}", file=sys.stderr)
+        return 2
+    except OSError as exc:
+        if args.cmd != "themes":
+            raise
+        print(f"aerolith: theme operation stopped: {exc}. Recorded changes can be removed with `aerolith themes remove <app>`.", file=sys.stderr)
         return 2
     except KeyboardInterrupt:
         print("\naerolith: interrupted", file=sys.stderr)

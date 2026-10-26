@@ -118,3 +118,11 @@ class Ui:
             if not err:
                 return ans
             print(f"  {err}")
+
+    def select_themes(self, apps: tuple[str, ...]) -> list[str]:
+        """Nothing preselected; --yes is never consent to app theming."""
+        if not self.interactive or self.assume_yes:
+            return []
+        self.say("Optional application themes (nothing selected): " + ", ".join(apps))
+        answer = self.ask("Apps, comma-separated (Enter skips):", validate=lambda s: None if all(a.strip() in apps for a in s.split(",") if a.strip()) else "choose only listed apps")
+        return list(dict.fromkeys(a.strip() for a in answer.split(",") if a.strip()))
