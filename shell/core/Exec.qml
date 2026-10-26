@@ -19,15 +19,14 @@ Singleton {
             property int maxOutput: 65536
             property int exitCode: -1
             property bool exitedFlag: false
-            property bool outDone: false
-            property bool errDone: false
+            property string stdoutText: ""
+            property string stderrText: ""
 
             function finish(r) {
                 if (done)
                     return;
                 done = true;
                 killTimer.stop();
-                graceTimer.stop();
                 const cb = resolve;
                 Qt.callLater(() => proc.destroy());
                 cb(r);
@@ -36,43 +35,37 @@ Singleton {
             function complete() {
                 finish({
                     code: exitCode,
-                    stdout: out.text.slice(0, maxOutput),
-                    stderr: err.text.slice(0, maxOutput),
+                    stdout: stdoutText,
+                    stderr: stderrText,
                     timedOut: false
                 });
             }
 
-            function tryComplete() {
-                if (exitedFlag && outDone && errDone)
-                    complete();
+            // An empty marker consumes arbitrary chunks immediately, including
+            // output without newlines. Keep draining after the buffer is full.
+            stdout: SplitParser {
+                splitMarker: ""
+                onRead: data => proc.stdoutText += data.slice(0, Math.max(0, proc.maxOutput - proc.stdoutText.length))
             }
-
-            stdout: StdioCollector {
-                id: out
-                onStreamFinished: {
-                    proc.outDone = true;
-                    proc.tryComplete();
-                }
-            }
-            stderr: StdioCollector {
-                id: err
-                onStreamFinished: {
-                    proc.errDone = true;
-                    proc.tryComplete();
-                }
+            stderr: SplitParser {
+                splitMarker: ""
+                onRead: data => proc.stderrText += data.slice(0, Math.max(0, proc.maxOutput - proc.stderrText.length))
             }
             onExited: (code, status) => {
                 exitCode = code;
                 exitedFlag = true;
-                tryComplete();
-                graceTimer.start();
+                // Process flushes both parsers before emitting exited.
+                complete();
             }
-
-            // Output streams normally finish with the process; don't wait
-            // forever if one never reports.
-            property Timer graceTimer: Timer {
-                interval: 250
-                onTriggered: proc.complete()
+            onRunningChanged: {
+                // FailedToStart emits runningChanged(false), but no exited.
+                if (!running && !exitedFlag && !done)
+                    proc.finish({
+                        code: -1,
+                        stdout: "",
+                        stderr: "could not start " + command[0],
+                        timedOut: false
+                    });
             }
 
             // Runs unconditionally: if the program never starts, `exited` may
@@ -112,7 +105,8 @@ Singleton {
             const p = procComponent.createObject(root, {
                 command: argv,
                 resolve: resolve,
-                timeoutMs: opts.timeoutMs || 10000
+                timeoutMs: opts.timeoutMs || 10000,
+                maxOutput: opts.maxOutput === undefined ? 65536 : Math.max(0, Math.min(65536, opts.maxOutput))
             });
             p.running = true;
         });

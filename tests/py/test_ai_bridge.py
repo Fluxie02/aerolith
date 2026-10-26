@@ -106,12 +106,22 @@ def test_claude_invocation_is_locked_down(home, fake_claude):
     assert argv[0] == "-p"
     i = argv.index("--tools")
     assert argv[i + 1] == "", "all built-in tools must be disabled"
+    assert argv[argv.index("--setting-sources") + 1] == ""
+    assert "--safe-mode" in argv, "CLAUDE.md, hooks and installed plugins must not load"
+    assert argv[argv.index("--model") + 1] == "haiku"
     for flag in ("--no-session-persistence", "--strict-mcp-config", "--disable-slash-commands", "--output-format"):
         assert flag in argv
     assert "please lower the volume" not in " ".join(argv), "the prompt goes over stdin, never argv"
     assert "please lower the volume" in call["stdin"]
     assert "aerolith-ai-" in call["cwd"], "runs in an empty private directory"
     assert not Path(call["cwd"]).exists(), "the private directory is removed afterwards"
+
+
+def test_claude_explicit_model_is_preserved(home, fake_claude):
+    write_ai(home, model="sonnet")
+    assert ask(request())["ok"] is True
+    argv = read_log(fake_claude)[0]["argv"]
+    assert argv[argv.index("--model") + 1] == "sonnet"
 
 
 def test_only_catalogue_actions_survive(home, fake_claude):
@@ -191,6 +201,10 @@ def test_codex_invocation_is_locked_down(home, fake_codex):
         assert flag in argv
     disabled = [argv[i + 1] for i, a in enumerate(argv) if a == "--disable"]
     assert sorted(disabled) == sorted(CODEX_DISABLED_FEATURES)
+    assert "hooks" in disabled
+    assert "memories" in disabled
+    assert "project_doc_max_bytes=0" in argv, "global AGENTS.md must not be added to the prompt"
+    assert "--ignore-rules" in argv
     assert argv[-1] == "-", "prompt over stdin"
     assert "--dangerously-bypass-approvals-and-sandbox" not in argv
 
@@ -200,6 +214,20 @@ def test_codex_unknown_feature_flag_fails_closed(home, fake_codex, monkeypatch):
     write_ai(home, provider="codex")
     r = ask(request())
     assert r["error"]["code"] == "incompatible_version"
+
+
+@pytest.mark.parametrize("source", [".codex/AGENTS.md", ".codex/AGENTS.override.md",
+                                    ".codex/skills/private/SKILL.md", ".agents/skills/private/SKILL.md"])
+def test_codex_refuses_global_context_before_spawning(home, fake_codex, source):
+    path = home / source
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("private instructions must never reach a provider")
+    write_ai(home, provider="codex")
+    result = ask(request())
+    assert result["ok"] is False
+    assert result["error"]["code"] == "config_error"
+    assert "global instructions or skills" in result["error"]["message"]
+    assert read_log(fake_codex) == [], "no provider process may load global context"
 
 
 def test_custom_aerolith_v1_provider(home, tmp_path):

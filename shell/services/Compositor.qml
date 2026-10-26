@@ -262,6 +262,16 @@ Singleton {
         return (w.appId ? w.appId + " — " : "") + (w.title || "untitled");
     }
 
+    function adjacentWorkspace(direction) {
+        if (root.focusedWorkspaceId > 0)
+            return Math.min(99, Math.max(1, root.focusedWorkspaceId + direction));
+        // Named/special ids have no numbered position. Enter the sorted
+        // numbered range from the appropriate end, rather than treating a
+        // negative compositor id as a workspace number.
+        const numbered = root.workspaces;
+        return numbered.length ? numbered[direction > 0 ? 0 : numbered.length - 1].id : 1;
+    }
+
     // --- events -------------------------------------------------------------
 
     Connections {
@@ -325,7 +335,7 @@ Singleton {
             routine: true,
             available: hyprAvailable,
             run: () => {
-                const target = Math.min(99, Math.max(1, root.focusedWorkspaceId + 1));
+                const target = root.adjacentWorkspace(1);
                 return root.focusWorkspace(target).then(r => root.result(r, "Workspace " + target));
             }
         });
@@ -337,7 +347,7 @@ Singleton {
             routine: true,
             available: hyprAvailable,
             run: () => {
-                const target = Math.max(1, root.focusedWorkspaceId - 1);
+                const target = root.adjacentWorkspace(-1);
                 return root.focusWorkspace(target).then(r => root.result(r, "Workspace " + target));
             }
         });

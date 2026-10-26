@@ -41,6 +41,7 @@ def home(tmp_path, monkeypatch):
     monkeypatch.setenv("XDG_CONFIG_HOME", str(h / ".config"))
     monkeypatch.setenv("XDG_STATE_HOME", str(h / ".local" / "state"))
     monkeypatch.setenv("XDG_DATA_HOME", str(h / ".local" / "share"))
+    monkeypatch.setenv("CODEX_HOME", str(h / ".codex"))
     monkeypatch.delenv("AEROLITH_CONFIG_DIR", raising=False)
     monkeypatch.delenv("HYPRLAND_INSTANCE_SIGNATURE", raising=False)
     monkeypatch.delenv("AEROLITH_SYSTEM_ROOT", raising=False)
