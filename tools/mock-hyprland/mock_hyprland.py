@@ -77,6 +77,7 @@ class Client:
     size: tuple[int, int] = (960, 1048)
     floating: bool = False
     focus_history_id: int = 0
+    fullscreen: int = 0
 
     def to_json(self, ws_name: str, monitor_id: int) -> dict:
         return {
@@ -96,8 +97,8 @@ class Client:
             "pid": self.pid,
             "xwayland": False,
             "pinned": False,
-            "fullscreen": 0,
-            "fullscreenClient": 0,
+            "fullscreen": self.fullscreen,
+            "fullscreenClient": self.fullscreen,
             "grouped": [],
             "tags": [],
             "swallowing": "0x0",
@@ -139,7 +140,7 @@ class State:
                     "monitor": mon["name"],
                     "monitorID": mon["id"],
                     "windows": len(wins),
-                    "hasfullscreen": False,
+                    "hasfullscreen": any(c.fullscreen & 2 for c in wins),
                     "lastwindow": last.address if last else "0x0",
                     "lastwindowtitle": last.title if last else "",
                     "ispersistent": wid in self.persistent_ws,
@@ -473,6 +474,14 @@ class Mock:
                     "workspaces": self.state.workspaces_json(),
                     "clients": self.state.clients_json(),
                 }
+            if op == "fullscreen":
+                # Hyprland's mode bitmask: 0 none, 1 maximized, 2 fullscreen.
+                c = self.state.clients.get(msg["address"])
+                if not c:
+                    return {"ok": False}
+                c.fullscreen = int(msg.get("mode", 2))
+                self.emit("fullscreen", "1" if c.fullscreen & 2 else "0")
+                return {"ok": True}
             if op == "screencast":
                 self.emit("screencast", f"{1 if msg.get('active') else 0},{msg.get('owner', 0)}")
                 return {"ok": True}
