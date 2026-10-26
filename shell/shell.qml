@@ -20,7 +20,7 @@ ShellRoot {
 
     // Touch services so they initialise and register their commands even
     // before anything visible references them.
-    readonly property var services: [Compositor, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands]
+    readonly property var services: [Compositor, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands, AppThemes]
 
     // While a fullscreen window owns the output (ShellState), the visual
     // surfaces are destroyed, not just hidden: a hidden window keeps its

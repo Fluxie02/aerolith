@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import qs.core
+import "../lib/schemes.mjs" as Schemes
 
 // Commands that act on the shell itself: opening bays, reloading, settings.
 Singleton {
@@ -94,6 +95,13 @@ Singleton {
                 }
             ],
             run: args => root.setting("theme.motion", args.motion, "Motion " + args.motion)
+        });
+        Registry.register({
+            id: "settings.scheme",
+            title: "Set colour scheme",
+            category: "settings",
+            params: [{name: "scheme", type: "enum", required: true, choices: Schemes.SCHEMES.map(s => s.id)}],
+            run: args => root.setting("theme.scheme", args.scheme, "Scheme " + args.scheme)
         });
         Registry.register({
             id: "settings.intensity",

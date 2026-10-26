@@ -791,6 +791,7 @@ def test_user_and_system_installs_are_not_mixed(system, home, tmp_path, monkeypa
 def theme_home(home, monkeypatch):
     """Only the C01 ownership contract; no host binaries or app processes."""
     monkeypatch.setenv("AEROLITH_ALLOW_ROOT", "1")
+    monkeypatch.setattr(themes, "activate", themes.activation)
     lay = layout()
     m = Manifest(source=str(ROOT))
     m.save(lay.manifest)
@@ -1219,3 +1220,210 @@ def test_gtk_import_keeps_unicode_paths(theme_home, monkeypatch):
         text = theme_config(lay, app).read_text()
         assert "données" in text and "\\u00e9" not in text
     assert run("themes", "remove", "gtk3", "gtk4") == 0
+
+
+# --- C06: consent-preserving payload refresh --------------------------------------
+
+@pytest.mark.parametrize("app", themes.SUPPORTED)
+def test_refresh_roundtrip_applied_only(theme_home, app, capsys):
+    lay = theme_home
+    main = theme_config(lay, app)
+    main.parent.mkdir(parents=True, exist_ok=True)
+    original = theme_original(app, "existing")
+    main.write_bytes(original)
+    assert run("themes", "apply", app) == 0
+    include = main.read_bytes()
+    unapplied = lay.config.parent / "unapplied/config"
+    unapplied.parent.mkdir()
+    unapplied.write_bytes(b"user bytes\r\n")
+    for scheme in ("iris", "corona"):
+        lay.config_file.write_text(json.dumps({"theme": {"scheme": scheme}}))
+        capsys.readouterr()
+        assert run("themes", "refresh", "--json") == 0
+        result = json.loads(capsys.readouterr().out)
+        assert [(r["app"], r["status"]) for r in result["apps"]] == [(app, "refreshed")]
+        assert main.read_bytes() == include
+        m = Manifest.load(lay.manifest)
+        plan = themes.prepare_app(lay, m, ROOT / "themes", app, scheme, "thears")
+        assert all(path.read_bytes() == data.encode() for path, data in plan.files)
+        assert m.themes[app]["scheme"] == scheme
+    assert unapplied.read_bytes() == b"user bytes\r\n"
+    assert list((lay.backups / "themes").iterdir())
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert main.read_bytes() == original
+    assert unapplied.read_bytes() == b"user bytes\r\n"
+
+
+def test_refresh_skips_modified_and_incomplete_apps(theme_home, capsys):
+    lay = theme_home
+    assert run("themes", "apply", "kitty", "qt5ct", "foot") == 0
+    kitty = lay.data / "themes/kitty/aerolith.conf"
+    kitty.write_bytes(b"user custom palette")
+    theme_config(lay, "foot").unlink()  # never recreate an include
+    qt = lay.config.parent / "qt5ct/qss/aerolith.qss"
+    qt.unlink()  # never grow an incomplete deployment
+    capsys.readouterr()
+    assert run("themes", "refresh", "--scheme", "iris", "--json") == 2
+    rows = json.loads(capsys.readouterr().out)["apps"]
+    assert all(r["status"] == "error" for r in rows)
+    assert kitty.read_bytes() == b"user custom palette"
+    assert not theme_config(lay, "foot").exists()
+    assert not qt.exists()
+
+
+@pytest.mark.parametrize("failure", ["second-payload", "manifest", "after-manifest"])
+def test_refresh_rolls_back_one_app_and_continues(theme_home, monkeypatch, capsys, failure):
+    lay = theme_home
+    assert run("themes", "apply", "qt6ct", "foot") == 0
+    m = Manifest.load(lay.manifest)
+    before = {e.path: Path(e.path).read_bytes() for e in m.component_files("theme:qt6ct")}
+    if failure == "second-payload":
+        original_write = themes.atomic_write
+        def fail(path, data, mode=0o644):
+            if str(path).endswith("qt6ct/colors/aerolith.conf"):
+                raise OSError("injected second-payload failure")
+            original_write(path, data, mode)
+        monkeypatch.setattr(themes, "atomic_write", fail)
+    else:
+        original_save = Manifest.save
+        def fail(self, path):
+            if self.themes.get("qt6ct", {}).get("scheme") == "iris":
+                if failure == "after-manifest":
+                    original_save(self, path)
+                raise OSError("injected manifest failure")
+            original_save(self, path)
+        monkeypatch.setattr(Manifest, "save", fail)
+    capsys.readouterr()
+    assert run("themes", "refresh", "--scheme", "iris", "--json") == 2
+    rows = json.loads(capsys.readouterr().out)["apps"]
+    assert [r["status"] for r in rows] == ["error", "refreshed"]
+    assert all(Path(p).read_bytes() == data for p, data in before.items())
+    m = Manifest.load(lay.manifest)
+    assert m.themes["qt6ct"]["scheme"] == "bathyal"
+    assert m.themes["foot"]["scheme"] == "iris"
+    assert not list(lay.home.rglob(".aerolith-rollback-*"))
+    assert run("themes", "remove", "qt6ct", "foot") == 0
+
+
+def test_refresh_dry_run_empty_and_idempotent(theme_home, monkeypatch, capsys):
+    lay = theme_home
+    monkeypatch.setattr(themes, "activate", lambda app: pytest.fail("must not activate"))
+    capsys.readouterr()
+    assert run("themes", "refresh", "--json", "--dry-run") == 0
+    assert json.loads(capsys.readouterr().out)["apps"] == []
+    assert run("themes", "apply", "foot") == 0
+    before = home_bytes(lay.home)
+    capsys.readouterr()
+    assert run("themes", "refresh", "--scheme", "iris", "--json", "--dry-run") == 0
+    assert json.loads(capsys.readouterr().out)["apps"][0]["status"] == "would-refresh"
+    assert home_bytes(lay.home) == before
+    assert run("themes", "refresh") == 0
+    after = home_bytes(lay.home)
+    assert run("themes", "refresh") == 0
+    assert home_bytes(lay.home) == after
+
+
+def test_refresh_lock_contention(theme_home, capsys):
+    lay = theme_home
+    assert run("themes", "apply", "foot") == 0
+    with themes.refresh_lock(lay):
+        before = home_bytes(lay.home)
+        capsys.readouterr()
+        assert run("themes", "refresh", "--scheme", "iris", "--json") == 2
+        assert "busy" in json.loads(capsys.readouterr().out)["error"]
+        assert home_bytes(lay.home) == before
+    assert run("themes", "refresh", "--scheme", "iris") == 0
+
+
+@pytest.mark.parametrize("damage", ["unknown", "catalog", "config", "theme-config", "manifest-json", "manifest-themes", "manifest-file", "manifest-edit"])
+def test_refresh_global_refusal_writes_nothing(theme_home, monkeypatch, capsys, damage):
+    lay = theme_home
+    assert run("themes", "apply", "foot") == 0
+    args = ["--scheme", "unknown"] if damage == "unknown" else ["--scheme", "iris"]
+    if damage == "catalog":
+        monkeypatch.setattr(themes, "assets_root", lambda *a: lay.home / "absent")
+    elif damage in ("config", "theme-config"):
+        lay.config_file.write_text("{" if damage == "config" else '{"theme":[]}')
+    elif damage == "manifest-json":
+        lay.manifest.write_text("{")
+    elif damage.startswith("manifest-"):
+        data = json.loads(lay.manifest.read_text())
+        if damage == "manifest-themes":
+            data["themes"] = []
+        elif damage == "manifest-file":
+            data["files"][0]["sha256"] = None
+        else:
+            data["edits"][0]["inserted"] = []
+        lay.manifest.write_text(json.dumps(data))
+    before = home_bytes(lay.home)
+    capsys.readouterr()
+    assert run("themes", "refresh", "--json", *args) == 2
+    assert json.loads(capsys.readouterr().out)["error"]
+    assert home_bytes(lay.home) == before
+
+
+def test_refresh_rechecks_payload_before_write(theme_home, monkeypatch):
+    lay = theme_home
+    assert run("themes", "apply", "kitty") == 0
+    execute = themes.execute
+    path = lay.data / "themes/kitty/aerolith.conf"
+    def race(*args, **kwargs):
+        path.write_text("concurrent user edit")
+        return execute(*args, **kwargs)
+    monkeypatch.setattr(themes, "execute", race)
+    assert run("themes", "refresh", "--scheme", "iris") == 2
+    assert path.read_text() == "concurrent user edit"
+
+
+def test_refresh_activation_consent_and_errors(home, monkeypatch):
+    calls = []
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        assert kwargs["timeout"] == 2
+        return subprocess.CompletedProcess(argv, 0, b"", b"")
+    monkeypatch.setattr(themes.subprocess, "run", fake_run)
+    for app in themes.SUPPORTED:
+        themes.activate(app)
+    assert calls == [["pkill", "-USR1", "-u", str(os.getuid()), "-x", "kitty"], ["hyprctl", "reload"]]
+    def timeout(*args, **kwargs):
+        raise subprocess.TimeoutExpired(args[0], 2)
+    monkeypatch.setattr(themes.subprocess, "run", timeout)
+    assert "payload saved" in themes.activate("kitty")
+
+
+def test_refresh_never_writes_or_activates_unconsented_app(theme_home, monkeypatch):
+    lay = theme_home
+    path = lay.data / "themes/kitty/aerolith.conf"
+    path.parent.mkdir(parents=True)
+    path.write_bytes(b"unowned user theme")
+    assert run("themes", "apply", "foot") == 0
+    calls = []
+    monkeypatch.setattr(themes, "activate", lambda app: calls.append(app) or "next start")
+    assert run("themes", "refresh", "--scheme", "iris") == 0
+    assert calls == ["foot"]
+    assert path.read_bytes() == b"unowned user theme"
+    assert not theme_config(lay, "kitty").exists()
+
+
+@pytest.mark.parametrize("interrupt", ["keyboard", "term"])
+def test_refresh_interruption_restores_app(theme_home, monkeypatch, interrupt):
+    import signal
+    lay = theme_home
+    assert run("themes", "apply", "qt6ct") == 0
+    m = Manifest.load(lay.manifest)
+    before = {entry.path: Path(entry.path).read_bytes() for entry in m.component_files("theme:qt6ct")}
+    before[str(lay.manifest)] = lay.manifest.read_bytes()
+    write = themes.atomic_write
+    def interrupted(path, data, mode=0o644):
+        if str(path).endswith("qt6ct/colors/aerolith.conf"):
+            if interrupt == "term":
+                os.kill(os.getpid(), signal.SIGTERM)
+            raise KeyboardInterrupt
+        write(path, data, mode)
+    monkeypatch.setattr(themes, "atomic_write", interrupted)
+    old_handler = signal.getsignal(signal.SIGTERM)
+    assert run("themes", "refresh", "--scheme", "iris") == 130
+    assert all(Path(path).read_bytes() == data for path, data in before.items())
+    assert signal.getsignal(signal.SIGTERM) == old_handler
+    with themes.refresh_lock(lay):
+        pass

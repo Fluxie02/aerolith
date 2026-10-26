@@ -1,16 +1,23 @@
-"""Explicit application exports. No app processes, preferences or mod installers.
+"""Opt-in application exports and payload-only scheme refresh.
 
-prepare_app() is the single scheme/direction entry point for a future C06 caller.
+prepare_app() is the single scheme/direction entry point for apply and refresh.
 It preflights without writes; execute() checks again before writing. All edits
 are additive, byte-preserving blocks, separate from shell startup integration.
 """
 from __future__ import annotations
 
+import copy
+import fcntl
 import json
+import os
 import re
 import shutil
+import signal
+import subprocess
+import tempfile
 import tomllib
 import uuid
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -298,7 +305,7 @@ def prepare_app(lay: Layout, manifest: Manifest, root: Path, app: str, scheme: s
     return plan
 
 
-def execute(lay: Layout, manifest: Manifest, plan: AppPlan) -> None:
+def execute(lay: Layout, manifest: Manifest, plan: AppPlan, *, persist: bool = True, written: list[Path] | None = None) -> None:
     for path, data in plan.files:
         safe_path(path)
         existing = manifest.find(path)
@@ -310,10 +317,17 @@ def execute(lay: Layout, manifest: Manifest, plan: AppPlan) -> None:
             raise ThemeError(f"{path}: changed after planning")
     # Write payloads before exposing their includes to the application.
     for path, data in plan.files:
+        safe_path(path)
+        entry = manifest.find(path)
+        if path.exists() and (not entry or sha256(path) != entry.sha256):
+            raise ThemeError(f"{path}: changed before writing; kept")
         mkdir_owned(path.parent, manifest)
         atomic_write(path, data)
+        if written is not None:
+            written.append(path)
         manifest.record_file(path, component(plan.app))
-        manifest.save(lay.manifest)
+        if persist:
+            manifest.save(lay.manifest)
     if plan.edit:
         path, original, insertion, begin, end = plan.edit
         if text_at(path) != original:
@@ -325,9 +339,11 @@ def execute(lay: Layout, manifest: Manifest, plan: AppPlan) -> None:
         mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
         atomic_write(path, original[:pos] + insertion + original[pos:], mode)
         manifest.edits.append(EditEntry(str(path), begin, end, saved, component(plan.app), insertion, created))
-        manifest.save(lay.manifest)
+        if persist:
+            manifest.save(lay.manifest)
     manifest.themes[plan.app] = {"scheme": plan.scheme, "direction": plan.direction, "note": plan.note}
-    manifest.save(lay.manifest)
+    if persist:
+        manifest.save(lay.manifest)
 
 
 def remove_edit(lay: Layout, entry: EditEntry) -> str:
@@ -395,3 +411,173 @@ def status(lay: Layout, manifest: Manifest | None) -> list[dict]:
                      "direction": record.get("direction") if record else None,
                      "note": record["note"] if record else DEFERRED.get(app, "Optional; not applied")})
     return rows
+
+
+@contextmanager
+def refresh_lock(lay: Layout):
+    """Nonblocking, per-user serialization; keep the inode after unlocking."""
+    path = lay.state / "themes-refresh.lock"
+    safe_path(path)
+    lay.state.mkdir(parents=True, exist_ok=True)
+    fd = os.open(path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+    previous_term = None
+    try:
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as exc:
+            raise ThemeError("theme refresh busy; try again shortly") from exc
+        # Exec.run's timeout sends SIGTERM. Treat it like Ctrl-C so the
+        # per-app exception path can restore payloads before the CLI exits.
+        def interrupted(signum, frame):
+            raise KeyboardInterrupt
+        previous_term = signal.signal(signal.SIGTERM, interrupted)
+        yield
+    finally:
+        if previous_term is not None:
+            signal.signal(signal.SIGTERM, previous_term)
+        os.close(fd)
+
+
+def refresh_plans(lay: Layout, manifest: Manifest | None, scheme: str | None):
+    """Global refusal checks precede writes; individual app conflicts are rows."""
+    if manifest is None:
+        raise ThemeError("install AEROLITH first; no ownership manifest was found")
+    # Validate stored config even when an explicit override is supplied.
+    current, _ = selection(lay)
+    chosen, _ = selection(lay, scheme if scheme is not None else current)
+    root = assets_root(lay, manifest)
+    catalog = read_object(root / "schemes/index.json").get("schemes")
+    if (not isinstance(catalog, list) or not catalog
+        or any(not isinstance(row, dict) or not isinstance(row.get("id"), str) for row in catalog)):
+        raise ThemeError("invalid or missing scheme catalog")
+    if chosen not in {row["id"] for row in catalog}:
+        raise ThemeError(f"unknown scheme: {chosen}")
+    if any(app not in SUPPORTED or record["direction"] not in ("piyti", "thears")
+           for app, record in manifest.themes.items()):
+        raise ThemeError("invalid app or direction in theme manifest")
+    plans = []
+    for app, record in manifest.themes.items():
+        try:
+            plan = prepare_app(lay, manifest, root, app, chosen, record["direction"])
+            entries = manifest.component_files(component(app))
+            if plan.edit or {str(p) for p, _ in plan.files} != {e.path for e in entries}:
+                raise ThemeError("deployment is incomplete or config dialect changed; refresh never adds includes or payload paths")
+            for entry in entries:
+                path = Path(entry.path)
+                if not path.is_file() or sha256(path) != entry.sha256:
+                    raise ThemeError(f"{path}: missing or user-modified payload; kept")
+            plans.append((app, plan, None))
+        except (ThemeError, OSError) as exc:
+            plans.append((app, None, str(exc)))
+    return chosen, plans
+
+
+def activation(app: str) -> str:
+    if app == "kitty":
+        return "SIGUSR1 reload requested for this user's running kitty processes; otherwise takes effect on next start"
+    if app == "hyprland":
+        return "hyprctl reload requested for the opted-in Hyprland session"
+    if app == "alacritty":
+        return "Alacritty reloads when general.live_config_reload is enabled; otherwise takes effect on next start"
+    if app == "btop":
+        return "takes effect on next start with aerolith selected in btop's theme chooser"
+    if app in ("qt5ct", "qt6ct"):
+        return "takes effect on next start with the aerolith palette/QSS and matching platform plugin selected"
+    return "takes effect on next start"
+
+
+def activate(app: str) -> str:
+    """No restart, environment change, or activation for unconsented apps."""
+    note = activation(app)
+    argv = None
+    if app == "kitty":
+        argv = ["pkill", "-USR1", "-u", str(os.getuid()), "-x", "kitty"]
+    elif app == "hyprland":
+        argv = ["hyprctl", "reload"]
+    if argv:
+        try:
+            result = subprocess.run(argv, capture_output=True, timeout=2, check=False)
+            if app == "kitty" and result.returncode == 1:
+                return "no running kitty processes; takes effect on next start"
+            if result.returncode:
+                detail = (result.stderr or result.stdout).decode(errors="replace").strip()[:200]
+                return f"activation failed; payload saved; takes effect on next start ({detail or 'exit ' + str(result.returncode)})"
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return f"activation unavailable; payload saved; takes effect on next start ({exc})"
+    return note
+
+
+def refresh(lay: Layout, manifest: Manifest, scheme: str | None = None, *, dry_run: bool = False) -> dict:
+    """Caller holds refresh_lock. Per-app rollback includes manifest failures.
+
+    Rollback files are staged beside each payload before writing; os.replace
+    can restore them even when the writer that failed cannot be used again.
+    Persistent backups are retained separately for the user.
+    """
+    chosen, plans = refresh_plans(lay, manifest, scheme)
+    rows = []
+    for app, plan, error in plans:
+        row = {"app": app, "scheme": chosen}
+        rows.append(row)
+        if error:
+            row.update(status="error", error=error)
+            continue
+        previous = copy.deepcopy(manifest)
+        rollback = []
+        written = []
+        rollback_errors = []
+        try:
+            # Planning another app or activation may have taken time. A missing
+            # or edited payload is still an app-local error at execution time.
+            for path, _ in plan.files:
+                safe_path(path)
+                if not path.is_file() or sha256(path) != manifest.find(path).sha256:
+                    raise ThemeError(f"{path}: changed after planning; kept")
+            changed = any(path.read_bytes() != text.encode("utf-8") for path, text in plan.files)
+            if not changed and manifest.themes[app]["scheme"] == chosen:
+                row.update(status="unchanged", activation="already current; no activation requested")
+                continue
+            if dry_run:
+                row.update(status="would-refresh", activation="planned: " + activation(app))
+                continue
+            for path, _ in plan.files:
+                # Recheck just before snapshotting, including symlinks.
+                safe_path(path)
+                if sha256(path) != manifest.find(path).sha256:
+                    raise ThemeError(f"{path}: changed after planning; kept")
+                saved = backup(lay, path)
+                fd, temp = tempfile.mkstemp(dir=path.parent, prefix=".aerolith-rollback-")
+                os.close(fd)
+                rollback.append((path, Path(temp)))
+                shutil.copy2(saved, temp)
+            fd, temp = tempfile.mkstemp(dir=lay.state, prefix=".aerolith-rollback-")
+            os.close(fd)
+            rollback.append((lay.manifest, Path(temp)))
+            shutil.copy2(lay.manifest, temp)
+            execute(lay, manifest, plan, persist=False, written=written)
+            written.append(lay.manifest)
+            manifest.save(lay.manifest)
+        except BaseException as exc:
+            if written:
+                for path, temp in rollback:
+                    if path not in written:
+                        continue
+                    try:
+                        os.replace(temp, path)
+                    except OSError as restore_error:
+                        rollback_errors.append(f"{temp} -> {path}: {restore_error}")
+            manifest.__dict__.update(previous.__dict__)
+            # Restore ownership as well, including interruption immediately
+            # after the atomic manifest replacement.
+            if not isinstance(exc, Exception):
+                raise
+            row.update(status="error", error=str(exc) + ("; rollback failed: " + "; ".join(rollback_errors) if rollback_errors else "; old payload retained"))
+            if rollback_errors:
+                raise ThemeError(row["error"]) from exc
+            continue
+        finally:
+            if not rollback_errors:
+                for _, temp in rollback:
+                    temp.unlink(missing_ok=True)
+        row.update(status="refreshed", activation=activate(app))
+    return {"scheme": chosen, "dryRun": dry_run, "apps": rows}

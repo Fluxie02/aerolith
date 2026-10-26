@@ -6,6 +6,7 @@
 # CONFIG (path to a config.json to install), ROUTINES (routines.json),
 # PKGS (directory of built Arch packages to install with pacman -U first;
 # the scenario then runs against the packaged tree, see tools/package/build.sh),
+# APP_THEMES=1 (fake aerolith CLI for refresh debounce/restore checks).
 # BACKLIGHT=1 (a fake backlight and brightnessctl for the brightness service).
 #
 # Run scenarios one at a time. Keyboard input is injected with wtype, and
@@ -35,7 +36,7 @@ fi
 
 docker run --rm --cap-add=SYS_NICE \
   -v "$here:/src:ro" -v "$out:/out" "${extra[@]}" \
-  -e AUDIO -e BACKLIGHT -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
+  -e APP_THEMES -e AUDIO -e BACKLIGHT -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
   "$image" bash -c '
     set -e
     if [ -d /pkgs ]; then pacman -U --noconfirm /pkgs/*.pkg.tar.zst >/out/pacman.log 2>&1 || { cat /out/pacman.log; exit 1; }; fi
@@ -45,5 +46,5 @@ docker run --rm --cap-add=SYS_NICE \
     [ -f /seed/config.json ] && cp /seed/config.json /home/pilot/.config/aerolith/config.json
     [ -f /seed/routines.json ] && cp /seed/routines.json /home/pilot/.config/aerolith/routines.json
     chown -R pilot /home/pilot
-    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
+    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} APP_THEMES=${APP_THEMES:-0} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
   '
