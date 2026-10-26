@@ -5,19 +5,115 @@
     "description": "Shared coordination state for Claude Code and Codex.",
     "repository_root": "."
   },
-  "system_state": "Claude_Performance_Audit",
+  "system_state": "Astra_Design_Phase",
   "workflow": {
     "current_task_id": "UI-016",
-    "current_owner": "Claude",
-    "last_transition_at": "2026-10-25T08:35:13+00:00",
-    "transition_reason": "Astra explicitly published design_complete",
+    "current_owner": "Astra",
+    "last_transition_at": "2026-10-26T16:03:29+00:00",
+    "transition_reason": "Owner explicitly assigned Astra roadmap D03 in isolated codex/design-47522693 worktree; visual notice placement only",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Multiple",
+    "files": [
+      "ARCHITECTURE.md",
+      "README.md",
+      "docs/INSTALLATION.md",
+      "docs/design/notices",
+      "docs/verification/C01/README.md",
+      "installer/README.md",
+      "installer/aerolith_install/cli.py",
+      "installer/aerolith_install/paths.py",
+      "installer/aerolith_install/ui.py",
+      "shell/core/Config.qml",
+      "shell/core/Paths.qml",
+      "shell/core/Theme.qml",
+      "shell/modules/ControlSurface.qml",
+      "shell/modules/deck/DeckView.qml",
+      "shell/modules/notices/NoticeColumn.qml",
+      "shell/modules/notices/NoticeStack.qml",
+      "tests/py/test_installer.py",
+      "tests/scenarios/direction.sh",
+      "tests/scenarios/fullscreen-matrix.sh",
+      "tests/scenarios/installed.sh",
+      "tests/scenarios/notices-layout-matrix.sh",
+      "tests/scenarios/notices-layout.sh"
+    ],
+    "locks": [
+      {
+        "lock_id": "8d9349f5-f8dc-4a2a-89e7-40dfdc0a6b87",
+        "agent": "Astra",
+        "files": [
+          "docs/design/notices",
+          "shell/modules/deck/DeckView.qml",
+          "shell/modules/notices/NoticeColumn.qml",
+          "shell/modules/notices/NoticeStack.qml",
+          "tests/scenarios/notices-layout.sh"
+        ],
+        "task_id": "D03",
+        "created_at": "2026-10-26T16:03:29+00:00",
+        "expires_epoch": 1793045009.3048859,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "20fa200c-2cde-4f76-8c62-0758c493f268",
+        "agent": "Sol",
+        "files": [
+          "ARCHITECTURE.md",
+          "docs/verification/C01/README.md",
+          "installer/README.md",
+          "installer/aerolith_install/cli.py",
+          "installer/aerolith_install/paths.py",
+          "installer/aerolith_install/ui.py",
+          "shell/core/Config.qml",
+          "shell/core/Paths.qml",
+          "shell/core/Theme.qml",
+          "shell/modules/ControlSurface.qml",
+          "tests/py/test_installer.py",
+          "tests/scenarios/fullscreen-matrix.sh",
+          "tests/scenarios/installed.sh"
+        ],
+        "task_id": "C01",
+        "created_at": "2026-10-26T16:04:20+00:00",
+        "expires_epoch": 1793045060.217429,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "6af2ce86-aae3-4d2a-ad25-9a1e2914031b",
+        "agent": "Sol",
+        "files": [
+          "README.md",
+          "docs/INSTALLATION.md"
+        ],
+        "task_id": "C01",
+        "created_at": "2026-10-26T16:04:31+00:00",
+        "expires_epoch": 1793045071.165106,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "1db4892c-a6df-46bd-b2c3-629ce01371fb",
+        "agent": "Astra",
+        "files": [
+          "tests/scenarios/notices-layout-matrix.sh"
+        ],
+        "task_id": "D03",
+        "created_at": "2026-10-26T16:05:13+00:00",
+        "expires_epoch": 1793045113.7701554,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "b8193dd1-90b0-488b-a42c-aa09cdc1d975",
+        "agent": "Sol",
+        "files": [
+          "tests/scenarios/direction.sh"
+        ],
+        "task_id": "C01",
+        "created_at": "2026-10-26T16:06:04+00:00",
+        "expires_epoch": 1793045164.5392368,
+        "ttl_seconds": 14400
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -5536,6 +5632,33 @@
       "summary": "B05 test work ended: fullscreen focus restoration defect requires Opus; matrix incomplete",
       "notes": "697b3da: PIYTI/Saturated 20 cycles; RSS KiB 146508/162988/163164; focus to floating non-fullscreen client leaves phase suspended (shellstate.mjs:56-61). Smoke and Deck pass; Node 129/129; mock pytest 2/2; no QML errors in four logs. No shell changes. Reproduction and incomplete-cell limits in docs/verification/B05/README.md.",
       "timestamp": "2026-10-26T15:52:28+00:00"
+    },
+    {
+      "id": "3c5ffdd7-7f8d-4b16-83db-e6cae34da9fb",
+      "type": "state_transition",
+      "state": "Astra_Design_Phase",
+      "reason": "Owner explicitly assigned Astra roadmap D03 in isolated codex/design-47522693 worktree; visual notice placement only",
+      "timestamp": "2026-10-26T16:03:29+00:00"
+    },
+    {
+      "id": "20e56b64-e254-4be1-ac5a-b0548475af93",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "installer",
+        "shell/core/Theme.qml",
+        "shell/core/Paths.qml",
+        "shell/core/Config.qml",
+        "shell/modules/ControlSurface.qml",
+        "tests",
+        "README.md",
+        "ARCHITECTURE.md",
+        "docs/verification/C01"
+      ],
+      "summary": "Owner assigned Sol C01/C02 in isolated codex/coding-38c5b136; installation-only direction, no visuals",
+      "notes": "Shared workflow currently Astra D03; explicit user assignment authorizes parallel bounded installer work. Preserving workflow and unrelated D03 locks. Opus review requested after completion.",
+      "task_id": "C01",
+      "timestamp": "2026-10-26T16:03:51+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -5545,6 +5668,7 @@
     "ARCHITECTURE.md",
     "CLAUDE.md",
     "DESIGN_BRIEF.md",
+    "README.md",
     "build/UI-001-astra.bundle",
     "build/UI-001-import.txt",
     "docs/design",
@@ -7883,6 +8007,8 @@
     "docs/verification/A03/README.md",
     "docs/verification/B05",
     "docs/verification/B05/README.md",
+    "docs/verification/C01",
+    "installer",
     "prototypes/README.md",
     "prototypes/accessibility.json",
     "prototypes/capture.sh",
@@ -7972,10 +8098,13 @@
     "shell/components/TapeGauge.qml",
     "shell/components/Trace.qml",
     "shell/components/WorkspaceOrbit.qml",
+    "shell/core/Config.qml",
+    "shell/core/Paths.qml",
     "shell/core/Theme.qml",
     "shell/lib/config.mjs",
     "shell/lib/schemes.mjs",
     "shell/lib/tokens.mjs",
+    "shell/modules/ControlSurface.qml",
     "shell/modules/command/CommandCore.qml",
     "shell/modules/command/ResultRow.qml",
     "shell/modules/deck/DeckView.qml",
@@ -7999,6 +8128,7 @@
     "shell/modules/systems/CoreBus.qml",
     "shell/modules/systems/SystemsBay.qml",
     "shell/schema/config.schema.json",
+    "tests",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/schemes.test.mjs",
@@ -8043,18 +8173,22 @@
   ],
   "last_agent_event": {
     "agent": "Sol",
-    "type": "blocked",
+    "type": "note",
     "files": [
-      "tests/scenarios/fullscreen.sh",
-      "tests/scenarios/fullscreen-matrix.sh",
-      "tests/py/test_mock_hyprland.py",
-      "tools/mock-hyprland/mock_hyprland.py",
-      "docs/verification/B05"
+      "installer",
+      "shell/core/Theme.qml",
+      "shell/core/Paths.qml",
+      "shell/core/Config.qml",
+      "shell/modules/ControlSurface.qml",
+      "tests",
+      "README.md",
+      "ARCHITECTURE.md",
+      "docs/verification/C01"
     ],
-    "summary": "B05 test work ended: fullscreen focus restoration defect requires Opus; matrix incomplete",
-    "notes": "697b3da: PIYTI/Saturated 20 cycles; RSS KiB 146508/162988/163164; focus to floating non-fullscreen client leaves phase suspended (shellstate.mjs:56-61). Smoke and Deck pass; Node 129/129; mock pytest 2/2; no QML errors in four logs. No shell changes. Reproduction and incomplete-cell limits in docs/verification/B05/README.md.",
-    "task_id": "B05",
-    "timestamp": "2026-10-26T15:52:28+00:00"
+    "summary": "Owner assigned Sol C01/C02 in isolated codex/coding-38c5b136; installation-only direction, no visuals",
+    "notes": "Shared workflow currently Astra D03; explicit user assignment authorizes parallel bounded installer work. Preserving workflow and unrelated D03 locks. Opus review requested after completion.",
+    "task_id": "C01",
+    "timestamp": "2026-10-26T16:03:51+00:00"
   },
-  "updated_at": "2026-10-26T15:52:29+00:00"
+  "updated_at": "2026-10-26T16:06:04+00:00"
 }
