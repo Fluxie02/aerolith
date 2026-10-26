@@ -41,13 +41,14 @@ function saveJob(job: Job) {
 function clip(s: string, n = 30000) { return s.length > n ? s.slice(0, n) + "\n...[truncated]" : s; }
 
 type Role = "design" | "coding";
-type Account = { name: string; cap: number; home?: string; role?: Role; model?: string };
+type Account = { name: string; cap: number; home?: string; role?: Role; model?: string; effort?: string };
 type Window = { used: number; resetsAt: number };
 type Usage = { windows: Window[]; observedAt: string; limitHitUntil?: number };
 // CODEX_ACCOUNTS="mine:100:role=coding:model=gpt-6.1-sol,dad:80:role=design:home=default":
 // ChatGPT logins in priority order, each with the highest used_percent of its plan
 // limit at which the bridge still starts a job. Options: role (design or coding;
-// unset takes both), model (passed to codex -m), home=default (use the normal
+// unset takes both), model (passed to codex -m), effort (reasoning effort,
+// e.g. high), home=default (use the normal
 // Codex login in ~/.codex instead of ~/.codex-accounts/<name>).
 const ACCOUNTS: Account[] = (process.env.CODEX_ACCOUNTS ?? "").split(",").map(x => x.trim()).filter(Boolean).map(x => {
   const [name, cap, ...rest] = x.split(":");
@@ -55,7 +56,8 @@ const ACCOUNTS: Account[] = (process.env.CODEX_ACCOUNTS ?? "").split(",").map(x 
   const opt = Object.fromEntries(rest.map(o => o === "default" ? ["home", "default"] : o.split("=", 2)));
   if (opt.role && opt.role !== "design" && opt.role !== "coding") throw new Error(`Invalid role for ${name}: ${opt.role}`);
   if (opt.model && !/^[a-z0-9._-]+$/i.test(opt.model)) throw new Error(`Invalid model for ${name}: ${opt.model}`);
-  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)), role: opt.role, model: opt.model,
+  if (opt.effort && !/^(minimal|low|medium|high|xhigh|max|ultra)$/.test(opt.effort)) throw new Error(`Invalid effort for ${name}: ${opt.effort}`);
+  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)), role: opt.role, model: opt.model, effort: opt.effort,
     home: opt.home === "default" ? undefined : path.join(os.homedir(), ".codex-accounts", name) };
 });
 if (!ACCOUNTS.length) ACCOUNTS.push({ name: "default", cap: 100 });
@@ -225,7 +227,8 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
       // locks and events, and network access for the Docker-based headless harness.
       const extra = edit ? ["--add-dir", ROOT, "-c", "sandbox_workspace_write.network_access=true"] : [];
       const args = ["exec", "--ephemeral", "--json", "--sandbox", sandbox, ...extra,
-        ...(account.model ? ["-m", account.model] : []), "-C", dir, prompt + where];
+        ...(account.model ? ["-m", account.model] : []),
+        ...(account.effort ? ["-c", `model_reasoning_effort="${account.effort}"`] : []), "-C", dir, prompt + where];
       const exec = new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean; capped: boolean}>((resolve, reject) => {
         let stdout = "", stderr = "", timedOut = false, capped = false;
         const child = spawn(CODEX, args, { cwd: dir, env: accountEnv(account), stdio: ["ignore", "pipe", "pipe"] });
@@ -319,7 +322,7 @@ server.tool("codex_status",
       const why = await blocked(acc);
       if (!why) for (const r of ["design", "coding"] as Role[]) if ((!acc.role || acc.role === r) && !next[r]) next[r] = acc.name;
       const used = usedPercent(acc);
-      lines.push(`- ${acc.name} (${acc.role ?? "design+coding"}${acc.model ? `, model ${acc.model}` : ""}): cap ${acc.cap}%, used ${used === undefined ? "unknown" : `${used}%`}, ${why ? `blocked (${why})` : "available"}` +
+      lines.push(`- ${acc.name} (${acc.role ?? "design+coding"}${acc.model ? `, model ${acc.model}` : ""}${acc.effort ? `, effort ${acc.effort}` : ""}): cap ${acc.cap}%, used ${used === undefined ? "unknown" : `${used}%`}, ${why ? `blocked (${why})` : "available"}` +
         `${acc.home ? `, CODEX_HOME=${acc.home}` : ""}\n  login: ${login.text}`);
     }
     return { content: [{ type: "text", text: `Repository: ${ROOT}\nCodex binary: ${CODEX}\nAccounts (priority order):\n${lines.join("\n")}\nNext design job goes to: ${next.design ?? "none"}\nNext coding job goes to: ${next.coding ?? "none"}` }] };

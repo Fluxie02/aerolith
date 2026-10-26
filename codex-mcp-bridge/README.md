@@ -36,13 +36,14 @@ npm start
 Optional environment variables:
 - `CODEX_BIN` defaults to `codex`.
 - `CODEX_MCP_TIMEOUT_MS` defaults to 600000 (10 minutes) and is capped at 7200000 (2 hours).
-- `CODEX_ACCOUNTS` lists ChatGPT accounts in priority order with a usage cap and options, e.g. `mine:100:role=coding:model=gpt-6.1-sol,dad:80:role=design:home=default`. Unset means one account using the default Codex login.
+- `CODEX_ACCOUNTS` lists ChatGPT accounts in priority order with a usage cap and options, e.g. `mine:100:role=coding:model=gpt-6.1-sol:effort=high,dad:80:role=design:effort=high:home=default`. Unset means one account using the default Codex login.
 
 ## Multiple accounts
 Each `CODEX_ACCOUNTS` entry is `name:cap[:option...]`:
 - `cap`: the highest `used_percent` of the account's plan limit (5-hour or weekly, whichever is fuller) at which the bridge still starts a job. A running job is stopped when the account reaches its cap (checked every 30 s, status `stopped_at_cap`); its changes so far are committed to the job branch.
 - `role=design` or `role=coding`: which work the account takes. Without it the account takes both.
 - `model=<id>`: passed to `codex exec -m` for every job on that account.
+- `effort=<level>`: reasoning effort for every job on that account (`-c model_reasoning_effort`); the repo runs both accounts on `high`.
 - `home=default`: use the normal Codex login (`~/.codex`, or `$CODEX_HOME`) instead of `~/.codex-accounts/<name>`.
 
 A job goes to the first account for its role that is logged in, has not hit its usage limit, and is below its cap. With the repo's setting, design work goes to `dad` up to 80% of its limit (the rest stays with its owner), and coding-buddy work goes to `mine` on `gpt-6.1-sol`. Neither spills over to the other: when the account for a role is unavailable, that job is refused.
