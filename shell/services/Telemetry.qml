@@ -23,7 +23,9 @@ Singleton {
     // Consumers raise demand while visible (reference counted).
     property int panelDemand: 0
     property int detailDemand: 0
-    readonly property bool stripDemand: Config.strip.visible && Config.strip.telemetry !== "off"
+    // The strip is destroyed while a fullscreen window owns the output
+    // (ShellState), so it asks for nothing then.
+    readonly property bool stripDemand: Config.strip.visible && Config.strip.telemetry !== "off" && !ShellState.surfacesReleased
     readonly property bool panelActive: panelDemand > 0
     readonly property bool detailActive: detailDemand > 0
     readonly property var cfg: Config.telemetry

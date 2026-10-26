@@ -39,6 +39,7 @@ wait_field phase suspended 3 || fail "fullscreen did not suspend the shell"
 wait_field surfacesReleased True 2 || fail "the surfaces were not released"
 [ "$(field ambient)" = False ] || fail "ambient motion still runs while suspended"
 [ "$(field fullscreenOwner)" = steam_app_1 ] || fail "wrong fullscreen owner: $(field fullscreenOwner)"
+[ "$(field telemetryIntervalMs)" = 0 ] || fail "telemetry still samples every $(field telemetryIntervalMs) ms while suspended"
 shot 01-suspended
 
 # 3. Leaving fullscreen restores.
@@ -46,6 +47,7 @@ mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
 wait_field surfacesReleased False 3 || fail "the surfaces did not come back"
 wait_field phase desktop 3 || fail "the shell did not return to desktop"
 wait_field ambient True 2 || fail "ambient motion did not resume"
+[ "$(field telemetryIntervalMs)" = 5000 ] || fail "telemetry did not resume after fullscreen"
 shot 02-restored
 
 # 4. Only the active workspace of the selected output counts.
