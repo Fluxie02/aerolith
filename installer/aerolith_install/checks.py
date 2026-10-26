@@ -91,6 +91,32 @@ def font_available(family: str) -> bool | None:
     return bool(r) and family.lower() in r.stdout.lower()
 
 
+def installed_locker() -> str | None:
+    return next((name for name in ("hyprlock", "swaylock") if shutil.which(name)), None)
+
+
+def notifications_owner() -> str:
+    """Inspect acquired names only: never activate a notification daemon.
+
+    A failed bus query is unknown, not evidence that the name is unowned.
+    """
+    r = _run(["busctl", "--user", "--no-pager", "--no-legend", "--acquired", "list"], 5)
+    if r is None or r.returncode != 0:
+        return "unknown"
+    for line in r.stdout.splitlines():
+        fields = line.split()
+        if fields and fields[0] == "org.freedesktop.Notifications":
+            return f"{fields[2]} ({fields[4]})" if len(fields) >= 5 else fields[0]
+    return "nobody"
+
+
+def uwsm_active() -> bool:
+    if not shutil.which("uwsm"):
+        return False
+    r = _run(["uwsm", "check", "is-active"], 5)
+    return r is not None and r.returncode == 0
+
+
 def run_checks(lay: Layout) -> list[Check]:
     out: list[Check] = []
     out.append(Check("operating system", OK if is_arch_based() else WARN,
@@ -131,3 +157,7 @@ def failed(checks: list[Check]) -> list[Check]:
 
 def missing_packages(checks: list[Check]) -> list[str]:
     return sorted({c.package for c in checks if c.status == FAIL and c.package})
+
+
+def recommended_packages(checks: list[Check]) -> list[str]:
+    return sorted({c.package for c in checks if c.status == WARN and c.package} - set(missing_packages(checks)))

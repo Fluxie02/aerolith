@@ -18,6 +18,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
+from . import checks
 from .manifest import EditEntry, Manifest, atomic_write
 from .paths import Layout
 
@@ -101,7 +102,8 @@ def shell_quote(s: str) -> str:
 
 def launch_command(shell_dir: Path) -> str:
     qs = shutil.which("qs") or shutil.which("quickshell") or "qs"
-    return f"{shell_quote(qs)} -p {shell_quote(str(shell_dir))}"
+    prefix = "uwsm app -- " if checks.uwsm_active() else ""
+    return f"{prefix}{shell_quote(qs)} -p {shell_quote(str(shell_dir))}"
 
 
 def fragment(dialect: str, binds: list[Bind], autostart_cmd: str | None) -> str:
@@ -224,7 +226,8 @@ def conflicts(binds: list[Bind], existing: list[dict] | None, config_text: str) 
                 if not isinstance(e, dict):
                     continue
                 if str(e.get("key", "")).lower() == b.key.lower() and int(e.get("modmask", -1)) == b.modmask():
-                    if str(e.get("arg", "")) == f"aerolith:{b.name}":
+                    if (str(e.get("arg", "")) == f"aerolith:{b.name}"
+                            or str(e.get("description", "")).startswith("AEROLITH: ")):
                         continue
                     found[b.name] = f"{b.combo} is bound to {e.get('dispatcher', '?')} {e.get('arg', '')}".strip()
                     break
@@ -232,7 +235,12 @@ def conflicts(binds: list[Bind], existing: list[dict] | None, config_text: str) 
             # Best effort when Hyprland is not running: look for the combo in
             # the config text (Lua and hyprlang spellings, $mainMod as SUPER).
             mods = [m for m in b.mods.split() if m]
-            lua = r'hl\.bind\(\s*"\s*' + r"\s*\+\s*".join(map(re.escape, mods + [b.key])) + r'\s*"'
+            # Lua configs commonly concatenate mainMod with the key literal.
+            literal = r"['\"]\s*" + r"\s*\+\s*".join(map(re.escape, mods + [b.key])) + r"\s*['\"]"
+            expressions = [literal]
+            if mods and mods[0] == "SUPER":
+                expressions.append(r"mainMod\s*\.\.\s*['\"]\s*\+\s*" + r"\s*\+\s*".join(map(re.escape, mods[1:] + [b.key])) + r"\s*['\"]")
+            lua = r'hl\.bind\(\s*(?:' + "|".join(expressions) + ")"
             conf_mods = r"\s*".join(rf"(?:{re.escape(m)}|\$mainMod)" if m == "SUPER" else re.escape(m) for m in mods)
             conf = rf"^\s*bind\w*\s*=\s*{conf_mods}\s*,\s*{re.escape(b.key)}\s*,(?!.*aerolith:)"
             if re.search(lua, config_text, re.I) or re.search(conf, config_text, re.I | re.M):
