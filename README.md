@@ -28,6 +28,27 @@ for a later reinstall by default; `aerolith uninstall --remove-config` also
 removes this file, with the same modified-file protection as other owned files
 (`--force` removes modified owned files).
 
+Application themes are a separate opt-in. The interactive installer starts
+with nothing selected; non-interactive installs and `--yes` apply none unless
+you pass `--themes kitty,foot,hyprland`. `--no-themes` skips the prompt and
+keeps previously deployed themes. No third-party modification system is installed.
+
+```bash
+aerolith themes list
+aerolith themes apply kitty foot hyprland --scheme bathyal --dry-run
+aerolith themes apply kitty foot hyprland
+aerolith themes status --json
+aerolith themes remove kitty foot hyprland
+```
+
+Exports use the installed direction and `config.json`'s `theme.scheme`
+(default `limb`); `--scheme` affects only this deployment. Changes to shell
+Settings do not refresh external apps yet (C06). Includes are backed up and
+tracked separately in the ownership manifest. Removing themes, or a full
+uninstall, removes their blocks while retaining other user edits and modified
+theme files. btop and Qt exports need manual selection in the application.
+See [per-app mechanisms and limits](themes/README.md#installer-deployment-c05).
+
 ## Claude Code + Codex sync
 
 Claude Code and Codex coordinate their work in this repository through a shared

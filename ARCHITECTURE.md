@@ -45,6 +45,19 @@ direction, and `Config.reload()` reloads only live config. CLI status reports
 the stored choice; `ControlSurface.status()` reports the running direction.
 `theme.intensity` remains independent and live-switchable.
 
+Optional app deployment lives in `installer/aerolith_install/themes.py`.
+`prepare_app(layout, manifest, assets, app, scheme, direction)` preflights one
+generated export without writes; `execute()` applies it, ready for a future
+C06 caller. It uses C01 direction metadata and the current scheme, never shell
+code or runtime hooks. User installs retain a private generated catalog in
+`data/theme-assets/schemes`; packages can ship `themes/schemes`. Selected
+payloads use `theme:<app>` manifest components; edits record exact inserted
+blocks, original backup paths and whether a minimal config was created. The
+additive manifest fields let this installer read earlier version-1 manifests.
+Startup blocks are removed before themes so a theme-created minimal Hyprland
+config can be deleted once empty; `hypr remove` removes only startup blocks.
+Modified owned payloads and ambiguous markers remain recorded for recovery.
+
 ## Surfaces
 
 The shell has four windows, all `PanelWindow`s on wlr-layer-shell. Each

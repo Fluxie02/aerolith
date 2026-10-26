@@ -60,6 +60,8 @@ class EditEntry:
     end: str
     backup: str
     component: str = "integration"
+    inserted: str = ""  # exact bytes (UTF-8) added by theme integration
+    created: bool = False  # config did not exist before this edit
 
 
 @dataclass
@@ -85,6 +87,7 @@ class Manifest:
     startup: str = "none"  # hyprland | systemd | manual | none
     hypr_dialect: str = "none"  # lua | hyprlang | none
     mode: str = "user"  # user | system (see paths.py)
+    themes: dict[str, dict] = field(default_factory=dict)
 
     # -- persistence -----------------------------------------------------------
     @classmethod
@@ -106,6 +109,7 @@ class Manifest:
             startup=data.get("startup", "none"),
             hypr_dialect=data.get("hypr_dialect", "none"),
             mode=data.get("mode", "user"),
+            themes=data.get("themes", {}),
         )
         m.files = [FileEntry(**f) for f in data.get("files", [])]
         m.edits = [EditEntry(**e) for e in data.get("edits", [])]

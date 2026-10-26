@@ -146,7 +146,7 @@ def has_block(text: str, begin: str) -> bool:
 
 def add_include(main: Path, lay: Layout, dialect: str, manifest: Manifest) -> EditEntry:
     """Append the include block to the main config after backing it up."""
-    text = main.read_text(encoding="utf-8")
+    text = main.read_bytes().decode("utf-8")
     begin, body, end = include_block(lay, dialect)
     existing = next((e for e in manifest.edits if e.file == str(main)), None)
     if has_block(text, begin):
@@ -158,8 +158,9 @@ def add_include(main: Path, lay: Layout, dialect: str, manifest: Manifest) -> Ed
     backup.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(main, backup)
     sep = "" if text.endswith("\n") or text == "" else "\n"
-    atomic_write(main, text + sep + "\n" + begin + "\n" + body + "\n" + end + "\n", main.stat().st_mode & 0o777)
-    entry = EditEntry(file=str(main), begin=begin, end=end, backup=str(backup))
+    inserted = sep + "\n" + begin + "\n" + body + "\n" + end + "\n"
+    atomic_write(main, text + inserted, main.stat().st_mode & 0o777)
+    entry = EditEntry(file=str(main), begin=begin, end=end, backup=str(backup), inserted=inserted)
     manifest.edits.append(entry)
     return entry
 
@@ -169,7 +170,10 @@ def remove_include(entry: EditEntry) -> str:
     p = Path(entry.file)
     if not p.is_file():
         return f"{p} no longer exists; nothing to remove"
-    text = p.read_text(encoding="utf-8")
+    text = p.read_bytes().decode("utf-8")
+    if entry.inserted and text.count(entry.inserted) == 1:
+        atomic_write(p, text.replace(entry.inserted, "", 1), p.stat().st_mode & 0o777)
+        return f"removed the AEROLITH block from {p}"
     # add_include appended "\n" + block; take that blank line with it so the
     # file returns to its previous content.
     pattern = re.compile(r"\n?" + re.escape(entry.begin) + r"\n.*?" + re.escape(entry.end) + r"(?:\n|$)", re.S)

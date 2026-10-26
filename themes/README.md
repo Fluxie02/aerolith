@@ -11,10 +11,77 @@ opt-in payloads; the shell picker currently changes the shell immediately and
 does not install or reload app themes.
 [Generation, contrast and format evidence](../docs/design/schemes/APP-THEMES.md).
 
-Optional, uninstalled theme fragments for owner review. Claude will integrate
-these with the installer after approval. They share Limb's palette and work
-with both Saturated and Insane; intensity changes shell instrumentation, not
+Optional theme fragments, deployed only with explicit installer consent.
+They share Limb's palette and work with both Saturated and Insane; intensity changes shell instrumentation, not
 application colours. The shell does not rewrite application configuration.
+
+## Installer deployment (C05)
+
+`aerolith themes list` reports supported targets, config-directory/binary
+detection and applied state. Detection is a hint, not a prerequisite.
+`aerolith themes status --json` includes recorded scheme/direction, integrity
+and selection instructions. For btop/Qt, **applied means the selectable payload
+is deployed**, not that the app has selected it. No application is launched.
+
+```sh
+aerolith install --yes --ai none --startup manual --themes kitty,foot,hyprland
+aerolith themes apply kitty alacritty foot --scheme iris --dry-run
+aerolith themes apply kitty alacritty foot --scheme iris
+aerolith themes remove kitty alacritty foot
+```
+
+The installer offers an empty selection; Enter, `--yes` and non-interactive
+installs select nothing. `--no-themes` skips selection without removing earlier
+exports. Explicit `--themes` and `--no-themes` are mutually exclusive.
+`--no-hypr` conflicts with opting in to `hyprland`.
+
+| Target ID | Integration mechanism | Activation / limit |
+| --- | --- | --- |
+| `kitty` | Marked `include` in `kitty/kitty.conf`; owned payload in `$XDG_DATA_HOME/aerolith/themes/kitty/` | Reload/restart; unrelated includes retained |
+| `alacritty` | Marked addition to `[general].import` in `alacritty/alacritty.toml`; owned data payload | TOML arrays extended without rewriting; root/legacy, dotted and inline general configurations need manual migration |
+| `foot` | Marked `include=` before any section in `foot/foot.ini`; owned data payload | foot 1.26+; main-config values retain their precedence |
+| `btop` | `btop/themes/aerolith.theme` | Select aerolith in btop's chooser; btop.conf unchanged |
+| `hyprland` | Marked `dofile` (Lua) or `source` (hyprlang), loading shared `aerolith` and installed `piyti`/`thears` rules | Existing dialect retained, Lua default when missing; reload manually |
+| `gtk3`, `gtk4` | Marked `@import` **before** existing CSS in `gtk-3.0/gtk.css` / `gtk-4.0/gtk.css`; owned data payload | Restart GTK apps; no settings.ini, GTK_THEME or underlying theme changes |
+| `qt5ct`, `qt6ct` | Manager `colors/aerolith.conf` and `qss/aerolith.qss` directories | Select palette and optional QSS manually; no Qt preference or environment changes |
+
+Paths above are relative to `$XDG_CONFIG_HOME`, except the owned data payloads.
+Missing include configs are minimal, recorded as created, and removed when
+empty on removal. btop/Qt do not need a generated application config. Existing
+user files get unique backups in `$XDG_STATE_HOME/aerolith/backups/themes/`
+before edits, including removal. Removal deletes only the exact insertion or
+its complete marker block, retaining other changes. Modified payloads are
+kept and remain in the manifest; `--force` does not discard modified app themes.
+An existing unowned destination, unrecorded matching include, edited block on
+reapply, incomplete/ambiguous markers or symlinked path is refused. Repair or
+move the relevant file before retrying. Includes in alternate application
+config paths are not followed. Alacritty's alternate/legacy configs are
+detected and refused rather than shadowed with a new canonical config.
+
+Assets come from `schemes/<id>/`, using C01 `installation.json` direction and
+`config.json` `theme.scheme` (default `limb`). `--scheme` changes only deployed
+exports. All twelve generated schemes are accepted; runtime refresh is C06.
+Source installations retain the generated catalog independently of the checkout.
+Packaged installs need to ship that catalog; absent assets produce an error.
+Explicit multi-app apply preflights every target before writing. Interrupted
+filesystem operations retain recorded progress for removal; there is no global
+transaction or concurrent-writer lock. Avoid simultaneous app-config edits.
+
+Firefox, Steam, Discord, LibreOffice and ArtCraft are listed as **not yet
+supported** by deployment. Firefox needs an explicitly named profile and
+`toolkit.legacyUserProfileCustomizations.stylesheets` enabled by its user;
+the CLI does not edit prefs.js or user.js. Steam needs an existing Millennium
+theme directory, Discord an existing Vencord theme directory, and each needs
+manual selection. Neither mod is installed. LibreOffice needs safe extension
+registration/removal; ArtCraft's adapter is debug-only. Their assets are
+unchanged and remain available for documented manual setup below.
+
+For Astra: the generator named in the catalog/docs,
+`tools/gen-scheme-themes.mjs`, is missing in this C05 base checkout. No fragment
+defect was found in the executed native parser checks; the assets were not
+modified. The earlier GTK placement prose said to append `@import` after
+existing rules; C05 prepends it to keep the import before CSS rules.
+See [C05 verification](../docs/verification/C05/README.md).
 
 | Application | Fragment | Integration point for Claude |
 | --- | --- | --- |
@@ -66,7 +133,7 @@ Upstream format references checked on 22 October 2026:
 ## GTK 3 — system monitors, audio/network settings, file dialogs
 
 For Claude's later integration, merge an `@import url("/absolute/path/to/themes/gtk-3.0/gtk.css");`
-at the end of the existing `$XDG_CONFIG_HOME/gtk-3.0/gtk.css` (normally
+before existing rules in `$XDG_CONFIG_HOME/gtk-3.0/gtk.css` (normally
 `~/.config/gtk-3.0/gtk.css`). Keep the user's existing CSS and make the import
 removable. The fragment sits above stock Adwaita; it is not a named GTK theme.
 GTK 3.24 is the target. Choose Adwaita's dark variant in GTK settings when
@@ -82,7 +149,7 @@ Server-decorated window clipping comes from the existing Hyprland fragment.
 
 ## GTK 4 / libadwaita — modern settings and portal dialogs
 
-Merge `@import url("/absolute/path/to/themes/gtk-4.0/gtk.css");` into the end
+Merge `@import url("/absolute/path/to/themes/gtk-4.0/gtk.css");` at the beginning
 of `$XDG_CONFIG_HOME/gtk-4.0/gtk.css`. Keep Adwaita/libadwaita as the underlying
 stylesheet. The fragment provides named window/view/headerbar/sidebar,
 accent and semantic colours, then narrow shape, selection and keyboard-focus
