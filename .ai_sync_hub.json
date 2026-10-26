@@ -5,19 +5,129 @@
     "description": "Shared coordination state for Claude Code and Codex.",
     "repository_root": "."
   },
-  "system_state": "Claude_Performance_Audit",
+  "system_state": "Astra_Design_Phase",
   "workflow": {
     "current_task_id": "UI-016",
-    "current_owner": "Claude",
-    "last_transition_at": "2026-10-26T16:25:08+00:00",
-    "transition_reason": "Astra explicitly published design_complete",
+    "current_owner": "Astra",
+    "last_transition_at": "2026-10-26T16:37:28+00:00",
+    "transition_reason": "Explicit owner assignment: E01/E02 shader visual implementation, isolated worktree",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Multiple",
+    "files": [
+      "ARCHITECTURE.md",
+      "README.md",
+      "docs/design/shaders",
+      "docs/design/shaders/README.md",
+      "docs/design/shaders/SYSTEMS-REQUESTS.md",
+      "docs/verification/C05/README.md",
+      "installer/aerolith_install/cli.py",
+      "installer/aerolith_install/hypr.py",
+      "installer/aerolith_install/manifest.py",
+      "installer/aerolith_install/themes.py",
+      "installer/aerolith_install/ui.py",
+      "shell/components/ChordSlot.qml",
+      "shell/components/Counterphase.qml",
+      "shell/components/Material.qml",
+      "shell/components/ShearField.qml",
+      "shell/components/WorkspaceOrbit.qml",
+      "shell/core/Theme.qml",
+      "shell/modules/osd/OsdHost.qml",
+      "shell/shaders",
+      "shell/shaders/annulus.frag",
+      "shell/shaders/annulus.frag.qsb",
+      "shell/shaders/bevel.frag",
+      "shell/shaders/bevel.frag.qsb",
+      "shell/shaders/catch.frag",
+      "shell/shaders/catch.frag.qsb",
+      "shell/shaders/material.glsl",
+      "shell/shaders/undercarriage.frag",
+      "shell/shaders/undercarriage.frag.qsb",
+      "tests/py/test_installer.py",
+      "tests/scenarios/installed.sh",
+      "themes/README.md",
+      "tools/build-shaders.sh",
+      "tools/headless/run.sh",
+      "tools/headless/session.sh"
+    ],
+    "locks": [
+      {
+        "lock_id": "d33ef97b-d29a-4317-b25c-ceb5e2e01290",
+        "agent": "Sol",
+        "files": [
+          "ARCHITECTURE.md",
+          "README.md",
+          "docs/verification/C05/README.md",
+          "installer/aerolith_install/cli.py",
+          "installer/aerolith_install/manifest.py",
+          "installer/aerolith_install/themes.py",
+          "installer/aerolith_install/ui.py",
+          "tests/py/test_installer.py",
+          "tests/scenarios/installed.sh",
+          "themes/README.md"
+        ],
+        "task_id": "C05",
+        "created_at": "2026-10-26T16:36:26+00:00",
+        "expires_epoch": 1793046986.4452515,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "b9e3cb2f-5fba-4c1a-829f-57b00fc40bd7",
+        "agent": "Astra",
+        "files": [
+          "docs/design/shaders",
+          "shell/components/ChordSlot.qml",
+          "shell/components/Counterphase.qml",
+          "shell/components/Material.qml",
+          "shell/components/ShearField.qml",
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/core/Theme.qml",
+          "shell/modules/osd/OsdHost.qml",
+          "shell/shaders",
+          "tools/build-shaders.sh",
+          "tools/headless/run.sh",
+          "tools/headless/session.sh"
+        ],
+        "task_id": "E01",
+        "created_at": "2026-10-26T16:37:28+00:00",
+        "expires_epoch": 1793047048.411727,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "8c1854ae-d5bb-40ef-af48-71f3de0b2a93",
+        "agent": "Astra",
+        "files": [
+          "docs/design/shaders/README.md",
+          "docs/design/shaders/SYSTEMS-REQUESTS.md",
+          "shell/shaders/annulus.frag",
+          "shell/shaders/annulus.frag.qsb",
+          "shell/shaders/bevel.frag",
+          "shell/shaders/bevel.frag.qsb",
+          "shell/shaders/catch.frag",
+          "shell/shaders/catch.frag.qsb",
+          "shell/shaders/material.glsl",
+          "shell/shaders/undercarriage.frag",
+          "shell/shaders/undercarriage.frag.qsb"
+        ],
+        "task_id": "E01",
+        "created_at": "2026-10-26T16:39:45+00:00",
+        "expires_epoch": 1793047185.9580295,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "51cbe7fa-a960-4707-a8e6-26d346b165d9",
+        "agent": "Sol",
+        "files": [
+          "installer/aerolith_install/hypr.py"
+        ],
+        "task_id": "C05",
+        "created_at": "2026-10-26T16:40:15+00:00",
+        "expires_epoch": 1793047215.8608382,
+        "ttl_seconds": 14400
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -5621,6 +5731,33 @@
       "notes": "Evidence: docs/design/notices/README.md and verification/CHECKS.md. Old layout reproduced and fails geometry assertion. Final Node 130/130; notify CONFIG=tests/fixtures/notify-config.json, deck AUDIO=1, smoke, fullscreen AUDIO=1 with notification fixture all exit 0. Matrix 17 profiles/340 snapshots including both directions/intensities, 1080p and 720p uiScale 1.25/1.5, eight bays, eight cards, off/reduced/lowEffects, bottom strip, installed AI. Read 21 final qs logs: no QML engine errors. Read-only systems review: no D03 lifecycle changes required; NoticeColumn visible/PanelWindow existence, Deck.qml, services, config and schema untouched. P3 follow-up for Sol: fullscreen.sh:136 survivor-count timing under concurrent load; isolated final run passes 20 cycles and RSS screen. Headless software evidence only; real Hyprland/GPU QA remains. No commit and no cloud-agent dispatch.",
       "task_id": "D03",
       "timestamp": "2026-10-26T16:25:08+00:00"
+    },
+    {
+      "id": "58618f17-754b-41f8-950b-9d3f34e81a08",
+      "type": "note",
+      "agent": "Sol",
+      "files": [],
+      "summary": "Starting user-assigned C05 opt-in app theme deployment; shared workflow remains UI-016/Claude, no active file locks.",
+      "notes": "Explicit user assignment authorizes installer/tests/docs work as Sol. No visual assets will change. Opus review requested at handoff, no dispatcher invoked.",
+      "task_id": "C05",
+      "timestamp": "2026-10-26T16:36:26+00:00"
+    },
+    {
+      "id": "0357032c-a232-440a-8871-45db140509a7",
+      "type": "note",
+      "agent": "Astra",
+      "files": [],
+      "summary": "Owner explicitly assigned E01/E02 to Astra; beginning visual shader work in isolated codex/design-259cfec9",
+      "notes": "Shared hub retains UI-016/Claude_Performance_Audit from prior completion. This explicit owner assignment authorizes E01 visual work; no systems lifecycle changes. Locks follow before edits.",
+      "task_id": "E01",
+      "timestamp": "2026-10-26T16:37:14+00:00"
+    },
+    {
+      "id": "521df35b-a4bc-42b9-ab4c-cb7920ccf33c",
+      "type": "state_transition",
+      "state": "Astra_Design_Phase",
+      "reason": "Explicit owner assignment: E01/E02 shader visual implementation, isolated worktree",
+      "timestamp": "2026-10-26T16:37:28+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8146,19 +8283,12 @@
   ],
   "last_agent_event": {
     "agent": "Astra",
-    "type": "design_complete",
-    "files": [
-      "shell/modules/deck/DeckView.qml",
-      "shell/modules/notices/NoticeStack.qml",
-      "shell/modules/notices/NoticeColumn.qml",
-      "tests/scenarios/notices-layout.sh",
-      "tests/scenarios/notices-layout-matrix.sh",
-      "docs/design/notices"
-    ],
-    "summary": "D03 complete: bounded notice lane below the Deck rail; both retained bays reserve its width; overflow scrolls within the output",
-    "notes": "Evidence: docs/design/notices/README.md and verification/CHECKS.md. Old layout reproduced and fails geometry assertion. Final Node 130/130; notify CONFIG=tests/fixtures/notify-config.json, deck AUDIO=1, smoke, fullscreen AUDIO=1 with notification fixture all exit 0. Matrix 17 profiles/340 snapshots including both directions/intensities, 1080p and 720p uiScale 1.25/1.5, eight bays, eight cards, off/reduced/lowEffects, bottom strip, installed AI. Read 21 final qs logs: no QML engine errors. Read-only systems review: no D03 lifecycle changes required; NoticeColumn visible/PanelWindow existence, Deck.qml, services, config and schema untouched. P3 follow-up for Sol: fullscreen.sh:136 survivor-count timing under concurrent load; isolated final run passes 20 cycles and RSS screen. Headless software evidence only; real Hyprland/GPU QA remains. No commit and no cloud-agent dispatch.",
-    "task_id": "D03",
-    "timestamp": "2026-10-26T16:25:08+00:00"
+    "type": "note",
+    "files": [],
+    "summary": "Owner explicitly assigned E01/E02 to Astra; beginning visual shader work in isolated codex/design-259cfec9",
+    "notes": "Shared hub retains UI-016/Claude_Performance_Audit from prior completion. This explicit owner assignment authorizes E01 visual work; no systems lifecycle changes. Locks follow before edits.",
+    "task_id": "E01",
+    "timestamp": "2026-10-26T16:37:14+00:00"
   },
-  "updated_at": "2026-10-26T16:25:08+00:00"
+  "updated_at": "2026-10-26T16:40:15+00:00"
 }
