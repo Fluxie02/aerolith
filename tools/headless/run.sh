@@ -5,7 +5,14 @@
 # default shell; for prototypes), AUDIO, MEDIA, AI, AI_PROVIDER, INSTALL, RES, SCALE, HYPR_MOCK, HYPR_MOCK_ARGS,
 # CONFIG (path to a config.json to install), ROUTINES (routines.json),
 # PKGS (directory of built Arch packages to install with pacman -U first;
-# the scenario then runs against the packaged tree, see tools/package/build.sh).
+# the scenario then runs against the packaged tree, see tools/package/build.sh),
+# BACKLIGHT=1 (a fake backlight and brightnessctl for the brightness service).
+#
+# Run scenarios one at a time. Keyboard input is injected with wtype, and
+# with several sessions rendering in software at once keys are dropped
+# (measured: the AI scenario passed 12 of 12 runs sequentially, 9 of 12 with
+# four in parallel). Scenarios that type wait for real state and retype where
+# that is safe, but parallel runs are not a supported mode.
 set -euo pipefail
 here=$(cd "$(dirname "$0")/../.." && pwd)
 scenario=${1:?usage: run.sh <scenario.sh> [output-dir]}
