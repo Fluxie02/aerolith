@@ -1,0 +1,7 @@
+[E][16:22:32.052442] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:22:32.052474] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][16:22:32.063942] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:22:32.064098] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][16:22:32.075006] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:22:32.075028] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+notices-layout: ok (20 geometry snapshots, all 8 bays, 8 cards, overflow and reopen)

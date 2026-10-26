@@ -1,0 +1,10 @@
+{
+  "base_commit": "4f9944bad72557ba0a2b57c2fcea57555688fd7d",
+  "sha256": {
+    "shell/modules/deck/DeckView.qml": "2307f0bf19bc8bc821eddf23aa20b7f796fa65451a4799a7f2be8528e8f8618e",
+    "shell/modules/notices/NoticeStack.qml": "fc0c1967ec2cc3edd2ae7717ba36d211d590b26d81d23a9a1b9214929d41cc0c",
+    "shell/modules/notices/NoticeColumn.qml": "35328471184b894dad91578ada499a24fc5f9e79d7843f3309038816871bd8a4",
+    "tests/scenarios/notices-layout.sh": "2b659d7a99982e6e039cceebc4b7c3a219d341d0c8dbf8f54b2aa782c378cc0b",
+    "tests/scenarios/notices-layout-matrix.sh": "ad56e8ea04a4a8cda1655bf1c92e5bc2dd204b0f7f75ee0007e26a6721dbb0c6"
+  }
+}

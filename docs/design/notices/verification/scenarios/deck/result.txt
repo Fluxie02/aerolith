@@ -1,0 +1,8 @@
+[E][16:19:36.976632] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:19:36.976670] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][16:19:36.987534] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:19:36.987568] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][16:19:36.998257] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:19:36.998298] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+deck: exit ended early (motion off 133 ms after close)
+deck: ok

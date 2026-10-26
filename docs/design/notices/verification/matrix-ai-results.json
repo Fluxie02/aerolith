@@ -1,0 +1,16 @@
+[
+  {
+    "cell": "piyti-insane-720large-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "installed fixture (fake provider, no query)"
+  },
+  {
+    "cell": "thears-insane-720large-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "installed fixture (fake provider, no query)"
+  }
+]

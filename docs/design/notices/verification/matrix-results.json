@@ -1,0 +1,107 @@
+[
+  {
+    "cell": "piyti-insane-1080-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "piyti-insane-720-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "piyti-insane-720large-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "piyti-insane-720large-reduced-bottom",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "piyti-saturated-1080-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "piyti-saturated-720-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "piyti-saturated-720-off-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "piyti-saturated-720large-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "thears-insane-1080-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "thears-insane-720-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "thears-insane-720large-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "thears-insane-720large-lowEffects-bottom",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "thears-saturated-1080-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "thears-saturated-720-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  },
+  {
+    "cell": "thears-saturated-720large-full-top",
+    "exit_code": 0,
+    "snapshots": 20,
+    "cards_in_burst": 8,
+    "ai": "not-installed fallback"
+  }
+]

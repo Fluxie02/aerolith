@@ -20,6 +20,7 @@ Item {
     readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
     readonly property string shownBay: Ui.activeBay || (deck.slotA.leaving ? deck.slotA.bay : deck.slotB.bay)
     readonly property string shownCode: codes[shownBay] || "—"
+    readonly property real noticeReserve: deckNotices.hasContent ? deckNotices.width + 2 * Theme.pad : 0
 
     // Keep the strip, especially its sharing indicator, visible above the ground.
     Item {
@@ -66,8 +67,19 @@ Item {
         currentIndex: view.railEntries.map(r => r.bay).indexOf(Ui.activeBay)
         onChosen: index => Ui.open(view.railEntries[index].bay)
     }
-    ChordSlot { id: frameA; slot: view.deck.slotA }
-    ChordSlot { id: frameB; slot: view.deck.slotB }
+    // Notices own a lane below the rail, beside the working planes. Reserve
+    // its width in the bays too: merely lowering a toast covers bay controls
+    // on compact outputs. Both retained slots share the same constraint.
+    ChordSlot {
+        id: frameA
+        slot: view.deck.slotA
+        width: Math.max(0, view.width - leftOrigin - view.width * (compactScreen ? .045 : .08) - view.noticeReserve)
+    }
+    ChordSlot {
+        id: frameB
+        slot: view.deck.slotB
+        width: Math.max(0, view.width - leftOrigin - view.width * (compactScreen ? .045 : .08) - view.noticeReserve)
+    }
 
     // A clipped elevation sits beside the command plane, leaving the live
     // controls rectangular. Its label changes only with actual bay state.
@@ -153,14 +165,13 @@ Item {
         color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
     }
     NoticeStack {
+        id: deckNotices
         z: 10
         anchors.right: parent.right
-        anchors.top: Config.strip.edge === "top" ? parent.top : undefined
-        anchors.bottom: Config.strip.edge === "bottom" ? parent.bottom : undefined
-        anchors.margins: Theme.pad
-        anchors.topMargin: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.pad
-        anchors.bottomMargin: (Config.strip.edge === "bottom" ? Theme.stripHeight : 0) + Theme.pad
-        width: Math.min(implicitWidth, view.width - 2 * Theme.pad)
+        anchors.rightMargin: Theme.pad
+        y: railRow.y + railRow.height + Theme.pad
+        width: Math.min(implicitWidth, view.width * .32)
+        maximumHeight: Math.max(0, view.height - y - Theme.pad - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0))
         visible: hasContent
     }
     Component {
