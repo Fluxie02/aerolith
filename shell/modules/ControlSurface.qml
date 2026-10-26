@@ -82,7 +82,8 @@ Scope {
                 fullscreen: ShellState.fullscreen,
                 fullscreenOwner: ShellState.ownerClass,
                 surfacesReleased: ShellState.surfacesReleased,
-                ambient: Theme.ambient
+                ambient: Theme.ambient,
+                osd: Ui.osdKind
             });
         }
         // Diagnostics: how PipeWire nodes are classified (no volumes or
