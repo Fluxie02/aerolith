@@ -15,41 +15,9 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Sol",
-    "files": [
-      "docs/verification/B05/README.md",
-      "tests/py/test_mock_hyprland.py",
-      "tests/scenarios/fullscreen-matrix.sh",
-      "tests/scenarios/fullscreen.sh",
-      "tools/mock-hyprland/mock_hyprland.py"
-    ],
-    "locks": [
-      {
-        "lock_id": "4aab9297-8573-4eeb-97bf-bb86fe7abc2b",
-        "agent": "Sol",
-        "files": [
-          "docs/verification/B05/README.md",
-          "tests/scenarios/fullscreen-matrix.sh",
-          "tests/scenarios/fullscreen.sh",
-          "tools/mock-hyprland/mock_hyprland.py"
-        ],
-        "task_id": "B05",
-        "created_at": "2026-10-26T15:41:05+00:00",
-        "expires_epoch": 1793043665.2762778,
-        "ttl_seconds": 14400
-      },
-      {
-        "lock_id": "1b1c4338-66c3-4833-bd6a-57182ad79396",
-        "agent": "Sol",
-        "files": [
-          "tests/py/test_mock_hyprland.py"
-        ],
-        "task_id": "B05",
-        "created_at": "2026-10-26T15:44:20+00:00",
-        "expires_epoch": 1793043860.6917622,
-        "ttl_seconds": 14400
-      }
-    ]
+    "locked_by": "None",
+    "files": [],
+    "locks": []
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -5544,6 +5512,30 @@
       "notes": "",
       "task_id": "B05",
       "timestamp": "2026-10-26T15:41:05+00:00"
+    },
+    {
+      "id": "5c3ab82c-d8c7-42db-8fcd-a342be7fb845",
+      "type": "blocked",
+      "agent": "Sol",
+      "files": [
+        "tests/scenarios/fullscreen.sh",
+        "tests/scenarios/fullscreen-matrix.sh",
+        "tests/py/test_mock_hyprland.py",
+        "tools/mock-hyprland/mock_hyprland.py",
+        "docs/verification/B05"
+      ],
+      "summary": "B05 test work ended: fullscreen focus restoration defect requires Opus; matrix incomplete",
+      "notes": "697b3da: PIYTI/Saturated 20 cycles; RSS KiB 146508/162988/163164; focus to floating non-fullscreen client leaves phase suspended (shellstate.mjs:56-61). Smoke and Deck pass; Node 129/129; mock pytest 2/2; no QML errors in four logs. No shell changes. Reproduction and incomplete-cell limits in docs/verification/B05/README.md.",
+      "task_id": "B05",
+      "timestamp": "2026-10-26T15:52:28+00:00"
+    },
+    {
+      "id": "be9acac5-dadc-41ed-9450-c1470d07bc78",
+      "type": "blocked",
+      "agent": "Sol",
+      "summary": "B05 test work ended: fullscreen focus restoration defect requires Opus; matrix incomplete",
+      "notes": "697b3da: PIYTI/Saturated 20 cycles; RSS KiB 146508/162988/163164; focus to floating non-fullscreen client leaves phase suspended (shellstate.mjs:56-61). Smoke and Deck pass; Node 129/129; mock pytest 2/2; no QML errors in four logs. No shell changes. Reproduction and incomplete-cell limits in docs/verification/B05/README.md.",
+      "timestamp": "2026-10-26T15:52:28+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7889,6 +7881,7 @@
     "docs/design/thears-piyti/verification/validate-themes.py",
     "docs/design/unhinged",
     "docs/verification/A03/README.md",
+    "docs/verification/B05",
     "docs/verification/B05/README.md",
     "prototypes/README.md",
     "prototypes/accessibility.json",
@@ -8009,6 +8002,7 @@
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/schemes.test.mjs",
+    "tests/py/test_mock_hyprland.py",
     "tests/scenarios/fullscreen-matrix.sh",
     "tests/scenarios/fullscreen.sh",
     "themes",
@@ -8049,17 +8043,18 @@
   ],
   "last_agent_event": {
     "agent": "Sol",
-    "type": "note",
+    "type": "blocked",
     "files": [
       "tests/scenarios/fullscreen.sh",
       "tests/scenarios/fullscreen-matrix.sh",
+      "tests/py/test_mock_hyprland.py",
       "tools/mock-hyprland/mock_hyprland.py",
-      "docs/verification/B05/README.md"
+      "docs/verification/B05"
     ],
-    "summary": "B05 assigned explicitly to Sol by user and ROADMAP; shared workflow still names Claude/UI-016; no active locks",
-    "notes": "",
+    "summary": "B05 test work ended: fullscreen focus restoration defect requires Opus; matrix incomplete",
+    "notes": "697b3da: PIYTI/Saturated 20 cycles; RSS KiB 146508/162988/163164; focus to floating non-fullscreen client leaves phase suspended (shellstate.mjs:56-61). Smoke and Deck pass; Node 129/129; mock pytest 2/2; no QML errors in four logs. No shell changes. Reproduction and incomplete-cell limits in docs/verification/B05/README.md.",
     "task_id": "B05",
-    "timestamp": "2026-10-26T15:41:05+00:00"
+    "timestamp": "2026-10-26T15:52:28+00:00"
   },
-  "updated_at": "2026-10-26T15:44:20+00:00"
+  "updated_at": "2026-10-26T15:52:29+00:00"
 }
