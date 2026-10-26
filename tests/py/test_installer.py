@@ -338,7 +338,7 @@ def test_layer_rules_managed_roundtrip(system, home, dialect):
     main.write_text(main.read_text() + user_rule)
     original = main.read_bytes()
     expected = [rule(ns) for ns in (
-        "aerolith-ground", "aerolith-strip", "aerolith-deck", "aerolith-notices", "aerolith-osd",
+        "aerolith-ground", "aerolith-strip", "aerolith-deck", "aerolith-notices", "aerolith-osd", "aerolith-session",
     )]
     frag = hypr.fragment_path(lay, dialect)
     assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0

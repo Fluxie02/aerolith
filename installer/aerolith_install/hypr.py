@@ -29,7 +29,7 @@ END_CONF = "# <<< AEROLITH"
 # Keep exact matches: other applications (and future surfaces) retain their policy.
 LAYER_NAMESPACES = (
     "aerolith-ground", "aerolith-strip", "aerolith-deck",
-    "aerolith-notices", "aerolith-osd",
+    "aerolith-notices", "aerolith-osd", "aerolith-session",
 )
 
 # name -> (modifiers, key, description). Function keys are rarely bound, so
@@ -40,6 +40,7 @@ DEFAULT_BINDS: dict[str, tuple[str, str, str]] = {
     "systems": ("SUPER", "F9", "AEROLITH: Systems Bay"),
     "signal": ("SUPER", "F10", "AEROLITH: Signal Rack"),
     "routines": ("SUPER", "F11", "AEROLITH: Routine Console"),
+    "session": ("SUPER SHIFT", "ESCAPE", "AEROLITH: session menu"),
 }
 AI_BIND = ("ai", ("SUPER", "F12", "AEROLITH: AI Bridge"))
 MEDIA_BINDS: dict[str, tuple[str, str, str]] = {
