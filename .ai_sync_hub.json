@@ -9,7 +9,7 @@
   "workflow": {
     "current_task_id": "UI-016",
     "current_owner": "Astra",
-    "last_transition_at": "2026-10-26T19:29:57+00:00",
+    "last_transition_at": "2026-10-26T20:12:03+00:00",
     "transition_reason": "Claude explicitly published integration_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
@@ -2533,6 +2533,19 @@
         ],
         "response": "Visual/spatial audit of the integration",
         "summary": "D07 revision after Sol's review (9a41584): reload fails closed, file watching paused while locked, lock confirmed via secure, every PAM prompt handled + watchdog, view in Loader, passwordMaskDelay 0. Astra: LockView.qml got one security line (passwordMaskDelay: 0), no visual change. Evidence: lock.sh, lock-multistep.sh, smoke, session pass; new checks fail on old code.",
+        "notes": "",
+        "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-26T20:12:03+00:00",
+        "task_id": "D07-R2",
+        "files": [
+          "shell/modules/lock/LockHost.qml",
+          "tests/scenarios/lock.sh",
+          "tests/scenarios/lock-multistep.sh"
+        ],
+        "response": "Visual/spatial audit of the integration",
+        "summary": "D07 second revision after Sol's re-review: pending lock never withdrawn, single deadline, no PAM before confirmation, tighter tests. lock, lock-multistep, smoke, session pass. Residual fail-closed risks documented.",
         "notes": "",
         "status": "pending"
       }
@@ -5888,6 +5901,20 @@
       "notes": "",
       "task_id": "D07-R",
       "timestamp": "2026-10-26T19:29:57+00:00"
+    },
+    {
+      "id": "12595097-e36b-45d0-99f2-bb61de187cb2",
+      "type": "integration_complete",
+      "agent": "Claude",
+      "files": [
+        "shell/modules/lock/LockHost.qml",
+        "tests/scenarios/lock.sh",
+        "tests/scenarios/lock-multistep.sh"
+      ],
+      "summary": "D07 second revision after Sol's re-review: pending lock never withdrawn, single deadline, no PAM before confirmation, tighter tests. lock, lock-multistep, smoke, session pass. Residual fail-closed risks documented.",
+      "notes": "",
+      "task_id": "D07-R2",
+      "timestamp": "2026-10-26T20:12:03+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8444,20 +8471,13 @@
     "type": "integration_complete",
     "files": [
       "shell/modules/lock/LockHost.qml",
-      "shell/modules/lock/LockView.qml",
-      "shell/core/Ui.qml",
-      "shell/services/Power.qml",
-      "shell/modules/ControlSurface.qml",
       "tests/scenarios/lock.sh",
-      "tests/scenarios/lock-multistep.sh",
-      "tools/headless/run.sh",
-      "tools/headless/session.sh",
-      ".github/workflows/ci.yml"
+      "tests/scenarios/lock-multistep.sh"
     ],
-    "summary": "D07 revision after Sol's review (9a41584): reload fails closed, file watching paused while locked, lock confirmed via secure, every PAM prompt handled + watchdog, view in Loader, passwordMaskDelay 0. Astra: LockView.qml got one security line (passwordMaskDelay: 0), no visual change. Evidence: lock.sh, lock-multistep.sh, smoke, session pass; new checks fail on old code.",
+    "summary": "D07 second revision after Sol's re-review: pending lock never withdrawn, single deadline, no PAM before confirmation, tighter tests. lock, lock-multistep, smoke, session pass. Residual fail-closed risks documented.",
     "notes": "",
-    "task_id": "D07-R",
-    "timestamp": "2026-10-26T19:29:57+00:00"
+    "task_id": "D07-R2",
+    "timestamp": "2026-10-26T20:12:03+00:00"
   },
-  "updated_at": "2026-10-26T19:50:21+00:00"
+  "updated_at": "2026-10-26T20:12:03+00:00"
 }
