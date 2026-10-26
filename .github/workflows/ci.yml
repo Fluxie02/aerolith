@@ -1,0 +1,408 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      fullscreen_matrix:
+        description: Run the long fullscreen matrix
+        type: boolean
+        default: false
+  schedule:
+    - cron: '23 4 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  AEROLITH_DEV_IMAGE: aerolith-dev
+
+jobs:
+  fast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: codex-mcp-bridge/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependency
+        run: python3 -m pip install pytest==8.4.2
+      - name: Node unit tests
+        run: node tests/js/run-node.mjs
+      - name: Python and installer unit tests
+        run: python3 -m pytest -q tests/py
+      - name: Generated schemes
+        run: node tools/gen-scheme-themes.mjs --check
+      - name: Generated config schema and docs
+        run: |
+          node tools/gen-schema.mjs
+          node tools/gen-config-doc.mjs
+          git diff --exit-code -- shell/schema/config.schema.json docs/CONFIGURATION.md
+      # gen-commands-doc.py requires the live IPC catalogue: checked in headless.
+      - name: Shell syntax
+        run: |
+          while IFS= read -r -d '' script; do
+            bash -n "$script"
+          done < <(find tests tools -type f -name '*.sh' -print0)
+      - name: Whitespace
+        run: git diff --check
+      - name: Build Codex MCP bridge
+        working-directory: codex-mcp-bridge
+        run: |
+          npm ci
+          npm run build
+
+  dev-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v3
+      - name: Build dev image (downstream jobs restore the same layer cache)
+        id: image
+        uses: docker/build-push-action@v6
+        with:
+          context: tools/devcontainer
+          file: tools/devcontainer/Containerfile
+          tags: aerolith-dev
+          load: true
+          cache-from: type=gha,scope=aerolith-dev
+          cache-to: type=gha,scope=aerolith-dev,mode=max
+      - name: Qt V4 unit tests
+        run: |
+          docker run --rm -v "$PWD:/src:ro" "$AEROLITH_DEV_IMAGE" bash -c \
+            'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'
+      - name: Compiled shaders are current
+        run: |
+          docker run --rm -v "$PWD:/src:ro" "$AEROLITH_DEV_IMAGE" bash tools/build-shaders.sh --check
+
+  headless:
+    needs: [fast, dev-image]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v3
+      - name: Build dev image (downstream jobs restore the same layer cache)
+        id: image
+        uses: docker/build-push-action@v6
+        with:
+          context: tools/devcontainer
+          file: tools/devcontainer/Containerfile
+          tags: aerolith-dev
+          load: true
+          cache-from: type=gha,scope=aerolith-dev
+          cache-to: type=gha,scope=aerolith-dev,mode=max
+      # Each scenario finishes before the next starts; wtype loses keys in parallel.
+      # Keep running independent scenarios after a failure. Artifacts are failure-only.
+      - name: smoke
+        id: smoke
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/smoke.sh build/ci/smoke
+      - name: Upload failed smoke output
+        if: ${{ failure() && steps.smoke.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-failure
+          path: build/ci/smoke/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: full
+        id: full
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/ci/full
+      - name: Upload failed full output
+        if: ${{ failure() && steps.full.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-failure
+          path: build/ci/full/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: deck
+        id: deck
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/ci/deck
+      - name: Upload failed deck output
+        if: ${{ failure() && steps.deck.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: deck-failure
+          path: build/ci/deck/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: notify
+        id: notify
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/notify.sh build/ci/notify
+      - name: Upload failed notify output
+        if: ${{ failure() && steps.notify.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: notify-failure
+          path: build/ci/notify/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: ai-claude
+        id: ai-claude
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AI=1 AUDIO=1 AI_PROVIDER=claude tools/headless/run.sh tests/scenarios/ai.sh build/ci/ai-claude
+      - name: Upload failed ai-claude output
+        if: ${{ failure() && steps.ai-claude.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-claude-failure
+          path: build/ci/ai-claude/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: ai-codex
+        id: ai-codex
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AI=1 AUDIO=1 AI_PROVIDER=codex tools/headless/run.sh tests/scenarios/ai.sh build/ci/ai-codex
+      - name: Upload failed ai-codex output
+        if: ${{ failure() && steps.ai-codex.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-codex-failure
+          path: build/ci/ai-codex/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: osd
+        id: osd
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AUDIO=1 tools/headless/run.sh tests/scenarios/osd.sh build/ci/osd
+      - name: Upload failed osd output
+        if: ${{ failure() && steps.osd.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: osd-failure
+          path: build/ci/osd/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: brightness
+        id: brightness
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          BACKLIGHT=1 tools/headless/run.sh tests/scenarios/brightness.sh build/ci/brightness
+      - name: Upload failed brightness output
+        if: ${{ failure() && steps.brightness.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: brightness-failure
+          path: build/ci/brightness/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: brightness-unavailable
+        id: brightness-unavailable
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          BACKLIGHT=0 tools/headless/run.sh tests/scenarios/brightness.sh build/ci/brightness-unavailable
+      - name: Upload failed brightness-unavailable output
+        if: ${{ failure() && steps.brightness-unavailable.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: brightness-unavailable-failure
+          path: build/ci/brightness-unavailable/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: direction
+        id: direction
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/direction.sh build/ci/direction
+      - name: Upload failed direction output
+        if: ${{ failure() && steps.direction.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: direction-failure
+          path: build/ci/direction/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: installed
+        id: installed
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AUDIO=1 INSTALL="--ai claude --startup hyprland" tools/headless/run.sh tests/scenarios/installed.sh build/ci/installed
+      - name: Upload failed installed output
+        if: ${{ failure() && steps.installed.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: installed-failure
+          path: build/ci/installed/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: installed-thears
+        id: installed-thears
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AUDIO=1 INSTALL="--ai claude --startup hyprland --direction thears --themes kitty,foot,hyprland" tools/headless/run.sh tests/scenarios/installed.sh build/ci/installed-thears
+      - name: Upload failed installed-thears output
+        if: ${{ failure() && steps.installed-thears.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: installed-thears-failure
+          path: build/ci/installed-thears/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: fullscreen
+        id: fullscreen
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 8
+        run: |
+          AUDIO=1 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/fullscreen.sh build/ci/fullscreen
+      - name: Upload failed fullscreen output
+        if: ${{ failure() && steps.fullscreen.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: fullscreen-failure
+          path: build/ci/fullscreen/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: app-themes
+        id: app-themes
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          APP_THEMES=1 tools/headless/run.sh tests/scenarios/app-themes.sh build/ci/app-themes
+      - name: Upload failed app-themes output
+        if: ${{ failure() && steps.app-themes.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-themes-failure
+          path: build/ci/app-themes/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: themes
+        id: themes
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          mkdir -p build/ci/themes
+          docker run --rm -v "$PWD:/src:ro" -v "$PWD/build/ci/themes:/out" "$AEROLITH_DEV_IMAGE" bash tests/scenarios/themes.sh /out
+      - name: Upload failed themes output
+        if: ${{ failure() && steps.themes.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: themes-failure
+          path: build/ci/themes/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: notices-layout-matrix
+        id: notices-layout-matrix
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 15
+        run: |
+          tests/scenarios/notices-layout-matrix.sh build/ci/notices-layout-matrix
+      - name: Upload failed notices-layout-matrix output
+        if: ${{ failure() && steps.notices-layout-matrix.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: notices-layout-matrix-failure
+          path: build/ci/notices-layout-matrix/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: catalogue
+        id: catalogue
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AI=1 tools/headless/run.sh tests/scenarios/catalogue.sh build/ci/catalogue
+          python3 tools/gen-commands-doc.py build/ci/catalogue/commands.json
+          git diff --exit-code -- docs/COMMANDS.md
+      - name: Upload failed catalogue output
+        if: ${{ failure() && steps.catalogue.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalogue-failure
+          path: build/ci/catalogue/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+
+  fullscreen-matrix:
+    if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.fullscreen_matrix) }}
+    needs: [fast, dev-image, headless]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v3
+      - name: Build dev image (downstream jobs restore the same layer cache)
+        id: image
+        uses: docker/build-push-action@v6
+        with:
+          context: tools/devcontainer
+          file: tools/devcontainer/Containerfile
+          tags: aerolith-dev
+          load: true
+          cache-from: type=gha,scope=aerolith-dev
+          cache-to: type=gha,scope=aerolith-dev,mode=max
+      - name: fullscreen-matrix
+        id: fullscreen-matrix
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 25
+        run: |
+          tests/scenarios/fullscreen-matrix.sh build/ci/fullscreen-matrix
+      - name: Upload failed fullscreen-matrix output
+        if: ${{ failure() && steps.fullscreen-matrix.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: fullscreen-matrix-failure
+          path: build/ci/fullscreen-matrix/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
