@@ -47,7 +47,12 @@ anything it changes.
 - Fullscreen games: AEROLITH steps back while a window is fullscreen and
   comes back when it leaves.
 - The lock screen is off by default. Turn it on with
-  `"lock": { "enabled": true }` in `config.json`.
+  `"lock": { "enabled": true }` in `config.json`. It fails closed: if the
+  shell crashes or reloads while locked, the session stays locked without a
+  prompt. To recover, switch to a text console (Ctrl + Alt + F3), log in and
+  run `hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1'`,
+  then `hyprctl --instance 0 dispatch exec hyprlock` (install `hyprlock`
+  first), and unlock with your password.
 
 ## Known gaps in this alpha
 

@@ -67,7 +67,21 @@ Scope {
             Ui.sessionOpen = false;
             kept.locked = true;
         }
-        acquire.restart();
+        // One deadline per acquisition: a repeated request does not extend it.
+        if (!acquire.running)
+            acquire.start();
+    }
+
+    // The compositor ended the lock (another locker, or ext-session-lock
+    // "finished"), confirmed or not: follow it. Only once no protocol lock
+    // object is left, so clearing the state sends no unlock request.
+    function followCompositor() {
+        if (!kept.locked || lock.locked || lock.secure)
+            return;
+        Log.warn("lock", "the compositor ended the lock");
+        reset();
+        kept.locked = false;
+        settle(false, "The compositor ended the lock");
     }
 
     function settle(ok, text) {
@@ -90,7 +104,8 @@ Scope {
     }
 
     function submit(password) {
-        if (viewState === "checking" || viewState === "locked-out")
+        // Nothing is checked before the compositor holds the lock.
+        if (!lock.secure || viewState === "checking" || viewState === "locked-out")
             return;
         viewState = "checking";
         message = "";
@@ -214,32 +229,37 @@ Scope {
         }
     }
 
-    // The compositor has acquireMs to confirm a requested lock.
+    // The compositor has acquireMs to confirm a requested lock. Past that,
+    // the waiting commands fail, but a pending protocol lock is never
+    // withdrawn: before `locked` an unlock is a protocol error, and a
+    // confirmation already on its way would be undone without PAM. Only a
+    // lock Quickshell never created (no protocol object) is cleared.
     Timer {
         id: acquire
         interval: host.acquireMs
         onTriggered: {
             if (lock.secure)
                 return;
-            Log.warn("lock", "the compositor did not confirm the lock");
-            host.reset();
-            kept.locked = false;
-            host.settle(false, "The compositor did not lock the session");
+            if (!lock.locked) {
+                Log.warn("lock", "the compositor refused the lock");
+                host.reset();
+                kept.locked = false;
+                host.settle(false, "The compositor did not lock the session");
+            } else {
+                Log.warn("lock", "the compositor has not confirmed the lock yet; still waiting");
+                host.settle(false, "The compositor has not confirmed the lock yet");
+            }
         }
     }
 
     Connections {
         target: lock
         function onSecureStateChanged() {
-            if (lock.secure) {
+            if (lock.secure)
                 host.settle(true, "Locked");
-            } else if (kept.locked && !acquire.running) {
-                // The compositor ended the lock (another locker, or
-                // ext-session-lock "finished"); follow it.
-                Log.warn("lock", "the compositor ended the lock");
-                host.reset();
-                kept.locked = false;
-            }
+            else if (kept.locked)
+                // Quickshell drops its lock object after this signal.
+                Qt.callLater(host.followCompositor);
         }
     }
 

@@ -62,9 +62,11 @@ grep -q "\[aerolith:lock\] unlocked" "$OUT/qs.log" || fail "no unlock log line"
 ipc lock >/dev/null
 wait_field locked True 3 || fail "could not lock again"
 sleep 0.5
+# Each attempt is counted before the next one is typed (the state alone
+# could still show the previous failure).
 for i in 1 2 3 4 5; do
   enter "wrong-$i"
-  for _ in $(seq 100); do s=$(field lockState); [ "$s" = failed ] || [ "$s" = locked-out ] && break; sleep 0.1; done
+  wait_field lockAttempts "$i" 10 || fail "attempt $i was not counted (attempts $(field lockAttempts), state $(field lockState))"
 done
 wait_field lockState locked-out 5 || fail "five failures did not pause input (state $(field lockState), attempts $(field lockAttempts))"
 shot 03-locked-out

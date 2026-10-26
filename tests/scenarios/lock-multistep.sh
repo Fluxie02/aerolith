@@ -34,7 +34,13 @@ shot 01-second-prompt
 # 3. Input is accepted again: another attempt reaches PAM and fails the same way.
 enter "aerolith-test"
 wait_field lockAttempts 2 10 || fail "the lock screen did not accept another attempt (attempts $(field lockAttempts))"
+# The second attempt reached PAM and met the second prompt again (not a
+# failure to start PAM), and the compositor still holds the lock.
+stops=$(grep -c "\[aerolith:lock\] authentication stopped: .*does not support" "$OUT/qs.log" || true)
+[ "$stops" = 2 ] || fail "expected two unsupported-prompt stops, got $stops"
+wait_field lockState failed 3 || fail "the second attempt ended in state $(field lockState)"
 [ "$(field locked)" = True ] || fail "the second attempt unlocked the session"
+[ "$(field lockSecure)" = True ] || fail "the compositor no longer holds the lock"
 
 if grep -E "aerolith-test" "$OUT/qs.log"; then fail "a password reached the log"; fi
 alive || fail "quickshell died"
