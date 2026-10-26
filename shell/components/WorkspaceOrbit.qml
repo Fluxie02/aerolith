@@ -19,6 +19,18 @@ Item {
     readonly property real focusAngle: -.92 + Math.max(0, Math.min(count - 1, Compositor.focusedWorkspaceId - 1)) * 1.84 / Math.max(1, count - 1)
     visible: !instrument
 
+    // Follow the machined annulus in InstrumentField, not the clickable
+    // station radius. Only its two lips are shaded; the numeral stays dark.
+    Material {
+        shader: "annulus"
+        readonly property real ringRadius: orbit.height * .34
+        x: orbit.width * .27 - width / 2
+        y: orbit.height * .55 - height / 2
+        width: ringRadius * 2 + Theme.du(8); height: width
+        parameters: Qt.vector4d(ringRadius, -1.6 + Compositor.focusedWorkspaceId * .24,
+            Compositor.focusedWorkspaceId > 0 ? 1 : 0, 0)
+    }
+
     Item {
         x: orbit.width * .27; y: orbit.height * .55
         width: orbit.radius; height: 1

@@ -1,0 +1,6 @@
+{
+  "seconds": 120.0,
+  "cpu_seconds": 1.85,
+  "cpu_percent_one_core": 1.542,
+  "backend": "Qt software / sway pixman"
+}

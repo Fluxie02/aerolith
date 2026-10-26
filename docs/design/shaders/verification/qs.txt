@@ -1,0 +1,19 @@
+[32m  INFO[0m: Launching config: "/src/shell/shell.qml"
+[32m  INFO[0m: Shell ID: "9c118b5a36da2ed22e2d8b04898446de" Path ID "9c118b5a36da2ed22e2d8b04898446de"
+[33m  WARN[97m [0m: Failed to create wl_display (Connection refused)
+[33m  WARN[97m qt.qpa.wayland[0m: Failed to initialize EGL display 3001
+[32m  INFO[97m qt.qpa.plugin[0m: Could not load the Qt platform plugin "wayland-egl" in "" even though it was found.
+[31m FATAL: This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: minimal, linuxfb, offscreen, xcb, wayland-brcm, wayland-egl, wayland, eglfs, vnc, vkkhrdisplay, minimalegl.
+[0m
+[33m  WARN[97m [0m: Failed to create wl_display (Connection refused)
+[31m ERROR[0m: Quickshell has crashed under pid 80 (Coredumps will be available under that pid.)
+[31m ERROR[0m: Further crash information is stored under "/home/pilot/.cache/quickshell/crashes/42eywint"
+[31m ERROR[0m: Quickshell crashed within 10 seconds of launching. Not restarting to avoid a crash loop.
+[33m  WARN[97m qt.qpa.wayland[0m: Failed to initialize EGL display 3001
+[32m  INFO[97m qt.qpa.plugin[0m: Could not load the Qt platform plugin "wayland-egl" in "" even though it was found.
+[31m FATAL: This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Available platform plugins are: minimal, linuxfb, offscreen, xcb, wayland-brcm, wayland-egl, wayland, eglfs, vnc, vkkhrdisplay, minimalegl.
+[0m

@@ -2,7 +2,9 @@ import QtQuick
 import qs.core
 import qs.services
 
-// An exploded airframe. Faces are cached CPU geometry; the leading-edge
+// An exploded airframe. Native faces retain the engraving and fallback;
+// the bounded material pass supplies shallow relief beneath those marks.
+// The leading-edge
 // tension strip breathes through a retained opacity animator.
 Item {
     id: shear
@@ -74,6 +76,13 @@ Item {
                 function onTravelChanged() { if (!Theme.travel) bladeMotion.complete(); }
                 function onAmbientChanged() { if (!Theme.ambient) bladeMotion.complete(); }
             }
+            Material {
+                id: mineral
+                anchors.fill: parent
+                shader: "bevel"
+                parameters: Qt.vector4d(blade.index, 0, 0, 0)
+                onActiveChanged: plate.requestPaint()
+            }
             Canvas {
                 id: plate
                 anchors.fill: parent
@@ -100,7 +109,8 @@ Item {
                     function face(points, fill, stroke) {
                         c.beginPath(); c.moveTo(points[0][0]*w,points[0][1]*h);
                         for(var k=1;k<points.length;k++)c.lineTo(points[k][0]*w,points[k][1]*h);
-                        c.closePath();c.fillStyle=fill;c.fill();
+                        c.closePath();
+                        if (!mineral.active) { c.fillStyle=fill;c.fill(); }
                         if(stroke){c.strokeStyle=stroke;c.lineWidth=1;c.stroke();}
                     }
                     // Opposing bevels make thickness visible without a shadow.
@@ -115,8 +125,13 @@ Item {
                         c.beginPath();c.moveTo(xx*w,yy*h);c.lineTo((xx+.26)*w,(yy-.012)*h);c.stroke();
                     }
                     if(i===0) {
-                        face([[.25,.02],[.29,.019],[.83,.82],[.79,.82]],Theme.signal,null);
-                        face([[.08,.08],[.14,.06],[.31,.85],[.25,.85]],Theme.grid,null);
+                        // Inscriptions stay native, above either material.
+                        c.beginPath(); c.moveTo(.25*w,.02*h); c.lineTo(.29*w,.019*h);
+                        c.lineTo(.83*w,.82*h); c.lineTo(.79*w,.82*h); c.closePath();
+                        c.fillStyle=Theme.signal; c.fill();
+                        c.beginPath(); c.moveTo(.08*w,.08*h); c.lineTo(.14*w,.06*h);
+                        c.lineTo(.31*w,.85*h); c.lineTo(.25*w,.85*h); c.closePath();
+                        c.fillStyle=Theme.grid; c.fill();
                         c.fillStyle=Theme.textDim;c.font=Theme.fontXs+'px "'+Theme.mono+'"';
                         c.save();c.translate(w*.43,h*.29);c.rotate(1.03);
                         c.fillText('AEROLITH / WORKSPACE STRUCTURE',0,0);c.restore();

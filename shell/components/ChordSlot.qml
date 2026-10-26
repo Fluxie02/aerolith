@@ -79,6 +79,19 @@ Item {
             target: carriage.Window.window
             function onVisibleChanged() { if (carriage.Window.window.visible) carriage.requestPaint(); }
         }
+        // Two exposed strips inherit the exact retained bay transform.
+        // Avoid a mostly-occluded bay-sized shader or any live-content texture.
+        Material {
+            shader: "undercarriage"
+            x: carriage.width - Theme.du(24); y: Theme.du(48)
+            width: Theme.du(23); height: Math.max(0, carriage.height - Theme.du(72))
+            parameters: Qt.vector4d(1, 0, 0, 0)
+        }
+        Material {
+            shader: "undercarriage"
+            x: Theme.du(24); y: carriage.height - Theme.du(20)
+            width: Math.max(0, carriage.width - Theme.du(60)); height: Theme.du(19)
+        }
     }
     Rectangle {
         z: -2

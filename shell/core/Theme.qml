@@ -105,6 +105,9 @@ Singleton {
 
     // Opacity and effects
     readonly property bool lowEffects: cfg.lowEffects
+    // E02: one inexpensive material pass. Opus owns the future config seam;
+    // 0 releases ShaderEffects and leaves the native material in place.
+    property int shaderQuality: 1
     readonly property real backdropOpacity: lowEffects ? Tokens.OPACITY.backdropLowEffects : Tokens.OPACITY.backdrop
     readonly property real disabledOpacity: Tokens.OPACITY.disabled
     readonly property real gridMinorOpacity: Tokens.OPACITY.gridMinor

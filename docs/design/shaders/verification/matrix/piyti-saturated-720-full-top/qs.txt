@@ -1,0 +1,46 @@
+[32m  INFO[0m: Launching config: "/src/build/d03-shell.itqGVW/piyti-saturated-720-full-top/shell.qml"
+[32m  INFO[0m: Shell ID: "310e4bacb4dcd20720d5aae2bf9d7dc7" Path ID "310e4bacb4dcd20720d5aae2bf9d7dc7"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/c166xint/log.qslog"
+[33m  WARN[0m: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.
+[E][16:44:31.355104] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][16:44:31.355126] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[33m  WARN[97m quickshell.service.upower[0m: Could not connect to DBus. UPower service will not work.
+[32m  INFO[97m qml[0m: [aerolith:shell] AEROLITH started on HEADLESS-1; Hyprland connected
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[32m  INFO[0m: Configuration Loaded
+[32m  INFO[97m qml[0m: [aerolith:notifications] notification server enabled
+[32m  INFO[97m qml[0m: [aerolith:brightness] no backlight interface; brightness unavailable
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.volume.set: ok: Volume 42%
+[32m  INFO[97m qml[0m: [aerolith:ipc] shell.notify: ok: Notice shown
+[32m  INFO[97m qml[0m: [aerolith:ipc] shell.notify: ok: Notice shown
+[32m  INFO[97m qml[0m: [aerolith:ipc] shell.notify: ok: Notice shown
+[32m  INFO[97m qml[0m: [aerolith:ipc] shell.notify: ok: Notice shown
+[32m  INFO[97m qml[0m: [aerolith:ipc] shell.notify: ok: Notice shown

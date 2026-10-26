@@ -1,0 +1,19 @@
+{
+  "shell/core/Theme.qml": "003b85953cb4f2d458c97d9fcb75f95da996549156ba06e269281ea68729a9d9",
+  "shell/components/Material.qml": "bee39572f2f3a169f7d96110094c80c525f8bfc8e69d856978db5e0076fad2b7",
+  "shell/components/ShearField.qml": "fc59210d3b740963fa2169724d4b8ad19f9466c939fb124f63be8585734767b0",
+  "shell/components/WorkspaceOrbit.qml": "5e915c0a084edcec645fd4ceaf619acee08ee7cc115ac27158734caaffc52563",
+  "shell/components/Counterphase.qml": "99d5652050e53214aa94d539c3d82596a9b2aaa515ec552f1c935bde0f4fe9f0",
+  "shell/components/ChordSlot.qml": "fec1d9a021aa982e351e4a1feae59484697edb043d319b39c03909ceae099536",
+  "shell/modules/osd/OsdHost.qml": "d23b5e3990fd47653b9413c92fd2c0f0d6bb1f5ddcd2daffdaffc24a93b239f2",
+  "tools/build-shaders.sh": "8e792c13637d9da9deff3f653d0422a38b4a576ab65b276f15e5234ceded7753",
+  "shell/shaders/annulus.frag": "d7d2d1e7ec61122025e1b853c2590e6bf4db1734fde90428e3dbd0a66c95a80e",
+  "shell/shaders/annulus.frag.qsb": "b1557eebf53f5f9ebf64b2bf7ff72e71b27481b818eb36ddb94a255e3331064e",
+  "shell/shaders/bevel.frag": "c0d4ef586c7d7ee5d877fef2e4b0f9970e9b018f3fe4a8465c901e59bf7d52b8",
+  "shell/shaders/bevel.frag.qsb": "5ac608545629907569e33e59457e0604849710ea79384c335cddd69b9f42e6e1",
+  "shell/shaders/catch.frag": "c3da079a6bae4cbaa2e1257f943870d5e3a805ae40049d435e83d4076cd166d7",
+  "shell/shaders/catch.frag.qsb": "2bd3be57cea8895720febac9c6b6ea8ac4def48d662f1221e0755cdb37e39665",
+  "shell/shaders/material.glsl": "17f1c65f5be5d87ae996a30992149cd31ab845fd520e9f8a6ac472dc05985135",
+  "shell/shaders/undercarriage.frag": "2efb8eb67beaa5923d8375f8d41a5623519655b6a8a5a80a77df0d9fb108e6d0",
+  "shell/shaders/undercarriage.frag.qsb": "b2a2b1b44463c359ca2872bbda1fb850cd3f8dd1cbd8883560e203b9139016f2"
+}
