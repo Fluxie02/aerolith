@@ -275,9 +275,9 @@ class Codex(Provider):
         "actions and any context you enabled are sent to OpenAI under your own Codex sign-in. "
         "AEROLITH runs it with a read-only sandbox in an empty folder, ignores your Codex config "
         "file, ignores project instructions and execpolicy rules, and turns off its shell, "
-        "plugins, apps, browser, hooks and memory features. Codex still loads global instructions "
-        "and skills independently of those flags, so AEROLITH refuses requests when those sources "
-        "are present; use Claude or a dedicated Codex environment without global context."
+        "plugins, apps, browser, hooks and memory features. Codex cannot be told to skip your "
+        "global instructions (~/.codex/AGENTS.md) and skills, so those are sent with each request, "
+        "to the same OpenAI account; keep them short, or use Claude, which AEROLITH fully isolates."
     )
 
     def executable(self) -> str:
@@ -301,25 +301,10 @@ class Codex(Provider):
     def build(self, prompt: str, workdir: str) -> tuple[list[str], str, dict[str, Any]]:
         from .prompting import SYSTEM_PROMPT
 
-        # --ignore-user-config only ignores config.toml. An offline probe of
+        # --ignore-user-config only ignores config.toml; an offline probe of
         # 0.163.0 still sent global AGENTS.md with project_doc_max_bytes=0.
-        # Check metadata only; never read, copy or relocate provider credentials.
-        home = Path.home()
-        codex_home = Path(os.environ.get("CODEX_HOME") or home / ".codex")
-        try:
-            global_context = any((codex_home / name).exists() for name in ("AGENTS.md", "AGENTS.override.md"))
-            for skills in (codex_home / "skills", home / ".agents" / "skills"):
-                if skills.exists() and any(skills.iterdir()):
-                    global_context = True
-        except OSError:
-            raise ProviderError("config_error", "Cannot verify that Codex global instructions or skills are absent; refusing the request.") from None
-        if global_context:
-            raise ProviderError(
-                "config_error",
-                "Codex global instructions or skills are present and cannot be isolated by --ignore-user-config. "
-                "Use Claude or a dedicated Codex environment without global context; the request was not sent.",
-            )
-
+        # Refusing would break Codex for nearly everyone (Codex itself creates
+        # ~/.codex/skills/.system), so data_flow discloses it instead.
         schema_path = os.path.join(workdir, "aerolith-schema.json")
         out_path = os.path.join(workdir, "aerolith-answer.txt")
         Path(schema_path).write_text(json.dumps(ENVELOPE_SCHEMA), encoding="utf-8")

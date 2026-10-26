@@ -15,69 +15,22 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Multiple",
+    "locked_by": "Astra",
     "files": [
-      "ai-bridge/aerolith_ai/providers.py",
+      "build/redesign-1",
       "docs/design/redesign-1",
-      "docs/design/thears-piyti/APP-FORMATS.md",
-      "install.sh",
-      "installer/aerolith_install/checks.py",
-      "installer/aerolith_install/cli.py",
-      "installer/aerolith_install/hypr.py",
-      "installer/aerolith_install/themes.py",
       "shell/components/AppContinuity.qml",
       "shell/components/InstrumentField.qml",
       "shell/components/Instrumentation.qml",
       "shell/components/NowPlaying.qml",
       "shell/components/ShearField.qml",
       "shell/components/WorkspaceOrbit.qml",
-      "shell/core/Exec.qml",
       "shell/lib/appbus.mjs",
-      "shell/lib/launch.mjs",
-      "shell/modules/ControlSurface.qml",
       "shell/modules/deck/DeckView.qml",
-      "shell/services/Compositor.qml",
-      "shell/services/Notifications.qml",
-      "shell/services/Power.qml",
       "tests/js/appbus.test.mjs",
-      "tests/py/test_installer.py",
       "tests/scenarios/app-links.sh"
     ],
     "locks": [
-      {
-        "lock_id": "35446742-6375-43e5-bcac-fab038bb1394",
-        "agent": "Claude",
-        "files": [
-          "install.sh",
-          "installer/aerolith_install/checks.py",
-          "installer/aerolith_install/cli.py",
-          "installer/aerolith_install/hypr.py",
-          "installer/aerolith_install/themes.py",
-          "tests/py/test_installer.py"
-        ],
-        "task_id": "ALPHA2-SOL-A",
-        "created_at": "2026-10-26T21:15:56+00:00",
-        "expires_epoch": 1793051156.8037715,
-        "ttl_seconds": 1800
-      },
-      {
-        "lock_id": "a1de8aa0-ed6b-4570-aa9d-1c5e948ed0ad",
-        "agent": "Claude",
-        "files": [
-          "ai-bridge/aerolith_ai/providers.py",
-          "docs/design/thears-piyti/APP-FORMATS.md",
-          "shell/core/Exec.qml",
-          "shell/lib/launch.mjs",
-          "shell/modules/ControlSurface.qml",
-          "shell/services/Compositor.qml",
-          "shell/services/Notifications.qml",
-          "shell/services/Power.qml"
-        ],
-        "task_id": "ALPHA2-SOL-B",
-        "created_at": "2026-10-26T21:15:56+00:00",
-        "expires_epoch": 1793051156.9098158,
-        "ttl_seconds": 1800
-      },
       {
         "lock_id": "3222b440-4e99-4043-a1ea-0d1382d5bd52",
         "agent": "Astra",
@@ -97,6 +50,36 @@
         "task_id": "UI-017",
         "created_at": "2026-10-26T21:25:59+00:00",
         "expires_epoch": 1793057159.669992,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "fa8bfcb7-a95e-45a8-a631-433a5a007733",
+        "agent": "Astra",
+        "files": [
+          "build/redesign-1",
+          "docs/design/redesign-1",
+          "shell/components/AppContinuity.qml",
+          "shell/components/InstrumentField.qml",
+          "shell/components/Instrumentation.qml",
+          "shell/components/NowPlaying.qml",
+          "shell/components/ShearField.qml",
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/modules/deck/DeckView.qml"
+        ],
+        "task_id": "UI-017",
+        "created_at": "2026-10-26T21:33:12+00:00",
+        "expires_epoch": 1793057592.4454389,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "98461592-002d-4dc9-af04-207bca1b14f4",
+        "agent": "Astra",
+        "files": [
+          "tests/scenarios/app-links.sh"
+        ],
+        "task_id": "UI-017",
+        "created_at": "2026-10-26T21:37:33+00:00",
+        "expires_epoch": 1793057853.4231007,
         "ttl_seconds": 7200
       }
     ]
@@ -6134,6 +6117,72 @@
       "notes": "No lock/unlock, commits, installer or visual changes. Tests and B023 script included as explicitly requested.",
       "task_id": "ALPHA2-SOL-B",
       "timestamp": "2026-10-26T21:27:08+00:00"
+    },
+    {
+      "id": "82bc9a7b-4dbe-4fd6-b238-dc7d7d022cf4",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/components/Instrumentation.qml"
+      ],
+      "summary": "UI-017 started in assigned isolated worktree; explicit owner assignment overrides hub UI-016/Claude audit state.",
+      "notes": "Read owner brief and coordination state. Existing Astra UI-017 reservations honored. Systems locks remain untouched.",
+      "task_id": "UI-017",
+      "timestamp": "2026-10-26T21:33:12+00:00"
+    },
+    {
+      "id": "9226b157-cb25-4046-bfc5-ef82f0889bba",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "shell/modules/ControlSurface.qml"
+      ],
+      "summary": "Runtime verification now has Docker: runtime, notify overflow and smoke passed. ControlSurface qmllint 6.12.0 exits 0; crash not reproduced (virtual qs imports unresolved).",
+      "notes": "Confirmed upstream IpcFunction::invoke is synchronous and IpcHandler only supports scalar return types. Returning a Promise from run():string cannot deliver Registry result; direct 5-second await requires upstream async IPC support or a separate request/result client protocol. Leaving this item unmodified rather than blocking the UI thread.",
+      "task_id": "ALPHA2-SOL-B",
+      "timestamp": "2026-10-26T21:39:06+00:00"
+    },
+    {
+      "id": "745947ae-2893-4559-aedd-1a07f603c03e",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/services/ShellState.qml"
+      ],
+      "summary": "One review of merged ALPHA2-ASTRA work: Medium, ambient coverage can retain stale geometry after floating/resize changes.",
+      "notes": "Evidence: Theme.qml:167-172 uses lastIpcObject geometry; ShellState.qml:118 refresh triggers omit changefloatingmode and there is no resize-only refresh trigger. Minimal correction: include changefloatingmode in the systems refresh list and verify geometry refresh after an uncovered resize; if Hyprland supplies no resize event, record the limitation or agree a bounded refresh policy. Read-only review, no visual or systems changes to the other task. One revision invited.",
+      "task_id": "ALPHA2-SOL-B",
+      "timestamp": "2026-10-26T21:40:19+00:00"
+    },
+    {
+      "id": "0a32215d-16e0-416d-b865-03b5d798ce99",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "ai-bridge/aerolith_ai/providers.py",
+        "docs/design/smooth/summarise-positions.py",
+        "docs/design/thears-piyti/APP-FORMATS.md",
+        "shell/core/Exec.qml",
+        "shell/lib/launch.mjs",
+        "shell/services/Compositor.qml",
+        "shell/services/Notifications.qml",
+        "shell/services/Power.qml",
+        "tests/js/launch.test.mjs",
+        "tests/js/run-node.mjs",
+        "tests/py/conftest.py",
+        "tests/py/test_ai_bridge.py",
+        "tests/scenarios/ai.sh",
+        "tests/scenarios/notify.sh",
+        "docs/verification/ALPHA2-SOL-B.md",
+        "tests/js/runtime-qml.test.mjs",
+        "tests/py/test_runtime_docs.py",
+        "tests/scenarios/runtime.sh"
+      ],
+      "summary": "Runtime fixes delivered with regression tests: 267 Python passed/1 skipped, 153 Node passed, 145 Qt passed; runtime, notification overflow, smoke and both AI scenarios pass. IPC async result replies remain outstanding; qmllint crash not reproduced.",
+      "notes": "Evidence and all exact commands: docs/verification/ALPHA2-SOL-B.md; artifacts build/alpha-runtime/. Fixed Claude settings/memory isolation and Haiku default, Codex global-context refusal plus hook/memory restrictions, missing-locker failure, notification eviction, workspace stepping, embedded Exec field codes, prompt Exec start failure and bounded streams, OXT archive paths, B023. Navigator already excludes negative ids. ControlSurface unchanged because scalar synchronous IPC cannot await Registry promises; qmllint 6.12.0 exits 0 with warnings. Installer B007 left untouched. Offline installed Codex sentinel leaked before guard; after guard 0 requests. Reviewed ALPHA2-ASTRA once with Medium stale-geometry finding and invited one revision; no response yet. No visual/installer edits, commits, lock/unlock, host configuration changes or real session locking.",
+      "task_id": "ALPHA2-SOL-B",
+      "timestamp": "2026-10-26T21:46:18+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7905,6 +7954,7 @@
     "docs/design/smooth/SELF-REVIEW.md",
     "docs/design/smooth/after-source-hashes.json",
     "docs/design/smooth/after-source.tar.gz",
+    "docs/design/smooth/summarise-positions.py",
     "docs/design/thears-piyti/APP-FORMATS.md",
     "docs/design/thears-piyti/CLAUDE-REVIEW.md",
     "docs/design/thears-piyti/MOD-FORMATS.md",
@@ -8485,6 +8535,7 @@
     "docs/design/unhinged",
     "docs/verification/A03/README.md",
     "docs/verification/ALPHA2-ASTRA.md",
+    "docs/verification/ALPHA2-SOL-B.md",
     "docs/verification/B05",
     "docs/verification/B05/README.md",
     "docs/verification/C01",
@@ -8646,9 +8697,14 @@
     "tests/js/ambient.test.mjs",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
+    "tests/js/run-node.mjs",
+    "tests/js/runtime-qml.test.mjs",
     "tests/js/schemes.test.mjs",
+    "tests/py/conftest.py",
+    "tests/py/test_ai_bridge.py",
     "tests/py/test_installer.py",
     "tests/py/test_mock_hyprland.py",
+    "tests/py/test_runtime_docs.py",
     "tests/scenarios/ai.sh",
     "tests/scenarios/app-links.sh",
     "tests/scenarios/app-themes.sh",
@@ -8668,6 +8724,7 @@
     "tests/scenarios/osd.sh",
     "tests/scenarios/perf.sh",
     "tests/scenarios/resilience.sh",
+    "tests/scenarios/runtime.sh",
     "tests/scenarios/session.sh",
     "tests/scenarios/signal.sh",
     "tests/scenarios/smoke.sh",
@@ -8711,21 +8768,31 @@
   ],
   "last_agent_event": {
     "agent": "Sol",
-    "type": "note",
+    "type": "integration_complete",
     "files": [
       "ai-bridge/aerolith_ai/providers.py",
+      "docs/design/smooth/summarise-positions.py",
+      "docs/design/thears-piyti/APP-FORMATS.md",
       "shell/core/Exec.qml",
       "shell/lib/launch.mjs",
-      "shell/modules/ControlSurface.qml",
       "shell/services/Compositor.qml",
       "shell/services/Notifications.qml",
       "shell/services/Power.qml",
-      "docs/design/thears-piyti/APP-FORMATS.md"
+      "tests/js/launch.test.mjs",
+      "tests/js/run-node.mjs",
+      "tests/py/conftest.py",
+      "tests/py/test_ai_bridge.py",
+      "tests/scenarios/ai.sh",
+      "tests/scenarios/notify.sh",
+      "docs/verification/ALPHA2-SOL-B.md",
+      "tests/js/runtime-qml.test.mjs",
+      "tests/py/test_runtime_docs.py",
+      "tests/scenarios/runtime.sh"
     ],
-    "summary": "Runtime work started in isolated worktree under owner-delegated Claude ALPHA2-SOL-B locks; global workflow is UI-016/Claude, assignment overridden explicitly by owner.",
-    "notes": "No lock/unlock, commits, installer or visual changes. Tests and B023 script included as explicitly requested.",
+    "summary": "Runtime fixes delivered with regression tests: 267 Python passed/1 skipped, 153 Node passed, 145 Qt passed; runtime, notification overflow, smoke and both AI scenarios pass. IPC async result replies remain outstanding; qmllint crash not reproduced.",
+    "notes": "Evidence and all exact commands: docs/verification/ALPHA2-SOL-B.md; artifacts build/alpha-runtime/. Fixed Claude settings/memory isolation and Haiku default, Codex global-context refusal plus hook/memory restrictions, missing-locker failure, notification eviction, workspace stepping, embedded Exec field codes, prompt Exec start failure and bounded streams, OXT archive paths, B023. Navigator already excludes negative ids. ControlSurface unchanged because scalar synchronous IPC cannot await Registry promises; qmllint 6.12.0 exits 0 with warnings. Installer B007 left untouched. Offline installed Codex sentinel leaked before guard; after guard 0 requests. Reviewed ALPHA2-ASTRA once with Medium stale-geometry finding and invited one revision; no response yet. No visual/installer edits, commits, lock/unlock, host configuration changes or real session locking.",
     "task_id": "ALPHA2-SOL-B",
-    "timestamp": "2026-10-26T21:27:08+00:00"
+    "timestamp": "2026-10-26T21:46:18+00:00"
   },
-  "updated_at": "2026-10-26T21:27:08+00:00"
+  "updated_at": "2026-10-26T21:50:58+00:00"
 }

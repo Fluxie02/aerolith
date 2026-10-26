@@ -216,18 +216,15 @@ def test_codex_unknown_feature_flag_fails_closed(home, fake_codex, monkeypatch):
     assert r["error"]["code"] == "incompatible_version"
 
 
-@pytest.mark.parametrize("source", [".codex/AGENTS.md", ".codex/AGENTS.override.md",
-                                    ".codex/skills/private/SKILL.md", ".agents/skills/private/SKILL.md"])
-def test_codex_refuses_global_context_before_spawning(home, fake_codex, source):
-    path = home / source
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("private instructions must never reach a provider")
+def test_codex_runs_with_bundled_skills_and_discloses_global_context(home, fake_codex):
+    # Codex creates ~/.codex/skills/.system itself; that must not block requests.
+    (home / ".codex" / "skills" / ".system").mkdir(parents=True, exist_ok=True)
     write_ai(home, provider="codex")
     result = ask(request())
-    assert result["ok"] is False
-    assert result["error"]["code"] == "config_error"
-    assert "global instructions or skills" in result["error"]["message"]
-    assert read_log(fake_codex) == [], "no provider process may load global context"
+    assert result["ok"] is True, result
+    assert len(read_log(fake_codex)) == 1
+    from aerolith_ai.providers import Codex
+    assert "global instructions" in Codex.data_flow and "AGENTS.md" in Codex.data_flow
 
 
 def test_custom_aerolith_v1_provider(home, tmp_path):
