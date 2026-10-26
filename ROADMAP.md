@@ -1,130 +1,118 @@
-# Hyprland Desktop Shell — Development & Integration Roadmap
+# AEROLITH — Repository-Grounded Development Roadmap
 
-The owner's roadmap, recorded verbatim on 26 October 2026. All agents follow
-it. Progress is tracked in the "Status" section at the end.
+The owner's roadmap, recorded verbatim. All three agents follow it; progress is
+tracked in the Status table at the end.
 
-**Technical lead:** Claude Opus 5.5
-**Visual and shader lead:** GPT-6 Astra
-**Implementation and testing lead:** GPT-6.1 Sol
+- **Audit date:** 26 October 2026
+- **Repository:** Fluxie02/aerolith
 
-**Core objective:** Build an exceptionally distinctive, shader-rich, command-centred Hyprland desktop shell that remains efficient, responsive, reliable, and almost entirely inactive during fullscreen gaming.
+**Roles:**
+- **Opus 5.5:** Systems architect, integration lead, final reviewer.
+- **GPT-6 Astra:** Visual architecture, rendering, shaders, motion and visual QA.
+- **GPT-6.1 Sol:** Bounded implementation, automation, tests, installer and mechanical integration.
 
-**Platform:** Hyprland first, single-monitor architecture first. Expand compatibility only after the primary implementation is stable.
+## Phase 0 — Reconcile the Existing Work
 
-## Phase 1 — Integration & Architecture
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| A01 | Reconcile PR #1 with codex/astra-visual-language and newer main changes. Preserve the actual SHEAR → THEARS/PIYTI → Counterphase → Spectra → Smoothness work. | Opus | P0 |
+| A02 | Compare the three code histories by file and component. Resolve any incompatibilities between Astra's theme components and newer systems infrastructure. | Opus + Sol | P0 |
+| A03 | Run baseline Node, Qt V4, pytest, headless smoke, full, Deck, notification, AI and installer tests on the integrated branch. | Sol | P0 |
+| A04 | Validate the updated three-agent bridge against real authenticated Codex sessions and fix any account, model-ID, worktree or agent-sync issues. | Opus | P1 |
+| A05 | Separate bulky historical verification assets from deployable sources. Keep reproducibility manifests, representative media and meaningful failed-case evidence. | Sol | P1 |
 
-| # | Task | Owner | Priority |
-|---|------|-------|----------|
-| 1 | Merge Astra's existing work from SHEAR through Smoothness into PR #1. Resolve conflicts, inspect the shaders, and verify they render correctly. | Opus | Critical |
-| 2 | Audit the current repository: rendering framework, resource lifecycle, services, animations, IPC, themes, installer, and unfinished functionality. Produce an actionable issue list. | Opus | Critical |
-| 3 | Establish clear ownership boundaries and integration contracts for Astra, Sol, and Opus. Separate parallel work into dedicated branches. | Opus | Critical |
-| 4 | Introduce a central shell state controller for desktop, fullscreen, gaming, suspended, and recovery states. Components must subscribe to changes rather than implement conflicting detection logic. | Opus + Sol | Critical |
+**Gate:** The integrated branch compiles and passes the existing relevant tests. Record the exact commit SHA. Do not declare integration complete merely because Git reports a successful merge.
 
-## Phase 2 — Fullscreen Gaming & Performance
+## Phase 1 — Fullscreen and Game Resource Management
 
-| # | Task | Owner | Priority |
-|---|------|-------|----------|
-| 5 | Implement automatic fullscreen detection using Hyprland events and state inspection. Distinguish actual fullscreen applications from maximized windows. | Sol; Opus reviews | Critical |
-| 6 | Develop a gaming mode that suspends unnecessary shader loops, animations, rendering timers, background effects, and GPU workloads. | Opus + Astra | Critical |
-| 7 | Release unnecessary GPU framebuffers, cached textures, offscreen render targets, and rendering contexts where technically possible. Restore them on demand. | Opus + Astra | Critical |
-| 8 | Optimize fullscreen presentation. Investigate direct scanout, overlay interference, compositor behavior, and methods to avoid unnecessary surface commits. Do not alter global Hyprland settings without user consent. | Opus | Critical |
-| 9 | Implement reliable resource restoration when leaving fullscreen. No flashing, frozen surfaces, lost input, or unnecessary full shell restarts. | Sol; Opus reviews | Critical |
-| 10 | Build a performance testing harness measuring idle CPU, process memory, GPU utilization, attributed VRAM, frame timing, and gaming-mode resource deltas. | Sol + Opus | High |
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| B01 | Implement an event-driven fullscreen state for the selected Hyprland output. Handle window focus, fullscreen mode changes, output removal and stale compositor state. | Opus | P0 |
+| B02 | Connect Theme.ambientSuspended to the fullscreen lifecycle and stop visual effects before teardown. | Opus | P0 |
+| B03 | Suspend and unmap Ground, Flight Strip, Deck and Notices. Unload GPU-backed visual content and release resources where supported. Preserve the nonvisual services. | Opus + Sol | P0 |
+| B04 | Implement restoration without repeating first-boot animations, leaking render resources or losing pending notifications. Explicit shell interaction must have a defined wake policy. | Opus + Astra | P0 |
+| B05 | Test twenty fullscreen enter/exit cycles with both directions and intensities, active notifications, open Deck, focus changes and optional thumbnails. | Sol + Opus | P0 |
+| B06 | Profile actual shell GPU memory, CPU wakeups, game frametime impact and direct-scanout eligibility. Record before/during/after behavior on real hardware. | Opus | P0 |
 
-**Acceptance criteria:**
-- Fullscreen entry and exit work repeatedly.
-- Unnecessary rendering stops.
-- Eligible fullscreen games can benefit from compositor optimizations.
-- Resources are reclaimed when possible.
-- Gaming performance is not meaningfully degraded by the shell.
+**Gate:** The shell becomes visually and computationally inactive during qualifying fullscreen gaming, without breaking essential services or subsequent restoration.
 
-**Important:** Zero total VRAM usage is not physically achievable while Hyprland and the game are rendering. Minimize the incremental memory and GPU workload attributable to the shell, rather than claiming absolute zero VRAM.
+**Important:** Target near-zero incremental GPU memory attributable to AEROLITH. Measure the result rather than promising an absolute zero-VRAM process.
 
-## Phase 3 — Installer & Personalization
+## Phase 2 — Installer, Design Selection and Application Themes
 
-| # | Task | Owner | Priority |
-|---|------|-------|----------|
-| 11 | Redesign installer flow to let users select THEARS or PIYTI, with visual previews and a clear default. Preserve the chosen option across installation and updates. | Sol + Astra | High |
-| 12 | Add explicit opt-in installation of supported application themes. Keep a clean manifest of affected apps and provide reversible changes. | Sol | High |
-| 13 | Implement a centralized theme-token system covering colors, surfaces, transparency, typography, highlights, borders, shaders, and OSD elements. | Sol + Astra | High |
-| 14 | Make supported application themes follow the shell's selected color scheme, including runtime updates when supported by the target application. | Sol | High |
-| 15 | Improve installer failure recovery, dependency checks, idempotency, configuration backup, upgrade handling, and full uninstall behavior. | Opus + Sol | High |
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| C01 | Add the installation-only THEARS/PIYTI selection using Astra's existing visual seam. PIYTI is the forward design; THEARS remains supported. | Sol; Opus reviews | P1 |
+| C02 | Persist the chosen direction, support clean reinstall/upgrade behavior, and make sure Settings does not expose an unsupported live direction switch. | Sol | P1 |
+| C03 | Offer Saturated/Insane intensity during installation, reusing the already implemented theme.intensity configuration and command. | Sol | P2 |
+| C04 | Integrate the existing 12 Spectra schemes into the installer without duplicating palette definitions. | Sol | P2 |
+| C05 | Implement opt-in app-theme deployment using existing assets for GTK, Qt, terminal apps, Hyprland and supported application themes. | Sol + Opus | P1 |
+| C06 | Implement supported app-theme refresh on scheme change, with per-app consent, safe config preservation, backup, rollback, race handling and compatibility checks. | Opus + Sol | P1 |
 
-**Acceptance criteria:**
-- Users can install either visual identity.
-- Users can opt out of app modification.
-- Users can change colors without inconsistencies.
-- Users can uninstall or update without leaving damaged configurations.
+**Gate:** Both visual directions install cleanly. External app theming is optional, reversible and based on the already generated color-scheme assets. Never overwrite entire application configurations or install third-party modification systems silently.
 
-## Phase 4 — Essential Shell Functionality
+## Phase 3 — Complete Existing System Interfaces
 
-| # | Task | Owner | Priority |
-|---|------|-------|----------|
-| 16 | Fix notifications overlapping Help and Settings. Introduce consistent overlay stacking, layout constraints, and notification placement rules. | Astra + Sol | High |
-| 17 | Finish wiring the OSD into real system events: volume, mute, microphone, media, and brightness. Ensure animations and colors match the chosen theme. | Opus + Sol | High |
-| 18 | Implement brightness controls with capability detection, supporting compatible laptop backlights and optional external-monitor backends. | Sol | High |
-| 19 | Audit all shell navigation, settings, Help screens, keyboard shortcuts, and command-centred interactions. Eliminate nonfunctional controls and inconsistent navigation. | Opus | High |
-| 20 | Improve monitor configuration, DPI scaling, fractional scaling, animation timing, and recovery after resolution changes, while prioritizing one-monitor correctness. | Sol | Medium |
-| 21 | Add robust error handling for missing services, unavailable hardware, failed IPC calls, crashed shell modules, and partially initialized components. | Opus + Sol | High |
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| D01 | Integrate the existing OsdView.qml with Audio and microphone state changes. Add a proper OSD host with expiry, queueing and focus-safe layering. | Sol + Opus | P1 |
+| D02 | Add a real brightness service using supported backlight interfaces, capability detection and optional external-monitor support. Connect it to the existing OSD. | Opus + Sol | P1 |
+| D03 | Resolve Help/Settings notification overlap using existing NoticeStack and Deck layering. Test both intensities, compact outputs and multiple notices. | Astra + Sol | P1 |
+| D04 | Correct the outgoing Deck lifecycle when motion changes to off or lowEffects during an exit. | Opus | P1 |
+| D05 | Disable duplicate Hyprland layer animations for AEROLITH's own namespaces through reversible managed installer rules. | Sol; Opus reviews | P1 |
+| D06 | Integrate SessionView.qml with existing power/session commands and deliberate confirmation of destructive operations. | Opus + Sol | P2 |
+| D07 | Integrate LockView.qml only through a secure Wayland session-lock host and real authentication backend. Test failure states, recovery and session security. | Opus | P2 |
+| D08 | Implement missing network and Bluetooth status/control services if their corresponding interfaces are required by the release scope. | Sol + Opus | P2 |
 
-## Phase 5 — Shader & Motion Engine
+**Gate:** All real system controls function independently of visual animation, and security-sensitive functions do not depend on cosmetic interface behavior.
 
-| # | Task | Owner | Priority |
-|---|------|-------|----------|
-| 22 | Implement Astra's requested shader list. Preserve the existing visual direction but allow substantial creative improvements where they improve the result. | Astra | High |
-| 23 | Standardize shader interfaces: time, resolution, scale, theme colors, intensity, motion state, input data, and quality level. Ensure compatibility with the actual rendering backend. | Astra + Opus | High |
-| 24 | Create advanced shader transitions for window overview, workspace switching, opening and closing panels, command palette activation, and system-status changes. | Astra | High |
-| 25 | Develop a cohesive motion language inspired by sophisticated avionics and experimental technical instrumentation. Avoid generic neon dashboards and excessive decorative effects. | Astra | Medium |
-| 26 | Introduce configurable shader quality profiles and a reduced-motion mode. Profile expensive passes, prevent excessive shader compilation, and eliminate unnecessary continuous redraws. | Astra + Sol | High |
+## Phase 4 — Shaders, Motion and Visual Refinement
 
-**Creative direction:** The shell should feel like an entirely new interface rather than a conventional desktop with added blur and glow. Explore spatial transformations, procedural geometry, visual continuity between panels, carefully controlled distortion, and animations that communicate system state.
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| E01 | Implement the four existing requests in docs/design/counterphase/SHADER-REQUESTS.md: SHEAR bevel shading, workspace annulus relief, return-vernier light catch and Deck undercarriage shading. | Astra | P2 |
+| E02 | Create reusable shader interfaces for existing semantic colors, output scale, motion mode, intensity, application direction and fullscreen resource lifecycle. | Astra + Opus | P2 |
+| E03 | Profile GPU shader compilation, render targets, scene-graph memory, cache lifetime and actual shader cost. Ensure fallback geometry remains meaningful without GPU effects. | Astra + Opus | P2 |
+| E04 | Revalidate high-refresh animations on a real GPU-backed 60/120/144 Hz output. Fix visible pacing problems in Deck docking, bay changes, Spectra switching and startup transitions. | Astra + Opus | P1 |
+| E05 | Conduct a final visual consistency pass covering THEARS, PIYTI, Saturated, Insane, all 12 Spectra schemes, notifications, OSD, lock, session and app-theme adapters. | Astra | P2 |
 
-**Performance constraint:** Shaders must be event-driven wherever possible. Effects that require continuous animation must be rate-limited or suspended when inactive, obscured, or in gaming mode.
+**Gate:** Shader effects improve physical depth and visual readability without introducing idle rendering, hidden continuous workloads or significant gaming overhead. No shaders should be added merely to increase the number of effects.
 
-## Phase 6 — Reliability, Testing & Release
+## Phase 5 — Release Engineering
 
-| # | Task | Owner | Priority |
-|---|------|-------|----------|
-| 27 | Add automated tests for state changes, theme switching, settings persistence, installer operations, and shell service behavior. | Sol | High |
-| 28 | Test representative gaming and desktop workloads, including Steam/Proton, Vulkan/OpenGL applications, fullscreen transitions, notifications, and video playback. | Opus + Sol | High |
-| 29 | Conduct an architecture and performance review. Remove duplicated logic, obsolete code, expensive polling, memory leaks, and unnecessary dependencies. | Opus | High |
-| 30 | Finalize documentation, record known limitations, review integration branches, and merge tested work into the main development branch. | Opus | High |
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| F01 | Implement CI for Node, Python, Qt compatibility, formatting, generated schemes and installer correctness. Include headless integration jobs where runner capabilities permit. | Sol | P1 |
+| F02 | Fix the documented provider-specific Codex AI fixture mismatch instead of allowing a Claude-specific test to fail for Codex. | Sol | P1 |
+| F03 | Validate real Arch/CachyOS installation, upgrade, configuration rollback and full uninstall on a disposable environment. | Opus + Sol | P1 |
+| F04 | Benchmark idle and active CPU/RAM, frame pacing and fullscreen VRAM behavior. Compare against the existing saved measurements. | Opus + Sol | P1 |
+| F05 | Produce lean release packages, updated documentation, a known-limitations list and a reproducible source/verification manifest. | Sol; Opus reviews | P2 |
+| F06 | Perform final architectural review, regression testing and release-candidate approval. | Opus | P1 |
 
-## Coordination Rules
+## Rules for All Three Agents
 
-1. Opus is the final integrator. It reviews architecture, security-sensitive operations, compatibility changes, and merges.
-2. Astra owns visual implementation decisions, subject to technical feasibility and performance requirements.
-3. Sol receives clearly bounded, independently testable tasks, rather than unrestricted changes across the entire repository.
-4. All agents must inspect existing code before changing it. Do not rewrite working components merely for stylistic preference.
-5. Separate shader development, installer changes, and critical runtime changes into branches to minimize conflicts.
-6. Every implementation must include a summary of changed files, known risks, verification performed, and remaining limitations.
-7. Do not claim a feature is complete without relevant testing.
-8. Measure real performance before and after optimization rather than relying on theoretical estimates.
-9. Preserve the user's configurations and provide rollback paths for potentially destructive modifications.
-10. Avoid adding dependencies, background services, polling loops, or GPU workloads without justifying their costs.
-11. Prioritize Linux-native, maintainable implementations and avoid fragile hacks tied to one Hyprland release.
-12. Commit logical units of work and keep PRs reviewable.
+1. Reuse existing work. Before implementing a feature, search the source, relevant branch and design handoff documents.
+2. Respect ownership: Opus owns critical systems contracts; Astra owns visual behavior; Sol works on bounded, testable implementation tasks.
+3. Work in isolated branches/worktrees. Integrate through reviewed commits, not simultaneous edits of the same files.
+4. Do not silently alter established owner decisions. THEARS is maintained, PIYTI is the forward design, intensity remains live-switchable, and direction is installation-only.
+5. Maintain single-monitor correctness first.
+6. Measure performance. Software rendering tests are not proof of GPU frame pacing or VRAM behavior.
+7. Preserve optional AI installation, including a fully functional no-AI choice.
+8. Preserve security and user configurations. Test rollback and clean removal.
+9. Prioritize release-blocking systems work before optional shaders and decorative enhancements.
+10. Report completion with evidence: changed paths, commit hashes, exact test commands, measured results and known limitations.
 
-## Required Execution Order
+## Recommended Execution
 
-- **Milestone A — Stabilization:** Complete tasks 1–4, establishing a reliable baseline and shared architecture.
-- **Milestone B — Gaming performance:** Complete tasks 5–10 and validate resource release before starting major rendering expansion.
-- **Milestone C — Parallel development:** Begin installer and theming tasks 11–15, core functionality tasks 16–21, and shader tasks 22–26 on separate branches.
-- **Milestone D — Integration:** Merge independently verified components into a release candidate. Resolve conflicts and rerun regression tests.
-- **Milestone E — Release readiness:** Complete tasks 27–30, including profiling, compatibility validation, documentation, and rollback testing.
+1. **First:** A01–A04, establishing one working integration baseline.
+2. **Second:** B01–B06, establishing the gaming lifecycle and proving the most important performance requirement.
+3. **Then in parallel:** C01–C06 (Sol), D01–D08 (Opus/Sol) and E01–E05 (Astra), with separate file ownership.
+4. **Last:** F01–F06 and final release verification.
 
-## Final Standard
-
-The shell must deliver three things simultaneously:
-
-- **Visual originality:** A recognizably unique technical interface with carefully designed shaders, motion, and interaction.
-- **Gaming compatibility:** Minimal incremental GPU/VRAM overhead during fullscreen games, with no unnecessary background rendering.
-- **Engineering quality:** Predictable state management, reliable installation, maintainable code, graceful error handling, and measurable performance.
-
-The goal is not merely to complete a list of features. The result should feel like one intentionally engineered system, not a collection of unrelated visual experiments.
+Opus should coordinate the complete plan, delegate mechanical work to Sol, assign creative rendering decisions to Astra, and personally approve all changes to the fullscreen lifecycle and security-critical integration.
 
 ## Status
 
-| Task | State | Notes |
-|------|-------|-------|
-| 1 | In progress | Merge of `codex/astra-visual-language` into PR #1 |
+| ID | State | Evidence |
+|----|-------|----------|
+| A01 | In progress | |
