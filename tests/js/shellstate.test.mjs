@@ -37,6 +37,16 @@ export default suite("shellstate", (test) => {
     assert.deepEqual(r, { fullscreen: true, address: "0xa", appClass: "steam_app_1" });
   });
 
+  test("a floating window focused over a fullscreen game leaves the output taken", (assert) => {
+    // Hyprland keeps the game fullscreen under a focused floating window.
+    const r = S.outputFullscreen(snapshot([
+      { address: "0xa", workspaceId: 3, ipc: { fullscreen: 2, focusHistoryID: 1, class: "game" } },
+      { address: "0xb", workspaceId: 3, ipc: { fullscreen: 0, floating: true, focusHistoryID: 0 } },
+    ]));
+    assert.equal(r.fullscreen, true);
+    assert.equal(r.address, "0xa");
+  });
+
   test("maximized windows and other workspaces do not count", (assert) => {
     assert.equal(S.outputFullscreen(snapshot([{ address: "0xa", workspaceId: 3, ipc: { fullscreen: 1 } }])).fullscreen, false);
     assert.equal(S.outputFullscreen(snapshot([{ address: "0xa", workspaceId: 4, ipc: { fullscreen: 2 } }])).fullscreen, false);

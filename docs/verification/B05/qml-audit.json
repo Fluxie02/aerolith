@@ -1,0 +1,30 @@
+{
+  "deck/qs.log": {
+    "shell_start_count": 1,
+    "qml_errors": [],
+    "protocol_warnings": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels."
+    ]
+  },
+  "piyti-insane/qs.log": {
+    "shell_start_count": 1,
+    "qml_errors": [],
+    "protocol_warnings": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels."
+    ]
+  },
+  "piyti-saturated/qs.log": {
+    "shell_start_count": 1,
+    "qml_errors": [],
+    "protocol_warnings": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels."
+    ]
+  },
+  "smoke/qs.log": {
+    "shell_start_count": 1,
+    "qml_errors": [],
+    "protocol_warnings": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels."
+    ]
+  }
+}
