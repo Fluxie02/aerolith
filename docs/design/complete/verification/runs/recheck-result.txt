@@ -1,6 +1,0 @@
-saturated full final exit=0
-saturated signal final exit=0
-saturated codex required exit=1
-insane full final exit=1
-insane signal final exit=0
-insane codex required exit=1

@@ -1,4 +1,0 @@
-ok
-Traceback (most recent call last):
-  File "<stdin>", line 2, in <module>
-AssertionError: {'events': 2, 'progress': 1, 'played': True, 'bootInsane': False, 'duration': 0, 'intensity': 'insane', 'animate': False, 'travel': False, 'draft': False}

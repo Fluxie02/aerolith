@@ -1,5 +1,0 @@
-SHELL_PATH="build/ui015/verification/final-shell" CONFIG="/home/user/aerolith-astra/build/ui015/verification/saturated.json" tools/headless/run.sh tests/scenarios/smoke.sh build/ui015/verification/smoke
-ok
-smoke: ok
-
-exit 0

@@ -65,4 +65,4 @@ Sway/pixman and Qt Quick software at 1920×1080/scale 1 are the default. Root As
 
 ## Final deferred-layout check
 
-After the performance runs, `AUDIO=1 tools/headless/run.sh docs/design/schemes/verification/rapid-settings.sh build/ui015/rapid-settings` exited 0. Twenty immediate Settings → Command → close cycles exercised the deferred containment callback across view exits, followed by a settled picker selection. The [log](runs/rapid-settings/qs.log) has no QML errors. No production change followed.
+After the performance runs, `AUDIO=1 tools/headless/run.sh docs/design/schemes/verification/rapid-settings.sh build/ui015/rapid-settings` exited 0. Twenty immediate Settings → Command → close cycles exercised the deferred containment callback across view exits, followed by a settled picker selection. The log (`runs/rapid-settings/qs.log`; unavailable in baseline checkout) has no QML errors. No production change followed.

@@ -157,6 +157,6 @@ and no errors. [Numeric colour-pair checks](verification/app-contrast.json)
 separate text (4.5:1) from focus/icon cues (3:1), including alpha-composited
 Studio selection tints. These are palette checks, not a claim that every
 unseen app widget or account state was exercised. Exact parser output is in
-[theme-validation.log](verification/theme-validation.log).
+theme-validation.log (`verification/theme-validation.log`; unavailable in baseline checkout).
 
 Real-app screenshots and exact shell checks are listed in the main README.

@@ -1,5 +1,0 @@
-SHELL_PATH="build/ui015/verification/preview-session" tools/headless/run.sh build/ui015/verification/capture-session.sh build/ui015/verification/session-schemes
-
-session-schemes: ok
-
-exit 0

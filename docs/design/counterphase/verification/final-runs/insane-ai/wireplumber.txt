@@ -1,5 +1,0 @@
-E 18:21:01.114187             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-W 18:21:01.114232             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
-E 18:21:01.148840             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-W 18:21:01.148872             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
-W 18:21:20.224958  wp-client-context ../wireplumber/lib/wp/private/client-context.c:215:core_error: <WpClientContext:0x560dd3693710> client context connection error: connection error

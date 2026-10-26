@@ -1,5 +1,0 @@
-SHELL_PATH="build/ui015/verification/preview-lock" RES="1280x720" tools/headless/run.sh build/ui015/verification/compact-preview.sh build/ui015/verification/lock-compact
-
-compact-preview: ok
-
-exit 0

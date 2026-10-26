@@ -1,9 +1,0 @@
-AUDIO=1 MEDIA=1 SHELL_PATH=build/counterphase-perf-shell CONFIG=/home/user/aerolith-astra/docs/design/counterphase/build-check/insane-full.json tools/headless/run.sh tests/scenarios/perf.sh /home/user/aerolith-astra/docs/design/counterphase/perf/insane-full
-[E][13:37:09.419807] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[W][13:37:09.419825] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
-[E][13:37:09.430891] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[W][13:37:09.431015] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
-[E][13:37:09.441828] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
-[W][13:37:09.441996] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
-{"state": "idle-strip", "seconds": 120.0, "cpu_seconds": 4.38, "cpu_percent_of_one_core": 3.65, "context_switches_per_s": 186.1, "rss_mib": 126.0, "threads": 14}
-ok

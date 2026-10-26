@@ -1,8 +1,0 @@
-saturated small exit=0
-saturated reduced exit=0
-saturated low exit=0
-saturated edges exit=0
-insane small exit=0
-insane reduced exit=0
-insane low exit=0
-insane edges exit=0

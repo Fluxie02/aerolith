@@ -1,3 +1,0 @@
-saturated smoke: passed
-saturated full: passed
-saturated deck: passed

@@ -1,5 +1,0 @@
-  ok    intensity set to insane; a running shell switches at once
-  ok    intensity set to saturated; a running shell switches at once
-ok
-started
-terminal-small: ok

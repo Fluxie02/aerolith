@@ -1,5 +1,0 @@
-COMMAND: SHELL_PATH=build/ui011-final-shell/shell CONFIG=build/ui011/saturated.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui011/final-saturated-smoke
-ok
-smoke: ok
-
-EXIT: 0

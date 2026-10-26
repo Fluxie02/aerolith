@@ -1,8 +1,0 @@
-saturated full verified exit=0
-saturated deck verified exit=0
-saturated notify verified exit=0
-saturated ai verified exit=0
-saturated codex native verified exit=0
-saturated annunciator gallery exit=0
-insane codex native verified exit=0
-insane annunciator gallery exit=0

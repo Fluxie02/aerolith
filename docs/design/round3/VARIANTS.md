@@ -39,6 +39,6 @@ Every variant directory contains idle, queried Command Core, Navigator, Systems,
 Sound, notice, notice over Deck, six actual opening frames and eight actual first-start
 frames. Timing JSON records capture invocation times; compositor delivery and PNG
 completion can differ. `small-*` images check 1280×720 at uiScale 1.25 with Noto,
-opaque effects and motion off. See [validation](VALIDATION.md) for exact commands,
+opaque effects and motion off. See validation (`VALIDATION.md`; unavailable in baseline checkout) for exact commands,
 results, measurements and limitations. Production source hashes are retained in
 [baseline-sha256.json](baseline-sha256.json).

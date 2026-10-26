@@ -1,5 +1,0 @@
-$ CONFIG=build/ui011/insane-notify.json SHELL_PATH=build/ui011-final-shell/shell tools/headless/run.sh tests/scenarios/notify.sh build/ui011/verify-insane-notify-final
-
-notify: ok
-
-EXIT CODE: 0

@@ -1,6 +1,0 @@
-SHELL_PATH="build/ui015/verification/preview-osd" tools/headless/run.sh build/ui015/verification/capture-osd.sh build/ui015/verification/osd-schemes
-grep: /out/qs.log: No such file or directory
-
-osd-schemes: ok
-
-exit 0
