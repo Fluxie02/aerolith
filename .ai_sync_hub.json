@@ -5817,6 +5817,35 @@
       "notes": "Evidence: docs/verification/F01/README.md. Node and Qt 135/135; pytest 219 passed/1 skipped; 17 scenario scripts passed; notices 15/15; fullscreen matrix 4x20 passed. Reused existing aerolith-dev image. Missing docs/CONFIGURATION.md and docs/COMMANDS.md make generator gates fail; proposals recorded, no product/assertion/visual edits. First GitHub run and Opus review outstanding; no reviewer dispatched.",
       "task_id": "F01",
       "timestamp": "2026-10-26T18:42:29+00:00"
+    },
+    {
+      "id": "c0c4ebeb-11dd-4c52-b4b1-d08572904cf1",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "installer/aerolith_install/cli.py"
+      ],
+      "summary": "Explicit user assignment: Sol implements bounded C03 then C04 in worktree c40ff140; Opus review pending. Integration phase and current owner Sol confirmed; no visual changes.",
+      "notes": "",
+      "task_id": "C03",
+      "timestamp": "2026-10-26T18:51:36+00:00"
+    },
+    {
+      "id": "67ffcfeb-c567-44fe-a890-c2ec0e5dde72",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "installer/aerolith_install/cli.py",
+        "shell/modules/ControlSurface.qml",
+        "tests/py/test_installer.py",
+        "tests/scenarios/installed.sh",
+        "README.md",
+        "docs/verification/C03/README.md"
+      ],
+      "summary": "C03 then C04 implemented: installer live intensity and catalog-backed Spectra selection; scheme CLI reuses C06 refresh. No visual changes. Ready for Opus review.",
+      "notes": "Base SHA 60bf8b9dc541a818a07e97f32e26f0cc371a5c92; uncommitted worktree c40ff140. Full python3 -m pytest -q: 274 passed, 1 skipped (luac absent locally); node tests/js/run-node.mjs: 135 passed. Three sequential installed.sh runs passed: default, insane/iris with app themes, THEARS/saturated/limb with app themes. All verify live CLI config-watch changes, restoration and uninstall; native foot/Hyprland parsers pass; zero matching QML errors. bash -n and git diff --check pass. Exact commands and initial corrected test-fixture failure in docs/verification/C03/README.md. Reviewed existing C06 refresh/observation contracts once; no actionable finding. Independent Opus review pending; no reviewer dispatched. Limits: software sway, mock Hyprland/fake AI; no real GPU/app activation/package installation validation; per-app refresh failures retain protected payloads and report errors.",
+      "task_id": "C03",
+      "timestamp": "2026-10-26T18:59:04+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8170,6 +8199,7 @@
     "docs/verification/B05/README.md",
     "docs/verification/C01",
     "docs/verification/C01/README.md",
+    "docs/verification/C03/README.md",
     "docs/verification/C05/README.md",
     "docs/verification/C06/README.md",
     "docs/verification/D05/README.md",
@@ -8365,13 +8395,17 @@
     "agent": "Sol",
     "type": "integration_complete",
     "files": [
-      ".github/workflows/ci.yml",
-      "docs/verification/F01/README.md"
+      "installer/aerolith_install/cli.py",
+      "shell/modules/ControlSurface.qml",
+      "tests/py/test_installer.py",
+      "tests/scenarios/installed.sh",
+      "README.md",
+      "docs/verification/C03/README.md"
     ],
-    "summary": "F01 CI implementation complete: workflow validated; local proof has 25 passing blocks and two missing-doc failures",
-    "notes": "Evidence: docs/verification/F01/README.md. Node and Qt 135/135; pytest 219 passed/1 skipped; 17 scenario scripts passed; notices 15/15; fullscreen matrix 4x20 passed. Reused existing aerolith-dev image. Missing docs/CONFIGURATION.md and docs/COMMANDS.md make generator gates fail; proposals recorded, no product/assertion/visual edits. First GitHub run and Opus review outstanding; no reviewer dispatched.",
-    "task_id": "F01",
-    "timestamp": "2026-10-26T18:42:29+00:00"
+    "summary": "C03 then C04 implemented: installer live intensity and catalog-backed Spectra selection; scheme CLI reuses C06 refresh. No visual changes. Ready for Opus review.",
+    "notes": "Base SHA 60bf8b9dc541a818a07e97f32e26f0cc371a5c92; uncommitted worktree c40ff140. Full python3 -m pytest -q: 274 passed, 1 skipped (luac absent locally); node tests/js/run-node.mjs: 135 passed. Three sequential installed.sh runs passed: default, insane/iris with app themes, THEARS/saturated/limb with app themes. All verify live CLI config-watch changes, restoration and uninstall; native foot/Hyprland parsers pass; zero matching QML errors. bash -n and git diff --check pass. Exact commands and initial corrected test-fixture failure in docs/verification/C03/README.md. Reviewed existing C06 refresh/observation contracts once; no actionable finding. Independent Opus review pending; no reviewer dispatched. Limits: software sway, mock Hyprland/fake AI; no real GPU/app activation/package installation validation; per-app refresh failures retain protected payloads and report errors.",
+    "task_id": "C03",
+    "timestamp": "2026-10-26T18:59:04+00:00"
   },
-  "updated_at": "2026-10-26T18:42:33+00:00"
+  "updated_at": "2026-10-26T18:59:04+00:00"
 }
