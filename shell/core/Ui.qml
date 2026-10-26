@@ -75,6 +75,9 @@ Singleton {
     // True while the Deck surface is mapped (including its exit). Set by the
     // Deck; the notice column hides then, because the Deck shows notices.
     property bool deckMapped: false
+    // The OSD being presented ("volume", "mic"), "" when none. Written by
+    // modules/osd/OsdHost.qml.
+    property string osdKind: ""
     // Number of times the Deck surface was mapped (diagnostics: one per
     // open-to-closed cycle; a remap during an exit would show up here).
     property int deckMaps: 0

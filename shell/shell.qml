@@ -12,6 +12,7 @@ import "modules/strip"
 import "modules/deck"
 import "modules/notices"
 import "modules/ground"
+import "modules/osd"
 import "modules"
 
 ShellRoot {
@@ -47,6 +48,10 @@ ShellRoot {
         active: !ShellState.surfacesReleased
         NoticeColumn {}
     }
+
+    // Volume and microphone feedback. Shown during fullscreen too: it answers
+    // a key the user pressed, and its surface exists only while shown.
+    OsdHost {}
 
     ControlSurface {}
 
