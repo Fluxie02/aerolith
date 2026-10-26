@@ -5,129 +5,19 @@
     "description": "Shared coordination state for Claude Code and Codex.",
     "repository_root": "."
   },
-  "system_state": "Astra_Design_Phase",
+  "system_state": "Claude_Performance_Audit",
   "workflow": {
     "current_task_id": "UI-016",
-    "current_owner": "Astra",
-    "last_transition_at": "2026-10-26T16:37:28+00:00",
-    "transition_reason": "Explicit owner assignment: E01/E02 shader visual implementation, isolated worktree",
+    "current_owner": "Claude",
+    "last_transition_at": "2026-10-26T16:57:04+00:00",
+    "transition_reason": "Astra explicitly published design_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Multiple",
-    "files": [
-      "ARCHITECTURE.md",
-      "README.md",
-      "docs/design/shaders",
-      "docs/design/shaders/README.md",
-      "docs/design/shaders/SYSTEMS-REQUESTS.md",
-      "docs/verification/C05/README.md",
-      "installer/aerolith_install/cli.py",
-      "installer/aerolith_install/hypr.py",
-      "installer/aerolith_install/manifest.py",
-      "installer/aerolith_install/themes.py",
-      "installer/aerolith_install/ui.py",
-      "shell/components/ChordSlot.qml",
-      "shell/components/Counterphase.qml",
-      "shell/components/Material.qml",
-      "shell/components/ShearField.qml",
-      "shell/components/WorkspaceOrbit.qml",
-      "shell/core/Theme.qml",
-      "shell/modules/osd/OsdHost.qml",
-      "shell/shaders",
-      "shell/shaders/annulus.frag",
-      "shell/shaders/annulus.frag.qsb",
-      "shell/shaders/bevel.frag",
-      "shell/shaders/bevel.frag.qsb",
-      "shell/shaders/catch.frag",
-      "shell/shaders/catch.frag.qsb",
-      "shell/shaders/material.glsl",
-      "shell/shaders/undercarriage.frag",
-      "shell/shaders/undercarriage.frag.qsb",
-      "tests/py/test_installer.py",
-      "tests/scenarios/installed.sh",
-      "themes/README.md",
-      "tools/build-shaders.sh",
-      "tools/headless/run.sh",
-      "tools/headless/session.sh"
-    ],
-    "locks": [
-      {
-        "lock_id": "d33ef97b-d29a-4317-b25c-ceb5e2e01290",
-        "agent": "Sol",
-        "files": [
-          "ARCHITECTURE.md",
-          "README.md",
-          "docs/verification/C05/README.md",
-          "installer/aerolith_install/cli.py",
-          "installer/aerolith_install/manifest.py",
-          "installer/aerolith_install/themes.py",
-          "installer/aerolith_install/ui.py",
-          "tests/py/test_installer.py",
-          "tests/scenarios/installed.sh",
-          "themes/README.md"
-        ],
-        "task_id": "C05",
-        "created_at": "2026-10-26T16:36:26+00:00",
-        "expires_epoch": 1793046986.4452515,
-        "ttl_seconds": 14400
-      },
-      {
-        "lock_id": "b9e3cb2f-5fba-4c1a-829f-57b00fc40bd7",
-        "agent": "Astra",
-        "files": [
-          "docs/design/shaders",
-          "shell/components/ChordSlot.qml",
-          "shell/components/Counterphase.qml",
-          "shell/components/Material.qml",
-          "shell/components/ShearField.qml",
-          "shell/components/WorkspaceOrbit.qml",
-          "shell/core/Theme.qml",
-          "shell/modules/osd/OsdHost.qml",
-          "shell/shaders",
-          "tools/build-shaders.sh",
-          "tools/headless/run.sh",
-          "tools/headless/session.sh"
-        ],
-        "task_id": "E01",
-        "created_at": "2026-10-26T16:37:28+00:00",
-        "expires_epoch": 1793047048.411727,
-        "ttl_seconds": 14400
-      },
-      {
-        "lock_id": "8c1854ae-d5bb-40ef-af48-71f3de0b2a93",
-        "agent": "Astra",
-        "files": [
-          "docs/design/shaders/README.md",
-          "docs/design/shaders/SYSTEMS-REQUESTS.md",
-          "shell/shaders/annulus.frag",
-          "shell/shaders/annulus.frag.qsb",
-          "shell/shaders/bevel.frag",
-          "shell/shaders/bevel.frag.qsb",
-          "shell/shaders/catch.frag",
-          "shell/shaders/catch.frag.qsb",
-          "shell/shaders/material.glsl",
-          "shell/shaders/undercarriage.frag",
-          "shell/shaders/undercarriage.frag.qsb"
-        ],
-        "task_id": "E01",
-        "created_at": "2026-10-26T16:39:45+00:00",
-        "expires_epoch": 1793047185.9580295,
-        "ttl_seconds": 14400
-      },
-      {
-        "lock_id": "51cbe7fa-a960-4707-a8e6-26d346b165d9",
-        "agent": "Sol",
-        "files": [
-          "installer/aerolith_install/hypr.py"
-        ],
-        "task_id": "C05",
-        "created_at": "2026-10-26T16:40:15+00:00",
-        "expires_epoch": 1793047215.8608382,
-        "ttl_seconds": 14400
-      }
-    ]
+    "locked_by": "None",
+    "files": [],
+    "locks": []
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -2602,6 +2492,26 @@
         "request": "Performance/stability audit of the completed design layer",
         "summary": "D03 complete: bounded notice lane below the Deck rail; both retained bays reserve its width; overflow scrolls within the output",
         "notes": "Evidence: docs/design/notices/README.md and verification/CHECKS.md. Old layout reproduced and fails geometry assertion. Final Node 130/130; notify CONFIG=tests/fixtures/notify-config.json, deck AUDIO=1, smoke, fullscreen AUDIO=1 with notification fixture all exit 0. Matrix 17 profiles/340 snapshots including both directions/intensities, 1080p and 720p uiScale 1.25/1.5, eight bays, eight cards, off/reduced/lowEffects, bottom strip, installed AI. Read 21 final qs logs: no QML engine errors. Read-only systems review: no D03 lifecycle changes required; NoticeColumn visible/PanelWindow existence, Deck.qml, services, config and schema untouched. P3 follow-up for Sol: fullscreen.sh:136 survivor-count timing under concurrent load; isolated final run passes 20 cycles and RSS screen. Headless software evidence only; real Hyprland/GPU QA remains. No commit and no cloud-agent dispatch.",
+        "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-26T16:57:04+00:00",
+        "task_id": "E01",
+        "files": [
+          "shell/core/Theme.qml",
+          "shell/components/Material.qml",
+          "shell/components/ShearField.qml",
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/components/Counterphase.qml",
+          "shell/components/ChordSlot.qml",
+          "shell/modules/osd/OsdHost.qml",
+          "shell/shaders",
+          "tools/build-shaders.sh",
+          "docs/design/shaders"
+        ],
+        "request": "Performance/stability audit of the completed design layer",
+        "summary": "E01/E02 implemented: four bounded materials, shared semantic/lifecycle interface, native fallbacks and top-center OSD; GPU visual verification remains open",
+        "notes": "Base 9b60683e5b23779edf66741ccadbe11d4daf79dd. Evidence docs/design/shaders/README.md and verification/RESULTS.md. qsb build/check passes; changed shared include correctly fails --check. Node 135/135, Qt V4 135/135, pytest 111 passed/1 skipped. smoke/full AUDIO=1 MEDIA=1/deck/notify/osd/fullscreen pass; 20 fullscreen cycles RSS screen passes. Default notices matrix aborts on outdated direction literal; unchanged scenario with compatible disposable input passes 15 cells/300 snapshots. P2 Sol review finding and minimal correction in SYSTEMS-REQUESTS.md; one revision requested. 72 native before/after/event PNGs across both directions/intensities; compact OSD and 4K DPR=2 proof. Read 35 final positive qs logs, zero QML errors. Matched 120s fallback CPU Saturated 1.492->1.542%, Insane 3.692->3.817%, within ~2/~4 budgets. No working container EGL/RHI path: no DRM FD for sway GLES, Qt over pixman produces black output; shader appearance/runtime compilation/GPU cost/cache release NOT verified. No SHADERS harness switch added. Self-review fix retains native faces until ShaderEffect.Compiled. No full-output shader; no new clock, timer, sampler, layer or live texture. Services/Deck.qml/shell root/config/schema/harness unchanged. Opus must wire validated quality, CI/package checks, Qt compatibility and hardware E03/E04/B06. No commit, no cloud dispatch.",
         "status": "pending"
       }
     ],
@@ -5758,6 +5668,50 @@
       "state": "Astra_Design_Phase",
       "reason": "Explicit owner assignment: E01/E02 shader visual implementation, isolated worktree",
       "timestamp": "2026-10-26T16:37:28+00:00"
+    },
+    {
+      "id": "268edebe-ae27-4b62-a673-21748a65777e",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "installer/aerolith_install/themes.py",
+        "installer/aerolith_install/cli.py",
+        "installer/aerolith_install/manifest.py",
+        "installer/aerolith_install/hypr.py",
+        "installer/aerolith_install/ui.py",
+        "tests/py/test_installer.py",
+        "tests/scenarios/installed.sh",
+        "tests/scenarios/themes.sh",
+        "themes/README.md",
+        "README.md",
+        "ARCHITECTURE.md",
+        "docs/verification/C05/README.md"
+      ],
+      "summary": "C05 implementation complete for Opus review: explicit opt-in theme deployment, exact recorded removal, nine supported app targets; no visual assets changed.",
+      "notes": "Full pytest 205 passed, 1 skipped; Node 135 passed; focused PIYTI/THEARS container install/reapply/native foot+Lua+Hyprland parsing/byte-exact uninstall passed; installed THEARS and final PIYTI headless scenarios passed (initial PIYTI audio assertion failed, cause unverified). Bash syntax and diff checks passed. Base SHA 9b60683e5b23779edf66741ccadbe11d4daf79dd; no commit. Generator missing in base, reported to Astra in themes/README.md. Firefox/Steam/Discord/LibreOffice/ArtCraft deferred; btop/Qt manual selection; C06 absent. One review of baseline hypr include found P2 missing-final-newline restoration bug, fixed and strict test added. Exact commands, per-app mechanisms and limits in docs/verification/C05/README.md. Opus review pending; no dispatcher invoked. Shared UI-016 workflow was left unchanged under explicit user C05/Sol assignment.",
+      "task_id": "C05",
+      "timestamp": "2026-10-26T16:53:31+00:00"
+    },
+    {
+      "id": "c043caf2-f9bc-43a6-b90f-866ada28fed7",
+      "type": "design_complete",
+      "agent": "Astra",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/components/Material.qml",
+        "shell/components/ShearField.qml",
+        "shell/components/WorkspaceOrbit.qml",
+        "shell/components/Counterphase.qml",
+        "shell/components/ChordSlot.qml",
+        "shell/modules/osd/OsdHost.qml",
+        "shell/shaders",
+        "tools/build-shaders.sh",
+        "docs/design/shaders"
+      ],
+      "summary": "E01/E02 implemented: four bounded materials, shared semantic/lifecycle interface, native fallbacks and top-center OSD; GPU visual verification remains open",
+      "notes": "Base 9b60683e5b23779edf66741ccadbe11d4daf79dd. Evidence docs/design/shaders/README.md and verification/RESULTS.md. qsb build/check passes; changed shared include correctly fails --check. Node 135/135, Qt V4 135/135, pytest 111 passed/1 skipped. smoke/full AUDIO=1 MEDIA=1/deck/notify/osd/fullscreen pass; 20 fullscreen cycles RSS screen passes. Default notices matrix aborts on outdated direction literal; unchanged scenario with compatible disposable input passes 15 cells/300 snapshots. P2 Sol review finding and minimal correction in SYSTEMS-REQUESTS.md; one revision requested. 72 native before/after/event PNGs across both directions/intensities; compact OSD and 4K DPR=2 proof. Read 35 final positive qs logs, zero QML errors. Matched 120s fallback CPU Saturated 1.492->1.542%, Insane 3.692->3.817%, within ~2/~4 budgets. No working container EGL/RHI path: no DRM FD for sway GLES, Qt over pixman produces black output; shader appearance/runtime compilation/GPU cost/cache release NOT verified. No SHADERS harness switch added. Self-review fix retains native faces until ShaderEffect.Compiled. No full-output shader; no new clock, timer, sampler, layer or live texture. Services/Deck.qml/shell root/config/schema/harness unchanged. Opus must wire validated quality, CI/package checks, Qt compatibility and hardware E03/E04/B06. No commit, no cloud dispatch.",
+      "task_id": "E01",
+      "timestamp": "2026-10-26T16:57:04+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7500,6 +7454,7 @@
     "docs/design/schemes/SYSTEMS-REQUESTS.md",
     "docs/design/schemes/app-themes-validation.log",
     "docs/design/schemes/verify-app-themes.py",
+    "docs/design/shaders",
     "docs/design/shots/baseline/overview.png",
     "docs/design/shots/baseline/sound.png",
     "docs/design/shots/cut/01-idle.png",
@@ -8109,9 +8064,13 @@
     "docs/verification/B05/README.md",
     "docs/verification/C01",
     "docs/verification/C01/README.md",
+    "docs/verification/C05/README.md",
     "installer",
     "installer/aerolith_install/cli.py",
+    "installer/aerolith_install/hypr.py",
+    "installer/aerolith_install/manifest.py",
     "installer/aerolith_install/paths.py",
+    "installer/aerolith_install/themes.py",
     "installer/aerolith_install/ui.py",
     "prototypes/README.md",
     "prototypes/accessibility.json",
@@ -8195,6 +8154,7 @@
     "shell/components/Instrumentation.qml",
     "shell/components/KeyHint.qml",
     "shell/components/Label.qml",
+    "shell/components/Material.qml",
     "shell/components/MetricTape.qml",
     "shell/components/Readout.qml",
     "shell/components/ShearField.qml",
@@ -8218,6 +8178,7 @@
     "shell/modules/navigator/SpatialNavigator.qml",
     "shell/modules/notices/NoticeColumn.qml",
     "shell/modules/notices/NoticeStack.qml",
+    "shell/modules/osd/OsdHost.qml",
     "shell/modules/osd/OsdView.qml",
     "shell/modules/routines/RoutineConsole.qml",
     "shell/modules/settings/SchemePicker.qml",
@@ -8233,6 +8194,7 @@
     "shell/modules/systems/CoreBus.qml",
     "shell/modules/systems/SystemsBay.qml",
     "shell/schema/config.schema.json",
+    "shell/shaders",
     "tests",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
@@ -8245,6 +8207,7 @@
     "tests/scenarios/installed.sh",
     "tests/scenarios/notices-layout-matrix.sh",
     "tests/scenarios/notices-layout.sh",
+    "tests/scenarios/themes.sh",
     "themes",
     "themes/README.md",
     "themes/artcraft/README.md",
@@ -8275,6 +8238,7 @@
     "themes/steam/thears/friends.custom.css",
     "themes/steam/thears/libraryroot.custom.css",
     "themes/steam/thears/skin.json",
+    "tools/build-shaders.sh",
     "tools/design_archive.py",
     "tools/gen-scheme-themes.mjs",
     "tools/headless/run.sh",
@@ -8283,12 +8247,23 @@
   ],
   "last_agent_event": {
     "agent": "Astra",
-    "type": "note",
-    "files": [],
-    "summary": "Owner explicitly assigned E01/E02 to Astra; beginning visual shader work in isolated codex/design-259cfec9",
-    "notes": "Shared hub retains UI-016/Claude_Performance_Audit from prior completion. This explicit owner assignment authorizes E01 visual work; no systems lifecycle changes. Locks follow before edits.",
+    "type": "design_complete",
+    "files": [
+      "shell/core/Theme.qml",
+      "shell/components/Material.qml",
+      "shell/components/ShearField.qml",
+      "shell/components/WorkspaceOrbit.qml",
+      "shell/components/Counterphase.qml",
+      "shell/components/ChordSlot.qml",
+      "shell/modules/osd/OsdHost.qml",
+      "shell/shaders",
+      "tools/build-shaders.sh",
+      "docs/design/shaders"
+    ],
+    "summary": "E01/E02 implemented: four bounded materials, shared semantic/lifecycle interface, native fallbacks and top-center OSD; GPU visual verification remains open",
+    "notes": "Base 9b60683e5b23779edf66741ccadbe11d4daf79dd. Evidence docs/design/shaders/README.md and verification/RESULTS.md. qsb build/check passes; changed shared include correctly fails --check. Node 135/135, Qt V4 135/135, pytest 111 passed/1 skipped. smoke/full AUDIO=1 MEDIA=1/deck/notify/osd/fullscreen pass; 20 fullscreen cycles RSS screen passes. Default notices matrix aborts on outdated direction literal; unchanged scenario with compatible disposable input passes 15 cells/300 snapshots. P2 Sol review finding and minimal correction in SYSTEMS-REQUESTS.md; one revision requested. 72 native before/after/event PNGs across both directions/intensities; compact OSD and 4K DPR=2 proof. Read 35 final positive qs logs, zero QML errors. Matched 120s fallback CPU Saturated 1.492->1.542%, Insane 3.692->3.817%, within ~2/~4 budgets. No working container EGL/RHI path: no DRM FD for sway GLES, Qt over pixman produces black output; shader appearance/runtime compilation/GPU cost/cache release NOT verified. No SHADERS harness switch added. Self-review fix retains native faces until ShaderEffect.Compiled. No full-output shader; no new clock, timer, sampler, layer or live texture. Services/Deck.qml/shell root/config/schema/harness unchanged. Opus must wire validated quality, CI/package checks, Qt compatibility and hardware E03/E04/B06. No commit, no cloud dispatch.",
     "task_id": "E01",
-    "timestamp": "2026-10-26T16:37:14+00:00"
+    "timestamp": "2026-10-26T16:57:04+00:00"
   },
-  "updated_at": "2026-10-26T16:40:15+00:00"
+  "updated_at": "2026-10-26T16:57:04+00:00"
 }
