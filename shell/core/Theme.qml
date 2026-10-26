@@ -3,8 +3,10 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
+import qs.services
 import "../lib/tokens.mjs" as Tokens
 import "../lib/schemes.mjs" as Schemes
+import "../lib/ambient.mjs" as Ambient
 
 // Limb's mineral planes and phosphor inscriptions, resolved against config.
 // Every visual value used by components comes from here.
@@ -72,6 +74,8 @@ Singleton {
     readonly property string sans: cfg.fontSans
     readonly property string displaySans: cfg.fontSans === "Inter" ? "Inter Display" : cfg.fontSans
     readonly property string mono: cfg.fontMono
+    readonly property var installedFontFamilies: Qt.fontFamilies()
+    readonly property string canvasMono: Ambient.canvasFamily(mono, installedFontFamilies)
     function px(n) {
         return Math.round(n * scale);
     }
@@ -136,7 +140,38 @@ Singleton {
     // UI-013: the only ambient-motion switch. Claude's fullscreen lifecycle
     // hook sets ambientSuspended before unmapping/unloading visual surfaces.
     property bool ambientSuspended: false
-    readonly property bool ambient: animate && !lowEffects && !ambientSuspended
+    // Mapping is not exposure: tiled/maximized clients may cover the Ground
+    // while it stays mapped. Read the existing snapshots only when they change.
+    // Coverage holds motion, without invoking the fullscreen release lifecycle.
+    readonly property bool desktopCovered: {
+        if (!Compositor.available || !Ui.screen) return false;
+        const geometry = Compositor.monitorGeometry();
+        if (!geometry) return false;
+        const monitors = Hyprland.monitors.values;
+        let monitor = null;
+        for (let i = 0; i < monitors.length; i++)
+            if (monitors[i].name === Ui.screenName) monitor = monitors[i];
+        if (!monitor && monitors.length === 1) monitor = monitors[0];
+        if (!monitor) return false;
+        const ipc = monitor.lastIpcObject || {};
+        // Conservatively keep motion available over a shown special workspace.
+        if (ipc.specialWorkspace && ipc.specialWorkspace.id < 0) return false;
+        const workspace = monitor.activeWorkspace ? monitor.activeWorkspace.id
+            : ipc.activeWorkspace ? ipc.activeWorkspace.id : -1;
+        // Client coordinates and monitorGeometry() are both logical, including
+        // rotated/fractionally scaled outputs. Ignore the strip's reserved lane.
+        const lane = Config.strip.visible ? Math.min(stripHeight, geometry.height) : 0;
+        const output = { x: geometry.x,
+            y: geometry.y + (Config.strip.edge === "top" ? lane : 0),
+            width: geometry.width, height: geometry.height - lane };
+        const windows = Compositor.windows().map(w => ({
+            workspaceId: w.workspaceId, at: w.at, size: w.size, floating: w.floating,
+            ipc: w.toplevel ? w.toplevel.lastIpcObject : null
+        }));
+        return Ambient.desktopCovered(windows, output, workspace);
+    }
+    readonly property bool ambientHeld: ambientSuspended || (desktopCovered && !Ui.deckOpen)
+    readonly property bool ambient: animate && !lowEffects && !ambientHeld
     onAmbientChanged: if (!ambient) { ignition.stop(); bootProgress = 1; }
     readonly property bool ambientReduced: cfg.motion === "reduced"
     readonly property int carrierDuration: ambientReduced ? slow * 10 : normal * 3
