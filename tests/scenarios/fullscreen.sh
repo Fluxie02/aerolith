@@ -76,6 +76,23 @@ done
 alive || fail "quickshell died during the cycles"
 [ "$(grep -c "AEROLITH started" "$OUT/qs.log")" = "$starts" ] || fail "the shell restarted"
 [ "$(grep -c "desktop -> suspended" "$OUT/qs.log")" = 22 ] || fail "expected 22 suspensions, log has $(grep -c "desktop -> suspended" "$OUT/qs.log")"
+
+# 7. With the notification server on (CONFIG=tests/fixtures/notify-config.json,
+#    popupTimeoutMs 5000), a popup that arrives during fullscreen is kept
+#    until the shell is back and then gets its full time.
+if [ -f /seed/config.json ] && grep -q '"notifications"' /seed/config.json; then
+  mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":2}" >/dev/null
+  wait_field surfacesReleased True 3 || fail "not released before the notification test"
+  python3 "$SRC/tools/headless/notify_client.py" --summary "Download finished" --wait 1 >"$OUT/fs-n1.txt" 2>>"$OUT/notify-client.log" &
+  wait_field popups 1 5 || fail "the notification sent during fullscreen has no popup"
+  sleep 7
+  [ "$(field popups)" = 1 ] || fail "the popup expired during fullscreen"
+  mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
+  wait_field phase desktop 3 || fail "not restored for the notification test"
+  sleep 3
+  [ "$(field popups)" = 1 ] || fail "the popup did not get its full time after fullscreen"
+  wait_field popups 0 4 || fail "the popup never expired after fullscreen"
+fi
 if grep -nE "ReferenceError|TypeError|is not defined|Cannot read|Binding loop" "$OUT/qs.log"; then fail "QML errors in qs.log"; fi
 shot 04-after-cycles
 echo "fullscreen: ok"
