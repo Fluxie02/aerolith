@@ -115,4 +115,8 @@ Opus should coordinate the complete plan, delegate mechanical work to Sol, assig
 
 | ID | State | Evidence |
 |----|-------|----------|
-| A01 | In progress | |
+| A01 | Done | Merges 57db8aa (Astra, SHEAR through Smoothness) and 44e687d (main, two-account bridge). Only `.ai_sync_hub.json` changed on both sides; resolved with Astra's valid hub plus main's three events. |
+| A02 | Done | No file changed on both sides except the hub; after Astra branched, PR #1 changed only docs. A03 found no integration incompatibility. |
+| A03 | Done | Baseline at c6ea2a8 (Sol, `docs/verification/A03/README.md`): Node 118/118, Qt V4 118/118, pytest 71 passed / 1 skipped, 12/12 scenario runs (smoke, full, deck, notify, ai, installed × Saturated and Insane). Only failure: the known Codex AI fixture (F02). |
+| A04 | Done, one gap | Fixed: usage caps were never enforced (c6ea2a8^, 7ab1a3c), Sol had no hub access or network (c6ea2a8), agent-sync did not know Sol (f508120). Verified: both accounts logged in, `gpt-6.1-sol` answers, a Sol edit job ran in its own worktree and returned a branch. Gap: no live Astra job through the new bridge yet (the next one will be). |
+| A05 | Open | `docs/design` is 732 MB. |
