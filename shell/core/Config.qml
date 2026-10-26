@@ -60,6 +60,7 @@ Singleton {
     readonly property var telemetry: data.telemetry
     readonly property var audio: data.audio
     readonly property var navigator: data.navigator
+    readonly property var lock: data.lock
     readonly property var routines: data.routines
     readonly property var notifications: data.notifications
 

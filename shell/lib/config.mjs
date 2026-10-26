@@ -118,6 +118,12 @@ export const SCHEMA = S.obj(
       },
       "Signal Rack audio behaviour.",
     ),
+    lock: S.obj(
+      {
+        enabled: S.bool(false, "Lock with AEROLITH's own lock screen (Wayland session lock and PAM). Off: the lock command asks logind, for a locker such as hyprlock."),
+      },
+      "Session lock.",
+    ),
     navigator: S.obj(
       {
         thumbnails: S.bool(false, "Live window thumbnails (uses hyprland-toplevel-export; costs GPU memory)."),

@@ -324,6 +324,17 @@
         }
       }
     },
+    "lock": {
+      "type": "object",
+      "description": "Session lock.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Lock with AEROLITH's own lock screen (Wayland session lock and PAM). Off: the lock command asks logind, for a locker such as hyprlock.",
+          "default": false
+        }
+      }
+    },
     "navigator": {
       "type": "object",
       "description": "Spatial Navigator overview.",

@@ -105,9 +105,15 @@ Singleton {
             category: "system",
             alias: "lock",
             keywords: ["lock", "screen", "away"],
-            description: "loginctl lock-session (needs a locker such as hyprlock via hypridle)",
+            description: "AEROLITH's lock screen when lock.enabled is on; otherwise loginctl lock-session (needs a locker such as hyprlock via hypridle)",
             routine: true,
-            run: () => root.runChecked(["loginctl", "lock-session"], "Lock requested")
+            run: () => {
+                if (Config.lock.enabled) {
+                    Ui.locked = true;
+                    return Registry.ok("Locked");
+                }
+                return root.runChecked(["loginctl", "lock-session"], "Lock requested");
+            }
         });
         Registry.register({
             id: "system.suspend",
