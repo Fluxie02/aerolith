@@ -5,53 +5,19 @@
     "description": "Shared coordination state for Claude Code and Codex.",
     "repository_root": "."
   },
-  "system_state": "Astra_Design_Phase",
+  "system_state": "Claude_Performance_Audit",
   "workflow": {
     "current_task_id": "UI-016",
-    "current_owner": "Astra",
-    "last_transition_at": "2026-10-26T16:03:29+00:00",
-    "transition_reason": "Owner explicitly assigned Astra roadmap D03 in isolated codex/design-47522693 worktree; visual notice placement only",
+    "current_owner": "Claude",
+    "last_transition_at": "2026-10-26T16:25:08+00:00",
+    "transition_reason": "Astra explicitly published design_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Astra",
-    "files": [
-      "docs/design/notices",
-      "shell/modules/deck/DeckView.qml",
-      "shell/modules/notices/NoticeColumn.qml",
-      "shell/modules/notices/NoticeStack.qml",
-      "tests/scenarios/notices-layout-matrix.sh",
-      "tests/scenarios/notices-layout.sh"
-    ],
-    "locks": [
-      {
-        "lock_id": "8d9349f5-f8dc-4a2a-89e7-40dfdc0a6b87",
-        "agent": "Astra",
-        "files": [
-          "docs/design/notices",
-          "shell/modules/deck/DeckView.qml",
-          "shell/modules/notices/NoticeColumn.qml",
-          "shell/modules/notices/NoticeStack.qml",
-          "tests/scenarios/notices-layout.sh"
-        ],
-        "task_id": "D03",
-        "created_at": "2026-10-26T16:03:29+00:00",
-        "expires_epoch": 1793045009.3048859,
-        "ttl_seconds": 14400
-      },
-      {
-        "lock_id": "1db4892c-a6df-46bd-b2c3-629ce01371fb",
-        "agent": "Astra",
-        "files": [
-          "tests/scenarios/notices-layout-matrix.sh"
-        ],
-        "task_id": "D03",
-        "created_at": "2026-10-26T16:05:13+00:00",
-        "expires_epoch": 1793045113.7701554,
-        "ttl_seconds": 14400
-      }
-    ]
+    "locked_by": "None",
+    "files": [],
+    "locks": []
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -2510,6 +2476,22 @@
         "request": "Performance/stability audit of the completed design layer",
         "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
         "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
+        "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-26T16:25:08+00:00",
+        "task_id": "D03",
+        "files": [
+          "shell/modules/deck/DeckView.qml",
+          "shell/modules/notices/NoticeStack.qml",
+          "shell/modules/notices/NoticeColumn.qml",
+          "tests/scenarios/notices-layout.sh",
+          "tests/scenarios/notices-layout-matrix.sh",
+          "docs/design/notices"
+        ],
+        "request": "Performance/stability audit of the completed design layer",
+        "summary": "D03 complete: bounded notice lane below the Deck rail; both retained bays reserve its width; overflow scrolls within the output",
+        "notes": "Evidence: docs/design/notices/README.md and verification/CHECKS.md. Old layout reproduced and fails geometry assertion. Final Node 130/130; notify CONFIG=tests/fixtures/notify-config.json, deck AUDIO=1, smoke, fullscreen AUDIO=1 with notification fixture all exit 0. Matrix 17 profiles/340 snapshots including both directions/intensities, 1080p and 720p uiScale 1.25/1.5, eight bays, eight cards, off/reduced/lowEffects, bottom strip, installed AI. Read 21 final qs logs: no QML engine errors. Read-only systems review: no D03 lifecycle changes required; NoticeColumn visible/PanelWindow existence, Deck.qml, services, config and schema untouched. P3 follow-up for Sol: fullscreen.sh:136 survivor-count timing under concurrent load; isolated final run passes 20 cycles and RSS screen. Headless software evidence only; real Hyprland/GPU QA remains. No commit and no cloud-agent dispatch.",
         "status": "pending"
       }
     ],
@@ -5622,6 +5604,23 @@
       "notes": "Base 4f9944bad72557ba0a2b57c2fcea57555688fd7d plus uncommitted worktree diff; no commit made. Store: XDG config aerolith/installation.json, config/config manifest ownership, independent of live Settings schema. Node 130/130; Qt V4 130/130; pytest 94 passed/1 skipped; smoke, installed THEARS and default PIYTI, startup-invalid/no-live-switch scenario, fullscreen 20 cycles pass; 17 shell logs without QML errors. Extra matrix: PIYTI/Saturated passes; PIYTI/Insane cycle14 popup-count assertion fails, isolated same-input retry passes20 cycles; matrix stops before THEARS cells. P2 evidence and minimal follow-up in docs/verification/C01/README.md; notification/fullscreen runtime untouched. Theme changed only seam line29; intensity/C03 untouched. Reviewed existing config/Settings/ownership contracts once. Independent Opus review pending; no dispatcher started. Preserved Astra D03 workflow and locks.",
       "task_id": "C01",
       "timestamp": "2026-10-26T16:16:37+00:00"
+    },
+    {
+      "id": "13d53a4d-a28b-47d3-9107-901532d66b36",
+      "type": "design_complete",
+      "agent": "Astra",
+      "files": [
+        "shell/modules/deck/DeckView.qml",
+        "shell/modules/notices/NoticeStack.qml",
+        "shell/modules/notices/NoticeColumn.qml",
+        "tests/scenarios/notices-layout.sh",
+        "tests/scenarios/notices-layout-matrix.sh",
+        "docs/design/notices"
+      ],
+      "summary": "D03 complete: bounded notice lane below the Deck rail; both retained bays reserve its width; overflow scrolls within the output",
+      "notes": "Evidence: docs/design/notices/README.md and verification/CHECKS.md. Old layout reproduced and fails geometry assertion. Final Node 130/130; notify CONFIG=tests/fixtures/notify-config.json, deck AUDIO=1, smoke, fullscreen AUDIO=1 with notification fixture all exit 0. Matrix 17 profiles/340 snapshots including both directions/intensities, 1080p and 720p uiScale 1.25/1.5, eight bays, eight cards, off/reduced/lowEffects, bottom strip, installed AI. Read 21 final qs logs: no QML engine errors. Read-only systems review: no D03 lifecycle changes required; NoticeColumn visible/PanelWindow existence, Deck.qml, services, config and schema untouched. P3 follow-up for Sol: fullscreen.sh:136 survivor-count timing under concurrent load; isolated final run passes 20 cycles and RSS screen. Headless software evidence only; real Hyprland/GPU QA remains. No commit and no cloud-agent dispatch.",
+      "task_id": "D03",
+      "timestamp": "2026-10-26T16:25:08+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7309,6 +7308,7 @@
     "docs/design/limb/verification/status-idle.json",
     "docs/design/limb/verification/status-systems.json",
     "docs/design/limb/verification/windows-qs.txt",
+    "docs/design/notices",
     "docs/design/round2/CONCEPTS.md",
     "docs/design/round2/VALIDATION.md",
     "docs/design/round2/fault/01-idle.png",
@@ -8079,6 +8079,7 @@
     "shell/modules/help/HelpBay.qml",
     "shell/modules/navigator/Sector.qml",
     "shell/modules/navigator/SpatialNavigator.qml",
+    "shell/modules/notices/NoticeColumn.qml",
     "shell/modules/notices/NoticeStack.qml",
     "shell/modules/osd/OsdView.qml",
     "shell/modules/routines/RoutineConsole.qml",
@@ -8105,6 +8106,8 @@
     "tests/scenarios/fullscreen-matrix.sh",
     "tests/scenarios/fullscreen.sh",
     "tests/scenarios/installed.sh",
+    "tests/scenarios/notices-layout-matrix.sh",
+    "tests/scenarios/notices-layout.sh",
     "themes",
     "themes/README.md",
     "themes/artcraft/README.md",
@@ -8142,28 +8145,20 @@
     "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
-    "agent": "Sol",
-    "type": "integration_complete",
+    "agent": "Astra",
+    "type": "design_complete",
     "files": [
-      "installer/aerolith_install/cli.py",
-      "installer/aerolith_install/paths.py",
-      "installer/aerolith_install/ui.py",
-      "shell/core/Config.qml",
-      "shell/core/Paths.qml",
-      "shell/core/Theme.qml",
-      "shell/modules/ControlSurface.qml",
-      "tests/py/test_installer.py",
-      "tests/scenarios/direction.sh",
-      "tests/scenarios/installed.sh",
-      "tests/scenarios/fullscreen-matrix.sh",
-      "README.md",
-      "ARCHITECTURE.md",
-      "docs/verification/C01/README.md"
+      "shell/modules/deck/DeckView.qml",
+      "shell/modules/notices/NoticeStack.qml",
+      "shell/modules/notices/NoticeColumn.qml",
+      "tests/scenarios/notices-layout.sh",
+      "tests/scenarios/notices-layout-matrix.sh",
+      "docs/design/notices"
     ],
-    "summary": "C01/C02 implemented: installation-only direction, PIYTI default, preserved reinstall choice, startup loading and status; ready for Opus review",
-    "notes": "Base 4f9944bad72557ba0a2b57c2fcea57555688fd7d plus uncommitted worktree diff; no commit made. Store: XDG config aerolith/installation.json, config/config manifest ownership, independent of live Settings schema. Node 130/130; Qt V4 130/130; pytest 94 passed/1 skipped; smoke, installed THEARS and default PIYTI, startup-invalid/no-live-switch scenario, fullscreen 20 cycles pass; 17 shell logs without QML errors. Extra matrix: PIYTI/Saturated passes; PIYTI/Insane cycle14 popup-count assertion fails, isolated same-input retry passes20 cycles; matrix stops before THEARS cells. P2 evidence and minimal follow-up in docs/verification/C01/README.md; notification/fullscreen runtime untouched. Theme changed only seam line29; intensity/C03 untouched. Reviewed existing config/Settings/ownership contracts once. Independent Opus review pending; no dispatcher started. Preserved Astra D03 workflow and locks.",
-    "task_id": "C01",
-    "timestamp": "2026-10-26T16:16:37+00:00"
+    "summary": "D03 complete: bounded notice lane below the Deck rail; both retained bays reserve its width; overflow scrolls within the output",
+    "notes": "Evidence: docs/design/notices/README.md and verification/CHECKS.md. Old layout reproduced and fails geometry assertion. Final Node 130/130; notify CONFIG=tests/fixtures/notify-config.json, deck AUDIO=1, smoke, fullscreen AUDIO=1 with notification fixture all exit 0. Matrix 17 profiles/340 snapshots including both directions/intensities, 1080p and 720p uiScale 1.25/1.5, eight bays, eight cards, off/reduced/lowEffects, bottom strip, installed AI. Read 21 final qs logs: no QML engine errors. Read-only systems review: no D03 lifecycle changes required; NoticeColumn visible/PanelWindow existence, Deck.qml, services, config and schema untouched. P3 follow-up for Sol: fullscreen.sh:136 survivor-count timing under concurrent load; isolated final run passes 20 cycles and RSS screen. Headless software evidence only; real Hyprland/GPU QA remains. No commit and no cloud-agent dispatch.",
+    "task_id": "D03",
+    "timestamp": "2026-10-26T16:25:08+00:00"
   },
-  "updated_at": "2026-10-26T16:16:38+00:00"
+  "updated_at": "2026-10-26T16:25:08+00:00"
 }
