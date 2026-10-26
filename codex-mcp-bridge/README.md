@@ -3,12 +3,24 @@
 Minimal stdio MCP server that lets an MCP-compatible host call the installed Codex CLI without relying on Claude Code's `/plugin` mechanism.
 
 ## Tools
-- `codex_status`: per-account login, last known usage, cap, and which account the next job uses.
-- `codex_design_task`: bounded UI task; Codex can edit files. Design work.
-- `codex_review_diff`: review-only diff inspection (read-only sandbox). `visual_design` reviews are design work; other focuses go to the coding buddy.
-- `codex_coding_buddy`: second opinion on systems code; `advise` is read-only, `edit` may change files.
+- `codex_status`: per-account role, model, login, last known usage and cap, and which account the next design and coding job use.
+- `codex_design_task`: UI task for Astra (design accounts). Runs in the background in its own worktree.
+- `codex_coding_buddy`: Sol (coding accounts). `advise` is read-only and waits by default; `edit` is for big coding tasks and runs in the background in its own worktree.
+- `codex_review_diff`: review-only, read-only sandbox, waits by default. `visual_design` reviews are design work; other focuses go to the coding accounts.
+- `codex_wait_job`: wait up to 10 minutes for a background job, then return its result or current status.
 - `codex_get_job`: retrieve a saved result.
-- `codex_recent_jobs`: list recent jobs.
+- `codex_recent_jobs`: list recent jobs with their account and branch.
+
+Every job tool takes `wait` (block until done) and `timeout_minutes` (1 to 120).
+
+## Parallel jobs and worktrees
+Editing jobs (`codex_design_task`, `codex_coding_buddy` in edit mode) each get a Git worktree in `~/.codex-mcp-bridge/worktrees/` on a new branch `codex/<kind>-<id>` made from the main checkout's `HEAD`, so Claude, Astra and Sol never write the same files on disk. When the job ends, the bridge commits its changes to that branch (author Astra or Sol), drops any worktree change to `.ai_sync_hub.json`, removes the worktree and reports the branch with a diffstat. A job that changed nothing leaves no branch. Read-only jobs run in the main checkout.
+
+- Uncommitted changes in the main checkout are not in a job's worktree; commit first.
+- Design jobs get `--add-dir <main checkout>` so Astra can write the shared agent-sync hub (`agent_sync.py --repo <main checkout>`). This also lets Astra write the main checkout, as it could before worktrees.
+- A worktree has no `node_modules` or build output; checks that need them must install or build first.
+- Each account runs one Codex process at a time; further jobs for it wait in a queue. Different accounts run side by side.
+- Jobs are owned by the bridge process. If it exits (session end, `/mcp` reconnect), its unfinished jobs are marked `abandoned` at the next start, with their branch named so the work can be recovered.
 
 ## Install
 Requirements: Node.js 20+, Git repository, Codex CLI installed and authenticated by the account owner.
@@ -22,7 +34,7 @@ npm start
 
 Optional environment variables:
 - `CODEX_BIN` defaults to `codex`.
-- `CODEX_MCP_TIMEOUT_MS` defaults to 600000 and is capped at 1200000.
+- `CODEX_MCP_TIMEOUT_MS` defaults to 600000 (10 minutes) and is capped at 7200000 (2 hours).
 - `CODEX_ACCOUNTS` lists ChatGPT accounts in priority order with a usage cap and options, e.g. `mine:100:role=coding:model=gpt-6.1-sol,dad:80:role=design:home=default`. Unset means one account using the default Codex login.
 
 ## Multiple accounts
@@ -76,6 +88,5 @@ OpenAI documents Codex CLI authentication and non-interactive execution here:
 - Scoped to one configured Git repository.
 - Invokes Codex without a shell, using the `workspace-write` sandbox.
 - Review-only behavior is prompt-enforced, not a hard security boundary.
-- Does not create isolated worktrees; serialize jobs or use a dedicated branch/worktree before concurrent agent edits.
 - This is a starter, not a hardened multi-user service.
 - Check `codex exec --help` against the installed CLI version before use. Run on a disposable branch first and inspect diffs before merging.

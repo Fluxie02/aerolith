@@ -24,6 +24,15 @@ python tools/agent-sync/agent_sync.py unlock --agent Astra --task-id <ID>
 These commands need only plain Python 3.10+. `check` exits with code 2 when
 a file is locked by the other agent.
 
+## Worktree jobs
+
+Jobs from the codex-bridge run in their own Git worktree on a `codex/...`
+branch; the bridge commits your changes there when you finish. In a worktree,
+run every agent-sync command against the shared hub in the main checkout,
+whose path the job prompt gives:
+`python tools/agent-sync/agent_sync.py --repo <main checkout> <command> ...`.
+Do not commit, and do not edit `.ai_sync_hub.json` directly.
+
 ## Contract
 
 ```text

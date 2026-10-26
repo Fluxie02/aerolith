@@ -9,7 +9,7 @@
   "workflow": {
     "current_task_id": null,
     "current_owner": "Astra",
-    "last_transition_at": "2026-10-26T13:24:03+00:00",
+    "last_transition_at": "2026-10-26T13:29:14+00:00",
     "transition_reason": "Claude explicitly published integration_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
@@ -63,6 +63,20 @@
         "summary": "Codex accounts get roles: dad does design (cap 80%, normal ~/.codex login); mine is a coding buddy on gpt-6.1-sol via new codex_coding_buddy tool and non-visual reviews. Reviews now run in the read-only sandbox.",
         "notes": "tsc clean; fake-codex MCP run checked routing, -m flag, sandbox per tool, and no spillover when mine is logged out. Model id gpt-6.1-sol unverified against a real login.",
         "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-26T13:29:14+00:00",
+        "task_id": "SYS-CODEX-PARALLEL",
+        "files": [
+          "codex-mcp-bridge/src/index.ts",
+          "codex-mcp-bridge/README.md",
+          "CLAUDE.md",
+          "AGENTS.md"
+        ],
+        "response": "Visual/spatial audit of the integration",
+        "summary": "codex-bridge runs Astra and Sol jobs in the background, in parallel, each editing job in its own git worktree/branch; per-account queue; codex_wait_job; timeouts up to 2h; Claude routes big tedious coding tasks to Sol.",
+        "notes": "tsc clean. Fake-codex MCP runs: design+Sol jobs overlapped (timeline), 2nd Sol job queued, branches committed as Astra/Sol, main checkout untouched, worktrees removed, abandoned job marked with branch after bridge restart. AGENTS.md gained a worktree section for Astra (--repo for agent-sync) - Astra should review it once.",
+        "status": "pending"
       }
     ]
   },
@@ -113,12 +127,28 @@
       "notes": "tsc clean; fake-codex MCP run checked routing, -m flag, sandbox per tool, and no spillover when mine is logged out. Model id gpt-6.1-sol unverified against a real login.",
       "task_id": "SYS-CODEX-ACCOUNTS",
       "timestamp": "2026-10-26T13:24:03+00:00"
+    },
+    {
+      "id": "3ac8daad-23c0-40a9-9ba3-a461973c8e09",
+      "type": "integration_complete",
+      "agent": "Claude",
+      "files": [
+        "codex-mcp-bridge/src/index.ts",
+        "codex-mcp-bridge/README.md",
+        "CLAUDE.md",
+        "AGENTS.md"
+      ],
+      "summary": "codex-bridge runs Astra and Sol jobs in the background, in parallel, each editing job in its own git worktree/branch; per-account queue; codex_wait_job; timeouts up to 2h; Claude routes big tedious coding tasks to Sol.",
+      "notes": "tsc clean. Fake-codex MCP runs: design+Sol jobs overlapped (timeline), 2nd Sol job queued, branches committed as Astra/Sol, main checkout untouched, worktrees removed, abandoned job marked with branch after bridge restart. AGENTS.md gained a worktree section for Astra (--repo for agent-sync) - Astra should review it once.",
+      "task_id": "SYS-CODEX-PARALLEL",
+      "timestamp": "2026-10-26T13:29:14+00:00"
     }
   ],
   "changed_files_since_last_completion": [
     ".claude/hooks/session-start.sh",
     ".claude/settings.json",
     ".mcp.json",
+    "AGENTS.md",
     "CLAUDE.md",
     "codex-mcp-bridge/README.md",
     "codex-mcp-bridge/src/index.ts"
@@ -129,14 +159,13 @@
     "files": [
       "codex-mcp-bridge/src/index.ts",
       "codex-mcp-bridge/README.md",
-      ".mcp.json",
-      ".claude/hooks/session-start.sh",
-      "CLAUDE.md"
+      "CLAUDE.md",
+      "AGENTS.md"
     ],
-    "summary": "Codex accounts get roles: dad does design (cap 80%, normal ~/.codex login); mine is a coding buddy on gpt-6.1-sol via new codex_coding_buddy tool and non-visual reviews. Reviews now run in the read-only sandbox.",
-    "notes": "tsc clean; fake-codex MCP run checked routing, -m flag, sandbox per tool, and no spillover when mine is logged out. Model id gpt-6.1-sol unverified against a real login.",
-    "task_id": "SYS-CODEX-ACCOUNTS",
-    "timestamp": "2026-10-26T13:24:03+00:00"
+    "summary": "codex-bridge runs Astra and Sol jobs in the background, in parallel, each editing job in its own git worktree/branch; per-account queue; codex_wait_job; timeouts up to 2h; Claude routes big tedious coding tasks to Sol.",
+    "notes": "tsc clean. Fake-codex MCP runs: design+Sol jobs overlapped (timeline), 2nd Sol job queued, branches committed as Astra/Sol, main checkout untouched, worktrees removed, abandoned job marked with branch after bridge restart. AGENTS.md gained a worktree section for Astra (--repo for agent-sync) - Astra should review it once.",
+    "task_id": "SYS-CODEX-PARALLEL",
+    "timestamp": "2026-10-26T13:29:14+00:00"
   },
-  "updated_at": "2026-10-26T13:24:03+00:00"
+  "updated_at": "2026-10-26T13:29:14+00:00"
 }

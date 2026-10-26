@@ -24,11 +24,34 @@ design work and `visual_design` reviews use `dad` (up to 80% of its limit, the
 rest is left to its owner); delegate through the bridge rather than the Codex
 plugin, which ignores the caps.
 
-The owner's own account, `mine`, is a coding buddy on GPT-6.1 Sol and never
-does design work. Use `codex_coding_buddy` for a second opinion on systems
-code (`advise` is read-only, `edit` may change files) and `codex_review_diff`
-with a non-visual focus to review your changes. You still own the systems
-work and its result; review what the buddy says before acting on it.
+The owner's own account, `mine`, is Sol: a coding buddy on GPT-6.1 Sol that
+never does design work. Route to Sol with `codex_coding_buddy`:
+
+- **Big, tedious coding tasks go to Sol** (`mode: "edit"`): mechanical changes
+  across many files, ports and migrations, boilerplate, adding tests, renames,
+  long refactors. Keep the parts that need judgement (IPC design, process
+  lifecycle, performance trade-offs) and the final review yourself.
+- **Second opinions** use `mode: "advise"` (read-only). Engineering reviews of
+  your changes use `codex_review_diff` with a non-visual focus.
+- You still own the systems work and its result. Acquire the agent-sync locks
+  for the files you hand Sol (Sol works under your locks), and review its
+  branch before merging.
+
+## Running all three at once
+
+Claude, Astra and Sol can work at the same time. `codex_design_task` and
+`codex_coding_buddy` in edit mode return at once and run in the background,
+each in its own Git worktree on a new `codex/<kind>-<id>` branch made from the
+current `HEAD`. So:
+
+1. Commit what the job needs before you start it; uncommitted changes are not
+   in its worktree.
+2. Start Astra's and Sol's jobs, then keep working on your own task.
+3. Collect results with `codex_wait_job` (or `codex_get_job`). The result
+   names the branch and its diffstat; review it and `git merge` it.
+
+Each account runs one job at a time; a second job for the same account waits
+its turn. Give long Sol tasks a `timeout_minutes` (up to 120).
 
 Each account needs a login in each new cloud container. If `codex_status`
 reports one is not logged in, run `CODEX_HOME=~/.codex-accounts/mine codex
