@@ -15,9 +15,41 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Sol",
+    "files": [
+      ".github/workflows/ci.yml",
+      "docs/COMMANDS.md",
+      "docs/CONFIGURATION.md",
+      "docs/verification/F01",
+      "shell/schema/config.schema.json"
+    ],
+    "locks": [
+      {
+        "lock_id": "4861af7a-4a82-4a03-9387-3e9cc9675f7e",
+        "agent": "Sol",
+        "files": [
+          ".github/workflows/ci.yml",
+          "docs/verification/F01"
+        ],
+        "task_id": "F01",
+        "created_at": "2026-10-26T18:16:10+00:00",
+        "expires_epoch": 1793045770.6449428,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "64bc5025-805b-499e-ab8a-350b99569bcd",
+        "agent": "Sol",
+        "files": [
+          "docs/COMMANDS.md",
+          "docs/CONFIGURATION.md",
+          "shell/schema/config.schema.json"
+        ],
+        "task_id": "F01",
+        "created_at": "2026-10-26T18:18:06+00:00",
+        "expires_epoch": 1793045886.4910471,
+        "ttl_seconds": 7200
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -8370,5 +8402,5 @@
     "task_id": "C06",
     "timestamp": "2026-10-26T17:41:17+00:00"
   },
-  "updated_at": "2026-10-26T17:41:17+00:00"
+  "updated_at": "2026-10-26T18:18:06+00:00"
 }
