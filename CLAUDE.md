@@ -16,21 +16,27 @@ You are **Claude (Claude Code)**. Use `--agent Claude` in every sync command.
 Do not do Astra's work yourself. For design tokens, layout, spacing,
 typography, colour, effects or animation, delegate to Astra with the
 `codex_design_task` tool from the `codex-bridge` MCP server, then review
-the result once. Use
-`codex_review_diff` to have Astra review your changes.
+the result once.
 
-Astra runs on the Codex CLI with two ChatGPT accounts, used in order: `mine`
-(the owner's, up to 100% of its limit) and then `dad` (up to 80%, the rest is
-left to its owner). The bridge picks the account (`CODEX_ACCOUNTS` in
-`.mcp.json`, details in `codex-mcp-bridge/README.md`), so delegate through the
-bridge rather than the Codex plugin, which ignores the caps. Each account needs
-a login in each new cloud container. If `codex_status` reports an account is
-not logged in, run `CODEX_HOME=~/.codex-accounts/mine codex login
---device-auth` (for `mine`) or `codex login --device-auth` (for `dad`, which
-uses the normal Codex login) in the background and give the user the link and one-time code,
-saying which account it is for; never store or ask for Codex tokens. If no
-account can take a job, tell the user and leave the visual work undone rather
-than doing it yourself.
+Astra runs on the Codex CLI. The bridge picks the ChatGPT account per kind of
+work (`CODEX_ACCOUNTS` in `.mcp.json`, details in `codex-mcp-bridge/README.md`):
+design work and `visual_design` reviews use `dad` (up to 80% of its limit, the
+rest is left to its owner); delegate through the bridge rather than the Codex
+plugin, which ignores the caps.
+
+The owner's own account, `mine`, is a coding buddy on GPT-6.1 Sol and never
+does design work. Use `codex_coding_buddy` for a second opinion on systems
+code (`advise` is read-only, `edit` may change files) and `codex_review_diff`
+with a non-visual focus to review your changes. You still own the systems
+work and its result; review what the buddy says before acting on it.
+
+Each account needs a login in each new cloud container. If `codex_status`
+reports one is not logged in, run `CODEX_HOME=~/.codex-accounts/mine codex
+login --device-auth` (for `mine`) or `codex login --device-auth` (for `dad`)
+in the background and give the user the link and one-time code, saying which
+account it is for; never store or ask for Codex tokens. If no account can take
+a design job, tell the user and leave the visual work undone rather than doing
+it yourself.
 
 ## Quick commands
 

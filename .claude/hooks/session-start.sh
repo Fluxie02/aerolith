@@ -21,11 +21,17 @@ fi
 python3 -m pip install --quiet -r tools/agent-sync/requirements.txt pytest >&2
 
 # Anything printed to stdout is added to Claude's context for the session.
-# The bridge uses these ChatGPT accounts in this order (CODEX_ACCOUNTS in .mcp.json):
-# 'mine' logs in to ~/.codex-accounts/mine, 'dad' uses the normal Codex login (~/.codex).
+# The bridge's ChatGPT accounts (CODEX_ACCOUNTS in .mcp.json): 'mine' is the coding
+# buddy and logs in to ~/.codex-accounts/mine; 'dad' does design work and uses the
+# normal Codex login (~/.codex).
+CODING_MODEL="gpt-6.1-sol"
 for account in mine dad; do
   if [ "$account" = dad ]; then home="${CODEX_HOME:-$HOME/.codex}"; else home="$HOME/.codex-accounts/$account"; fi
   mkdir -p "$home" && chmod 700 "$home"
+  # Default model for 'mine' outside the bridge too (the bridge passes -m itself).
+  if [ "$account" = mine ] && ! grep -q '^model *=' "$home/config.toml" 2>/dev/null; then
+    echo "model = \"$CODING_MODEL\"" >> "$home/config.toml"
+  fi
   if CODEX_HOME="$home" codex login status >/dev/null 2>&1; then
     echo "Codex account '$account' is logged in."
   else

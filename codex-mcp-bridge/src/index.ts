@@ -36,18 +36,23 @@ function saveJob(job: Job) {
 }
 function clip(s: string, n = 30000) { return s.length > n ? s.slice(0, n) + "\n...[truncated]" : s; }
 
-type Account = { name: string; cap: number; home?: string };
+type Role = "design" | "coding";
+type Account = { name: string; cap: number; home?: string; role?: Role; model?: string };
 type Window = { used: number; resetsAt: number };
 type Usage = { windows: Window[]; observedAt: string; limitHitUntil?: number };
-// CODEX_ACCOUNTS="mine:100,dad:80": ChatGPT logins in priority order, each with the
-// highest used_percent of its plan limit at which the bridge still starts a job.
-// Each account keeps its own login in ~/.codex-accounts/<name> (CODEX_HOME), or in
-// the normal Codex login (~/.codex) when its entry ends in ":default".
+// CODEX_ACCOUNTS="mine:100:role=coding:model=gpt-6.1-sol,dad:80:role=design:home=default":
+// ChatGPT logins in priority order, each with the highest used_percent of its plan
+// limit at which the bridge still starts a job. Options: role (design or coding;
+// unset takes both), model (passed to codex -m), home=default (use the normal
+// Codex login in ~/.codex instead of ~/.codex-accounts/<name>).
 const ACCOUNTS: Account[] = (process.env.CODEX_ACCOUNTS ?? "").split(",").map(x => x.trim()).filter(Boolean).map(x => {
-  const [name, cap, where] = x.split(":");
+  const [name, cap, ...rest] = x.split(":");
   if (!/^[a-z0-9_-]+$/i.test(name)) throw new Error(`Invalid account name in CODEX_ACCOUNTS: ${name}`);
-  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)),
-    home: where === "default" ? undefined : path.join(os.homedir(), ".codex-accounts", name) };
+  const opt = Object.fromEntries(rest.map(o => o === "default" ? ["home", "default"] : o.split("=", 2)));
+  if (opt.role && opt.role !== "design" && opt.role !== "coding") throw new Error(`Invalid role for ${name}: ${opt.role}`);
+  if (opt.model && !/^[a-z0-9._-]+$/i.test(opt.model)) throw new Error(`Invalid model for ${name}: ${opt.model}`);
+  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)), role: opt.role, model: opt.model,
+    home: opt.home === "default" ? undefined : path.join(os.homedir(), ".codex-accounts", name) };
 });
 if (!ACCOUNTS.length) ACCOUNTS.push({ name: "default", cap: 100 });
 const USAGE_FILE = path.join(STATE_DIR, "usage.json");
@@ -118,19 +123,19 @@ async function blocked(a: Account): Promise<string | undefined> {
 }
 const LIMIT_HIT = /usage limit|rate.?limit|too many requests|\b429\b|quota/i;
 
-async function runCodex(kind: "design" | "review", prompt: string): Promise<Job> {
+async function runCodex(role: Role, kind: string, prompt: string, sandbox: "workspace-write" | "read-only" = "workspace-write"): Promise<Job> {
   if (!existsSync(ROOT) || !existsSync(path.join(ROOT, ".git")))
     throw new Error(`CODEX_MCP_REPO must point to an existing Git repository: ${ROOT}`);
   const job: Job = { id: crypto.randomUUID(), kind, status: "running", startedAt: new Date().toISOString(), summary: prompt.slice(0, 300) };
   saveJob(job);
-  const args = ["exec", "--ephemeral", "--json", "--sandbox", "workspace-write", "-C", ROOT, prompt];
   const log: string[] = [];
-  for (const account of ACCOUNTS) {
+  for (const account of ACCOUNTS.filter(a => !a.role || a.role === role)) {
     const why = await blocked(account);
     if (why) { log.push(`account=${account.name} skipped: ${why}`); continue; }
     job.account = account.name; saveJob(job);
     const r = await new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean}>((resolve, reject) => {
       let stdout = "", stderr = "", timedOut = false;
+      const args = ["exec", "--ephemeral", "--json", "--sandbox", sandbox, ...(account.model ? ["-m", account.model] : []), "-C", ROOT, prompt];
       const child = spawn(CODEX, args, { cwd: ROOT, env: accountEnv(account), stdio: ["ignore", "pipe", "pipe"] });
       const timer = setTimeout(() => { timedOut = true; child.kill("SIGTERM"); setTimeout(() => child.kill("SIGKILL"), 5000).unref(); }, TIMEOUT_MS);
       child.stdout.setEncoding("utf8"); child.stderr.setEncoding("utf8");
@@ -157,7 +162,7 @@ async function runCodex(kind: "design" | "review", prompt: string): Promise<Job>
   }
   if (job.status === "running") {
     job.status = "no_account";
-    job.output = "No Codex account can take this job. Run codex_status for details.";
+    job.output = `No Codex account for ${role} work can take this job. Run codex_status for details.`;
   }
   job.finishedAt = new Date().toISOString();
   job.output = clip(`${log.join("\n")}\n${job.output}`);
@@ -173,16 +178,16 @@ server.tool("codex_status",
   {},
   async () => {
     const lines: string[] = [];
-    let next: string | undefined;
+    const next: Partial<Record<Role, string>> = {};
     for (const acc of ACCOUNTS) {
       const login = await loginStatus(acc);
       const why = await blocked(acc);
-      if (!why && !next) next = acc.name;
+      if (!why) for (const r of ["design", "coding"] as Role[]) if ((!acc.role || acc.role === r) && !next[r]) next[r] = acc.name;
       const used = usedPercent(acc.name);
-      lines.push(`- ${acc.name}: cap ${acc.cap}%, used ${used === undefined ? "unknown" : `${used}%`}, ${why ? `blocked (${why})` : "available"}` +
+      lines.push(`- ${acc.name} (${acc.role ?? "design+coding"}${acc.model ? `, model ${acc.model}` : ""}): cap ${acc.cap}%, used ${used === undefined ? "unknown" : `${used}%`}, ${why ? `blocked (${why})` : "available"}` +
         `${acc.home ? `, CODEX_HOME=${acc.home}` : ""}\n  login: ${login.text}`);
     }
-    return { content: [{ type: "text", text: `Repository: ${ROOT}\nCodex binary: ${CODEX}\nAccounts (priority order):\n${lines.join("\n")}\nNext job goes to: ${next ?? "none"}` }] };
+    return { content: [{ type: "text", text: `Repository: ${ROOT}\nCodex binary: ${CODEX}\nAccounts (priority order):\n${lines.join("\n")}\nNext design job goes to: ${next.design ?? "none"}\nNext coding job goes to: ${next.coding ?? "none"}` }] };
   }
 );
 
@@ -203,7 +208,7 @@ server.tool("codex_design_task",
       "Finish with files changed, design rationale, checks, risks, and follow-up needs.",
       files, "TASK BRIEF:\n", brief
     ].join("\n");
-    const job = await runCodex("design", prompt);
+    const job = await runCodex("design", "design", prompt);
     return { content: [{ type: "text", text: resultText(job) }] };
   }
 );
@@ -223,7 +228,32 @@ server.tool("codex_review_diff",
       "For each finding give severity, file/line if available, evidence, impact, and concrete fix.",
       "If there are no meaningful issues, say so. Also identify missing tests and unverified assumptions."
     ].join("\n");
-    const job = await runCodex("review", prompt);
+    // Visual reviews are design work; engineering reviews go to the coding buddy.
+    const job = await runCodex(focus === "visual_design" ? "design" : "coding", "review", prompt, "read-only");
+    return { content: [{ type: "text", text: resultText(job) }] };
+  }
+);
+
+server.tool("codex_coding_buddy",
+  "Ask the Codex coding buddy for a second opinion on systems code: a design question, a bug hunt, or a proposed implementation. Advise mode is read-only; edit mode may change repository files.",
+  {
+    request: z.string().min(10).max(12000).describe("Question or coding task, with context and what a good answer looks like."),
+    mode: z.enum(["advise", "edit"]).default("advise"),
+    relevant_files: z.array(z.string().max(300)).max(30).optional().describe("Repository-relative files to inspect; Codex must verify paths.")
+  },
+  async ({ request, mode, relevant_files }) => {
+    const files = relevant_files?.length ? `\nRelevant paths to verify:\n${relevant_files.map(x => `- ${x}`).join("\n")}\n` : "";
+    const prompt = [
+      "You are a coding buddy pairing with another engineer on a Hyprland/Wayland desktop-shell repository.",
+      "Stay within the repository. Do not access secrets, change host/system configuration, install global packages, or reboot/shutdown.",
+      "Read the relevant code before answering. Be concrete: name files, functions and lines, and say what you verified versus assumed.",
+      mode === "edit"
+        ? "You may edit repository files. Make a minimal, focused change, run relevant safe checks, and finish with files changed, checks run, and risks."
+        : "Advise only. DO NOT edit, create, delete, or format files. Give your answer, any code as snippets, and the risks you see.",
+      "Do not change visual design (tokens, layout, typography, colour, animation); point it out instead.",
+      files, "REQUEST:\n", request
+    ].join("\n");
+    const job = await runCodex("coding", "coding", prompt, mode === "edit" ? "workspace-write" : "read-only");
     return { content: [{ type: "text", text: resultText(job) }] };
   }
 );
