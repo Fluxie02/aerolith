@@ -18,6 +18,7 @@
 # It does not measure the game's frame times: run the game with MangoHud's
 # frame-time log in both shell states for that, and keep the two logs.
 set -euo pipefail
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 secs=${1:-30}
 command -v hyprctl >/dev/null || { echo "Run this inside a Hyprland session." >&2; exit 1; }
 pid=$(pgrep -xo qs || pgrep -o -f 'quickshell.*aerolith' || true)
@@ -59,11 +60,11 @@ for vals in clients.values():
 print(int(vram), int(total), len(clients))
 PY
 }
-# The NVIDIA driver does not fill DRM fdinfo; its process table lists the
+# The NVIDIA driver does not fill DRM fdinfo; its XML report lists the
 # memory of graphics clients ("G") as well.
 nvidia_kib() {
   command -v nvidia-smi >/dev/null || return 0
-  nvidia-smi 2>/dev/null | awk -v p="$1" '$5 == p && $NF ~ /MiB/ { v = $NF; sub(/MiB.*/, "", v); print v * 1024; exit }' || true
+  nvidia-smi -q -x 2>/dev/null | python3 -I "$here/nvidia-process-mem.py" "$1" || true
 }
 cpu_ticks() { awk '{ print $14 + $15 }' /proc/"$pid"/stat; }
 wakeups() { awk '/^voluntary_ctxt_switches:/ { v = $2 } /^nonvoluntary_ctxt_switches:/ { n = $2 } END { print v + n }' /proc/"$pid"/status; }

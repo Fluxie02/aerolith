@@ -13,7 +13,8 @@
 #   6. twenty enter/exit cycles, including open bays with service demand,
 #      opt-in Navigator thumbnails, notifications and process RSS samples,
 #   7. popup expiry pauses during fullscreen, and
-#   8. a floating non-fullscreen client can take focus on the same workspace.
+#   8. a floating non-fullscreen client can take focus on the same workspace,
+#   9. a fullscreen game on a named workspace (negative id) suspends it.
 fail() { echo "FAIL: $*"; exit 1; }
 field() { python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get(sys.argv[2]))' "$(ipc status)" "$1"; }
 wait_field() {
@@ -213,6 +214,19 @@ sleep 1
 [ "$(field surfacesReleased)" = True ] || fail "focus test: refocusing the game changed the suspension"
 fullscreen_mode 0
 restored "focus test cleanup"
+
+# 9. A fullscreen game on a named workspace (ids from -1337 down) suspends
+# too: real hardware (B06) put a Steam game on workspace -1337 and the shell
+# never suspended.
+named=$(addr "$(mock '{"op":"open","class":"steam_app_460920","title":"Named","workspace":-1337}')")
+mock '{"op":"focus_workspace","workspace":-1337}' >/dev/null
+mock "{\"op\":\"fullscreen\",\"address\":\"$named\",\"mode\":2}" >/dev/null
+wait_field phase suspended 3 || fail "a fullscreen game on a named workspace did not suspend the shell"
+[ "$(field fullscreenOwner)" = steam_app_460920 ] || fail "named workspace: wrong owner $(field fullscreenOwner)"
+mock "{\"op\":\"fullscreen\",\"address\":\"$named\",\"mode\":0}" >/dev/null
+restored "named workspace"
+mock "{\"op\":\"close\",\"address\":\"$named\"}" >/dev/null
+mock '{"op":"focus_workspace","workspace":1}' >/dev/null
 [ "$(grep -c 'AEROLITH started' "$OUT/qs.log")" = 1 ] || fail "startup repeated"
 if grep -nEi "ReferenceError|TypeError|SyntaxError|is not defined|Cannot read|Binding loop|Unable to assign|Cannot assign|is not a type|Type .* unavailable|Error loading QML" "$OUT/qs.log"; then fail "QML errors in qs.log"; fi
 shot 04-after-cycles

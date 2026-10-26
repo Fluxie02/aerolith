@@ -47,6 +47,19 @@ export default suite("shellstate", (test) => {
     assert.equal(r.address, "0xa");
   });
 
+  test("a fullscreen game on a named workspace takes the output", (assert) => {
+    // Hyprland numbers named workspaces from -1337 down (seen on real hardware:
+    // a Steam game on the named workspace -1337 was missed).
+    const r = S.outputFullscreen(snapshot([{ address: "0xa", workspaceId: -1337, ipc: { fullscreen: 2, class: "steam_app_460920" } }], { activeWorkspaceId: -1337 }));
+    assert.deepEqual(r, { fullscreen: true, address: "0xa", appClass: "steam_app_460920" });
+  });
+
+  test("an unknown active workspace is never fullscreen", (assert) => {
+    const fs = [{ address: "0xa", workspaceId: -1, ipc: { fullscreen: 2 } }];
+    assert.equal(S.outputFullscreen(snapshot(fs, { activeWorkspaceId: -1 })).fullscreen, false);
+    assert.equal(S.outputFullscreen(snapshot(fs, { activeWorkspaceId: undefined })).fullscreen, false);
+  });
+
   test("maximized windows and other workspaces do not count", (assert) => {
     assert.equal(S.outputFullscreen(snapshot([{ address: "0xa", workspaceId: 3, ipc: { fullscreen: 1 } }])).fullscreen, false);
     assert.equal(S.outputFullscreen(snapshot([{ address: "0xa", workspaceId: 4, ipc: { fullscreen: 2 } }])).fullscreen, false);

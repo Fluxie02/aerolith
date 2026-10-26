@@ -109,6 +109,12 @@ class Client:
         }
 
 
+def ws_name(wid: int) -> str:
+    """Hyprland names numbered workspaces by their id; named workspaces get
+    ids from -1337 down and keep their own name."""
+    return str(wid) if wid > 0 else f"named{-wid}"
+
+
 @dataclass
 class State:
     lua: bool = True
@@ -136,7 +142,7 @@ class State:
             out.append(
                 {
                     "id": wid,
-                    "name": str(wid),
+                    "name": ws_name(wid),
                     "monitor": mon["name"],
                     "monitorID": mon["id"],
                     "windows": len(wins),
@@ -170,13 +176,13 @@ class State:
     def clients_json(self) -> list[dict]:
         mon = self.monitor()
         self.layout()
-        return [c.to_json(str(c.workspace), mon["id"]) for c in self.clients.values()]
+        return [c.to_json(ws_name(c.workspace), mon["id"]) for c in self.clients.values()]
 
     def monitors_json(self) -> list[dict]:
         out = []
         for i, m in enumerate(self.monitors):
             d = dict(m)
-            d["activeWorkspace"] = {"id": self.active_ws, "name": str(self.active_ws)} if i == 0 else {"id": 1, "name": "1"}
+            d["activeWorkspace"] = {"id": self.active_ws, "name": ws_name(self.active_ws)} if i == 0 else {"id": 1, "name": "1"}
             d["specialWorkspace"] = {"id": 0, "name": ""}
             d["focused"] = i == 0
             out.append(d)
@@ -251,19 +257,19 @@ class Mock:
         old = st.active_ws
         st.active_ws = wid
         if created:
-            self.emit("createworkspace", str(wid))
-            self.emit("createworkspacev2", f"{wid},{wid}")
-        self.emit("workspace", str(wid))
-        self.emit("workspacev2", f"{wid},{wid}")
-        self.emit("focusedmon", f"{st.monitor()['name']},{wid}")
-        self.emit("focusedmonv2", f"{st.monitor()['name']},{wid}")
+            self.emit("createworkspace", ws_name(wid))
+            self.emit("createworkspacev2", f"{wid},{ws_name(wid)}")
+        self.emit("workspace", ws_name(wid))
+        self.emit("workspacev2", f"{wid},{ws_name(wid)}")
+        self.emit("focusedmon", f"{st.monitor()['name']},{ws_name(wid)}")
+        self.emit("focusedmonv2", f"{st.monitor()['name']},{ws_name(wid)}")
         self.maybe_destroy(old)
 
     def maybe_destroy(self, wid: int) -> None:
         st = self.state
         if wid != st.active_ws and wid not in st.persistent_ws and not any(c.workspace == wid for c in st.clients.values()):
-            self.emit("destroyworkspace", str(wid))
-            self.emit("destroyworkspacev2", f"{wid},{wid}")
+            self.emit("destroyworkspace", ws_name(wid))
+            self.emit("destroyworkspacev2", f"{wid},{ws_name(wid)}")
 
     def focus_window(self, addr: str) -> bool:
         st = self.state
@@ -289,10 +295,10 @@ class Mock:
         created = wid not in st.ws_ids()
         c.workspace = wid
         if created:
-            self.emit("createworkspace", str(wid))
-            self.emit("createworkspacev2", f"{wid},{wid}")
-        self.emit("movewindow", f"{addr[2:]},{wid}")
-        self.emit("movewindowv2", f"{addr[2:]},{wid},{wid}")
+            self.emit("createworkspace", ws_name(wid))
+            self.emit("createworkspacev2", f"{wid},{ws_name(wid)}")
+        self.emit("movewindow", f"{addr[2:]},{ws_name(wid)}")
+        self.emit("movewindowv2", f"{addr[2:]},{wid},{ws_name(wid)}")
         if follow:
             self.focus_workspace(wid)
         self.maybe_destroy(old)
@@ -306,7 +312,7 @@ class Mock:
         # A new unfocused window goes to the back of the history.
         history = max((c.focus_history_id for c in st.clients.values()), default=-1) + 1
         st.clients[addr] = Client(addr, cls, title, wid, pid=4000 + len(st.clients), floating=floating, focus_history_id=history)
-        self.emit("openwindow", f"{addr[2:]},{wid},{cls},{title}")
+        self.emit("openwindow", f"{addr[2:]},{ws_name(wid)},{cls},{title}")
         if wid == st.active_ws:
             self.focus_window(addr)
         return addr
@@ -409,7 +415,7 @@ class Mock:
             return next((w for w in st.workspaces_json() if w["id"] == st.active_ws), {})
         if cmd == "activewindow":
             c = st.clients.get(st.active_addr)
-            return c.to_json(str(c.workspace), 0) if c else {}
+            return c.to_json(ws_name(c.workspace), 0) if c else {}
         if cmd == "version":
             return {
                 "branch": "mock",

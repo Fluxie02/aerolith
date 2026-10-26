@@ -51,7 +51,9 @@ export function outputFullscreen(snapshot) {
   for (let i = 0; i < snapshot.monitors.length; i++)
     if (snapshot.monitors[i].name === snapshot.output) monitor = snapshot.monitors[i];
   if (!monitor && snapshot.monitors.length === 1) monitor = snapshot.monitors[0];
-  if (!monitor || !(monitor.activeWorkspaceId > 0)) return none;
+  // Hyprland numbers named workspaces from -1337 down; -1 is its invalid id
+  // and the snapshot's "unknown".
+  if (!monitor || !Number.isInteger(monitor.activeWorkspaceId) || monitor.activeWorkspaceId === -1) return none;
   if (monitor.specialWorkspaceId && monitor.specialWorkspaceId < 0) return none;
   for (let i = 0; i < snapshot.clients.length; i++) {
     const c = snapshot.clients[i];
