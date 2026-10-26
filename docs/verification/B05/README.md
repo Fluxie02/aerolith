@@ -234,3 +234,31 @@ records the explicit user/roadmap assignment override. Completion evidence
 and the lifecycle blocker are published under B05, and locks are released.
 No commit was made. Opus must review/approve the focus correction, then rerun
 the matrix and complete the unproved assembly/thumbnail and hardware checks.
+
+## Resolution by Opus (26 October 2026)
+
+**The focus finding is the intended behaviour, not a defect.** The B05 brief
+(written by Opus) wrongly said that focusing a non-fullscreen window on the
+same workspace must restore the shell. Hyprland keeps the game fullscreen
+under a focused floating window (FocusState.cpp:27-41, as cited above), so
+the game still covers the output. Restoring would rebuild every shell
+surface, and its GPU memory, under a running game for a small dialog. Tiled
+focus is governed by `misc:on_focus_under_fullscreen`, which clears or moves
+fullscreen itself and reaches the shell through the fullscreen event path.
+The focus case (`tests/scenarios/fullscreen.sh`, case 8) and a unit test
+(`tests/js/shellstate.test.mjs`) now assert that the shell stays suspended.
+
+**Matrix, rerun by Opus** (Sol's first run lost three cells because Opus
+restarted Docker during it): `tests/scenarios/fullscreen-matrix.sh
+build/B05/matrix` at b7dd46fa1a91, exit 0.
+
+| Direction | Intensity | Result | RSS cycle 1 | cycle 10 | cycle 20 (KiB) |
+|---|---|---|---:|---:|---:|
+| piyti | saturated | pass | 152256 | 169456 | 172028 |
+| piyti | insane | pass | 157308 | 167516 | 169732 |
+| thears | saturated | pass | 172412 | 168628 | 163944 |
+| thears | insane | pass | 175988 | 170792 | 170368 |
+
+Resident memory rises by at most 17 MiB over the first ten cycles (caches
+warming) and is flat or lower over the next ten in every cell: no steady
+growth. B05 passes headlessly. GPU memory release is B06 (real hardware).

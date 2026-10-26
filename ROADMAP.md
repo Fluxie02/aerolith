@@ -121,5 +121,6 @@ Opus should coordinate the complete plan, delegate mechanical work to Sol, assig
 | A04 | Done, one gap | Fixed: usage caps were never enforced (7ab1a3c) and running jobs now stop at the cap (ac5a942), Sol had no hub access or network (c6ea2a8), agent-sync did not know Sol (f508120). Verified: both accounts logged in, `gpt-6.1-sol` answers, a Sol edit job ran in its own worktree and returned a branch. Gap: no live Astra job through the new bridge yet (the next one will be). |
 | A05 | Done | Sol: `docs/design` 731 → 238 MiB, fresh tree 737 → 244 MiB; removed files stay in 0af92c4 (`docs/design/ARCHIVE.md`, `archive-manifest.json`); 468 links, 0 broken. The installer never copied `docs/design`. |
 | B01–B04 | Done (headless) | 0af92c4, 1fd56c8: `ShellState` (event-driven, maximized ≠ fullscreen), ambient held before teardown, surfaces destroyed, telemetry paused, popups kept; `tests/scenarios/fullscreen.sh` incl. 20 cycles. |
-| B05 | In progress | Sol: both directions and intensities. |
+| B05 | Done (headless) | `tests/scenarios/fullscreen-matrix.sh`: THEARS/PIYTI × Saturated/Insane, 20 cycles each, Deck open on entry, notifications, thumbnails, floating focus over fullscreen (stays suspended by design), RSS flat after warm-up (`docs/verification/B05/`). |
+| D04 | Done | 3eb5797: an exit ends at once when motion goes off during it; `deck.sh` 4b passes with the fix and fails without it. |
 | B06 | Waiting for owner hardware | `tools/perf/fullscreen-profile.sh` (b19ac5a); needs a real Hyprland session with a GPU. |
