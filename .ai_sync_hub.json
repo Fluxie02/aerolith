@@ -5779,6 +5779,31 @@
       "notes": "Base 57f6e7c6b483622e8513b4c2fb6d837be6927b77 plus uncommitted diff. Full pytest 208 passed/1 skipped; Node 135 passed; Claude and Codex AI scenarios pass Saturated/Insane; installed Codex passes both intensities and Claude Saturated passes. One no-request Codex/Insane attempt failed under concurrency; isolated rerun passed, evidence retained. 13 lockdown checks passed including 11 rejected mutations. docs/verification/F02/README.md has exact commands and limits. No live providers, shell changes or commit.",
       "task_id": "F02",
       "timestamp": "2026-10-26T17:08:02+00:00"
+    },
+    {
+      "id": "871cfcb1-64b5-4f90-a907-284e349929c9",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "installer/aerolith_install/themes.py",
+        "installer/aerolith_install/cli.py",
+        "installer/aerolith_install/manifest.py",
+        "shell/services/AppThemes.qml",
+        "shell/services/ShellCommands.qml",
+        "shell/shell.qml",
+        "tests/py/test_installer.py",
+        "tests/scenarios/themes.sh",
+        "tests/scenarios/app-themes.sh",
+        "tools/headless/run.sh",
+        "tools/headless/session.sh",
+        "themes/README.md",
+        "ARCHITECTURE.md",
+        "docs/verification/C06/README.md"
+      ],
+      "summary": "C06 implemented: consent-only payload refresh, per-app backup/rollback, serialized refreshes, supported activation, saved-scheme debounce and fullscreen deferral.",
+      "notes": "Base fbca8db0665b0fb41968544b132223f9cd358146; no commit. python3 -m pytest -q: 236 passed, 1 skipped; node tests/js/run-node.mjs: 135 passed. Native PIYTI/THEARS refresh and byte-exact uninstall pass; sequential fake-CLI debounce/fullscreen/config-watch and missing-CLI headless scenarios pass, QML logs have zero engine errors; bash syntax and git diff --check pass. SIGTERM/Ctrl-C and post-manifest-write failure rollback tested. Commands, activation table, changed paths and limits: docs/verification/C06/README.md. Reviewed C05/Config/Exec once; no extra actionable finding outside this task. Opus owner review pending. Real runtime reload/rendering unverified; refresh lock excludes external writers; SIGKILL/power loss are not a multi-file crash transaction. No visual/assets/lifecycle changes and no dispatcher claimed.",
+      "task_id": "C06",
+      "timestamp": "2026-10-26T17:41:17+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8132,6 +8157,7 @@
     "docs/verification/C01",
     "docs/verification/C01/README.md",
     "docs/verification/C05/README.md",
+    "docs/verification/C06/README.md",
     "docs/verification/D05/README.md",
     "docs/verification/F02/README.md",
     "installer",
@@ -8263,7 +8289,10 @@
     "shell/modules/systems/CoreBus.qml",
     "shell/modules/systems/SystemsBay.qml",
     "shell/schema/config.schema.json",
+    "shell/services/AppThemes.qml",
+    "shell/services/ShellCommands.qml",
     "shell/shaders",
+    "shell/shell.qml",
     "tests",
     "tests/fixtures/fake-providers/codex",
     "tests/js/index.mjs",
@@ -8272,6 +8301,7 @@
     "tests/py/test_installer.py",
     "tests/py/test_mock_hyprland.py",
     "tests/scenarios/ai.sh",
+    "tests/scenarios/app-themes.sh",
     "tests/scenarios/direction.sh",
     "tests/scenarios/fullscreen-matrix.sh",
     "tests/scenarios/fullscreen.sh",
@@ -8320,15 +8350,25 @@
     "agent": "Sol",
     "type": "integration_complete",
     "files": [
-      "tests/scenarios/ai.sh",
-      "tests/scenarios/installed.sh",
-      "tests/fixtures/fake-providers/codex",
-      "docs/verification/F02/README.md"
+      "installer/aerolith_install/themes.py",
+      "installer/aerolith_install/cli.py",
+      "installer/aerolith_install/manifest.py",
+      "shell/services/AppThemes.qml",
+      "shell/services/ShellCommands.qml",
+      "shell/shell.qml",
+      "tests/py/test_installer.py",
+      "tests/scenarios/themes.sh",
+      "tests/scenarios/app-themes.sh",
+      "tools/headless/run.sh",
+      "tools/headless/session.sh",
+      "themes/README.md",
+      "ARCHITECTURE.md",
+      "docs/verification/C06/README.md"
     ],
-    "summary": "F02 complete: matching Codex proposals and provider-specific lockdown checks; Claude assertions preserved and strengthened",
-    "notes": "Base 57f6e7c6b483622e8513b4c2fb6d837be6927b77 plus uncommitted diff. Full pytest 208 passed/1 skipped; Node 135 passed; Claude and Codex AI scenarios pass Saturated/Insane; installed Codex passes both intensities and Claude Saturated passes. One no-request Codex/Insane attempt failed under concurrency; isolated rerun passed, evidence retained. 13 lockdown checks passed including 11 rejected mutations. docs/verification/F02/README.md has exact commands and limits. No live providers, shell changes or commit.",
-    "task_id": "F02",
-    "timestamp": "2026-10-26T17:08:02+00:00"
+    "summary": "C06 implemented: consent-only payload refresh, per-app backup/rollback, serialized refreshes, supported activation, saved-scheme debounce and fullscreen deferral.",
+    "notes": "Base fbca8db0665b0fb41968544b132223f9cd358146; no commit. python3 -m pytest -q: 236 passed, 1 skipped; node tests/js/run-node.mjs: 135 passed. Native PIYTI/THEARS refresh and byte-exact uninstall pass; sequential fake-CLI debounce/fullscreen/config-watch and missing-CLI headless scenarios pass, QML logs have zero engine errors; bash syntax and git diff --check pass. SIGTERM/Ctrl-C and post-manifest-write failure rollback tested. Commands, activation table, changed paths and limits: docs/verification/C06/README.md. Reviewed C05/Config/Exec once; no extra actionable finding outside this task. Opus owner review pending. Real runtime reload/rendering unverified; refresh lock excludes external writers; SIGKILL/power loss are not a multi-file crash transaction. No visual/assets/lifecycle changes and no dispatcher claimed.",
+    "task_id": "C06",
+    "timestamp": "2026-10-26T17:41:17+00:00"
   },
-  "updated_at": "2026-10-26T17:08:02+00:00"
+  "updated_at": "2026-10-26T17:41:17+00:00"
 }
