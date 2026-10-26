@@ -15,37 +15,9 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Sol",
-    "files": [
-      "docs/design",
-      "docs/verification/A03/README.md",
-      "tools/design_archive.py"
-    ],
-    "locks": [
-      {
-        "lock_id": "1bee7398-4a4e-48ad-a106-a33854312998",
-        "agent": "Sol",
-        "files": [
-          "docs/design",
-          "tools/design_archive.py"
-        ],
-        "task_id": "A05",
-        "created_at": "2026-10-26T15:32:28+00:00",
-        "expires_epoch": 1793030548.3272753,
-        "ttl_seconds": 1800
-      },
-      {
-        "lock_id": "e7cb6cce-9770-40b9-bcbe-f297d993c92f",
-        "agent": "Sol",
-        "files": [
-          "docs/verification/A03/README.md"
-        ],
-        "task_id": "A05",
-        "created_at": "2026-10-26T15:34:06+00:00",
-        "expires_epoch": 1793030646.0177093,
-        "ttl_seconds": 1800
-      }
-    ]
+    "locked_by": "None",
+    "files": [],
+    "locks": []
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -5511,6 +5483,20 @@
       "notes": "tsc clean. Fake-codex MCP runs: design+Sol jobs overlapped (timeline), 2nd Sol job queued, branches committed as Astra/Sol, main checkout untouched, worktrees removed, abandoned job marked with branch after bridge restart. AGENTS.md gained a worktree section for Astra (--repo for agent-sync) - Astra should review it once.",
       "task_id": "SYS-CODEX-PARALLEL",
       "timestamp": "2026-10-26T13:29:14+00:00"
+    },
+    {
+      "id": "ce46013f-54c5-4cf8-86e6-a44bab3ee775",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "docs/design",
+        "tools/design_archive.py",
+        "docs/verification/A03/README.md"
+      ],
+      "summary": "A05 complete: archived 2982 historical design assets (517087279 bytes); preserved documented evidence and reproducibility inputs; no runtime or visual changes.",
+      "notes": "Baseline 0af92c40e1355b1a0d8f89a8a3ad7bc0f5ae4b1f. docs/design 766550087 -> 249832796 bytes; fresh working tree excluding .git 772631143 -> 255920807 bytes. ARCHIVE.md records restore command, per-round/kind inventory, removal counts and packaging audit. python tools/design_archive.py --check-links: zero broken local targets; fresh materialization 468 design targets passed after removing empty directories. Retention/removal invariants and materialized-file equality passed; git diff --check passed. 29 pre-existing missing targets marked unavailable across nine Markdown files including A03. Installer copy boundary reviewed once, no actionable findings. Runtime tests not rerun (assets/docs only); external packages, remote URLs/anchors and full historical replay not verified. Completion event is a note to avoid changing the unrelated legacy UI-016 workflow owner.",
+      "task_id": "A05",
+      "timestamp": "2026-10-26T15:38:38+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -5522,6 +5508,7 @@
     "DESIGN_BRIEF.md",
     "build/UI-001-astra.bundle",
     "build/UI-001-import.txt",
+    "docs/design",
     "docs/design/CONCEPTS.md",
     "docs/design/DIRECTION.md",
     "docs/design/INTENSITY.md",
@@ -7854,6 +7841,7 @@
     "docs/design/thears-piyti/verification/unit/results.json",
     "docs/design/thears-piyti/verification/validate-themes.py",
     "docs/design/unhinged",
+    "docs/verification/A03/README.md",
     "prototypes/README.md",
     "prototypes/accessibility.json",
     "prototypes/capture.sh",
@@ -8003,35 +7991,23 @@
     "themes/steam/thears/friends.custom.css",
     "themes/steam/thears/libraryroot.custom.css",
     "themes/steam/thears/skin.json",
+    "tools/design_archive.py",
     "tools/gen-scheme-themes.mjs",
     "tools/headless/run.sh",
     "tools/headless/session.sh"
   ],
   "last_agent_event": {
-    "agent": "Astra",
-    "type": "design_complete",
+    "agent": "Sol",
+    "type": "note",
     "files": [
-      "shell/core/Theme.qml",
-      "shell/components/ChordSlot.qml",
-      "shell/components/Bezel.qml",
-      "shell/components/TapeGauge.qml",
-      "shell/components/CircularField.qml",
-      "shell/components/Counterphase.qml",
-      "shell/components/ShearField.qml",
-      "shell/components/WorkspaceOrbit.qml",
-      "shell/components/AppContinuity.qml",
-      "shell/components/InstrumentTabs.qml",
-      "shell/modules/settings/SettingsBay.qml",
-      "shell/modules/settings/SettingControl.qml",
-      "shell/modules/deck/DeckView.qml",
-      "shell/modules/help/HelpBay.qml",
-      "shell/modules/osd/OsdView.qml",
-      "docs/design/smooth"
+      "docs/design",
+      "tools/design_archive.py",
+      "docs/verification/A03/README.md"
     ],
-    "summary": "UI-016 complete: output-paced time-based motion, current-value interruption, cached visual geometry, detected-Hz Settings readout and refresh-scaled ambient rests; PIYTI base, THEARS preserved.",
-    "notes": "Node118/118, Qt V4 118/118, pytest71 passed/1 skipped. Final13/13 scenarios passed without retries: PIYTI smoke/full/deck/ai both intensities, THEARS smoke/deck both, notify.20 verification QML logs clean. Actual60/144Hz modes, before/after CPU and callback intervals/estimated missed opportunities, position plot/CSV,12.433s30fps MP4 and source archives saved in docs/design/smooth/.144Hz idle Saturated1.933→0.716%, Insane5.139→2.049%; all after idle budgets met. Active software CPU increased; software stalls persist and uniform144fps is unverified. Self-review cold-slot Animator origin defect fixed with guarded one-shot first-render initialization and pixel-verified.15 visual files changed;14 protected hosts/services/config/schema identical. No git mutation or commit by Astra. Read-only Claude review and two protected systems findings plus real-output follow-up are in SYSTEMS-REQUESTS.md. Please perform one systems/performance review; one revision available. No cloud dispatch claimed.",
-    "task_id": "UI-016",
-    "timestamp": "2026-10-25T08:35:13+00:00"
+    "summary": "A05 complete: archived 2982 historical design assets (517087279 bytes); preserved documented evidence and reproducibility inputs; no runtime or visual changes.",
+    "notes": "Baseline 0af92c40e1355b1a0d8f89a8a3ad7bc0f5ae4b1f. docs/design 766550087 -> 249832796 bytes; fresh working tree excluding .git 772631143 -> 255920807 bytes. ARCHIVE.md records restore command, per-round/kind inventory, removal counts and packaging audit. python tools/design_archive.py --check-links: zero broken local targets; fresh materialization 468 design targets passed after removing empty directories. Retention/removal invariants and materialized-file equality passed; git diff --check passed. 29 pre-existing missing targets marked unavailable across nine Markdown files including A03. Installer copy boundary reviewed once, no actionable findings. Runtime tests not rerun (assets/docs only); external packages, remote URLs/anchors and full historical replay not verified. Completion event is a note to avoid changing the unrelated legacy UI-016 workflow owner.",
+    "task_id": "A05",
+    "timestamp": "2026-10-26T15:38:38+00:00"
   },
-  "updated_at": "2026-10-26T15:34:06+00:00"
+  "updated_at": "2026-10-26T15:38:38+00:00"
 }
