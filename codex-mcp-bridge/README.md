@@ -17,7 +17,8 @@ Every job tool takes `wait` (block until done) and `timeout_minutes` (1 to 120).
 Editing jobs (`codex_design_task`, `codex_coding_buddy` in edit mode) each get a Git worktree in `~/.codex-mcp-bridge/worktrees/` on a new branch `codex/<kind>-<id>` made from the main checkout's `HEAD`, so Claude, Astra and Sol never write the same files on disk. When the job ends, the bridge commits its changes to that branch (author Astra or Sol), drops any worktree change to `.ai_sync_hub.json`, removes the worktree and reports the branch with a diffstat. A job that changed nothing leaves no branch. Read-only jobs run in the main checkout.
 
 - Uncommitted changes in the main checkout are not in a job's worktree; commit first.
-- Design jobs get `--add-dir <main checkout>` so Astra can write the shared agent-sync hub (`agent_sync.py --repo <main checkout>`). This also lets Astra write the main checkout, as it could before worktrees.
+- Editing jobs get `--add-dir <main checkout>` so Astra and Sol can write the shared agent-sync hub (`agent_sync.py --repo <main checkout>`). This also lets them write the main checkout, as Astra could before worktrees.
+- Editing jobs get network access (`sandbox_workspace_write.network_access=true`), which the Docker-based headless harness and package downloads need.
 - A worktree has no `node_modules` or build output; checks that need them must install or build first.
 - Each account runs one Codex process at a time; further jobs for it wait in a queue. Different accounts run side by side.
 - Jobs are owned by the bridge process. If it exits (session end, `/mcp` reconnect), its unfinished jobs are marked `abandoned` at the next start, with their branch named so the work can be recovered.
@@ -35,13 +36,14 @@ npm start
 Optional environment variables:
 - `CODEX_BIN` defaults to `codex`.
 - `CODEX_MCP_TIMEOUT_MS` defaults to 600000 (10 minutes) and is capped at 7200000 (2 hours).
-- `CODEX_ACCOUNTS` lists ChatGPT accounts in priority order with a usage cap and options, e.g. `mine:100:role=coding:model=gpt-6.1-sol,dad:80:role=design:home=default`. Unset means one account using the default Codex login.
+- `CODEX_ACCOUNTS` lists ChatGPT accounts in priority order with a usage cap and options, e.g. `mine:100:role=coding:model=gpt-6.1-sol:effort=high,dad:80:role=design:effort=high:home=default`. Unset means one account using the default Codex login.
 
 ## Multiple accounts
 Each `CODEX_ACCOUNTS` entry is `name:cap[:option...]`:
-- `cap`: the highest `used_percent` of the account's plan limit at which the bridge still starts a job.
+- `cap`: the highest `used_percent` of the account's plan limit (5-hour or weekly, whichever is fuller) at which the bridge still starts a job. A running job is stopped when the account reaches its cap (checked every 30 s, status `stopped_at_cap`); its changes so far are committed to the job branch.
 - `role=design` or `role=coding`: which work the account takes. Without it the account takes both.
 - `model=<id>`: passed to `codex exec -m` for every job on that account.
+- `effort=<level>`: reasoning effort for every job on that account (`-c model_reasoning_effort`); the repo runs both accounts on `high`.
 - `home=default`: use the normal Codex login (`~/.codex`, or `$CODEX_HOME`) instead of `~/.codex-accounts/<name>`.
 
 A job goes to the first account for its role that is logged in, has not hit its usage limit, and is below its cap. With the repo's setting, design work goes to `dad` up to 80% of its limit (the rest stays with its owner), and coding-buddy work goes to `mine` on `gpt-6.1-sol`. Neither spills over to the other: when the account for a role is unavailable, that job is refused.

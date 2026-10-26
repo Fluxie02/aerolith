@@ -1,0 +1,500 @@
+--- a/ai-bridge/qml/AiModule.qml
++++ b/ai-bridge/qml/AiModule.qml
+@@ -668,12 +668,7 @@
+                         }
+                     }
+                 }
+-                Rectangle {
+-                    Layout.alignment: Qt.AlignRight
+-                    Layout.preferredWidth: Theme.du(48); implicitHeight: Theme.px(2)
+-                    visible: responseView.contentHeight > responseView.height
+-                    color: Theme.signal
+-                }
++                ScrollMark { viewport: responseView }
+                 StatusLine {
+                     Layout.fillWidth: true
+                     hints: console_.inProposals ? [{key:"↑↓",action:"select"},{key:"A",action:"approve"},{key:"D",action:"dismiss"},{key:"TAB",action:"prompt"}] : [{key:"⏎",action:"send"},{key:"TAB",action:"review"},{key:"ESC",action:console_.module && console_.module.busy ? "cancel" : "close"}]
+--- a/shell/components/Bezel.qml
++++ b/shell/components/Bezel.qml
+@@ -15,8 +15,9 @@
+     property color accent: active ? Theme.signal : Theme.grid
+     property alias headerRight: headerRightSlot.data
+     default property alias content: body.data
+-    property int contentPadding: Theme.contentInset
+-    property int titleHeight: Theme.headerHeight
++    readonly property bool compact: height < Theme.du(600)
++    property int contentPadding: compact ? Theme.pad : Theme.contentInset
++    property int titleHeight: compact ? Theme.du(42) : Theme.headerHeight
+     readonly property int headerHeight: showHeader ? titleHeight : 0
+ 
+     Canvas {
+@@ -24,6 +25,8 @@
+         anchors.fill: parent
+         onWidthChanged: requestPaint()
+         onHeightChanged: requestPaint()
++        onVisibleChanged: if (visible) requestPaint()
++        onAvailableChanged: if (available) requestPaint()
+         onPaint: {
+             const c = getContext("2d");
+             const w = width;
+@@ -75,6 +78,10 @@
+         Connections {
+             target: root
+             function onAccentChanged() { face.requestPaint(); }
++        }
++        Connections {
++            target: face.Window.window
++            function onVisibleChanged() { if (face.Window.window.visible) face.requestPaint(); }
+         }
+     }
+ 
+--- a/shell/components/InstrumentField.qml
++++ b/shell/components/InstrumentField.qml
+@@ -42,6 +42,11 @@
+             var c=getContext("2d"); c.reset();
+             var w=width,h=height,x=w*.27,y=h*.55,r=h*.34,L=field.level;
+             var boot=field.instrument ? 1 : Theme.bootProgress;
++            function phase(start, end) {
++                var t=Math.max(0,Math.min(1,(boot-start)/(end-start)));
++                return t*t*(3-2*t);
++            }
++            var ringPhase=phase(.04,.60), indexPhase=phase(.20,.78), outerPhase=phase(.38,.96);
+             var weak=field.mix(Theme.bg,Theme.grid,.48), rule=Theme.grid;
+             function line(a,b,d,e,col,weight) {
+                 c.strokeStyle=col||rule;c.lineWidth=weight||1;
+@@ -49,7 +54,7 @@
+             }
+             function arc(cx,cy,rr,a,b,col,weight) {
+                 c.strokeStyle=col||rule;c.lineWidth=weight||1;
+-                c.beginPath();c.arc(cx,cy,rr,a,a+(b-a)*boot);c.stroke();
++                c.beginPath();c.arc(cx,cy,rr,a,b);c.stroke();
+             }
+             function text(s,tx,ty,col,size) {
+                 c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px "'+Theme.mono+'"';c.fillText(s,tx,ty);
+@@ -59,24 +64,31 @@
+             c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();
+             c.fillStyle=Theme.bg;c.beginPath();c.arc(x,y,r*.91,0,Math.PI*2);c.fill();
+             var rings=L===2 ? [.61,.69,.79,.86,1,1.055,1.17,1.27] : [.43,.48,.61,.69,.79,.86,1,1.055,1.17,1.27,1.39,1.48];
+-            for(var k=0;k<rings.length;k++) arc(x,y,r*rings[k],-2.9,2.8,k%3===0?rule:weak);
++            for(var k=0;k<rings.length;k++) {
++                var sweep=Math.max(0,Math.min(1,ringPhase*1.4-k/rings.length*.4));
++                if(sweep>0)arc(x,y,r*rings[k],-2.9,-2.9+5.7*sweep,k%3===0?rule:weak);
++            }
+             for(var i=0;i<180;i++) {
+                 var a=i*Math.PI/90-1.57,rr=r*1.05,len=i%15===0?20:i%5===0?11:4;
+-                if(i/180>boot)break;
++                if(i/180>indexPhase)break;
+                 line(x+Math.cos(a)*rr,y+Math.sin(a)*rr,x+Math.cos(a)*(rr+len),y+Math.sin(a)*(rr+len),i%15===0?Theme.textDim:rule);
+                 if(i%15===0) text(String(i*2).padStart(3,"0"),x+Math.cos(a)*(rr+37)-9,y+Math.sin(a)*(rr+37)+3,Theme.textDim);
+             }
+             // Segmented, fixed index band. Its labels are angular coordinates.
+             var n=L===2?64:96;
+             for(i=0;i<n;i++) {
++                if(i/n>indexPhase)break;
+                 a=-2.65+i*5.3/n;
+                 arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(Theme.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
+             }
+             // Active workspace registration uses the same position as Limb.
+-            if(field.workspace>0) {
++            if(field.workspace>0 && indexPhase>0) {
++                c.globalAlpha=indexPhase;
+                 a=-1.6+field.workspace*.24;
+                 line(x+Math.cos(a)*(r-8),y+Math.sin(a)*(r-8),x+Math.cos(a)*(r+54),y+Math.sin(a)*(r+54),Theme.signal,3);
++                c.globalAlpha=1;
+             }
++            c.globalAlpha=.24+.76*phase(0,.30);
+             line(x-r*.18,y,x+r*.18,y,rule);line(x,y-18,x,y+18,rule);
+             // Straight command chord, continued into the screen structure.
+             var datum=h*.22;
+@@ -97,10 +109,11 @@
+             }
+             // Saturated: a second, screen-sized construction cuts the first.
+             if(L>=2) {
++                c.globalAlpha=outerPhase;
+                 var sx=w*.82,sy=h*.39,sr=h*.56;
+                 c.fillStyle=field.mix(Theme.bg,Theme.surface,.32);
+                 c.beginPath();c.arc(sx,sy,sr*.84,-2.7,1.9);c.lineTo(sx,sy);c.fill();
+-                for(k=0;k<(L===2?6:12);k++) arc(sx,sy,sr*(.72+k*.045),-2.8,2.05,k%3===0?rule:weak);
++                for(k=0;k<(L===2?6:12);k++) arc(sx,sy,sr*(.72+k*.045),-2.8,-2.8+4.85*outerPhase,k%3===0?rule:weak);
+                 for(i=0;i<110;i++) {
+                     a=-2.8+i*.044;rr=sr*1.02;
+                     line(sx+Math.cos(a)*rr,sy+Math.sin(a)*rr,sx+Math.cos(a)*(rr+(i%5===0?13:5)),sy+Math.sin(a)*(rr+(i%5===0?13:5)),rule);
+@@ -114,8 +127,9 @@
+             }
+             // Insane: dense concentric architecture, indexed ribs and combs.
+             if(L===3) {
++                c.globalAlpha=outerPhase;
+                 for(k=0;k<18;k++) {
+-                    arc(x,y,r*(1.57+k*.037),-1.72,1.7,k%4===0?rule:weak,k%4===0?2:1);
++                    arc(x,y,r*(1.57+k*.037),-1.72,-1.72+3.42*outerPhase,k%4===0?rule:weak,k%4===0?2:1);
+                 }
+                 for(i=0;i<56;i++) {
+                     xx=w*.055+i*w*.0158;
+@@ -132,6 +146,7 @@
+                 for(i=0;i<40;i++) line(w*.948,h*(.38+i*.009),w*(i%5===0?.942:.945),h*(.38+i*.009),Theme.signal);
+             }
+             // All four registration points survive every intensity level.
++            c.globalAlpha=1;
+             for(k=0;k<4;k++) {
+                 xx=w*(k%2===0?.055:.94);yy=h*(k<2?.10:.87);
+                 line(xx-5,yy,xx+5,yy,Theme.textDim);line(xx,yy-5,xx,yy+5,Theme.textDim);
+--- a/shell/components/InstrumentTabs.qml
++++ b/shell/components/InstrumentTabs.qml
+@@ -110,24 +110,24 @@
+                 width: parent.width - Theme.du(10)
+                 spacing: Theme.du(3)
+                 Text {
+-                    visible: route.shortcuts
+-                    width: parent.width
+-                    horizontalAlignment: Text.AlignHCenter
+-                    text: station.modelData.key === "F1" ? "F1" : "Ctrl+" + station.modelData.key
+-                    textFormat: Text.PlainText
+-                    color: station.selected ? Theme.signal : Theme.textDim
+-                    font.family: Theme.mono; font.pixelSize: Theme.fontXs
+-                }
+-                Text {
+                     width: parent.width
+                     horizontalAlignment: Text.AlignHCenter
+                     text: station.modelData.label === "AI" ? "AI" : station.modelData.label.charAt(0) + station.modelData.label.slice(1).toLowerCase()
+                     textFormat: Text.PlainText
+                     elide: Text.ElideRight
+                     color: station.selected ? Theme.signal : pointer.containsMouse ? Theme.text : Theme.textDim
+-                    font.family: Theme.sans; font.pixelSize: route.shortcuts && !route.compact ? Theme.fontMd : Theme.fontSm
++                    font.family: Theme.sans; font.pixelSize: route.shortcuts ? Theme.fontMd : Theme.fontSm
+                     font.weight: station.selected ? Font.DemiBold : Font.Normal
+                     Behavior on color { enabled: Theme.animate; ColorAnimation { duration: Theme.fast } }
++                }
++                Text {
++                    visible: route.shortcuts
++                    width: parent.width
++                    horizontalAlignment: Text.AlignHCenter
++                    text: station.modelData.key === "F1" ? "F1" : "Ctrl+" + station.modelData.key
++                    textFormat: Text.PlainText
++                    color: Theme.textDim
++                    font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                 }
+             }
+             MouseArea {
+--- a/shell/components/Instrumentation.qml
++++ b/shell/components/Instrumentation.qml
+@@ -15,6 +15,7 @@
+     readonly property string cpu: T.formatPercent(Telemetry.cpu.total)
+     readonly property string mem: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)
+     readonly property real ignition: instrument ? 1 : Theme.bootProgress
++    readonly property var entryBays: [{label:"Command",bay:"command"}, {label:"Navigator",bay:"navigator"}, {label:"Systems",bay:"systems"}, {label:"Settings",bay:"settings"}]
+     opacity: Math.min(1, ignition * 2)
+ 
+     Text {
+@@ -41,7 +42,8 @@
+ 
+     // The hub's focused workspace is the dominant number, not fake telemetry.
+     Column {
+-        x: parent.width * .125; y: parent.height * .36
++        x: parent.width * .125
++        y: rig.compact ? parent.height * .55 - implicitHeight / 2 : parent.height * .36
+         width: parent.width * (rig.level === 3 ? .16 : .28)
+         visible: !instrument
+         opacity: Math.max(0, Math.min(1, (rig.ignition - .1) / .3))
+@@ -52,7 +54,7 @@
+         }
+         Text {
+             text: rig.ws; textFormat: Text.PlainText
+-            font.family: Theme.displaySans; font.pixelSize: Theme.du(rig.level === 2 ? 136 : 162)
++            font.family: Theme.displaySans; font.pixelSize: rig.compact ? Math.min(Theme.du(136), rig.height * .19) : Theme.du(rig.level === 2 ? 136 : 162)
+             font.weight: Font.Light; font.letterSpacing: -5; color: Theme.text
+         }
+         Text {
+@@ -73,7 +75,7 @@
+     Item {
+         x: parent.width * (rig.level === 3 ? .60 : .66); y: parent.height * .105
+         width: parent.width * (rig.level === 3 ? .32 : .26); height: parent.height * .085
+-        visible: rig.level > 1 && !compact
++        visible: rig.level > 1 && !compact && !rig.instrument
+         Text {
+             text: "CORE ARRAY / " + Math.min(rig.level === 3 ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
+             textFormat: Text.PlainText; color: Theme.textDim
+@@ -125,17 +127,10 @@
+             font.weight: Font.Light; font.letterSpacing: rig.level === 3 ? 7 : 1; lineHeight: .9
+         }
+         Rectangle { width: parent.width; height: Theme.du(rig.level === 3 ? 5 : 2); color: Theme.signal }
+-        Flow {
+-            width: parent.width; spacing: Theme.du(16)
+-            Repeater {
+-                model: [{t:"01 COMMAND",b:"command"},{t:"02 NAVIGATOR",b:"navigator"},{t:"03 SYSTEMS",b:"systems"},{t:"04 SOUND",b:"signal"}]
+-                delegate: Text {
+-                    required property var modelData
+-                    text: modelData.t; textFormat: Text.PlainText; color: Theme.signal
+-                    font.family: Theme.mono; font.pixelSize: Theme.fontSm
+-                    MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(modelData.b) }
+-                }
+-            }
++        InstrumentTabs {
++            width: parent.width; height: implicitHeight
++            entries: rig.entryBays; currentIndex: -1
++            onChosen: index => Ui.open(rig.entryBays[index].bay)
+         }
+     }
+ 
+@@ -288,7 +283,7 @@
+             Rectangle { width: parent.width; height: 1; color: Theme.grid }
+             Text { text: "ACTIVE ROUTE / " + rig.ws; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+             Text { text: rig.instrument ? (Ui.activeBay || "CLOSING").toUpperCase() : "DESKTOP"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.du(22) }
+-            Text { text: "F1 HELP / ESC RETURN"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
++            Text { text: rig.instrument ? "F1 HELP / ESC RETURN" : "SELECT A BAY ABOVE"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+         }
+     }
+ 
+@@ -302,14 +297,32 @@
+ 
+     // Compact ground retains one strong workspace hub and an explicit entry.
+     Column {
+-        x: parent.width * .55; y: parent.height * .43; width: parent.width * .39
+-        visible: rig.compact && !rig.instrument; spacing: Theme.du(18)
+-        Text { text: "AEROLITH"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(34) }
++        x: parent.width * .55; y: parent.height * .36; width: parent.width * .39
++        visible: rig.compact && !rig.instrument; spacing: Theme.du(12)
++        Text { width: parent.width; text: "AEROLITH"; textFormat: Text.PlainText; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Math.min(Theme.du(40), rig.width * .043) }
+         Text { width: parent.width; text: "LIMB / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm }
+-        Text { text: rig.cpu + " CPU\n" + rig.mem + " MEMORY"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontMd; lineHeight: 1.8 }
+-        Text {
+-            text: "OPEN COMMAND →"; textFormat: Text.PlainText; color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+-            MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open("command") }
++        Text { width: parent.width; text: windows.length + " WINDOWS  /  " + rig.cpu + " CPU  /  " + rig.mem + " RAM"; textFormat: Text.PlainText; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm; wrapMode: Text.WordWrap }
++        Rectangle { width: parent.width; height: Theme.px(2); color: Theme.signal }
++        Flow {
++            width: parent.width; spacing: Theme.du(6)
++            Repeater {
++                model: rig.entryBays
++                delegate: Rectangle {
++                    required property var modelData
++                    width: (parent.width - Theme.du(6)) / 2; height: Theme.du(36)
++                    radius: Theme.radius
++                    color: entryPointer.containsMouse ? Theme.surface2 : Theme.bg
++                    border.color: entryPointer.containsMouse ? Theme.signal : Theme.grid
++                    Text {
++                        anchors.centerIn: parent
++                        text: modelData.label; textFormat: Text.PlainText
++                        color: Theme.signal; font.family: Theme.sans; font.pixelSize: Theme.fontSm
++                    }
++                    MouseArea { id: entryPointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open(modelData.bay) }
++                    Accessible.role: Accessible.Button; Accessible.name: modelData.label
++                    Accessible.onPressAction: Ui.open(modelData.bay)
++                }
++            }
+         }
+     }
+     Text {
+--- a/shell/components/ScrollMark.qml
++++ b/shell/components/ScrollMark.qml
+@@ -0,0 +1,24 @@
++import QtQuick
++import qs.core
++
++// A passive vertical position register, fixed to the viewport rather than its
++// moving content. No timer, animation, focus or interference with wheel input.
++Item {
++    id: mark
++    required property Flickable viewport
++    parent: viewport
++    x: viewport.width - width
++    y: 0
++    width: Theme.du(3)
++    height: viewport.height
++    z: 5
++    visible: viewport.contentHeight > viewport.height + 1
++    Rectangle { anchors.fill: parent; color: Theme.grid }
++    Rectangle {
++        width: parent.width
++        height: Math.min(mark.height, Math.max(Theme.du(18), mark.height * mark.viewport.visibleArea.heightRatio))
++        y: Math.max(0, Math.min(mark.height - height, mark.viewport.visibleArea.yPosition * mark.height))
++        radius: width / 2
++        color: Theme.textDim
++    }
++}
+--- a/shell/components/StatusLine.qml
++++ b/shell/components/StatusLine.qml
+@@ -8,7 +8,8 @@
+     property var hints: []        // [{ key, action }]
+     property string message: ""
+     property string messageState: "" // ok | error | caution | busy | ""
+-    implicitHeight: hintsFlow.implicitHeight + messageText.implicitHeight + Theme.du(22)
++    implicitHeight: Theme.du(10) + hintsFlow.implicitHeight
++                    + (message !== "" ? Theme.du(8) + messageText.implicitHeight : 0) + Theme.du(4)
+ 
+     Rectangle {
+         anchors.left: parent.left
+@@ -37,7 +38,10 @@
+         textFormat: Text.PlainText
+         anchors.left: parent.left
+         anchors.right: parent.right
+-        anchors.bottom: parent.bottom
++        y: hintsFlow.y + hintsFlow.implicitHeight + Theme.du(8)
++        visible: root.message !== ""
++        wrapMode: Text.WrapAnywhere
++        maximumLineCount: 2
+         elide: Text.ElideRight
+         text: root.messageState === "busy" ? "◌ " + root.message : root.message
+         color: root.messageState === "ok" ? Theme.signal : root.messageState === "error" ? Theme.critical : root.messageState === "caution" ? Theme.caution : Theme.textDim
+--- a/shell/core/Theme.qml
++++ b/shell/core/Theme.qml
+@@ -23,19 +23,27 @@
+     // Process lifetime latch survives hidden/recreated views. Freeze the selected
+     // startup duration so changing intensity during assembly cannot retime it.
+     property bool bootPlayed: false
++    property bool bootRequested: false
+     property bool bootInsane: false
+     property real bootProgress: 1
+     readonly property int ignitionDuration: slow * (bootInsane ? 10 : 8)
+     function ignite() {
+-        if (bootPlayed) return;
++        bootRequested = true;
++        if (bootPlayed || !Config.loaded) return;
+         bootPlayed = true;
+         bootInsane = insane;
+         if (travel) { bootProgress = 0; ignition.restart(); }
+     }
++    Connections {
++        target: Config
++        function onLoadedChanged() {
++            if (Config.loaded && root.bootRequested) root.ignite();
++        }
++    }
+     onTravelChanged: if (!travel) { ignition.stop(); bootProgress = 1; }
+     NumberAnimation {
+         id: ignition; target: root; property: "bootProgress"
+-        to: 1; duration: root.ignitionDuration; easing.type: Easing.OutCubic
++        to: 1; duration: root.ignitionDuration; easing.type: Easing.Linear
+     }
+ 
+     // Colour roles
+--- a/shell/modules/deck/DeckView.qml
++++ b/shell/modules/deck/DeckView.qml
+@@ -36,6 +36,16 @@
+     Instrumentation { anchors.fill: parent; instrument: true }
+ 
+ 
++    // A navigation bus shields names from the instrument engraving beneath.
++    // The circular field remains exposed around the retained chord.
++    Rectangle {
++        x: view.compactScreen ? 0 : railRow.x - Theme.pad
++        y: Config.strip.edge === "top" ? Theme.stripHeight : 0
++        width: view.compactScreen ? view.width : railRow.width + 2 * Theme.pad
++        height: railRow.y - y + railRow.height + Theme.du(4)
++        color: Theme.bg
++        radius: view.compactScreen ? 0 : Theme.panelRadius
++    }
+     InstrumentTabs {
+         id: railRow
+         x: view.width * (view.compactScreen ? .045 : .37)
+--- a/shell/modules/help/HelpBay.qml
++++ b/shell/modules/help/HelpBay.qml
+@@ -239,5 +239,7 @@
+                 }
+             }
+         }
++        ScrollMark { viewport: keysView }
++        ScrollMark { viewport: list }
+     }
+ }
+--- a/shell/modules/lock/LockView.qml
++++ b/shell/modules/lock/LockView.qml
+@@ -104,7 +104,7 @@
+         width: Math.min(Theme.du(520), root.narrow ? root.width-Theme.du(48) : root.width*.42)
+         height: Math.min(Theme.du(480),root.height-(root.narrow ? Theme.du(root.compact ? 200 : 296) : Theme.du(100)))
+         designation: "01"; title: "Unlock session"; accent: root.accent
+-        status: root.state === "checking" ? "VERIFYING" : "LOCKED"
++        status: root.state === "checking" ? "VERIFYING" : root.state === "failed" ? "TRY AGAIN" : root.state === "locked-out" ? "PLEASE WAIT" : "LOCKED"
+         statusColor: root.accent
+         // Force an opaque authentication plane even when effects are enabled.
+         Rectangle { anchors.fill: parent; color: Theme.surface }
+@@ -113,18 +113,13 @@
+             anchors.fill: parent; anchors.bottomMargin: submitButton.height + Theme.du(16)
+             contentHeight: form.height; clip: true
+             boundsBehavior: Flickable.StopAtBounds
+-            Rectangle {
+-                x: promptScroll.width-Theme.du(3)
+-                y: promptScroll.visibleArea.yPosition*promptScroll.height
+-                width: Theme.du(3); height: promptScroll.visibleArea.heightRatio*promptScroll.height
+-                visible: promptScroll.contentHeight > promptScroll.height; color: Theme.textDim
+-            }
++            ScrollMark { viewport: promptScroll }
+             Column {
+                 id: form; width: parent.width; spacing: Theme.du(root.compact ? 10 : 16)
+                 Text {
+                     width: parent.width; text: root.user || "Your session"; elide: Text.ElideRight
+                     textFormat: Text.PlainText; color: Theme.text
+-                    font.family: Theme.sans; font.pixelSize: Theme.du(root.compact ? 24 : 28); font.weight: Font.Medium
++                    font.family: Theme.sans; font.pixelSize: Theme.du(root.compact ? 20 : 28); font.weight: Font.Medium
+                 }
+                 Text {
+                     text: "PASSWORD"; textFormat: Text.PlainText; color: Theme.textDim
+@@ -133,7 +128,7 @@
+                 Rectangle {
+                     width: parent.width; height: Theme.du(root.compact ? 48 : 60); color: Theme.bg
+                     radius: Theme.radius
+-            border.width: Theme.border; border.color: root.editable ? root.accent : Theme.grid
++                    border.width: Theme.border; border.color: root.editable ? root.accent : Theme.grid
+                     TextInput {
+                         id: entry
+                         anchors.fill: parent; anchors.margins: Theme.du(16)
+@@ -161,7 +156,7 @@
+                           + (root.message || (root.state === "checking" ? "Verifying your password…" : root.state === "failed" ? "Check your password and try again." : root.state === "locked-out" ? "Please wait for authentication to become available." : "Enter your password to continue."))
+                     textFormat: Text.PlainText; wrapMode: Text.Wrap
+                     color: root.state === "failed" || root.state === "locked-out" ? root.accent : Theme.textDim
+-                    font.family: Theme.sans; font.pixelSize: Theme.fontLg
++                    font.family: Theme.sans; font.pixelSize: root.compact ? Theme.fontMd : Theme.fontLg
+                     Accessible.role: Accessible.StaticText
+                     Accessible.name: text
+                 }
+--- a/shell/modules/routines/RoutineConsole.qml
++++ b/shell/modules/routines/RoutineConsole.qml
+@@ -355,13 +355,7 @@
+                     }
+                 }
+             }
+-            Rectangle {
+-                Layout.alignment: Qt.AlignRight
+-                Layout.preferredWidth: Math.max(Theme.du(24), contentView.width * Math.min(1, contentView.height / Math.max(1, contentView.contentHeight)))
+-                implicitHeight: Theme.px(2)
+-                visible: contentView.contentHeight > contentView.height
+-                color: Theme.signal
+-            }
++            ScrollMark { viewport: contentView }
+ 
+             StatusLine {
+                 Layout.fillWidth: true
+--- a/shell/modules/signal/SignalRack.qml
++++ b/shell/modules/signal/SignalRack.qml
+@@ -386,13 +386,7 @@
+                     }
+                 }
+             }
+-            Rectangle {
+-                Layout.alignment: Qt.AlignRight
+-                Layout.preferredWidth: Math.max(Theme.du(24), contentView.width * Math.min(1, contentView.height / Math.max(1, contentView.contentHeight)))
+-                implicitHeight: Theme.px(2)
+-                visible: contentView.contentHeight > contentView.height
+-                color: Theme.signal
+-            }
++            ScrollMark { viewport: contentView }
+ 
+             StatusLine {
+                 Layout.fillWidth: true
+--- a/shell/modules/systems/SystemsBay.qml
++++ b/shell/modules/systems/SystemsBay.qml
+@@ -300,14 +300,7 @@
+                 }
+             }
+ 
+-            Rectangle {
+-                anchors.right: instrumentsView.right
+-                y: instrumentsView.y + instrumentsView.contentY / Math.max(1, instrumentsView.contentHeight) * instrumentsView.height
+-                width: Theme.px(2)
+-                height: instrumentsView.height * instrumentsView.height / Math.max(1, instrumentsView.contentHeight)
+-                visible: instrumentsView.contentHeight > instrumentsView.height
+-                color: Theme.signal
+-            }
++            ScrollMark { viewport: instrumentsView }
+ 
+             StatusLine {
+                 id: systemsStatus

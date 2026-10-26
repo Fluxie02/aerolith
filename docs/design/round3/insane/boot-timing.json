@@ -1,0 +1,14 @@
+{
+  "capture_start_ms": [
+    0.1,
+    100.1,
+    250.1,
+    450.2,
+    750.7,
+    1151.1,
+    1850.1,
+    2750.2
+  ],
+  "reference": "scenario entry after Configuration Loaded; process start precedes this",
+  "real_time": true
+}

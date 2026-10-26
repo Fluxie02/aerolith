@@ -1,0 +1,8 @@
+{"t": 1793029597.9864984, "kind": "event", "request": "openwindow>>5a00000009c0,1,b05-dialog,B05 focus target", "reply": null}
+{"t": 1793029597.9865863, "kind": "event", "request": "activewindow>>b05-dialog,B05 focus target", "reply": null}
+{"t": 1793029597.9866161, "kind": "event", "request": "activewindowv2>>5a00000009c0", "reply": null}
+{"t": 1793029598.0898938, "kind": "event", "request": "activewindow>>steam_app_1,Game", "reply": null}
+{"t": 1793029598.089966, "kind": "event", "request": "activewindowv2>>5a0000000820", "reply": null}
+{"t": 1793029598.1608999, "kind": "event", "request": "fullscreen>>1", "reply": null}
+{"t": 1793029598.8294034, "kind": "event", "request": "activewindow>>b05-dialog,B05 focus target", "reply": null}
+{"t": 1793029598.8294792, "kind": "event", "request": "activewindowv2>>5a00000009c0", "reply": null}

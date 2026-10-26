@@ -1,0 +1,4 @@
+PASS: AI module systems prefix unchanged byte-for-byte.
+PASS: AiConsole completion, pendingQuery, busy-only timer, error hints, Tab/A/D/arrows/Escape handler unchanged byte-for-byte.
+PASS: hosts, services, config/schema and Theme startup latch unchanged.
+PASS: FlightStrip PanelWindow visible binding unchanged.

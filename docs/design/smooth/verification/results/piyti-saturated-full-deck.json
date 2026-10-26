@@ -1,0 +1,19 @@
+{
+  "name": "results/piyti-saturated-full-deck",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/deck.sh",
+    "build/ui016/verification/piyti-saturated-full-deck"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/final-shell",
+    "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json",
+    "AUDIO": "1",
+    "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' tools/headless/run.sh tests/scenarios/deck.sh build/ui016/verification/piyti-saturated-full-deck",
+  "started_at": "2026-10-25T03:46:38.716687+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 27.38718083699996,
+  "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+}

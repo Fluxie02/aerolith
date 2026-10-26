@@ -1,0 +1,76 @@
+{
+  "completed_utc": "2026-10-25T08:35:12.943831+00:00",
+  "task": "UI-016",
+  "agent": "Astra",
+  "source_files": 80,
+  "changed_visual_files": 15,
+  "protected_identical_files": 14,
+  "units": {
+    "node_passed": 118,
+    "qt_v4_passed": 118,
+    "pytest_passed": 71,
+    "pytest_skipped": 1
+  },
+  "final_scenarios_passed": 13,
+  "final_scenarios_failed": 0,
+  "verification_qml_logs": 20,
+  "verification_qml_errors": 0,
+  "idle_cpu_at_144_hz": {
+    "saturated_before": 1.933,
+    "saturated_after": 0.716,
+    "insane_before": 5.139,
+    "insane_after": 2.049
+  },
+  "limitations": [
+    "Uniform 144 fps unverified; software Deck/bay stalls persist.",
+    "Active software CPU cost increased.",
+    "Strict 35 ms interruption not measurable under capture load.",
+    "Protected compositor/Deck lifecycle corrections requested from Claude."
+  ],
+  "artifacts": {
+    "README.md": {
+      "bytes": 7727,
+      "sha256": "06f89d699e663d057d7e45f460203e37544a0b5c1f3f199502dedc485f6defa1"
+    },
+    "TIMING.md": {
+      "bytes": 7383,
+      "sha256": "fa97f0c7f00278b3c913ec0b5bc0452ff1cc773a092c67aa46c48e8f8956fe88"
+    },
+    "POSITION.md": {
+      "bytes": 2832,
+      "sha256": "b529c3dccd3cc82b34d98d3c0ef35fddc130a8719a126597e5c1715ea3bf8363"
+    },
+    "SELF-REVIEW.md": {
+      "bytes": 2502,
+      "sha256": "5ace802f448f20eea7dd72459133b8417a65f6d2e6ab99cacc9fbb83807da25a"
+    },
+    "SYSTEMS-REQUESTS.md": {
+      "bytes": 5374,
+      "sha256": "386eac45342f49e9185101091032e6de81df66cc9b470bef3720b3417eae3dac"
+    },
+    "before-source.tar.gz": {
+      "bytes": 126706,
+      "sha256": "3e45894bba696430fdc0570338ef138d239240fb4ee528a6220079c03af62983"
+    },
+    "after-source.tar.gz": {
+      "bytes": 129126,
+      "sha256": "356de20719689ad6d05a352fdb99930ad7d86e1f51f18ad05dc18f3dd09c9019"
+    },
+    "raw-benchmark-logs.tar.gz": {
+      "bytes": 1075032,
+      "sha256": "34e91fe0df6c1c32ea0c38125451a8abe666f343c3ecad575c7dc0c47f0a25cb"
+    },
+    "video/motion.mp4": {
+      "bytes": 2201513,
+      "sha256": "5f86c0348be1c2625b5ac5dbaad6f684ffcf98fbf137668748d7a0afc19ba8a2"
+    },
+    "data/aggregate.json": {
+      "bytes": 11759,
+      "sha256": "b99cfadfae52c65f56f0e22c2a894070fc20b24a1b6292c04711a66c3f39c81b"
+    },
+    "verification/final-command-index.json": {
+      "bytes": 12080,
+      "sha256": "85cec566ba1f326ade399b43bd49130efe50e558f7b72efc3ce482393e8eac95"
+    }
+  }
+}

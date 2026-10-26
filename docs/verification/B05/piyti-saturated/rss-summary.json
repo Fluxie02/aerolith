@@ -1,0 +1,9 @@
+{
+  "rss_kib": {
+    "1": 146508,
+    "10": 162988,
+    "20": 163164
+  },
+  "interval_budget_kib": 8192,
+  "steady_growth": false
+}

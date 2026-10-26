@@ -1,0 +1,12 @@
+[
+  {
+    "scenario": "notify",
+    "command": "CONFIG=build/ui011/insane-notify.json SHELL_PATH=build/ui011-final-shell/shell tools/headless/run.sh tests/scenarios/notify.sh build/ui011/verify-insane-notify-final",
+    "exitCode": 0
+  },
+  {
+    "scenario": "deck",
+    "command": "CONFIG=build/ui011/insane.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' SHELL_PATH=build/ui011-final-shell/shell tools/headless/run.sh tests/scenarios/deck.sh build/ui011/verify-insane-deck-final",
+    "exitCode": 0
+  }
+]

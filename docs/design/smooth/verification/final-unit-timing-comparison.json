@@ -1,0 +1,7 @@
+{
+  "final_source_files": 80,
+  "final_snapshot_matches_timing_after_source": true,
+  "production_changes_since_units": [
+    "components/ChordSlot.qml"
+  ]
+}

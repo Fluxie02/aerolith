@@ -1,0 +1,21 @@
+[1;32mDEBUG [0m]: User-specified config location: '/src/themes/hyprland/aerolith.lua'
+[1;32mDEBUG [0m]: [cfg] Config is either explicit or special.
+[1;32mDEBUG [0m]: [cfg] Config is lua, loading lua mgr
+[1;32mDEBUG [0m]: Disabling stdout logs (debug.enable_stdout_logs = 0). Further logs will be written to /hyprland.log
+
+
+======== Config parsing result:
+
+config ok
+[1;32mDEBUG [0m]: User-specified config location: '/src/themes/hyprland/aerolith.conf'
+[1;32mDEBUG [0m]: [cfg] Config is either explicit or special.
+[1;32mDEBUG [0m]: [cfg] Config is NOT lua, loading regular mgr
+[1;32mDEBUG [0m]: Using config: /src/themes/hyprland/aerolith.conf
+[1;32mDEBUG [0m]: Using config: /src/themes/hyprland/aerolith.conf
+[1;32mDEBUG [0m]: Disabling stdout logs (debug.enable_stdout_logs = 0). Further logs will be written to /hyprland.log
+[1;32mDEBUG [0m]: Using config: /src/themes/hyprland/aerolith.conf
+
+
+======== Config parsing result:
+
+config ok

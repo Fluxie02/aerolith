@@ -1,0 +1,20 @@
+[
+  {
+    "command": "python /root/.codex-mcp-bridge/worktrees/7bba1f29/tools/agent-sync/agent_sync.py --repo /home/user/aerolith lock --agent Sol --files docs/verification/A03 --task-id A03",
+    "exit": 2,
+    "seconds": 0.108,
+    "output": "usage: agent_sync.py lock [-h] --agent {Astra,Claude}\n                          --files FILES [FILES ...] [--task-id TASK_ID]\n                          [--ttl TTL]\nagent_sync.py lock: error: argument --agent: invalid choice: 'Sol' (choose from 'Astra', 'Claude')\n"
+  },
+  {
+    "command": "python /root/.codex-mcp-bridge/worktrees/7bba1f29/tools/agent-sync/agent_sync.py --repo /home/user/aerolith publish --agent Sol --type note --files docs/verification/A03 --summary \"A03 verification complete: Node 118/118, Qt 118/118, Python 71 passed 1 skipped, twelve baseline scenarios passed; Codex F02 reproduced twice\" --notes \"Evidence docs/verification/A03/README.md; no product changes; Sol unsupported by this sync version\" --task-id A03",
+    "exit": 2,
+    "seconds": 0.154,
+    "output": "usage: agent_sync.py publish [-h] --agent {Astra,Claude}\n                             --type {design_complete,integration_complete,performance_audit_complete,design_audit_complete,tests_passed,blocked,note}\n                             [--files [FILES ...]] --summary SUMMARY\n                             [--notes NOTES] [--task-id TASK_ID]\nagent_sync.py publish: error: argument --agent: invalid choice: 'Sol' (choose from 'Astra', 'Claude')\n"
+  },
+  {
+    "command": "python /root/.codex-mcp-bridge/worktrees/7bba1f29/tools/agent-sync/agent_sync.py --repo /home/user/aerolith unlock --agent Sol --task-id A03",
+    "exit": 2,
+    "seconds": 0.135,
+    "output": "usage: agent_sync.py unlock [-h] --agent {Astra,Claude} [--files [FILES ...]]\n                            [--task-id TASK_ID]\nagent_sync.py unlock: error: argument --agent: invalid choice: 'Sol' (choose from 'Astra', 'Claude')\n"
+  }
+]

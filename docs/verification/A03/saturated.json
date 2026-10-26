@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "theme": {
+    "intensity": "saturated"
+  },
+  "notifications": {
+    "server": true,
+    "popupTimeoutMs": 5000
+  }
+}

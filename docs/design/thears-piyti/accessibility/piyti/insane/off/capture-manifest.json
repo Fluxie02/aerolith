@@ -1,0 +1,37 @@
+{
+  "source": "build/ui012/final2-piyti-insane-off-small",
+  "stills": [
+    {
+      "file": "01-idle.png",
+      "sha256": "50a55b3bb3abb4d30531f51c45c901b8e3b591686925477381aa5aa635356aa9",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "02-app-focus.png",
+      "sha256": "855b721008c0055a05250f05a0657b6b2a3a93cae25c037f551139acd479f617",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "03-command.png",
+      "sha256": "7eb54f41ae15266cc22540561ecb2cf705198f0abdd8b52ea3556e1fbb38612a",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "04-settings.png",
+      "sha256": "933d833c28ca708539912338d015cf17734bb9afcdf7025e0089996623eaf7e2",
+      "size": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

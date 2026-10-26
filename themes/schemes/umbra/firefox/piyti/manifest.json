@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Umbra / PIYTI",
+  "version": "1.0.0",
+  "description": "Aubergine / spectral pink. PIYTI application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "umbra-piyti-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#1a101d",
+      "frame_inactive": "#1a101d",
+      "tab_background_text": "#d1b5d5",
+      "tab_text": "#fcecff",
+      "tab_selected": "#302034",
+      "tab_loading": "#f5abe2",
+      "tab_line": "#c5b9ff",
+      "toolbar": "#1a101d",
+      "toolbar_text": "#fcecff",
+      "bookmark_text": "#fcecff",
+      "icons": "#d1b5d5",
+      "icons_attention": "#c5b9ff",
+      "toolbar_field": "#302034",
+      "toolbar_field_text": "#fcecff",
+      "toolbar_field_border": "#68476d",
+      "toolbar_field_focus": "#3f2c43",
+      "toolbar_field_text_focus": "#fcecff",
+      "toolbar_field_border_focus": "#c5b9ff",
+      "toolbar_field_highlight": "#c5b9ff",
+      "toolbar_field_highlight_text": "#1a101d",
+      "toolbar_top_separator": "#68476d",
+      "toolbar_bottom_separator": "#68476d",
+      "toolbar_vertical_separator": "#68476d",
+      "button_background_hover": "#3f2c43",
+      "button_background_active": "#4d3552",
+      "popup": "#302034",
+      "popup_text": "#fcecff",
+      "popup_border": "#68476d",
+      "popup_highlight": "#c5b9ff",
+      "popup_highlight_text": "#1a101d",
+      "sidebar": "#302034",
+      "sidebar_text": "#fcecff",
+      "sidebar_border": "#68476d",
+      "sidebar_highlight": "#c5b9ff",
+      "sidebar_highlight_text": "#1a101d",
+      "ntp_background": "#1a101d",
+      "ntp_text": "#fcecff"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

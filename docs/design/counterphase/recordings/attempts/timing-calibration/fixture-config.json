@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "theme": {
+    "intensity": "saturated",
+    "motion": "full",
+    "lowEffects": false
+  },
+  "notifications": {
+    "server": true,
+    "popupTimeoutMs": 5000
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "iris",
+  "name": "Iris",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#161121",
+  "surface": "#292137",
+  "surface2": "#372e46",
+  "grid": "#5c4b73",
+  "text": "#f3ecff",
+  "textDim": "#c8b8dc",
+  "signal": "#d7b7ff",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#a9d9f6",
+  "lower": "#231c30",
+  "pressed": "#443856",
+  "ansi": {
+    "normal": [
+      "#9c8ead",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#adcaf2",
+      "#dbadf2",
+      "#adf2f2",
+      "#c8b8dc"
+    ],
+    "bright": [
+      "#c8b8dc",
+      "#fbafb2",
+      "#c6e8d1",
+      "#fbd89c",
+      "#c2d4f6",
+      "#e2c0f6",
+      "#c2f0f6",
+      "#f3ecff"
+    ]
+  }
+}

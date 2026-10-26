@@ -1,0 +1,41 @@
+# AEROLITH / Argent — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#121415"
+foreground = "#f3f5f5"
+[colors.cursor]
+text = "#121415"
+cursor = "#e2e6e8"
+[colors.selection]
+text = "#121415"
+background = "#e2e6e8"
+
+[colors.normal]
+black = "#939a9d"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#bdc6d3"
+magenta = "#ccbdd3"
+cyan = "#bdd3d3"
+white = "#bec7ca"
+
+[colors.bright]
+black = "#bec7ca"
+red = "#fbb2af"
+green = "#c6ebce"
+yellow = "#fbdb99"
+blue = "#cdd4dd"
+magenta = "#d8cedd"
+cyan = "#cddddd"
+white = "#f3f5f5"

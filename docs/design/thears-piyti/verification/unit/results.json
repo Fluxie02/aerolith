@@ -1,0 +1,36 @@
+[
+  {
+    "name": "node",
+    "command": "node tests/js/run-node.mjs",
+    "exit_code": 0,
+    "elapsed_seconds": 0.09,
+    "tail": [
+      "ok 102 tokens \u203a palette overrides accept only known keys and valid colours",
+      "ok 103 tokens \u203a unknown density and motion names fall back",
+      "ok 104 tokens \u203a font lists deduplicate",
+      "# passed 104, failed 0"
+    ]
+  },
+  {
+    "name": "qt-v4",
+    "command": "docker run --rm -v \"$PWD:/src:ro\" aerolith-dev bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'",
+    "exit_code": 0,
+    "elapsed_seconds": 1.39,
+    "tail": [
+      "qml: ok 102 tokens \u203a palette overrides accept only known keys and valid colours",
+      "qml: ok 103 tokens \u203a unknown density and motion names fall back",
+      "qml: ok 104 tokens \u203a font lists deduplicate",
+      "qml: # passed 104, failed 0"
+    ]
+  },
+  {
+    "name": "pytest",
+    "command": "python3 -m pytest -q tests/py",
+    "exit_code": 0,
+    "elapsed_seconds": 14.35,
+    "tail": [
+      ".......................................................s................ [100%]",
+      "71 passed, 1 skipped in 13.83s"
+    ]
+  }
+]

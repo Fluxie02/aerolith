@@ -1,0 +1,12 @@
+{
+  "name": "unit-baseline/node",
+  "command": [
+    "node",
+    "tests/js/run-node.mjs"
+  ],
+  "environment": {},
+  "display_command": "node tests/js/run-node.mjs",
+  "started_at": "2026-10-24T22:13:14.891158+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 0.2324712029999887
+}

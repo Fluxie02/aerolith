@@ -1,0 +1,4878 @@
+[
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046491
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1046491
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046537
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046556
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1046556
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046576
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046595
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046614
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046633
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046651
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046670
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046689
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046708
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046726
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046745
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046764
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046783
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046801
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046820
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046839
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046858
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046877
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046896
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046915
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046934
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046952
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046971
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1046990
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047008
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047028
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047047
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047066
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047084
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047103
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047122
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047141
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047159
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047178
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047197
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047216
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047235
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047253
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047272
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047291
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047310
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047329
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047348
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047367
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047386
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047406
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047425
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047444
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047463
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047482
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047500
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047520
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047540
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047559
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047577
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047595
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047613
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047631
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047649
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047667
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047684
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047702
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047720
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047738
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047756
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047774
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047792
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047810
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047828
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047846
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047864
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047883
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047901
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047919
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047937
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047956
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047974
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1047993
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048011
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048030
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048048
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048065
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048083
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048100
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048117
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048134
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048150
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048167
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048183
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048200
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048216
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048233
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048250
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048266
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048283
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048299
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048316
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048333
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048349
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048366
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048382
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048399
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048415
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048432
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048448
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048464
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048480
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048511
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048527
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048543
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048559
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048575
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048592
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048608
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048624
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048640
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048657
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048673
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048689
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048705
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048722
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048738
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048754
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048771
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048787
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048803
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048819
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048835
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048852
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048868
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048884
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048900
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048917
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048933
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048949
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048965
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048982
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1048998
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049014
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049031
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049047
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049063
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049079
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049095
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049112
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049128
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049144
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049161
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049177
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049193
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049209
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049225
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049242
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049258
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049274
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049290
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049307
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049323
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049339
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049356
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049372
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049389
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049405
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049421
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049437
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049454
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049470
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049486
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049502
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049519
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049535
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049551
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1049568
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1051495
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1051495
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1051511
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1056490
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1056490
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1056506
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057855
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057871
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057888
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057904
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057920
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057936
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057952
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057969
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1057985
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058001
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058017
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058034
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058050
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058066
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058082
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058098
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058115
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058131
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058147
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058163
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058180
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058196
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058212
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058228
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058244
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058261
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058277
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058293
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058309
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058325
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058342
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058358
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058374
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058390
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058407
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058423
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058439
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058455
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058471
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058488
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058504
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058520
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058536
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058552
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058569
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058585
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058601
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058617
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058633
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058650
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058666
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058682
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058698
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058715
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058731
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058747
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058763
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058779
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058796
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058812
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058828
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058844
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1058861
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1061507
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1061507
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1061523
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1066490
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1066490
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1066506
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067135
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067151
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067167
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067184
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067200
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067216
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067232
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067249
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067265
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067281
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067297
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067314
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067330
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067346
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067362
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067378
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067395
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067411
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067427
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067443
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067459
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067476
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067492
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067508
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067524
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067541
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067557
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067573
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067589
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067606
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067622
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067638
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067654
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067670
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067687
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067703
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067719
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067735
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067751
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067768
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067784
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067800
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067816
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067833
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067849
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067865
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067881
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067897
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067914
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067930
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067946
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067962
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067979
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1067995
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068011
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068027
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068043
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068060
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068076
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068092
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068108
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068125
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1068141
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1071504
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1071504
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1071520
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076427
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076443
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076459
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076475
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076492
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076510
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1076510
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076526
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076543
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076559
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076575
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076592
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076608
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076624
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076640
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076657
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076673
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076689
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076706
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076722
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076738
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076754
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076771
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076787
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076803
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1076803
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076820
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076836
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076852
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076868
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076885
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076901
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076917
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076933
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076950
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076966
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076982
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1076998
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077015
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077031
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077047
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077064
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077080
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077096
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077113
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077129
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077145
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077161
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077178
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077194
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077211
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077227
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077243
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077259
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077275
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077292
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077308
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077324
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077340
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077357
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077373
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077389
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077406
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1077422
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1081507
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1081507
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1081523
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085706
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085722
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085738
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085754
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085770
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085787
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085803
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085819
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085835
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085852
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085868
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085884
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085900
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085917
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085933
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085949
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085965
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085982
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1085998
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086014
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086030
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086047
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086063
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086079
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086096
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086112
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086128
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086144
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086160
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086177
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086193
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086209
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086225
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086242
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086258
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086274
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086291
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086307
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086323
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086339
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086356
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086372
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086388
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086405
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086421
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086437
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086453
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086469
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086486
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086502
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1086502
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086520
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086536
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086552
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086569
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086585
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086601
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086617
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086634
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086650
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086666
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086682
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1086699
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1088852
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1088852
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1088872
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1088915
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1088935
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1088935
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1088935
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1088953
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1088972
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1088988
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089004
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089020
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089037
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089053
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089069
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089085
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089101
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089118
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089134
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089150
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089166
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089182
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089198
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089215
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089231
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089271
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089322
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089366
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089403
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089426
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089442
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089458
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089474
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089490
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089507
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089523
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089542
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089558
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089575
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089591
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089607
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089623
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089640
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089656
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089672
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089688
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089704
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089724
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1089724
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089724
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089740
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089759
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089759
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089776
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1089776
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089796
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089796
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089834
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1089834
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089850
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089870
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089889
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1089889
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089905
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089921
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089937
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089954
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089970
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1089986
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090002
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090018
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090035
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090051
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090067
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090083
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090100
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090116
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090132
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090148
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090164
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090181
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090199
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1090199
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090227
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090245
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1090245
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090263
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090280
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090298
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090315
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090334
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090352
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090370
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090388
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090405
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090423
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090441
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090458
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090476
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090494
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090512
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090529
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090547
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090565
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090582
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090600
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090618
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090635
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090654
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090672
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090689
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090707
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090725
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090743
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090759
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090775
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090792
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090810
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090826
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090843
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090859
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090875
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090891
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090908
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090924
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090940
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090957
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090973
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1090990
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091006
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091075
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091075
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091095
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1091095
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091128
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1091128
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091128
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091158
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091176
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091192
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091208
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091225
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091241
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091257
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091273
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091289
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091306
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091322
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091338
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091354
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091371
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091387
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091403
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091419
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091435
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091452
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091468
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091512
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091580
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091596
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1091596
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091629
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091645
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091665
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091681
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091697
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091713
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091730
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091746
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091762
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091778
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091795
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091811
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091827
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091844
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091860
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091876
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091892
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091909
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091925
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091941
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091957
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1091957
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091957
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091973
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1091993
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1091993
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1092009
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092029
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1092029
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092046
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092065
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1092065
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092081
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092100
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092118
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1092118
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092135
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092151
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092167
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092183
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092200
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092216
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092232
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092248
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092265
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092281
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092297
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092313
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092330
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092346
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092362
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092378
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092395
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092411
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092427
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092445
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1092445
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092470
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092487
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1092487
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092505
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092523
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092541
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092559
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092577
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092595
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092613
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092631
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092649
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092667
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092685
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092703
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092721
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092739
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092756
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092774
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092792
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092810
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092828
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092846
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092864
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092882
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092900
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092918
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092936
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092954
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092971
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1092988
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093004
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093020
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093036
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093052
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093069
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093085
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093101
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093117
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093133
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093149
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093166
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093182
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093198
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093214
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093231
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093298
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093319
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1093319
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093341
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1093362
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1093362
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093362
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093381
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093399
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093418
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093434
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093450
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093467
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093483
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093499
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093515
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093532
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093548
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093564
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093580
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093597
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093613
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093629
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093645
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093662
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093678
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093694
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093750
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093800
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093843
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093866
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093889
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093905
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093922
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093938
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093954
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093970
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1093986
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094002
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094019
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094035
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094051
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094067
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094083
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094100
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094116
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094132
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094148
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1094148
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094148
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094164
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094183
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094183
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094204
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1094204
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094204
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094230
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094230
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094257
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094257
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094284
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1094284
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094307
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094325
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1094325
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094341
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094357
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094374
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094390
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094406
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094422
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094438
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094454
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094471
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094487
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094503
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094519
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094535
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094552
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094568
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094584
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094600
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094618
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1094618
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094638
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1094638
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094655
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094673
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094690
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094708
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094726
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094743
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094761
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094778
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094796
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094814
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094832
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094850
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094867
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094885
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094903
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094921
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094938
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094955
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094973
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1094991
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095009
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095026
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095044
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095071
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095089
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095109
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095127
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095145
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095163
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095179
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095195
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095211
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095228
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095244
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095260
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095276
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095292
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095309
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095326
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095342
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095358
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095374
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095390
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095407
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095423
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095501
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1095501
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095501
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095523
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1095549
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1095549
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095549
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095579
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095601
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095617
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095633
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095650
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095666
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095682
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095698
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095714
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095731
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095747
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095763
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095779
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095795
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095812
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095828
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095844
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095860
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095876
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095893
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095933
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1095993
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096046
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096070
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096086
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096102
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096118
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096134
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096151
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096167
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096183
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096199
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096216
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096232
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096248
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096264
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096280
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096297
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096313
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096329
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096345
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096365
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1096365
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096365
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096382
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096401
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096401
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1096418
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096439
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096439
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096455
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096474
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096474
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096506
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1096506
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1096522
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096542
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096562
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1096562
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096578
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096595
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096611
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096627
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096643
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096660
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096676
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096692
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096708
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096725
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096741
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096757
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096773
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096789
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096805
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096822
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096840
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1096840
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096865
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1096865
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096883
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096901
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096919
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096937
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096954
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096972
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1096991
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097009
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097027
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097045
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097063
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097081
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097099
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097117
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097135
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097153
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097171
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097189
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097207
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097225
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097243
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097261
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097279
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097297
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097314
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097333
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097351
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097369
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097387
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097403
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097419
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097435
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097452
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097468
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097484
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097500
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097516
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097533
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097549
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097565
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097581
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097598
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097614
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097630
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097646
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1097662
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097706
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097728
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1097728
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1097751
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1097751
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097751
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097778
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097800
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097819
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097835
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097852
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097868
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097884
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097900
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097917
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097933
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097949
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097965
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1097984
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098000
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098016
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098033
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098049
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098065
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098081
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098098
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098141
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098197
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098243
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098279
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098301
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098317
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098333
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098350
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098366
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098382
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098398
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098414
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098431
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098447
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098463
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098479
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098495
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098512
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098528
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098544
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098560
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098580
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1098580
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098580
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098596
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098626
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098642
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098662
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098683
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1098683
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098683
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098703
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1098703
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098720
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098741
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098761
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1098761
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098777
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098793
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098809
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098826
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098842
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098858
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098874
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098891
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098907
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098923
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098940
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098956
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098972
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1098988
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099004
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099021
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099037
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099053
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099069
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099088
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1099088
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099112
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1099112
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099130
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099148
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099166
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099184
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099202
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099221
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099238
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099257
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099275
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099293
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099311
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099329
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099347
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099365
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099383
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099401
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099419
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099437
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099455
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099472
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099490
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099508
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099526
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099543
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099562
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099579
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099597
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099615
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099631
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099647
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099663
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099680
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099696
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099712
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099728
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099744
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099760
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099777
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099793
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099809
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099825
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099842
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099858
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099874
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1099973
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1099973
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1099989
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1099989
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1100010
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100031
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100050
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100069
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100086
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100102
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100122
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100143
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100160
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100176
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100192
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100209
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100225
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100241
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100257
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100274
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100290
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100306
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100322
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100338
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100355
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100371
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100387
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100403
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100419
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100436
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100452
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100470
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100486
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100505
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 125
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100521
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1100544
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1100599
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100599
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100615
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100631
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100647
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100664
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100680
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100696
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100713
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100729
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100745
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100761
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100777
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100794
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100810
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100826
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100842
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100859
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100875
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100891
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100907
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100924
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100940
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100956
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1100972
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1100990
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101010
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101072
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101072
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101097
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101148
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101164
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101164
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101406
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1101422
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101422
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101454
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101509
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101509
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101579
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101599
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1101599
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101599
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101616
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101616
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101632
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101846
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101862
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1101879
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101899
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101949
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1101949
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1101980
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102029
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102045
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102282
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102298
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1102314
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102334
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102378
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102378
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102403
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102447
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102463
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102463
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102714
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1102730
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102730
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102761
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102812
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102812
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102837
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102882
+  },
+  {
+    "surface": "aerolith-ground",
+    "time_ms": 1102900
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1102900
+  },
+  {
+    "surface": "aerolith-strip",
+    "time_ms": 1103164
+  },
+  {
+    "surface": "aerolith-deck",
+    "time_ms": 1103164
+  }
+]

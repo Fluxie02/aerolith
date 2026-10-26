@@ -1,0 +1,30 @@
+[
+  {
+    "file": "shell/components/Bezel.qml",
+    "sha256": "a80a3999beef2fa3d042443af2db5f40aa66dfdc2762ff767ae07b9a588baa74"
+  },
+  {
+    "file": "shell/components/ChordSlot.qml",
+    "sha256": "5da931c5e896372204e90bfe5ac6c3bc6db30f8e70b6b7fe54a499794c071eda"
+  },
+  {
+    "file": "shell/components/InstrumentField.qml",
+    "sha256": "285a03beea386e5374d3928fc31aa50db020efd24e603268abf01841fa94d8bf"
+  },
+  {
+    "file": "shell/components/Instrumentation.qml",
+    "sha256": "3741bd0d61be79b8dbcc19ee6ed18231cc5a8179032d8b9d4c3eef936971249c"
+  },
+  {
+    "file": "shell/components/ShearField.qml",
+    "sha256": "6af3506990f6c65dfa132cce6692a2c9e2ef38e5450c45d3b664a4ae9f7230af"
+  },
+  {
+    "file": "shell/components/WorkspaceOrbit.qml",
+    "sha256": "c1928750125ec37e7fbdd03141b88473b02b17c2d4347ebd838342b06e66eae5"
+  },
+  {
+    "file": "shell/modules/deck/DeckView.qml",
+    "sha256": "e650f9c7a0d294650a84ea660b1162c8d0dd0bfc9f94f55345507e6375d57124"
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "log": "build/limb/ai/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/deck/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/deck-final/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/final/qs.log",
+    "qml_errors": [],
+    "reloads": 1
+  },
+  {
+    "log": "build/limb/full/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/full-final/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/judged/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/notify/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/perf/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/preview-shots/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/reduced/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/signal/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/small/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/small-final/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/smoke/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  },
+  {
+    "log": "build/limb/windows/qs.log",
+    "qml_errors": [],
+    "reloads": 0
+  }
+]

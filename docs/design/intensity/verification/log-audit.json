@@ -1,0 +1,77 @@
+{
+  "insane-ai": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 43
+  },
+  "insane-deck": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 36
+  },
+  "insane-full": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 40
+  },
+  "insane-notify": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 31
+  },
+  "insane-signal": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 32
+  },
+  "insane-smoke": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 28
+  },
+  "live-switch": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 44
+  },
+  "live-switch-final": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 47
+  },
+  "saturated-ai": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 43
+  },
+  "saturated-deck": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 36
+  },
+  "saturated-full": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 46
+  },
+  "saturated-notify": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 31
+  },
+  "saturated-signal": {
+    "qml_errors": [],
+    "source_reloads": 1,
+    "lines": 48
+  },
+  "saturated-signal-final": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 32
+  },
+  "saturated-smoke": {
+    "qml_errors": [],
+    "source_reloads": 0,
+    "lines": 28
+  }
+}

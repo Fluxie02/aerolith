@@ -1,0 +1,9 @@
+{
+  "themes/gtk-3.0/gtk.css": "9ba2eb7da73a28091cc4cab0694a056f055338c214d4095db5fd1ae759548462",
+  "themes/gtk-4.0/gtk.css": "b78ed484c83929a42e55a857e564ff4065a639bbbd4a16a8adb72598557cba53",
+  "themes/qt/aerolith.conf": "acdd2201af7f60c0b4492db5b10ad42100b671e612c9d4c7080effab29345a72",
+  "themes/qt/aerolith.qss": "81ca53062238f00e8de279473dc27bc0cd004857de76658e03c139ab4d346656",
+  "docs/design/apps/palette-preview.cpp": "65cf4dd338e345111d53f0c96465e1e67a07a1d72730ce79a9b8d13253fa4ba6",
+  "docs/design/apps/capture.sh": "82779dd339e4e44a55157537a659da4026a2520733373a32f7485623d7991bae",
+  "docs/design/apps/verify.py": "3afbce8ec929a47e0cb85c24230538b04daad0c21f7ab7f9cfa2cdf26ff39018"
+}

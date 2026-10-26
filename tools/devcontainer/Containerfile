@@ -1,0 +1,30 @@
+# AEROLITH development and verification image.
+#
+# Arch Linux userland with the exact upstream packages AEROLITH targets
+# (Quickshell, Hyprland, PipeWire, WirePlumber) plus a software-rendered
+# headless compositor so QML can be linted, loaded and screenshotted
+# without a GPU. This image is for development and CI only; it is not a
+# way to run AEROLITH as a desktop.
+FROM archlinux:latest
+
+RUN pacman -Syu --noconfirm --needed \
+        quickshell qt6-declarative qt6-wayland qt6-svg qt6-5compat \
+        hyprland sway grim wlr-randr \
+        pipewire wireplumber pipewire-pulse libpulse \
+        mpv mpv-mpris playerctl \
+        dbus python python-pytest python-gobject \
+        nodejs shellcheck jq procps-ng which file \
+        mesa ttf-jetbrains-mono inter-font noto-fonts \
+        hicolor-icon-theme adwaita-icon-theme \
+        foot wtype \
+    && pacman -Scc --noconfirm
+
+# Package building and testing (packaging/arch/PKGBUILD, makepkg as a user).
+RUN pacman -Syu --noconfirm --needed base-devel git \
+    && pacman -Scc --noconfirm
+
+ENV XDG_RUNTIME_DIR=/run/user/0 \
+    QT_QPA_PLATFORM=wayland \
+    LIBGL_ALWAYS_SOFTWARE=1
+RUN mkdir -p /run/user/0 && chmod 700 /run/user/0
+WORKDIR /src

@@ -1,0 +1,974 @@
+[
+  {
+    "view": "lock",
+    "scheme": "limb",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1834119,
+      "surface": 174152,
+      "signal": 2571,
+      "text": 5495,
+      "textDim": 182
+    },
+    "field_sample": [
+      13,
+      18,
+      21
+    ],
+    "expected_field": [
+      13,
+      18,
+      21
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "bathyal",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1834063,
+      "surface": 174152,
+      "signal": 2571,
+      "text": 5551,
+      "textDim": 182
+    },
+    "field_sample": [
+      9,
+      22,
+      25
+    ],
+    "expected_field": [
+      9,
+      22,
+      25
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "corona",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1834063,
+      "surface": 174152,
+      "signal": 2571,
+      "text": 5551,
+      "textDim": 182
+    },
+    "field_sample": [
+      16,
+      18,
+      34
+    ],
+    "expected_field": [
+      16,
+      18,
+      34
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "cinder",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1834119,
+      "surface": 208325,
+      "signal": 2571,
+      "text": 5495,
+      "textDim": 182
+    },
+    "field_sample": [
+      26,
+      18,
+      16
+    ],
+    "expected_field": [
+      26,
+      18,
+      16
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "ferrite",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1834063,
+      "surface": 174152,
+      "signal": 2571,
+      "text": 5551,
+      "textDim": 182
+    },
+    "field_sample": [
+      27,
+      16,
+      22
+    ],
+    "expected_field": [
+      27,
+      16,
+      22
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "iris",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1834063,
+      "surface": 174152,
+      "signal": 2571,
+      "text": 5551,
+      "textDim": 182
+    },
+    "field_sample": [
+      22,
+      17,
+      33
+    ],
+    "expected_field": [
+      22,
+      17,
+      33
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "argent",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1834119,
+      "surface": 208399,
+      "signal": 2571,
+      "text": 5495,
+      "textDim": 182
+    },
+    "field_sample": [
+      18,
+      20,
+      21
+    ],
+    "expected_field": [
+      18,
+      20,
+      21
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "lichen",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1833281,
+      "surface": 174214,
+      "signal": 2571,
+      "text": 6053,
+      "textDim": 182
+    },
+    "field_sample": [
+      20,
+      23,
+      14
+    ],
+    "expected_field": [
+      20,
+      23,
+      14
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "helios",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1833225,
+      "surface": 174190,
+      "signal": 2571,
+      "text": 6109,
+      "textDim": 182
+    },
+    "field_sample": [
+      17,
+      21,
+      28
+    ],
+    "expected_field": [
+      17,
+      21,
+      28
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "umbra",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1833225,
+      "surface": 174154,
+      "signal": 2571,
+      "text": 6109,
+      "textDim": 182
+    },
+    "field_sample": [
+      26,
+      16,
+      29
+    ],
+    "expected_field": [
+      26,
+      16,
+      29
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "vellum",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1833281,
+      "surface": 208277,
+      "signal": 2571,
+      "text": 6053,
+      "textDim": 182
+    },
+    "field_sample": [
+      24,
+      22,
+      18
+    ],
+    "expected_field": [
+      24,
+      22,
+      18
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "lock",
+    "scheme": "glacial",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1833225,
+      "surface": 174152,
+      "signal": 2571,
+      "text": 6109,
+      "textDim": 182
+    },
+    "field_sample": [
+      13,
+      22,
+      32
+    ],
+    "expected_field": [
+      13,
+      22,
+      32
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "limb",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      13,
+      18,
+      21
+    ],
+    "expected_field": [
+      13,
+      18,
+      21
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "bathyal",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      9,
+      22,
+      25
+    ],
+    "expected_field": [
+      9,
+      22,
+      25
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "corona",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      16,
+      18,
+      34
+    ],
+    "expected_field": [
+      16,
+      18,
+      34
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "cinder",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 53351,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      26,
+      18,
+      16
+    ],
+    "expected_field": [
+      26,
+      18,
+      16
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "ferrite",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      27,
+      16,
+      22
+    ],
+    "expected_field": [
+      27,
+      16,
+      22
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "iris",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      22,
+      17,
+      33
+    ],
+    "expected_field": [
+      22,
+      17,
+      33
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "argent",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 53351,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      18,
+      20,
+      21
+    ],
+    "expected_field": [
+      18,
+      20,
+      21
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "lichen",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      20,
+      23,
+      14
+    ],
+    "expected_field": [
+      20,
+      23,
+      14
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "helios",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      17,
+      21,
+      28
+    ],
+    "expected_field": [
+      17,
+      21,
+      28
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "umbra",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      26,
+      16,
+      29
+    ],
+    "expected_field": [
+      26,
+      16,
+      29
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "vellum",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 53351,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      24,
+      22,
+      18
+    ],
+    "expected_field": [
+      24,
+      22,
+      18
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "osd",
+    "scheme": "glacial",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 2012284,
+      "surface": 224,
+      "signal": 3009,
+      "text": 77,
+      "textDim": 0
+    },
+    "field_sample": [
+      13,
+      22,
+      32
+    ],
+    "expected_field": [
+      13,
+      22,
+      32
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "limb",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      13,
+      18,
+      21
+    ],
+    "expected_field": [
+      13,
+      18,
+      21
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "bathyal",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 136771,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      9,
+      22,
+      25
+    ],
+    "expected_field": [
+      9,
+      22,
+      25
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "corona",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 0,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      17,
+      18,
+      34
+    ],
+    "expected_field": [
+      16,
+      18,
+      34
+    ],
+    "field_max_channel_error": 1,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "cinder",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 0,
+      "surface": 326697,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      26,
+      18,
+      17
+    ],
+    "expected_field": [
+      26,
+      18,
+      16
+    ],
+    "field_max_channel_error": 1,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "ferrite",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 0,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      27,
+      17,
+      22
+    ],
+    "expected_field": [
+      27,
+      16,
+      22
+    ],
+    "field_max_channel_error": 1,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "iris",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      22,
+      17,
+      33
+    ],
+    "expected_field": [
+      22,
+      17,
+      33
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "argent",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 326697,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      18,
+      20,
+      21
+    ],
+    "expected_field": [
+      18,
+      20,
+      21
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "lichen",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      20,
+      23,
+      14
+    ],
+    "expected_field": [
+      20,
+      23,
+      14
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "helios",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      17,
+      21,
+      28
+    ],
+    "expected_field": [
+      17,
+      21,
+      28
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "umbra",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 0,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      26,
+      17,
+      29
+    ],
+    "expected_field": [
+      26,
+      16,
+      29
+    ],
+    "field_max_channel_error": 1,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "vellum",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 326697,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      24,
+      22,
+      18
+    ],
+    "expected_field": [
+      24,
+      22,
+      18
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  },
+  {
+    "view": "session",
+    "scheme": "glacial",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "exact_palette_pixels": {
+      "obsidian": 1688806,
+      "surface": 136763,
+      "signal": 1736,
+      "text": 1304,
+      "textDim": 227
+    },
+    "field_sample": [
+      13,
+      22,
+      32
+    ],
+    "expected_field": [
+      13,
+      22,
+      32
+    ],
+    "field_max_channel_error": 0,
+    "pass": true
+  }
+]

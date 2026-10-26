@@ -1,0 +1,44 @@
+{
+  "task": "UI-012",
+  "shell_files": [
+    "shell/components/AppContinuity.qml",
+    "shell/components/Bezel.qml",
+    "shell/components/Instrumentation.qml",
+    "shell/core/Theme.qml",
+    "shell/modules/deck/DeckView.qml",
+    "shell/modules/strip/FlightStrip.qml"
+  ],
+  "theme_payloads": [
+    "themes/firefox/piyti/manifest.json",
+    "themes/firefox/piyti/userChrome.css",
+    "themes/firefox/piyti/userContent.css",
+    "themes/firefox/thears/manifest.json",
+    "themes/firefox/thears/userChrome.css",
+    "themes/firefox/thears/userContent.css",
+    "themes/libreoffice/META-INF/manifest.xml",
+    "themes/libreoffice/description.xml",
+    "themes/libreoffice/piyti.xcu",
+    "themes/libreoffice/thears.xcu",
+    "themes/steam/piyti/bigpicture.custom.css",
+    "themes/steam/piyti/friends.custom.css",
+    "themes/steam/piyti/libraryroot.custom.css",
+    "themes/steam/piyti/skin.json",
+    "themes/steam/thears/bigpicture.custom.css",
+    "themes/steam/thears/friends.custom.css",
+    "themes/steam/thears/libraryroot.custom.css",
+    "themes/steam/thears/skin.json",
+    "themes/discord/piyti.theme.css",
+    "themes/discord/thears.theme.css",
+    "themes/artcraft/README.md",
+    "themes/artcraft/piyti/tokens.json",
+    "themes/artcraft/thears/tokens.json"
+  ],
+  "hyprland_payloads": [
+    "themes/hyprland/thears.conf",
+    "themes/hyprland/thears.lua",
+    "themes/hyprland/piyti.conf",
+    "themes/hyprland/piyti.lua"
+  ],
+  "protected_files_changed": [],
+  "commit": "No git write performed in this task; Claude handles the final commit as Astra."
+}

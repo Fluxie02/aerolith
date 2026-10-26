@@ -1,0 +1,11 @@
+{
+  "name": "node",
+  "command": [
+    "node",
+    "tests/js/run-node.mjs"
+  ],
+  "environment": {},
+  "exit_code": 0,
+  "elapsed_seconds": 0.3,
+  "stdout": "docs/design/counterphase/verification/unit/node.stdout.txt"
+}

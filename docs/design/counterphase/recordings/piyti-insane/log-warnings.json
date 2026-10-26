@@ -1,0 +1,317 @@
+[
+  {
+    "time": 1.1040359720000197,
+    "timecode": "00:01.03",
+    "message": "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels."
+  },
+  {
+    "time": 1.1124403220001113,
+    "timecode": "00:01.03",
+    "message": "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work."
+  },
+  {
+    "time": 1.1837830420000728,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1838616390000425,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.183872964000102,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1838790510000763,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.18388496700004,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1838915180001095,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.1838968910000176,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1839021300000923,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.1839071620000823,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1839122730000327,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.1839171830000623,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1839222240000709,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.1839272420000952,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1839323550000245,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.1839372800000092,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1839425060001076,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.183947592000095,
+    "timecode": "00:01.06",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.1839527750000798,
+    "timecode": "00:01.06",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.2056164990000298,
+    "timecode": "00:01.06",
+    "message": "  WARN qml: [aerolith:routines] broken-example step 1: unknown action \"rm.rf\""
+  },
+  {
+    "time": 1.2436825640000961,
+    "timecode": "00:01.07",
+    "message": "  WARN: The active compositor does not support hyprland_global_shortcuts_v1."
+  },
+  {
+    "time": 1.243815899000083,
+    "timecode": "00:01.07",
+    "message": "  WARN: GlobalShortcut will not work."
+  },
+  {
+    "time": 1.5636159530000668,
+    "timecode": "00:01.17",
+    "message": "  WARN qml: [aerolith:routines] broken-example step 1: unknown action \"rm.rf\""
+  },
+  {
+    "time": 33.98367233700003,
+    "timecode": "00:34.00",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 33.983744855000054,
+    "timecode": "00:34.00",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 37.94206800900008,
+    "timecode": "00:37.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 37.94848248400001,
+    "timecode": "00:37.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 37.966212842000004,
+    "timecode": "00:37.29",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 37.96646200800001,
+    "timecode": "00:37.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 42.94281976100001,
+    "timecode": "00:42.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 42.94988454700001,
+    "timecode": "00:42.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 42.99050875700004,
+    "timecode": "00:43.00",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 42.99073920600006,
+    "timecode": "00:43.00",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 46.94617156300001,
+    "timecode": "00:46.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 46.947752603000026,
+    "timecode": "00:46.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 46.95933641400006,
+    "timecode": "00:46.29",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 46.959480916000075,
+    "timecode": "00:46.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 50.94213842800002,
+    "timecode": "00:50.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 50.947238759000015,
+    "timecode": "00:50.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 50.95581976900007,
+    "timecode": "00:50.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 54.95653016600011,
+    "timecode": "00:54.29",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 54.96869047300004,
+    "timecode": "00:54.29",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 54.96902085500005,
+    "timecode": "00:54.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 58.942999619000034,
+    "timecode": "00:58.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 58.95114371200009,
+    "timecode": "00:58.29",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fd8f801e520 but 0x0 is focused"
+  },
+  {
+    "time": 58.96620066600008,
+    "timecode": "00:58.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 62.94061900600002,
+    "timecode": "01:02.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 62.95221967300006,
+    "timecode": "01:02.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 65.94255816900011,
+    "timecode": "01:05.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 65.95185463400003,
+    "timecode": "01:05.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 68.94012623800006,
+    "timecode": "01:08.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 68.94917496300002,
+    "timecode": "01:08.28",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 71.94511703600006,
+    "timecode": "01:11.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 73.25000774600005,
+    "timecode": "01:13.08",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 77.94051086600007,
+    "timecode": "01:17.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 77.95561199000008,
+    "timecode": "01:17.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 79.94132280500003,
+    "timecode": "01:19.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 81.43122663400004,
+    "timecode": "01:21.13",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 104.94219601300006,
+    "timecode": "01:44.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 104.95778996600006,
+    "timecode": "01:44.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  },
+  {
+    "time": 106.94442474200002,
+    "timecode": "01:46.28",
+    "message": "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fd8f801e520 but 0x7fd8f801e520 has focus"
+  },
+  {
+    "time": 106.953446342,
+    "timecode": "01:46.29",
+    "message": "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "name": "saturated-compact-off",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "docs/design/counterphase/scripts/capture.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/runs/saturated-compact-off"
+  ],
+  "environment": {
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/saturated-off-scale1.5.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "RES": "1280x720",
+    "SCALE": "1",
+    "HYPR_MOCK_ARGS": "--mode 1280x720 --scale 1"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 9.96,
+  "stdout": "docs/design/counterphase/verification/runs/saturated-compact-off.stdout.txt"
+}

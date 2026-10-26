@@ -1,0 +1,202 @@
+{
+  "checked_at": "2026-10-23T13:17:28.044480+00:00",
+  "scope": [
+    "themes/firefox",
+    "themes/libreoffice",
+    "themes/steam",
+    "themes/discord",
+    "themes/artcraft"
+  ],
+  "parsers": {
+    "tinycss2": "1.5.1",
+    "cssselect2": "0.10.1",
+    "json": "Python standard library",
+    "xml": "Python ElementTree"
+  },
+  "limits": [
+    "Syntax, selectors, metadata shape and local patch targets only; not real application rendering.",
+    "Firefox @-moz-document and nested media are parsed as rule groups.",
+    "Existing GTK CSS is outside UI-012 payload scope; GTK @define-color syntax needs GTK validation.",
+    "Hyprland Lua/conf were verified separately using native Hyprland --verify-config."
+  ],
+  "totals": {
+    "files": 22,
+    "css": 12,
+    "json": 6,
+    "xml": 4,
+    "style_rules": 123,
+    "declarations": 451,
+    "at_rules": 14,
+    "errors": 0
+  },
+  "results": [
+    {
+      "file": "themes/artcraft/piyti/tokens.json",
+      "kind": "json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/artcraft/thears/tokens.json",
+      "kind": "json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/discord/piyti.theme.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 9,
+      "declarations": 59,
+      "at_rules": 1
+    },
+    {
+      "file": "themes/discord/thears.theme.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 8,
+      "declarations": 50,
+      "at_rules": 1
+    },
+    {
+      "file": "themes/firefox/piyti/manifest.json",
+      "kind": "json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/firefox/piyti/userChrome.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 20,
+      "declarations": 85,
+      "at_rules": 2
+    },
+    {
+      "file": "themes/firefox/piyti/userContent.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 7,
+      "declarations": 24,
+      "at_rules": 2
+    },
+    {
+      "file": "themes/firefox/thears/manifest.json",
+      "kind": "json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/firefox/thears/userChrome.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 19,
+      "declarations": 77,
+      "at_rules": 2
+    },
+    {
+      "file": "themes/firefox/thears/userContent.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 7,
+      "declarations": 21,
+      "at_rules": 2
+    },
+    {
+      "file": "themes/libreoffice/META-INF/manifest.xml",
+      "kind": "xml",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/libreoffice/description.xml",
+      "kind": "xml",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/libreoffice/piyti.xcu",
+      "kind": "xml",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/libreoffice/thears.xcu",
+      "kind": "xml",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/steam/piyti/bigpicture.custom.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 2,
+      "declarations": 4,
+      "at_rules": 0
+    },
+    {
+      "file": "themes/steam/piyti/friends.custom.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 13,
+      "declarations": 32,
+      "at_rules": 1
+    },
+    {
+      "file": "themes/steam/piyti/libraryroot.custom.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 14,
+      "declarations": 35,
+      "at_rules": 1
+    },
+    {
+      "file": "themes/steam/piyti/skin.json",
+      "kind": "json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "themes/steam/thears/bigpicture.custom.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 2,
+      "declarations": 4,
+      "at_rules": 0
+    },
+    {
+      "file": "themes/steam/thears/friends.custom.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 11,
+      "declarations": 30,
+      "at_rules": 1
+    },
+    {
+      "file": "themes/steam/thears/libraryroot.custom.css",
+      "kind": "css",
+      "ok": true,
+      "errors": [],
+      "style_rules": 11,
+      "declarations": 30,
+      "at_rules": 1
+    },
+    {
+      "file": "themes/steam/thears/skin.json",
+      "kind": "json",
+      "ok": true,
+      "errors": []
+    }
+  ]
+}

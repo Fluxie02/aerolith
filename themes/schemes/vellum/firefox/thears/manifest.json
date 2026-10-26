@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Vellum / THEARS",
+  "version": "1.0.0",
+  "description": "Warm slate / pale ceramic. THEARS application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "vellum-thears-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#181612",
+      "frame_inactive": "#181612",
+      "tab_background_text": "#cfc4b2",
+      "tab_text": "#f7f1e6",
+      "tab_selected": "#3c372f",
+      "tab_loading": "#e9ccb0",
+      "tab_line": "#e9ccb0",
+      "toolbar": "#2d2923",
+      "toolbar_text": "#f7f1e6",
+      "bookmark_text": "#f7f1e6",
+      "icons": "#cfc4b2",
+      "icons_attention": "#e9ccb0",
+      "toolbar_field": "#181612",
+      "toolbar_field_text": "#f7f1e6",
+      "toolbar_field_border": "#625b4d",
+      "toolbar_field_focus": "#3c372f",
+      "toolbar_field_text_focus": "#f7f1e6",
+      "toolbar_field_border_focus": "#e9ccb0",
+      "toolbar_field_highlight": "#e9ccb0",
+      "toolbar_field_highlight_text": "#181612",
+      "toolbar_top_separator": "#625b4d",
+      "toolbar_bottom_separator": "#625b4d",
+      "toolbar_vertical_separator": "#625b4d",
+      "button_background_hover": "#3c372f",
+      "button_background_active": "#49443a",
+      "popup": "#2d2923",
+      "popup_text": "#f7f1e6",
+      "popup_border": "#625b4d",
+      "popup_highlight": "#e9ccb0",
+      "popup_highlight_text": "#181612",
+      "sidebar": "#2d2923",
+      "sidebar_text": "#f7f1e6",
+      "sidebar_border": "#625b4d",
+      "sidebar_highlight": "#e9ccb0",
+      "sidebar_highlight_text": "#181612",
+      "ntp_background": "#181612",
+      "ntp_text": "#f7f1e6"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

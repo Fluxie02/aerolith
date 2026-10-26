@@ -1,0 +1,12 @@
+{
+  "installed": true,
+  "mode": "user",
+  "shell": "/home/pilot/.local/share/aerolith/shell",
+  "running": true,
+  "ai_provider": "claude",
+  "startup": "hyprland",
+  "hyprland_dialect": "lua",
+  "files": 103,
+  "packages_installed_by_aerolith": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "piyti-saturated-smoke",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/piyti-saturated-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/piyti-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/saturated-full-scale1.json"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 5.27,
+  "stdout": "docs/design/counterphase/verification/final-runs/piyti-saturated-smoke.stdout.txt",
+  "source_manifest_sha256": "0208189ba59f0616ad22fff07d5fb4b4ee13fe41b1c7058549050fa1b9d3533d"
+}

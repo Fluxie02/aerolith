@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { spawn } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync, renameSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync, renameSync, rmSync } from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import crypto from "node:crypto";
@@ -16,7 +16,7 @@ const JOBS_FILE = path.join(STATE_DIR, "jobs.json");
 const WORKTREES = path.join(STATE_DIR, "worktrees");
 type Job = { id: string; kind: string; status: string; startedAt: string; finishedAt?: string; summary: string;
   account?: string; pid?: number; base?: string; branch?: string; output?: string };
-const DONE = new Set(["succeeded", "failed", "timed_out", "no_account", "abandoned"]);
+const DONE = new Set(["succeeded", "failed", "timed_out", "stopped_at_cap", "no_account", "abandoned"]);
 
 function ensureState() {
   mkdirSync(STATE_DIR, { recursive: true, mode: 0o700 });
@@ -39,15 +39,30 @@ function saveJob(job: Job) {
   writeJobs(jobs);
 }
 function clip(s: string, n = 30000) { return s.length > n ? s.slice(0, n) + "\n...[truncated]" : s; }
+function tail(s: string, n: number) { return s.length > n ? "...[earlier output truncated]\n" + s.slice(-n) : s; }
+// The agent's answer is its last agent_message in the JSONL stream; it must
+// survive clipping, which otherwise keeps only the start of a long run.
+function finalMessage(stdout: string) {
+  let text = "";
+  for (const line of stdout.split("\n")) {
+    if (!line.includes('"agent_message"')) continue;
+    try {
+      const e = JSON.parse(line);
+      if (e.type === "item.completed" && e.item?.type === "agent_message") text = e.item.text ?? "";
+    } catch { /* not a JSON event */ }
+  }
+  return text;
+}
 
 type Role = "design" | "coding";
-type Account = { name: string; cap: number; home?: string; role?: Role; model?: string };
+type Account = { name: string; cap: number; home?: string; role?: Role; model?: string; effort?: string };
 type Window = { used: number; resetsAt: number };
 type Usage = { windows: Window[]; observedAt: string; limitHitUntil?: number };
 // CODEX_ACCOUNTS="mine:100:role=coding:model=gpt-6.1-sol,dad:80:role=design:home=default":
 // ChatGPT logins in priority order, each with the highest used_percent of its plan
 // limit at which the bridge still starts a job. Options: role (design or coding;
-// unset takes both), model (passed to codex -m), home=default (use the normal
+// unset takes both), model (passed to codex -m), effort (reasoning effort,
+// e.g. high), home=default (use the normal
 // Codex login in ~/.codex instead of ~/.codex-accounts/<name>).
 const ACCOUNTS: Account[] = (process.env.CODEX_ACCOUNTS ?? "").split(",").map(x => x.trim()).filter(Boolean).map(x => {
   const [name, cap, ...rest] = x.split(":");
@@ -55,7 +70,8 @@ const ACCOUNTS: Account[] = (process.env.CODEX_ACCOUNTS ?? "").split(",").map(x 
   const opt = Object.fromEntries(rest.map(o => o === "default" ? ["home", "default"] : o.split("=", 2)));
   if (opt.role && opt.role !== "design" && opt.role !== "coding") throw new Error(`Invalid role for ${name}: ${opt.role}`);
   if (opt.model && !/^[a-z0-9._-]+$/i.test(opt.model)) throw new Error(`Invalid model for ${name}: ${opt.model}`);
-  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)), role: opt.role, model: opt.model,
+  if (opt.effort && !/^(minimal|low|medium|high|xhigh|max|ultra)$/.test(opt.effort)) throw new Error(`Invalid effort for ${name}: ${opt.effort}`);
+  return { name, cap: Math.max(1, Math.min(Number(cap ?? 100) || 100, 100)), role: opt.role, model: opt.model, effort: opt.effort,
     home: opt.home === "default" ? undefined : path.join(os.homedir(), ".codex-accounts", name) };
 });
 if (!ACCOUNTS.length) ACCOUNTS.push({ name: "default", cap: 100 });
@@ -72,8 +88,22 @@ function saveUsage(name: string, u: Usage) {
   writeFileSync(tmp, JSON.stringify(all, null, 2) + "\n", { mode: 0o600 });
   renameSync(tmp, USAGE_FILE);
 }
-function usedPercent(name: string): number | undefined {
-  const live = (readUsage()[name]?.windows ?? []).filter(w => w.resetsAt > Date.now());
+// `codex exec --json` does not report rate limits; Codex writes them only to the
+// session logs in $CODEX_HOME/sessions/YYYY/MM/DD. Read the newest two of those,
+// so the cap also counts work done outside the bridge.
+function sessionWindows(a: Account): Window[] {
+  let dir = path.join(a.home ?? path.join(os.homedir(), ".codex"), "sessions");
+  for (let depth = 0; depth < 3; depth++) {
+    const sub = existsSync(dir) ? readdirSync(dir).filter(d => /^\d+$/.test(d)).sort() : [];
+    if (!sub.length) return [];
+    dir = path.join(dir, sub[sub.length - 1]);
+  }
+  const files = readdirSync(dir).filter(f => f.endsWith(".jsonl")).map(f => path.join(dir, f))
+    .sort((x, y) => statSync(x).mtimeMs - statSync(y).mtimeMs).slice(-2);
+  return files.flatMap(f => rateWindows(readFileSync(f, "utf8")));
+}
+function usedPercent(a: Account): number | undefined {
+  const live = [...(readUsage()[a.name]?.windows ?? []), ...sessionWindows(a)].filter(w => w.resetsAt > Date.now());
   return live.length ? Math.max(...live.map(w => w.used)) : undefined;
 }
 function toWindow(o: Record<string, unknown>): Window {
@@ -121,7 +151,7 @@ async function blocked(a: Account): Promise<string | undefined> {
   if (!(await loginStatus(a)).ok) return "not logged in";
   const hit = readUsage()[a.name]?.limitHitUntil;
   if (hit && hit > Date.now()) return `usage limit reached until ${new Date(hit).toISOString()}`;
-  const used = usedPercent(a.name);
+  const used = usedPercent(a);
   if (used !== undefined && used >= a.cap) return `${used}% used, cap is ${a.cap}%`;
   return undefined;
 }
@@ -207,23 +237,35 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
           `Do not commit; the bridge commits your changes. Run agent-sync commands against the shared hub with ` +
           `\`python ${path.join(dir, "tools/agent-sync/agent_sync.py")} --repo ${ROOT} <command> ...\` and do not edit .ai_sync_hub.json directly.\n`
         : "";
-      // Astra needs write access to the shared hub in ROOT for its locks and events.
-      const extra = edit && role === "design" ? ["--add-dir", ROOT] : [];
-      const args = ["exec", "--ephemeral", "--json", "--sandbox", sandbox, ...extra,
-        ...(account.model ? ["-m", account.model] : []), "-C", dir, prompt + where];
-      const exec = new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean}>((resolve, reject) => {
-        let stdout = "", stderr = "", timedOut = false;
+      // Astra and Sol both need write access to the shared hub in ROOT for their
+      // locks and events, and network access for the Docker-based headless harness.
+      const extra = edit ? ["--add-dir", ROOT, "-c", "sandbox_workspace_write.network_access=true"] : [];
+      // Not --ephemeral: the session log is the only place Codex reports the
+      // account's usage, and capWatch reads it while the job runs.
+      const args = ["exec", "--json", "--sandbox", sandbox, ...extra,
+        ...(account.model ? ["-m", account.model] : []),
+        ...(account.effort ? ["-c", `model_reasoning_effort="${account.effort}"`] : []), "-C", dir, prompt + where];
+      const exec = new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean; capped: boolean}>((resolve, reject) => {
+        let stdout = "", stderr = "", timedOut = false, capped = false;
         const child = spawn(CODEX, args, { cwd: dir, env: accountEnv(account), stdio: ["ignore", "pipe", "pipe"] });
-        const timer = setTimeout(() => { timedOut = true; child.kill("SIGTERM"); setTimeout(() => child.kill("SIGKILL"), 5000).unref(); }, timeoutMs);
+        const stop = () => { child.kill("SIGTERM"); setTimeout(() => child.kill("SIGKILL"), 5000).unref(); };
+        const timer = setTimeout(() => { timedOut = true; stop(); }, timeoutMs);
+        // The cap is checked before a job starts, but a long job can cross it:
+        // stop the job when the account's usage reaches its cap. Its changes so
+        // far are still committed to the job branch.
+        const capWatch = setInterval(() => {
+          const used = usedPercent(account);
+          if (used !== undefined && used >= account.cap && !capped) { capped = true; stop(); }
+        }, 30_000);
         child.stdout.setEncoding("utf8"); child.stderr.setEncoding("utf8");
         child.stdout.on("data", (x: string) => stdout += x);
         child.stderr.on("data", (x: string) => stderr += x);
-        child.on("error", e => { clearTimeout(timer); reject(new Error(`Could not launch Codex CLI (${CODEX}): ${e.message}`)); });
-        child.on("close", code => { clearTimeout(timer); resolve({ code, stdout, stderr, timedOut }); });
+        child.on("error", e => { clearTimeout(timer); clearInterval(capWatch); reject(new Error(`Could not launch Codex CLI (${CODEX}): ${e.message}`)); });
+        child.on("close", code => { clearTimeout(timer); clearInterval(capWatch); resolve({ code, stdout, stderr, timedOut, capped }); });
       });
       const r = await exec.catch(async e => { if (edit) await closeWorktree(job, dir, role); throw e; });
       const windows = rateWindows(r.stdout);
-      const hit = r.code !== 0 && !r.timedOut && LIMIT_HIT.test(r.stderr + r.stdout.slice(-4000));
+      const hit = r.code !== 0 && !r.timedOut && !r.capped && LIMIT_HIT.test(r.stderr + r.stdout.slice(-4000));
       // Block until the window that ran out resets: the fullest one, else the soonest.
       const live = windows.filter(w => w.resetsAt > Date.now());
       const full = live.filter(w => w.used >= 95);
@@ -233,11 +275,12 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
         observedAt: new Date().toISOString(),
         limitHitUntil: hit ? resetAt : undefined
       });
-      log.push(`account=${account.name}${account.model ? ` model=${account.model}` : ""} used_percent=${usedPercent(account.name) ?? "unknown"} cap=${account.cap}%${hit ? " (usage limit hit, trying next account)" : ""}`);
-      job.status = r.timedOut ? "timed_out" : (r.code === 0 ? "succeeded" : "failed");
+      log.push(`account=${account.name}${account.model ? ` model=${account.model}` : ""} used_percent=${usedPercent(account) ?? "unknown"} cap=${account.cap}%${hit ? " (usage limit hit, trying next account)" : ""}`);
+      job.status = r.capped ? "stopped_at_cap" : r.timedOut ? "timed_out" : (r.code === 0 ? "succeeded" : "failed");
+      if (r.capped) log.push(`account=${account.name} stopped at its ${account.cap}% cap; its changes so far are on the job branch`);
       const changes = edit ? `\nCHANGES:\n${await closeWorktree(job, dir, role)}\n` : "";
       if (hit && edit) log.push(`account=${account.name} changes before the limit: ${changes.trim()}`);
-      job.output = `exit_code=${r.code}\ntimed_out=${r.timedOut}\n${changes}\nSTDOUT:\n${r.stdout}\n\nSTDERR:\n${r.stderr}`;
+      job.output = `exit_code=${r.code}\ntimed_out=${r.timedOut}\n${changes}\nFINAL MESSAGE:\n${finalMessage(r.stdout)}\n\nSTDOUT:\n${tail(r.stdout, 12000)}\n\nSTDERR:\n${tail(r.stderr, 4000)}`;
       return hit;
     });
     if (!next) break;
@@ -294,8 +337,8 @@ server.tool("codex_status",
       const login = await loginStatus(acc);
       const why = await blocked(acc);
       if (!why) for (const r of ["design", "coding"] as Role[]) if ((!acc.role || acc.role === r) && !next[r]) next[r] = acc.name;
-      const used = usedPercent(acc.name);
-      lines.push(`- ${acc.name} (${acc.role ?? "design+coding"}${acc.model ? `, model ${acc.model}` : ""}): cap ${acc.cap}%, used ${used === undefined ? "unknown" : `${used}%`}, ${why ? `blocked (${why})` : "available"}` +
+      const used = usedPercent(acc);
+      lines.push(`- ${acc.name} (${acc.role ?? "design+coding"}${acc.model ? `, model ${acc.model}` : ""}${acc.effort ? `, effort ${acc.effort}` : ""}): cap ${acc.cap}%, used ${used === undefined ? "unknown" : `${used}%`}, ${why ? `blocked (${why})` : "available"}` +
         `${acc.home ? `, CODEX_HOME=${acc.home}` : ""}\n  login: ${login.text}`);
     }
     return { content: [{ type: "text", text: `Repository: ${ROOT}\nCodex binary: ${CODEX}\nAccounts (priority order):\n${lines.join("\n")}\nNext design job goes to: ${next.design ?? "none"}\nNext coding job goes to: ${next.coding ?? "none"}` }] };

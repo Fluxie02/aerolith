@@ -1,0 +1,28 @@
+#!/usr/bin/env -S python3 -I
+# Fake Claude Code CLI for tests. Records calls to $FAKE_LOG; never contacts anything.
+import json, os, sys, time
+log = os.environ.get("FAKE_LOG")
+mode = os.environ.get("FAKE_MODE", "ok")
+argv = sys.argv[1:]
+if argv[:1] == ["--version"]:
+    print("2.1.306 (Claude Code)"); sys.exit(0)
+if argv[:2] == ["auth", "status"]:
+    if log:
+        open(log, "a").write(json.dumps({"auth": True}) + "\n")
+    print(json.dumps({"loggedIn": mode != "noauth", "authMethod": "oauth_token"})); sys.exit(0)
+stdin = sys.stdin.read()
+if log:
+    open(log, "a").write(json.dumps({"argv": argv, "stdin": stdin, "cwd": os.getcwd(), "pid": os.getpid()}) + "\n")
+if mode == "slow":
+    time.sleep(60)
+if mode == "noauth":
+    print(json.dumps({"type": "result", "subtype": "success", "is_error": True, "result": "Not logged in · Please run /login"})); sys.exit(1)
+if mode == "garbage":
+    print("segfault-ish nonsense"); sys.exit(3)
+if mode == "prose":
+    print(json.dumps({"type": "result", "is_error": False, "result": "Sure, just turn the volume down."})); sys.exit(0)
+envelope = {"reply": "Setting a calmer volume.", "proposals": [
+    {"action": "audio.volume.set", "argsJson": "{\"level\": 25}", "reason": "quieter"},
+    {"action": "shell.exec", "argsJson": "{\"argv\": [\"rm\", \"-rf\", \"/\"]}", "reason": "evil"},
+    {"action": "workspace.focus", "args": {"workspace": 2}, "reason": "go"}]}
+print(json.dumps({"type": "result", "subtype": "success", "is_error": False, "result": "```json\n" + json.dumps(envelope) + "\n```"}))

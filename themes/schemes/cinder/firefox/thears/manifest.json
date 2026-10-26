@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Cinder / THEARS",
+  "version": "1.0.0",
+  "description": "Carbon brown / fired copper. THEARS application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "cinder-thears-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#1a1210",
+      "frame_inactive": "#1a1210",
+      "tab_background_text": "#d4baaa",
+      "tab_text": "#fff0e4",
+      "tab_selected": "#40322b",
+      "tab_loading": "#ffc08a",
+      "tab_line": "#ffc08a",
+      "toolbar": "#30241f",
+      "toolbar_text": "#fff0e4",
+      "bookmark_text": "#fff0e4",
+      "icons": "#d4baaa",
+      "icons_attention": "#ffc08a",
+      "toolbar_field": "#1a1210",
+      "toolbar_field_text": "#fff0e4",
+      "toolbar_field_border": "#685144",
+      "toolbar_field_focus": "#40322b",
+      "toolbar_field_text_focus": "#fff0e4",
+      "toolbar_field_border_focus": "#ffc08a",
+      "toolbar_field_highlight": "#ffc08a",
+      "toolbar_field_highlight_text": "#1a1210",
+      "toolbar_top_separator": "#685144",
+      "toolbar_bottom_separator": "#685144",
+      "toolbar_vertical_separator": "#685144",
+      "button_background_hover": "#40322b",
+      "button_background_active": "#4e3d34",
+      "popup": "#30241f",
+      "popup_text": "#fff0e4",
+      "popup_border": "#685144",
+      "popup_highlight": "#ffc08a",
+      "popup_highlight_text": "#1a1210",
+      "sidebar": "#30241f",
+      "sidebar_text": "#fff0e4",
+      "sidebar_border": "#685144",
+      "sidebar_highlight": "#ffc08a",
+      "sidebar_highlight_text": "#1a1210",
+      "ntp_background": "#1a1210",
+      "ntp_text": "#fff0e4"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

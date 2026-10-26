@@ -1,0 +1,19 @@
+{
+  "recorded_utc": "2026-10-25T03:46:50.484937+00:00",
+  "host_kernel": "6.18.44-fc-v153",
+  "machine": "x86_64",
+  "node": "v22.22.0",
+  "python": "3.13.16",
+  "container_image": {
+    "Id": "sha256:69509c170e0a000289122461914b7bc117ce4b0b66cd83eaf0e5638988b27c7f",
+    "RepoTags": [
+      "aerolith-dev:latest"
+    ],
+    "RepoDigests": [
+      "aerolith-dev@sha256:69509c170e0a000289122461914b7bc117ce4b0b66cd83eaf0e5638988b27c7f"
+    ],
+    "Created": "2026-10-22T11:38:06.232515667Z",
+    "Architecture": "amd64",
+    "Os": "linux"
+  }
+}

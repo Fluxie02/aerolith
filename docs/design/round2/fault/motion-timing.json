@@ -1,0 +1,12 @@
+{
+  "capture_start_ms": [
+    0.2,
+    35.2,
+    70.2,
+    105.1,
+    142.3,
+    175.2
+  ],
+  "interval_ms": 35,
+  "note": "Timing relative to capture process, after IPC was launched; no slowed animation."
+}

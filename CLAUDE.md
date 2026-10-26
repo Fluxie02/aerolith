@@ -22,7 +22,8 @@ Astra runs on the Codex CLI. The bridge picks the ChatGPT account per kind of
 work (`CODEX_ACCOUNTS` in `.mcp.json`, details in `codex-mcp-bridge/README.md`):
 design work and `visual_design` reviews use `dad` (up to 80% of its limit, the
 rest is left to its owner); delegate through the bridge rather than the Codex
-plugin, which ignores the caps.
+plugin, which ignores the caps. The owner wants Astra and Sol always on high
+reasoning effort (`effort=high` in `CODEX_ACCOUNTS`).
 
 The owner's own account, `mine`, is Sol: a coding buddy on GPT-6.1 Sol that
 never does design work. Route to Sol with `codex_coding_buddy`:

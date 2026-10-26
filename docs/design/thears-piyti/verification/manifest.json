@@ -1,0 +1,1149 @@
+{
+  "frozen_thears_matches_production": true,
+  "piyti_only_direction_default": true,
+  "task": "UI-012",
+  "generated_at": "2026-10-23T13:24:38.052684+00:00",
+  "headless_runs": [
+    {
+      "direction": "thears",
+      "intensity": "saturated",
+      "scenario": "smoke",
+      "exit_code": 0,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/smoke.sh",
+        "build/ui012/final-thears-saturated-smoke"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "CONFIG": "build/ui012/saturated-full.json"
+      },
+      "output": "build/ui012/final-thears-saturated-smoke",
+      "note": "Saved verified run from before interruption; final source hashes match.",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-saturated-smoke-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-saturated-smoke-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "saturated",
+      "scenario": "full",
+      "exit_code": 0,
+      "elapsed_seconds": 37.21,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/full.sh",
+        "build/ui012/final2-thears-saturated-full"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final2-thears-saturated-full",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-saturated-full-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-saturated-full-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "saturated",
+      "scenario": "ai",
+      "exit_code": 0,
+      "elapsed_seconds": 25.91,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/ai.sh",
+        "build/ui012/final2-thears-saturated-ai"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final2-thears-saturated-ai",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-saturated-ai-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-saturated-ai-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "saturated",
+      "scenario": "deck",
+      "exit_code": 0,
+      "elapsed_seconds": 30.28,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/deck.sh",
+        "build/ui012/final2-thears-saturated-deck"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+      },
+      "output": "build/ui012/final2-thears-saturated-deck",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-saturated-deck-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-saturated-deck-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "saturated",
+      "scenario": "off-small",
+      "exit_code": 0,
+      "elapsed_seconds": 14.02,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-thears-saturated-off-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/saturated-off-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-thears-saturated-off-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-saturated-off-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-saturated-off-small-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "saturated",
+      "scenario": "reduced-small",
+      "exit_code": 0,
+      "elapsed_seconds": 14.18,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-thears-saturated-reduced-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/saturated-reduced-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-thears-saturated-reduced-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-saturated-reduced-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-saturated-reduced-small-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "saturated",
+      "scenario": "motion",
+      "exit_code": 0,
+      "elapsed_seconds": 25.79,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/motion.sh",
+        "build/ui012/final3-thears-saturated-motion"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json"
+      },
+      "output": "build/ui012/final3-thears-saturated-motion",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-saturated-motion-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-saturated-motion-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "insane",
+      "scenario": "smoke",
+      "exit_code": 0,
+      "elapsed_seconds": 13.87,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/smoke.sh",
+        "build/ui012/final-thears-insane-smoke"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-thears-insane-smoke",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-insane-smoke-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-insane-smoke-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "insane",
+      "scenario": "full",
+      "exit_code": 0,
+      "elapsed_seconds": 37.62,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/full.sh",
+        "build/ui012/final-thears-insane-full"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-thears-insane-full",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-insane-full-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-insane-full-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "insane",
+      "scenario": "ai",
+      "exit_code": 0,
+      "elapsed_seconds": 25.98,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/ai.sh",
+        "build/ui012/final-thears-insane-ai"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-thears-insane-ai",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-insane-ai-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-insane-ai-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "insane",
+      "scenario": "deck",
+      "exit_code": 0,
+      "elapsed_seconds": 31.34,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/deck.sh",
+        "build/ui012/final-thears-insane-deck"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+      },
+      "output": "build/ui012/final-thears-insane-deck",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-insane-deck-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-insane-deck-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "insane",
+      "scenario": "reduced-small",
+      "exit_code": 0,
+      "elapsed_seconds": 14.23,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-thears-insane-reduced-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/insane-reduced-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-thears-insane-reduced-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-insane-reduced-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-insane-reduced-small-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "insane",
+      "scenario": "off-small",
+      "exit_code": 0,
+      "elapsed_seconds": 13.88,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-thears-insane-off-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/insane-off-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-thears-insane-off-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-insane-off-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-insane-off-small-result.txt"
+    },
+    {
+      "direction": "thears",
+      "intensity": "insane",
+      "scenario": "motion",
+      "exit_code": 0,
+      "elapsed_seconds": 25.76,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/motion.sh",
+        "build/ui012/final3-thears-insane-motion"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json"
+      },
+      "output": "build/ui012/final3-thears-insane-motion",
+      "archived_log": "docs/design/thears-piyti/verification/logs/thears-insane-motion-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/thears-insane-motion-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "saturated",
+      "scenario": "smoke",
+      "exit_code": 0,
+      "elapsed_seconds": 13.92,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/smoke.sh",
+        "build/ui012/final-piyti-saturated-smoke"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-piyti-saturated-smoke",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-saturated-smoke-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-saturated-smoke-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "saturated",
+      "scenario": "ai",
+      "exit_code": 0,
+      "elapsed_seconds": 25.83,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/ai.sh",
+        "build/ui012/final-piyti-saturated-ai"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-piyti-saturated-ai",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-saturated-ai-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-saturated-ai-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "saturated",
+      "scenario": "deck",
+      "exit_code": 0,
+      "elapsed_seconds": 30.68,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/deck.sh",
+        "build/ui012/final-piyti-saturated-deck"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+      },
+      "output": "build/ui012/final-piyti-saturated-deck",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-saturated-deck-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-saturated-deck-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "saturated",
+      "scenario": "full",
+      "exit_code": 0,
+      "elapsed_seconds": 37.58,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/full.sh",
+        "build/ui012/final-piyti-saturated-full"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-piyti-saturated-full",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-saturated-full-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-saturated-full-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "saturated",
+      "scenario": "reduced-small",
+      "exit_code": 0,
+      "elapsed_seconds": 14.48,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-piyti-saturated-reduced-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-reduced-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-piyti-saturated-reduced-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-saturated-reduced-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-saturated-reduced-small-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "saturated",
+      "scenario": "off-small",
+      "exit_code": 0,
+      "elapsed_seconds": 13.91,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-piyti-saturated-off-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-off-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-piyti-saturated-off-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-saturated-off-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-saturated-off-small-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "saturated",
+      "scenario": "motion",
+      "exit_code": 0,
+      "elapsed_seconds": 25.76,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/motion.sh",
+        "build/ui012/final3-piyti-saturated-motion"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json"
+      },
+      "output": "build/ui012/final3-piyti-saturated-motion",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-saturated-motion-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-saturated-motion-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "insane",
+      "scenario": "smoke",
+      "exit_code": 0,
+      "elapsed_seconds": 14.2,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/smoke.sh",
+        "build/ui012/final-piyti-insane-smoke"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-piyti-insane-smoke",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-insane-smoke-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-insane-smoke-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "insane",
+      "scenario": "full",
+      "exit_code": 0,
+      "elapsed_seconds": 38.28,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/full.sh",
+        "build/ui012/final-piyti-insane-full"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-piyti-insane-full",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-insane-full-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-insane-full-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "insane",
+      "scenario": "ai",
+      "exit_code": 0,
+      "elapsed_seconds": 26.35,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/ai.sh",
+        "build/ui012/final-piyti-insane-ai"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": ""
+      },
+      "output": "build/ui012/final-piyti-insane-ai",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-insane-ai-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-insane-ai-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "insane",
+      "scenario": "deck",
+      "exit_code": 0,
+      "elapsed_seconds": 31.95,
+      "command": [
+        "tools/headless/run.sh",
+        "tests/scenarios/deck.sh",
+        "build/ui012/final-piyti-insane-deck"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire",
+        "ROUTINES": "tests/fixtures/routines.json",
+        "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+      },
+      "output": "build/ui012/final-piyti-insane-deck",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-insane-deck-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-insane-deck-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "insane",
+      "scenario": "reduced-small",
+      "exit_code": 0,
+      "elapsed_seconds": 14.27,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-piyti-insane-reduced-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/insane-reduced-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-piyti-insane-reduced-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-insane-reduced-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-insane-reduced-small-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "insane",
+      "scenario": "off-small",
+      "exit_code": 0,
+      "elapsed_seconds": 13.92,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/accessibility.sh",
+        "build/ui012/final2-piyti-insane-off-small"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/insane-off-small.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json",
+        "RES": "1280x720"
+      },
+      "output": "build/ui012/final2-piyti-insane-off-small",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-insane-off-small-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-insane-off-small-result.txt"
+    },
+    {
+      "direction": "piyti",
+      "intensity": "insane",
+      "scenario": "motion",
+      "exit_code": 0,
+      "elapsed_seconds": 25.88,
+      "command": [
+        "tools/headless/run.sh",
+        "docs/design/thears-piyti/verification/scripts/motion.sh",
+        "build/ui012/final3-piyti-insane-motion"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/insane-full.json",
+        "AUDIO": "1",
+        "AI": "1",
+        "ROUTINES": "build/ui012/valid-routines.json"
+      },
+      "output": "build/ui012/final3-piyti-insane-motion",
+      "archived_log": "docs/design/thears-piyti/verification/logs/piyti-insane-motion-qs.txt",
+      "archived_result": "docs/design/thears-piyti/verification/runs/piyti-insane-motion-result.txt"
+    }
+  ],
+  "required_runs": 16,
+  "motion_runs": 4,
+  "accessibility_runs": 8,
+  "units": [
+    {
+      "name": "node",
+      "command": "node tests/js/run-node.mjs",
+      "exit_code": 0,
+      "elapsed_seconds": 0.09,
+      "tail": [
+        "ok 102 tokens \u203a palette overrides accept only known keys and valid colours",
+        "ok 103 tokens \u203a unknown density and motion names fall back",
+        "ok 104 tokens \u203a font lists deduplicate",
+        "# passed 104, failed 0"
+      ]
+    },
+    {
+      "name": "qt-v4",
+      "command": "docker run --rm -v \"$PWD:/src:ro\" aerolith-dev bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'",
+      "exit_code": 0,
+      "elapsed_seconds": 1.39,
+      "tail": [
+        "qml: ok 102 tokens \u203a palette overrides accept only known keys and valid colours",
+        "qml: ok 103 tokens \u203a unknown density and motion names fall back",
+        "qml: ok 104 tokens \u203a font lists deduplicate",
+        "qml: # passed 104, failed 0"
+      ]
+    },
+    {
+      "name": "pytest",
+      "command": "python3 -m pytest -q tests/py",
+      "exit_code": 0,
+      "elapsed_seconds": 14.35,
+      "tail": [
+        ".......................................................s................ [100%]",
+        "71 passed, 1 skipped in 13.83s"
+      ]
+    }
+  ],
+  "default_length_performance": [
+    {
+      "run": "frozen-piyti-insane-perf",
+      "path": "docs/design/thears-piyti/verification/runs/frozen-piyti-insane-perf.json",
+      "result": {
+        "cpus": 4,
+        "clk_tck": 100,
+        "peak_rss_mib": 179.4,
+        "quickshell": "Quickshell 0.3.2 (revision , distributed by Arch Linux)",
+        "renderer": "QT_QUICK_BACKEND=software, WLR_RENDERER=pixman",
+        "results": [
+          {
+            "state": "idle-strip",
+            "seconds": 120.0,
+            "cpu_seconds": 0.12,
+            "cpu_percent_of_one_core": 0.1,
+            "context_switches_per_s": 1.6,
+            "rss_mib": 125.1,
+            "threads": 12
+          },
+          {
+            "state": "systems-bay-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.85,
+            "cpu_percent_of_one_core": 2.83,
+            "context_switches_per_s": 116.5,
+            "rss_mib": 171.2,
+            "threads": 14
+          },
+          {
+            "state": "command-core-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.06,
+            "cpu_percent_of_one_core": 0.2,
+            "context_switches_per_s": 7.1,
+            "rss_mib": 167.6,
+            "threads": 14
+          },
+          {
+            "state": "idle-after-use",
+            "seconds": 30.0,
+            "cpu_seconds": 0.03,
+            "cpu_percent_of_one_core": 0.1,
+            "context_switches_per_s": 2.1,
+            "rss_mib": 143.9,
+            "threads": 14
+          }
+        ]
+      },
+      "wrapper_exit_code": null,
+      "note": "All four measurement states and JSON were saved before interruption; wrapper completion output was lost. Short confirmation run is recorded separately."
+    },
+    {
+      "run": "frozen-piyti-saturated-perf",
+      "path": "docs/design/thears-piyti/verification/runs/frozen-piyti-saturated-perf.json",
+      "result": {
+        "cpus": 4,
+        "clk_tck": 100,
+        "peak_rss_mib": 199.5,
+        "quickshell": "Quickshell 0.3.2 (revision , distributed by Arch Linux)",
+        "renderer": "QT_QUICK_BACKEND=software, WLR_RENDERER=pixman",
+        "results": [
+          {
+            "state": "idle-strip",
+            "seconds": 120.0,
+            "cpu_seconds": 0.12,
+            "cpu_percent_of_one_core": 0.1,
+            "context_switches_per_s": 1.8,
+            "rss_mib": 124.8,
+            "threads": 14
+          },
+          {
+            "state": "systems-bay-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.9,
+            "cpu_percent_of_one_core": 3.0,
+            "context_switches_per_s": 109.6,
+            "rss_mib": 168.7,
+            "threads": 14
+          },
+          {
+            "state": "command-core-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.06,
+            "cpu_percent_of_one_core": 0.2,
+            "context_switches_per_s": 6.5,
+            "rss_mib": 165.0,
+            "threads": 14
+          },
+          {
+            "state": "idle-after-use",
+            "seconds": 30.0,
+            "cpu_seconds": 0.04,
+            "cpu_percent_of_one_core": 0.13,
+            "context_switches_per_s": 1.9,
+            "rss_mib": 127.5,
+            "threads": 14
+          }
+        ]
+      },
+      "wrapper_exit_code": null,
+      "note": "All four measurement states and JSON were saved before interruption; wrapper completion output was lost. Short confirmation run is recorded separately."
+    },
+    {
+      "run": "frozen-thears-insane-perf",
+      "path": "docs/design/thears-piyti/verification/runs/frozen-thears-insane-perf.json",
+      "result": {
+        "cpus": 4,
+        "clk_tck": 100,
+        "peak_rss_mib": 203.5,
+        "quickshell": "Quickshell 0.3.2 (revision , distributed by Arch Linux)",
+        "renderer": "QT_QUICK_BACKEND=software, WLR_RENDERER=pixman",
+        "results": [
+          {
+            "state": "idle-strip",
+            "seconds": 120.0,
+            "cpu_seconds": 0.13,
+            "cpu_percent_of_one_core": 0.11,
+            "context_switches_per_s": 1.7,
+            "rss_mib": 125.7,
+            "threads": 12
+          },
+          {
+            "state": "systems-bay-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.88,
+            "cpu_percent_of_one_core": 2.93,
+            "context_switches_per_s": 112.4,
+            "rss_mib": 171.8,
+            "threads": 14
+          },
+          {
+            "state": "command-core-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.05,
+            "cpu_percent_of_one_core": 0.17,
+            "context_switches_per_s": 7.0,
+            "rss_mib": 168.3,
+            "threads": 14
+          },
+          {
+            "state": "idle-after-use",
+            "seconds": 30.0,
+            "cpu_seconds": 0.04,
+            "cpu_percent_of_one_core": 0.13,
+            "context_switches_per_s": 2.2,
+            "rss_mib": 129.6,
+            "threads": 14
+          }
+        ]
+      },
+      "wrapper_exit_code": null,
+      "note": "All four measurement states and JSON were saved before interruption; wrapper completion output was lost. Short confirmation run is recorded separately."
+    },
+    {
+      "run": "frozen-thears-saturated-perf",
+      "path": "docs/design/thears-piyti/verification/runs/frozen-thears-saturated-perf.json",
+      "result": {
+        "cpus": 4,
+        "clk_tck": 100,
+        "peak_rss_mib": 180.2,
+        "quickshell": "Quickshell 0.3.2 (revision , distributed by Arch Linux)",
+        "renderer": "QT_QUICK_BACKEND=software, WLR_RENDERER=pixman",
+        "results": [
+          {
+            "state": "idle-strip",
+            "seconds": 120.0,
+            "cpu_seconds": 0.13,
+            "cpu_percent_of_one_core": 0.11,
+            "context_switches_per_s": 1.6,
+            "rss_mib": 125.0,
+            "threads": 14
+          },
+          {
+            "state": "systems-bay-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.91,
+            "cpu_percent_of_one_core": 3.03,
+            "context_switches_per_s": 119.4,
+            "rss_mib": 169.5,
+            "threads": 14
+          },
+          {
+            "state": "command-core-open",
+            "seconds": 30.0,
+            "cpu_seconds": 0.05,
+            "cpu_percent_of_one_core": 0.17,
+            "context_switches_per_s": 7.2,
+            "rss_mib": 165.6,
+            "threads": 14
+          },
+          {
+            "state": "idle-after-use",
+            "seconds": 30.0,
+            "cpu_seconds": 0.04,
+            "cpu_percent_of_one_core": 0.13,
+            "context_switches_per_s": 2.3,
+            "rss_mib": 128.3,
+            "threads": 14
+          }
+        ]
+      },
+      "wrapper_exit_code": null,
+      "note": "All four measurement states and JSON were saved before interruption; wrapper completion output was lost. Short confirmation run is recorded separately."
+    }
+  ],
+  "short_performance_confirmations": [
+    {
+      "run": "confirm-piyti-saturated-perf",
+      "result": {
+        "cpus": 4,
+        "clk_tck": 100,
+        "peak_rss_mib": 206.7,
+        "quickshell": "Quickshell 0.3.2 (revision , distributed by Arch Linux)",
+        "renderer": "QT_QUICK_BACKEND=software, WLR_RENDERER=pixman",
+        "results": [
+          {
+            "state": "idle-strip",
+            "seconds": 30.0,
+            "cpu_seconds": 0.03,
+            "cpu_percent_of_one_core": 0.1,
+            "context_switches_per_s": 1.8,
+            "rss_mib": 124.6,
+            "threads": 14
+          },
+          {
+            "state": "systems-bay-open",
+            "seconds": 10.0,
+            "cpu_seconds": 0.34,
+            "cpu_percent_of_one_core": 3.39,
+            "context_switches_per_s": 88.7,
+            "rss_mib": 168.7,
+            "threads": 14
+          },
+          {
+            "state": "command-core-open",
+            "seconds": 10.0,
+            "cpu_seconds": 0.05,
+            "cpu_percent_of_one_core": 0.5,
+            "context_switches_per_s": 13.8,
+            "rss_mib": 171.6,
+            "threads": 14
+          },
+          {
+            "state": "idle-after-use",
+            "seconds": 10.0,
+            "cpu_seconds": 0.02,
+            "cpu_percent_of_one_core": 0.2,
+            "context_switches_per_s": 1.8,
+            "rss_mib": 127.6,
+            "threads": 14
+          }
+        ]
+      }
+    },
+    {
+      "run": "confirm-thears-saturated-perf",
+      "result": {
+        "cpus": 4,
+        "clk_tck": 100,
+        "peak_rss_mib": 206.4,
+        "quickshell": "Quickshell 0.3.2 (revision , distributed by Arch Linux)",
+        "renderer": "QT_QUICK_BACKEND=software, WLR_RENDERER=pixman",
+        "results": [
+          {
+            "state": "idle-strip",
+            "seconds": 30.0,
+            "cpu_seconds": 0.04,
+            "cpu_percent_of_one_core": 0.13,
+            "context_switches_per_s": 1.4,
+            "rss_mib": 124.2,
+            "threads": 14
+          },
+          {
+            "state": "systems-bay-open",
+            "seconds": 10.0,
+            "cpu_seconds": 0.31,
+            "cpu_percent_of_one_core": 3.09,
+            "context_switches_per_s": 77.3,
+            "rss_mib": 168.3,
+            "threads": 14
+          },
+          {
+            "state": "command-core-open",
+            "seconds": 10.0,
+            "cpu_seconds": 0.05,
+            "cpu_percent_of_one_core": 0.5,
+            "context_switches_per_s": 14.9,
+            "rss_mib": 164.7,
+            "threads": 14
+          },
+          {
+            "state": "idle-after-use",
+            "seconds": 10.0,
+            "cpu_seconds": 0.01,
+            "cpu_percent_of_one_core": 0.1,
+            "context_switches_per_s": 1.7,
+            "rss_mib": 127.3,
+            "threads": 14
+          }
+        ]
+      }
+    }
+  ],
+  "short_performance_execution": [
+    {
+      "direction": "thears",
+      "exit_code": 0,
+      "command": [
+        "tools/headless/run.sh",
+        "build/ui012/perf-confirm.sh",
+        "build/ui012/confirm-thears-saturated-perf"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/thears-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire"
+      },
+      "output": "build/ui012/confirm-thears-saturated-perf",
+      "elapsed_seconds": 98.79,
+      "measurement_windows": "30s initial idle,10s systems,10s command,10s after-use"
+    },
+    {
+      "direction": "piyti",
+      "exit_code": 0,
+      "command": [
+        "tools/headless/run.sh",
+        "build/ui012/perf-confirm.sh",
+        "build/ui012/confirm-piyti-saturated-perf"
+      ],
+      "environment": {
+        "SHELL_PATH": "build/ui012/piyti-final-shell",
+        "CONFIG": "build/ui012/saturated-full.json",
+        "AUDIO": "1",
+        "MEDIA": "1",
+        "MPV_AO": "pipewire"
+      },
+      "output": "build/ui012/confirm-piyti-saturated-perf",
+      "elapsed_seconds": 98.34,
+      "measurement_windows": "30s initial idle,10s systems,10s command,10s after-use"
+    }
+  ],
+  "source_hashes": {
+    "shell/components/Annunciator.qml": "bcd115f1aea64bcf56d64dd5b02d662206001856e9d3e2a6c3c992a1b54d4c48",
+    "shell/components/AppContinuity.qml": "f5beb525648e54760fe9b0da63a2a16efdcea047fdcd1585ecf86881f9557579",
+    "shell/components/AppGlyph.qml": "099a5600c3482901c97f951265450e10de73f733ad64224d04f0094c05158985",
+    "shell/components/Bezel.qml": "ef6ad98d4986ba6a4b36a62239768e8ded6a72631d977112a4e108b1e45aad12",
+    "shell/components/ChordSlot.qml": "5da931c5e896372204e90bfe5ac6c3bc6db30f8e70b6b7fe54a499794c071eda",
+    "shell/components/CircularField.qml": "5fc530679a7fe8c6ead4e7be1c135facc901bb2f8fdb59bbde9af636d9d0facd",
+    "shell/components/InstrumentField.qml": "285a03beea386e5374d3928fc31aa50db020efd24e603268abf01841fa94d8bf",
+    "shell/components/InstrumentTabs.qml": "1494bc64d2e75000d9976c1870496c93d00626b85547d79cf4613ec420beeb67",
+    "shell/components/Instrumentation.qml": "ac0c4351f9cf9166072e2df86808e562cb877f71df26f425e693f658c75a71d2",
+    "shell/components/KeyHint.qml": "a55dbdd4e576a594b6fa9e99a6a115984dd88e6a39e5595b5523a62f2bd94bac",
+    "shell/components/Label.qml": "91266e39f414db5918916baf9f38ea8e2b95298c9543bb4c0673535388a75bb0",
+    "shell/components/MetricTape.qml": "da7828ae1571f7a47dea6114b3003d2bf82eba009f41e6c9ded033226c8a0199",
+    "shell/components/Readout.qml": "4b8e4c7b7bfd8a8c6ba801f495d35eb73e388e17c252aa5aa9dd48b45600c0c0",
+    "shell/components/Ruler.qml": "3198835ba208990c334a75fcfe1f4d525408766011391f9bbc55ab94dc1032e4",
+    "shell/components/ScrollMark.qml": "8d1935192eb320b194b134992f2146b5eae077748f34f008879d287b811559ad",
+    "shell/components/ShearField.qml": "6af3506990f6c65dfa132cce6692a2c9e2ef38e5450c45d3b664a4ae9f7230af",
+    "shell/components/StatusLine.qml": "1cbf03fb49f006f54822d4431b60d53d51e8e62d52029eecdff8f4205cc79d70",
+    "shell/components/TapeGauge.qml": "27f11b70f369b1f71fc45ea2f23c2e09432608e983131e8e866c46f90c64d9d1",
+    "shell/components/Trace.qml": "c6a8b05786b2168f9f406b38390b9c333df56da552cb7e039e3c52a4b4f7037b",
+    "shell/components/WorkspaceOrbit.qml": "c1928750125ec37e7fbdd03141b88473b02b17c2d4347ebd838342b06e66eae5",
+    "shell/core/Config.qml": "6138102250de12c56b1eb645ab5141d49b014a3eba5442cb87ee460bc01f1537",
+    "shell/core/Exec.qml": "3c2f361f748d94d441735acc525d70ee7a4a192584f8155f86df47b294ebf35d",
+    "shell/core/Log.qml": "cc2a05f64db5dacb727f11bbebd20169c7aff338e39157650860f882b9c64e02",
+    "shell/core/Paths.qml": "924fccca1c7470fedbc57dda8ac154bdca55e4b5f1716f3c0aace5b73d279b92",
+    "shell/core/Registry.qml": "a7f08d6c18d0e307bef33901752c0723749feb3add1adeeeca37683ec3fb070b",
+    "shell/core/Store.qml": "227cb6656e4bd0bb28b5e5e9ff316a09c3ac4f931897a5207d10d19ac8aa423a",
+    "shell/core/Theme.qml": "f6415553836762a4c08da71b1064fd45351569dcaaaa3c6c42316b3d1bd210b6",
+    "shell/core/Ui.qml": "b62dbf1717085ca23ba5e84e70965d37d2629d7f48f39c84dfb715b15ffad4d1",
+    "shell/core/Wait.qml": "4b8b5bd2ee6ccc5eb40477cf357a4effa9fde2e0ea739984dec34d3e5f06b6b8",
+    "shell/lib/config.mjs": "30bc3d2560c4f0975eef2e6e243ca6ba7350f06af50a0b6f6dffc2be529fec38",
+    "shell/lib/fuzzy.mjs": "9f792b40f24c7afd393673b75c97a46b17a13fbc570c744977ef72bdd6848036",
+    "shell/lib/hyprdispatch.mjs": "2d5c97b524dcb6e374cd9fa60781b363100953e2a5051534f700764f1d0859d2",
+    "shell/lib/launch.mjs": "7ea4b2ad871bd6dda815e29c050654f7dc52918f17a4a033bdfc85fcd21facd3",
+    "shell/lib/params.mjs": "aa6fa307d87c57052e98b4fe06e118ea3950ac01c61b59b10e56b2bd0be3b6e9",
+    "shell/lib/registry.mjs": "3529ac39494684eeeb8fde6b9fcb6a7ff698de810eebcd5d52960eb721ccaac1",
+    "shell/lib/routines.mjs": "871d8db9323ab5c7d72b3ef543917ef4de8e984bc4c5d20dfb63a1acda4a9170",
+    "shell/lib/telemetry.mjs": "c1196ff5e188e40e89cc3ce298a21e0349412ec99b42567c8abe09edeffbbd92",
+    "shell/lib/tokens.mjs": "459e6c1a058617ddf19b27988e11566868814a70253b6b79ae10af81442b2317",
+    "shell/modules/AiLoader.qml": "cf5dbe37eea46468ed9075a7ddc33be55d912f9f99584d734386a594dcfd741b",
+    "shell/modules/ControlSurface.qml": "5db1bc586667795ac94f69a8382cadabcd40d3fd4171a308b007e12210293417",
+    "shell/modules/command/CommandCore.qml": "18276fec21eec9ea23dc61df916c8eb6858f6faa80c6bc61be23e94596647df6",
+    "shell/modules/command/ResultRow.qml": "bf504e2a43d10f02bb56ea270876c67b322e04df003f176305a5f8c66d242ca0",
+    "shell/modules/deck/Deck.qml": "ec9b33bade6661728e0bb0553fd7561642175cb5c8821fc625a25b34e867e592",
+    "shell/modules/deck/DeckView.qml": "8c2d527706dcd9ad2f7645fa897959218a8d370d20edbb29eb623bf2b09e646b",
+    "shell/modules/ground/Ground.qml": "f511c97e27998c35a4d7822a37ad1d701cfc0b90b736f951c22a9d59330fe952",
+    "shell/modules/ground/GroundSurface.qml": "0ab46b6fdee7fbd046c0a266a1f69be62f67f8155da4c13358c1f392cb72f873",
+    "shell/modules/help/HelpBay.qml": "8714c5512f48f58ac956b1251e87555125237c381febae3db9a96c31fb306163",
+    "shell/modules/lock/LockView.qml": "00dfb1947981c7316c52546c69aaf434debb35c144618fd80971dca2c54ae11c",
+    "shell/modules/navigator/Sector.qml": "ffa73bb48640a2b9c5d47ea9d9880d0437336e2357a763e22f9ec6244161b689",
+    "shell/modules/navigator/SpatialNavigator.qml": "8834bd578b9afa8713a97e5bd6efe2366c512334574b14765d8e2f3e7e4ddab2",
+    "shell/modules/notices/NoticeColumn.qml": "230f47b9fccdfc46dd49d0632e30ddd462e50f49bbf2839e044d00abc1dac2b5",
+    "shell/modules/notices/NoticeStack.qml": "42937631fc1430a5735a4d9ad45a2d767e1176c2073a116a65667c61f37661b5",
+    "shell/modules/osd/OsdView.qml": "79af6eb991f40017758993c0c7e9c50e16dea9c472aec5ea3b27639e35a817b3",
+    "shell/modules/routines/RoutineConsole.qml": "83fe6896ca984af2c35f50b8c71becb210048d3181423afc797f72488f88ca7b",
+    "shell/modules/session/SessionView.qml": "6187b269ced9016ce23765f9e0ba10060dc7d4985b58afdbc91343aac7d07494",
+    "shell/modules/settings/SettingControl.qml": "2ff8cfe6533da946a83921fc871685ff6583f3c944dcd53110f8a4e83886fe60",
+    "shell/modules/settings/SettingsBay.qml": "1316828a6ccf274f8ebac8dd62130371ff5177d8dced869763f2417e88d24eac",
+    "shell/modules/signal/DeviceRow.qml": "94dd166a62c716d3a82b7cfba3e3712d51f50b5846dca71d7560174956ea2619",
+    "shell/modules/signal/PlayerCard.qml": "1d3285d69ae49a0683d3aa741f859ab026d5e961c3d02c439cb8ce1ed418e1d5",
+    "shell/modules/signal/SignalRack.qml": "73df0be575550cde5b6860849f2565834c732508b505405a973ac43e30da26a6",
+    "shell/modules/signal/StreamRow.qml": "1c696832c82d2f1238e3b48eef920f368cdd194d0010058026ec7d205ed0bdd3",
+    "shell/modules/strip/FlightStrip.qml": "7e4e5aedeab31619ab041b4fff8c66d3c2e9a0cd79b9452956a1b49440707a3c",
+    "shell/modules/strip/StripClock.qml": "6ae7b25a0c15377e49d27d96608ddffa5976c511e62c2a2b3779377b5fbcc09c",
+    "shell/modules/strip/WorkspaceTape.qml": "386d5e31a9952cc6825c6c8eaa943429a0bc168161f18864650a8687a03b1707",
+    "shell/modules/systems/CoreBus.qml": "5952c6a86cab4d9f374254bc99a65d4ca5adf000359d668ec94d331b535cbf55",
+    "shell/modules/systems/SystemsBay.qml": "89f04fdd556d9742b9310973a3792e5e6163dfc388aa197a2cb22a50a5820365",
+    "shell/schema/config.schema.json": "36b484cfc0617da37a3a0c57229ea002ad64a7834135ddb9cdc1494acc99d05d",
+    "shell/services/Apps.qml": "272ddfb8182423942d7a3b436dba885dfee91112857df4c57d9424fa6dc7c766",
+    "shell/services/Audio.qml": "6c5208c6e49d955cb05055d153bb1a523c63d348a362430335d1b713a8d2b05c",
+    "shell/services/Compositor.qml": "2089f7f5893333600e7d0fb18b7a4e035e8dbfcbe602db91159dc43215964636",
+    "shell/services/Media.qml": "5ada8bf017b674ccc26fb87ad164ca179484b7b6ca950c72cf1a8a85830a6ac9",
+    "shell/services/Notifications.qml": "05881fc6c4981b6fd6e022f71dafce7e40497a3aff05a920c2dafc22b6723d64",
+    "shell/services/Power.qml": "ebee7fa3d2f0c556bc4d843817b0d612a62dfd250f6446593d72f63d20965ee1",
+    "shell/services/Routines.qml": "1c6fc424ce8c7848ac350b96f03fa65ac4ac330ceae89ef0cb256c413801edd8",
+    "shell/services/ShellCommands.qml": "cb34887a816c4217707837a5bd65aa298c1b3431a6f51a7ae90a97279aa65d17",
+    "shell/services/Telemetry.qml": "a968f74b6d3e6986940002d484f0ea7ac538dc07bdd363d665f445e3ea6ea930",
+    "shell/shell.qml": "5e97017facc53b3bde8e28192e9e5f5479e45c48cfe25718dda251ebe960897a"
+  },
+  "piyti_variant_differences": [
+    {
+      "file": "core/Theme.qml",
+      "sha256": "4b9ce181a26dac9cda6ebc2628840b11630a2415e587233d481f9c705951eed2"
+    }
+  ],
+  "excluded_performance": "Live-source UI012 runs were subject to source hot reload. Only frozen final source runs are used.",
+  "startup_retry_attempts": "logs/startup-retries/"
+}

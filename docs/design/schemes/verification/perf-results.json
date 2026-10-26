@@ -1,0 +1,16 @@
+[
+  {
+    "name": "piyti-saturated-perf",
+    "command": "SHELL_PATH=\"build/ui015/verification/final-shell\" AUDIO=\"1\" MEDIA=\"1\" CONFIG=\"/home/user/aerolith-astra/build/ui015/verification/saturated.json\" tools/headless/run.sh tests/scenarios/perf.sh build/ui015/verification/piyti-saturated-perf",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 243.2
+  },
+  {
+    "name": "piyti-insane-perf",
+    "command": "SHELL_PATH=\"build/ui015/verification/final-shell\" AUDIO=\"1\" MEDIA=\"1\" CONFIG=\"/home/user/aerolith-astra/build/ui015/verification/insane.json\" tools/headless/run.sh tests/scenarios/perf.sh build/ui015/verification/piyti-insane-perf",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 243.3
+  }
+]

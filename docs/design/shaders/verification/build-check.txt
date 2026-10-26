@@ -1,0 +1,9 @@
+annulus.frag: --check ok
+bevel.frag: --check ok
+catch.frag: --check ok
+undercarriage.frag: --check ok
+stale or missing: shell/shaders/annulus.frag.qsb
+stale or missing: shell/shaders/bevel.frag.qsb
+stale or missing: shell/shaders/catch.frag.qsb
+stale or missing: shell/shaders/undercarriage.frag.qsb
+changed common include: exit 1 (expected 1)

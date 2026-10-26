@@ -1,0 +1,67 @@
+[
+  {
+    "log": "runs/ai/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/deck/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/full/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/lock-compact/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/lock-schemes/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/osd-compact/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/osd-schemes/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/piyti-insane-perf/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/piyti-saturated-perf/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/session-compact/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/session-schemes/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/settings-focus/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  },
+  {
+    "log": "runs/smoke/qs.log",
+    "configuration_loaded": true,
+    "errors": []
+  }
+]

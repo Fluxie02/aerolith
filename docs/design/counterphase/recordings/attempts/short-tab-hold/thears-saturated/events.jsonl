@@ -1,0 +1,24 @@
+{"time": 0.00033523499996590544, "chapter": "First-boot assembly / waiting for shell", "done": 0.0003371440000137227}
+{"time": 0.9010895579999669, "chapter": "First-boot assembly / fresh process", "done": 0.9010967990000154}
+{"time": 3.000106219000031, "chapter": "Idle desktop / ambient motion", "done": 3.000113247999934}
+{"time": 13.000104115999989, "chapter": "Workspace 2", "argv": ["qs", "-p", "/home/pilot/aerolith-shell", "ipc", "call", "aerolith", "run", "workspace.focus", "{\"workspace\":2}"], "returncode": 0, "stdout": "started\n", "stderr": "", "done": 13.074943861999941}
+{"time": 15.000186656999972, "chapter": "Workspace 3", "argv": ["qs", "-p", "/home/pilot/aerolith-shell", "ipc", "call", "aerolith", "run", "workspace.focus", "{\"workspace\":3}"], "returncode": 0, "stdout": "started\n", "stderr": "", "done": 15.051662560999944}
+{"time": 17.000239463999947, "chapter": "Deck / Command", "argv": ["qs", "-p", "/home/pilot/aerolith-shell", "ipc", "call", "aerolith", "open", "command"], "returncode": 0, "stdout": "ok\n", "stderr": "", "done": 17.054253235000033}
+{"time": 19.00017048699999, "chapter": "Ctrl+2 / Navigator", "argv": ["wtype", "-k", "Shift_L", "-M", "ctrl", "-k", "2", "-m", "ctrl"], "returncode": 0, "stdout": "", "stderr": "", "done": 19.01537698599998}
+{"time": 21.00188446599998, "chapter": "Ctrl+3 / Systems", "argv": ["wtype", "-k", "Shift_L", "-M", "ctrl", "-k", "3", "-m", "ctrl"], "returncode": 0, "stdout": "", "stderr": "", "done": 21.01694724799995}
+{"time": 23.000177983999947, "chapter": "Ctrl+4 / Signal", "argv": ["wtype", "-k", "Shift_L", "-M", "ctrl", "-k", "4", "-m", "ctrl"], "returncode": 0, "stdout": "", "stderr": "", "done": 23.018273320999924}
+{"time": 25.000164112999983, "chapter": "Ctrl+5 / Routines", "argv": ["wtype", "-k", "Shift_L", "-M", "ctrl", "-k", "5", "-m", "ctrl"], "returncode": 0, "stdout": "", "stderr": "", "done": 25.01491217499995}
+{"time": 27.000250430999927, "chapter": "Ctrl+6 / AI", "argv": ["wtype", "-k", "Shift_L", "-M", "ctrl", "-k", "6", "-m", "ctrl"], "returncode": 0, "stdout": "", "stderr": "", "done": 27.016241837999928}
+{"time": 29.000115058999995, "chapter": "Ctrl+7 / Settings", "argv": ["wtype", "-k", "Shift_L", "-M", "ctrl", "-k", "7", "-m", "ctrl"], "returncode": 0, "stdout": "", "stderr": "", "done": 29.016449909000016}
+{"time": 31.000194935999957, "chapter": "F1 / Help", "argv": ["wtype", "-k", "Shift_L", "-k", "F1"], "returncode": 0, "stdout": "", "stderr": "", "done": 31.018586043000028}
+{"time": 33.00020374299993, "chapter": "Ctrl+1 / Command", "argv": ["wtype", "-k", "Shift_L", "-M", "ctrl", "-k", "1", "-m", "ctrl"], "returncode": 0, "stdout": "", "stderr": "", "done": 33.01654891099997}
+{"time": 33.350140918999955, "chapter": "Tab / Apps scope", "argv": ["wtype", "-k", "Shift_L", "-k", "Tab"], "returncode": 0, "stdout": "", "stderr": "", "done": 33.367133783999975}
+{"time": 33.60020784200003, "chapter": "Typing command input", "argv": ["wtype", "-k", "Shift_L", "-d", "90", "--", "foot"], "returncode": 0, "stdout": "", "stderr": "", "done": 33.99690191399998}
+{"time": 35.00021257000003, "chapter": "Notification / arrival and expiry", "argv": ["python3", "/src/tools/headless/notify_client.py", "--summary", "COUNTERPHASE review", "--body", "Motion capture \u2014 notification expiry", "--app", "UI-014", "--wait", "0.1"], "returncode": 0, "stdout": "1\n", "stderr": "", "done": 35.291771521999976}
+{"time": 40.400190877, "chapter": "Notification expired", "done": 40.400198812999975}
+{"time": 41.001328599999965, "chapter": "Volume / OSD attempt", "argv": ["qs", "-p", "/home/pilot/aerolith-shell", "ipc", "call", "aerolith", "run", "audio.volume.set", "{\"level\":40}"], "returncode": 0, "stdout": "started\n", "stderr": "", "done": 41.048712928999976}
+{"time": 43.00015254099992, "chapter": "Brightness / unavailable OSD attempt", "argv": ["qs", "-p", "/home/pilot/aerolith-shell", "ipc", "call", "aerolith", "run", "brightness.set", "{\"level\":65}"], "returncode": 0, "stdout": "error: unknown command brightness.set\n", "stderr": "", "done": 43.04390076499999}
+{"time": 45.000150856999994, "chapter": "Close Deck / Escape clears query", "argv": ["wtype", "-k", "Shift_L", "-k", "Escape"], "returncode": 0, "stdout": "", "stderr": "", "done": 45.01474392}
+{"time": 45.25013543299997, "chapter": "Close Deck / Escape", "argv": ["wtype", "-k", "Shift_L", "-k", "Escape"], "returncode": 0, "stdout": "", "stderr": "", "done": 45.26646278599992}
+{"time": 46.00021077700001, "chapter": "Final idle / ambient motion", "done": 46.00021741299997}
+{"time": 50.000153850999936, "chapter": "End", "done": 50.000161520999995}

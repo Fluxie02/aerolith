@@ -1,0 +1,11 @@
+{
+  "captured_utc": "2026-10-24T22:28:16Z",
+  "kernel": "6.18.44-fc-v153",
+  "machine": "x86_64",
+  "host_logical_cpus": 4,
+  "cpu_measurement_units": "Percent of one core, shell process user+system CPU ticks; compositor CPU excluded.",
+  "renderer": "Qt Quick software / Sway pixman / wlroots headless",
+  "resolution": "1920x1080 scale1",
+  "docker_image": "sha256:69509c170e0a000289122461914b7bc117ce4b0b66cd83eaf0e5638988b27c7f",
+  "coordination": "Other Astra agents paused unit/scenario containers throughout CPU/timing windows. Host external load is not controlled."
+}

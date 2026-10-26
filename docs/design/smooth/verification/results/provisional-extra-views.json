@@ -1,0 +1,15 @@
+{
+  "name": "results/provisional-extra-views",
+  "command": [
+    "tools/headless/run.sh",
+    "docs/design/smooth/verification/scripts/extra-views.sh",
+    "build/ui016/verification/provisional-extra-views"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/extra-views-shell"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/extra-views-shell tools/headless/run.sh docs/design/smooth/verification/scripts/extra-views.sh build/ui016/verification/provisional-extra-views",
+  "started_at": "2026-10-24T22:28:21.597760+00:00",
+  "exit_code": 109,
+  "elapsed_seconds": 7.5554190559998915
+}

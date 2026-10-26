@@ -1,0 +1,65 @@
+{
+  "saturated": {
+    "full_frame_centres": [
+      255.5,
+      278.5,
+      324.5,
+      324.5,
+      282.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5
+    ],
+    "reduced_centres": [
+      255.5,
+      257.5,
+      255.5
+    ],
+    "off_stationary": true,
+    "lowEffects_stationary": true,
+    "off_to_full_resumes": true,
+    "lowEffects_to_full_resumes": true,
+    "rapid_changes_end_stationary": true,
+    "reduced_focus_fin_stationary": true,
+    "reduced_observed_range_px": 2.0
+  },
+  "insane": {
+    "full_frame_centres": [
+      255.5,
+      277.5,
+      335.5,
+      335.5,
+      271.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5,
+      255.5
+    ],
+    "reduced_centres": [
+      255.5,
+      257.5,
+      255.5
+    ],
+    "off_stationary": true,
+    "lowEffects_stationary": true,
+    "off_to_full_resumes": true,
+    "lowEffects_to_full_resumes": true,
+    "rapid_changes_end_stationary": true,
+    "reduced_focus_fin_stationary": true,
+    "reduced_observed_range_px": 2.0
+  },
+  "method": "Bright carrier centroid at native1920x1080 ROI105,230..415,252; reduced focus fin ROI710,280..1100,700. All values derive from actual screenshot pixels. Timing uses capture-start timestamps, including capture overhead; WEBP is review evidence only."
+}

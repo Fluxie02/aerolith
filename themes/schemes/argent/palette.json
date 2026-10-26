@@ -1,0 +1,40 @@
+{
+  "id": "argent",
+  "name": "Argent",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#121415",
+  "surface": "#25292b",
+  "surface2": "#34393b",
+  "grid": "#545e62",
+  "text": "#f3f5f5",
+  "textDim": "#bec7ca",
+  "signal": "#e2e6e8",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#bdced3",
+  "lower": "#1f2324",
+  "pressed": "#3f4649",
+  "ansi": {
+    "normal": [
+      "#939a9d",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#bdc6d3",
+      "#ccbdd3",
+      "#bdd3d3",
+      "#bec7ca"
+    ],
+    "bright": [
+      "#bec7ca",
+      "#fbb2af",
+      "#c6ebce",
+      "#fbdb99",
+      "#cdd4dd",
+      "#d8cedd",
+      "#cddddd",
+      "#f3f5f5"
+    ]
+  }
+}

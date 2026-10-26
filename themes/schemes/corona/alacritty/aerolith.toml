@@ -1,0 +1,41 @@
+# AEROLITH / Corona — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#101222"
+foreground = "#edf0ff"
+[colors.cursor]
+text = "#101222"
+cursor = "#a7bcff"
+[colors.selection]
+text = "#101222"
+background = "#a7bcff"
+
+[colors.normal]
+black = "#8d95b0"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#c4d8f5"
+magenta = "#e5c4f5"
+cyan = "#c4f5f5"
+white = "#b6c0df"
+
+[colors.bright]
+black = "#b6c0df"
+red = "#fab0b2"
+green = "#c4e9d1"
+yellow = "#fada9c"
+blue = "#d0dff8"
+magenta = "#e7d1f8"
+cyan = "#d0f4f8"
+white = "#edf0ff"

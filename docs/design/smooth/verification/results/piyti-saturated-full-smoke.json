@@ -1,0 +1,17 @@
+{
+  "name": "results/piyti-saturated-full-smoke",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "build/ui016/verification/piyti-saturated-full-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/final-shell",
+    "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/piyti-saturated-full-smoke",
+  "started_at": "2026-10-25T03:46:31.071199+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 7.585554865999939,
+  "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+}

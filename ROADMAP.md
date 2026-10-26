@@ -1,0 +1,142 @@
+# AEROLITH — Repository-Grounded Development Roadmap
+
+The owner's roadmap, recorded verbatim. All three agents follow it; progress is
+tracked in the Status table at the end.
+
+- **Audit date:** 26 October 2026
+- **Repository:** Fluxie02/aerolith
+
+**Roles:**
+- **Opus 5.5:** Systems architect, integration lead, final reviewer.
+- **GPT-6 Astra:** Visual architecture, rendering, shaders, motion and visual QA.
+- **GPT-6.1 Sol:** Bounded implementation, automation, tests, installer and mechanical integration.
+
+## Phase 0 — Reconcile the Existing Work
+
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| A01 | Reconcile PR #1 with codex/astra-visual-language and newer main changes. Preserve the actual SHEAR → THEARS/PIYTI → Counterphase → Spectra → Smoothness work. | Opus | P0 |
+| A02 | Compare the three code histories by file and component. Resolve any incompatibilities between Astra's theme components and newer systems infrastructure. | Opus + Sol | P0 |
+| A03 | Run baseline Node, Qt V4, pytest, headless smoke, full, Deck, notification, AI and installer tests on the integrated branch. | Sol | P0 |
+| A04 | Validate the updated three-agent bridge against real authenticated Codex sessions and fix any account, model-ID, worktree or agent-sync issues. | Opus | P1 |
+| A05 | Separate bulky historical verification assets from deployable sources. Keep reproducibility manifests, representative media and meaningful failed-case evidence. | Sol | P1 |
+
+**Gate:** The integrated branch compiles and passes the existing relevant tests. Record the exact commit SHA. Do not declare integration complete merely because Git reports a successful merge.
+
+## Phase 1 — Fullscreen and Game Resource Management
+
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| B01 | Implement an event-driven fullscreen state for the selected Hyprland output. Handle window focus, fullscreen mode changes, output removal and stale compositor state. | Opus | P0 |
+| B02 | Connect Theme.ambientSuspended to the fullscreen lifecycle and stop visual effects before teardown. | Opus | P0 |
+| B03 | Suspend and unmap Ground, Flight Strip, Deck and Notices. Unload GPU-backed visual content and release resources where supported. Preserve the nonvisual services. | Opus + Sol | P0 |
+| B04 | Implement restoration without repeating first-boot animations, leaking render resources or losing pending notifications. Explicit shell interaction must have a defined wake policy. | Opus + Astra | P0 |
+| B05 | Test twenty fullscreen enter/exit cycles with both directions and intensities, active notifications, open Deck, focus changes and optional thumbnails. | Sol + Opus | P0 |
+| B06 | Profile actual shell GPU memory, CPU wakeups, game frametime impact and direct-scanout eligibility. Record before/during/after behavior on real hardware. | Opus | P0 |
+
+**Gate:** The shell becomes visually and computationally inactive during qualifying fullscreen gaming, without breaking essential services or subsequent restoration.
+
+**Important:** Target near-zero incremental GPU memory attributable to AEROLITH. Measure the result rather than promising an absolute zero-VRAM process.
+
+## Phase 2 — Installer, Design Selection and Application Themes
+
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| C01 | Add the installation-only THEARS/PIYTI selection using Astra's existing visual seam. PIYTI is the forward design; THEARS remains supported. | Sol; Opus reviews | P1 |
+| C02 | Persist the chosen direction, support clean reinstall/upgrade behavior, and make sure Settings does not expose an unsupported live direction switch. | Sol | P1 |
+| C03 | Offer Saturated/Insane intensity during installation, reusing the already implemented theme.intensity configuration and command. | Sol | P2 |
+| C04 | Integrate the existing 12 Spectra schemes into the installer without duplicating palette definitions. | Sol | P2 |
+| C05 | Implement opt-in app-theme deployment using existing assets for GTK, Qt, terminal apps, Hyprland and supported application themes. | Sol + Opus | P1 |
+| C06 | Implement supported app-theme refresh on scheme change, with per-app consent, safe config preservation, backup, rollback, race handling and compatibility checks. | Opus + Sol | P1 |
+
+**Gate:** Both visual directions install cleanly. External app theming is optional, reversible and based on the already generated color-scheme assets. Never overwrite entire application configurations or install third-party modification systems silently.
+
+## Phase 3 — Complete Existing System Interfaces
+
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| D01 | Integrate the existing OsdView.qml with Audio and microphone state changes. Add a proper OSD host with expiry, queueing and focus-safe layering. | Sol + Opus | P1 |
+| D02 | Add a real brightness service using supported backlight interfaces, capability detection and optional external-monitor support. Connect it to the existing OSD. | Opus + Sol | P1 |
+| D03 | Resolve Help/Settings notification overlap using existing NoticeStack and Deck layering. Test both intensities, compact outputs and multiple notices. | Astra + Sol | P1 |
+| D04 | Correct the outgoing Deck lifecycle when motion changes to off or lowEffects during an exit. | Opus | P1 |
+| D05 | Disable duplicate Hyprland layer animations for AEROLITH's own namespaces through reversible managed installer rules. | Sol; Opus reviews | P1 |
+| D06 | Integrate SessionView.qml with existing power/session commands and deliberate confirmation of destructive operations. | Opus + Sol | P2 |
+| D07 | Integrate LockView.qml only through a secure Wayland session-lock host and real authentication backend. Test failure states, recovery and session security. | Opus | P2 |
+| D08 | Implement missing network and Bluetooth status/control services if their corresponding interfaces are required by the release scope. | Sol + Opus | P2 |
+
+**Gate:** All real system controls function independently of visual animation, and security-sensitive functions do not depend on cosmetic interface behavior.
+
+## Phase 4 — Shaders, Motion and Visual Refinement
+
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| E01 | Implement the four existing requests in docs/design/counterphase/SHADER-REQUESTS.md: SHEAR bevel shading, workspace annulus relief, return-vernier light catch and Deck undercarriage shading. | Astra | P2 |
+| E02 | Create reusable shader interfaces for existing semantic colors, output scale, motion mode, intensity, application direction and fullscreen resource lifecycle. | Astra + Opus | P2 |
+| E03 | Profile GPU shader compilation, render targets, scene-graph memory, cache lifetime and actual shader cost. Ensure fallback geometry remains meaningful without GPU effects. | Astra + Opus | P2 |
+| E04 | Revalidate high-refresh animations on a real GPU-backed 60/120/144 Hz output. Fix visible pacing problems in Deck docking, bay changes, Spectra switching and startup transitions. | Astra + Opus | P1 |
+| E05 | Conduct a final visual consistency pass covering THEARS, PIYTI, Saturated, Insane, all 12 Spectra schemes, notifications, OSD, lock, session and app-theme adapters. | Astra | P2 |
+
+**Gate:** Shader effects improve physical depth and visual readability without introducing idle rendering, hidden continuous workloads or significant gaming overhead. No shaders should be added merely to increase the number of effects.
+
+## Phase 5 — Release Engineering
+
+| ID | Task | Owner | Priority |
+|----|------|-------|----------|
+| F01 | Implement CI for Node, Python, Qt compatibility, formatting, generated schemes and installer correctness. Include headless integration jobs where runner capabilities permit. | Sol | P1 |
+| F02 | Fix the documented provider-specific Codex AI fixture mismatch instead of allowing a Claude-specific test to fail for Codex. | Sol | P1 |
+| F03 | Validate real Arch/CachyOS installation, upgrade, configuration rollback and full uninstall on a disposable environment. | Opus + Sol | P1 |
+| F04 | Benchmark idle and active CPU/RAM, frame pacing and fullscreen VRAM behavior. Compare against the existing saved measurements. | Opus + Sol | P1 |
+| F05 | Produce lean release packages, updated documentation, a known-limitations list and a reproducible source/verification manifest. | Sol; Opus reviews | P2 |
+| F06 | Perform final architectural review, regression testing and release-candidate approval. | Opus | P1 |
+
+## Rules for All Three Agents
+
+1. Reuse existing work. Before implementing a feature, search the source, relevant branch and design handoff documents.
+2. Respect ownership: Opus owns critical systems contracts; Astra owns visual behavior; Sol works on bounded, testable implementation tasks.
+3. Work in isolated branches/worktrees. Integrate through reviewed commits, not simultaneous edits of the same files.
+4. Do not silently alter established owner decisions. THEARS is maintained, PIYTI is the forward design, intensity remains live-switchable, and direction is installation-only.
+5. Maintain single-monitor correctness first.
+6. Measure performance. Software rendering tests are not proof of GPU frame pacing or VRAM behavior.
+7. Preserve optional AI installation, including a fully functional no-AI choice.
+8. Preserve security and user configurations. Test rollback and clean removal.
+9. Prioritize release-blocking systems work before optional shaders and decorative enhancements.
+10. Report completion with evidence: changed paths, commit hashes, exact test commands, measured results and known limitations.
+
+## Recommended Execution
+
+1. **First:** A01–A04, establishing one working integration baseline.
+2. **Second:** B01–B06, establishing the gaming lifecycle and proving the most important performance requirement.
+3. **Then in parallel:** C01–C06 (Sol), D01–D08 (Opus/Sol) and E01–E05 (Astra), with separate file ownership.
+4. **Last:** F01–F06 and final release verification.
+
+Opus should coordinate the complete plan, delegate mechanical work to Sol, assign creative rendering decisions to Astra, and personally approve all changes to the fullscreen lifecycle and security-critical integration.
+
+## Status
+
+| ID | State | Evidence |
+|----|-------|----------|
+| A01 | Done | Merges 57db8aa (Astra, SHEAR through Smoothness) and 44e687d (main, two-account bridge). Only `.ai_sync_hub.json` changed on both sides; resolved with Astra's valid hub plus main's three events. |
+| A02 | Done | No file changed on both sides except the hub; after Astra branched, PR #1 changed only docs. A03 found no integration incompatibility. |
+| A03 | Done | Baseline at c6ea2a8 (Sol, `docs/verification/A03/README.md`): Node 118/118, Qt V4 118/118, pytest 71 passed / 1 skipped, 12/12 scenario runs (smoke, full, deck, notify, ai, installed × Saturated and Insane). Only failure: the known Codex AI fixture (F02). |
+| A04 | Done | Fixed: usage caps were never enforced (7ab1a3c) and running jobs now stop at the cap (ac5a942), Sol had no hub access or network (c6ea2a8), agent-sync did not know Sol (f508120). Verified: both accounts logged in, `gpt-6.1-sol` answers, a Sol edit job ran in its own worktree and returned a branch. A live Astra job (D03) ran through the bridge on the design account at high effort and stayed under the cap. |
+| A05 | Done | Sol: `docs/design` 731 → 238 MiB, fresh tree 737 → 244 MiB; removed files stay in 0af92c4 (`docs/design/ARCHIVE.md`, `archive-manifest.json`); 468 links, 0 broken. The installer never copied `docs/design`. |
+| B01–B04 | Done (headless) | 0af92c4, 1fd56c8: `ShellState` (event-driven, maximized ≠ fullscreen), ambient held before teardown, surfaces destroyed, telemetry paused, popups kept; `tests/scenarios/fullscreen.sh` incl. 20 cycles. |
+| B05 | Done (headless) | `tests/scenarios/fullscreen-matrix.sh`: THEARS/PIYTI × Saturated/Insane, 20 cycles each, Deck open on entry, notifications, thumbnails, floating focus over fullscreen (stays suspended by design), RSS flat after warm-up (`docs/verification/B05/`). |
+| D04 | Done | 3eb5797: an exit ends at once when motion goes off during it; `deck.sh` 4b passes with the fix and fails without it. |
+| C01–C02 | Done | Sol, merged da6df89: `aerolith install --direction piyti|thears` (PIYTI default), stored in `~/.config/aerolith/installation.json` outside the Settings schema, kept across reinstall, shown by `aerolith status`; the shell reads it at startup, no live switch (`docs/verification/C01/`). |
+| D01 | Done | f68b5ac: OSD host for volume, mute and microphone mute from PipeWire state; surface only while shown, no input or focus; `tests/scenarios/osd.sh` (microphone case needs a default input, absent headless). |
+| D02 | Done (laptop backlights) | db85303: firmware/platform/raw backlight selection, udev events (no polling), logind SetBrightness with brightnessctl fallback, never below 1%, keys and OSD; `tests/scenarios/brightness.sh` with a fake backlight. External monitors (DDC/CI) not yet. |
+| D03 | Done | Astra, f30f97b: notices take a lane below the Deck rail and bays make room; check fails on the old layout (`docs/design/notices/`). |
+| Regression (earlier) | Pass at ad1c187 | Node, Qt V4, pytest, smoke, full, deck, notify, ai, osd, brightness (with and without), direction, installed (default and THEARS), fullscreen matrix 4×20. |
+| C05 | Done | Sol, merged after 749f54c: `aerolith themes list/apply/remove/status` and an opt-in install step deploy the generated scheme fragments for kitty, Alacritty, foot, btop, Hyprland, GTK 3/4 and qt5ct/qt6ct through marked includes with backups and byte-exact removal; Firefox, Steam, Discord, LibreOffice and ArtCraft listed as not yet automated (`docs/verification/C05/`). The scheme generator, never committed by the overnight supervisor, was recovered (749f54c). |
+| D05 | Done (config) | Sol, 446da51: no compositor animation for the five `aerolith-*` layer namespaces in both Hyprland dialects, verified with `Hyprland --verify-config`; behaviour needs a real session. |
+| E01–E02 | Done (compiled, fallback verified) | Astra, 57f6e7c: four material shaders behind `components/Material.qml`, destroyed before fullscreen teardown, `.qsb` committed with `tools/build-shaders.sh --check`. Appearance and GPU cost unverified (no RHI output in the container). |
+| F02 | Done | Sol, 446da51, hardened in 9c95c8c: provider-aware AI scenario; 12/12 sequential runs for Claude and Codex × both intensities. Scenarios must run one at a time (documented in `tools/headless/run.sh`). |
+| Regression | Pass at 57f6e7c | 19 checks incl. both matrices, themes roundtrip, shader and scheme freshness. |
+| C06 | Done | Sol, d16e223: `aerolith themes refresh` re-renders only opted-in payloads atomically with rollback and a lock; the shell's `AppThemes` runs it once 1.5 s after a saved scheme change, never during fullscreen. |
+| D06 | Done | 741b474: session menu (lock, suspend, log out, reboot, power off) over the Power commands; Astra's view confirms, the host runs with `confirmed`; `tests/scenarios/session.sh`. |
+| C03–C04 | Done | Sol, merged 692f27e: `aerolith install --intensity saturated|insane --scheme <id>` (interactive choice, Saturated and limb default, reinstall keeps the user's values, ids read from `themes/schemes/index.json`), new `aerolith scheme [id]` refreshing opted-in app themes through C06; `ipc status` reports `theme`. pytest 257 passed; installed.sh with and without the flags passes (`docs/verification/C03/`). |
+| D07 | Done | 870eb53, revised after Sol's security review: opt-in `lock.enabled` lock through WlSessionLock and PAM (`login`). Only PAM Success unlocks; the lock state lives in LockHost (PersistentProperties), not in writable `Ui`, so a configuration reload fails closed instead of unlocking, and file watching pauses while locked (Quickshell 0.3.2 cannot rebuild lock surfaces on reload). `lock` reports success only after the compositor confirms (`lockSecure`, 3 s limit). Every PAM message is handled: a visible or second prompt ends the attempt, and a 20 s watchdog stops a stalled one. Password sent to one hidden prompt only, mask delay 0; 30 s pause after five failures, kept across reloads. Tests: `lock.sh` (real PAM, edit-while-locked, pause expiry) and `lock-multistep.sh` (test PAM module asking twice), both in CI; each new check fails on the old code. Second review round (Sol): a lock the compositor has not confirmed within 3 s is no longer withdrawn (that would be a protocol error, or an unlock without PAM if confirmation was in flight); the command fails and the request stays pending; one deadline per acquisition; no password is checked before confirmation; tests count each attempt. Residual risks, all fail closed (locked, no prompt; recovery in docs/ALPHA.md): a reload forced through Quickshell's own reload() (nothing in the shell calls it), a lock view that fails to load, and Quickshell releasing the lock if a lock surface cannot be created (the view loads in a Loader so it cannot cause that). `ipc call aerolith lock` returns once the lock is requested, not confirmed. |
+| Alpha 1 | Done | 0.1.0a1 for daily use by the owner (owner decision: alpha now, redesign after). Desktop app links switch to or start apps (`app-links.sh`, clicked through a virtual pointer); `docs/ALPHA.md` lists requirements, install, known gaps and how to report problems; the redesign input is `docs/design/OWNER-BRIEF-2026-10.md`. |
+| F01 | Done, first GitHub run pending | Sol, b1f89f8: `.github/workflows/ci.yml` (fast, dev-image and sequential headless jobs; matrix on schedule). `docs/CONFIGURATION.md` and `docs/COMMANDS.md` created so the generated-docs checks pass. |
+| B06 | **Open: real-hardware run found a defect** | First run on the owner's PC (26 Oct): the shell stayed on `desktop` during a fullscreen game (CPU 1.4 %, 69 wakeups/s), and no DRM fdinfo GPU memory was found for `qs` (0 MiB; RSS 546 MiB). `render:direct_scanout` = 2 (auto). Diagnosis in progress with `tools/perf/fullscreen-diagnose.sh`. The headless lifecycle tests pass, so the gap is in detection on real Hyprland or the game's fullscreen mode. |

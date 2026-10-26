@@ -1,0 +1,666 @@
+[
+  {
+    "path": "saturated/01-register.png",
+    "sha256": "8fea7b0128476fbd42000a373ff8e3c467a1d74fe0bc8c6225876988dd3a237c"
+  },
+  {
+    "path": "saturated/06-text-saved.png",
+    "sha256": "74078ccd77d6d3d5a19dd702b318f6ab7ebe2b69ffd54bf1e1ea34d13f704019"
+  },
+  {
+    "path": "saturated/07-plain-text.png",
+    "sha256": "539ab26577b4fcc20da66557df2296ebf132fbcb6182b0238e85485fc63c0617"
+  },
+  {
+    "path": "saturated/08-refused.png",
+    "sha256": "f4455c539009ff1356ca825707b0f4f6b66d81577b7404b6473da76fdb96a21b"
+  },
+  {
+    "path": "saturated/03-enum-bottom.png",
+    "sha256": "2c83f674921cf24f48d57a05d5dcf6304c8e045bab7c2001e364f0375ee78e91"
+  },
+  {
+    "path": "saturated/12-ctrl7.png",
+    "sha256": "1bf7a93ce9c084ed96469bc92b8937edcea0c0e200e2b774804df03aee8f590c"
+  },
+  {
+    "path": "saturated/13-set-alias.png",
+    "sha256": "7d659796629882781f56ed45a09b2278bc452a8e9e4370831d38b0bfba7f0b8d"
+  },
+  {
+    "path": "saturated/09-last-section.png",
+    "sha256": "13368e7337d7a960fe9a7460b113d99d92a6791265857542c5be85ed52fe4b92"
+  },
+  {
+    "path": "saturated/02-bool-off.png",
+    "sha256": "d24246173b56b9dab2522f3641d1ba9c9f273b71d6fc3832302ca48e330f4f97"
+  },
+  {
+    "path": "saturated/14-help.png",
+    "sha256": "10bc1b467125c35edc0b9d9eb09ba7a36f38417e2a6a358b14ad76ea2de715c2"
+  },
+  {
+    "path": "saturated/05-text-draft.png",
+    "sha256": "e75b9fdee197766829c9172fda756507e3ea904d2ea802b8c5704e54500d8df8"
+  },
+  {
+    "path": "saturated/11-intensity-live.png",
+    "sha256": "bd8efcd6c8aa2ab64b8535c7cfdd3480077b64ee246126540a434c8694a628c9"
+  },
+  {
+    "path": "saturated/10-page-up.png",
+    "sha256": "ee0ef70799e17bfea91a866679930b11f30abf73b3bc486fcef8229a8f998ed6"
+  },
+  {
+    "path": "saturated/04-number-range.png",
+    "sha256": "8ba069ea81527aad53bb5ce824b5dd20cb88bd478cc0b4b7f1874b68cebd69d4"
+  },
+  {
+    "path": "insane/01-register.png",
+    "sha256": "335495373a9042d7622da3a104cade731a161ca2bac3a915cc863ee600b85646"
+  },
+  {
+    "path": "insane/06-text-saved.png",
+    "sha256": "2d27e4c330b7b310ae219745559d76eadb406a1575fb716d43307d0c9d64cb32"
+  },
+  {
+    "path": "insane/07-plain-text.png",
+    "sha256": "41f3130c8b8f9a6d6a05b4819b09a483c7a86ed4edf0fea330082fbdb1457006"
+  },
+  {
+    "path": "insane/08-refused.png",
+    "sha256": "f311c0d21b16e7ef9b9f36c879545354c2f10b74fd1be6fd28033099a34587f2"
+  },
+  {
+    "path": "insane/03-enum-bottom.png",
+    "sha256": "9a5b1518db3a7391bdd878dcf47dd2df59927379634820a133ee1c650c40e329"
+  },
+  {
+    "path": "insane/12-ctrl7.png",
+    "sha256": "b8a73ef3b881f2190873be38c8d9962e2a81d8717756faccf42ee87bf9707fe8"
+  },
+  {
+    "path": "insane/13-set-alias.png",
+    "sha256": "5a79ab96266be225d1925f54ac8a459d7556522442f81a5d9bf3903a449cad29"
+  },
+  {
+    "path": "insane/09-last-section.png",
+    "sha256": "04401184e026226a0269a97db898196832f2fb10f6593ed0b0ee3d5ec5952390"
+  },
+  {
+    "path": "insane/02-bool-off.png",
+    "sha256": "89338bf8ab5872c599b47e5c09bbc4aae8d3262771806e1eb1925c825033d27b"
+  },
+  {
+    "path": "insane/14-help.png",
+    "sha256": "9ff84543bd64b93394ebf6494def78e2ce38cceb1ac10efd840a7f9114d607d3"
+  },
+  {
+    "path": "insane/05-text-draft.png",
+    "sha256": "c0ab9ba7a4f6f16da485d0843c3e31d0174139c070ef75889cf18f95d644670e"
+  },
+  {
+    "path": "insane/11-intensity-live.png",
+    "sha256": "a8bcf675c37cee73ef82e0f5f898f547b540a79e6a3d7fe8b52720203543043f"
+  },
+  {
+    "path": "insane/10-page-up.png",
+    "sha256": "0ee902ff7789342cbf59f2a879043f43b3a5a4286d4df4930a92840da09a0f96"
+  },
+  {
+    "path": "insane/04-number-range.png",
+    "sha256": "52c364dd077888b8898cd63d9fd5308a5f8c66d76da62c4e84d4a570f92e1b63"
+  },
+  {
+    "path": "pointer/saturated/01-pointer-rail.png",
+    "sha256": "511ab50b0590f4d88f6855ad54d9e3ccbdeba8967bd06d96cd7dd4cd82b70df0"
+  },
+  {
+    "path": "pointer/saturated/07-pointer-choice.png",
+    "sha256": "969f384e36fb8432db49d56e6b1ba6bdcb1a4fa968af98cf42e158a019dd06ef"
+  },
+  {
+    "path": "pointer/saturated/05-motion-settled.png",
+    "sha256": "2ecc38ce685181b9e0d0b3f24b0c3b04c306ad9438963938f90b31f832870904"
+  },
+  {
+    "path": "pointer/saturated/04-motion-second.png",
+    "sha256": "2ecc38ce685181b9e0d0b3f24b0c3b04c306ad9438963938f90b31f832870904"
+  },
+  {
+    "path": "pointer/saturated/09-pointer-edit.png",
+    "sha256": "4205bc24ac95de027c03aca37ccd0e67a18ab42b9393caae0209e828aea0ec07"
+  },
+  {
+    "path": "pointer/saturated/03-motion-first.png",
+    "sha256": "f0a4dcccbfe2213911d8e57e9266e2e3f47d991401911bebe504d29df20bedb7"
+  },
+  {
+    "path": "pointer/saturated/10-keys-after-save.png",
+    "sha256": "d246fece57e4dd8d5f82b3f8d4b7770312c3851433e4d933e5e93753e842281e"
+  },
+  {
+    "path": "pointer/saturated/02-pointer-scope.png",
+    "sha256": "f4f5af1f196f56f95f1839ac7b5d6c88471605e2219483580a4cdf902d4fff1f"
+  },
+  {
+    "path": "pointer/saturated/08-pointer-number.png",
+    "sha256": "e3c031f05b331deebee3d5df0d6d7a201b647aefc05874fa798730d0c0589911"
+  },
+  {
+    "path": "pointer/saturated/06-pointer-switch.png",
+    "sha256": "9d73cb0ac1de1830179cffbf17f853aacc54e564dc6bacb0b633da45f03c94d3"
+  },
+  {
+    "path": "pointer/insane/01-pointer-rail.png",
+    "sha256": "1e58ca7a393a91d3746a602ade16cf5c4247cc017ece71dd17394a89c3a45c41"
+  },
+  {
+    "path": "pointer/insane/07-pointer-choice.png",
+    "sha256": "a65cc6481fced804e3ff5e75c5d97bbb7cfc83a53f99d5edb6361e0f1c502651"
+  },
+  {
+    "path": "pointer/insane/05-motion-settled.png",
+    "sha256": "263160766d3cdfecaad6325144c42832a5ad14340a9771189858fa640f427db6"
+  },
+  {
+    "path": "pointer/insane/04-motion-second.png",
+    "sha256": "263160766d3cdfecaad6325144c42832a5ad14340a9771189858fa640f427db6"
+  },
+  {
+    "path": "pointer/insane/09-pointer-edit.png",
+    "sha256": "8f887178854841f4a133b317b80be34e0e2f0705eb04c998dd9454fdfe53ba4a"
+  },
+  {
+    "path": "pointer/insane/03-motion-first.png",
+    "sha256": "2471d044123e779510fa7f2fbebfc0b7814de97782e6edce8779fa062da64ebd"
+  },
+  {
+    "path": "pointer/insane/10-keys-after-save.png",
+    "sha256": "c171c58c8b2def91ecf0a6c9e09f3e61643aec885fe376145d7651280183e74a"
+  },
+  {
+    "path": "pointer/insane/02-pointer-scope.png",
+    "sha256": "de8bf3188686f46df41325a474306b3bacdec1b854d14c09802d783083f41dfa"
+  },
+  {
+    "path": "pointer/insane/08-pointer-number.png",
+    "sha256": "1b69338754de29c0f2aabac6468b5c0b6af904f330cde1bd9a0b4aeaa83f7446"
+  },
+  {
+    "path": "pointer/insane/06-pointer-switch.png",
+    "sha256": "580647087d384d91d52cc124ffb28a2a460fcd1154135c17b33d461cf056bf42"
+  },
+  {
+    "path": "motion/saturated/08-off-settings.png",
+    "sha256": "aee9c8a196dd0a2a3287a9108566221d8e8fa70bb345eb7c836fbe57d647604b"
+  },
+  {
+    "path": "motion/saturated/04-reduced-immediate.png",
+    "sha256": "c0ea56b6d728bec05c0d8e0b2c20deff1ee93265cba1052fa6d3ccce6fd366c3"
+  },
+  {
+    "path": "motion/saturated/02-full-middle.png",
+    "sha256": "b90b85a287332b4adb82aee98de2515c2770ecfb48254633620ca8c5f336d240"
+  },
+  {
+    "path": "motion/saturated/05-reduced-settled.png",
+    "sha256": "1afcd96adec3733ea847b74d841449408e6ad457601371082e76911626c1567a"
+  },
+  {
+    "path": "motion/saturated/06-off-immediate.png",
+    "sha256": "35e4818bbb6e90b9c64418fe1a70aebe99a867ca6cd929830a282b6f7c3a46f4"
+  },
+  {
+    "path": "motion/saturated/07-off-settled.png",
+    "sha256": "7683d36a87f9ed3ea59ffb7dcfca3d9c7d2895aeaac5f6acb02c974d84a10bfc"
+  },
+  {
+    "path": "motion/saturated/03-full-settled.png",
+    "sha256": "7ed0979699ac745570770ba50bcd38918bc64cbcbc4bdcef6064f80a510637c1"
+  },
+  {
+    "path": "motion/saturated/01-full-start.png",
+    "sha256": "2f295212582017e2f3fabf8b8233a48a62dc1d630639015b9a2a724ebcb1314d"
+  },
+  {
+    "path": "motion/insane/08-off-settings.png",
+    "sha256": "4b499e0b16d5a6d8d0a362d8b9a25e94b2b4fad36e7e3fd584bf0ba353f4a02b"
+  },
+  {
+    "path": "motion/insane/04-reduced-immediate.png",
+    "sha256": "d9b8bf5f831f86627ba741cb0899774ba8340ce9ff7630c8234791f0f35048bb"
+  },
+  {
+    "path": "motion/insane/02-full-middle.png",
+    "sha256": "326b227bc256fa883466f2e96e3c53e3fe828365f58082765721d327e940ff05"
+  },
+  {
+    "path": "motion/insane/05-reduced-settled.png",
+    "sha256": "78424efa300a505e1f045bbb34c8beb5e8e3b9a22f28e281a2e91f490a8e95bb"
+  },
+  {
+    "path": "motion/insane/06-off-immediate.png",
+    "sha256": "413b3c2af5bfae65dee5009724fdbd0eb7a7ed3969dfa01868e7df146f23e68c"
+  },
+  {
+    "path": "motion/insane/07-off-settled.png",
+    "sha256": "41039853dba56592bd122b7c823e0eb34f0a087ef7a03f68aeadf8f97b76b1f9"
+  },
+  {
+    "path": "motion/insane/03-full-settled.png",
+    "sha256": "b301e6e9e7e38716a7ef1646ab1b60f17ab0cd1869ae3ad293a80ed8102e5fb6"
+  },
+  {
+    "path": "motion/insane/01-full-start.png",
+    "sha256": "2a1664b5369b1e33e426866fdf931bb7ec8739fa6dffe5e87fd3380466e218e5"
+  },
+  {
+    "path": "surfaces/insane/ai/a3-after-removal.png",
+    "sha256": "9c41bd93f241211d7f5c216f83ca9598d246354d01fa59ce06583fb291c892a7"
+  },
+  {
+    "path": "surfaces/insane/ai/a2-approved.png",
+    "sha256": "5d3315c5d99ca7ff4640ffcf92cec1ad1d7edf81e65d7980dcbd6f73fa2885f4"
+  },
+  {
+    "path": "surfaces/insane/ai/a1-answer.png",
+    "sha256": "d631895c47bb5d5ecb3e785c665392b9f4a2ff8529023f822f5410c978d14b49"
+  },
+  {
+    "path": "surfaces/insane/notify/n1-popup.png",
+    "sha256": "1ac2e6a015730dccfeaa54b504c4f5b1c3e03e755ca20e8ff69dfe1ef5636dca"
+  },
+  {
+    "path": "surfaces/insane/notify/n2-two-popups.png",
+    "sha256": "1b1873463f8f383b588722966a79ff8b82521b5832dbfccf4ccf6615fa124cd6"
+  },
+  {
+    "path": "surfaces/insane/full/09-help.png",
+    "sha256": "f8eec13413bfe245b168fd18c39b1ebb08fa6a74222edcb0c893d8ef234ed971"
+  },
+  {
+    "path": "surfaces/insane/full/05-systems.png",
+    "sha256": "20b67972a1afa1fa55a0fa31b3032932ce99afa884584d0f89d3e105e7e372a1"
+  },
+  {
+    "path": "surfaces/insane/full/02-command-vol.png",
+    "sha256": "b756562dc1fae175366f9fbf141a9cd69597e29ac0b50bd1174eb3c167a70aa3"
+  },
+  {
+    "path": "surfaces/insane/full/07-routines.png",
+    "sha256": "9c76946374d0599ed9e04e82e24531ab38f05116e40bd143060fb13cf9f77a60"
+  },
+  {
+    "path": "surfaces/insane/full/03-command-search.png",
+    "sha256": "bb7737afa87748257a835e60ba1021657564565659ecb75a0c31ebc09c739145"
+  },
+  {
+    "path": "surfaces/insane/full/04-navigator.png",
+    "sha256": "e47a16717b323de3c8baeaafe87479ed23e9d406eec633b2484e0a1c64d3e92f"
+  },
+  {
+    "path": "surfaces/insane/full/01-strip.png",
+    "sha256": "f843797047a46bcc7731c8d3e02d0cec860f528c1ed2df293ae6e7663148a5ef"
+  },
+  {
+    "path": "surfaces/insane/full/08-routine-ran.png",
+    "sha256": "f19f76cb050178487497879b580db9e01622f12a9e0dc4604ba62b726871a91b"
+  },
+  {
+    "path": "surfaces/insane/full/06-signal.png",
+    "sha256": "c40ff9f06e145948554ec034b8121e85ccaaf0d732b5a6ae3bb9176de819db1f"
+  },
+  {
+    "path": "surfaces/insane/deck/d1-notices.png",
+    "sha256": "4959f3ed88e0058944a1758f0859482df29bbde2ab30f512cd7314aca313e91a"
+  },
+  {
+    "path": "surfaces/insane/smoke/02-command-core.png",
+    "sha256": "72027091fb869b2970b15e4d383e3e7812eca700225a889cf6dfe93d7742782e"
+  },
+  {
+    "path": "surfaces/insane/smoke/01-strip.png",
+    "sha256": "f8295b2c4b0e6ba6ed9b5773f8b0c2f4abb28d66a6101a80345578be15bc4ac0"
+  },
+  {
+    "path": "surfaces/saturated/ai/a3-after-removal.png",
+    "sha256": "c6d9ee70b49a62d23d17cc24b484aace419c774ed53061cf1fc52a68d8d61977"
+  },
+  {
+    "path": "surfaces/saturated/ai/a2-approved.png",
+    "sha256": "ee28301337c5511ed15c33124cfacf06a14f4ce463095b40b3967b7363c0c05f"
+  },
+  {
+    "path": "surfaces/saturated/ai/a1-answer.png",
+    "sha256": "1b74486343ab32d2a87ed88a61d21a6b4ae78e3f97db1c36390ea6ee98c1555b"
+  },
+  {
+    "path": "surfaces/saturated/notify/n1-popup.png",
+    "sha256": "ed7b3342258a18e0f5c01050bd87db393b7a695b9f3e07f29743ad1a04dd2bdd"
+  },
+  {
+    "path": "surfaces/saturated/notify/n2-two-popups.png",
+    "sha256": "fb06b5e3c2e3070c4df852178b5eac2d1acf55ab670f31233a98da1c32807c63"
+  },
+  {
+    "path": "surfaces/saturated/full/09-help.png",
+    "sha256": "6d1912d64b7bb051a020a2640fa0d4a5e784b162bed20a19693ff78843f4d5c1"
+  },
+  {
+    "path": "surfaces/saturated/full/05-systems.png",
+    "sha256": "185b8b2c832dcea107da3fb8c287a143dc136aa644b41bf6dca81627cd68f41f"
+  },
+  {
+    "path": "surfaces/saturated/full/02-command-vol.png",
+    "sha256": "e351d750ba0bdf69ced1db3a4d470ba6204926ff572eec5aa9149b188efeb44c"
+  },
+  {
+    "path": "surfaces/saturated/full/07-routines.png",
+    "sha256": "34cea97d8504746037f7a87ef23631e6e12f379fce9ef3186c9965c62cde7594"
+  },
+  {
+    "path": "surfaces/saturated/full/03-command-search.png",
+    "sha256": "e3da5739a62fbdb7aa31dd25c7e279d5bf2561c7ea61f575166b72ef114c461b"
+  },
+  {
+    "path": "surfaces/saturated/full/04-navigator.png",
+    "sha256": "6a929427e7dec183bb1fd23c51312386024e3792187f02b6be9e214e1dbb720b"
+  },
+  {
+    "path": "surfaces/saturated/full/01-strip.png",
+    "sha256": "c54353635a55e2b163ce08b4e19ce001e17738b950f330935cfbfb1367604f5d"
+  },
+  {
+    "path": "surfaces/saturated/full/08-routine-ran.png",
+    "sha256": "07a6ab07e91ae1c7296b967828a9c9ef64a216d1207f2ec6423ec513f1c63d0c"
+  },
+  {
+    "path": "surfaces/saturated/full/06-signal.png",
+    "sha256": "40ff747d420e014bb33f6c96aba1b40f90ae882766a8b40df05eee06b73f9dbc"
+  },
+  {
+    "path": "surfaces/saturated/deck/d1-notices.png",
+    "sha256": "e7498523887e59b9bcdc626493ee61081318a6b5aff2a04c9b4acc37163d80a8"
+  },
+  {
+    "path": "surfaces/saturated/smoke/02-command-core.png",
+    "sha256": "3cef827318ce717ddb7ed49b733df3bbb3982fd7aa035c017f2659e4d5ac76d7"
+  },
+  {
+    "path": "surfaces/saturated/smoke/01-strip.png",
+    "sha256": "e56b1d2c7b92a735a0617e3132563257c5685b8976b4261eb637b6d9b082f60e"
+  },
+  {
+    "path": "tabs/after/saturated/08-terminal-with-shell.png",
+    "sha256": "88458da8361b3f684ac15cd8d7578ccb02b107cdbcf80cd13fa213299e31d21d"
+  },
+  {
+    "path": "tabs/after/saturated/01-command-all.png",
+    "sha256": "8a451ff49b4ca08963c6069c7ca765fe3b423fef786e13c32be6025b897ed3a6"
+  },
+  {
+    "path": "tabs/after/saturated/05-rail-systems.png",
+    "sha256": "17aeb5b6d57e6675c21f2a38d003496206c43f9309cd0cdaceaea39cf9f6694f"
+  },
+  {
+    "path": "tabs/after/saturated/06-rail-settings.png",
+    "sha256": "ed3444a8c6dca85f2ba61763b94db17664bad15012b611d6f82f93f8f40eded4"
+  },
+  {
+    "path": "tabs/after/saturated/04-scope-back.png",
+    "sha256": "51d7e0f5e4fd27e4c1726106c43b8a275df91f53cb9d7ae5891149c7eee584c6"
+  },
+  {
+    "path": "tabs/after/saturated/07-rail-help.png",
+    "sha256": "b8b74bee1d242b60a4e24618aa6a12d4c21aebde08c7fbba9bab3a1dfb35f9ba"
+  },
+  {
+    "path": "tabs/after/saturated/02-scope-apps.png",
+    "sha256": "abeed55ace86b91d59ae7a368336e187d5e5e42dcf2cf78263208f2a6e2c804b"
+  },
+  {
+    "path": "tabs/after/saturated/03-scope-windows.png",
+    "sha256": "3e04a92b359f12a205fd1be18c9f731ccdbe33ba4e8377a2d898ec9c1e1d84bf"
+  },
+  {
+    "path": "tabs/after/insane/08-terminal-with-shell.png",
+    "sha256": "c1d217d0760af23590aee75a069133ffe596377e1242980d1e2d7961bce3a103"
+  },
+  {
+    "path": "tabs/after/insane/01-command-all.png",
+    "sha256": "774317894deae08f34038764df2ff7a183e050fbf720498ac538e4c976034a1e"
+  },
+  {
+    "path": "tabs/after/insane/05-rail-systems.png",
+    "sha256": "471bb51a543c89973bb7fc50e147217e91ebe65708e8e92629bc0182a32a89df"
+  },
+  {
+    "path": "tabs/after/insane/06-rail-settings.png",
+    "sha256": "918a40f1b7df61642b70bc915f6621f3b942705f6257296b490492b02dcb1575"
+  },
+  {
+    "path": "tabs/after/insane/04-scope-back.png",
+    "sha256": "01468297a11daadd790a3ba7340a9bdf6091707c6a93c50ac8b294eb515b2b16"
+  },
+  {
+    "path": "tabs/after/insane/07-rail-help.png",
+    "sha256": "f2a64629fb3687b9cd165082842cd0796f2a779265f618887d46f6b35c0bfca2"
+  },
+  {
+    "path": "tabs/after/insane/02-scope-apps.png",
+    "sha256": "5da116e8f5bf6bf54d28888a063f4edb7a8de03af5872d45b1943a735601d478"
+  },
+  {
+    "path": "tabs/after/insane/03-scope-windows.png",
+    "sha256": "9727ef1a85b01c9a2ef3d7b630fa126dbc5b585a1bf34f381df4025518220a1c"
+  },
+  {
+    "path": "tabs/before/saturated/08-terminal-with-shell.png",
+    "sha256": "3a18a3f1a74e327ac43c76b2036b92735da63b58870c7c3d222d6c32acb03838"
+  },
+  {
+    "path": "tabs/before/saturated/01-command-all.png",
+    "sha256": "46a7b4ea47b5a6ee1d72df51f9911e525f3fd9501f7f9f0f12aae0e36b803e79"
+  },
+  {
+    "path": "tabs/before/saturated/05-rail-systems.png",
+    "sha256": "8400ce82cb93e09680ece358d4e53da27a2cba9ea2b83921a58b42c9dab8d930"
+  },
+  {
+    "path": "tabs/before/saturated/06-rail-settings.png",
+    "sha256": "89bfa23c926bd4ff9584a43599acad40b640b426c7768f9d8bcbe4b19e4d333c"
+  },
+  {
+    "path": "tabs/before/saturated/04-scope-back.png",
+    "sha256": "2987ec2212d03f3c7b7ff1c9a4a73371fdad78e32407540a7b96fcc31822f6b6"
+  },
+  {
+    "path": "tabs/before/saturated/07-rail-help.png",
+    "sha256": "3772786bbba8ba8f7d03d7ed10bb8a9eeafdc223646deff240e88c4148d918ea"
+  },
+  {
+    "path": "tabs/before/saturated/02-scope-apps.png",
+    "sha256": "39a9d16c5697967e93d6eaeefea26b257012f98be81f4fb28fcd8909ab5629e2"
+  },
+  {
+    "path": "tabs/before/saturated/03-scope-windows.png",
+    "sha256": "065dfed8e1fda8c8c34a72463a639efd8abae0d7921c0912090f6ccc746e49ef"
+  },
+  {
+    "path": "tabs/before/insane/08-terminal-with-shell.png",
+    "sha256": "621585c928b3b343b0eebca4fea8c2107d318c7692f6905051107869c142c5dd"
+  },
+  {
+    "path": "tabs/before/insane/01-command-all.png",
+    "sha256": "c2e9aabffc27d0d97af8a7b73faba77f1546a15e1a7e96d0d091c776ebdf9938"
+  },
+  {
+    "path": "tabs/before/insane/05-rail-systems.png",
+    "sha256": "74d3f616929dc7c4f25593eb6b96ac3d348bb750bb3406a364a2f5883c8f61a5"
+  },
+  {
+    "path": "tabs/before/insane/06-rail-settings.png",
+    "sha256": "0e899eac28b2056eaf0164fbacebc6506bbb6c244624e97b1fc739f03a8167b2"
+  },
+  {
+    "path": "tabs/before/insane/04-scope-back.png",
+    "sha256": "bb82d3639d90438e81f5927ddf762d5c2a9616a97ad6beac117b752622429234"
+  },
+  {
+    "path": "tabs/before/insane/07-rail-help.png",
+    "sha256": "7188b8da590430e21b703bba51f25398ff6eaa5dac7b5f69c94f391fb6149deb"
+  },
+  {
+    "path": "tabs/before/insane/02-scope-apps.png",
+    "sha256": "1ad408025e9d83e3a7e885e4174b98a0be619664354adbe04e008cea34076360"
+  },
+  {
+    "path": "tabs/before/insane/03-scope-windows.png",
+    "sha256": "3baa7d9cd1b4d644baf0a2d5054c73675ddbb7f436c08aa53fa1040dd459ee88"
+  },
+  {
+    "path": "compact/saturated/02-compact-choices.png",
+    "sha256": "216c48069da306b086717fd055df146aaeb136cccc5b3cd9f5aa232ea716902c"
+  },
+  {
+    "path": "compact/saturated/05-compact-description.png",
+    "sha256": "e873ede3fc685e37706620ead92e07d467572a15decc69de367f4edef6d8e402"
+  },
+  {
+    "path": "compact/saturated/01-compact.png",
+    "sha256": "f64057eb284395c12828e3ebcd87b3bed3cb5985d00cece4297585857a885fd8"
+  },
+  {
+    "path": "compact/saturated/04-compact-draft.png",
+    "sha256": "af7dc46c4b5e3b63da810c40f7fac541ed0c358894d711efd8fc73bf933078e3"
+  },
+  {
+    "path": "compact/saturated/06-compact-last.png",
+    "sha256": "15bce605fb6d7f953ac7763a0ca8c1b985a6cd775c2cd8316a830ead1e75ba97"
+  },
+  {
+    "path": "compact/saturated/03-compact-range.png",
+    "sha256": "562de0c64364259738f0698ccf4daa374f6321b52fa2291b7f9960565c9fc7f7"
+  },
+  {
+    "path": "compact/insane/02-compact-choices.png",
+    "sha256": "d8d3b5f6ef96e9bc51178d25bcf0220d4c6572bdb36bacf20325f40668b1ae72"
+  },
+  {
+    "path": "compact/insane/05-compact-description.png",
+    "sha256": "a29387262c2dabf388213b9d3bf36c1d846bfe7679b7484eabec18b52a561aa6"
+  },
+  {
+    "path": "compact/insane/01-compact.png",
+    "sha256": "420a8ca12497f6a4b3545f57e946690463d13b5613de2b7b2a046c3f95a4ed83"
+  },
+  {
+    "path": "compact/insane/04-compact-draft.png",
+    "sha256": "88e959223d6e177b98b1924fec07b0bf56b29608348669ae11ce984a67cba24b"
+  },
+  {
+    "path": "compact/insane/06-compact-last.png",
+    "sha256": "6e5f86d6ef8d4ad3537b86cb172c847254359fa00072a00134d11fcf7bc205cd"
+  },
+  {
+    "path": "compact/insane/03-compact-range.png",
+    "sha256": "b6d8aa0263774ac847ff4fb1e018463b0b46f0ec9a153d1defdd8cb4fcb2a96e"
+  },
+  {
+    "path": "views/lock/saturated-literal.png",
+    "sha256": "e8ef9ee40751474e8f477dae0ec1544445e8563dee05eaa54531f15050892cbd"
+  },
+  {
+    "path": "views/lock/insane-literal.png",
+    "sha256": "54312b81359a101b1578d9ac8efef8e7a68744cf5b1aba4b917842648d1cb933"
+  },
+  {
+    "path": "views/lock/saturated-compact-plain.png",
+    "sha256": "c428ddcef14bfc674a6199db66272a6f0254a1cccb6ba523054ee9aa5adc34e1"
+  },
+  {
+    "path": "views/lock/saturated-failed.png",
+    "sha256": "1d716caea85c94a95cfba6ecfd099c4a7e0608ddb5a225588b4a6c087fd1962a"
+  },
+  {
+    "path": "views/lock/insane-compact-plain.png",
+    "sha256": "d3f8f59e97cd6cc39768b120ac9eb2c9606c6364cbf769fc277b0a5c43a52046"
+  },
+  {
+    "path": "views/lock/insane-failed.png",
+    "sha256": "4513f9b64a702b0bc957294e99ed0ab4d8af716bbbce08f5e9bd771e2de996d5"
+  },
+  {
+    "path": "views/lock/insane-idle.png",
+    "sha256": "1aa4dd461edc62ee18bdfe590a706eb0b406e0716b8e4f4d34e4e4cab52fbe9e"
+  },
+  {
+    "path": "views/lock/saturated-idle.png",
+    "sha256": "0f0eb3862648f429c54a1e0bc7e09dade62329af79ba090450bcbc9e2c6be2ac"
+  },
+  {
+    "path": "views/session/saturated-confirm-reboot.png",
+    "sha256": "b941895428f8bb3876bdd1bdcccfc84f2a6fa852b7cb6440e9bfdeef3a552d88"
+  },
+  {
+    "path": "views/session/saturated-menu.png",
+    "sha256": "922a89631fbf316e763b73375bc6fc70b89aba72e522e26de2fb6c23831a18e8"
+  },
+  {
+    "path": "views/session/insane-menu.png",
+    "sha256": "bfbf8ebfbd27c7c4970ee86ffc4cd07fe1fb23c568e8ec2d80f80c766cd305c6"
+  },
+  {
+    "path": "views/session/insane-confirm-reboot.png",
+    "sha256": "a052c17fb783f078da296448a76e432d3adeace88376128ce09afce8c209ed0f"
+  },
+  {
+    "path": "views/session/saturated-compact-plain.png",
+    "sha256": "26170d8fa5aea8b8eda23972f2d62f830c070ada6b4011a779cf1d477d1e4095"
+  },
+  {
+    "path": "views/session/insane-compact-plain.png",
+    "sha256": "142c054269ee4b089d79f2b1c22b466c5ebb3cb32264eb1ac0071dda551310a9"
+  },
+  {
+    "path": "views/session/saturated-unavailable.png",
+    "sha256": "84460287c05e69e886d44640f1febd25db415704d3e5ec8764a316ead70c5c99"
+  },
+  {
+    "path": "views/session/insane-unavailable.png",
+    "sha256": "0dfc338d62fa341650c03314cdb657d9b4dc730ea9bc40b6b6ffb6b270b33a9d"
+  },
+  {
+    "path": "views/osd/insane-unknown.png",
+    "sha256": "f9db607ed135cf783b773004ca82876196b840a3881a46d1b8feb7b86d253a94"
+  },
+  {
+    "path": "views/osd/insane-volume.png",
+    "sha256": "35fe3472d30e765a5ad36c5fa94c8f1c87395780217cd1bec9613d9a39b1d1c0"
+  },
+  {
+    "path": "views/osd/saturated-amplified.png",
+    "sha256": "7a94831512403a0b6fe2806b465e319afb8e5633e3a25207f3cb13a4d7449a78"
+  },
+  {
+    "path": "views/osd/saturated-compact-plain.png",
+    "sha256": "a7e4a4c893b9c0a2cdfdccf55bb639acfd9810262c0592ddca5c00afb008dcac"
+  },
+  {
+    "path": "views/osd/saturated-volume.png",
+    "sha256": "a7f0e1198b2d83c916090265623e5ca059a406c3e2ac5a3103574dda3e25501e"
+  },
+  {
+    "path": "views/osd/saturated-unknown.png",
+    "sha256": "f98c28d3dc5a86ec7e887b7eaa185fa3eb9f1ea9c056bb4f3e9a768cb3321141"
+  },
+  {
+    "path": "views/osd/insane-compact-plain.png",
+    "sha256": "d48d5f9ad31090549fa95871c20b466a694c04cc50fa24375f7bd1d0e2751687"
+  },
+  {
+    "path": "views/osd/insane-amplified.png",
+    "sha256": "4ccfea7b3a738266687e539e14431652410065cb0638a3dd09c0a1dd6ccf1302"
+  }
+]

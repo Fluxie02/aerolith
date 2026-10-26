@@ -1,0 +1,32 @@
+/* Only Firefox's own start surfaces. No website selectors or bridge code. */
+@-moz-document url("about:home"), url("about:newtab") {
+  :root {
+    --newtab-background-color: #1a101d !important;
+    --newtab-background-color-secondary: #302034 !important;
+    --newtab-text-primary-color: #fcecff !important;
+    --newtab-text-secondary-color: #d1b5d5 !important;
+    --newtab-primary-action-background: #c5b9ff !important;
+    --newtab-primary-action-text-color: #1a101d !important;
+    --newtab-border-color: #68476d !important;
+    --newtab-element-hover-color: #3f2c43 !important;
+  }
+  body { background: #1a101d !important; color: #fcecff !important; }
+  .search-wrapper .search-handoff-button {
+    border: 1px solid #68476d !important;
+    border-inline-start: 3px solid #c5b9ff !important;
+    border-bottom-color: #f5abe2 !important;
+    border-radius: 0 10px 0 0 !important;
+    box-shadow: none !important;
+  }
+  .top-site-outer .tile {
+    border: 1px solid #68476d !important;
+    border-inline-start: 2px solid #c5b9ff !important;
+    border-radius: 0 10px 0 0 !important;
+    box-shadow: none !important;
+  }
+  :focus-visible { outline: 2px solid #c5b9ff !important; outline-offset: 3px !important; }
+  @media (forced-colors: active) {
+    body { background: Canvas !important; color: CanvasText !important; }
+    :focus-visible { outline-color: Highlight !important; }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "corona",
+  "name": "Corona",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#101222",
+  "surface": "#1e253c",
+  "surface2": "#2a3450",
+  "grid": "#495a7b",
+  "text": "#edf0ff",
+  "textDim": "#b6c0df",
+  "signal": "#a7bcff",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#edbaff",
+  "lower": "#1a1f34",
+  "pressed": "#35415f",
+  "ansi": {
+    "normal": [
+      "#8d95b0",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#c4d8f5",
+      "#e5c4f5",
+      "#c4f5f5",
+      "#b6c0df"
+    ],
+    "bright": [
+      "#b6c0df",
+      "#fab0b2",
+      "#c4e9d1",
+      "#fada9c",
+      "#d0dff8",
+      "#e7d1f8",
+      "#d0f4f8",
+      "#edf0ff"
+    ]
+  }
+}

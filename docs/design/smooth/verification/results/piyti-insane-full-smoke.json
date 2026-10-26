@@ -1,0 +1,17 @@
+{
+  "name": "results/piyti-insane-full-smoke",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "build/ui016/verification/piyti-insane-full-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/final-shell",
+    "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/piyti-insane-full-smoke",
+  "started_at": "2026-10-25T03:47:10.994984+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 6.0492886720001025,
+  "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+}

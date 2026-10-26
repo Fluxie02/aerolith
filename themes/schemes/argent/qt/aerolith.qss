@@ -1,0 +1,37 @@
+/* Optional Qt Widgets shape layer for Fusion + aerolith.conf.
+ * Select in qt5ct/qt6ct Style Sheets. Palette colours, no Kvantum.
+ * Window clipping remains the compositor's job. No global QWidget reset. */
+QPushButton, QLineEdit {
+    border: 2px solid palette(mid);
+    border-radius: 10px;
+    background-color: palette(button);
+    min-height: 1.5em;
+    padding: 5px 10px;
+}
+QLineEdit {
+    background-color: palette(base);
+    selection-background-color: palette(highlight);
+    selection-color: palette(highlighted-text);
+}
+QPushButton:hover:enabled { background-color: palette(light); }
+QPushButton:pressed, QPushButton:checked { background-color: palette(dark); }
+QPushButton:default { border-color: palette(text); }
+QPushButton:focus, QLineEdit:focus {
+    border-color: palette(highlight);
+}
+QPushButton:disabled, QLineEdit:disabled {
+    border-color: palette(mid);
+}
+/* Embedded editors belong to Fusion's compound control. Avoid a second frame
+ * inside a native spin/combo box; preserve its sizing and arrow affordances. */
+QAbstractSpinBox QLineEdit, QComboBox QLineEdit {
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    min-height: 0;
+    padding: 0;
+}
+/* Compound controls, indicators, item views, scrollbars and tool buttons keep
+ * their native Fusion geometry and focus cues. */
+/* Inherit text colours directly from QPalette. Setting QSS 'color' would
+ * regenerate PlaceholderText at half opacity in Qt's stylesheet engine. */

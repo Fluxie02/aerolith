@@ -1,0 +1,20 @@
+[
+  {
+    "command": "node tests/js/run-node.mjs",
+    "exit": 0,
+    "result": "118 passed, 0 failed",
+    "log": "node.log"
+  },
+  {
+    "command": "docker run --rm -v \"$PWD:/src:ro\" aerolith-dev bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'",
+    "exit": 0,
+    "result": "118 passed, 0 failed",
+    "log": "qt-v4.log"
+  },
+  {
+    "command": "python3 -m pytest -q tests/py",
+    "exit": 0,
+    "result": "71 passed, 1 skipped in 11.61s",
+    "log": "pytest.log"
+  }
+]

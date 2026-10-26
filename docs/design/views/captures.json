@@ -1,0 +1,1332 @@
+[
+  {
+    "path": "lock/1080p/insane-checking.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-checking",
+    "sha256": "a847b82a20dc3ebccb989984e0aece55d70c7a1b7768a1cac834e99cd6dd934b"
+  },
+  {
+    "path": "lock/1080p/insane-failed.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-failed",
+    "sha256": "eea6d9aadb9466c09c976e8d0d20bed2a30ab957156c00c908964a0d39ddd4dc"
+  },
+  {
+    "path": "lock/1080p/insane-idle.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-idle",
+    "sha256": "a7ad84c1f87c4df72450f3d847e340645ee2d9542c88c565190f352c49a49c19"
+  },
+  {
+    "path": "lock/1080p/insane-literal.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-literal",
+    "sha256": "cd4c4980b217176526a0c93b76128d9ccc7ba2da04f3a9a95e4a3f83a7560bbf"
+  },
+  {
+    "path": "lock/1080p/insane-locked-out.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-locked-out",
+    "sha256": "45e3b52c1921744c84006c324a917bab42576ec07f9a8813bae92051ffe76d6e"
+  },
+  {
+    "path": "lock/1080p/insane-low-effects.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-low-effects",
+    "sha256": "53ea4ff59026af6b79d1d63e08710c760fec377f25894f4f3b96eb21655ae636"
+  },
+  {
+    "path": "lock/1080p/insane-prompt.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-prompt",
+    "sha256": "d99f27417fb4ad43e997e4a1ac8c02d7a3dcfe6f8317a249d26951af5b2167ef"
+  },
+  {
+    "path": "lock/1080p/insane-reduced.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-reduced",
+    "sha256": "22b04611cd84bebf8c41460eab31c56e411a56f6793c4071fc1253e7fdcc6e98"
+  },
+  {
+    "path": "lock/1080p/insane-scaled-literal.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-scaled-literal",
+    "sha256": "027403c03d45a04d5c73d43be29d49bd16041e4b4d1c86fd0973fa259347617d"
+  },
+  {
+    "path": "lock/1080p/insane-typing.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "insane-typing",
+    "sha256": "59f39b704a5fa54199a2c7162f2511031e23df8c4ff84ca5aa44a0b6ffe139de"
+  },
+  {
+    "path": "lock/1080p/saturated-checking.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-checking",
+    "sha256": "4e9e0138ca3106b7ac4efc6753110ec3618f7df0cd353fd6bb582f513579c5a8"
+  },
+  {
+    "path": "lock/1080p/saturated-failed.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-failed",
+    "sha256": "3ccfc36b7bed5a412b8dc3fc5f9db697777f93758dc33d20abe0eca3fca2e76c"
+  },
+  {
+    "path": "lock/1080p/saturated-idle.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-idle",
+    "sha256": "570c476e6a85ed0958e4f567a2d97a9ddf15ef98a09f56a590c8375ce7208afa"
+  },
+  {
+    "path": "lock/1080p/saturated-literal.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-literal",
+    "sha256": "73c3b28378dfaedf8404d02579f3779d4e0e6aa8e3fe74024c40720e860661e3"
+  },
+  {
+    "path": "lock/1080p/saturated-locked-out.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-locked-out",
+    "sha256": "e331714ee1cdb8bf05fa83438544821c8f1883de9e9029f20564ec07b6345192"
+  },
+  {
+    "path": "lock/1080p/saturated-low-effects.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-low-effects",
+    "sha256": "00a8c12d9717ed9fe8ef167913c1d15f780d9fc35b5a009262a7ee4a468deaf8"
+  },
+  {
+    "path": "lock/1080p/saturated-prompt.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-prompt",
+    "sha256": "2a5b7417afd9c7e348be4f26907d48a47637ab0854482d15bdc491553b825ad2"
+  },
+  {
+    "path": "lock/1080p/saturated-reduced.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-reduced",
+    "sha256": "570c476e6a85ed0958e4f567a2d97a9ddf15ef98a09f56a590c8375ce7208afa"
+  },
+  {
+    "path": "lock/1080p/saturated-scaled-literal.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-scaled-literal",
+    "sha256": "3f7d08e2a0ceb7fff6e7e4e1799b0bcab5f983c97dc64c178a180ad602322260"
+  },
+  {
+    "path": "lock/1080p/saturated-typing.png",
+    "view": "lock",
+    "resolution": "1080p",
+    "state": "saturated-typing",
+    "sha256": "0b74c9110ed267c1c4b640fab304dc1c1d1a2b39ed0d1f26c0259dadc732a608"
+  },
+  {
+    "path": "lock/720p/insane-checking.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-checking",
+    "sha256": "253b8a80492d9b28bdc41c5aba8464c102ce1830d437738349a59b48f55de92f"
+  },
+  {
+    "path": "lock/720p/insane-failed.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-failed",
+    "sha256": "01f5292f5a7d6fc5052aae7c1829501465f1c546291924074e029c30e5ef7703"
+  },
+  {
+    "path": "lock/720p/insane-idle.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-idle",
+    "sha256": "f4208935342473e14bc4b0727b7bed1906b7439da3ca7470c7b1866af439fd10"
+  },
+  {
+    "path": "lock/720p/insane-literal.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-literal",
+    "sha256": "73aadf5bee47793fd018fbf64168e87bf89112cb0510d7a6f64ea822230e0326"
+  },
+  {
+    "path": "lock/720p/insane-locked-out.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-locked-out",
+    "sha256": "765d24dd0abbd990b6c57f8be0503922d7a2a24fab4e7702d73f4831815ab045"
+  },
+  {
+    "path": "lock/720p/insane-low-effects.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-low-effects",
+    "sha256": "7b37fc4caea26e340008316f183981f3caa4c6ee2de47e7e12f40dba756ef56a"
+  },
+  {
+    "path": "lock/720p/insane-prompt.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-prompt",
+    "sha256": "7fdb8da6ecebe57651f3548657cfcc1551e91abf85f205b14b182751efa1d334"
+  },
+  {
+    "path": "lock/720p/insane-reduced.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-reduced",
+    "sha256": "f4208935342473e14bc4b0727b7bed1906b7439da3ca7470c7b1866af439fd10"
+  },
+  {
+    "path": "lock/720p/insane-scaled-literal.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-scaled-literal",
+    "sha256": "d1ce2e0e501431aab11892ad41ea6c1be950351d51c9aa9280486f6e701fc063"
+  },
+  {
+    "path": "lock/720p/insane-typing.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "insane-typing",
+    "sha256": "957462c196933641c44ee6c08240dc2381b796fab78225cbdaa466981510d452"
+  },
+  {
+    "path": "lock/720p/saturated-checking.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-checking",
+    "sha256": "2dcaaf18b77f8af105f77d81f2fc02b0db9c3a374cb7ed56960ebcf2cd34124a"
+  },
+  {
+    "path": "lock/720p/saturated-failed.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-failed",
+    "sha256": "60d4594db313d3a95dbc0747321447f6fdbbd91cb7f76f22da7fbc7de16baeee"
+  },
+  {
+    "path": "lock/720p/saturated-idle.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-idle",
+    "sha256": "51ddacfd5b15562087f80790ff383ba2ae66a9579dafb0e11ef4139051e1e009"
+  },
+  {
+    "path": "lock/720p/saturated-literal.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-literal",
+    "sha256": "0af5ebebe822827b81ee72fb40d79019ed82174e60be55f5c7b2d6ffcd43c22e"
+  },
+  {
+    "path": "lock/720p/saturated-locked-out.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-locked-out",
+    "sha256": "73335e3d4c64aa60ce0f804337ed13825cb1b656fc1fa70c3f72ad89cf2bcab0"
+  },
+  {
+    "path": "lock/720p/saturated-low-effects.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-low-effects",
+    "sha256": "ea2ac3f499c11672d6af5bd78207617f3efb0afe7fe81c237bf4d53eba8eadf9"
+  },
+  {
+    "path": "lock/720p/saturated-prompt.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-prompt",
+    "sha256": "310ffc6a4a212976c42ec5504d14f63452a13f8e94bb4539ebb4cb7857de948f"
+  },
+  {
+    "path": "lock/720p/saturated-reduced.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-reduced",
+    "sha256": "8ab520f6270b96f2f222e295977a4287d8e17612ca67230081cc7e452ff1ad34"
+  },
+  {
+    "path": "lock/720p/saturated-scaled-literal.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-scaled-literal",
+    "sha256": "8b1411c5cee0640d78fffcf5bcc67f0fb254fc99056ec03c4e1adcd40338e5b2"
+  },
+  {
+    "path": "lock/720p/saturated-typing.png",
+    "view": "lock",
+    "resolution": "720p",
+    "state": "saturated-typing",
+    "sha256": "cd5c9cefcf26fac6b2faf106037f73b01f0dcb7c72882c1b432409ef6d51f4ff"
+  },
+  {
+    "path": "osd/1080p/exit-full.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "exit-full",
+    "sha256": "bd3c706badd078ffd04989486f16a23e9d3cea4512958e6df491e9e3ae4e4bfd"
+  },
+  {
+    "path": "osd/1080p/exit-off.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "exit-off",
+    "sha256": "bd3c706badd078ffd04989486f16a23e9d3cea4512958e6df491e9e3ae4e4bfd"
+  },
+  {
+    "path": "osd/1080p/exit-reduced.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "exit-reduced",
+    "sha256": "bd3c706badd078ffd04989486f16a23e9d3cea4512958e6df491e9e3ae4e4bfd"
+  },
+  {
+    "path": "osd/1080p/insane-amplified.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-amplified",
+    "sha256": "ac4e0ea68dfc41e23ee67b88020f738d5932d5db75e36ebf47d22a916903b4e0"
+  },
+  {
+    "path": "osd/1080p/insane-brightness-unknown.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-brightness-unknown",
+    "sha256": "6787927283c251778be0cf26cb390a18e132c559c31f6e223f70b2ae0ff8db5e"
+  },
+  {
+    "path": "osd/1080p/insane-brightness.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-brightness",
+    "sha256": "d4e26e497c0da38923989fcdd42f4f45cc1a5d84a6a610aa6dc03d4273dac7d7"
+  },
+  {
+    "path": "osd/1080p/insane-clamped.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-clamped",
+    "sha256": "f594bda6a06c72eec205cf413eef9cf9a5aa9efc840c41a8eff595615d87b6b8"
+  },
+  {
+    "path": "osd/1080p/insane-literal.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-literal",
+    "sha256": "8c73891a44873c272c2d0733e174fd363877388802df0210367f4cc9a226b75a"
+  },
+  {
+    "path": "osd/1080p/insane-low-effects.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-low-effects",
+    "sha256": "4fd2790625c36b7f0a4567837f5a734e3aa66f76bb63051931508af455ebd45d"
+  },
+  {
+    "path": "osd/1080p/insane-maximum.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-maximum",
+    "sha256": "c7680c6e7e920822284ccc32f366a014ebb33cfda7677c9afbe1914391c5ca69"
+  },
+  {
+    "path": "osd/1080p/insane-mic-muted.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-mic-muted",
+    "sha256": "87b0e8f77e2f92de715c0de36de72beb530067e4c864c11cf6b965a407056193"
+  },
+  {
+    "path": "osd/1080p/insane-mic-unknown.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-mic-unknown",
+    "sha256": "baee1eafd5b8669344b51e466a67f07e691bd548cd61d94c11d3b9de5d75083a"
+  },
+  {
+    "path": "osd/1080p/insane-mic.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-mic",
+    "sha256": "e68fb8b00a8b0eec6b0b90895cadc451857586f6add7da8ef076b22bf83b4ed0"
+  },
+  {
+    "path": "osd/1080p/insane-muted.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-muted",
+    "sha256": "8fad0edc899cf649aab3cf1eb25396f3ebe091fa8048cac7e138917e361189c1"
+  },
+  {
+    "path": "osd/1080p/insane-reduced.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-reduced",
+    "sha256": "0144776c0877e35e8fdef76f45381a5b592293f5ff2b6a15d54709b3a976604b"
+  },
+  {
+    "path": "osd/1080p/insane-scaled-literal.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-scaled-literal",
+    "sha256": "796896d7bb11523a90a3cac6938a56077234f158df488a752ce92185bbafd397"
+  },
+  {
+    "path": "osd/1080p/insane-unknown-muted.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-unknown-muted",
+    "sha256": "033fa982ec011150f0b7fca2251e48fbda6aa6a134790e10755ac5981b88f77f"
+  },
+  {
+    "path": "osd/1080p/insane-unknown.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-unknown",
+    "sha256": "779c28c6cbba758b1163d5caf3ab33c9d28abc6382c219b39fca555b65b07f97"
+  },
+  {
+    "path": "osd/1080p/insane-volume.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-volume",
+    "sha256": "0144776c0877e35e8fdef76f45381a5b592293f5ff2b6a15d54709b3a976604b"
+  },
+  {
+    "path": "osd/1080p/insane-zero.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "insane-zero",
+    "sha256": "cdbba7009a5c6adeb33a2cfa6bfab129b47124382724c6a4a4dd55b1260855b9"
+  },
+  {
+    "path": "osd/1080p/saturated-amplified.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-amplified",
+    "sha256": "707f0b265c4338917558573ecf108772791baad8ee5ff92ea7df2709757deb2d"
+  },
+  {
+    "path": "osd/1080p/saturated-brightness-unknown.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-brightness-unknown",
+    "sha256": "1edd4fbb0712ec73cb23b1dc8961368ec0fd6107f9f5da5ed56b5397c61b360d"
+  },
+  {
+    "path": "osd/1080p/saturated-brightness.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-brightness",
+    "sha256": "fce9afd08e2ab280202e5bb698481c8f11747657b4e7b477196b61a297a92b8a"
+  },
+  {
+    "path": "osd/1080p/saturated-clamped.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-clamped",
+    "sha256": "61bc067cb8376c094363ef73b0642c120b44f3739d97e0c5f62c5f8d22a5da7c"
+  },
+  {
+    "path": "osd/1080p/saturated-literal.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-literal",
+    "sha256": "4c79a72f6de4acc334f74c8137693db14411615308c2ce3fa80bcc39dbb2c205"
+  },
+  {
+    "path": "osd/1080p/saturated-low-effects.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-low-effects",
+    "sha256": "2b9f6e4dc7faa9065ecc37bde84e05caf73711d3c7ed18e76be76ca2613b86c6"
+  },
+  {
+    "path": "osd/1080p/saturated-maximum.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-maximum",
+    "sha256": "f4e547ec27adbf082c23ae5434bd4a8edcb4573f1bff6e4660dedb8ea79d12a1"
+  },
+  {
+    "path": "osd/1080p/saturated-mic-muted.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-mic-muted",
+    "sha256": "85e05f96c26c70a36abd13173dd1fd7dc8ccf2527dcdfbc7ad305a0c70053fd4"
+  },
+  {
+    "path": "osd/1080p/saturated-mic-unknown.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-mic-unknown",
+    "sha256": "c42343b2d0fe488165615d2cb261a8464cb77c5eae2a170b42607999cdc80269"
+  },
+  {
+    "path": "osd/1080p/saturated-mic.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-mic",
+    "sha256": "9c43d438fe082a82d344c1d0a74c08c74c872e0206b10151020c612c274f40e6"
+  },
+  {
+    "path": "osd/1080p/saturated-muted.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-muted",
+    "sha256": "f8ab6deee5cf81e50713d9201e67569fbdb5b636621eb8f1f3ccb31a32c5a677"
+  },
+  {
+    "path": "osd/1080p/saturated-reduced.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-reduced",
+    "sha256": "297fef3e054aef792289754054aa097ed275cc1fab50f110a6e4fc243f91eef1"
+  },
+  {
+    "path": "osd/1080p/saturated-scaled-literal.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-scaled-literal",
+    "sha256": "f3cf80890ef551bbe482b5ebfa1df0fb151bc64d638cf36e1d6c046fc1abd88c"
+  },
+  {
+    "path": "osd/1080p/saturated-unknown-muted.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-unknown-muted",
+    "sha256": "3f7b08d66285760b6870d7d5fc4ed956d844e212d2691d0ea2286da30d92f8b2"
+  },
+  {
+    "path": "osd/1080p/saturated-unknown.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-unknown",
+    "sha256": "db94454639477394ae96acd28aabdd4f75433f9f351e6ecbcc4f871c2cc1054d"
+  },
+  {
+    "path": "osd/1080p/saturated-volume.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-volume",
+    "sha256": "297fef3e054aef792289754054aa097ed275cc1fab50f110a6e4fc243f91eef1"
+  },
+  {
+    "path": "osd/1080p/saturated-zero.png",
+    "view": "osd",
+    "resolution": "1080p",
+    "state": "saturated-zero",
+    "sha256": "aeb9908c532662d58ac3e62efc4db779e519ff7dd2e9a603c596bb474b9be971"
+  },
+  {
+    "path": "osd/720p/exit-full.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "exit-full",
+    "sha256": "cfbb701652f9ab6ac848bef79b118172330d4b37dbc82fbe58542647d612f041"
+  },
+  {
+    "path": "osd/720p/exit-off.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "exit-off",
+    "sha256": "cfbb701652f9ab6ac848bef79b118172330d4b37dbc82fbe58542647d612f041"
+  },
+  {
+    "path": "osd/720p/exit-reduced.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "exit-reduced",
+    "sha256": "cfbb701652f9ab6ac848bef79b118172330d4b37dbc82fbe58542647d612f041"
+  },
+  {
+    "path": "osd/720p/insane-amplified.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-amplified",
+    "sha256": "817779f5b5c40cf898f0532927cb63da4662591d7ab110d76d498c8399fde77b"
+  },
+  {
+    "path": "osd/720p/insane-brightness-unknown.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-brightness-unknown",
+    "sha256": "eab3716d6e8c9bb61e50400a8f91772aeb909b79f3bb39454b6c120273f39327"
+  },
+  {
+    "path": "osd/720p/insane-brightness.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-brightness",
+    "sha256": "d4f6a21599c7961b0a4c5ef7139f7b2834212c542c2b135c2f3d2f4d03060c48"
+  },
+  {
+    "path": "osd/720p/insane-clamped.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-clamped",
+    "sha256": "6efa29f28b3a8321ffe93574c0487dbbc662afda1a6a177537cfdd5f6bb305da"
+  },
+  {
+    "path": "osd/720p/insane-literal.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-literal",
+    "sha256": "102b44386fd7ed6cedbe7621ae9f15016cfe2b11e729a146b2687355f149b277"
+  },
+  {
+    "path": "osd/720p/insane-low-effects.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-low-effects",
+    "sha256": "a32a969dfd8bc14531715ea32ab43a2a5a24787e0253c9485a8129bb2ba17caf"
+  },
+  {
+    "path": "osd/720p/insane-maximum.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-maximum",
+    "sha256": "885e4d146f8b58351f22089ef51e2c44b06f62f65a19cbf04c1fb8bf53b1a334"
+  },
+  {
+    "path": "osd/720p/insane-mic-muted.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-mic-muted",
+    "sha256": "2c6884471dd15747e639949974e5eee5605966fdb9cd2f9eee252064dc72c7d4"
+  },
+  {
+    "path": "osd/720p/insane-mic-unknown.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-mic-unknown",
+    "sha256": "8f3626e3a208ed9b683fe443acb8ff1ba6ee9286ef475d5b9567d7d5972ea403"
+  },
+  {
+    "path": "osd/720p/insane-mic.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-mic",
+    "sha256": "7bd75ca97a3540d796f80b1f4d02a556bbd0f27e6661eded22f91f428e3d3811"
+  },
+  {
+    "path": "osd/720p/insane-muted.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-muted",
+    "sha256": "eebb6d52f2d8410b6d0fe94e4cbb29b0cfaddd7ce5d1a48a6f1c64c0b5955961"
+  },
+  {
+    "path": "osd/720p/insane-reduced.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-reduced",
+    "sha256": "18e0f123b9188e242373ac51ba57fe93da3851475fd17ea7739aee9f684d14c8"
+  },
+  {
+    "path": "osd/720p/insane-scaled-literal.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-scaled-literal",
+    "sha256": "fcd320fc7dca0401f84db6a058c6c652570436df2355699a437a23b89c8fa6ee"
+  },
+  {
+    "path": "osd/720p/insane-unknown-muted.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-unknown-muted",
+    "sha256": "503da6cf3135d840d402f469ca802f688b1f34c21acbfc7e85f5d147a39c9766"
+  },
+  {
+    "path": "osd/720p/insane-unknown.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-unknown",
+    "sha256": "c90d9b83107ff6c8ec87ad7b20ebc7cfc39d64d4ca20cd991ddf3fc52d3022f0"
+  },
+  {
+    "path": "osd/720p/insane-volume.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-volume",
+    "sha256": "18e0f123b9188e242373ac51ba57fe93da3851475fd17ea7739aee9f684d14c8"
+  },
+  {
+    "path": "osd/720p/insane-zero.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "insane-zero",
+    "sha256": "fc5b62cc11120172c93da516ce0e457624e7f4373ae823dc0eb8a950efaca6b4"
+  },
+  {
+    "path": "osd/720p/saturated-amplified.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-amplified",
+    "sha256": "7f5d55d721681642f4d17ff973eaa81ca39bb4788fa2e8b2376ea2d16bc36633"
+  },
+  {
+    "path": "osd/720p/saturated-brightness-unknown.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-brightness-unknown",
+    "sha256": "79a437780f825ba44e667b3a9bc169d434037c33a5d305d061d66f2f3dd1fd21"
+  },
+  {
+    "path": "osd/720p/saturated-brightness.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-brightness",
+    "sha256": "4ccd0e58d04b81eb7532a24a2786fc7724588a378945d6f215f026a84a640a9a"
+  },
+  {
+    "path": "osd/720p/saturated-clamped.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-clamped",
+    "sha256": "ceadab1546c4a597dac67f602b7772948f9b7d9ae315694ef4914c1b0f0f3c9f"
+  },
+  {
+    "path": "osd/720p/saturated-literal.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-literal",
+    "sha256": "032ae0175fd0e57239410c50f7739643281e8ccb9321d2a65e6abab2a6c04f7d"
+  },
+  {
+    "path": "osd/720p/saturated-low-effects.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-low-effects",
+    "sha256": "f2bd078abf448b70705a7254e9ba101e5125be87396220156de44596d00d6b93"
+  },
+  {
+    "path": "osd/720p/saturated-maximum.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-maximum",
+    "sha256": "c757662ea263ab79eecfabc19d49cea385c70b3c635ae342efa60f50ed54e67b"
+  },
+  {
+    "path": "osd/720p/saturated-mic-muted.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-mic-muted",
+    "sha256": "dce60957395e1a48f02e1f56192a898a681d644938ba0d420f47aad7b5bd522a"
+  },
+  {
+    "path": "osd/720p/saturated-mic-unknown.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-mic-unknown",
+    "sha256": "a0ad4c2d95426129c2f2ffb75d45cc7512e904dced9968af13524de9f9331172"
+  },
+  {
+    "path": "osd/720p/saturated-mic.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-mic",
+    "sha256": "c5e6edc8d1ab24ca595dad23896e2d8c1f5ee6ec83b7afd0975f8f9b2975a931"
+  },
+  {
+    "path": "osd/720p/saturated-muted.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-muted",
+    "sha256": "19e3703cf418a964eddd5195fa002f20cb7bcff30528466e120d0552c95ce415"
+  },
+  {
+    "path": "osd/720p/saturated-reduced.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-reduced",
+    "sha256": "55f25619ccb72b3bda9e0ad8ca7f2729d959c7569b27f651a07025474a914f32"
+  },
+  {
+    "path": "osd/720p/saturated-scaled-literal.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-scaled-literal",
+    "sha256": "708a647c416d00068984f6f8c3c7595f334cb00c66547232b88713f7abf40868"
+  },
+  {
+    "path": "osd/720p/saturated-unknown-muted.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-unknown-muted",
+    "sha256": "8119617e1b3d1c13c32f59a36e727f884a6df0921037fceda95bfe8c6e1a683c"
+  },
+  {
+    "path": "osd/720p/saturated-unknown.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-unknown",
+    "sha256": "2730b4cdf4acefa3ef8e0a6efbd4f7b5448cc368ba0351a94dffeb20aec106c6"
+  },
+  {
+    "path": "osd/720p/saturated-volume.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-volume",
+    "sha256": "55f25619ccb72b3bda9e0ad8ca7f2729d959c7569b27f651a07025474a914f32"
+  },
+  {
+    "path": "osd/720p/saturated-zero.png",
+    "view": "osd",
+    "resolution": "720p",
+    "state": "saturated-zero",
+    "sha256": "7d1126e490c382a31bb600fb332584d270ab4e6ef1e15e712500b90797621128"
+  },
+  {
+    "path": "session/1080p/insane-confirm-logout-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-logout-accept",
+    "sha256": "2efdf5b4c9ef161ad58c2110889bf22e5c05884a17b2eef288cd22d3457213fa"
+  },
+  {
+    "path": "session/1080p/insane-confirm-logout.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-logout",
+    "sha256": "f98d5e95ed0ecdda56600d6522d90879791935f06556ef7e0bc7c99deb7b47b6"
+  },
+  {
+    "path": "session/1080p/insane-confirm-reboot-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-reboot-accept",
+    "sha256": "eab4fbb38ab17c6d1e789df4f019838c79dfb2587a9a9323991bbe4a799148df"
+  },
+  {
+    "path": "session/1080p/insane-confirm-reboot.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-reboot",
+    "sha256": "2e9d4d7b40b1d13952c3418f13522be513b1b0c7d8cb90670a1fb9480426f8d8"
+  },
+  {
+    "path": "session/1080p/insane-confirm-shutdown-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-shutdown-accept",
+    "sha256": "92a995890302f6054ce07c09d66471efea7bd0bcfd2a22e904826e6f22c06fe8"
+  },
+  {
+    "path": "session/1080p/insane-confirm-shutdown.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-shutdown",
+    "sha256": "f95a38d64a9a67ce1b6babe154a3fbe0dc7a50834a065fc2fe5edef7e34ccaec"
+  },
+  {
+    "path": "session/1080p/insane-confirm-suspend-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-suspend-accept",
+    "sha256": "79546ae4bd5638c953d419b05c0384b9dee29d070100136d1ecc50830b147d3a"
+  },
+  {
+    "path": "session/1080p/insane-confirm-suspend.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-confirm-suspend",
+    "sha256": "4a013bf9cbc08c2e5962b767c4268255031508b7f91897fea77ac0c2ca1e8640"
+  },
+  {
+    "path": "session/1080p/insane-empty.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-empty",
+    "sha256": "f29e7c4d342675f8c9983624a7632d2f738487d4dbe37cebc7166507b92dd6f8"
+  },
+  {
+    "path": "session/1080p/insane-literal.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-literal",
+    "sha256": "a9cbdee97706a44f01cb0c440a84b5b31735d48eb4bc820ac397300e98e590c7"
+  },
+  {
+    "path": "session/1080p/insane-low-effects.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-low-effects",
+    "sha256": "9b7df55a7305b195e87ce123d4be47f82fdfb8b7bf948700f7cccd07dda732b3"
+  },
+  {
+    "path": "session/1080p/insane-menu.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-menu",
+    "sha256": "e5acb4fb9ac8fd4554611276a63862b58e251064fffaf306fd15fd7eb38e202b"
+  },
+  {
+    "path": "session/1080p/insane-reduced.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-reduced",
+    "sha256": "e5acb4fb9ac8fd4554611276a63862b58e251064fffaf306fd15fd7eb38e202b"
+  },
+  {
+    "path": "session/1080p/insane-scaled-literal.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-scaled-literal",
+    "sha256": "32f6fbc4d88fcebc244325697b8b4381756d3bfea97da641b51625710b982608"
+  },
+  {
+    "path": "session/1080p/insane-selected-logout.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-selected-logout",
+    "sha256": "dd4b7092720ac5dced553e12422c324ea3a57071f5687dbf64ea94cd004f8b46"
+  },
+  {
+    "path": "session/1080p/insane-selected-reboot.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-selected-reboot",
+    "sha256": "7b3efcd53da4a5b2d7e3c5c5321ef9c3e078bc9feed993b1b85bb163127043c7"
+  },
+  {
+    "path": "session/1080p/insane-selected-shutdown.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-selected-shutdown",
+    "sha256": "2a631413131fa8499198eeac33b73fd2e40bc3d0e28d4ff462476710e26512cf"
+  },
+  {
+    "path": "session/1080p/insane-selected-suspend.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-selected-suspend",
+    "sha256": "d227e2b9dddce8911bfe1c52852ca1303d65f386a2bf85e79363afd2985183b1"
+  },
+  {
+    "path": "session/1080p/insane-unavailable.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "insane-unavailable",
+    "sha256": "110e2f452652c1c5f05ae7ca84f77d24278e7f202c3641cda2fcef2136ddb730"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-logout-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-logout-accept",
+    "sha256": "71595ec60d37055c29991b063d7ec0621f2cebef1aee4693cc0dd4df7229bf2a"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-logout.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-logout",
+    "sha256": "49953ccb092572a6a92914794abfcd8265763d33cd2cb2730110a755e3fa30c4"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-reboot-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-reboot-accept",
+    "sha256": "cedfcbfc952a14fd78c1a44ebf240e424ede0de14206524d9d4d18d4cdb20bcb"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-reboot.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-reboot",
+    "sha256": "e35093fc7531c649111dc7dd209cda907cd064e4250aca296d1d2319315ee184"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-shutdown-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-shutdown-accept",
+    "sha256": "d0e672f661aa77119bf605a0bdb2076b2d8cd672e8352094e6f92cff7403b4de"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-shutdown.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-shutdown",
+    "sha256": "e64b90bc267dd2652e4bbad2915faea5976d99e2ac3a7f874468ea1ed14d2da7"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-suspend-accept.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-suspend-accept",
+    "sha256": "3c0e0a181abc5039299d3c552958eebd141194a0dd98ff1564b65fad89150bca"
+  },
+  {
+    "path": "session/1080p/saturated-confirm-suspend.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-confirm-suspend",
+    "sha256": "f352c02e3940e934df397f119002f69e2ee738f8863067486032261e4ab1e09f"
+  },
+  {
+    "path": "session/1080p/saturated-empty.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-empty",
+    "sha256": "25cb8aa070313f30ba80ba469b09ee120b37f038c8dc670e8e0c62e69b373318"
+  },
+  {
+    "path": "session/1080p/saturated-literal.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-literal",
+    "sha256": "ea2e30f40f847bfc1b6531d2da65a3afb810933732e8f68c30c109a609d39b95"
+  },
+  {
+    "path": "session/1080p/saturated-low-effects.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-low-effects",
+    "sha256": "cb65b863cfb4ade79c6a17c8ad05d565f45903d1e1faf008e38db15b597cd5cc"
+  },
+  {
+    "path": "session/1080p/saturated-menu.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-menu",
+    "sha256": "c5737002ab50aef1925ba51751e458b65c60b6ae69fa300e9b0dea4ca15e3166"
+  },
+  {
+    "path": "session/1080p/saturated-reduced.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-reduced",
+    "sha256": "c5737002ab50aef1925ba51751e458b65c60b6ae69fa300e9b0dea4ca15e3166"
+  },
+  {
+    "path": "session/1080p/saturated-scaled-literal.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-scaled-literal",
+    "sha256": "23e06cbcebb35cb9d20e48ab6f0c263d25c7633470b77bf5643c18d0271470d8"
+  },
+  {
+    "path": "session/1080p/saturated-selected-logout.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-selected-logout",
+    "sha256": "03d22e0b5b89ab6637d9991d1bb1a3c78407b190f2a457052569ffeb276847eb"
+  },
+  {
+    "path": "session/1080p/saturated-selected-reboot.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-selected-reboot",
+    "sha256": "b6b910b9caccce758116160655a8a7e7b93cb6355e197c7fa7f52aff23b01e07"
+  },
+  {
+    "path": "session/1080p/saturated-selected-shutdown.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-selected-shutdown",
+    "sha256": "4132e5f3caecbfcc9d5265ab3f6974bbd23c2f5f9f44443826c26661c5850957"
+  },
+  {
+    "path": "session/1080p/saturated-selected-suspend.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-selected-suspend",
+    "sha256": "0aceb92e86f442d9aba259cb0eee831ce559b78b6f13d26a1cc62b44aefe4abe"
+  },
+  {
+    "path": "session/1080p/saturated-unavailable.png",
+    "view": "session",
+    "resolution": "1080p",
+    "state": "saturated-unavailable",
+    "sha256": "8866e95c591e89a0d0ffc6416ac4f5d4759c0eef8deb1aba84b9f0b40e0a6a46"
+  },
+  {
+    "path": "session/720p/insane-confirm-logout-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-logout-accept",
+    "sha256": "5441a701786c4aada4ec1c7b2848a8365348d1feefd47ea2010f5d86138e683d"
+  },
+  {
+    "path": "session/720p/insane-confirm-logout.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-logout",
+    "sha256": "87a26e9d47d6a7c358a020262300342daa8b0407de742eed89480f397fffb3cb"
+  },
+  {
+    "path": "session/720p/insane-confirm-reboot-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-reboot-accept",
+    "sha256": "0ec74b123bedd72f78e8827d8a365e320f88a12b3d97450e532498a25097f605"
+  },
+  {
+    "path": "session/720p/insane-confirm-reboot.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-reboot",
+    "sha256": "7e27631c7d33d379808da13cb11a06370511c0f521163f2e8c75c685b550e6da"
+  },
+  {
+    "path": "session/720p/insane-confirm-shutdown-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-shutdown-accept",
+    "sha256": "15d1e719485a263e5d197a1fcbc488c0b0ec14ab9cf432b57ea73c54de3f3760"
+  },
+  {
+    "path": "session/720p/insane-confirm-shutdown.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-shutdown",
+    "sha256": "b9b55b2b540400afffbfb4220993cf8706297b933a3e0dd8fd1f56c9f2b9d99c"
+  },
+  {
+    "path": "session/720p/insane-confirm-suspend-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-suspend-accept",
+    "sha256": "de4b0cbec91792c441e7845d4f8472c6722320423182d9f519b2fb86ea92c575"
+  },
+  {
+    "path": "session/720p/insane-confirm-suspend.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-confirm-suspend",
+    "sha256": "fff59cf885b7fdd24b0b58d870a553ab9a60a8ed40276decc9fd37e985388b8e"
+  },
+  {
+    "path": "session/720p/insane-empty.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-empty",
+    "sha256": "75922a3649961e972f749285242d69d8194273fcdc220b63a1c86dc783c6d042"
+  },
+  {
+    "path": "session/720p/insane-literal.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-literal",
+    "sha256": "57f6fa90e8b6a3ea72c9b052a3258d5c65495c41e8233cb5f6aa493f8793470e"
+  },
+  {
+    "path": "session/720p/insane-low-effects.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-low-effects",
+    "sha256": "2164c1e3d1bbba22de8021071fdabace525bb92f109802c7387e297586f09acc"
+  },
+  {
+    "path": "session/720p/insane-menu.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-menu",
+    "sha256": "fbd57855589c6fe1ad19cf98ee3c7f1878758eea80768a79af95233839cb9619"
+  },
+  {
+    "path": "session/720p/insane-reduced.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-reduced",
+    "sha256": "fbd57855589c6fe1ad19cf98ee3c7f1878758eea80768a79af95233839cb9619"
+  },
+  {
+    "path": "session/720p/insane-scaled-literal.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-scaled-literal",
+    "sha256": "86820079474ae5dc899eab47f03485a180137128a397d5411e3334e3d2263b4b"
+  },
+  {
+    "path": "session/720p/insane-selected-logout.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-selected-logout",
+    "sha256": "e05c68cc5789ad21df2fa0aaa1c9731ee54402e13fa0f19c9af19df721eb4823"
+  },
+  {
+    "path": "session/720p/insane-selected-reboot.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-selected-reboot",
+    "sha256": "bbfe894d73fe03e64c603506e7b348196bff75d424f6dd626951ba2daee65ea5"
+  },
+  {
+    "path": "session/720p/insane-selected-shutdown.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-selected-shutdown",
+    "sha256": "f63886cc63f3e293b26ec58e81580438e2b0cbb0cbe88d50ec9058843f0c5cd8"
+  },
+  {
+    "path": "session/720p/insane-selected-suspend.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-selected-suspend",
+    "sha256": "a2aa168a16e885b770b718d521e535e14f24096a35933bdad3c4ced77e0d9b78"
+  },
+  {
+    "path": "session/720p/insane-unavailable.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "insane-unavailable",
+    "sha256": "bf7ff55db51c542e1d9c81845694889c8f0af550fb4e7fcdd28132357ac5e0bd"
+  },
+  {
+    "path": "session/720p/saturated-confirm-logout-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-logout-accept",
+    "sha256": "f5c8c8a69fa94e1ec40921f64a4d2b2c68cd9ef69842c61c14f5ac838133c1c3"
+  },
+  {
+    "path": "session/720p/saturated-confirm-logout.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-logout",
+    "sha256": "a46312e0720fe30b5ff7eb440b65efef696f34ed29439c468d976b3c20508fa1"
+  },
+  {
+    "path": "session/720p/saturated-confirm-reboot-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-reboot-accept",
+    "sha256": "220cb49c5dbd7b814c9abe7a4f7b893021fdc03e82ce229a68c8a1e92e9c5a0a"
+  },
+  {
+    "path": "session/720p/saturated-confirm-reboot.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-reboot",
+    "sha256": "87b9c2d5c772b975e6dcf7e21a359191b913d4931229ae30817114a151925d7b"
+  },
+  {
+    "path": "session/720p/saturated-confirm-shutdown-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-shutdown-accept",
+    "sha256": "af1a14e1c319f18aa296ab7939053e0924d265be0b2b7ad295fef9a41cfe8266"
+  },
+  {
+    "path": "session/720p/saturated-confirm-shutdown.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-shutdown",
+    "sha256": "6eed974e0f812e967a8f8aa8ff03f30ca4aaca05fd6e98c72b9307992ea1b2bf"
+  },
+  {
+    "path": "session/720p/saturated-confirm-suspend-accept.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-suspend-accept",
+    "sha256": "a94bd2ee60a6ea3a7df6b0b6aa1a67880495f1e8d762e2419aae24c5f39f98ec"
+  },
+  {
+    "path": "session/720p/saturated-confirm-suspend.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-confirm-suspend",
+    "sha256": "9af51936c44ed54878095ff8e2ef8b87e266ee1872f0f745a4794a281ac3dae5"
+  },
+  {
+    "path": "session/720p/saturated-empty.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-empty",
+    "sha256": "cea52c2b18d40c24e1489efc855d769d56f5074ebec761e4d6eccdbbc7f58b00"
+  },
+  {
+    "path": "session/720p/saturated-literal.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-literal",
+    "sha256": "25d7145443b20b1879840fb28ee35c2ae344775b923e10ed350dd93932716c85"
+  },
+  {
+    "path": "session/720p/saturated-low-effects.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-low-effects",
+    "sha256": "d2d58aacb75f51e3d51a30771528f0890d7dcb52a7c5ccedbadbfee3477f5499"
+  },
+  {
+    "path": "session/720p/saturated-menu.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-menu",
+    "sha256": "0cc693cd660c61e9c796d738379478d5f2ee22951733c279474529c83133ffb4"
+  },
+  {
+    "path": "session/720p/saturated-reduced.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-reduced",
+    "sha256": "0cc693cd660c61e9c796d738379478d5f2ee22951733c279474529c83133ffb4"
+  },
+  {
+    "path": "session/720p/saturated-scaled-literal.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-scaled-literal",
+    "sha256": "3f63c8fc539048ada7352687a5384c8e53c8a541ad34f3fa8317792883781653"
+  },
+  {
+    "path": "session/720p/saturated-selected-logout.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-selected-logout",
+    "sha256": "0c6efdbb7d3cb1674f19ca52c14fa4bf48f7e6082a5f2ffca3d351ef22f6bfce"
+  },
+  {
+    "path": "session/720p/saturated-selected-reboot.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-selected-reboot",
+    "sha256": "e5a52fd3dcfd6a913e2eef6462fde50858717603736a39e20324b3ed087ba7b7"
+  },
+  {
+    "path": "session/720p/saturated-selected-shutdown.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-selected-shutdown",
+    "sha256": "2c06f89799a07cff23db62ce878a5405704c196c68d1ecbead3b799734a1e570"
+  },
+  {
+    "path": "session/720p/saturated-selected-suspend.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-selected-suspend",
+    "sha256": "8feca0a82e85c8a5664050e2def5922ee29b8a138be6ec356306168f4c11d4ca"
+  },
+  {
+    "path": "session/720p/saturated-unavailable.png",
+    "view": "session",
+    "resolution": "720p",
+    "state": "saturated-unavailable",
+    "sha256": "2c66c48a27d2c32a1d28b94455b7115d47ca84b527f25c7a19872eb285e86adc"
+  }
+]

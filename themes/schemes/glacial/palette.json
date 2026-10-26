@@ -1,0 +1,40 @@
+{
+  "id": "glacial",
+  "name": "Glacial",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#0d1620",
+  "surface": "#1b2b39",
+  "surface2": "#273b4b",
+  "grid": "#425f73",
+  "text": "#e9f5ff",
+  "textDim": "#b1c9db",
+  "signal": "#9be1f2",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#c1caff",
+  "lower": "#172532",
+  "pressed": "#304859",
+  "ansi": {
+    "normal": [
+      "#889cac",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#cadcf6",
+      "#e7caf6",
+      "#caf6f6",
+      "#b1c9db"
+    ],
+    "bright": [
+      "#b1c9db",
+      "#f8b2b2",
+      "#c3ebd1",
+      "#f8db9c",
+      "#d3e4f9",
+      "#e8d7f9",
+      "#d3f6f9",
+      "#e9f5ff"
+    ]
+  }
+}

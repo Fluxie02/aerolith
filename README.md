@@ -1,5 +1,90 @@
 # aerolith
 
+AEROLITH is a desktop shell for Hyprland on Arch Linux, built with
+Quickshell: top bar, desktop, command overlay, window overview, system
+monitor, notifications, lock screen and app theming in one design.
+
+**Status: 0.1.0 alpha 1.** Usable day to day, with known gaps; the design is
+still being reworked. Start with **[docs/ALPHA.md](docs/ALPHA.md)**:
+requirements, install, update, known issues and how to report problems.
+
+```bash
+git clone https://github.com/Fluxie02/aerolith.git ~/aerolith
+cd ~/aerolith && ./install.sh
+```
+
+## Installer
+
+Run `./install.sh` interactively, or choose the integrations explicitly:
+
+```bash
+./install.sh --yes --ai none --startup manual --direction piyti --intensity insane --scheme iris
+aerolith install --yes --ai none --startup manual --direction thears --dry-run
+aerolith status --json
+```
+
+The installer asks for the application direction once: **PIYTI** (default,
+app windows become part of the shell instrument; the forward design) or
+**THEARS** (apps take on SHEAR's look; maintained). Non-interactive installs
+default to PIYTI. Reinstall/upgrade keeps the existing choice unless you pass
+`--direction piyti|thears`; restart the shell to apply an intentional change.
+There is no direction control in Settings.
+
+Fresh interactive installs also offer **Saturated** (default, standard
+information density) or **Insane** (even denser), then the 12 Spectra scheme
+names from the generated catalog, with **Limb** as default. Use
+`--intensity saturated|insane` and `--scheme <id>` to choose explicitly.
+Reinstalls, non-interactive installs and `--yes` keep existing values; absent
+values use the schema defaults, Saturated/Limb. These are ordinary live
+`theme.intensity` and `theme.scheme` settings in `config.json`, separate from
+installation metadata. Writes preserve other keys and refuse malformed JSON.
+Settings and the CLI can change them while the shell runs:
+
+```bash
+aerolith intensity                 # show current value
+aerolith intensity insane --dry-run
+aerolith intensity insane
+aerolith scheme                    # show current ID
+aerolith scheme iris --dry-run
+aerolith scheme iris
+```
+
+The installation-owned `$XDG_CONFIG_HOME/aerolith/installation.json` (normally
+`~/.config/aerolith/installation.json`) holds `{"direction":"piyti"}` separately
+from the live Settings schema. Writes preserve unrelated keys and refuse broken
+JSON. `aerolith status` and `status --json` show the stored direction; shell IPC
+status shows the running direction. Missing/invalid values fall back to PIYTI
+in the shell, with a warning for invalid metadata. Uninstall keeps configuration
+for a later reinstall by default; `aerolith uninstall --remove-config` also
+removes this file, with the same modified-file protection as other owned files
+(`--force` removes modified owned files).
+
+Application themes are a separate opt-in. The interactive installer starts
+with nothing selected; non-interactive installs and `--yes` apply none unless
+you pass `--themes kitty,foot,hyprland`. `--no-themes` skips the prompt and
+keeps previously deployed themes. No third-party modification system is installed.
+
+```bash
+aerolith themes list
+aerolith themes apply kitty foot hyprland --scheme bathyal --dry-run
+aerolith themes apply kitty foot hyprland
+aerolith themes status --json
+aerolith themes remove kitty foot hyprland
+```
+
+Exports use the installed direction and `config.json`'s `theme.scheme`
+(default `limb`); `themes apply --scheme` affects only that deployment.
+The installer's selected scheme is saved before exports deploy.
+`aerolith scheme` refreshes previously opted-in app themes through C06;
+Settings changes use the existing shell refresh service. Only opted-in apps
+are refreshed, and modified payloads are kept and reported. If refresh fails,
+the live shell scheme stays saved; resolve the reported app conflict and retry
+`aerolith themes refresh`. Includes are backed up and
+tracked separately in the ownership manifest. Removing themes, or a full
+uninstall, removes their blocks while retaining other user edits and modified
+theme files. btop and Qt exports need manual selection in the application.
+See [per-app mechanisms and limits](themes/README.md#installer-deployment-c05).
+
 ## Claude Code + Codex sync
 
 Claude Code and Codex coordinate their work in this repository through a shared

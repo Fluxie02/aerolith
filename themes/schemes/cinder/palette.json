@@ -1,0 +1,40 @@
+{
+  "id": "cinder",
+  "name": "Cinder",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#1a1210",
+  "surface": "#30241f",
+  "surface2": "#40322b",
+  "grid": "#685144",
+  "text": "#fff0e4",
+  "textDim": "#d4baaa",
+  "signal": "#ffc08a",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#f6e2b3",
+  "lower": "#291f1b",
+  "pressed": "#4e3d34",
+  "ansi": {
+    "normal": [
+      "#a69084",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#b6cff3",
+      "#dfb6f3",
+      "#b6f3f3",
+      "#d4baaa"
+    ],
+    "bright": [
+      "#d4baaa",
+      "#ffb0aa",
+      "#cae9c9",
+      "#ffda94",
+      "#ccd9ef",
+      "#e9c7ef",
+      "#ccf2ef",
+      "#fff0e4"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "saturated-deck",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/deck.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/runs/saturated-deck"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/frozen-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/saturated-full-scale1.json",
+    "AUDIO": "1",
+    "RES": "1440x2560",
+    "SCALE": "1.5",
+    "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+  },
+  "exit_code": 1,
+  "elapsed_seconds": 20.2,
+  "stdout": "docs/design/counterphase/verification/runs/saturated-deck.stdout.txt",
+  "source_manifest_sha256": "bb90495e4f7cccefeb239b7479487cb7ddd6d3fbc9d046cca3f5e3926cb1354d"
+}

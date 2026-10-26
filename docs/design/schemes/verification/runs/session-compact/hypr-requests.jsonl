@@ -1,0 +1,10 @@
+{"t": 1792862362.559253, "kind": "event", "request": "openwindow>>5a00000001a0,1,foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792862362.5593147, "kind": "event", "request": "activewindow>>foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792862362.5593371, "kind": "event", "request": "activewindowv2>>5a00000001a0", "reply": null}
+{"t": 1792862362.5593612, "kind": "event", "request": "openwindow>>5a0000000340,2,firefox,Hyprland Wiki \u2014 Mozilla Firefox", "reply": null}
+{"t": 1792862362.5593786, "kind": "event", "request": "openwindow>>5a00000004e0,2,org.gnome.Nautilus,Downloads", "reply": null}
+{"t": 1792862362.5593927, "kind": "event", "request": "openwindow>>5a0000000680,3,Code,aerolith \u2014 Visual Studio Code", "reply": null}
+{"t": 1792862362.5594106, "kind": "event", "request": "workspace>>1", "reply": null}
+{"t": 1792862362.5594218, "kind": "event", "request": "workspacev2>>1,1", "reply": null}
+{"t": 1792862362.559433, "kind": "event", "request": "focusedmon>>DP-1,1", "reply": null}
+{"t": 1792862362.5594435, "kind": "event", "request": "focusedmonv2>>DP-1,1", "reply": null}

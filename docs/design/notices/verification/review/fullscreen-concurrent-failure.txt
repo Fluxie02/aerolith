@@ -1,0 +1,6 @@
+AUDIO=1 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/fullscreen.sh build/headless/D03-after-fullscreen
+Exit 1 during concurrent headless runs:
+FAIL: cycle 18: dismissing one id did not leave exactly one popup
+timeout: status.popups is 0, wanted 1
+
+Inference for Sol: the count check can occur after legitimate popup expiry. The isolated rerun passed; no service fix was made.

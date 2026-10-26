@@ -1,0 +1,44 @@
+{
+  "file": "piyti-saturated.mp4",
+  "bytes": 3698026,
+  "sha256": "a2032282f57a8554858504985e335861434eea860b3f1d6b2bd897d6f6a24e2e",
+  "duration": 124.906,
+  "codec": "h264",
+  "profile": "High",
+  "level": 40,
+  "pixel_format": "yuv420p",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": "30/1",
+  "faststart": true,
+  "decode_errors": 0,
+  "source_files_changed": [],
+  "qml_engine_errors": [],
+  "log_warnings": 63,
+  "raw_frames": 3742,
+  "raw_frame_span": 124.906,
+  "raw_effective_fps": 29.95052279314044,
+  "raw_median_interval": 0.03300000000000125,
+  "raw_max_interval": 0.0759999999999934,
+  "source_gaps_over_50ms": [
+    {
+      "start": 12.119,
+      "timecode": "00:12.04",
+      "duration": 0.06099999999999994
+    },
+    {
+      "start": 120.048,
+      "timecode": "02:00.01",
+      "duration": 0.0759999999999934
+    }
+  ],
+  "timing": {
+    "first_presentation_monotonic": 827.107725507,
+    "recorder_initialization_seconds": 0.06319210200001635,
+    "raw_duration": 124.906,
+    "timecode": "mm:ss.ff, frames 00..29",
+    "method": "real-time compositor PTS; fps=30 frame hold/drop only, no interpolation, no retiming"
+  }
+}

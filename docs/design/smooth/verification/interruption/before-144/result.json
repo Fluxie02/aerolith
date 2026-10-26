@@ -1,0 +1,28 @@
+{
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--cap-add=SYS_NICE",
+    "-v",
+    "/home/user/aerolith-astra:/src:ro",
+    "-v",
+    "/home/user/aerolith-astra/docs/design/smooth/verification/interruption/before-144:/out",
+    "-e",
+    "UI016_HZ=144",
+    "-e",
+    "UI016_KIND=position",
+    "-e",
+    "SHELL_PATH=build/ui016/verification/before-144-interruption-shell",
+    "-e",
+    "RES=1920x1080@144Hz",
+    "-e",
+    "UI016_CONFIG=/src/build/ui016/verification/before-144-interruption.json",
+    "aerolith-dev",
+    "bash",
+    "-c",
+    "set -e\nid pilot >/dev/null 2>&1 || useradd -m -u 1000 pilot\nmkdir -p /run/user/1000 /home/pilot/.config/aerolith\nchown pilot /run/user/1000; chmod 700 /run/user/1000\ncp \"$UI016_CONFIG\" /home/pilot/.config/aerolith/config.json\nchown -R pilot /home/pilot\nexec su pilot -c \"bash /src/build/ui016/session.sh /src/docs/design/smooth/verification/scripts/interruption-scenario.sh\""
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 13.844730655000149
+}

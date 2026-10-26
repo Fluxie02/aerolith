@@ -1,0 +1,191 @@
+[
+  {
+    "repeat": 0,
+    "target_after_ipc_return_ms": 0,
+    "file": "position-0-0.png",
+    "ipc_call_ms": 50.875100999974165,
+    "capture_start_after_ipc_return_ms": 0.11002199994436523,
+    "capture_end_after_ipc_return_ms": 16.350355999975363,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 0,
+    "target_after_ipc_return_ms": 40.0,
+    "file": "position-0-1.png",
+    "ipc_call_ms": 50.875100999974165,
+    "capture_start_after_ipc_return_ms": 40.15828599995075,
+    "capture_end_after_ipc_return_ms": 52.43995899991205,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 0,
+    "target_after_ipc_return_ms": 80.0,
+    "file": "position-0-2.png",
+    "ipc_call_ms": 50.875100999974165,
+    "capture_start_after_ipc_return_ms": 80.15701299996181,
+    "capture_end_after_ipc_return_ms": 101.30280399994263,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 0,
+    "target_after_ipc_return_ms": 120.0,
+    "file": "position-0-3.png",
+    "ipc_call_ms": 50.875100999974165,
+    "capture_start_after_ipc_return_ms": 120.22768699989683,
+    "capture_end_after_ipc_return_ms": 131.90148799981216,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 0,
+    "target_after_ipc_return_ms": 160.0,
+    "file": "position-0-4.png",
+    "ipc_call_ms": 50.875100999974165,
+    "capture_start_after_ipc_return_ms": 160.13375599982282,
+    "capture_end_after_ipc_return_ms": 179.39889399985987,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 0,
+    "target_after_ipc_return_ms": 200.0,
+    "file": "position-0-5.png",
+    "ipc_call_ms": 50.875100999974165,
+    "capture_start_after_ipc_return_ms": 200.17527200002405,
+    "capture_end_after_ipc_return_ms": 215.84680099999787,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 0,
+    "target_after_ipc_return_ms": 240.0,
+    "file": "position-0-6.png",
+    "ipc_call_ms": 50.875100999974165,
+    "capture_start_after_ipc_return_ms": 240.11043699988477,
+    "capture_end_after_ipc_return_ms": 248.94769899992752,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 1,
+    "target_after_ipc_return_ms": 0,
+    "file": "position-1-0.png",
+    "ipc_call_ms": 48.445555999933276,
+    "capture_start_after_ipc_return_ms": 0.09082900010071171,
+    "capture_end_after_ipc_return_ms": 9.319418000131918,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 1,
+    "target_after_ipc_return_ms": 40.0,
+    "file": "position-1-1.png",
+    "ipc_call_ms": 48.445555999933276,
+    "capture_start_after_ipc_return_ms": 40.121045999967464,
+    "capture_end_after_ipc_return_ms": 49.881499000093754,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 1,
+    "target_after_ipc_return_ms": 80.0,
+    "file": "position-1-2.png",
+    "ipc_call_ms": 48.445555999933276,
+    "capture_start_after_ipc_return_ms": 80.14975300011429,
+    "capture_end_after_ipc_return_ms": 94.04200099993432,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 1,
+    "target_after_ipc_return_ms": 120.0,
+    "file": "position-1-3.png",
+    "ipc_call_ms": 48.445555999933276,
+    "capture_start_after_ipc_return_ms": 120.15030299994578,
+    "capture_end_after_ipc_return_ms": 130.17174900005557,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 1,
+    "target_after_ipc_return_ms": 160.0,
+    "file": "position-1-4.png",
+    "ipc_call_ms": 48.445555999933276,
+    "capture_start_after_ipc_return_ms": 160.18772500001432,
+    "capture_end_after_ipc_return_ms": 176.1177159999079,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 1,
+    "target_after_ipc_return_ms": 200.0,
+    "file": "position-1-5.png",
+    "ipc_call_ms": 48.445555999933276,
+    "capture_start_after_ipc_return_ms": 200.1562529999319,
+    "capture_end_after_ipc_return_ms": 212.78853600006187,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 1,
+    "target_after_ipc_return_ms": 240.0,
+    "file": "position-1-6.png",
+    "ipc_call_ms": 48.445555999933276,
+    "capture_start_after_ipc_return_ms": 240.20066499997483,
+    "capture_end_after_ipc_return_ms": 258.9932129999397,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 2,
+    "target_after_ipc_return_ms": 0,
+    "file": "position-2-0.png",
+    "ipc_call_ms": 61.48406600004819,
+    "capture_start_after_ipc_return_ms": 0.09290200000577897,
+    "capture_end_after_ipc_return_ms": 9.394425999971645,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 2,
+    "target_after_ipc_return_ms": 40.0,
+    "file": "position-2-1.png",
+    "ipc_call_ms": 61.48406600004819,
+    "capture_start_after_ipc_return_ms": 40.15442799982338,
+    "capture_end_after_ipc_return_ms": 51.724318999958996,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 2,
+    "target_after_ipc_return_ms": 80.0,
+    "file": "position-2-2.png",
+    "ipc_call_ms": 61.48406600004819,
+    "capture_start_after_ipc_return_ms": 80.17867299986392,
+    "capture_end_after_ipc_return_ms": 103.06581899999401,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 2,
+    "target_after_ipc_return_ms": 120.0,
+    "file": "position-2-3.png",
+    "ipc_call_ms": 61.48406600004819,
+    "capture_start_after_ipc_return_ms": 120.13772499994957,
+    "capture_end_after_ipc_return_ms": 138.9596189999338,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 2,
+    "target_after_ipc_return_ms": 160.0,
+    "file": "position-2-4.png",
+    "ipc_call_ms": 61.48406600004819,
+    "capture_start_after_ipc_return_ms": 160.11032699998395,
+    "capture_end_after_ipc_return_ms": 172.83032699992873,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 2,
+    "target_after_ipc_return_ms": 200.0,
+    "file": "position-2-5.png",
+    "ipc_call_ms": 61.48406600004819,
+    "capture_start_after_ipc_return_ms": 200.22890599989296,
+    "capture_end_after_ipc_return_ms": 212.90443499992762,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  },
+  {
+    "repeat": 2,
+    "target_after_ipc_return_ms": 240.0,
+    "file": "position-2-6.png",
+    "ipc_call_ms": 61.48406600004819,
+    "capture_start_after_ipc_return_ms": 240.12209799980155,
+    "capture_end_after_ipc_return_ms": 257.77318199993715,
+    "method": "Actual crop; frame timestamp lies inside capture interval. Animation begins before IPC returns; call length records the upper bound on that offset."
+  }
+]

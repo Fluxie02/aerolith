@@ -1,0 +1,21 @@
+{
+  "name": "insane-full",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/full.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/runs/insane-full"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/frozen-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-full-scale1.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "AUDIO": "1",
+    "MEDIA": "1",
+    "MPV_AO": "pipewire"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 37.73,
+  "stdout": "docs/design/counterphase/verification/runs/insane-full.stdout.txt",
+  "source_manifest_sha256": "bb90495e4f7cccefeb239b7479487cb7ddd6d3fbc9d046cca3f5e3926cb1354d"
+}

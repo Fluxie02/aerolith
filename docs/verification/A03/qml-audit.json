@@ -1,0 +1,226 @@
+[
+  {
+    "run": "ai-codex-insane",
+    "lines_read": 36,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:26:13.504971] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:26:13.504985] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f2db5fec5c0 but 0x7f2db5fec5c0 has focus"
+    ]
+  },
+  {
+    "run": "ai-codex-saturated",
+    "lines_read": 36,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:26:01.337842] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:26:01.337865] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7ff056c75bc0 but 0x7ff056c75bc0 has focus"
+    ]
+  },
+  {
+    "run": "ai-insane",
+    "lines_read": 44,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:25:07.627391] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:25:07.627415] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f4253249880 but 0x7f4253249880 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f4253248800 but 0x7f4253248800 has focus"
+    ]
+  },
+  {
+    "run": "ai-saturated",
+    "lines_read": 44,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:24:47.330255] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:24:47.330268] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7ff3df884220 but 0x7ff3df884220 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7ff3db36e860 but 0x7ff3db36e860 has focus"
+    ]
+  },
+  {
+    "run": "deck-insane",
+    "lines_read": 37,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:23:15.888547] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:23:15.888560] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fb0091d7fa0 but 0x7fb0091d7fa0 has focus",
+      " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3"
+    ]
+  },
+  {
+    "run": "deck-saturated",
+    "lines_read": 37,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:22:51.195075] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:22:51.195093] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fb1c06078a0 but 0x7fb1c06078a0 has focus",
+      " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3"
+    ]
+  },
+  {
+    "run": "full-insane",
+    "lines_read": 41,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:22:19.116941] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:22:19.116954] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qml: [aerolith:routines] broken-example step 1: unknown action \"rm.rf\"",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f14157a1b40 but 0x7f14157a1b40 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f1415499040 but 0x7f14157a1b40 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f1415499040 but 0x7f1415499040 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f1415530580 but 0x7f1415499040 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7f1414c386c0 but 0x7f1415530580 is focused"
+    ]
+  },
+  {
+    "run": "full-saturated",
+    "lines_read": 47,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:21:40.775433] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:21:40.775446] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qml: [aerolith:routines] broken-example step 1: unknown action \"rm.rf\"",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fef6a7ad140 but 0x7fef6a7ad140 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fef6605a520 but 0x7fef6a7ad140 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fef6605a520 but 0x7fef6605a520 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fef660866e0 but 0x7fef6605a520 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::disableSurface(wl_surface*) Trying to disable 0x7fef65798680 but 0x7fef660866e0 is focused"
+    ]
+  },
+  {
+    "run": "installed-insane",
+    "lines_read": 44,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:25:45.426059] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:25:45.426074] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f966c3d9b20 but 0x7f966c3d9b20 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f966c22f4c0 but 0x7f966c3d9b20 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7f966c22f4c0 but 0x7f966c22f4c0 has focus"
+    ]
+  },
+  {
+    "run": "installed-saturated",
+    "lines_read": 44,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:25:28.930695] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:25:28.930714] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work.",
+      "  WARN qt.qpa.wayland: Ignoring unexpected wl_keyboard.leave event. wl_surface argument does not match the current focus This is most likely a compositor bug",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fda05bd1900 but 0x7fda05bd1900 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fda014ad0e0 but 0x7fda05bd1900 has focus",
+      "  WARN qt.qpa.wayland.textinput: virtual void QtWaylandClient::QWaylandTextInputv3::enableSurface(wl_surface*) Trying to enable 0x7fda014ad0e0 but 0x7fda014ad0e0 has focus"
+    ]
+  },
+  {
+    "run": "notify-insane",
+    "lines_read": 31,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:24:11.941060] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:24:11.941074] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work."
+    ]
+  },
+  {
+    "run": "notify-saturated",
+    "lines_read": 31,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:23:38.220211] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:23:38.220384] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work."
+    ]
+  },
+  {
+    "run": "smoke-insane",
+    "lines_read": 29,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:21:26.695485] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:21:26.695496] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work."
+    ]
+  },
+  {
+    "run": "smoke-saturated",
+    "lines_read": 29,
+    "qml_errors": [],
+    "warnings_and_errors": [
+      "  WARN: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.",
+      "  WARN quickshell.service.upower: Could not connect to DBus. UPower service will not work.",
+      "[E][15:21:18.678776] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory",
+      "[W][15:21:18.678802] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused",
+      " ERROR quickshell.service.pipewire.loop: Failed to connect pipewire context. Errno: 112",
+      "  WARN: The active compositor does not support hyprland_global_shortcuts_v1.",
+      "  WARN: GlobalShortcut will not work."
+    ]
+  }
+]

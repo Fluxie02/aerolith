@@ -1,0 +1,12 @@
+{
+  "capture_start_ms": [
+    0.1,
+    35.1,
+    70.2,
+    105.1,
+    140.1,
+    175.2
+  ],
+  "interval_ms": 35,
+  "note": "Actual opening, no slowed duration. Software frames may repeat."
+}

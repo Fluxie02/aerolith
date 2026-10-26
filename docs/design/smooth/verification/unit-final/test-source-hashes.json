@@ -1,0 +1,17 @@
+{
+  "tests/js/config.test.mjs": "617506842397e23ed6946f61e9754b5fae164b0447cec8a690ed72f73c172b90",
+  "tests/js/fuzzy.test.mjs": "1e9c9e070b2f52edba9f72ad9f6088e9de987c3fa49a4490bbfe887d1cef72e5",
+  "tests/js/harness.mjs": "9a17ef6a84d338a7addaebf1d9afeb70248fa42fb5a1bb56a3bbb6be70074e47",
+  "tests/js/hyprdispatch.test.mjs": "3286e6769d4f31c29ac1fe7905e42d9b6ac8afdcfb67abb631a6b8ee46abd144",
+  "tests/js/index.mjs": "0eebe770bbd95e38ab9477c73bcfd52dce9497ffcf6ee2bbeb95afd532ccb14d",
+  "tests/js/launch.test.mjs": "43d0959e9ca779310fa72d3780fc5460da3a56c083be5693898b8113f5c61d6f",
+  "tests/js/registry.test.mjs": "2ac98662b37e65301f6e6227ac8dd083d70ad1bf753baed628e8449e52202b31",
+  "tests/js/routines.test.mjs": "2aeb3ca93e82527a323344fdcafc9fb58953e600673a837524c343fe7cefd8e2",
+  "tests/js/run-node.mjs": "b517faa5b923c78d5304cc29063d91bd82ef2248b49747474c6317ceebc58f58",
+  "tests/js/run-qt.qml": "6c554f9b493c25b50b056843fc7d6eb2e669ed16929392c2e8ec1ed14d53c028",
+  "tests/js/schemes.test.mjs": "02eaa266575e3e6ad06a9e352f52c520b926519094a61b6347c89ab913eda8c9",
+  "tests/js/telemetry.test.mjs": "8e38c45fec74fc93378c930cbbbc2deb4cdd10dea93ff8738d3b0b86c091e22e",
+  "tests/py/conftest.py": "539128ded63e28eb248c093ab9f77a43ebb3648080ec012b24c88a8bfbf491d3",
+  "tests/py/test_ai_bridge.py": "c4099d21ed8d8de1eb4621a1f04c909c29ae46586a2515424e6b89f1800fa944",
+  "tests/py/test_installer.py": "41dc3735792da3b723272a6f10fed64c74b235f92b9654d1006d8b8640a8d491"
+}

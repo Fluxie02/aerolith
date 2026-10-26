@@ -1,0 +1,315 @@
+[
+  {
+    "path": "display.output",
+    "type": "string",
+    "default": "",
+    "maxLength": 64,
+    "description": "Output (monitor) name to run on, e.g. \"DP-1\". Empty selects automatically."
+  },
+  {
+    "path": "display.warnOnMultipleDisplays",
+    "type": "bool",
+    "default": true,
+    "description": "Show a caution annunciator when more than one display is connected."
+  },
+  {
+    "path": "theme.density",
+    "type": "enum",
+    "default": "standard",
+    "values": [
+      "compact",
+      "standard",
+      "comfortable"
+    ],
+    "description": "Spacing and type scale."
+  },
+  {
+    "path": "theme.uiScale",
+    "type": "number",
+    "default": 1,
+    "min": 0.75,
+    "max": 2,
+    "description": "Multiplier applied on top of the compositor's own scaling."
+  },
+  {
+    "path": "theme.motion",
+    "type": "enum",
+    "default": "full",
+    "values": [
+      "full",
+      "reduced",
+      "off"
+    ],
+    "description": "Animation level. 'off' disables all transitions."
+  },
+  {
+    "path": "theme.intensity",
+    "type": "enum",
+    "default": "saturated",
+    "values": [
+      "saturated",
+      "insane"
+    ],
+    "description": "How much the interface shows: 'saturated' or the even denser 'insane'. Switch with `aerolith intensity`."
+  },
+  {
+    "path": "theme.lowEffects",
+    "type": "bool",
+    "default": false,
+    "description": "Opaque backdrops and no shadows, for slow GPUs or screen recording."
+  },
+  {
+    "path": "theme.fontSans",
+    "type": "string",
+    "default": "Inter",
+    "maxLength": 128,
+    "description": "Interface font family."
+  },
+  {
+    "path": "theme.fontMono",
+    "type": "string",
+    "default": "JetBrains Mono",
+    "maxLength": 128,
+    "description": "Monospaced font for commands and telemetry."
+  },
+  {
+    "path": "strip.visible",
+    "type": "bool",
+    "default": true,
+    "description": "Show the Flight Strip."
+  },
+  {
+    "path": "strip.edge",
+    "type": "enum",
+    "default": "top",
+    "values": [
+      "top",
+      "bottom"
+    ],
+    "description": "Screen edge for the Flight Strip."
+  },
+  {
+    "path": "strip.showWindowTitle",
+    "type": "bool",
+    "default": true,
+    "description": "Show the focused window title."
+  },
+  {
+    "path": "strip.telemetry",
+    "type": "enum",
+    "default": "alert",
+    "values": [
+      "off",
+      "alert",
+      "always"
+    ],
+    "description": "CPU/memory readouts: never, only when above thresholds, or always."
+  },
+  {
+    "path": "strip.clock",
+    "type": "enum",
+    "default": "24h",
+    "values": [
+      "24h",
+      "12h"
+    ],
+    "description": "Clock format."
+  },
+  {
+    "path": "strip.showDate",
+    "type": "bool",
+    "default": true,
+    "description": "Show the date next to the clock."
+  },
+  {
+    "path": "strip.showSeconds",
+    "type": "bool",
+    "default": false,
+    "description": "Show seconds. Costs one redraw per second."
+  },
+  {
+    "path": "strip.workspaceCount",
+    "type": "int",
+    "default": 5,
+    "min": 1,
+    "max": 20,
+    "description": "Minimum number of workspace cells shown on the workspace tape."
+  },
+  {
+    "path": "ground.enabled",
+    "type": "bool",
+    "default": true,
+    "description": "Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg."
+  },
+  {
+    "path": "commandCore.maxResults",
+    "type": "int",
+    "default": 40,
+    "min": 5,
+    "max": 200,
+    "description": "Maximum results listed."
+  },
+  {
+    "path": "commandCore.historySize",
+    "type": "int",
+    "default": 100,
+    "min": 0,
+    "max": 1000,
+    "description": "Executed actions kept in history."
+  },
+  {
+    "path": "telemetry.stripIntervalMs",
+    "type": "int",
+    "default": 5000,
+    "min": 1000,
+    "max": 60000,
+    "description": "Sampling interval while only the Flight Strip needs data."
+  },
+  {
+    "path": "telemetry.panelIntervalMs",
+    "type": "int",
+    "default": 2000,
+    "min": 500,
+    "max": 60000,
+    "description": "Sampling interval while the Systems Bay is open."
+  },
+  {
+    "path": "telemetry.detailIntervalMs",
+    "type": "int",
+    "default": 1000,
+    "min": 250,
+    "max": 60000,
+    "description": "Sampling interval for the detailed process view."
+  },
+  {
+    "path": "telemetry.historySamples",
+    "type": "int",
+    "default": 120,
+    "min": 10,
+    "max": 3600,
+    "description": "Samples kept for graphs (bounded memory)."
+  },
+  {
+    "path": "telemetry.gpu",
+    "type": "enum",
+    "default": "auto",
+    "values": [
+      "auto",
+      "amd",
+      "intel",
+      "nvidia",
+      "off"
+    ],
+    "description": "GPU telemetry source."
+  },
+  {
+    "path": "telemetry.performanceMode",
+    "type": "bool",
+    "default": false,
+    "description": "Halve sampling rates everywhere (useful while gaming)."
+  },
+  {
+    "path": "telemetry.cpuCautionPercent",
+    "type": "int",
+    "default": 85,
+    "min": 1,
+    "max": 100,
+    "description": "CPU percentage that raises a caution."
+  },
+  {
+    "path": "telemetry.memoryCautionPercent",
+    "type": "int",
+    "default": 90,
+    "min": 1,
+    "max": 100,
+    "description": "Memory percentage that raises a caution."
+  },
+  {
+    "path": "telemetry.temperatureCautionC",
+    "type": "int",
+    "default": 85,
+    "min": 30,
+    "max": 120,
+    "description": "Temperature that raises a caution."
+  },
+  {
+    "path": "telemetry.temperatureCriticalC",
+    "type": "int",
+    "default": 95,
+    "min": 30,
+    "max": 130,
+    "description": "Temperature that raises a critical alert."
+  },
+  {
+    "path": "audio.volumeStep",
+    "type": "int",
+    "default": 5,
+    "min": 1,
+    "max": 25,
+    "description": "Volume change per step, in percent."
+  },
+  {
+    "path": "audio.maxVolume",
+    "type": "int",
+    "default": 100,
+    "min": 100,
+    "max": 150,
+    "description": "Upper volume limit in percent. Above 100 amplifies."
+  },
+  {
+    "path": "audio.showStreams",
+    "type": "bool",
+    "default": true,
+    "description": "List per-application streams in the Signal Rack."
+  },
+  {
+    "path": "navigator.thumbnails",
+    "type": "bool",
+    "default": false,
+    "description": "Live window thumbnails (uses hyprland-toplevel-export; costs GPU memory)."
+  },
+  {
+    "path": "navigator.showEmptyWorkspaces",
+    "type": "bool",
+    "default": true,
+    "description": "Show empty workspaces up to strip.workspaceCount."
+  },
+  {
+    "path": "routines.allowCommandSteps",
+    "type": "bool",
+    "default": false,
+    "description": "Allow routines to run programs with 'shell.exec' steps (argument list, no shell). Each run still asks for confirmation."
+  },
+  {
+    "path": "notifications.server",
+    "type": "bool",
+    "default": false,
+    "description": "Act as the desktop notification server. Leave off if mako, dunst or swaync is running."
+  },
+  {
+    "path": "notifications.doNotDisturb",
+    "type": "bool",
+    "default": false,
+    "description": "Suppress notification popups (they are still counted)."
+  },
+  {
+    "path": "notifications.popupTimeoutMs",
+    "type": "int",
+    "default": 6000,
+    "min": 1000,
+    "max": 60000,
+    "description": "How long popups stay visible."
+  },
+  {
+    "path": "logging.level",
+    "type": "enum",
+    "default": "info",
+    "values": [
+      "debug",
+      "info",
+      "warn",
+      "error"
+    ],
+    "description": "Minimum level written to the Quickshell log."
+  }
+]

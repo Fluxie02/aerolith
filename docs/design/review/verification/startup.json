@@ -1,0 +1,74 @@
+[
+  {
+    "path": "build/ui009/probe-verified-insane-full/startup.json",
+    "events": 67,
+    "progress": 1,
+    "played": true,
+    "bootInsane": true,
+    "duration": 2600,
+    "intensity": "insane",
+    "animate": true,
+    "travel": true,
+    "draft": false
+  },
+  {
+    "path": "build/ui009/probe-verified-insane-reduced/startup.json",
+    "events": 0,
+    "progress": 1,
+    "played": true,
+    "bootInsane": true,
+    "duration": 1200,
+    "intensity": "insane",
+    "animate": true,
+    "travel": false,
+    "draft": false
+  },
+  {
+    "path": "build/ui009/probe-verified-insane-small/startup.json",
+    "events": 0,
+    "progress": 1,
+    "played": true,
+    "bootInsane": true,
+    "duration": 0,
+    "intensity": "insane",
+    "animate": false,
+    "travel": false,
+    "draft": false
+  },
+  {
+    "path": "build/ui009/probe-verified-saturated-full/startup.json",
+    "events": 93,
+    "progress": 1,
+    "played": true,
+    "bootInsane": false,
+    "duration": 2080,
+    "intensity": "saturated",
+    "animate": true,
+    "travel": true,
+    "draft": false
+  },
+  {
+    "path": "build/ui009/probe-verified-saturated-reduced/startup.json",
+    "events": 0,
+    "progress": 1,
+    "played": true,
+    "bootInsane": false,
+    "duration": 960,
+    "intensity": "saturated",
+    "animate": true,
+    "travel": false,
+    "draft": false
+  },
+  {
+    "path": "build/ui009/probe-verified-saturated-small/startup.json",
+    "events": 0,
+    "progress": 1,
+    "played": true,
+    "bootInsane": false,
+    "duration": 0,
+    "intensity": "saturated",
+    "animate": false,
+    "travel": false,
+    "draft": false
+  }
+]

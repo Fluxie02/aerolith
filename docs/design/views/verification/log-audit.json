@@ -1,0 +1,48 @@
+[
+  {
+    "run": "build/ui007-lock-verified",
+    "qml_errors": [],
+    "wayland_keyboard_warnings": 8
+  },
+  {
+    "run": "build/ui007-lock-small-verified",
+    "qml_errors": [],
+    "wayland_keyboard_warnings": 8
+  },
+  {
+    "run": "build/ui007-osd-complete",
+    "qml_errors": [],
+    "wayland_keyboard_warnings": 0
+  },
+  {
+    "run": "build/ui007-osd-small-verified",
+    "qml_errors": [],
+    "wayland_keyboard_warnings": 0
+  },
+  {
+    "run": "build/ui007-session-verified",
+    "qml_errors": [],
+    "wayland_keyboard_warnings": 10
+  },
+  {
+    "run": "build/ui007-session-small-final",
+    "qml_errors": [],
+    "wayland_keyboard_warnings": 10
+  },
+  {
+    "run": "build/ui007-deck",
+    "qml_errors": []
+  },
+  {
+    "run": "build/ui007-notify",
+    "qml_errors": []
+  },
+  {
+    "run": "build/ui007-perf",
+    "qml_errors": []
+  },
+  {
+    "run": "build/ui007-session-availability",
+    "qml_errors": []
+  }
+]

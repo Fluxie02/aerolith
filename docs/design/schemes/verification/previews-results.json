@@ -1,0 +1,23 @@
+[
+  {
+    "name": "lock-schemes",
+    "command": "SHELL_PATH=\"build/ui015/verification/preview-lock\" tools/headless/run.sh build/ui015/verification/capture-lock.sh build/ui015/verification/lock-schemes",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 12.7
+  },
+  {
+    "name": "osd-schemes",
+    "command": "SHELL_PATH=\"build/ui015/verification/preview-osd\" tools/headless/run.sh build/ui015/verification/capture-osd.sh build/ui015/verification/osd-schemes",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 12.1
+  },
+  {
+    "name": "session-schemes",
+    "command": "SHELL_PATH=\"build/ui015/verification/preview-session\" tools/headless/run.sh build/ui015/verification/capture-session.sh build/ui015/verification/session-schemes",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 11.6
+  }
+]

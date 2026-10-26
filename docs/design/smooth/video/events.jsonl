@@ -1,0 +1,9 @@
+{"event": "Deck open / Command", "start_seconds": 0.8001484599999458, "end_seconds": 0.8863449439998021, "argv": ["qs", "-p", "/src/build/ui016/after-shell", "ipc", "call", "aerolith", "open", "command"], "stdout": "ok\n"}
+{"event": "Bay switch / Navigator", "start_seconds": 2.0001748869999574, "end_seconds": 2.09345097299979, "argv": ["qs", "-p", "/src/build/ui016/after-shell", "ipc", "call", "aerolith", "open", "navigator"], "stdout": "ok\n"}
+{"event": "Bay switch / Settings", "start_seconds": 3.2001145869999164, "end_seconds": 3.2709971049998785, "argv": ["qs", "-p", "/src/build/ui016/after-shell", "ipc", "call", "aerolith", "open", "settings"], "stdout": "ok\n"}
+{"event": "Spectra / Limb", "start_seconds": 3.7003783989998738, "end_seconds": 3.734346996999875, "argv": ["wtype", "-k", "Shift_L", "-k", "Home", "-k", "Return"], "stdout": ""}
+{"event": "Spectra / Bathyal", "start_seconds": 4.300143935999813, "end_seconds": 4.327460381999799, "argv": ["wtype", "-k", "Shift_L", "-k", "Right", "-k", "Return"], "stdout": ""}
+{"event": "Spectra / Corona", "start_seconds": 5.200188155999967, "end_seconds": 5.227308343999994, "argv": ["wtype", "-k", "Shift_L", "-k", "Right", "-k", "Return"], "stdout": ""}
+{"event": "Deck close / ambient stroke resumes", "start_seconds": 6.203860367999823, "end_seconds": 6.260180370999933, "argv": ["qs", "-p", "/src/build/ui016/after-shell", "ipc", "call", "aerolith", "close"], "stdout": ""}
+{"event": "Workspace 2", "start_seconds": 7.304664295999828, "end_seconds": 7.381108000999802, "argv": ["qs", "-p", "/src/build/ui016/after-shell", "ipc", "call", "aerolith", "run", "workspace.focus", "{\"workspace\":2}"], "stdout": "started\n"}
+{"event": "Workspace 1", "start_seconds": 9.000750243999846, "end_seconds": 9.062672525999915, "argv": ["qs", "-p", "/src/build/ui016/after-shell", "ipc", "call", "aerolith", "run", "workspace.focus", "{\"workspace\":1}"], "stdout": "started\n"}

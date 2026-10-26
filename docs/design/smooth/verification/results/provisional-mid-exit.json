@@ -1,0 +1,15 @@
+{
+  "name": "results/provisional-mid-exit",
+  "command": [
+    "tools/headless/run.sh",
+    "build/ui016/verification/mid-exit-probe.sh",
+    "build/ui016/verification/provisional-mid-exit"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/mid-exit-probe-shell"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/mid-exit-probe-shell tools/headless/run.sh build/ui016/verification/mid-exit-probe.sh build/ui016/verification/provisional-mid-exit",
+  "started_at": "2026-10-24T22:28:21.602212+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 7.4760405510000965
+}

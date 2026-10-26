@@ -1,0 +1,10 @@
+/* AEROLITH THEARS / Big Picture. Keep native controller layout,
+ * game art and fullscreen rendering intact. No persistent overlay or motion. */
+:root {
+  --aero-signal: #bddd84;
+  --aero-obsidian: #14170e;
+}
+.DialogButton:focus-visible {
+  outline: 3px solid var(--aero-signal) !important;
+  outline-offset: 3px;
+}

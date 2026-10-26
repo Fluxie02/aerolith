@@ -1,0 +1,11 @@
+# Lint settings for the Python parts (installer, AI bridge, tests, tools).
+target-version = "py311"
+line-length = 160
+
+[lint]
+select = ["E", "F", "W", "B", "I", "UP"]
+# Long lines are mostly user-facing messages; splitting them hurts grep-ability.
+ignore = ["E501"]
+
+[lint.isort]
+known-first-party = ["aerolith_install", "aerolith_ai", "conftest"]

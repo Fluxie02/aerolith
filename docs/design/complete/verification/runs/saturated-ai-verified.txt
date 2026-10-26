@@ -1,0 +1,13 @@
+[E][21:41:00.459636] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][21:41:00.459678] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][21:41:00.474105] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][21:41:00.474137] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][21:41:00.488872] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][21:41:00.488910] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+ok
+E 21:41:12.363993             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 21:41:12.364082             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+ok
+E 21:41:18.356210             mod.rt ../pipewire/src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+W 21:41:18.356246             mod.rt ../pipewire/src/modules/module-rt.c:975:rtkit_get_bus: Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+ai: ok

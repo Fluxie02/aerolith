@@ -1,0 +1,7 @@
+/home/pilot/.config/aerolith
+/home/pilot/.config/aerolith/config.json
+/home/pilot/.local/state/aerolith
+/home/pilot/.local/state/aerolith/backups
+/home/pilot/.local/state/aerolith/backups/20261026-152528
+/home/pilot/.local/state/aerolith/backups/20261026-152528/hyprland.lua
+/home/pilot/.local/share

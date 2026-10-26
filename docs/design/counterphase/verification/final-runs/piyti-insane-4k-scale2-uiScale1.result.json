@@ -1,0 +1,21 @@
+{
+  "name": "piyti-insane-4k-scale2-uiScale1",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "docs/design/counterphase/scripts/capture-4k-stability.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/piyti-insane-4k-scale2-uiScale1"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/piyti-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-full-scale1.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "RES": "3840x2160",
+    "SCALE": "2",
+    "HYPR_MOCK_ARGS": "--mode 3840x2160 --scale 2"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 22.49,
+  "stdout": "docs/design/counterphase/verification/final-runs/piyti-insane-4k-scale2-uiScale1.stdout.txt",
+  "source_manifest_sha256": "00b307e4d456e5c43f7464200a6bb5de121c66aa744551969b953421000a5c9a"
+}
