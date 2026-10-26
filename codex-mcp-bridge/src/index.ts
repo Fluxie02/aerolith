@@ -39,6 +39,20 @@ function saveJob(job: Job) {
   writeJobs(jobs);
 }
 function clip(s: string, n = 30000) { return s.length > n ? s.slice(0, n) + "\n...[truncated]" : s; }
+function tail(s: string, n: number) { return s.length > n ? "...[earlier output truncated]\n" + s.slice(-n) : s; }
+// The agent's answer is its last agent_message in the JSONL stream; it must
+// survive clipping, which otherwise keeps only the start of a long run.
+function finalMessage(stdout: string) {
+  let text = "";
+  for (const line of stdout.split("\n")) {
+    if (!line.includes('"agent_message"')) continue;
+    try {
+      const e = JSON.parse(line);
+      if (e.type === "item.completed" && e.item?.type === "agent_message") text = e.item.text ?? "";
+    } catch { /* not a JSON event */ }
+  }
+  return text;
+}
 
 type Role = "design" | "coding";
 type Account = { name: string; cap: number; home?: string; role?: Role; model?: string; effort?: string };
@@ -264,7 +278,7 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
       if (r.capped) log.push(`account=${account.name} stopped at its ${account.cap}% cap; its changes so far are on the job branch`);
       const changes = edit ? `\nCHANGES:\n${await closeWorktree(job, dir, role)}\n` : "";
       if (hit && edit) log.push(`account=${account.name} changes before the limit: ${changes.trim()}`);
-      job.output = `exit_code=${r.code}\ntimed_out=${r.timedOut}\n${changes}\nSTDOUT:\n${r.stdout}\n\nSTDERR:\n${r.stderr}`;
+      job.output = `exit_code=${r.code}\ntimed_out=${r.timedOut}\n${changes}\nFINAL MESSAGE:\n${finalMessage(r.stdout)}\n\nSTDOUT:\n${tail(r.stdout, 12000)}\n\nSTDERR:\n${tail(r.stderr, 4000)}`;
       return hit;
     });
     if (!next) break;
