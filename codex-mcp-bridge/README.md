@@ -3,7 +3,7 @@
 Minimal stdio MCP server that lets an MCP-compatible host call the installed Codex CLI without relying on Claude Code's `/plugin` mechanism.
 
 ## Tools
-- `codex_status`: CLI/auth status and configured repository.
+- `codex_status`: per-account login, last known usage, cap, and which account the next job uses.
 - `codex_design_task`: bounded UI task; Codex can edit files.
 - `codex_review_diff`: review-only diff inspection.
 - `codex_get_job`: retrieve a saved result.
@@ -22,6 +22,19 @@ npm start
 Optional environment variables:
 - `CODEX_BIN` defaults to `codex`.
 - `CODEX_MCP_TIMEOUT_MS` defaults to 600000 and is capped at 1200000.
+- `CODEX_ACCOUNTS` lists ChatGPT accounts in priority order with a usage cap, e.g. `mine:100,dad:80`. Unset means one account using the default Codex login.
+
+## Multiple accounts
+With `CODEX_ACCOUNTS="mine:100,dad:80"` each job goes to the first account that is logged in, has not hit its usage limit, and whose last reported `used_percent` is below its cap. Here that is `mine` until it is used up, then `dad` until 80% of its limit, leaving the last 20% to its owner.
+
+Each account has its own login in `~/.codex-accounts/<name>` (passed to Codex as `CODEX_HOME`). The owner of each account logs in once per container:
+
+```bash
+CODEX_HOME=~/.codex-accounts/mine codex login --device-auth
+CODEX_HOME=~/.codex-accounts/dad codex login --device-auth
+```
+
+Usage comes from the rate-limit figures Codex prints during `codex exec --json` and is kept in `~/.codex-mcp-bridge/usage.json`. It is only known after an account's first job, and the cap is checked before a job starts, so a long job can end a few percent past it. If a job fails because an account hit its usage limit, the bridge marks that account blocked until the limit resets and runs the job on the next account. Codex used outside the bridge (the Codex plugin, ChatGPT itself) is only seen at the next bridge job.
 
 ## Claude Code configuration
 A typical Claude Code `.mcp.json` entry is:

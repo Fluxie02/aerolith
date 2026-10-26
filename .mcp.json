@@ -5,6 +5,7 @@
       "args": ["codex-mcp-bridge/dist/index.js"],
       "env": {
         "CODEX_MCP_REPO": ".",
+        "CODEX_ACCOUNTS": "mine:100,dad:80",
         "CODEX_MCP_TIMEOUT_MS": "600000"
       }
     }

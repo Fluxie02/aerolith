@@ -21,10 +21,16 @@ fi
 python3 -m pip install --quiet -r tools/agent-sync/requirements.txt pytest >&2
 
 # Anything printed to stdout is added to Claude's context for the session.
-if codex login status >/dev/null 2>&1; then
-  echo "Codex CLI is installed and logged in; the codex-bridge MCP server is ready."
-else
-  echo "Codex CLI is installed but NOT logged in (new container). To log in, run"
-  echo "'codex login --device-auth' in the background and give the user the link and"
-  echo "one-time code it prints; the ChatGPT account owner must enter it within 15 minutes."
-fi
+# The bridge uses these ChatGPT accounts in this order (CODEX_ACCOUNTS in .mcp.json);
+# each keeps its own login in ~/.codex-accounts/<name>.
+for account in mine dad; do
+  home="$HOME/.codex-accounts/$account"
+  mkdir -p "$home" && chmod 700 "$home"
+  if CODEX_HOME="$home" codex login status >/dev/null 2>&1; then
+    echo "Codex account '$account' is logged in."
+  else
+    echo "Codex account '$account' is NOT logged in (new container). To log in, run"
+    echo "'CODEX_HOME=$home codex login --device-auth' in the background and give the user"
+    echo "the link and one-time code; the owner of the '$account' ChatGPT account must enter it within 15 minutes."
+  fi
+done

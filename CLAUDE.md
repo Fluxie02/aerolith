@@ -15,16 +15,21 @@ You are **Claude (Claude Code)**. Use `--agent Claude` in every sync command.
 
 Do not do Astra's work yourself. For design tokens, layout, spacing,
 typography, colour, effects or animation, delegate to Astra with the
-`codex_design_task` tool from the `codex-bridge` MCP server (or the Codex
-plugin's `/codex:rescue`), then review the result once. Use
+`codex_design_task` tool from the `codex-bridge` MCP server, then review
+the result once. Use
 `codex_review_diff` to have Astra review your changes.
 
-Astra runs on the Codex CLI and needs a ChatGPT login in each new cloud
-container. If `codex_status` reports it is not logged in, run
-`codex login --device-auth` in the background and give the user the link
-and one-time code; never store or ask for Codex tokens. If Astra cannot be
-reached, tell the user and leave the visual work undone rather than
-doing it yourself.
+Astra runs on the Codex CLI with two ChatGPT accounts, used in order: `mine`
+(the owner's, up to 100% of its limit) and then `dad` (up to 80%, the rest is
+left to its owner). The bridge picks the account (`CODEX_ACCOUNTS` in
+`.mcp.json`, details in `codex-mcp-bridge/README.md`), so delegate through the
+bridge rather than the Codex plugin, which ignores the caps. Each account needs
+a login in each new cloud container. If `codex_status` reports an account is
+not logged in, run `CODEX_HOME=~/.codex-accounts/<name> codex login
+--device-auth` in the background and give the user the link and one-time code,
+saying which account it is for; never store or ask for Codex tokens. If no
+account can take a job, tell the user and leave the visual work undone rather
+than doing it yourself.
 
 ## Quick commands
 
