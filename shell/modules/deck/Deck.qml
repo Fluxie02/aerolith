@@ -32,6 +32,16 @@ PanelWindow {
     // How long an outgoing bay may stay on screen; 0 when motion is off or
     // effects are reduced, which unmaps and destroys at once.
     readonly property int exitMs: Theme.animate && !Theme.lowEffects ? Theme.normal : 0
+    // An exit already under way was timed with the old value: when motion
+    // goes off or effects are reduced during it, end it now instead of
+    // leaving a frozen bay on screen until its timer runs out.
+    onExitMsChanged: if (exitMs === 0 && (slotA.leaving || slotB.leaving)) {
+        Log.info("deck", "exit ended early: motion is off or effects are reduced");
+        if (slotA.leaving)
+            slotA.release();
+        if (slotB.leaving)
+            slotB.release();
+    }
     // True while a closed Deck still shows an outgoing bay. (Slot state
     // first, so the binding always depends on it.)
     readonly property bool exiting: (slotA.leaving || slotB.leaving) && !Ui.deckOpen

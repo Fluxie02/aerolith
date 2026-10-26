@@ -12,7 +12,8 @@
 #      is mapped exactly once per open-to-closed cycle (no remap on close),
 #   2. rapid opening, switching and closing leaves no demand or surface behind,
 #   3. a bay reopened during an exit takes keys from the first one,
-#   4. with motion off the Deck unmaps at once,
+#   4. with motion off the Deck unmaps at once, and switching motion off
+#      during an exit ends it in the same event turn,
 #   5. notices are not duplicated by a quiet result and expire at a time
 #      fixed on arrival,
 #   6. monitor geometry reaches the shell in logical units,
@@ -79,6 +80,36 @@ ipc close
 [ "$(field deckMapped)" = False ] || fail "the Deck kept an exit with motion off"
 ipc run settings.motion '{"motion":"full"}' >/dev/null
 wait_field motion full 5 || fail "could not switch motion back on"
+
+# 4b. Motion switched off during an exit ends the exit at once (SR-016-2).
+#     The full exit lasts 160 ms, shorter than reading the status back, so the
+#     Deck's own log line (written in the event turn that releases the slot)
+#     is the evidence. When the switch lands after the exit has finished there
+#     is nothing to end; that run is reported and retried.
+ended=0
+for attempt in 1 2 3 4 5 6 7 8; do
+  ipc open systems >/dev/null
+  wait_field deckMapped True 3 || fail "the Deck did not map for the exit test"
+  before=$(grep -c "exit ended early" "$OUT/qs.log" || true)
+  t0=$(date +%s%3N)
+  ipc close
+  ipc run settings.motion '{"motion":"off"}' >/dev/null
+  elapsed=$(( $(date +%s%3N) - t0 ))
+  wait_field deckMapped False 2 || fail "the Deck stayed mapped after motion went off"
+  if [ "$(grep -c "exit ended early" "$OUT/qs.log" || true)" -gt "$before" ]; then ended=1; echo "deck: exit ended early (motion off ${elapsed} ms after close)"; fi
+  ipc run settings.motion '{"motion":"full"}' >/dev/null
+  wait_field motion full 5 || fail "could not switch motion back on after the exit test"
+  [ "$ended" = 1 ] && break
+  echo "deck: attempt $attempt landed after the exit (${elapsed} ms); retrying"
+done
+[ "$ended" = 1 ] || fail "motion off never landed during an exit in 8 attempts"
+ipc run settings.motion '{"motion":"full"}' >/dev/null
+wait_field motion full 5 || fail "could not switch motion back on after the exit test"
+maps=$(field deckMaps)
+ipc open command >/dev/null
+ipc close
+wait_field deckMapped False 3 || fail "the Deck did not unmap after the exit test"
+[ "$(field deckMaps)" = $((maps + 1)) ] || fail "one open and close after the exit test mapped $(( $(field deckMaps) - maps )) times"
 
 # 5. Notices: one per request, expiry fixed on arrival (info lives 3.5 s).
 # Start clean: the settings commands above left their own result notices.
