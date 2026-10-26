@@ -1,33 +1,41 @@
 import QtQuick
 import qs.core
 import qs.services
+import "../lib/appbus.mjs" as Bus
 
-// Five physical sockets in the SHEAR airframe. THEARS is an appearance
-// catalogue; PIYTI exposes only the compositor state already available today.
-// No process discovery, timer, network, thumbnails or application automation.
+// Five physical sockets in the SHEAR airframe. A socket switches to its
+// application's window when it runs (again: its next window) and starts it
+// when it is installed but not running; only an application that is not
+// installed opens the search (lib/appbus.mjs). PIYTI also shows the link
+// state. No process discovery, timer, network or thumbnails.
 Item {
     id: bus
     property bool instrument: false
     readonly property bool compact: width < Theme.du(1050)
     readonly property bool exposed: visible && Window.window && Window.window.visible
-    readonly property var windows: Theme.integratedApps && exposed ? Compositor.windows() : []
+    readonly property var windows: exposed ? Compositor.windows() : []
     readonly property string activeClass: Compositor.activeClass.toLowerCase()
-    readonly property var ports: [
-        {name:"Firefox", code:"01", kind:"BROWSE", match:"firefox", query:"firefox"},
-        {name:"LibreOffice", code:"02", kind:"COMPOSE", match:"libreoffice", query:"libreoffice"},
-        {name:"Steam", code:"03", kind:"PLAY", match:"steam", query:"steam"},
-        {name:"Discord", code:"04", kind:"CONNECT", match:"discord", query:"discord"},
-        {name:"ArtCraft", code:"05", kind:"CREATE", match:"craft", query:"craft"}
-    ]
+    readonly property var ports: Bus.PORTS
     function matches(appId, port) {
-        var id = String(appId || "").toLowerCase();
-        if (port.match === "craft") return /(^|[.\/_-])(photo|vector|film|light|pdf|effect|design|fig|word|sound|deck|cad|grid)craft($|[.\/_-])/.test(id);
-        if (port.match === "steam") return /^(steam|com\.valvesoftware\.steam)$/.test(id);
-        if (port.match === "discord") return /^(discord|discordcanary|discordptb|vesktop|com\.discordapp\.discord|dev\.vencord\.vesktop)$/.test(id);
-        return id.indexOf(port.match) >= 0;
+        return Bus.matches(appId, port);
     }
     function windowsFor(port) {
         return windows.filter(function(w) { return bus.matches(w.appId, port); });
+    }
+    function activate(port) {
+        // Read the windows now, not the last exposed snapshot.
+        const a = Bus.action(Compositor.windows(), port, Compositor.activeAddress, Apps.entries);
+        if (a.kind === "focus")
+            Registry.run("window.focus", { address: a.address });
+        else if (a.kind === "launch")
+            Registry.run("app.launch", { app: a.id });
+        else if (a.kind === "search") {
+            Ui.openCommand(a.query);
+            return;
+        }
+        // From the Deck, get out of the way of the window.
+        if (bus.instrument && a.kind !== "none")
+            Ui.close();
     }
     opacity: instrument ? 1 : Math.max(0, Math.min(1, (Theme.bootProgress - .62) / .30))
 
@@ -57,6 +65,7 @@ Item {
                 required property var modelData
                 required property int index
                 readonly property var linked: bus.windowsFor(modelData)
+                readonly property bool installed: Bus.entryFor(Apps.entries, modelData) !== null
                 readonly property bool current: Theme.integratedApps && bus.matches(bus.activeClass, modelData)
                 readonly property color ink: current ? Theme.appLink : Theme.signal
                 property real reach: current ? 1 : 0
@@ -113,20 +122,19 @@ Item {
                 Text {
                     x: Theme.du(11); y: Theme.du(51); width: parent.width - 2*x
                     visible: parent.height >= Theme.du(85)
-                    text: !Theme.integratedApps ? "FIND APPLICATION  ↗" : !Compositor.available ? "UNAVAILABLE" : socket.linked.length ? socket.linked.length + " KNOWN WINDOW" + (socket.linked.length === 1 ? "" : "S") + " / NAVIGATOR  ↗" : "NO KNOWN WINDOWS / FIND APP  ↗"
+                    text: socket.linked.length ? socket.linked.length + " WINDOW" + (socket.linked.length === 1 ? "" : "S") + " / SWITCH  ↗" : socket.installed ? "NOT RUNNING / OPEN  ↗" : "NOT INSTALLED / FIND  ↗"
                     textFormat: Text.PlainText; elide: Text.ElideRight
                     color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 }
                 function activate() {
-                    if (Theme.integratedApps && linked.length) Ui.open("navigator");
-                    else Ui.openCommand(modelData.query);
+                    bus.activate(modelData);
                 }
                 MouseArea {
                     id: pointer; anchors.fill: parent; hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor; onClicked: socket.activate()
                 }
                 Accessible.role: Accessible.Button
-                Accessible.name: modelData.name + (Theme.integratedApps && linked.length ? ", open Navigator" : ", search applications")
+                Accessible.name: modelData.name + (linked.length ? ", switch to its window" : installed ? ", start it" : ", not installed: search")
                 Accessible.onPressAction: socket.activate()
             }
         }

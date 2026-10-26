@@ -46,6 +46,7 @@ Singleton {
         return null;
     }
     readonly property string activeTitle: activeToplevel ? activeToplevel.title : ""
+    readonly property string activeAddress: activeToplevel ? String(activeToplevel.address || "") : ""
     readonly property string activeClass: activeToplevel && activeToplevel.lastIpcObject ? String(activeToplevel.lastIpcObject["class"] || "") : ""
     readonly property int monitorCount: available ? Hyprland.monitors.values.length : 0
 
@@ -108,6 +109,7 @@ Singleton {
                 floating: ipc.floating === true,
                 fullscreen: ipc.fullscreen ? true : false,
                 active: t.activated === true,
+                focusHistory: typeof ipc.focusHistoryID === "number" ? ipc.focusHistoryID : -1,
                 urgent: t.urgent === true,
                 toplevel: t
             });

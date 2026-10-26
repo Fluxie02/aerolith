@@ -153,7 +153,14 @@ Item {
                     text: "W" + modelData.workspaceId; textFormat: Text.PlainText
                     color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 }
-                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: Ui.open("navigator") }
+                MouseArea {
+                    anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        Registry.run("window.focus", { address: modelData.address });
+                        if (rig.instrument)
+                            Ui.close();
+                    }
+                }
             }
         }
     }

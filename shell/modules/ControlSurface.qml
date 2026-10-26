@@ -82,6 +82,8 @@ Scope {
                 cpuPercent: Telemetry.cpu.total,
                 memoryPercent: Telemetry.memory ? Telemetry.memory.percent : null,
                 monitor: Compositor.monitorGeometry(),
+                bay: Ui.activeBay,
+                query: Ui.pendingQuery,
                 deckMapped: Ui.deckMapped,
                 deckMaps: Ui.deckMaps,
                 audioDetail: Audio.detailDemand,
