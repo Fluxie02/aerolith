@@ -499,6 +499,160 @@ def test_intensity_command_creates_a_missing_config(system, home):
     assert json.loads(lay.config_file.read_text()) == {"theme": {"intensity": "insane"}, "schemaVersion": 1}
 
 
+@pytest.mark.parametrize("intensity,scheme", [("", ""), ("2", "iris")])
+def test_install_live_choices_interactive(system, home, monkeypatch, capsys, intensity, scheme):
+    args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--direction", "piyti", "--no-hypr", "--no-themes", "--no-start"])
+    answers = iter([intensity, scheme, "y"])
+    prompts = []
+    def answer(prompt):
+        prompts.append(prompt)
+        return next(answers)
+    monkeypatch.setattr("builtins.input", answer)
+    assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
+    assert len(prompts) == 3
+    theme = json.loads(layout().config_file.read_text())["theme"]
+    assert theme["intensity"] == ("insane" if intensity else "saturated")
+    assert theme["scheme"] == (scheme or "limb")
+    output = capsys.readouterr().out
+    assert output.index("Saturated (default)") < output.index("Insane")
+    for row in json.loads((ROOT / "themes/schemes/index.json").read_text())["schemes"]:
+        assert row["name"] in output
+    # A reinstall never prompts for either setting, even with a TTY.
+    monkeypatch.setattr("builtins.input", lambda prompt: "y" if prompt.startswith("Proceed?") else pytest.fail(prompt))
+    assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
+
+
+@pytest.mark.parametrize("yes", [False, True])
+def test_install_live_defaults_without_prompts(system, home, monkeypatch, yes):
+    args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes", "--no-start"])
+    monkeypatch.setattr("builtins.input", lambda prompt: pytest.fail(prompt))
+    ui = cli.Ui(assume_yes=yes, interactive=yes, color=False)
+    # Noninteractive final consent is separate from default selection.
+    monkeypatch.setattr(ui, "confirm", lambda *a, **kw: True)
+    assert cli.cmd_install(args, ui) == 0
+    theme = json.loads(layout().config_file.read_text())["theme"]
+    assert (theme["intensity"], theme["scheme"]) == ("saturated", "limb")
+
+
+def test_install_live_flags_preserve_config_and_deploy_chosen_scheme(system, home):
+    lay = layout()
+    lay.config_file.parent.mkdir(parents=True, exist_ok=True)
+    data = {"schemaVersion": 1, "theme": {"motion": "off", "palette": {"signal": "#ffffff"}}, "strip": {"edge": "bottom"}, "user-note": [1, 2]}
+    lay.config_file.write_text(json.dumps(data))
+    assert run("install", "--yes", "--ai", "none", "--startup", "manual", "--no-hypr", "--intensity", "insane", "--scheme", "iris", "--themes", "foot") == 0
+    data["theme"].update(intensity="insane", scheme="iris")
+    assert json.loads(lay.config_file.read_text()) == data
+    assert json.loads(lay.installation_file.read_text()) == {"direction": "piyti"}
+    assert (lay.data / "themes/foot/aerolith.ini").read_bytes() == (ROOT / "themes/schemes/iris/foot/aerolith.ini").read_bytes()
+    text = lay.config_file.read_bytes()
+    assert run("install", "--yes", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes") == 0
+    assert lay.config_file.read_bytes() == text
+    assert run("install", "--yes", "--ai", "none", "--startup", "manual", "--no-hypr", "--intensity", "saturated", "--scheme", "limb", "--themes", "foot") == 0
+    data["theme"].update(intensity="saturated", scheme="limb")
+    assert json.loads(lay.config_file.read_text()) == data
+    assert Manifest.load(lay.manifest).themes["foot"]["scheme"] == "limb"
+
+
+@pytest.mark.parametrize("text", ["{ broken", "", " ", "[]", "null", '{"theme":null}', '{"theme":[]}'])
+@pytest.mark.parametrize("command", ["install", "intensity", "scheme"])
+def test_live_settings_refuse_invalid_config_without_writes(system, home, text, command):
+    lay = layout()
+    lay.config_file.parent.mkdir(parents=True, exist_ok=True)
+    lay.config_file.write_text(text)
+    before = home_bytes(home)
+    args = ["install", "--yes", "--ai", "none", "--startup", "manual", "--intensity", "insane", "--scheme", "iris"] if command == "install" else [command, "iris" if command == "scheme" else "insane"]
+    assert run(*args) == 2
+    assert home_bytes(home) == before
+
+
+@pytest.mark.parametrize("flag,value", [("--intensity", "unknown"), ("--intensity", "INSANE"), ("--scheme", "unknown"), ("--scheme", "../iris")])
+def test_install_live_invalid_flags_are_read_only(system, home, flag, value):
+    before = home_bytes(home)
+    args = ["install", "--yes", "--ai", "none", "--startup", "manual", flag, value]
+    if flag == "--intensity":
+        with pytest.raises(SystemExit) as exc:
+            run(*args)
+        assert exc.value.code == 2
+    else:
+        assert run(*args) == 2
+    assert home_bytes(home) == before
+
+
+@pytest.mark.parametrize("key,value", [("intensity", "unknown"), ("intensity", None), ("scheme", "unknown"), ("scheme", [])])
+def test_install_invalid_stored_live_value_requires_flag(system, home, key, value):
+    lay = layout()
+    lay.config_file.parent.mkdir(parents=True, exist_ok=True)
+    lay.config_file.write_text(json.dumps({"theme": {key: value}}))
+    before = home_bytes(home)
+    args = ["install", "--yes", "--ai", "none", "--startup", "manual", "--no-hypr"]
+    assert run(*args) == 2
+    assert home_bytes(home) == before
+    assert run(*args, "--" + key, "iris" if key == "scheme" else "insane") == 0
+
+
+@pytest.mark.parametrize("flags,expected", [([], ("saturated", "limb")), (["--intensity", "insane", "--scheme", "iris"], ("insane", "iris"))])
+def test_install_live_dry_run_reports_without_writes(system, home, capsys, flags, expected):
+    before = home_bytes(home)
+    assert run("install", "--yes", "--ai", "none", "--startup", "manual", "--dry-run", *flags) == 0
+    output = capsys.readouterr().out
+    assert f"intensity {expected[0]}; scheme {expected[1]}" in output
+    assert "dry run" in output
+    assert home_bytes(home) == before
+
+
+def test_scheme_command_uses_catalog_and_preserves_config(system, home, monkeypatch, capsys):
+    lay = layout()
+    assert run("scheme") == 0
+    assert capsys.readouterr().out.strip() == "limb"
+    assert not lay.config_file.exists()
+    assert run("intensity", "insane") == 0
+    data = json.loads(lay.config_file.read_text())
+    data["future"] = {"keep": True}
+    lay.config_file.write_text(json.dumps(data))
+    for row in json.loads((ROOT / "themes/schemes/index.json").read_text())["schemes"]:
+        assert run("scheme", row["id"]) == 0
+        data["theme"]["scheme"] = row["id"]
+        assert json.loads(lay.config_file.read_text()) == data
+        capsys.readouterr()
+        assert run("scheme") == 0
+        assert capsys.readouterr().out.strip() == row["id"]
+    before = home_bytes(home)
+    assert run("scheme", "unknown") == 2
+    assert run("scheme", "iris", "--dry-run") == 0
+    assert run("intensity", "saturated", "--dry-run") == 0
+    assert "dry run" in capsys.readouterr().out
+    assert home_bytes(home) == before
+    # Read ids/names from a supplied catalog; no hardcoded Python list.
+    root = home / "catalog"
+    (root / "schemes").mkdir(parents=True)
+    (root / "schemes/index.json").write_text(json.dumps({"schemes": [{"id": "test-spectrum", "name": "Test Spectrum"}]}))
+    monkeypatch.setattr(themes, "assets_root", lambda *a: root)
+    assert run("scheme", "test-spectrum") == 0
+
+
+def test_scheme_command_refreshes_only_consented_themes(theme_home, monkeypatch, capsys):
+    lay = layout()
+    assert run("themes", "apply", "foot") == 0
+    includes = (lay.config.parent / "foot/foot.ini").read_bytes()
+    calls = []
+    monkeypatch.setattr(themes, "activate", lambda app: calls.append(app) or "next start")
+    before = home_bytes(lay.home)
+    assert run("scheme", "iris", "--dry-run") == 0
+    assert "would-refresh" in capsys.readouterr().out
+    assert home_bytes(lay.home) == before
+    with themes.refresh_lock(lay):
+        before = home_bytes(lay.home)
+        assert run("scheme", "iris") == 2
+        assert home_bytes(lay.home) == before
+    assert run("scheme", "iris") == 0
+    assert calls == ["foot"]
+    assert Manifest.load(lay.manifest).themes["foot"]["scheme"] == "iris"
+    assert (lay.data / "themes/foot/aerolith.ini").read_bytes() == (ROOT / "themes/schemes/iris/foot/aerolith.ini").read_bytes()
+    assert (lay.config.parent / "foot/foot.ini").read_bytes() == includes
+    assert run("scheme", "iris") == 0
+    assert calls == ["foot"]
+
+
 def test_status_json(system, home, capsys):
     lua_main(home)
     assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
@@ -512,7 +666,7 @@ def test_status_json(system, home, capsys):
 def test_direction_interactive_default(system, home, monkeypatch, capsys):
     lua_main(home)
     args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
-    answers = iter(["", "", "y"])
+    answers = iter(["", "", "", "", "y"])
     monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
     assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
     out = capsys.readouterr().out
@@ -523,7 +677,7 @@ def test_direction_interactive_default(system, home, monkeypatch, capsys):
 def test_direction_interactive_thears(system, home, monkeypatch):
     lua_main(home)
     args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
-    answers = iter(["2", "", "y"])
+    answers = iter(["2", "", "", "", "y"])
     monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
     assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
     assert json.loads(layout().installation_file.read_text())["direction"] == "thears"

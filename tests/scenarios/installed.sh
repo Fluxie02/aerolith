@@ -3,6 +3,7 @@
 #   INSTALL="--ai claude --startup hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
 # C05 opt-in roundtrip:
 #   INSTALL="--ai claude --startup hyprland --themes kitty,foot,hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
+# C03/C04: add --intensity insane --scheme iris to verify live settings.
 # or, against the Arch packages (built by tools/package/build.sh):
 #   PKGS=build/packages INSTALL="--ai claude --startup hyprland" AUDIO=1 tools/headless/run.sh tests/scenarios/installed.sh
 # session.sh has already run the real installer (install.sh, or
@@ -55,6 +56,8 @@ args = shlex.split(os.environ["INSTALL"])
 wanted = args[args.index("--themes") + 1].split(",") if "--themes" in args else []
 rows = json.load(open(sys.argv[1]))["apps"]
 assert {r["app"] for r in rows if r["applied"]} == set(wanted), rows
+scheme = args[args.index("--scheme") + 1] if "--scheme" in args else "limb"
+assert all(r["scheme"] == scheme for r in rows if r["applied"]), rows
 PY
 # Native parser check of the installed foot include, when opted in.
 if [ -f "$XDG_CONFIG_HOME/foot/foot.ini" ]; then
@@ -64,12 +67,52 @@ expected_direction=$(python3 -c 'import os,shlex; a=shlex.split(os.environ["INST
 expected_provider=$(python3 -c 'import os,shlex; a=shlex.split(os.environ["INSTALL"]); p=a[a.index("--ai")+1]; assert p in ("claude", "codex"), p; print(p)')
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction"] == sys.argv[2], s' "$OUT/status.json" "$expected_direction" || fail "installer direction"
 ipc status >"$OUT/shell-status.json"
+python3 - "$OUT/shell-status.json" "$XDG_CONFIG_HOME/aerolith/config.json" <<'PY' || fail "running shell live settings"
+import json, os, shlex, sys
+status, config = (json.load(open(p)) for p in sys.argv[1:])
+args = shlex.split(os.environ["INSTALL"])
+for key, default in (("intensity", "saturated"), ("scheme", "limb")):
+    flag = "--" + key
+    expected = args[args.index(flag) + 1] if flag in args else config.get("theme", {}).get(key, default)
+    assert status["theme"][key] == expected, (key, status)
+    assert config.get("theme", {}).get(key, default) == expected, (key, config)
+PY
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction"] == sys.argv[2], s' "$OUT/shell-status.json" "$expected_direction" || fail "running shell direction"
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["installed"] and s["mode"] == sys.argv[2] and s["ai_provider"] == sys.argv[3] and s["hyprland_dialect"] == "lua", s' "$OUT/status.json" "$mode" "$expected_provider" \
   || fail "status: $(cat "$OUT/status.json")"
 aerolith doctor >"$OUT/doctor.log" 2>&1 || true
 python3 -c 'import json,sys; s=json.loads(sys.argv[1]); assert s["ai"] is True, s' "$(ipc status)" || fail "AI commands not registered"
 [ ! -s "$FAKE_LOG" ] || fail "provider was contacted before any request"
+
+# CLI edits must reach Theme through the config watch, without an IPC reload.
+wait_live_theme() {
+  for _ in $(seq 60); do
+    ipc status >"$OUT/live-status.json"
+    if python3 -c 'import json,sys; t=json.load(open(sys.argv[1]))["theme"]; assert t == {"intensity":sys.argv[2], "scheme":sys.argv[3]}, t' "$OUT/live-status.json" "$1" "$2" 2>/dev/null; then return 0; fi
+    sleep 0.1
+  done
+  fail "config watch did not apply intensity $1 / scheme $2"
+}
+original_intensity=$(aerolith intensity)
+original_scheme=$(aerolith scheme)
+cp "$XDG_CONFIG_HOME/aerolith/config.json" "$OUT/config-before-live.json"
+next_intensity=insane; [ "$original_intensity" = insane ] && next_intensity=saturated
+next_scheme=iris; [ "$original_scheme" = iris ] && next_scheme=limb
+aerolith intensity "$next_intensity" >"$OUT/intensity-live.log" 2>&1 || fail "intensity command"
+aerolith scheme "$next_scheme" >"$OUT/scheme-live.log" 2>&1 || fail "scheme command/refresh"
+wait_live_theme "$next_intensity" "$next_scheme"
+cp "$OUT/live-status.json" "$OUT/shell-status-live.json"
+aerolith themes status --json >"$OUT/themes-status-live.json"
+python3 - "$OUT/themes-status-live.json" "$next_scheme" <<'PY' || fail "scheme command did not refresh app themes"
+import json, sys
+rows = json.load(open(sys.argv[1]))["apps"]
+assert all(r["scheme"] == sys.argv[2] for r in rows if r["applied"]), rows
+PY
+aerolith intensity "$original_intensity" >"$OUT/intensity-restore.log" 2>&1 || fail "restore intensity"
+aerolith scheme "$original_scheme" >"$OUT/scheme-restore.log" 2>&1 || fail "restore scheme"
+wait_live_theme "$original_intensity" "$original_scheme"
+# Preserve the original serialization for uninstall's modified-file check.
+cp "$OUT/config-before-live.json" "$XDG_CONFIG_HOME/aerolith/config.json"
 
 # The installed bridge answers through the fake provider.
 ipc open command; sleep 0.8

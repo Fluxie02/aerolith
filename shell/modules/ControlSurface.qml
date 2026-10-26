@@ -68,6 +68,7 @@ Scope {
                 configErrors: Config.errors.length,
                 configFileBroken: Config.fileBroken,
                 direction: Theme.applicationDirection,
+                theme: ({ intensity: Theme.intensity, scheme: Theme.scheme }),
                 stripEdge: Config.strip.edge,
                 routineErrors: Routines.errors.length,
                 ai: Registry.get("ai.ask") !== null,
