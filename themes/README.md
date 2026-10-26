@@ -60,7 +60,7 @@ detected and refused rather than shadowed with a new canonical config.
 
 Assets come from `schemes/<id>/`, using C01 `installation.json` direction and
 `config.json` `theme.scheme` (default `limb`). `--scheme` changes only deployed
-exports. All twelve generated schemes are accepted; runtime refresh is C06.
+exports. All twelve generated schemes are accepted; refresh follows the C06 contract below.
 Source installations retain the generated catalog independently of the checkout.
 Packaged installs need to ship that catalog; absent assets produce an error.
 Explicit multi-app apply preflights every target before writing. Interrupted
@@ -129,6 +129,67 @@ Upstream format references checked on 22 October 2026:
 - [btop theme format](https://github.com/aristocratos/btop/blob/main/themes/nord.theme)
 - [Hyprland Lua example](https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.lua)
 - [Hyprland decoration options](https://wiki.hypr.land/Configuring/Basics/Variables/)
+
+## Scheme refresh (C06)
+
+After opting in with C05, change Settings → Spectra or `theme.scheme` in
+`config.json`. The shell schedules `aerolith themes refresh --json` 1.5 seconds
+after the last scheme change. Startup and unrelated settings do not refresh.
+While `ShellState.surfacesReleased` is true it defers the pending scheme until
+restore. Missing CLI is silent; no applied apps produce no app-theme notice.
+The service uses `Exec.run` with a 12-second timeout and never blocks the UI.
+
+```sh
+aerolith themes refresh                       # current config.json scheme
+aerolith themes refresh --scheme iris --dry-run --json
+aerolith themes refresh --scheme iris --json
+# Running-shell equivalent (replace /path/to/shell with its installed path):
+qs -p /path/to/shell ipc call aerolith run settings.scheme '{"scheme":"iris"}'
+```
+
+Refresh reads only C05's per-app consent records. It never adds an include,
+creates a missing payload or rewrites application configs/marker blocks.
+Modified payloads, damaged includes and changed config dialects produce per-app
+errors and are kept. Global invalid config/manifest, unknown scheme and missing
+or invalid catalog refuse before writing. Dry-run neither locks, backs up,
+writes nor activates. JSON has `scheme`, `dryRun` and `apps`; app statuses are
+`refreshed`, `unchanged`, `would-refresh` or `error`. Global refusal has `error`
+and an empty `apps`. Errors/busy exit 2; otherwise exit 0.
+
+Non-dry refreshes use a nonblocking flock on
+`$XDG_STATE_HOME/aerolith/themes-refresh.lock`; another refresh exits busy.
+The empty lock file stays in place to avoid splitting concurrent callers across
+different lock inodes. Each changed app gets persistent original-payload backups
+under `backups/themes/`, staged rollback files beside its payloads, atomic file
+replacement, and one final manifest save. A caught write/manifest failure rolls
+that app back while other apps can succeed. SIGTERM (including the shell
+timeout) and Ctrl-C use the same rollback path before exit 130. Uninstall uses
+the current payload hashes and restores the original user configs byte for byte.
+
+| App | Activation after a successful changed payload |
+| --- | --- |
+| kitty | Send SIGUSR1 to this user's exact-name `kitty` processes using `pkill -USR1 -u UID -x kitty`; no matches means next start. [Upstream reload mechanism](https://sw.kovidgoyal.net/kitty/conf/). |
+| Hyprland | `hyprctl reload`, only when C05's Hyprland consent record exists. No config/settings are added. |
+| Alacritty | App's live reload when `general.live_config_reload` is enabled; otherwise next start. |
+| foot | Next start; foot 1.26+ include compatibility remains C05's requirement. |
+| btop | Next start with aerolith manually selected. |
+| GTK 3/4 | Next start; existing user CSS still wins, sandbox access remains app-dependent. |
+| qt5ct/qt6ct | Next start with palette/QSS and the matching platform plugin manually selected. |
+
+Only kitty and Hyprland receive a runtime command (2-second timeout). No app is
+killed with a terminating signal or restarted. Activation failures are reported
+in that app's `activation` text; committed payloads remain ready for next start.
+The same scheme with identical payloads does no writing or activation.
+
+The lock serializes refreshes, not C05 apply/remove, uninstall, editors or app
+writers. Do not run those concurrently. Rechecks reject detected external edits;
+there is no filesystem compare-and-swap against an uncooperating editor. Atomic
+replacement prevents partial individual files; hard kill/power loss or a failure
+of rollback I/O is not a multi-file crash transaction. Persistent backups remain
+available. Real rendering and runtime reload are unverified in the headless
+container; parser checks do not establish appearance or GPU behavior.
+
+[Commands, results, base SHA and review limits](../docs/verification/C06/README.md).
 
 ## GTK 3 — system monitors, audio/network settings, file dialogs
 

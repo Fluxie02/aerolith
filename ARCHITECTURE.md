@@ -47,9 +47,9 @@ the stored choice; `ControlSurface.status()` reports the running direction.
 
 Optional app deployment lives in `installer/aerolith_install/themes.py`.
 `prepare_app(layout, manifest, assets, app, scheme, direction)` preflights one
-generated export without writes; `execute()` applies it, ready for a future
-C06 caller. It uses C01 direction metadata and the current scheme, never shell
-code or runtime hooks. User installs retain a private generated catalog in
+generated export without writes; `execute()` applies it. C06 uses the same
+renderer/writer with intermediate manifest persistence disabled. It uses C01
+direction metadata and the current scheme. User installs retain a private catalog in
 `data/theme-assets/schemes`; packages can ship `themes/schemes`. Selected
 payloads use `theme:<app>` manifest components; edits record exact inserted
 blocks, original backup paths and whether a minimal config was created. The
@@ -57,6 +57,41 @@ additive manifest fields let this installer read earlier version-1 manifests.
 Startup blocks are removed before themes so a theme-created minimal Hyprland
 config can be deleted once empty; `hypr remove` removes only startup blocks.
 Modified owned payloads and ambiguous markers remain recorded for recovery.
+
+C06 `themes.refresh_plans()` validates config, manifest and catalog before
+mutation; the CLI reloads the manifest under `themes.refresh_lock()` before
+executing. Only `manifest.themes` consents are eligible. Plans must have no
+config edit and exactly the recorded payload paths; missing/modified payloads,
+changed dialects or missing/edited includes are per-app errors. `refresh()`
+backs up each app's payloads, stages same-directory rollback copies, calls
+`execute(persist=False)` and saves the manifest once per app. Caught failures
+restore written payloads and the prior manifest atomically; other apps may
+proceed. SIGTERM and Ctrl-C enter that rollback path before exiting 130. The
+persistent state-dir flock serializes refreshes and returns busy immediately. Apply/remove and external config writers do not use
+this lock. Dry-run has no writes or activation; hard termination/failed rollback
+I/O is not covered by a multi-file crash transaction.
+
+`services/AppThemes.qml` observes `Config.reloaded` and `diskText` changes,
+compares only the saved `theme.scheme` with the applied value, and ignores the
+startup baseline. Its single 1500 ms timer restarts on each
+change. It probes PATH, then uses `Exec.run([cli, "themes", "refresh", "--json"],
+{timeoutMs: 12000})`. At most one process chain is in flight; a later scheme
+stays pending. `ShellState.surfacesReleased` stops the timer, and restore
+schedules the pending scheme once. This only observes the lifecycle; no host,
+picker or fullscreen contract changes. It emits one app-theme summary per
+result and stays silent for empty consent/missing CLI. `ShellCommands` registers
+`settings.scheme` for the existing IPC command runner; it uses `Config.setValue`
+like the other settings commands. Watched config-file changes use the same path.
+
+Activation is part of the successful per-app CLI transaction result, after
+saving payload ownership. kitty uses SIGUSR1 scoped to this UID and exact
+process name; opted-in Hyprland uses `hyprctl reload`. Each command times out
+after two seconds and reports failure without reverting successfully written
+payloads. Alacritty follows its live-config-reload setting; foot, btop, GTK and
+Qt use next start/manual selection, with no restart or preference edits.
+See the [per-app activation table](themes/README.md#scheme-refresh-c06) and
+[C06 verification](docs/verification/C06/README.md) for exact commands, measured
+results, base SHA and runtime limits.
 
 ## Surfaces
 

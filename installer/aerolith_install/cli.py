@@ -124,8 +124,8 @@ def import_ai_config(lay: Layout, src: Path | None):
 def load_manifest(lay: Layout) -> Manifest | None:
     try:
         m = Manifest.load(lay.manifest)
-    except ValueError as exc:
-        raise Abort(str(exc)) from None
+    except (ValueError, TypeError) as exc:
+        raise Abort(f"invalid ownership manifest: {exc}") from None
     if m is not None and m.mode != lay.mode:
         if m.mode == "user":
             raise Abort(
@@ -1066,6 +1066,26 @@ def cmd_run(args: argparse.Namespace, ui: Ui) -> int:
 
 def cmd_themes(args: argparse.Namespace, ui: Ui) -> int:
     lay = layout()
+    if args.themes_cmd == "refresh":
+        try:
+            # Preflight before creating even the operational lock file. Re-read
+            # under the lock: another refresh may have committed while waiting.
+            themes.refresh_plans(lay, load_manifest(lay), args.scheme)
+            if args.dry_run:
+                result = themes.refresh(lay, load_manifest(lay), args.scheme, dry_run=True)
+            else:
+                with themes.refresh_lock(lay):
+                    result = themes.refresh(lay, load_manifest(lay), args.scheme)
+        except (Abort, themes.ThemeError, OSError, ValueError, TypeError) as exc:
+            if not args.json:
+                raise Abort(str(exc)) from None
+            result = {"apps": [], "error": str(exc)}
+        if args.json:
+            print(json.dumps(result, indent=2))
+        else:
+            for row in result["apps"]:
+                ui.say(f"{row['app']}: {row['status']}; {row.get('error', row.get('activation', ''))}")
+        return 2 if result.get("error") or any(r["status"] == "error" for r in result["apps"]) else 0
     manifest = load_manifest(lay)
     if args.themes_cmd in ("list", "status"):
         rows = themes.status(lay, manifest)
@@ -1156,6 +1176,10 @@ def build_parser() -> argparse.ArgumentParser:
     ta.add_argument("--scheme", help="generated Spectra scheme ID (default: config.json theme.scheme, or limb)")
     ta.add_argument("--dry-run", action="store_true")
     ts.add_parser("remove", parents=[yes]).add_argument("apps", nargs="+")
+    tr = ts.add_parser("refresh", parents=[yes], help="refresh only opted-in app payloads")
+    tr.add_argument("--scheme", help="scheme ID (default: current config.json theme.scheme)")
+    tr.add_argument("--json", action="store_true")
+    tr.add_argument("--dry-run", action="store_true")
 
     a = sub.add_parser("ai", parents=[yes], help="manage the optional AI integration")
     asub = a.add_subparsers(dest="ai_cmd", required=True)

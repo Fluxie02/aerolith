@@ -111,6 +111,24 @@ FAKE
   export AEROLITH_BACKLIGHT_ROOT="$HOME/backlight" PATH="$HOME/fake-bin:$PATH"
 fi
 
+# C06: inject the CLI before Quickshell inherits PATH. No installed app theme
+# or host process is touched; each invocation records the on-disk scheme.
+if [ "${APP_THEMES:-0}" = 1 ]; then
+  mkdir -p "$HOME/fake-bin"
+  cat >"$HOME/fake-bin/aerolith" <<'FAKE'
+#!/usr/bin/env python3
+import json, os, pathlib, sys
+assert sys.argv[1:] == ["themes", "refresh", "--json"], sys.argv
+config = pathlib.Path(os.environ["XDG_CONFIG_HOME"]) / "aerolith/config.json"
+scheme = json.loads(config.read_text())["theme"]["scheme"]
+with open("/out/app-theme-calls.jsonl", "a") as stream:
+    stream.write(json.dumps({"scheme": scheme}) + "\n")
+print(json.dumps({"apps": []}))
+FAKE
+  chmod +x "$HOME/fake-bin/aerolith"
+  export PATH="$HOME/fake-bin:$PATH"
+fi
+
 if [ "${MEDIA:-0}" = 1 ]; then
   # Arch's mpv-mpris loads itself from /etc/mpv/scripts.
   mpv --no-video --ao="${MPV_AO:-null}" --idle=no --loop=inf --force-media-title="AEROLITH Test Tone" \

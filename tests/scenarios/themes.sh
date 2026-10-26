@@ -35,6 +35,22 @@ applied = {r["app"]: r for r in rows if r["applied"]}
 assert set(applied) == {"kitty", "foot", "hyprland"}, rows
 assert all(r["scheme"] == "iris" and r["direction"] == sys.argv[2] for r in applied.values())
 PY
+    cp "$XDG_CONFIG_HOME/kitty/kitty.conf" "$out/kitty.applied-$direction"
+    cp "$XDG_CONFIG_HOME/foot/foot.ini" "$out/foot.applied-$direction"
+    cp "$XDG_CONFIG_HOME/hypr/hyprland.lua" "$out/hyprland.applied-$direction"
+    aerolith themes refresh --scheme corona --json >"$out/refresh-$direction.json"
+    python3 - "$out/refresh-$direction.json" <<'PYREFRESH'
+import json, os, pathlib, sys
+result = json.load(open(sys.argv[1]))
+assert {r["app"] for r in result["apps"]} == {"kitty", "foot", "hyprland"}
+assert all(r["status"] == "refreshed" for r in result["apps"]), result
+root = pathlib.Path(os.environ["XDG_DATA_HOME"]) / "aerolith"
+for app, name in (("kitty", "aerolith.conf"), ("foot", "aerolith.ini"), ("hyprland", "aerolith.lua")):
+    assert (root / "themes" / app / name).read_bytes() == (root / "theme-assets/schemes/corona" / app / name).read_bytes()
+PYREFRESH
+    cmp "$out/kitty.applied-$direction" "$XDG_CONFIG_HOME/kitty/kitty.conf"
+    cmp "$out/foot.applied-$direction" "$XDG_CONFIG_HOME/foot/foot.ini"
+    cmp "$out/hyprland.applied-$direction" "$XDG_CONFIG_HOME/hypr/hyprland.lua"
     foot --check-config >"$out/foot-$direction.log" 2>&1
     luac -p "$XDG_CONFIG_HOME/hypr/hyprland.lua"
     luac -p "$XDG_DATA_HOME/aerolith/themes/hyprland/aerolith.lua"

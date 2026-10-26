@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import tempfile
 import time
@@ -98,6 +99,31 @@ class Manifest:
             return None
         if not isinstance(data, dict) or data.get("version") != MANIFEST_VERSION:
             raise ValueError(f"{path}: unsupported or damaged manifest")
+        for key in ("files", "dirs", "edits", "packages"):
+            if not isinstance(data.get(key, []), list):
+                raise ValueError(f"{path}: damaged manifest field {key}")
+        themes = data.get("themes", {})
+        if not isinstance(themes, dict) or any(
+            not isinstance(app, str) or not isinstance(record, dict)
+            or any(not isinstance(record.get(key), str) for key in ("scheme", "direction", "note"))
+            for app, record in themes.items()
+        ):
+            raise ValueError(f"{path}: damaged theme records")
+        for record in data.get("files", []):
+            if (not isinstance(record, dict)
+                or any(not isinstance(record.get(key), str) for key in ("path", "sha256", "component"))
+                or not Path(record["path"]).is_absolute()
+                or not re.fullmatch(r"[a-f0-9]{64}", record["sha256"])):
+                raise ValueError(f"{path}: damaged file record")
+        if len({f["path"] for f in data.get("files", [])}) != len(data.get("files", [])):
+            raise ValueError(f"{path}: duplicate file records")
+        for record in data.get("edits", []):
+            if (not isinstance(record, dict)
+                or any(not isinstance(record.get(key), str) for key in ("file", "begin", "end", "backup"))
+                or any(not isinstance(record.get(key, ""), str) for key in ("component", "inserted"))):
+                raise ValueError(f"{path}: damaged edit record")
+        if not isinstance(data.get("source", ""), str):
+            raise ValueError(f"{path}: damaged source record")
         m = cls(
             version=data["version"],
             aerolith_version=data.get("aerolith_version", ""),
