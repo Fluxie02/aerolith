@@ -188,6 +188,9 @@ if [ "${LOCK:-0}" = 1 ] && [ "$SHELL_DIR" = "$SHELL_SRC" ]; then
   cp -r "$SHELL_SRC" "$SHELL_DIR"
 fi
 export SHELL_DIR
+# Exists before the shell starts, so desktop entries a scenario adds there
+# are picked up live (as when a user installs an application).
+mkdir -p "$HOME/.local/share/applications"
 qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &
 QS_PID=$!
 PIDS+=("$QS_PID")
@@ -201,6 +204,20 @@ shot() { grim "$OUT/$1.png"; }
 typ() { wtype -k Shift_L -- "$1"; }
 key() { wtype -k Shift_L -k "$1"; }
 mock() { python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --control "$1"; }
+# click X Y: a left click at a layout position (RES at scale 1), through a
+# virtual pointer (tools/headless/vpointer), built on first use.
+click() {
+  local d="$HOME/.cache/aerolith-vpointer" xml="$SRC/tools/headless/vpointer/wlr-virtual-pointer-unstable-v1.xml"
+  if [ ! -x "$d/vpointer" ]; then
+    mkdir -p "$d"
+    wayland-scanner client-header "$xml" "$d/wlr-virtual-pointer-unstable-v1-client-protocol.h"
+    wayland-scanner private-code "$xml" "$d/protocol.c"
+    # shellcheck disable=SC2046
+    gcc -O1 -I"$d" -o "$d/vpointer" "$SRC/tools/headless/vpointer/vpointer.c" "$d/protocol.c" $(pkg-config --cflags --libs wayland-client) || return 1
+  fi
+  "$d/vpointer" click "$1" "$2" "${RES%x*}" "${RES#*x}"
+  sleep 0.3
+}
 wait_for_log() {
   local pattern=$1 timeout=${2:-10}
   for _ in $(seq $((timeout * 10))); do grep -q -- "$pattern" "$OUT/qs.log" && return 0; sleep 0.1; done

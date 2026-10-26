@@ -262,6 +262,20 @@ jobs:
           if-no-files-found: warn
           retention-days: 3
           compression-level: 9
+      - name: app-links
+        id: app_links
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/app-links.sh build/ci/app-links
+      - name: Upload failed app-links output
+        if: ${{ failure() && steps.app_links.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-links-failure
+          path: build/ci/app-links/
+          if-no-files-found: warn
+          retention-days: 3
       - name: session
         id: session
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}
