@@ -10,7 +10,7 @@ always need an explicit confirmation.
 
 A routine is a named list of command steps in
 `~/.config/aerolith/routines.json`. It never contains code: each step names a
-command marked as usable in routines (the "Routine" column below) and its
+command marked "routine step" in the reference below and its
 arguments. The file is reloaded when it is saved.
 
 ```json
