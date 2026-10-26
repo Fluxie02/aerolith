@@ -5,12 +5,12 @@
     "description": "Shared coordination state for Claude Code and Codex.",
     "repository_root": "."
   },
-  "system_state": "Claude_Performance_Audit",
+  "system_state": "Claude_Integration_Phase",
   "workflow": {
     "current_task_id": "UI-016",
-    "current_owner": "Claude",
-    "last_transition_at": "2026-10-26T16:57:04+00:00",
-    "transition_reason": "Astra explicitly published design_complete",
+    "current_owner": "Sol",
+    "last_transition_at": "2026-10-26T17:00:00+00:00",
+    "transition_reason": "Explicit user assignment: Sol implements D05 then F02 in worktree 7194fbb8; Opus reviews D05",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
   },
@@ -5712,6 +5712,73 @@
       "notes": "Base 9b60683e5b23779edf66741ccadbe11d4daf79dd. Evidence docs/design/shaders/README.md and verification/RESULTS.md. qsb build/check passes; changed shared include correctly fails --check. Node 135/135, Qt V4 135/135, pytest 111 passed/1 skipped. smoke/full AUDIO=1 MEDIA=1/deck/notify/osd/fullscreen pass; 20 fullscreen cycles RSS screen passes. Default notices matrix aborts on outdated direction literal; unchanged scenario with compatible disposable input passes 15 cells/300 snapshots. P2 Sol review finding and minimal correction in SYSTEMS-REQUESTS.md; one revision requested. 72 native before/after/event PNGs across both directions/intensities; compact OSD and 4K DPR=2 proof. Read 35 final positive qs logs, zero QML errors. Matched 120s fallback CPU Saturated 1.492->1.542%, Insane 3.692->3.817%, within ~2/~4 budgets. No working container EGL/RHI path: no DRM FD for sway GLES, Qt over pixman produces black output; shader appearance/runtime compilation/GPU cost/cache release NOT verified. No SHADERS harness switch added. Self-review fix retains native faces until ShaderEffect.Compiled. No full-output shader; no new clock, timer, sampler, layer or live texture. Services/Deck.qml/shell root/config/schema/harness unchanged. Opus must wire validated quality, CI/package checks, Qt compatibility and hardware E03/E04/B06. No commit, no cloud dispatch.",
       "task_id": "E01",
       "timestamp": "2026-10-26T16:57:04+00:00"
+    },
+    {
+      "id": "4033d7e4-7911-4071-8562-9f0c639c5557",
+      "type": "state_transition",
+      "state": "Claude_Integration_Phase",
+      "reason": "Explicit user assignment: Sol implements D05 then F02 in worktree 7194fbb8; Opus reviews D05",
+      "timestamp": "2026-10-26T17:00:00+00:00"
+    },
+    {
+      "id": "bc698b13-45ad-4743-a2d5-d944e9997259",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "installer/aerolith_install/hypr.py",
+        "tests/py/test_installer.py",
+        "tests/scenarios/installed.sh",
+        "docs/verification/D05/README.md"
+      ],
+      "summary": "Starting authorized D05 installer layer animation rules; no visual edits",
+      "notes": "",
+      "task_id": "D05",
+      "timestamp": "2026-10-26T17:00:00+00:00"
+    },
+    {
+      "id": "e2dba233-3964-4de6-a62e-8bc54eaa14c0",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "installer/aerolith_install/hypr.py",
+        "tests/py/test_installer.py",
+        "tests/scenarios/installed.sh",
+        "docs/verification/D05/README.md"
+      ],
+      "summary": "D05 complete: five exact namespace no_anim rules in Lua and hyprlang; managed lifecycle preserved",
+      "notes": "Base 57f6e7c6b483622e8513b4c2fb6d837be6927b77 plus uncommitted diff. Full pytest 208 passed/1 skipped; Node 135 passed; installed scenarios Saturated/Insane pass with real Hyprland 0.56.2 verification for both dialects and luac. Evidence docs/verification/D05/README.md. Opus review and real-session animation acceptance pending; no shell or visual changes, no commit.",
+      "task_id": "D05",
+      "timestamp": "2026-10-26T17:03:17+00:00"
+    },
+    {
+      "id": "380d0157-f906-4f29-8c7b-3cfc459380d0",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "tests/scenarios/ai.sh",
+        "tests/scenarios/installed.sh",
+        "tests/fixtures/fake-providers/codex",
+        "docs/verification/F02/README.md"
+      ],
+      "summary": "Starting F02 after D05 completion and unlock; provider-aware AI fixture and scenario checks",
+      "notes": "",
+      "task_id": "F02",
+      "timestamp": "2026-10-26T17:03:25+00:00"
+    },
+    {
+      "id": "dbf534a7-175f-40f5-bd2a-ff79ef009079",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "tests/scenarios/ai.sh",
+        "tests/scenarios/installed.sh",
+        "tests/fixtures/fake-providers/codex",
+        "docs/verification/F02/README.md"
+      ],
+      "summary": "F02 complete: matching Codex proposals and provider-specific lockdown checks; Claude assertions preserved and strengthened",
+      "notes": "Base 57f6e7c6b483622e8513b4c2fb6d837be6927b77 plus uncommitted diff. Full pytest 208 passed/1 skipped; Node 135 passed; Claude and Codex AI scenarios pass Saturated/Insane; installed Codex passes both intensities and Claude Saturated passes. One no-request Codex/Insane attempt failed under concurrency; isolated rerun passed, evidence retained. 13 lockdown checks passed including 11 rejected mutations. docs/verification/F02/README.md has exact commands and limits. No live providers, shell changes or commit.",
+      "task_id": "F02",
+      "timestamp": "2026-10-26T17:08:02+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8065,6 +8132,8 @@
     "docs/verification/C01",
     "docs/verification/C01/README.md",
     "docs/verification/C05/README.md",
+    "docs/verification/D05/README.md",
+    "docs/verification/F02/README.md",
     "installer",
     "installer/aerolith_install/cli.py",
     "installer/aerolith_install/hypr.py",
@@ -8196,11 +8265,13 @@
     "shell/schema/config.schema.json",
     "shell/shaders",
     "tests",
+    "tests/fixtures/fake-providers/codex",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/schemes.test.mjs",
     "tests/py/test_installer.py",
     "tests/py/test_mock_hyprland.py",
+    "tests/scenarios/ai.sh",
     "tests/scenarios/direction.sh",
     "tests/scenarios/fullscreen-matrix.sh",
     "tests/scenarios/fullscreen.sh",
@@ -8246,24 +8317,18 @@
     "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
-    "agent": "Astra",
-    "type": "design_complete",
+    "agent": "Sol",
+    "type": "integration_complete",
     "files": [
-      "shell/core/Theme.qml",
-      "shell/components/Material.qml",
-      "shell/components/ShearField.qml",
-      "shell/components/WorkspaceOrbit.qml",
-      "shell/components/Counterphase.qml",
-      "shell/components/ChordSlot.qml",
-      "shell/modules/osd/OsdHost.qml",
-      "shell/shaders",
-      "tools/build-shaders.sh",
-      "docs/design/shaders"
+      "tests/scenarios/ai.sh",
+      "tests/scenarios/installed.sh",
+      "tests/fixtures/fake-providers/codex",
+      "docs/verification/F02/README.md"
     ],
-    "summary": "E01/E02 implemented: four bounded materials, shared semantic/lifecycle interface, native fallbacks and top-center OSD; GPU visual verification remains open",
-    "notes": "Base 9b60683e5b23779edf66741ccadbe11d4daf79dd. Evidence docs/design/shaders/README.md and verification/RESULTS.md. qsb build/check passes; changed shared include correctly fails --check. Node 135/135, Qt V4 135/135, pytest 111 passed/1 skipped. smoke/full AUDIO=1 MEDIA=1/deck/notify/osd/fullscreen pass; 20 fullscreen cycles RSS screen passes. Default notices matrix aborts on outdated direction literal; unchanged scenario with compatible disposable input passes 15 cells/300 snapshots. P2 Sol review finding and minimal correction in SYSTEMS-REQUESTS.md; one revision requested. 72 native before/after/event PNGs across both directions/intensities; compact OSD and 4K DPR=2 proof. Read 35 final positive qs logs, zero QML errors. Matched 120s fallback CPU Saturated 1.492->1.542%, Insane 3.692->3.817%, within ~2/~4 budgets. No working container EGL/RHI path: no DRM FD for sway GLES, Qt over pixman produces black output; shader appearance/runtime compilation/GPU cost/cache release NOT verified. No SHADERS harness switch added. Self-review fix retains native faces until ShaderEffect.Compiled. No full-output shader; no new clock, timer, sampler, layer or live texture. Services/Deck.qml/shell root/config/schema/harness unchanged. Opus must wire validated quality, CI/package checks, Qt compatibility and hardware E03/E04/B06. No commit, no cloud dispatch.",
-    "task_id": "E01",
-    "timestamp": "2026-10-26T16:57:04+00:00"
+    "summary": "F02 complete: matching Codex proposals and provider-specific lockdown checks; Claude assertions preserved and strengthened",
+    "notes": "Base 57f6e7c6b483622e8513b4c2fb6d837be6927b77 plus uncommitted diff. Full pytest 208 passed/1 skipped; Node 135 passed; Claude and Codex AI scenarios pass Saturated/Insane; installed Codex passes both intensities and Claude Saturated passes. One no-request Codex/Insane attempt failed under concurrency; isolated rerun passed, evidence retained. 13 lockdown checks passed including 11 rejected mutations. docs/verification/F02/README.md has exact commands and limits. No live providers, shell changes or commit.",
+    "task_id": "F02",
+    "timestamp": "2026-10-26T17:08:02+00:00"
   },
-  "updated_at": "2026-10-26T16:57:04+00:00"
+  "updated_at": "2026-10-26T17:08:02+00:00"
 }
