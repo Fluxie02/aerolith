@@ -1,0 +1,104 @@
+[
+  {
+    "name": "node",
+    "command": "node tests/js/run-node.mjs",
+    "exit": 0,
+    "seconds": 0.093
+  },
+  {
+    "name": "qt",
+    "command": "docker run --rm -v \"$PWD:/src:ro\" aerolith-dev:latest bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'",
+    "exit": 0,
+    "seconds": 17.87
+  },
+  {
+    "name": "pytest",
+    "command": "python3 -m pytest -q tests/py",
+    "exit": 0,
+    "seconds": 19.338
+  },
+  {
+    "name": "smoke-saturated",
+    "command": "CONFIG=docs/verification/A03/saturated.json tools/headless/run.sh tests/scenarios/smoke.sh build/A03/smoke-saturated",
+    "exit": 0,
+    "seconds": 19.202
+  },
+  {
+    "name": "smoke-insane",
+    "command": "CONFIG=docs/verification/A03/insane.json tools/headless/run.sh tests/scenarios/smoke.sh build/A03/smoke-insane",
+    "exit": 0,
+    "seconds": 5.548
+  },
+  {
+    "name": "full-saturated",
+    "command": "CONFIG=docs/verification/A03/saturated.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/A03/full-saturated",
+    "exit": 0,
+    "seconds": 38.725
+  },
+  {
+    "name": "full-insane",
+    "command": "CONFIG=docs/verification/A03/insane.json AUDIO=1 MEDIA=1 MPV_AO=pipewire ROUTINES=tests/fixtures/routines.json tools/headless/run.sh tests/scenarios/full.sh build/A03/full-insane",
+    "exit": 0,
+    "seconds": 37.639
+  },
+  {
+    "name": "deck-saturated",
+    "command": "CONFIG=docs/verification/A03/saturated.json AUDIO=1 HYPR_MOCK_ARGS=\"--mode 2560x1440 --scale 1.5 --transform 1\" tools/headless/run.sh tests/scenarios/deck.sh build/A03/deck-saturated",
+    "exit": 0,
+    "seconds": 24.767
+  },
+  {
+    "name": "deck-insane",
+    "command": "CONFIG=docs/verification/A03/insane.json AUDIO=1 HYPR_MOCK_ARGS=\"--mode 2560x1440 --scale 1.5 --transform 1\" tools/headless/run.sh tests/scenarios/deck.sh build/A03/deck-insane",
+    "exit": 0,
+    "seconds": 24.886
+  },
+  {
+    "name": "notify-saturated",
+    "command": "CONFIG=docs/verification/A03/saturated.json tools/headless/run.sh tests/scenarios/notify.sh build/A03/notify-saturated",
+    "exit": 0,
+    "seconds": 33.803
+  },
+  {
+    "name": "notify-insane",
+    "command": "CONFIG=docs/verification/A03/insane.json tools/headless/run.sh tests/scenarios/notify.sh build/A03/notify-insane",
+    "exit": 0,
+    "seconds": 32.808
+  },
+  {
+    "name": "ai-saturated",
+    "command": "CONFIG=docs/verification/A03/saturated.json AI=1 AUDIO=1 AI_PROVIDER=claude tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-saturated",
+    "exit": 0,
+    "seconds": 20.158
+  },
+  {
+    "name": "ai-insane",
+    "command": "CONFIG=docs/verification/A03/insane.json AI=1 AUDIO=1 AI_PROVIDER=claude tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-insane",
+    "exit": 0,
+    "seconds": 20.439
+  },
+  {
+    "name": "installed-saturated",
+    "command": "CONFIG=docs/verification/A03/saturated.json AUDIO=1 INSTALL=\"--ai claude --startup hyprland\" tools/headless/run.sh tests/scenarios/installed.sh build/A03/installed-saturated",
+    "exit": 0,
+    "seconds": 16.869
+  },
+  {
+    "name": "installed-insane",
+    "command": "CONFIG=docs/verification/A03/insane.json AUDIO=1 INSTALL=\"--ai claude --startup hyprland\" tools/headless/run.sh tests/scenarios/installed.sh build/A03/installed-insane",
+    "exit": 0,
+    "seconds": 16.304
+  },
+  {
+    "name": "ai-codex-saturated",
+    "command": "CONFIG=docs/verification/A03/saturated.json AI=1 AUDIO=1 AI_PROVIDER=codex tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-codex-saturated",
+    "exit": 1,
+    "seconds": 12.067
+  },
+  {
+    "name": "ai-codex-insane",
+    "command": "CONFIG=docs/verification/A03/insane.json AI=1 AUDIO=1 AI_PROVIDER=codex tools/headless/run.sh tests/scenarios/ai.sh build/A03/ai-codex-insane",
+    "exit": 1,
+    "seconds": 12.076
+  }
+]
