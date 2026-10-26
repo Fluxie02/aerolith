@@ -298,14 +298,14 @@ class Mock:
         self.maybe_destroy(old)
         return True
 
-    def open_window(self, cls: str, title: str, workspace: int | None = None) -> str:
+    def open_window(self, cls: str, title: str, workspace: int | None = None, floating: bool = False) -> str:
         st = self.state
         addr = st.new_address()
         wid = workspace if workspace is not None else st.active_ws
         # Hyprland's focusHistoryID: 0 is the focused window, higher is older.
         # A new unfocused window goes to the back of the history.
         history = max((c.focus_history_id for c in st.clients.values()), default=-1) + 1
-        st.clients[addr] = Client(addr, cls, title, wid, pid=4000 + len(st.clients), focus_history_id=history)
+        st.clients[addr] = Client(addr, cls, title, wid, pid=4000 + len(st.clients), floating=floating, focus_history_id=history)
         self.emit("openwindow", f"{addr[2:]},{wid},{cls},{title}")
         if wid == st.active_ws:
             self.focus_window(addr)
@@ -461,7 +461,13 @@ class Mock:
         op = msg.get("op")
         with self.state.lock:
             if op == "open":
-                return {"address": self.open_window(msg["class"], msg["title"], msg.get("workspace"))}
+                return {"address": self.open_window(msg["class"], msg["title"], msg.get("workspace"), bool(msg.get("floating", False)))}
+            if op == "focus_window":
+                # Reuse the dispatch path: activewindow (class,title), then
+                # activewindowv2 (address without 0x). Floating clients may
+                # focus above fullscreen without clearing its mode bit:
+                # Hyprland v0.56.2, desktop/state/FocusState.cpp:27-41.
+                return {"ok": self.focus_window(msg["address"])}
             if op == "close":
                 return {"ok": self.close_window(msg["address"])}
             if op == "focus_workspace":
