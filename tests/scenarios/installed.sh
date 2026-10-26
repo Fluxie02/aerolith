@@ -61,7 +61,15 @@ fi
 [ ! -e "$XDG_CONFIG_HOME/aerolith/ai.json" ] || fail "ai.json left behind"
 ! grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind still in fragment"
 [ -x "$HOME/.local/bin/claude" ] || fail "independently installed provider CLI was removed"
-ipc open command; sleep 0.8; typ "vol 40"; sleep 0.5; key Return; sleep 1.5
+# Removing modules/ai makes Quickshell reload the shell; wait until the
+# Command Core is really open before typing (fixed sleeps lost keys).
+deck_mapped() { python3 -c 'import json,sys; print(json.loads(sys.argv[1]).get("deckMapped"))' "$(ipc status 2>/dev/null)" 2>/dev/null; }
+ipc open command >/dev/null
+for _ in $(seq 50); do [ "$(deck_mapped)" = True ] && break; sleep 0.1; done
+[ "$(deck_mapped)" = True ] || fail "the Command Core did not open after ai remove"
+sleep 0.5
+typ "vol 40"; sleep 0.5; key Return
+for _ in $(seq 30); do wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q "0.40" && break; sleep 0.1; done
 wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q "0.40" || fail "core shell broken after ai remove"
 
 # Full uninstall.
