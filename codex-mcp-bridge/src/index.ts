@@ -240,7 +240,9 @@ async function runCodex(job: Job, role: Role, prompt: string, sandbox: "workspac
       // Astra and Sol both need write access to the shared hub in ROOT for their
       // locks and events, and network access for the Docker-based headless harness.
       const extra = edit ? ["--add-dir", ROOT, "-c", "sandbox_workspace_write.network_access=true"] : [];
-      const args = ["exec", "--ephemeral", "--json", "--sandbox", sandbox, ...extra,
+      // Not --ephemeral: the session log is the only place Codex reports the
+      // account's usage, and capWatch reads it while the job runs.
+      const args = ["exec", "--json", "--sandbox", sandbox, ...extra,
         ...(account.model ? ["-m", account.model] : []),
         ...(account.effort ? ["-c", `model_reasoning_effort="${account.effort}"`] : []), "-C", dir, prompt + where];
       const exec = new Promise<{code: number | null; stdout: string; stderr: string; timedOut: boolean; capped: boolean}>((resolve, reject) => {
