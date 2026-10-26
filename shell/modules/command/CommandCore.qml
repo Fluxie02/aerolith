@@ -10,6 +10,7 @@ import qs.services
 // only renders results and turns keys into registry calls.
 FocusScope {
     id: core
+    readonly property bool compact: height < Theme.du(600)
 
     property string query: Ui.pendingQuery
     property int scopeIndex: 0
@@ -230,135 +231,126 @@ FocusScope {
 
     Bezel {
         id: bezel
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: Math.round(parent.height * 0.08)
-        width: Math.min(Theme.px(820), parent.width - Theme.pad * 4)
-        height: Math.min(parent.height - y - Theme.pad, headerHeight + Theme.gap + inputRow.height + Theme.gap + scopeRow.height + list.contentHeightCapped + status.height + Theme.pad * 2)
-        designation: "CMD-01"
+        anchors.fill: parent
+        contentPadding: core.compact ? Theme.pad : Theme.contentInset
+        titleHeight: core.compact ? Theme.du(42) : Theme.headerHeight
+        designation: "CMD / 01"
         title: "Command Core"
-        status: {
-            Registry.revision;
-            return (Apps.ready ? Apps.entries.length + " APPS · " : "") + Registry.api.size() + " COMMANDS";
-        }
+        status: "ESC / CLOSE"
 
-        Behavior on height {
-            enabled: Theme.animate
-            NumberAnimation {
-                duration: Theme.fast
-            }
-        }
-
-        // Swallow clicks so they don't reach the Deck backdrop.
+        // The Deck owns placement and motion; this bay accepts input immediately.
         MouseArea {
             anchors.fill: parent
             anchors.margins: -Theme.pad
             z: -1
         }
 
-        Column {
+        Item {
             anchors.fill: parent
-            spacing: Theme.gap
 
-            // Input
+            Row {
+                id: summary
+                spacing: Theme.pad * 1.6
+                Text {
+                    text: "UNIVERSAL INPUT"
+                    textFormat: Text.PlainText
+                    color: Theme.textDim
+                    font.family: Theme.mono
+                    font.pixelSize: Theme.fontSm
+                    font.letterSpacing: 1
+                }
+                Text {
+                    text: core.results.length + " MATCH" + (core.results.length === 1 ? "" : "ES")
+                    textFormat: Text.PlainText
+                    color: Theme.signal
+                    font.family: Theme.mono
+                    font.pixelSize: Theme.fontSm
+                }
+            }
+
             Rectangle {
                 id: inputRow
+                anchors.top: summary.bottom
+                anchors.topMargin: core.compact ? Theme.gap : Theme.pad * 1.6
                 width: parent.width
-                height: Math.round(Theme.rowHeight * 1.25)
-                color: Theme.bg
-                border.color: input.activeFocus ? Theme.signal : Theme.grid
-                border.width: Theme.border
+                height: core.compact ? Theme.du(48) : Math.max(Theme.px(76), Theme.rowHeight * 1.9)
                 radius: Theme.radius
+                color: Theme.lowEffects ? Theme.bg : Theme.alpha(Theme.bg, 0.8)
 
+                Rectangle {
+                    anchors.bottom: parent.bottom
+                    x: Theme.radius; width: parent.width - 2 * x
+                    height: Theme.px(2)
+                    color: Theme.signal
+                }
                 Text {
                     id: prompt
                     anchors.left: parent.left
-                    anchors.leftMargin: Theme.pad
+                    anchors.leftMargin: Theme.pad * 1.6
                     anchors.verticalCenter: parent.verticalCenter
                     text: "›"
+                    textFormat: Text.PlainText
                     color: Theme.signal
                     font.family: Theme.mono
-                    font.pixelSize: Theme.fontLg
+                    font.pixelSize: core.compact ? Theme.fontLg : Theme.px(34)
                 }
                 TextInput {
                     id: input
                     anchors.left: prompt.right
-                    anchors.leftMargin: Theme.gap
+                    anchors.leftMargin: Theme.pad * 1.6
                     anchors.right: parent.right
-                    anchors.rightMargin: Theme.pad
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: Theme.pad * 1.8
+                    height: parent.height
+                    verticalAlignment: TextInput.AlignVCenter
                     focus: true
                     text: core.query
                     onTextChanged: core.query = text
                     color: Theme.text
-                    selectionColor: Theme.alpha(Theme.signal, 0.35)
-                    selectedTextColor: Theme.text
+                    selectionColor: Theme.signal
+                    selectedTextColor: Theme.bg
                     font.family: Theme.mono
-                    font.pixelSize: Theme.fontMd
+                    font.pixelSize: core.compact ? Theme.fontLg : Theme.px(28)
                     clip: true
                     Component.onCompleted: cursorPosition = text.length
                     Text {
+                        anchors.verticalCenter: parent.verticalCenter
                         visible: input.text === ""
-                        text: "Type an app, window, command or routine…   > commands   @ windows   ! routines"
+                        text: "App, window, command…"
+                        textFormat: Text.PlainText
                         color: Theme.textDim
-                        font: input.font
+                        font.family: Theme.mono
+                        font.pixelSize: core.compact ? Theme.fontLg : Theme.px(24)
                         elide: Text.ElideRight
                         width: parent.width
                     }
                 }
             }
 
-            // Scope selector
-            Row {
+            InstrumentTabs {
                 id: scopeRow
-                spacing: Theme.px(2)
-                Repeater {
-                    model: core.scopes
-                    delegate: Rectangle {
-                        required property var modelData
-                        required property int index
-                        readonly property bool selected: index === core.scopeIndex
-                        width: scopeLabel.implicitWidth + Theme.pad * 1.4
-                        height: Math.round(Theme.rowHeight * 0.7)
-                        color: selected ? Theme.alpha(Theme.signal, 0.14) : "transparent"
-                        border.color: selected ? Theme.signal : Theme.grid
-                        border.width: Theme.border
-                        radius: Theme.radius
-                        Text {
-                            id: scopeLabel
-                            anchors.centerIn: parent
-                            text: modelData.label
-                            color: parent.selected ? Theme.signal : Theme.textDim
-                            font.family: Theme.mono
-                            font.pixelSize: Theme.fontXs
-                            font.letterSpacing: 1
-                        }
-                        MouseArea {
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: core.scopeIndex = index
-                        }
-                    }
-                }
-                Label {
-                    anchors.verticalCenter: parent.verticalCenter
-                    leftPadding: Theme.pad
-                    text: "TAB · SCOPE"
-                }
+                anchors.top: inputRow.bottom
+                anchors.topMargin: core.compact ? Theme.gap : Theme.pad * 1.8
+                width: parent.width
+                height: implicitHeight
+                entries: core.scopes
+                currentIndex: core.scopeIndex
+                onChosen: index => core.scopeIndex = index
             }
 
-            // Results
             ListView {
                 id: list
+                anchors.top: scopeRow.bottom
+                anchors.topMargin: Theme.gap
+                anchors.bottom: footer.top
+                anchors.bottomMargin: Theme.pad
                 width: parent.width
-                readonly property int rowH: Math.round(Theme.rowHeight * 1.35)
-                readonly property int visibleRows: Math.max(4, Math.floor((core.height * 0.62) / rowH))
-                readonly property int contentHeightCapped: Math.max(rowH, Math.min(Math.max(1, count) * rowH, visibleRows * rowH))
-                height: contentHeightCapped
+                readonly property int rowH: core.compact ? Theme.px(54) : Math.max(Theme.px(68), Math.round(Theme.rowHeight * 1.7))
+                readonly property int visibleRows: Math.max(1, Math.floor(height / rowH))
                 clip: true
                 model: core.results
                 currentIndex: core.currentIndex
                 boundsBehavior: Flickable.StopAtBounds
-                highlightMoveDuration: Theme.fast
+                highlightMoveDuration: Theme.animate ? Theme.fast : 0
                 keyNavigationEnabled: false
 
                 delegate: ResultRow {
@@ -377,46 +369,57 @@ FocusScope {
                     onHovered: core.currentIndex = index
                 }
 
-                // Empty and loading states
                 Column {
                     visible: list.count === 0
                     anchors.centerIn: parent
-                    spacing: Theme.px(4)
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        strong: true
-                        text: !Apps.ready && core.query.trim() !== "" ? "Indexing applications…" : core.query.trim() === "" ? "Start typing" : "No match"
+                    width: parent.width
+                    spacing: Theme.gap
+                    Text {
+                        width: parent.width
+                        horizontalAlignment: Text.AlignHCenter
+                        text: !Apps.ready && core.query.trim() !== "" ? "INDEXING APPLICATIONS…" : core.query.trim() === "" ? "START TYPING" : "NO MATCH"
+                        textFormat: Text.PlainText
+                        color: Theme.text
+                        font.family: Theme.mono
+                        font.pixelSize: Theme.fontSm
                     }
-                    Label {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: "> commands · @ windows · ! routines · F1 help"
+                    Text {
+                        width: parent.width
+                        horizontalAlignment: Text.AlignHCenter
+                        text: "> commands · @ windows · ! routines · ? AI · F1 help"
+                        textFormat: Text.PlainText
+                        color: Theme.textDim
+                        font.family: Theme.mono
+                        font.pixelSize: Theme.fontXs
+                        wrapMode: Text.WordWrap
                     }
                 }
             }
 
-            StatusLine {
-                id: status
+            Column {
+                id: footer
+                anchors.bottom: parent.bottom
                 width: parent.width
-                hints: [
-                    {
-                        key: "↑↓",
-                        action: "select"
-                    },
-                    {
-                        key: "⏎",
-                        action: "run"
-                    },
-                    {
-                        key: "⇧⏎",
-                        action: "run, stay"
-                    },
-                    {
-                        key: "ESC",
-                        action: "close"
-                    }
-                ]
-                message: core.statusText !== "" ? core.statusText : core.current ? (core.current.available ? core.current.commandId : "unavailable: " + core.current.reason) : ""
-                messageState: core.statusText !== "" ? core.statusState : core.current && !core.current.available ? "caution" : ""
+                spacing: Theme.pad
+                Text {
+                    width: parent.width
+                    text: "↑↓ SELECT    ⏎ RUN    ⇧⏎ RUN, STAY    TAB SCOPE"
+                    textFormat: Text.PlainText
+                    color: Theme.textDim
+                    font.family: Theme.mono
+                    font.pixelSize: Theme.fontXs
+                    wrapMode: Text.WordWrap
+                }
+                Text {
+                    width: parent.width
+                    text: core.statusText !== "" ? core.statusText : core.current && !core.current.available ? "N/A · " + core.current.reason : ""
+                    textFormat: Text.PlainText
+                    color: core.statusState === "error" ? Theme.critical : core.statusState === "caution" || core.current && !core.current.available ? Theme.caution : Theme.textDim
+                    font.family: Theme.mono
+                    font.pixelSize: Theme.fontXs
+                    elide: Text.ElideRight
+                    height: Math.max(implicitHeight, Theme.fontXs)
+                }
             }
         }
     }

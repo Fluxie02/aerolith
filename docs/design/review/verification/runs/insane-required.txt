@@ -1,0 +1,6 @@
+insane smoke: passed
+insane full: passed
+insane signal: passed
+insane deck: passed
+insane notify: passed
+insane ai: passed

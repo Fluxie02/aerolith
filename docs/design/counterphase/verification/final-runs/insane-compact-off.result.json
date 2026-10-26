@@ -1,0 +1,21 @@
+{
+  "name": "insane-compact-off",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "docs/design/counterphase/scripts/capture.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/insane-compact-off"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/frozen-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-off-scale1.5.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "RES": "1280x720",
+    "SCALE": "1",
+    "HYPR_MOCK_ARGS": "--mode 1280x720 --scale 1"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 9.69,
+  "stdout": "docs/design/counterphase/verification/final-runs/insane-compact-off.stdout.txt",
+  "source_manifest_sha256": "389bc67e1b70923802878cd9947ba1b732cac6a174add8ab9c65a46d04306875"
+}

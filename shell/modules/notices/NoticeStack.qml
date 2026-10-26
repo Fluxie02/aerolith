@@ -26,7 +26,7 @@ Item {
     Column {
         id: stack
         width: parent.width
-        spacing: Theme.gap
+        spacing: Theme.du(12)
 
         Repeater {
             model: ScriptModel {
@@ -68,15 +68,19 @@ Item {
         signal dismissed
 
         readonly property color tone: severity === "error" ? Theme.critical : severity === "caution" ? Theme.caution : severity === "ok" ? Theme.signal : Theme.textDim
-        implicitHeight: body.implicitHeight + Theme.pad * 2
+        implicitHeight: body.implicitHeight + Theme.du(32)
         color: Theme.surface
         border.color: Theme.grid
         border.width: Theme.border
         radius: Theme.radius
-
         Rectangle {
-            width: Theme.px(3)
-            height: parent.height
+            anchors.right: parent.right; anchors.bottom: parent.bottom
+            anchors.rightMargin: Theme.radius; anchors.bottomMargin: Theme.px(2)
+            width: Theme.du(40); height: Theme.border; color: card.tone
+        }
+        Rectangle {
+            width: Theme.px(2)
+            y: Theme.radius; height: Math.max(0, parent.height - 2 * y); radius: width / 2
             color: card.tone
         }
         Column {
@@ -84,8 +88,8 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
-            anchors.margins: Theme.pad
-            anchors.leftMargin: Theme.pad + Theme.px(3)
+            anchors.margins: Theme.du(16)
+            anchors.leftMargin: Theme.du(20)
             spacing: Theme.px(2)
             Row {
                 spacing: Theme.gap
@@ -101,8 +105,8 @@ Item {
                     text: card.message
                     textFormat: Text.PlainText
                     color: Theme.text
-                    font.family: Theme.sans
-                    font.pixelSize: Theme.fontSm
+                    font.family: Theme.displaySans
+                    font.pixelSize: Theme.fontMd
                     wrapMode: Text.Wrap
                     maximumLineCount: 2
                     elide: Text.ElideRight

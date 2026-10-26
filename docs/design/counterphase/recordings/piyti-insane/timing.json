@@ -1,0 +1,7 @@
+{
+  "first_presentation_monotonic": 692.049985843,
+  "recorder_initialization_seconds": 0.06457471999999598,
+  "raw_duration": 124.903,
+  "timecode": "mm:ss.ff, frames 00..29",
+  "method": "real-time compositor PTS; fps=30 frame hold/drop only, no interpolation, no retiming"
+}

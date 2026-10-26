@@ -1,0 +1,17 @@
+{
+  "name": "saturated-smoke",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/smoke.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/saturated-smoke"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/frozen-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/saturated-full-scale1.json"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 5.18,
+  "stdout": "docs/design/counterphase/verification/final-runs/saturated-smoke.stdout.txt",
+  "source_manifest_sha256": "4fabeb4da829182e35f0d616c5407abd02f2e07731dcddf5993e14be0dd5e706"
+}

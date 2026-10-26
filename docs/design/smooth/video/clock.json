@@ -1,0 +1,7 @@
+{
+  "recorder_launch_monotonic": 1931.752831803,
+  "event_epoch_monotonic": 1932.25298418,
+  "event_epoch_unix": 1792900025.088772,
+  "target_clip_seconds": 12,
+  "method": "Actual compositor recording, configured 144 Hz output, 30 fps constant encode. No interpolation or playback retiming."
+}

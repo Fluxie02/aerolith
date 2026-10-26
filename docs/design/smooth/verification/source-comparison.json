@@ -1,0 +1,10 @@
+{
+  "production_files": 80,
+  "snapshot_files": 80,
+  "matches": true,
+  "thears_source_files": 80,
+  "thears_changed_files": [
+    "core/Theme.qml"
+  ],
+  "thears_theme_matches_default_only_override": true
+}

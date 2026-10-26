@@ -1,0 +1,31 @@
+{
+  "event": "01-workspace",
+  "clock": "date +%s.%N before each grim request; requests are not compositor presentation timestamps",
+  "frames": [
+    {
+      "file": "frame-00.png",
+      "capture_request_ms_from_event": -60.0
+    },
+    {
+      "file": "frame-02.png",
+      "capture_request_ms_from_event": 181.3
+    },
+    {
+      "file": "frame-04.png",
+      "capture_request_ms_from_event": 556.7
+    },
+    {
+      "file": "frame-07.png",
+      "capture_request_ms_from_event": 930.8
+    },
+    {
+      "file": "frame-11.png",
+      "capture_request_ms_from_event": 1269.3
+    },
+    {
+      "file": "frame-17.png",
+      "capture_request_ms_from_event": 1854.6
+    }
+  ],
+  "animated_preview": "motion.webp retains all 18 captured frames with measured intervals"
+}

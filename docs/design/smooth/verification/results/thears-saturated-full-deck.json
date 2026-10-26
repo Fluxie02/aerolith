@@ -1,0 +1,19 @@
+{
+  "name": "results/thears-saturated-full-deck",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/deck.sh",
+    "build/ui016/verification/thears-saturated-full-deck"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/final-thears-shell",
+    "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/saturated-full.json",
+    "AUDIO": "1",
+    "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/final-thears-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/saturated-full.json AUDIO=1 HYPR_MOCK_ARGS='--mode 2560x1440 --scale 1.5 --transform 1' tools/headless/run.sh tests/scenarios/deck.sh build/ui016/verification/thears-saturated-full-deck",
+  "started_at": "2026-10-25T03:48:00.438759+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 23.6101358169999,
+  "shell_source_manifest_sha256": "21336b9c6a46c278369629e7208ae70ae31e9f81e7fcb0f5b2af74898a3fc2f0"
+}

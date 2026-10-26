@@ -19,11 +19,21 @@ Rectangle {
     readonly property real pct: bound ? node.audio.volume * 100 : NaN
     readonly property bool muted: bound ? node.audio.muted : false
 
-    implicitHeight: Math.round(Theme.rowHeight * 1.6)
+    implicitHeight: Math.round(Theme.rowHeight * 1.7)
     color: selected ? Theme.surface2 : "transparent"
     border.color: selected ? Theme.signal : "transparent"
     border.width: Theme.border
     radius: Theme.radius
+
+    Rectangle {
+        width: Theme.px(2)
+        height: Math.max(0, parent.height - 2 * Theme.radius)
+        radius: width / 2
+        x: 0
+        anchors.verticalCenter: parent.verticalCenter
+        visible: row.selected
+        color: Theme.signal
+    }
 
     MouseArea {
         anchors.fill: parent
@@ -39,8 +49,8 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: Theme.px(5)
-        spacing: Theme.px(3)
+        anchors.margins: Theme.px(8)
+        spacing: Theme.px(5)
         RowLayout {
             Layout.fillWidth: true
             spacing: Theme.gap
@@ -58,9 +68,11 @@ Rectangle {
             Text {
                 Layout.fillWidth: true
                 text: Audio.label(row.node)
+                textFormat: Text.PlainText
                 color: Theme.text
-                font.family: Theme.sans
+                font.family: Theme.displaySans
                 font.pixelSize: Theme.fontSm
+                font.weight: row.isDefault ? Font.Medium : Font.Normal
                 elide: Text.ElideRight
             }
             Text {

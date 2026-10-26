@@ -1,0 +1,6 @@
+{
+  "changed_production_files": [
+    "components/ChordSlot.qml"
+  ],
+  "shared_test_and_library_change": false
+}

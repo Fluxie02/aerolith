@@ -1,0 +1,30 @@
+[
+  {
+    "name": "smoke",
+    "command": "SHELL_PATH=\"build/ui015/verification/final-shell\" CONFIG=\"/home/user/aerolith-astra/build/ui015/verification/saturated.json\" tools/headless/run.sh tests/scenarios/smoke.sh build/ui015/verification/smoke",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 5.1
+  },
+  {
+    "name": "full",
+    "command": "SHELL_PATH=\"build/ui015/verification/final-shell\" AUDIO=\"1\" MEDIA=\"1\" MPV_AO=\"pipewire\" ROUTINES=\"tests/fixtures/routines.json\" CONFIG=\"/home/user/aerolith-astra/build/ui015/verification/saturated.json\" tools/headless/run.sh tests/scenarios/full.sh build/ui015/verification/full",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 37.3
+  },
+  {
+    "name": "deck",
+    "command": "SHELL_PATH=\"build/ui015/verification/final-shell\" AUDIO=\"1\" HYPR_MOCK_ARGS=\"--mode 2560x1440 --scale 1.5 --transform 1\" CONFIG=\"/home/user/aerolith-astra/build/ui015/verification/insane.json\" tools/headless/run.sh tests/scenarios/deck.sh build/ui015/verification/deck",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 22.9
+  },
+  {
+    "name": "ai",
+    "command": "SHELL_PATH=\"build/ui015/verification/final-shell\" AUDIO=\"1\" AI=\"1\" CONFIG=\"/home/user/aerolith-astra/build/ui015/verification/insane.json\" tools/headless/run.sh tests/scenarios/ai.sh build/ui015/verification/ai",
+    "exit": 0,
+    "attempts": 1,
+    "wall_seconds": 20.4
+  }
+]

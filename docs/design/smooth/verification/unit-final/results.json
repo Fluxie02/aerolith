@@ -1,0 +1,48 @@
+[
+  {
+    "name": "unit-final/node",
+    "command": [
+      "node",
+      "tests/js/run-node.mjs"
+    ],
+    "environment": {},
+    "display_command": "node tests/js/run-node.mjs",
+    "started_at": "2026-10-24T22:28:25.195181+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 0.13521286099989993
+  },
+  {
+    "name": "unit-provisional/qt-v4",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "-v",
+      "/home/user/aerolith-astra:/src:ro",
+      "aerolith-dev",
+      "bash",
+      "-c",
+      "cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml"
+    ],
+    "environment": {},
+    "display_command": "docker run --rm -v /home/user/aerolith-astra:/src:ro aerolith-dev bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'",
+    "started_at": "2026-10-24T22:28:16.640519+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 0.6331877959999019
+  },
+  {
+    "name": "unit-final/pytest",
+    "command": [
+      "python3",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/py"
+    ],
+    "environment": {},
+    "display_command": "python3 -m pytest -q tests/py",
+    "started_at": "2026-10-24T22:28:25.198616+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 13.170825915000023
+  }
+]

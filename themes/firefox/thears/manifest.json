@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH \u2014 THEARS",
+  "version": "1.0.0",
+  "description": "SHEAR application resonance: faceted phosphor tabs and mineral chrome.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "thears-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#0d1215",
+      "frame_inactive": "#0d1215",
+      "tab_background_text": "#abc0bd",
+      "tab_text": "#edf3f5",
+      "tab_selected": "#25373a",
+      "tab_loading": "#ceebac",
+      "tab_line": "#ceebac",
+      "toolbar": "#1b282b",
+      "toolbar_text": "#edf3f5",
+      "bookmark_text": "#edf3f5",
+      "icons": "#abc0bd",
+      "icons_attention": "#ceebac",
+      "toolbar_field": "#0d1215",
+      "toolbar_field_text": "#edf3f5",
+      "toolbar_field_border": "#3b5253",
+      "toolbar_field_focus": "#25373a",
+      "toolbar_field_text_focus": "#edf3f5",
+      "toolbar_field_border_focus": "#ceebac",
+      "toolbar_field_highlight": "#ceebac",
+      "toolbar_field_highlight_text": "#0d1215",
+      "toolbar_top_separator": "#3b5253",
+      "toolbar_bottom_separator": "#3b5253",
+      "toolbar_vertical_separator": "#3b5253",
+      "button_background_hover": "#25373a",
+      "button_background_active": "#3b5253",
+      "popup": "#1b282b",
+      "popup_text": "#edf3f5",
+      "popup_border": "#3b5253",
+      "popup_highlight": "#ceebac",
+      "popup_highlight_text": "#0d1215",
+      "sidebar": "#1b282b",
+      "sidebar_text": "#edf3f5",
+      "sidebar_border": "#3b5253",
+      "sidebar_highlight": "#ceebac",
+      "sidebar_highlight_text": "#0d1215",
+      "ntp_background": "#0d1215",
+      "ntp_text": "#edf3f5"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

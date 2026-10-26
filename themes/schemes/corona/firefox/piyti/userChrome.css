@@ -1,0 +1,123 @@
+/* AEROLITH / PIYTI — UI-012. Exterior preparation for task continuity.
+ * No privileged bridge or shell control is injected by this stylesheet.
+ * Copy to <profile>/chrome/userChrome.css, enable
+ * toolkit.legacyUserProfileCustomizations.stylesheets, restart Firefox.
+ */
+:root {
+  --aero-bg: #101222;
+  --aero-surface: #1e253c;
+  --aero-raised: #2a3450;
+  --aero-grid: #495a7b;
+  --aero-text: #edf0ff;
+  --aero-dim: #b6c0df;
+  --aero-accent: #edbaff;
+  --aero-phosphor: #a7bcff;
+  --aero-fast: 110ms;
+  --toolbar-bgcolor: var(--aero-bg) !important;
+  --toolbar-color: var(--aero-text) !important;
+  --lwt-accent-color: var(--aero-bg) !important;
+  --lwt-text-color: var(--aero-text) !important;
+  --lwt-toolbar-field-background-color: var(--aero-surface) !important;
+  --lwt-toolbar-field-color: var(--aero-text) !important;
+  --lwt-toolbar-field-focus: var(--aero-raised) !important;
+  --lwt-toolbar-field-focus-color: var(--aero-text) !important;
+  --lwt-toolbar-field-highlight: var(--aero-accent) !important;
+  --lwt-toolbar-field-highlight-text: var(--aero-bg) !important;
+  --toolbarbutton-icon-fill: var(--aero-dim) !important;
+  --toolbarbutton-hover-background: var(--aero-raised) !important;
+  --toolbarbutton-active-background: #35415f !important;
+  --arrowpanel-background: var(--aero-surface) !important;
+  --arrowpanel-color: var(--aero-text) !important;
+  --arrowpanel-border-color: var(--aero-grid) !important;
+  --panel-separator-color: var(--aero-grid) !important;
+  --urlbarView-highlight-background: var(--aero-accent) !important;
+  --urlbarView-highlight-color: var(--aero-bg) !important;
+  --tab-selected-bgcolor: var(--aero-surface) !important;
+  --tab-selected-textcolor: var(--aero-text) !important;
+  --focus-outline-color: var(--aero-accent) !important;
+  --tab-border-radius: 0 !important;
+}
+#navigator-toolbox {
+  background: var(--aero-bg) !important;
+  color: var(--aero-text) !important;
+  font-family: Inter, "Noto Sans", sans-serif !important;
+  border-bottom: 1px solid var(--aero-grid) !important;
+}
+#TabsToolbar { background: var(--aero-bg) !important; }
+#nav-bar {
+  background: var(--aero-bg) !important;
+  box-shadow: inset 0 1px var(--aero-grid) !important;
+  border: 0 !important;
+  padding-block: 3px !important;
+}
+#PersonalToolbar {
+  background: var(--aero-bg) !important;
+  color: var(--aero-dim) !important;
+}
+.tabbrowser-tab .tab-background {
+  border: 1px solid var(--aero-grid) !important;
+  border-inline-start-width: 3px !important;
+  margin-block: 5px !important;
+  border-radius: 0 8px 0 0 !important;
+  transition: background-color var(--aero-fast), border-color var(--aero-fast) !important;
+}
+.tabbrowser-tab[selected] .tab-background {
+  background: var(--aero-surface) !important;
+  border-inline-start-color: var(--aero-accent) !important;
+  border-bottom-color: var(--aero-phosphor) !important;
+  box-shadow: none !important;
+}
+.tabbrowser-tab:not([selected]):hover .tab-background {
+  background: var(--aero-raised) !important;
+  border-inline-start-color: var(--aero-dim) !important;
+}
+.tabbrowser-tab:not([selected]) .tab-label { color: var(--aero-dim) !important; }
+#urlbar, #searchbar {
+  color: var(--aero-text) !important;
+  font-family: "JetBrains Mono", "Noto Sans Mono", monospace !important;
+}
+#urlbar-background, #searchbar {
+  background: var(--aero-surface) !important;
+  border: 1px solid var(--aero-grid) !important;
+  border-inline-start: 3px solid var(--aero-grid) !important;
+  border-radius: 0 8px 0 0 !important;
+  box-shadow: none !important;
+  transition: border-color var(--aero-fast) !important;
+}
+#urlbar[focused] > #urlbar-background, #searchbar:focus-within {
+  border-color: var(--aero-accent) !important;
+  outline: 1px solid var(--aero-accent) !important;
+  outline-offset: 0 !important;
+}
+#urlbar[breakout-extend] > #urlbar-background { background: var(--aero-surface) !important; }
+.urlbarView-row[selected] .urlbarView-row-inner {
+  background: var(--aero-accent) !important;
+  color: var(--aero-bg) !important;
+}
+.urlbarView-row[selected] .urlbarView-url { color: var(--aero-bg) !important; }
+/* Existing Firefox sidebar participates when the owner chooses to show it. */
+#sidebar-box, #sidebar-main {
+  background: var(--aero-surface) !important;
+  color: var(--aero-text) !important;
+  border-inline-end: 1px solid var(--aero-grid) !important;
+}
+#sidebar-header { border-bottom: 1px solid var(--aero-grid) !important; }
+toolbarbutton:focus-visible, .tabbrowser-tab:focus-visible {
+  outline: 2px solid var(--aero-accent) !important;
+  outline-offset: -2px !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --aero-fast: 0ms; }
+}
+@media (forced-colors: active) {
+  :root {
+    --aero-bg: Canvas;
+    --aero-surface: Canvas;
+    --aero-raised: Canvas;
+    --aero-grid: CanvasText;
+    --aero-text: CanvasText;
+    --aero-dim: CanvasText;
+    --aero-accent: Highlight;
+    --aero-phosphor: Highlight;
+  }
+}

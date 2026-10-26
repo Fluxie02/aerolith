@@ -1,0 +1,37 @@
+{
+  "source": "build/ui012/final2-thears-insane-off-small",
+  "stills": [
+    {
+      "file": "01-idle.png",
+      "sha256": "d7741743dcc1dba5b67ee85793675edac56c64a11d239dd91fa7bf4331e430bb",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "02-app-focus.png",
+      "sha256": "3b133a72dcbdd38a3eccd11f13af59d1fda3d618cb8284c9be8e707434746936",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "03-command.png",
+      "sha256": "6a315c156e49f19a325520a98da7e5bf44d9489e40d090e89b0d51e19eed0214",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "04-settings.png",
+      "sha256": "3af70b33fc5ad8cf95918b65f76e9d519cfb920e382b2003cb0ec295c4bebdfd",
+      "size": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

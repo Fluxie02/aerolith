@@ -1,0 +1,117 @@
+[
+  {
+    "start": 0,
+    "end": 0.833929659999967,
+    "label": "First-boot assembly / waiting for shell"
+  },
+  {
+    "start": 0.833929659999967,
+    "end": 2.9331553009999425,
+    "label": "First-boot assembly / fresh process"
+  },
+  {
+    "start": 2.9331553009999425,
+    "end": 12.933093633999988,
+    "label": "Idle desktop / ambient motion"
+  },
+  {
+    "start": 12.933093633999988,
+    "end": 14.933088816999998,
+    "label": "Workspace 2"
+  },
+  {
+    "start": 14.933088816999998,
+    "end": 16.933086602000003,
+    "label": "Workspace 3"
+  },
+  {
+    "start": 16.933086602000003,
+    "end": 18.93311820300005,
+    "label": "Deck / Command"
+  },
+  {
+    "start": 18.93311820300005,
+    "end": 20.933152929000016,
+    "label": "Ctrl+2 / Navigator"
+  },
+  {
+    "start": 20.933152929000016,
+    "end": 22.933138605000067,
+    "label": "Ctrl+3 / Systems"
+  },
+  {
+    "start": 22.933138605000067,
+    "end": 24.93311070799996,
+    "label": "Ctrl+4 / Signal"
+  },
+  {
+    "start": 24.93311070799996,
+    "end": 26.933092317000046,
+    "label": "Ctrl+5 / Routines"
+  },
+  {
+    "start": 26.933092317000046,
+    "end": 28.93319848100009,
+    "label": "Ctrl+6 / AI"
+  },
+  {
+    "start": 28.93319848100009,
+    "end": 30.933235392999904,
+    "label": "Ctrl+7 / Settings"
+  },
+  {
+    "start": 30.933235392999904,
+    "end": 32.93309941799998,
+    "label": "F1 / Help"
+  },
+  {
+    "start": 32.93309941799998,
+    "end": 33.283136683000066,
+    "label": "Ctrl+1 / Command"
+  },
+  {
+    "start": 33.283136683000066,
+    "end": 35.433186948999946,
+    "label": "Tab / Apps scope"
+  },
+  {
+    "start": 35.433186948999946,
+    "end": 37.93318527799988,
+    "label": "Typing command input"
+  },
+  {
+    "start": 37.93318527799988,
+    "end": 43.333667633999994,
+    "label": "Notification / arrival and expiry"
+  },
+  {
+    "start": 43.333667633999994,
+    "end": 43.43311031500002,
+    "label": "Notification expired"
+  },
+  {
+    "start": 43.43311031500002,
+    "end": 45.43316685800005,
+    "label": "Volume / OSD attempt"
+  },
+  {
+    "start": 45.43316685800005,
+    "end": 47.433158494000054,
+    "label": "Brightness / unavailable OSD attempt"
+  },
+  {
+    "start": 47.433158494000054,
+    "end": 47.68317964499988,
+    "label": "Close Deck / Escape clears query"
+  },
+  {
+    "start": 47.68317964499988,
+    "end": 47.933221799999956,
+    "label": "Close Deck / Escape"
+  },
+  {
+    "start": 47.933221799999956,
+    "end": 51.933095611,
+    "label": "Final idle / ambient motion"
+  }
+]

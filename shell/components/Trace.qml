@@ -2,7 +2,7 @@ import QtQuick
 import qs.core
 
 // Flight-recorder style trace of a bounded history. Repaints only when
-// `seq` changes while visible, so a hidden trace costs nothing.
+// samples or visual tokens change while visible; a hidden trace costs nothing.
 Canvas {
     id: root
     property var values: []
@@ -22,6 +22,12 @@ Canvas {
         requestPaint()
     onWidthChanged: requestPaint()
     onHeightChanged: requestPaint()
+    onColorChanged: if (visible) requestPaint()
+    Connections {
+        target: Theme
+        function onPaletteChanged() { if (root.visible) root.requestPaint(); }
+        function onLowEffectsChanged() { if (root.visible) root.requestPaint(); }
+    }
 
     onPaint: {
         const ctx = getContext("2d");
@@ -31,7 +37,7 @@ Canvas {
         ctx.clearRect(0, 0, w, h);
 
         // Grid: quarter lines and a vertical line every 10 samples.
-        ctx.strokeStyle = Theme.alpha(Theme.grid, Theme.gridMinorOpacity);
+        ctx.strokeStyle = Theme.lowEffects ? Theme.grid : Theme.alpha(Theme.grid, Theme.gridMinorOpacity);
         ctx.lineWidth = 1;
         ctx.beginPath();
         for (let i = 1; i < 4; i++) {
@@ -61,7 +67,7 @@ Canvas {
 
         if (!isNaN(root.caution) && !root.autoMax) {
             const cy = Math.round(h - (root.caution - root.min) / span * h) + 0.5;
-            ctx.strokeStyle = Theme.alpha(Theme.caution, 0.6);
+            ctx.strokeStyle = Theme.lowEffects ? Theme.caution : Theme.alpha(Theme.caution, 0.6);
             ctx.setLineDash([3, 3]);
             ctx.beginPath();
             ctx.moveTo(0, cy);

@@ -1,0 +1,7 @@
+$ SHELL_PATH=build/ui016/verification/provisional-shell tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/provisional-smoke
+
+ok
+smoke: ok
+
+EXIT 0
+ELAPSED 5.407 s

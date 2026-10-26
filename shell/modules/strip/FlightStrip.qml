@@ -30,6 +30,7 @@ PanelWindow {
 
     readonly property bool atTop: Config.strip.edge === "top"
     readonly property string telemetryMode: Config.strip.telemetry
+    readonly property bool compact: width < Theme.px(1500)
 
     // Datum line on the inner edge.
     Rectangle {
@@ -64,6 +65,8 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Text {
+                    textFormat: Text.PlainText
+                    visible: !strip.compact
                     text: "AEROLITH"
                     color: Theme.text
                     font.family: Theme.sans
@@ -82,8 +85,15 @@ PanelWindow {
 
         StripDivider {}
 
-        WorkspaceTape {
+        Flickable {
             Layout.fillHeight: true
+            Layout.minimumHeight: Theme.stripHeight
+            Layout.preferredHeight: Theme.stripHeight
+            Layout.preferredWidth: Math.min(workspaces.implicitWidth, strip.width * (strip.compact ? .16 : .24))
+            Layout.minimumWidth: Layout.preferredWidth
+            contentWidth: workspaces.implicitWidth; contentHeight: height
+            clip: true; boundsBehavior: Flickable.StopAtBounds
+            WorkspaceTape { id: workspaces; height: Theme.stripHeight; compact: strip.compact }
         }
 
         StripDivider {}
@@ -93,13 +103,14 @@ PanelWindow {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.minimumWidth: 0
-            visible: Config.strip.showWindowTitle
+            visible: Config.strip.showWindowTitle && !strip.compact
             spacing: Theme.gap
             clip: true
             Text {
+                textFormat: Text.PlainText
                 visible: Compositor.activeClass !== ""
                 text: Compositor.activeClass.toUpperCase()
-                color: Theme.signal
+                color: Theme.appLink
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
                 font.letterSpacing: 0.8
@@ -108,6 +119,7 @@ PanelWindow {
                 elide: Text.ElideRight
             }
             Text {
+                textFormat: Text.PlainText
                 text: Compositor.available ? Compositor.activeTitle : "COMPOSITOR LINK DOWN"
                 color: Compositor.available ? Theme.text : Theme.caution
                 font.family: Compositor.available ? Theme.sans : Theme.mono
@@ -118,7 +130,7 @@ PanelWindow {
             }
         }
         Item {
-            Layout.fillWidth: !Config.strip.showWindowTitle
+            Layout.fillWidth: !Config.strip.showWindowTitle || strip.compact
         }
 
         // Annunciators
@@ -127,6 +139,7 @@ PanelWindow {
             spacing: Theme.px(2)
 
             Annunciator {
+                compact: strip.compact
                 visible: Compositor.screencastActive
                 code: "● SHARE"
                 value: Compositor.screencastOwner.toUpperCase()
@@ -134,6 +147,7 @@ PanelWindow {
                 interactive: false
             }
             Annunciator {
+                compact: strip.compact
                 visible: Ui.multipleDisplays && Config.display.warnOnMultipleDisplays
                 code: "DISP"
                 value: "1/" + Ui.screenCount
@@ -141,6 +155,7 @@ PanelWindow {
                 onClicked: Ui.notify("AEROLITH runs on one display (" + Ui.screenName + "). Other outputs are left untouched.", "caution", "Set display.output in config.json to choose the output.")
             }
             Annunciator {
+                compact: strip.compact
                 visible: Config.errors.length > 0 || Routines.errors.length > 0
                 code: "CFG"
                 value: String(Config.errors.length + Routines.errors.length)
@@ -151,6 +166,7 @@ PanelWindow {
                 }
             }
             Annunciator {
+                compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && Telemetry.cpuState === "caution")
                 code: "CPU"
                 value: T.formatPercent(Telemetry.cpu.total)
@@ -158,6 +174,7 @@ PanelWindow {
                 onClicked: Ui.toggle("systems")
             }
             Annunciator {
+                compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && Telemetry.memState === "caution")
                 code: "MEM"
                 value: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)
@@ -165,13 +182,15 @@ PanelWindow {
                 onClicked: Ui.toggle("systems")
             }
             Annunciator {
-                visible: strip.telemetryMode === "always" ? Telemetry.temps.cpu !== null : strip.telemetryMode === "alert" && (Telemetry.tempState === "caution" || Telemetry.tempState === "critical")
+                compact: strip.compact
+                visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && (Telemetry.tempState === "caution" || Telemetry.tempState === "critical"))
                 code: "TMP"
                 value: T.formatTemp(Telemetry.temps.cpu)
                 status: Telemetry.tempState === "unknown" ? "unknown" : Telemetry.tempState
                 onClicked: Ui.toggle("systems")
             }
             Annunciator {
+                compact: strip.compact
                 visible: Media.active !== null
                 code: Media.playing ? "▶" : "Ⅱ"
                 value: {
@@ -187,10 +206,11 @@ PanelWindow {
                 }
             }
             Annunciator {
-                visible: Audio.ready && Audio.sink !== null
+                compact: strip.compact
+                visible: true
                 code: "AUD"
-                value: Audio.muted ? "MUTE" : String(Audio.volumePercent)
-                status: Audio.muted ? "caution" : "nominal"
+                value: !Audio.ready || Audio.sink === null || !Audio.volumeKnown ? "N/A" : Audio.muted ? "MUTE" : String(Audio.volumePercent)
+                status: !Audio.ready || Audio.sink === null || !Audio.volumeKnown ? "unknown" : Audio.muted ? "caution" : "nominal"
                 onClicked: m => {
                     if (m.button === Qt.MiddleButton)
                         Registry.run("audio.mute.toggle");
@@ -202,6 +222,7 @@ PanelWindow {
                     })
             }
             Annunciator {
+                compact: strip.compact
                 visible: Audio.ready && Audio.source !== null && Audio.sourceMuted
                 code: "MIC"
                 value: "MUTE"
@@ -209,6 +230,7 @@ PanelWindow {
                 onClicked: Registry.run("audio.input.mute.toggle")
             }
             Annunciator {
+                compact: strip.compact
                 visible: Power.hasBattery
                 code: Power.charging ? "CHG" : "BAT"
                 value: Math.round(Power.batteryPercent) + "%"
@@ -216,6 +238,7 @@ PanelWindow {
                 interactive: false
             }
             Annunciator {
+                compact: strip.compact
                 visible: Notifications.enabled && (Notifications.count > 0 || Notifications.doNotDisturb)
                 code: Notifications.doNotDisturb ? "DND" : "NTF"
                 value: String(Notifications.count)
@@ -227,6 +250,7 @@ PanelWindow {
         StripDivider {}
 
         StripClock {
+            compact: strip.compact
             Layout.fillHeight: true
         }
     }

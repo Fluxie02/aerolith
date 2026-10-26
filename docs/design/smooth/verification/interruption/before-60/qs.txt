@@ -1,0 +1,38 @@
+[32m  INFO[0m: Launching config: "/src/build/ui016/verification/before-60-interruption-shell/shell.qml"
+[32m  INFO[0m: Shell ID: "f918f7bd96849701c719dc75c5744fcb" Path ID "f918f7bd96849701c719dc75c5744fcb"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/x8tnfnt/log.qslog"
+[33m  WARN[0m: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.
+[33m  WARN[97m quickshell.service.upower[0m: Could not connect to DBus. UPower service will not work.
+[31m ERROR[97m quickshell.service.pipewire.loop[0m: Failed to connect pipewire context. Errno: 112
+[32m  INFO[97m qml[0m: [aerolith:shell] AEROLITH started on HEADLESS-1; Hyprland connected
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[32m  INFO[0m: Configuration Loaded
+[33m  WARN[97m qml[0m: UI016_PROBE_OPEN 1792880978417 delay=35
+[33m  WARN[97m qml[0m: UI016_PROBE_CLOSE 1792880978498 delay=35
+[33m  WARN[97m qml[0m: UI016_PROBE_OPEN 1792880979687 delay=35
+[33m  WARN[97m qml[0m: UI016_PROBE_CLOSE 1792880979759 delay=35
+[33m  WARN[97m qml[0m: UI016_PROBE_OPEN 1792880980961 delay=35
+[33m  WARN[97m qml[0m: UI016_PROBE_CLOSE 1792880981045 delay=35
+[33m  WARN[97m qml[0m: UI016_PROBE_OPEN 1792880982217 delay=70
+[33m  WARN[97m qml[0m: UI016_PROBE_CLOSE 1792880982340 delay=70
+[33m  WARN[97m qml[0m: UI016_PROBE_OPEN 1792880983464 delay=70
+[33m  WARN[97m qml[0m: UI016_PROBE_CLOSE 1792880983585 delay=70
+[33m  WARN[97m qml[0m: UI016_PROBE_OPEN 1792880984726 delay=70
+[33m  WARN[97m qml[0m: UI016_PROBE_CLOSE 1792880984821 delay=70

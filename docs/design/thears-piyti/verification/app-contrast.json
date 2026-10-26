@@ -1,0 +1,3592 @@
+{
+  "checked_at": "2026-10-23T13:17:15.804277+00:00",
+  "method": "WCAG relative sRGB luminance, (Llighter+0.05)/(Ldarker+0.05); channels linearized at 0.04045, alpha composited in sRGB with rounded8-bit channels. Values computed from final payload files.",
+  "thresholds": {
+    "normal_text": 4.5,
+    "focus_and_icon_cues": 3.0
+  },
+  "scope_limits": [
+    "Palette role pairs only; native app selector matches, all dynamic widgets, custom user colours and account states are not asserted.",
+    "Steam and Discord were not signed in or launched. Their native selected-state styles and role/status colours retain the app palette.",
+    "Firefox active toolbar icons are graphical cues, so the4.371:1 icons-on-grid pair is compared with3:1, not text4.5:1.",
+    "ArtCraft custom overrides are debug-only and target Studio(Dark); Pro native selection uses different roles. Release screenshots do not show these token colours.",
+    "ArtCraft alpha checks follow source tint semantics. Native debug renderer is not exercised; built-in egui global visuals may retain the base theme.",
+    "Decorative separators, document grids, and boundary guides carry no text and are not declared accessible focus indicators. LibreOffice disabled text is included for evidence despite WCAG exemption."
+  ],
+  "fixes": [
+    {
+      "app": "discord",
+      "role": "secondary text on highest surface",
+      "before": {
+        "foreground": "#abc0bd",
+        "background": "#3b5253",
+        "ratio": 4.3714
+      },
+      "after": {
+        "foreground": "#abc0bd",
+        "background": "#304446",
+        "ratio": 5.3927
+      }
+    },
+    {
+      "app": "artcraft",
+      "role": "accent_text on dark selected row",
+      "before": {
+        "foreground": "#0d1215",
+        "background": "#25373a",
+        "ratio": 1.513
+      },
+      "after": {
+        "foreground": "#edf3f5",
+        "background": "#25373a",
+        "ratio": 11.1133
+      },
+      "related_correction": "accent_soft is now14.1% alpha accent tint (hex alpha24), matching Studio callers; primary_text remains dark."
+    }
+  ],
+  "format_contracts": [
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "source": "https://github.com/mozilla-firefox/firefox/blob/main/toolkit/components/extensions/schemas/theme.json",
+      "checks": {
+        "documented_color_roles": 37,
+        "documented_theme_properties": 2,
+        "unknown_roles": 0,
+        "deprecated_roles": 0
+      },
+      "passed": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "source": "https://github.com/LibreOffice/core/blob/libreoffice-25-8/officecfg/registry/schema/org/openoffice/Office/UI.xcs",
+      "checks": {
+        "documented_color_nodes": 67,
+        "unknown_nodes_or_properties": 0,
+        "minimum_version": "25.8"
+      },
+      "passed": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "source": "https://github.com/storytold/photocraft/blob/main/crates/ui-egui/src/theme.rs",
+      "checks": {
+        "accepted_overrides": 32,
+        "color_fields": 29,
+        "numeric_fields": 3,
+        "unknown_fields": 0,
+        "release_support": false,
+        "base_theme": "Studio (Dark)"
+      },
+      "passed": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "source": "https://github.com/mozilla-firefox/firefox/blob/main/toolkit/components/extensions/schemas/theme.json",
+      "checks": {
+        "documented_color_roles": 37,
+        "documented_theme_properties": 2,
+        "unknown_roles": 0,
+        "deprecated_roles": 0
+      },
+      "passed": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "source": "https://github.com/LibreOffice/core/blob/libreoffice-25-8/officecfg/registry/schema/org/openoffice/Office/UI.xcs",
+      "checks": {
+        "documented_color_nodes": 67,
+        "unknown_nodes_or_properties": 0,
+        "minimum_version": "25.8"
+      },
+      "passed": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "source": "https://github.com/storytold/photocraft/blob/main/crates/ui-egui/src/theme.rs",
+      "checks": {
+        "accepted_overrides": 32,
+        "color_fields": 29,
+        "numeric_fields": 3,
+        "unknown_fields": 0,
+        "release_support": false,
+        "base_theme": "Studio (Dark)"
+      },
+      "passed": true
+    }
+  ],
+  "totals": {
+    "pairs": 346,
+    "passed": 346,
+    "failed": 0,
+    "minimum_text_ratio": 5.3927,
+    "minimum_cue_ratio": 4.3714
+  },
+  "pairs": [
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "tab_background_text/frame",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "tab_text/tab_selected",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "toolbar_text/toolbar",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "bookmark_text/toolbar",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "toolbar_field_text/toolbar_field",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "toolbar_field_text_focus/toolbar_field_focus",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "toolbar_field_highlight_text/toolbar_field_highlight",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "popup_text/popup",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "popup_highlight_text/popup_highlight",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "sidebar_text/sidebar",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "sidebar_highlight_text/sidebar_highlight",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "ntp_text/ntp_background",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "icons/toolbar",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "icons/button_background_hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "icons/button_background_active",
+      "foreground": "#abc0bd",
+      "background": "#3b5253",
+      "ratio": 4.3714,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "focus edge/toolbar_field",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "focus edge/toolbar_field_focus",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "focus edge/toolbar",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userChrome dim tab and bookmark labels",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userChrome dim tab and bookmark labels",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userChrome dim tab and bookmark labels",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userContent start-page text",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userContent start-page text",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userContent start-page text",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userContent start-page text",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userContent start-page text",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "userContent start-page text",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "start-page keyboard focus",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "thears",
+      "role": "start-page keyboard focus",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "thears",
+      "role": "Dialog text / primary label",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "thears",
+      "role": "Dialog text / primary label",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "thears",
+      "role": "Dialog text / primary label",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "thears",
+      "role": "Dialog text / primary label",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "thears",
+      "role": "keyboard focus and hover registration",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "thears",
+      "role": "keyboard focus and hover registration",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "thears",
+      "role": "keyboard focus and hover registration",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-primary",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-secondary",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-secondary-alt",
+      "foreground": "#edf3f5",
+      "background": "#172124",
+      "ratio": 14.6467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-surface-high",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-surface-higher",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-surface-highest",
+      "foreground": "#edf3f5",
+      "background": "#304446",
+      "ratio": 9.1818,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-modifier-hover",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-primary/--background-modifier-selected",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-primary",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-secondary",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-secondary-alt",
+      "foreground": "#abc0bd",
+      "background": "#172124",
+      "ratio": 8.6023,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-surface-high",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-surface-higher",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-surface-highest",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-modifier-hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-secondary/--background-modifier-selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-primary",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-secondary",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-secondary-alt",
+      "foreground": "#abc0bd",
+      "background": "#172124",
+      "ratio": 8.6023,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-surface-high",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-surface-higher",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-surface-highest",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-modifier-hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-muted/--background-modifier-selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-primary",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-secondary",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-secondary-alt",
+      "foreground": "#abc0bd",
+      "background": "#172124",
+      "ratio": 8.6023,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-surface-high",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-surface-higher",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-surface-highest",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-modifier-hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--channels-default/--background-modifier-selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-primary",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-secondary",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-secondary-alt",
+      "foreground": "#ceebac",
+      "background": "#172124",
+      "ratio": 12.5862,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-surface-high",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-surface-higher",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-surface-highest",
+      "foreground": "#ceebac",
+      "background": "#304446",
+      "ratio": 7.8901,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-modifier-hover",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "--text-link/--background-modifier-selected",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#81e6ed",
+      "background": "#1b282b",
+      "ratio": 10.4513,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "thears",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "FontColor/DocColor",
+      "foreground": "#0d1215",
+      "background": "#ffffff",
+      "ratio": 18.8431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "WindowTextColor/WindowColor",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "ButtonTextColor/ButtonColor",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "DisabledTextColor/DisabledColor",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "ActiveTextColor/ActiveColor",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "MenuBarTextColor/MenuBarColor",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "MenuBarHighlightTextColor/MenuBarHighlightColor",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "MenuTextColor/MenuColor",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "MenuHighlightTextColor/MenuHighlightColor",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "InactiveTextColor/InactiveColor",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "Links/white document",
+      "foreground": "#355f3e",
+      "background": "#ffffff",
+      "ratio": 7.3483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "LinksVisited/white document",
+      "foreground": "#65447e",
+      "background": "#ffffff",
+      "ratio": 7.8316,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "Spell/white document",
+      "foreground": "#a92c2c",
+      "background": "#ffffff",
+      "ratio": 6.8101,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "Grammar/white document",
+      "foreground": "#245d85",
+      "background": "#ffffff",
+      "ratio": 7.0483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "SmartTags/white document",
+      "foreground": "#65447e",
+      "background": "#ffffff",
+      "ratio": 7.8316,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "WriterNonPrintChars/white document",
+      "foreground": "#52675c",
+      "background": "#ffffff",
+      "ratio": 6.0809,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "HTMLSGML/white document",
+      "foreground": "#355f3e",
+      "background": "#ffffff",
+      "ratio": 7.3483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "HTMLComment/white document",
+      "foreground": "#52675c",
+      "background": "#ffffff",
+      "ratio": 6.0809,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "HTMLKeyword/white document",
+      "foreground": "#245d85",
+      "background": "#ffffff",
+      "ratio": 7.0483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "HTMLUnknown/white document",
+      "foreground": "#a92c2c",
+      "background": "#ffffff",
+      "ratio": 6.8101,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "CalcValue/white document",
+      "foreground": "#245d85",
+      "background": "#ffffff",
+      "ratio": 7.0483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "CalcFormula/white document",
+      "foreground": "#355f3e",
+      "background": "#ffffff",
+      "ratio": 7.3483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "CalcText/white document",
+      "foreground": "#0d1215",
+      "background": "#ffffff",
+      "ratio": 18.8431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "ActiveBorderColor/FieldColor",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "ActiveBorderColor/ButtonColor",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "thears",
+      "role": "ActiveBorderColor/WindowColor",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/chrome",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/canvas",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/dock",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/card",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/field",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/hover",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/pressed",
+      "foreground": "#edf3f5",
+      "background": "#304446",
+      "ratio": 9.1818,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/row_selected",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/accent_soft",
+      "foreground": "#edf3f5",
+      "background": "#34443d",
+      "ratio": 9.185,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/alpha selection on chrome",
+      "foreground": "#edf3f5",
+      "background": "#34443d",
+      "ratio": 9.185,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/alpha selection on dock",
+      "foreground": "#edf3f5",
+      "background": "#28312a",
+      "ratio": 11.9897,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/alpha selection on card",
+      "foreground": "#edf3f5",
+      "background": "#34443d",
+      "ratio": 9.185,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text/alpha selection on field",
+      "foreground": "#edf3f5",
+      "background": "#28312a",
+      "ratio": 11.9897,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/chrome",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/canvas",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/dock",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/card",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/field",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/pressed",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/row_selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/accent_soft",
+      "foreground": "#abc0bd",
+      "background": "#34443d",
+      "ratio": 5.3946,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/alpha selection on chrome",
+      "foreground": "#abc0bd",
+      "background": "#34443d",
+      "ratio": 5.3946,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/alpha selection on dock",
+      "foreground": "#abc0bd",
+      "background": "#28312a",
+      "ratio": 7.0418,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/alpha selection on card",
+      "foreground": "#abc0bd",
+      "background": "#34443d",
+      "ratio": 5.3946,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_dim/alpha selection on field",
+      "foreground": "#abc0bd",
+      "background": "#28312a",
+      "ratio": 7.0418,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/chrome",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/canvas",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/dock",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/card",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/field",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/pressed",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/row_selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/accent_soft",
+      "foreground": "#abc0bd",
+      "background": "#34443d",
+      "ratio": 5.3946,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/alpha selection on chrome",
+      "foreground": "#abc0bd",
+      "background": "#34443d",
+      "ratio": 5.3946,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/alpha selection on dock",
+      "foreground": "#abc0bd",
+      "background": "#28312a",
+      "ratio": 7.0418,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/alpha selection on card",
+      "foreground": "#abc0bd",
+      "background": "#34443d",
+      "ratio": 5.3946,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "text_faint/alpha selection on field",
+      "foreground": "#abc0bd",
+      "background": "#28312a",
+      "ratio": 7.0418,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/chrome",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/canvas",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/dock",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/card",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/field",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/hover",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/pressed",
+      "foreground": "#edf3f5",
+      "background": "#304446",
+      "ratio": 9.1818,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/row_selected",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/accent_soft",
+      "foreground": "#edf3f5",
+      "background": "#34443d",
+      "ratio": 9.185,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/alpha selection on chrome",
+      "foreground": "#edf3f5",
+      "background": "#34443d",
+      "ratio": 9.185,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/alpha selection on dock",
+      "foreground": "#edf3f5",
+      "background": "#28312a",
+      "ratio": 11.9897,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/alpha selection on card",
+      "foreground": "#edf3f5",
+      "background": "#34443d",
+      "ratio": 9.185,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_text/alpha selection on field",
+      "foreground": "#edf3f5",
+      "background": "#28312a",
+      "ratio": 11.9897,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "primary_text/primary_bg",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "caption_close_text/caption_close",
+      "foreground": "#0d1215",
+      "background": "#ff9591",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_border/chrome",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "danger/chrome",
+      "foreground": "#ff9591",
+      "background": "#1b282b",
+      "ratio": 7.1912,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "warning/chrome",
+      "foreground": "#ffd071",
+      "background": "#1b282b",
+      "ratio": 10.4785,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_border/card",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "danger/card",
+      "foreground": "#ff9591",
+      "background": "#1b282b",
+      "ratio": 7.1912,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "warning/card",
+      "foreground": "#ffd071",
+      "background": "#1b282b",
+      "ratio": 10.4785,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "accent_border/field",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "danger/field",
+      "foreground": "#ff9591",
+      "background": "#0d1215",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "warning/field",
+      "foreground": "#ffd071",
+      "background": "#0d1215",
+      "ratio": 13.0222,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "primary_text/primary_bg gamma 0.93",
+      "foreground": "#0d1215",
+      "background": "#c0dba0",
+      "ratio": 12.4558,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "thears",
+      "role": "primary_text/primary_bg gamma 0.85",
+      "foreground": "#0d1215",
+      "background": "#afc892",
+      "ratio": 10.3185,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "tab_background_text/frame",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "tab_text/tab_selected",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "toolbar_text/toolbar",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "bookmark_text/toolbar",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "toolbar_field_text/toolbar_field",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "toolbar_field_text_focus/toolbar_field_focus",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "toolbar_field_highlight_text/toolbar_field_highlight",
+      "foreground": "#0d1215",
+      "background": "#81e6ed",
+      "ratio": 12.9883,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "popup_text/popup",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "popup_highlight_text/popup_highlight",
+      "foreground": "#0d1215",
+      "background": "#81e6ed",
+      "ratio": 12.9883,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "sidebar_text/sidebar",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "sidebar_highlight_text/sidebar_highlight",
+      "foreground": "#0d1215",
+      "background": "#81e6ed",
+      "ratio": 12.9883,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "ntp_text/ntp_background",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "icons/toolbar",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "icons/button_background_hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "icons/button_background_active",
+      "foreground": "#abc0bd",
+      "background": "#3b5253",
+      "ratio": 4.3714,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "focus edge/toolbar_field",
+      "foreground": "#81e6ed",
+      "background": "#1b282b",
+      "ratio": 10.4513,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "focus edge/toolbar_field_focus",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "focus edge/toolbar",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userChrome dim tab and bookmark labels",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userChrome dim tab and bookmark labels",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userChrome dim tab and bookmark labels",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userContent start-page text",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userContent start-page text",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userContent start-page text",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userContent start-page text",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userContent start-page text",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "userContent start-page text",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "start-page keyboard focus",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "firefox",
+      "direction": "piyti",
+      "role": "start-page keyboard focus",
+      "foreground": "#81e6ed",
+      "background": "#1b282b",
+      "ratio": 10.4513,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "piyti",
+      "role": "Dialog text / primary label",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "piyti",
+      "role": "Dialog text / primary label",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "piyti",
+      "role": "Dialog text / primary label",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "piyti",
+      "role": "Dialog text / primary label",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "piyti",
+      "role": "keyboard focus and hover registration",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "piyti",
+      "role": "keyboard focus and hover registration",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "steam",
+      "direction": "piyti",
+      "role": "keyboard focus and hover registration",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-primary",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-secondary",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-secondary-alt",
+      "foreground": "#edf3f5",
+      "background": "#172124",
+      "ratio": 14.6467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-surface-high",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-surface-higher",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-surface-highest",
+      "foreground": "#edf3f5",
+      "background": "#304446",
+      "ratio": 9.1818,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-modifier-hover",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-primary/--background-modifier-selected",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-primary",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-secondary",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-secondary-alt",
+      "foreground": "#abc0bd",
+      "background": "#172124",
+      "ratio": 8.6023,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-surface-high",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-surface-higher",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-surface-highest",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-modifier-hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-secondary/--background-modifier-selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-primary",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-secondary",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-secondary-alt",
+      "foreground": "#abc0bd",
+      "background": "#172124",
+      "ratio": 8.6023,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-surface-high",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-surface-higher",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-surface-highest",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-modifier-hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-muted/--background-modifier-selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-primary",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-secondary",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-secondary-alt",
+      "foreground": "#abc0bd",
+      "background": "#172124",
+      "ratio": 8.6023,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-surface-high",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-surface-higher",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-surface-highest",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-modifier-hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--channels-default/--background-modifier-selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-primary",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-secondary",
+      "foreground": "#81e6ed",
+      "background": "#1b282b",
+      "ratio": 10.4513,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-secondary-alt",
+      "foreground": "#81e6ed",
+      "background": "#172124",
+      "ratio": 11.3135,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-surface-high",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-surface-higher",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-surface-highest",
+      "foreground": "#81e6ed",
+      "background": "#304446",
+      "ratio": 7.0923,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-modifier-hover",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "--text-link/--background-modifier-selected",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#ceebac",
+      "background": "#0d1215",
+      "ratio": 14.4495,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#ceebac",
+      "background": "#1b282b",
+      "ratio": 11.627,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#ceebac",
+      "background": "#25373a",
+      "ratio": 9.5499,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#81e6ed",
+      "background": "#1b282b",
+      "ratio": 10.4513,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "discord",
+      "direction": "piyti",
+      "role": "composer focus / selected-channel cue",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "FontColor/DocColor",
+      "foreground": "#0d1215",
+      "background": "#ffffff",
+      "ratio": 18.8431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "WindowTextColor/WindowColor",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "ButtonTextColor/ButtonColor",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "DisabledTextColor/DisabledColor",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "ActiveTextColor/ActiveColor",
+      "foreground": "#0d1215",
+      "background": "#81e6ed",
+      "ratio": 12.9883,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "MenuBarTextColor/MenuBarColor",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "MenuBarHighlightTextColor/MenuBarHighlightColor",
+      "foreground": "#0d1215",
+      "background": "#81e6ed",
+      "ratio": 12.9883,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "MenuTextColor/MenuColor",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "MenuHighlightTextColor/MenuHighlightColor",
+      "foreground": "#0d1215",
+      "background": "#81e6ed",
+      "ratio": 12.9883,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "InactiveTextColor/InactiveColor",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "Links/white document",
+      "foreground": "#355f3e",
+      "background": "#ffffff",
+      "ratio": 7.3483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "LinksVisited/white document",
+      "foreground": "#65447e",
+      "background": "#ffffff",
+      "ratio": 7.8316,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "Spell/white document",
+      "foreground": "#a92c2c",
+      "background": "#ffffff",
+      "ratio": 6.8101,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "Grammar/white document",
+      "foreground": "#245d85",
+      "background": "#ffffff",
+      "ratio": 7.0483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "SmartTags/white document",
+      "foreground": "#65447e",
+      "background": "#ffffff",
+      "ratio": 7.8316,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "WriterNonPrintChars/white document",
+      "foreground": "#52675c",
+      "background": "#ffffff",
+      "ratio": 6.0809,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "HTMLSGML/white document",
+      "foreground": "#355f3e",
+      "background": "#ffffff",
+      "ratio": 7.3483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "HTMLComment/white document",
+      "foreground": "#52675c",
+      "background": "#ffffff",
+      "ratio": 6.0809,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "HTMLKeyword/white document",
+      "foreground": "#245d85",
+      "background": "#ffffff",
+      "ratio": 7.0483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "HTMLUnknown/white document",
+      "foreground": "#a92c2c",
+      "background": "#ffffff",
+      "ratio": 6.8101,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "CalcValue/white document",
+      "foreground": "#245d85",
+      "background": "#ffffff",
+      "ratio": 7.0483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "CalcFormula/white document",
+      "foreground": "#355f3e",
+      "background": "#ffffff",
+      "ratio": 7.3483,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "CalcText/white document",
+      "foreground": "#0d1215",
+      "background": "#ffffff",
+      "ratio": 18.8431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "ActiveBorderColor/FieldColor",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "ActiveBorderColor/ButtonColor",
+      "foreground": "#81e6ed",
+      "background": "#25373a",
+      "ratio": 8.5842,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "libreoffice",
+      "direction": "piyti",
+      "role": "ActiveBorderColor/WindowColor",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/chrome",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/canvas",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/dock",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/card",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/field",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/hover",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/pressed",
+      "foreground": "#edf3f5",
+      "background": "#304446",
+      "ratio": 9.1818,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/row_selected",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/accent_soft",
+      "foreground": "#edf3f5",
+      "background": "#294346",
+      "ratio": 9.4379,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/alpha selection on chrome",
+      "foreground": "#edf3f5",
+      "background": "#1d3033",
+      "ratio": 12.3058,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/alpha selection on dock",
+      "foreground": "#edf3f5",
+      "background": "#1d3033",
+      "ratio": 12.3058,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/alpha selection on card",
+      "foreground": "#edf3f5",
+      "background": "#294346",
+      "ratio": 9.4379,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text/alpha selection on field",
+      "foreground": "#edf3f5",
+      "background": "#1d3033",
+      "ratio": 12.3058,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/chrome",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/canvas",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/dock",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/card",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/field",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/pressed",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/row_selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/accent_soft",
+      "foreground": "#abc0bd",
+      "background": "#294346",
+      "ratio": 5.5431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/alpha selection on chrome",
+      "foreground": "#abc0bd",
+      "background": "#1d3033",
+      "ratio": 7.2275,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/alpha selection on dock",
+      "foreground": "#abc0bd",
+      "background": "#1d3033",
+      "ratio": 7.2275,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/alpha selection on card",
+      "foreground": "#abc0bd",
+      "background": "#294346",
+      "ratio": 5.5431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_dim/alpha selection on field",
+      "foreground": "#abc0bd",
+      "background": "#1d3033",
+      "ratio": 7.2275,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/chrome",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/canvas",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/dock",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/card",
+      "foreground": "#abc0bd",
+      "background": "#1b282b",
+      "ratio": 7.9467,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/field",
+      "foreground": "#abc0bd",
+      "background": "#0d1215",
+      "ratio": 9.8758,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/hover",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/pressed",
+      "foreground": "#abc0bd",
+      "background": "#304446",
+      "ratio": 5.3927,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/row_selected",
+      "foreground": "#abc0bd",
+      "background": "#25373a",
+      "ratio": 6.5271,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/accent_soft",
+      "foreground": "#abc0bd",
+      "background": "#294346",
+      "ratio": 5.5431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/alpha selection on chrome",
+      "foreground": "#abc0bd",
+      "background": "#1d3033",
+      "ratio": 7.2275,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/alpha selection on dock",
+      "foreground": "#abc0bd",
+      "background": "#1d3033",
+      "ratio": 7.2275,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/alpha selection on card",
+      "foreground": "#abc0bd",
+      "background": "#294346",
+      "ratio": 5.5431,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "text_faint/alpha selection on field",
+      "foreground": "#abc0bd",
+      "background": "#1d3033",
+      "ratio": 7.2275,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/chrome",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/canvas",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/dock",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/card",
+      "foreground": "#edf3f5",
+      "background": "#1b282b",
+      "ratio": 13.5304,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/field",
+      "foreground": "#edf3f5",
+      "background": "#0d1215",
+      "ratio": 16.8149,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/hover",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/pressed",
+      "foreground": "#edf3f5",
+      "background": "#304446",
+      "ratio": 9.1818,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/row_selected",
+      "foreground": "#edf3f5",
+      "background": "#25373a",
+      "ratio": 11.1133,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/accent_soft",
+      "foreground": "#edf3f5",
+      "background": "#294346",
+      "ratio": 9.4379,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/alpha selection on chrome",
+      "foreground": "#edf3f5",
+      "background": "#1d3033",
+      "ratio": 12.3058,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/alpha selection on dock",
+      "foreground": "#edf3f5",
+      "background": "#1d3033",
+      "ratio": 12.3058,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/alpha selection on card",
+      "foreground": "#edf3f5",
+      "background": "#294346",
+      "ratio": 9.4379,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_text/alpha selection on field",
+      "foreground": "#edf3f5",
+      "background": "#1d3033",
+      "ratio": 12.3058,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "primary_text/primary_bg",
+      "foreground": "#0d1215",
+      "background": "#ceebac",
+      "ratio": 14.4495,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "caption_close_text/caption_close",
+      "foreground": "#0d1215",
+      "background": "#ff9591",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_border/chrome",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "danger/chrome",
+      "foreground": "#ff9591",
+      "background": "#0d1215",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "warning/chrome",
+      "foreground": "#ffd071",
+      "background": "#0d1215",
+      "ratio": 13.0222,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_border/card",
+      "foreground": "#81e6ed",
+      "background": "#1b282b",
+      "ratio": 10.4513,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "danger/card",
+      "foreground": "#ff9591",
+      "background": "#1b282b",
+      "ratio": 7.1912,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "warning/card",
+      "foreground": "#ffd071",
+      "background": "#1b282b",
+      "ratio": 10.4785,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "accent_border/field",
+      "foreground": "#81e6ed",
+      "background": "#0d1215",
+      "ratio": 12.9883,
+      "minimum": 3,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "danger/field",
+      "foreground": "#ff9591",
+      "background": "#0d1215",
+      "ratio": 8.9369,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "warning/field",
+      "foreground": "#ffd071",
+      "background": "#0d1215",
+      "ratio": 13.0222,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "primary_text/primary_bg gamma 0.93",
+      "foreground": "#0d1215",
+      "background": "#c0dba0",
+      "ratio": 12.4558,
+      "minimum": 4.5,
+      "pass_": true
+    },
+    {
+      "app": "artcraft",
+      "direction": "piyti",
+      "role": "primary_text/primary_bg gamma 0.85",
+      "foreground": "#0d1215",
+      "background": "#afc892",
+      "ratio": 10.3185,
+      "minimum": 4.5,
+      "pass_": true
+    }
+  ]
+}

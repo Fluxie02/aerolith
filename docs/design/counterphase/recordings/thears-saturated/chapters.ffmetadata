@@ -1,0 +1,116 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=0
+END=834
+title=First-boot assembly / waiting for shell
+[CHAPTER]
+TIMEBASE=1/1000
+START=834
+END=2933
+title=First-boot assembly / fresh process
+[CHAPTER]
+TIMEBASE=1/1000
+START=2933
+END=12933
+title=Idle desktop / ambient motion
+[CHAPTER]
+TIMEBASE=1/1000
+START=12933
+END=14933
+title=Workspace 2
+[CHAPTER]
+TIMEBASE=1/1000
+START=14933
+END=16933
+title=Workspace 3
+[CHAPTER]
+TIMEBASE=1/1000
+START=16933
+END=18933
+title=Deck / Command
+[CHAPTER]
+TIMEBASE=1/1000
+START=18933
+END=20933
+title=Ctrl+2 / Navigator
+[CHAPTER]
+TIMEBASE=1/1000
+START=20933
+END=22933
+title=Ctrl+3 / Systems
+[CHAPTER]
+TIMEBASE=1/1000
+START=22933
+END=24933
+title=Ctrl+4 / Signal
+[CHAPTER]
+TIMEBASE=1/1000
+START=24933
+END=26933
+title=Ctrl+5 / Routines
+[CHAPTER]
+TIMEBASE=1/1000
+START=26933
+END=28933
+title=Ctrl+6 / AI
+[CHAPTER]
+TIMEBASE=1/1000
+START=28933
+END=30933
+title=Ctrl+7 / Settings
+[CHAPTER]
+TIMEBASE=1/1000
+START=30933
+END=32933
+title=F1 / Help
+[CHAPTER]
+TIMEBASE=1/1000
+START=32933
+END=33283
+title=Ctrl+1 / Command
+[CHAPTER]
+TIMEBASE=1/1000
+START=33283
+END=35433
+title=Tab / Apps scope
+[CHAPTER]
+TIMEBASE=1/1000
+START=35433
+END=37933
+title=Typing command input
+[CHAPTER]
+TIMEBASE=1/1000
+START=37933
+END=43334
+title=Notification / arrival and expiry
+[CHAPTER]
+TIMEBASE=1/1000
+START=43334
+END=43433
+title=Notification expired
+[CHAPTER]
+TIMEBASE=1/1000
+START=43433
+END=45433
+title=Volume / OSD attempt
+[CHAPTER]
+TIMEBASE=1/1000
+START=45433
+END=47433
+title=Brightness / unavailable OSD attempt
+[CHAPTER]
+TIMEBASE=1/1000
+START=47433
+END=47683
+title=Close Deck / Escape clears query
+[CHAPTER]
+TIMEBASE=1/1000
+START=47683
+END=47933
+title=Close Deck / Escape
+[CHAPTER]
+TIMEBASE=1/1000
+START=47933
+END=51933
+title=Final idle / ambient motion

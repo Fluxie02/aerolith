@@ -1,0 +1,21 @@
+{
+  "name": "piyti-insane-full",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "tests/scenarios/full.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/piyti-insane-full"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/piyti-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-full-scale1.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "AUDIO": "1",
+    "MEDIA": "1",
+    "MPV_AO": "pipewire"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 37.85,
+  "stdout": "docs/design/counterphase/verification/final-runs/piyti-insane-full.stdout.txt",
+  "source_manifest_sha256": "0208189ba59f0616ad22fff07d5fb4b4ee13fe41b1c7058549050fa1b9d3533d"
+}

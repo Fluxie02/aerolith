@@ -1,0 +1,13 @@
+[E][17:09:37.012257] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:09:37.012291] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][17:09:37.024883] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:09:37.024984] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][17:09:37.035630] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:09:37.035661] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+{"state": "idle-strip", "seconds": 120.0, "cpu_seconds": 1.25, "cpu_percent_of_one_core": 1.04, "context_switches_per_s": 55.7, "rss_mib": 123.5, "threads": 14}
+ok
+{"state": "systems-bay-open", "seconds": 30.0, "cpu_seconds": 0.88, "cpu_percent_of_one_core": 2.93, "context_switches_per_s": 124.7, "rss_mib": 168.8, "threads": 14}
+ok
+{"state": "command-core-open", "seconds": 30.0, "cpu_seconds": 0.25, "cpu_percent_of_one_core": 0.83, "context_switches_per_s": 40.5, "rss_mib": 164.9, "threads": 14}
+{"state": "idle-after-use", "seconds": 30.0, "cpu_seconds": 0.28, "cpu_percent_of_one_core": 0.93, "context_switches_per_s": 52.1, "rss_mib": 127.3, "threads": 14}
+perf: ok

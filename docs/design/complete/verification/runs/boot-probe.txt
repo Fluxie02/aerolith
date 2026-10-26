@@ -1,0 +1,3 @@
+ok
+started
+boot-probe: ok (85 startup progress events; no events on intensity switch or remap)

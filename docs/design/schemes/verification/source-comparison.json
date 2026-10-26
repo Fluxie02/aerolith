@@ -1,0 +1,322 @@
+[
+  {
+    "file": "shell.qml",
+    "same": true
+  },
+  {
+    "file": "modules/ControlSurface.qml",
+    "same": true
+  },
+  {
+    "file": "modules/AiLoader.qml",
+    "same": true
+  },
+  {
+    "file": "schema/config.schema.json",
+    "same": true
+  },
+  {
+    "file": "components/ChordSlot.qml",
+    "same": true
+  },
+  {
+    "file": "components/Annunciator.qml",
+    "same": true
+  },
+  {
+    "file": "components/Bezel.qml",
+    "same": true
+  },
+  {
+    "file": "components/InstrumentField.qml",
+    "same": true
+  },
+  {
+    "file": "components/ShearField.qml",
+    "same": true
+  },
+  {
+    "file": "components/KeyHint.qml",
+    "same": true
+  },
+  {
+    "file": "components/Instrumentation.qml",
+    "same": true
+  },
+  {
+    "file": "components/ScrollMark.qml",
+    "same": true
+  },
+  {
+    "file": "components/Counterphase.qml",
+    "same": true
+  },
+  {
+    "file": "components/Ruler.qml",
+    "same": true
+  },
+  {
+    "file": "components/MetricTape.qml",
+    "same": true
+  },
+  {
+    "file": "components/Label.qml",
+    "same": true
+  },
+  {
+    "file": "components/Readout.qml",
+    "same": true
+  },
+  {
+    "file": "components/WorkspaceOrbit.qml",
+    "same": true
+  },
+  {
+    "file": "components/CircularField.qml",
+    "same": true
+  },
+  {
+    "file": "components/InstrumentTabs.qml",
+    "same": true
+  },
+  {
+    "file": "components/AppGlyph.qml",
+    "same": true
+  },
+  {
+    "file": "components/StatusLine.qml",
+    "same": true
+  },
+  {
+    "file": "components/TapeGauge.qml",
+    "same": true
+  },
+  {
+    "file": "components/AppContinuity.qml",
+    "same": true
+  },
+  {
+    "file": "components/Trace.qml",
+    "same": true
+  },
+  {
+    "file": "services/Audio.qml",
+    "same": true
+  },
+  {
+    "file": "services/Apps.qml",
+    "same": true
+  },
+  {
+    "file": "services/ShellCommands.qml",
+    "same": true
+  },
+  {
+    "file": "services/Power.qml",
+    "same": true
+  },
+  {
+    "file": "services/Compositor.qml",
+    "same": true
+  },
+  {
+    "file": "services/Media.qml",
+    "same": true
+  },
+  {
+    "file": "services/Telemetry.qml",
+    "same": true
+  },
+  {
+    "file": "services/Routines.qml",
+    "same": true
+  },
+  {
+    "file": "services/Notifications.qml",
+    "same": true
+  },
+  {
+    "file": "lib/hyprdispatch.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/telemetry.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/tokens.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/config.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/routines.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/params.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/launch.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/registry.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/schemes.mjs",
+    "same": true
+  },
+  {
+    "file": "lib/fuzzy.mjs",
+    "same": true
+  },
+  {
+    "file": "core/Paths.qml",
+    "same": true
+  },
+  {
+    "file": "core/Registry.qml",
+    "same": true
+  },
+  {
+    "file": "core/Exec.qml",
+    "same": true
+  },
+  {
+    "file": "core/Store.qml",
+    "same": true
+  },
+  {
+    "file": "core/Theme.qml",
+    "same": true
+  },
+  {
+    "file": "core/Config.qml",
+    "same": true
+  },
+  {
+    "file": "core/Log.qml",
+    "same": true
+  },
+  {
+    "file": "core/Wait.qml",
+    "same": true
+  },
+  {
+    "file": "core/Ui.qml",
+    "same": true
+  },
+  {
+    "file": "modules/ground/Ground.qml",
+    "same": true
+  },
+  {
+    "file": "modules/ground/GroundSurface.qml",
+    "same": true
+  },
+  {
+    "file": "modules/signal/SignalRack.qml",
+    "same": true
+  },
+  {
+    "file": "modules/signal/StreamRow.qml",
+    "same": true
+  },
+  {
+    "file": "modules/signal/PlayerCard.qml",
+    "same": true
+  },
+  {
+    "file": "modules/signal/DeviceRow.qml",
+    "same": true
+  },
+  {
+    "file": "modules/strip/StripClock.qml",
+    "same": true
+  },
+  {
+    "file": "modules/strip/WorkspaceTape.qml",
+    "same": true
+  },
+  {
+    "file": "modules/strip/FlightStrip.qml",
+    "same": true
+  },
+  {
+    "file": "modules/lock/LockView.qml",
+    "same": true
+  },
+  {
+    "file": "modules/systems/SystemsBay.qml",
+    "same": true
+  },
+  {
+    "file": "modules/systems/CoreBus.qml",
+    "same": true
+  },
+  {
+    "file": "modules/deck/DeckView.qml",
+    "same": true
+  },
+  {
+    "file": "modules/deck/Deck.qml",
+    "same": true
+  },
+  {
+    "file": "modules/navigator/SpatialNavigator.qml",
+    "same": true
+  },
+  {
+    "file": "modules/navigator/Sector.qml",
+    "same": true
+  },
+  {
+    "file": "modules/settings/SettingControl.qml",
+    "same": true
+  },
+  {
+    "file": "modules/settings/SchemePicker.qml",
+    "same": true
+  },
+  {
+    "file": "modules/settings/SettingsBay.qml",
+    "same": true
+  },
+  {
+    "file": "modules/session/SessionView.qml",
+    "same": true
+  },
+  {
+    "file": "modules/routines/RoutineConsole.qml",
+    "same": true
+  },
+  {
+    "file": "modules/command/ResultRow.qml",
+    "same": true
+  },
+  {
+    "file": "modules/command/CommandCore.qml",
+    "same": true
+  },
+  {
+    "file": "modules/osd/OsdView.qml",
+    "same": true
+  },
+  {
+    "file": "modules/help/HelpBay.qml",
+    "same": true
+  },
+  {
+    "file": "modules/notices/NoticeColumn.qml",
+    "same": true
+  },
+  {
+    "file": "modules/notices/NoticeStack.qml",
+    "same": true
+  }
+]

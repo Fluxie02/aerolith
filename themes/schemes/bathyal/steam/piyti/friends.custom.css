@@ -1,0 +1,73 @@
+/* AEROLITH PIYTI. Local Millennium theme; app chrome only.
+ * No remote assets, scripts, animation loops, transparency or store injections.
+ * Symbolic class stems tolerate hash changes but still need checks after Steam updates. */
+:root {
+  --aero-obsidian: #091619;
+  --aero-surface: #122b30;
+  --aero-surface2: #1d383e;
+  --aero-grid: #385b63;
+  --aero-text: #e1f4f1;
+  --aero-dim: #acc8cc;
+  --aero-signal: #80e1cf;
+  --aero-rail: #a1c9ff;
+}
+.DesktopUI,
+.friendsui-container,
+.DialogContent {
+  background-color: var(--aero-obsidian) !important;
+  color: var(--aero-text);
+  font-family: "Inter", "Noto Sans", sans-serif;
+}
+.DialogContent,
+.DialogBody,
+.friendlistListContainer,
+[class*="libraryhome_Container_"],
+[class*="appdetailsoverview_Container_"] {
+  background-color: var(--aero-obsidian) !important;
+}
+[class*="steamdesktop_TopBar_"],
+[class*="steamdesktop_BottomBar_"],
+[class*="gamelistbar_Container_"],
+.friendListHeaderContainer .titleBarContainer {
+  background-color: var(--aero-surface) !important;
+  border-color: var(--aero-grid) !important;
+}
+.DialogButton:not(.Primary):not(.Disabled):not(:disabled) {
+  background: var(--aero-surface2) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid var(--aero-grid) !important;
+  border-radius: 10px;
+}
+.DialogButton.Primary:not(.Disabled):not(:disabled) {
+  background: var(--aero-signal) !important;
+  color: var(--aero-obsidian) !important;
+  border-radius: 10px;
+}
+.DialogTextInputBase {
+  background: var(--aero-obsidian) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid var(--aero-grid) !important;
+  border-radius: 10px;
+}
+.DialogTextInputBase:focus,
+.DialogTextInputBase:focus-within,
+.DialogButton:focus-visible {
+  outline: 2px solid var(--aero-signal) !important;
+  outline-offset: 2px;
+}
+.DialogButton:not(.Disabled):not(:disabled):hover {
+  box-shadow: inset 0 -2px var(--aero-rail);
+}
+.DialogButton {
+  transition: box-shadow 120ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .DialogButton { transition: none; }
+}
+
+.friendListHeaderContainer {
+  border-top: 2px solid var(--aero-rail);
+}
+.friendlistListContainer {
+  box-shadow: inset 2px 0 var(--aero-grid);
+}

@@ -1,0 +1,21 @@
+{
+  "name": "saturated-4k-scale2-uiScale1",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "docs/design/counterphase/scripts/capture-4k.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/saturated-4k-scale2-uiScale1"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/frozen-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/saturated-full-scale1.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "RES": "3840x2160",
+    "SCALE": "2",
+    "HYPR_MOCK_ARGS": "--mode 3840x2160 --scale 2"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 8.44,
+  "stdout": "docs/design/counterphase/verification/final-runs/saturated-4k-scale2-uiScale1.stdout.txt",
+  "source_manifest_sha256": "389bc67e1b70923802878cd9947ba1b732cac6a174add8ab9c65a46d04306875"
+}

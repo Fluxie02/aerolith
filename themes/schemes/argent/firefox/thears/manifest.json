@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Argent / THEARS",
+  "version": "1.0.0",
+  "description": "Graphite / silver inscription. THEARS application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "argent-thears-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#121415",
+      "frame_inactive": "#121415",
+      "tab_background_text": "#bec7ca",
+      "tab_text": "#f3f5f5",
+      "tab_selected": "#34393b",
+      "tab_loading": "#e2e6e8",
+      "tab_line": "#e2e6e8",
+      "toolbar": "#25292b",
+      "toolbar_text": "#f3f5f5",
+      "bookmark_text": "#f3f5f5",
+      "icons": "#bec7ca",
+      "icons_attention": "#e2e6e8",
+      "toolbar_field": "#121415",
+      "toolbar_field_text": "#f3f5f5",
+      "toolbar_field_border": "#545e62",
+      "toolbar_field_focus": "#34393b",
+      "toolbar_field_text_focus": "#f3f5f5",
+      "toolbar_field_border_focus": "#e2e6e8",
+      "toolbar_field_highlight": "#e2e6e8",
+      "toolbar_field_highlight_text": "#121415",
+      "toolbar_top_separator": "#545e62",
+      "toolbar_bottom_separator": "#545e62",
+      "toolbar_vertical_separator": "#545e62",
+      "button_background_hover": "#34393b",
+      "button_background_active": "#3f4649",
+      "popup": "#25292b",
+      "popup_text": "#f3f5f5",
+      "popup_border": "#545e62",
+      "popup_highlight": "#e2e6e8",
+      "popup_highlight_text": "#121415",
+      "sidebar": "#25292b",
+      "sidebar_text": "#f3f5f5",
+      "sidebar_border": "#545e62",
+      "sidebar_highlight": "#e2e6e8",
+      "sidebar_highlight_text": "#121415",
+      "ntp_background": "#121415",
+      "ntp_text": "#f3f5f5"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

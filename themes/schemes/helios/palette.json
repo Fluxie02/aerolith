@@ -1,0 +1,40 @@
+{
+  "id": "helios",
+  "name": "Helios",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#11151c",
+  "surface": "#232c35",
+  "surface2": "#303c46",
+  "grid": "#506373",
+  "text": "#f5f2e7",
+  "textDim": "#c2c8cb",
+  "signal": "#f4db83",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#b9d8ed",
+  "lower": "#1e252e",
+  "pressed": "#394753",
+  "ansi": {
+    "normal": [
+      "#969b9f",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#b9cfed",
+      "#dcb9ed",
+      "#b9eded",
+      "#c2c8cb"
+    ],
+    "bright": [
+      "#c2c8cb",
+      "#fcb1ab",
+      "#c7eaca",
+      "#fcda94",
+      "#cbdaeb",
+      "#e4caeb",
+      "#cbefeb",
+      "#f5f2e7"
+    ]
+  }
+}

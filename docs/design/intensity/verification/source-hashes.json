@@ -1,0 +1,10 @@
+{
+  "shell/core/Theme.qml": "d25507826ca87d059384262055051cdb2cc4dd0032696857d8125637447c25e0",
+  "shell/lib/tokens.mjs": "e2a21ee72033d77b285dc6e0eed843c08da9453f05e05031cb00ffc22dd1114e",
+  "shell/modules/deck/DeckView.qml": "7716828807c048ca97296957e057fcb2c1b00b1b94f5081eab250d32fb967797",
+  "shell/modules/ground/Ground.qml": "f511c97e27998c35a4d7822a37ad1d701cfc0b90b736f951c22a9d59330fe952",
+  "shell/components/InstrumentField.qml": "56bf2289acee4e31132fa5e5e2ad190d6a321e2d4238c5b053c6a588c118fc8a",
+  "shell/components/Instrumentation.qml": "e33d66c90e148140da7f20df43976bf5465102adc72b16855a973264d6e37c36",
+  "shell/components/MetricTape.qml": "da7828ae1571f7a47dea6114b3003d2bf82eba009f41e6c9ded033226c8a0199",
+  "shell/components/WorkspaceOrbit.qml": "8c3e4c38b26bf6c6ec18d44cd654a243191cac3f888edafae2cacc6117d55950"
+}

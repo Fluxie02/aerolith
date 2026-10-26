@@ -1,8 +1,11 @@
 import QtQuick
 import qs.core
+import qs.components
 
-// Visual content of the desktop ground (owned by the visual design). Keep it
-// event-driven: no timers, no looping animations, no polling.
 Rectangle {
     color: Theme.bg
+    clip: true
+    InstrumentField { anchors.fill: parent }
+    Instrumentation { anchors.fill: parent }
+    Component.onCompleted: Theme.ignite()
 }

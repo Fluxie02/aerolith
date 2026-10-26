@@ -27,6 +27,17 @@ FocusScope {
     property bool editing: false
     property string message: ""
     property string messageState: ""
+    property bool spectra: true
+    readonly property var schemeRow: rows.filter(r => r.path === "theme.scheme")[0]
+
+    // Unknown stays N/A; Theme reads the current output's live monitor data.
+    readonly property real outputRefreshRate: Theme.refreshRate
+    readonly property string refreshLabel: isFinite(outputRefreshRate) ? String(Math.round(outputRefreshRate * 100) / 100) + " Hz" : "Refresh rate unavailable"
+    readonly property string motionLabel: !Theme.animate ? (Theme.lowEffects ? "Motion: off · low effects" : "Motion: off") :
+        "Motion: " + (Theme.travel ? "" : "reduced · ") + "synced to " + (isFinite(outputRefreshRate) ? refreshLabel : "display")
+
+    function showRegister() { spectra = false; bay.forceActiveFocus(); }
+    function showSpectra() { editing = false; spectra = true; spectrum.forceActiveFocus(); }
 
     function buildRows() {
         const out = [];
@@ -111,6 +122,12 @@ FocusScope {
     Keys.onPressed: event => {
         if (editing)
             return;
+        if (event.key === Qt.Key_Tab) {
+            if (spectra) showRegister(); else showSpectra();
+            event.accepted = true;
+            return;
+        }
+        if (spectra) return;
         const row = rows[current];
         const k = event.key;
         if (k === Qt.Key_Down || k === Qt.Key_J)
@@ -126,7 +143,9 @@ FocusScope {
         else if (k === Qt.Key_Left || k === Qt.Key_H)
             change(row, -1);
         else if (k === Qt.Key_Return || k === Qt.Key_Enter || k === Qt.Key_Space) {
-            if (row.type === "string") {
+            if (row.path === "theme.scheme") {
+                showSpectra();
+            } else if (row.type === "string") {
                 editing = true;
                 editor.text = valueOf(row.path);
                 editor.forceActiveFocus();
@@ -139,126 +158,283 @@ FocusScope {
         event.accepted = true;
     }
 
-    Rectangle {
+    // Presentation only: the schema traversal, mutations and keys above stay exact.
+    readonly property var selectedRow: rows[current]
+    readonly property bool inspectorVisible: width >= Theme.du(1050)
+    function caption(path) {
+        const leaf = path.substring(path.lastIndexOf(".") + 1);
+        return leaf.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, c => c.toUpperCase());
+    }
+
+    Bezel {
         anchors.fill: parent
-        anchors.margins: Theme.pad * 2
-        color: Theme.surface
-        border.color: Theme.grid
-        border.width: Theme.border
+        designation: "SET / 07"
+        title: "Settings"
+        status: bay.editing ? "EDIT / UNSAVED" : "CONFIG / LIVE"
+        statusColor: bay.editing ? Theme.caution : Theme.signal
 
         Column {
+            id: content
             anchors.fill: parent
-            anchors.margins: Theme.pad
-            spacing: Theme.gap
+            spacing: Theme.du(12)
 
-            Text {
-                text: "Settings"
-                color: Theme.text
-                font.family: Theme.sans
-                font.pixelSize: Theme.fontLg
-            }
-
-            ListView {
-                id: list
+            Row {
                 width: parent.width
-                height: parent.height - y - status.height - Theme.gap
-                clip: true
-                model: bay.rows
-                currentIndex: bay.current
-                section.property: "section"
-                section.delegate: Text {
-                    required property string section
-                    text: section
-                    color: Theme.textDim
-                    font.family: Theme.mono
-                    font.pixelSize: Theme.fontXs
-                    topPadding: Theme.gap
+                height: Theme.du(32)
+                spacing: Theme.du(6)
+                Repeater {
+                    model: ["SPECTRA / " + spectrum.schemeCount, "REGISTER / " + bay.rows.length]
+                    Rectangle {
+                        required property string modelData
+                        required property int index
+                        readonly property bool chosen: index === (bay.spectra ? 0 : 1)
+                        width: Math.min(Theme.du(180), (content.width - Theme.du(6)) / 2); height: Theme.du(32)
+                        color: chosen ? Theme.surface2 : Theme.bg
+                        border.color: chosen ? Theme.signal : Theme.grid; radius: Theme.du(4)
+                        Text {
+                            anchors.centerIn: parent; text: modelData; textFormat: Text.PlainText
+                            color: parent.chosen ? Theme.signal : Theme.textDim
+                            font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                        }
+                        MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: if (index === 0) bay.showSpectra(); else bay.showRegister(); }
+                    }
                 }
-                delegate: Rectangle {
-                    id: row
-                    required property var modelData
-                    required property int index
-                    readonly property bool selected: index === bay.current
-                    width: list.width
-                    height: Theme.rowHeight + Theme.px(14)
-                    color: selected ? Theme.surface2 : "transparent"
+                Text {
+                    width: Math.max(0, parent.width - x); height: parent.height
+                    horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter
+                    text: "TAB / " + (bay.spectra ? "REGISTER" : "SPECTRA"); textFormat: Text.PlainText
+                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    elide: Text.ElideRight
+                }
+            }
 
-                    Column {
-                        anchors.left: parent.left
-                        anchors.right: valueText.left
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.leftMargin: Theme.pad
-                        anchors.rightMargin: Theme.pad
-                        Text {
-                            width: parent.width
-                            text: row.modelData.path
-                            textFormat: Text.PlainText
-                            color: row.selected ? Theme.signal : Theme.text
-                            font.family: Theme.mono
-                            font.pixelSize: Theme.fontSm
-                        }
-                        Text {
-                            width: parent.width
-                            text: row.modelData.description
-                            textFormat: Text.PlainText
-                            color: Theme.textDim
-                            font.family: Theme.sans
-                            font.pixelSize: Theme.fontXs
-                            elide: Text.ElideRight
+            Rectangle {
+                width: parent.width
+                height: Theme.du(36)
+                radius: Theme.radius
+                color: Theme.surface
+                border.color: Theme.grid
+                border.width: Theme.border
+                Text {
+                    x: Theme.du(12); width: Math.max(0, parent.width * .64 - x)
+                    height: parent.height; verticalAlignment: Text.AlignVCenter
+                    text: bay.motionLabel; textFormat: Text.PlainText
+                    color: Theme.animate ? Theme.signal : Theme.textDim
+                    font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    elide: Text.ElideRight
+                }
+                Text {
+                    x: parent.width * .64; width: Math.max(0, parent.width - x - Theme.du(12))
+                    height: parent.height; verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignRight
+                    text: (Ui.screenName ? Ui.screenName + " · " : "") + bay.refreshLabel
+                    textFormat: Text.PlainText
+                    color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    elide: Text.ElideLeft
+                }
+                Accessible.role: Accessible.StaticText
+                Accessible.name: bay.motionLabel + ". " + (Ui.screenName || "Current output") + ". " + bay.refreshLabel
+            }
+
+            Item {
+                width: parent.width
+                height: Math.max(0, content.height - y - feedback.height - status.height - content.spacing * 3)
+
+                SchemePicker {
+                    id: spectrum
+                    anchors.fill: parent
+                    visible: bay.spectra
+                    focus: bay.spectra
+                    onPicked: scheme => bay.apply(bay.schemeRow, scheme)
+                    onRegisterRequested: bay.showRegister()
+                }
+
+                ListView {
+                    id: list
+                    visible: !bay.spectra
+                    width: bay.inspectorVisible ? parent.width * .68 - Theme.pad : parent.width
+                    height: parent.height
+                    clip: true
+                    model: bay.rows
+                    currentIndex: bay.current
+                    spacing: Theme.du(3)
+                    boundsBehavior: Flickable.StopAtBounds
+                    section.property: "section"
+                    section.delegate: Item {
+                        required property string section
+                        width: list.width; height: Theme.du(38)
+                        Row {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: parent.width; spacing: Theme.du(12)
+                            Rectangle { width: Theme.du(18); height: Theme.px(2); color: Theme.signal; anchors.verticalCenter: parent.verticalCenter }
+                            Text {
+                                id: sectionLabel
+                                text: section.toUpperCase(); textFormat: Text.PlainText
+                                color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 2
+                            }
+                            Rectangle {
+                                width: Math.max(0, parent.width - sectionLabel.width - Theme.du(42))
+                                height: Theme.border; color: Theme.grid; anchors.verticalCenter: parent.verticalCenter
+                            }
                         }
                     }
-                    Text {
-                        id: valueText
+                    delegate: Rectangle {
+                        id: row
+                        required property var modelData
+                        required property int index
+                        readonly property bool selected: index === bay.current
+                        width: list.width
+                        height: Math.max(Theme.du(74), row.modelData.path === "theme.scheme" ? 0 : valueControl.implicitHeight + Theme.du(24), rowLabels.implicitHeight + Theme.du(24))
+                        radius: Theme.radius
+                        color: selected ? Theme.surface2 : Theme.surface
+                        border.color: selected ? (bay.editing ? Theme.caution : Theme.grid) : "transparent"
+                        border.width: Theme.border
+                        Rectangle {
+                            y: Theme.radius; width: Theme.du(3); height: Math.max(0, parent.height - 2 * y); radius: width / 2
+                            color: bay.editing ? Theme.caution : Theme.signal; visible: row.selected
+                        }
+                        Text {
+                            visible: Theme.insane
+                            x: Theme.du(12); y: Theme.du(12)
+                            text: (row.index + 1 < 10 ? "0" : "") + (row.index + 1); textFormat: Text.PlainText
+                            color: row.selected ? Theme.signal : Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                        }
+                        Column {
+                            id: rowLabels
+                            x: Theme.du(Theme.insane ? 42 : 16)
+                            width: Math.max(0, valueControl.x - x - Theme.pad)
+                            anchors.verticalCenter: parent.verticalCenter
+                            spacing: Theme.du(5)
+                            Text {
+                                width: parent.width; text: bay.caption(row.modelData.path); textFormat: Text.PlainText
+                                color: row.selected ? Theme.signal : Theme.text; font.family: Theme.sans; font.pixelSize: Theme.fontMd
+                                elide: Text.ElideRight
+                            }
+                            Text {
+                                width: parent.width; text: row.modelData.description; textFormat: Text.PlainText
+                                color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontXs
+                                wrapMode: row.selected && !bay.inspectorVisible ? Text.WordWrap : Text.NoWrap
+                                elide: row.selected && !bay.inspectorVisible ? Text.ElideNone : Text.ElideRight
+                            }
+                        }
+                        SettingControl {
+                            id: valueControl
+                            visible: row.modelData.path !== "theme.scheme"
+                            z: 1
+                            width: parent.width * .43
+                            anchors.right: parent.right; anchors.rightMargin: Theme.du(14)
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: implicitHeight
+                            setting: row.modelData; value: bay.valueOf(row.modelData.path)
+                            selected: row.selected; editing: row.selected && bay.editing; draft: editor.text
+                            onStepped: direction => { bay.current = row.index; bay.forceActiveFocus(); bay.change(row.modelData, direction); }
+                            onChoicePicked: value => { bay.current = row.index; bay.forceActiveFocus(); bay.apply(row.modelData, value); }
+                            onEditRequested: {
+                                bay.current = row.index;
+                                bay.editing = true;
+                                editor.text = bay.valueOf(row.modelData.path);
+                                editor.forceActiveFocus();
+                                editor.selectAll();
+                            }
+                        }
+                        Rectangle {
+                            z: 2; visible: row.modelData.path === "theme.scheme"
+                            x: valueControl.x; width: valueControl.width; height: Theme.du(34); anchors.verticalCenter: parent.verticalCenter
+                            color: Theme.bg; border.color: Theme.signal; radius: Theme.du(4)
+                            Text {
+                                anchors.fill: parent; anchors.margins: Theme.du(8)
+                                text: Theme.specimen.name + "  /  OPEN SPECTRA"; textFormat: Text.PlainText
+                                verticalAlignment: Text.AlignVCenter; elide: Text.ElideRight
+                                color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                            }
+                            MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: bay.showSpectra(); }
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                bay.current = row.index;
+                                bay.forceActiveFocus();
+                            }
+                            onDoubleClicked: bay.change(row.modelData, 1)
+                        }
+                    }
+                    // A static position marker also works with motion off.
+                    Rectangle {
                         anchors.right: parent.right
-                        anchors.rightMargin: Theme.pad
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: Math.min(implicitWidth, parent.width * 0.4)
-                        text: row.selected && bay.editing ? editor.text + "_" : bay.display(row.modelData)
-                        textFormat: Text.PlainText
-                        color: Theme.text
-                        font.family: Theme.mono
-                        font.pixelSize: Theme.fontSm
-                        elide: Text.ElideLeft
+                        width: Theme.px(2)
+                        height: Math.min(list.height, Math.max(Theme.du(18), list.height * list.visibleArea.heightRatio))
+                        y: Math.max(0, Math.min(list.height - height, list.visibleArea.yPosition * list.height))
+                        color: Theme.signal
+                        visible: list.contentHeight > list.height
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            bay.current = row.index;
-                            bay.forceActiveFocus();
+                }
+
+                Item {
+                    visible: bay.inspectorVisible && !bay.spectra
+                    x: parent.width * .68 + Theme.pad
+                    width: Math.max(0, parent.width - x)
+                    height: parent.height
+                    Rectangle { x: -Theme.pad; width: Theme.border; height: parent.height; color: Theme.grid }
+                    Column {
+                        width: parent.width
+                        spacing: Theme.du(18)
+                        Text {
+                            text: bay.editing ? "DRAFT / TEXT" : "SELECTED / " + bay.selectedRow.type.toUpperCase(); textFormat: Text.PlainText
+                            color: bay.editing ? Theme.caution : Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
                         }
-                        onDoubleClicked: bay.change(row.modelData, 1)
+                        Text {
+                            width: parent.width; text: bay.caption(bay.selectedRow.path); textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(30)
+                        }
+                        Text {
+                            width: parent.width; text: bay.selectedRow.path; textFormat: Text.PlainText
+                            wrapMode: Text.WrapAnywhere; color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                        }
+                        Rectangle { width: parent.width; height: Theme.border; color: Theme.grid }
+                        Text {
+                            width: parent.width; text: bay.selectedRow.description; textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap; color: Theme.text; font.family: Theme.sans; font.pixelSize: Theme.fontSm; lineHeight: 1.4
+                        }
+                        Text {
+                            width: parent.width
+                            text: bay.editing ? "Text is a draft until Enter.\nEscape discards the draft." : bay.selectedRow.type === "string" ? "Enter to edit text.\nChanges save when confirmed." : "← / →  " + (bay.selectedRow.type === "bool" ? "Toggle on or off" : bay.selectedRow.type === "enum" ? "Cycle choices" : "Step " + bay.stepOf(bay.selectedRow)) + "\nChanges save and apply live."
+                            textFormat: Text.PlainText; wrapMode: Text.WordWrap
+                            color: bay.editing ? Theme.caution : Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; lineHeight: 1.5
+                        }
                     }
                 }
             }
 
+            Rectangle {
+                id: feedback
+                width: parent.width
+                height: feedbackText.implicitHeight + Theme.du(18)
+                radius: Theme.radius
+                color: bay.messageState === "error" ? Theme.bg : Theme.surface
+                border.color: bay.messageState === "error" ? Theme.critical : Theme.grid
+                border.width: Theme.border
+                Text {
+                    id: feedbackText
+                    x: Theme.du(12); y: Theme.du(9); width: parent.width - 2 * x
+                    text: bay.editing ? "DRAFT  /  " + bay.selectedRow.path + "  /  Enter to save · Esc to cancel" : bay.message ? (bay.messageState === "error" ? "REFUSED  /  " : "SAVED  /  ") + bay.message : "READY  /  Settings save to config.json and apply immediately."
+                    textFormat: Text.PlainText; wrapMode: Text.WrapAnywhere
+                    color: bay.editing ? Theme.caution : bay.messageState === "error" ? Theme.critical : bay.messageState === "ok" ? Theme.signal : Theme.textDim
+                    font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                }
+            }
             StatusLine {
                 id: status
                 width: parent.width
-                hints: bay.editing ? [
-                    {
-                        key: "⏎",
-                        action: "save"
-                    },
-                    {
-                        key: "Esc",
-                        action: "cancel"
-                    }
+                hints: bay.editing ? [{key: "⏎", action: "save text"}, {key: "Esc", action: "cancel"}] : bay.spectra ? [
+                    {key: "↑↓←→ / h j k l", action: "browse"},
+                    {key: "⏎ / Space", action: "apply"},
+                    {key: "Tab", action: "register"}
                 ] : [
-                    {
-                        key: "↑↓",
-                        action: "select"
-                    },
-                    {
-                        key: "←→",
-                        action: "change"
-                    },
-                    {
-                        key: "⏎",
-                        action: "toggle / edit"
-                    }
+                    {key: "↑↓ / j k", action: "select"},
+                    {key: "←→ / h l", action: "change"},
+                    {key: "⏎ / Space", action: "toggle / edit"},
+                    {key: "PgUp Dn", action: "page"}
                 ]
-                message: bay.message
-                messageState: bay.messageState
             }
         }
     }
@@ -267,6 +443,7 @@ FocusScope {
     // focus); the selected row shows what is being typed.
     TextInput {
         id: editor
+        enabled: bay.editing
         width: 1
         height: 1
         opacity: 0

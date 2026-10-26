@@ -1,0 +1,15 @@
+{"t": 1792899056.392563, "kind": "event", "request": "openwindow>>5a00000001a0,1,foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792899056.3926938, "kind": "event", "request": "activewindow>>foot,pilot@aerolith: ~", "reply": null}
+{"t": 1792899056.392736, "kind": "event", "request": "activewindowv2>>5a00000001a0", "reply": null}
+{"t": 1792899056.3927832, "kind": "event", "request": "openwindow>>5a0000000340,2,firefox,Hyprland Wiki \u2014 Mozilla Firefox", "reply": null}
+{"t": 1792899056.3928282, "kind": "event", "request": "openwindow>>5a00000004e0,2,org.gnome.Nautilus,Downloads", "reply": null}
+{"t": 1792899056.3928618, "kind": "event", "request": "openwindow>>5a0000000680,3,Code,aerolith \u2014 Visual Studio Code", "reply": null}
+{"t": 1792899056.3929505, "kind": "event", "request": "workspace>>1", "reply": null}
+{"t": 1792899056.3929887, "kind": "event", "request": "workspacev2>>1,1", "reply": null}
+{"t": 1792899056.3930163, "kind": "event", "request": "focusedmon>>HEADLESS-1,1", "reply": null}
+{"t": 1792899056.3930395, "kind": "event", "request": "focusedmonv2>>HEADLESS-1,1", "reply": null}
+{"t": 1792899057.027201, "kind": "request", "request": "j/status", "reply": "{\n  \"configProvider\": \"lua\"\n}"}
+{"t": 1792899057.1128817, "kind": "subscribe", "request": "socket2", "reply": null}
+{"t": 1792899057.1137493, "kind": "request", "request": "j/monitors", "reply": "[\n  {\n    \"id\": 0,\n    \"name\": \"HEADLESS-1\",\n    \"description\": \"Mock Display 1920x1080\",\n    \"make\": \"Mock\",\n    \"model\": \"Display\",\n    \"serial\": \"0\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"physicalWidth\": 530,\n    \"physicalHeight\": 300,\n    \"refreshRate\": 60.0,\n    \"x\": 0,\n    \"y\": 0,\n    \"reserved\": [\n      0,\n      0,\n      0,\n      0\n    ],\n    \"scale\": 1.0,\n    \"transform\": 0,\n    \"dpm..."}
+{"t": 1792899057.1143434, "kind": "request", "request": "j/workspaces", "reply": "[\n  {\n    \"id\": 1,\n    \"name\": \"1\",\n    \"monitor\": \"HEADLESS-1\",\n    \"monitorID\": 0,\n    \"windows\": 1,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a00000001a0\",\n    \"lastwindowtitle\": \"pilot@aerolith: ~\",\n    \"ispersistent\": true\n  },\n  {\n    \"id\": 2,\n    \"name\": \"2\",\n    \"monitor\": \"HEADLESS-1\",\n    \"monitorID\": 0,\n    \"windows\": 2,\n    \"hasfullscreen\": false,\n    \"lastwindow\": \"0x5a0000000..."}
+{"t": 1792899057.1151185, "kind": "request", "request": "j/clients", "reply": "[\n  {\n    \"address\": \"0x5a00000001a0\",\n    \"mapped\": true,\n    \"hidden\": false,\n    \"at\": [\n      8,\n      36\n    ],\n    \"size\": [\n      1904,\n      1036\n    ],\n    \"workspace\": {\n      \"id\": 1,\n      \"name\": \"1\"\n    },\n    \"floating\": false,\n    \"pseudo\": false,\n    \"monitor\": 0,\n    \"class\": \"foot\",\n    \"title\": \"pilot@aerolith: ~\",\n    \"initialClass\": \"foot\",\n    \"initialTitle\": \"pilot@aerolith..."}

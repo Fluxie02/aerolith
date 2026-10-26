@@ -1,0 +1,14 @@
+{
+  "frozen-shell": {
+    "files": 78,
+    "different_from_production": [],
+    "unexpected_differences": []
+  },
+  "piyti-shell": {
+    "files": 78,
+    "different_from_production": [
+      "core/Theme.qml"
+    ],
+    "unexpected_differences": []
+  }
+}

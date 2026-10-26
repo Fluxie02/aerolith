@@ -1,0 +1,58 @@
+{
+  "manifest_version": 2,
+  "name": "AEROLITH — Bathyal / THEARS",
+  "version": "1.0.0",
+  "description": "Deep petrol / sea glass. THEARS application appearance.",
+  "author": "AEROLITH / Astra",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bathyal-thears-theme@aerolith.local",
+      "strict_min_version": "128.0"
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#091619",
+      "frame_inactive": "#091619",
+      "tab_background_text": "#acc8cc",
+      "tab_text": "#e1f4f1",
+      "tab_selected": "#1d383e",
+      "tab_loading": "#80e1cf",
+      "tab_line": "#80e1cf",
+      "toolbar": "#122b30",
+      "toolbar_text": "#e1f4f1",
+      "bookmark_text": "#e1f4f1",
+      "icons": "#acc8cc",
+      "icons_attention": "#80e1cf",
+      "toolbar_field": "#091619",
+      "toolbar_field_text": "#e1f4f1",
+      "toolbar_field_border": "#385b63",
+      "toolbar_field_focus": "#1d383e",
+      "toolbar_field_text_focus": "#e1f4f1",
+      "toolbar_field_border_focus": "#80e1cf",
+      "toolbar_field_highlight": "#80e1cf",
+      "toolbar_field_highlight_text": "#091619",
+      "toolbar_top_separator": "#385b63",
+      "toolbar_bottom_separator": "#385b63",
+      "toolbar_vertical_separator": "#385b63",
+      "button_background_hover": "#1d383e",
+      "button_background_active": "#26444b",
+      "popup": "#122b30",
+      "popup_text": "#e1f4f1",
+      "popup_border": "#385b63",
+      "popup_highlight": "#80e1cf",
+      "popup_highlight_text": "#091619",
+      "sidebar": "#122b30",
+      "sidebar_text": "#e1f4f1",
+      "sidebar_border": "#385b63",
+      "sidebar_highlight": "#80e1cf",
+      "sidebar_highlight_text": "#091619",
+      "ntp_background": "#091619",
+      "ntp_text": "#e1f4f1"
+    },
+    "properties": {
+      "color_scheme": "dark",
+      "content_color_scheme": "auto"
+    }
+  }
+}

@@ -1,0 +1,82 @@
+/**
+ * @name AEROLITH Corona THEARS
+ * @author Astra / AEROLITH
+ * @version 0.1.0
+ * @description Indigo field / ion blue. THEARS communication bay. Requires Vencord; no remote assets.
+ */
+
+/* Enable Discord's Dark appearance. Native layout, role colours and statuses stay
+ * legible. Variable aliases cover Discord's legacy and Visual Refresh palettes.
+ * Partial class selectors are intentionally limited to app chrome. */
+.theme-dark {
+  --background-primary: #101222;
+  --background-secondary: #1e253c;
+  --background-secondary-alt: #1a1f34;
+  --background-tertiary: #101222;
+  --background-floating: #1e253c;
+  --background-base-lowest: #101222;
+  --background-base-lower: #1a1f34;
+  --background-base-low: #1e253c;
+  --background-surface-high: #2a3450;
+  --background-surface-higher: #2a3450;
+  --background-surface-highest: #35415f;
+  --bg-base-primary: #101222;
+  --bg-base-secondary: #1e253c;
+  --bg-base-tertiary: #1a1f34;
+  --background-modifier-hover: #2a3450;
+  --background-modifier-selected: #2a3450;
+  --background-modifier-accent: #495a7b;
+  --channeltextarea-background: #1e253c;
+  --input-background: #101222;
+  --modal-background: #1e253c;
+  --modal-footer-background: #1a1f34;
+  --text-normal: #edf0ff;
+  --text-primary: #edf0ff;
+  --text-secondary: #b6c0df;
+  --text-muted: #b6c0df;
+  --text-link: #a7bcff;
+  --header-primary: #edf0ff;
+  --header-secondary: #b6c0df;
+  --channels-default: #b6c0df;
+  --interactive-normal: #b6c0df;
+  --interactive-hover: #edf0ff;
+  --interactive-active: #edf0ff;
+  --border-subtle: #495a7b;
+  --border-strong: #495a7b;
+  --scrollbar-auto-track: #101222;
+  --scrollbar-auto-thumb: #495a7b;
+  --scrollbar-thin-thumb: #495a7b;
+  --font-primary: "Inter", "Noto Sans", "gg sans", sans-serif;
+  --font-display: "Inter", "Noto Sans", "gg sans", sans-serif;
+  --font-code: "JetBrains Mono", "Noto Sans Mono", monospace;
+}
+
+.theme-dark [class*="sidebar_"] {
+  border-inline-end: 1px solid #495a7b;
+}
+.theme-dark [class*="channelTextArea_"] {
+  border: 1px solid #495a7b;
+  border-radius: 12px;
+}
+.theme-dark [class*="channelTextArea_"]:focus-within {
+  border-color: #a7bcff;
+}
+.theme-dark [class*="containerDefault_"] [aria-selected="true"] {
+  box-shadow: inset 3px 0 #a7bcff;
+  border-radius: 0 10px 10px 0;
+}
+.theme-dark [role="menu"],
+.theme-dark [role="dialog"] {
+  border: 1px solid #495a7b;
+  border-radius: 16px;
+}
+.theme-dark [class*="channelTextArea_"],
+.theme-dark [class*="containerDefault_"] [aria-selected="true"] {
+  transition: border-color 120ms ease-out, box-shadow 120ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-dark [class*="channelTextArea_"],
+  .theme-dark [class*="containerDefault_"] [aria-selected="true"] {
+    transition: none;
+  }
+}

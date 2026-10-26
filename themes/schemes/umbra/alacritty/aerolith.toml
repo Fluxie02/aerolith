@@ -1,0 +1,41 @@
+# AEROLITH / Umbra — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#1a101d"
+foreground = "#fcecff"
+[colors.cursor]
+text = "#1a101d"
+cursor = "#f5abe2"
+[colors.selection]
+text = "#1a101d"
+background = "#f5abe2"
+
+[colors.normal]
+black = "#a38ca7"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#c3d8f5"
+magenta = "#e4c3f5"
+cyan = "#c3f5f5"
+white = "#d1b5d5"
+
+[colors.bright]
+black = "#d1b5d5"
+red = "#feafb2"
+green = "#c9e8d1"
+yellow = "#fed89c"
+blue = "#d4def8"
+magenta = "#ebcff8"
+cyan = "#d4f2f8"
+white = "#fcecff"

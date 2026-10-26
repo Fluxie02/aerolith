@@ -1,0 +1,237 @@
+{
+  "source": "build/ui012/final3-piyti-insane-motion",
+  "gesture": "03-dock",
+  "kind": "actual shell capture; app/window data from Hyprland protocol fixture",
+  "trigger_unix": 1792761636.6916673,
+  "trigger_utc": "2026-10-23T13:20:36.691+00:00",
+  "timestamp_semantics": "date recorded immediately before each grim capture; not compositor presentation time",
+  "selected_full_resolution_frames": [
+    0,
+    2,
+    4,
+    7,
+    11,
+    17
+  ],
+  "all_frames": [
+    {
+      "frame": 0,
+      "source_sha256": "60be88f9533b04bcfcfe671475b1fa780bb6224dc0268dd3717669e643035b74",
+      "capture_start_unix": 1792761636.6304293,
+      "capture_start_utc": "2026-10-23T13:20:36.630+00:00",
+      "relative_to_trigger_ms": -61.238,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 1,
+      "source_sha256": "60be88f9533b04bcfcfe671475b1fa780bb6224dc0268dd3717669e643035b74",
+      "capture_start_unix": 1792761636.7405016,
+      "capture_start_utc": "2026-10-23T13:20:36.740+00:00",
+      "relative_to_trigger_ms": 48.834,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 2,
+      "source_sha256": "7d0c60aede586025c1cec1c8b31db409093f9b1cc605dbf065cfa2a9376c3533",
+      "capture_start_unix": 1792761636.8492436,
+      "capture_start_utc": "2026-10-23T13:20:36.849+00:00",
+      "relative_to_trigger_ms": 157.576,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 3,
+      "source_sha256": "1ad45b560ea1482526b362c1046cdd029962b37ca26b850b00dd717dc8dc83fe",
+      "capture_start_unix": 1792761636.9506757,
+      "capture_start_utc": "2026-10-23T13:20:36.950+00:00",
+      "relative_to_trigger_ms": 259.008,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 4,
+      "source_sha256": "1ad45b560ea1482526b362c1046cdd029962b37ca26b850b00dd717dc8dc83fe",
+      "capture_start_unix": 1792761637.0504594,
+      "capture_start_utc": "2026-10-23T13:20:37.050+00:00",
+      "relative_to_trigger_ms": 358.792,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 5,
+      "source_sha256": "1ad45b560ea1482526b362c1046cdd029962b37ca26b850b00dd717dc8dc83fe",
+      "capture_start_unix": 1792761637.147879,
+      "capture_start_utc": "2026-10-23T13:20:37.147+00:00",
+      "relative_to_trigger_ms": 456.212,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 6,
+      "source_sha256": "1ad45b560ea1482526b362c1046cdd029962b37ca26b850b00dd717dc8dc83fe",
+      "capture_start_unix": 1792761637.2526572,
+      "capture_start_utc": "2026-10-23T13:20:37.252+00:00",
+      "relative_to_trigger_ms": 560.99,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 7,
+      "source_sha256": "1ad45b560ea1482526b362c1046cdd029962b37ca26b850b00dd717dc8dc83fe",
+      "capture_start_unix": 1792761637.356333,
+      "capture_start_utc": "2026-10-23T13:20:37.356+00:00",
+      "relative_to_trigger_ms": 664.666,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 8,
+      "source_sha256": "1ad45b560ea1482526b362c1046cdd029962b37ca26b850b00dd717dc8dc83fe",
+      "capture_start_unix": 1792761637.4664905,
+      "capture_start_utc": "2026-10-23T13:20:37.466+00:00",
+      "relative_to_trigger_ms": 774.823,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 9,
+      "source_sha256": "1ad45b560ea1482526b362c1046cdd029962b37ca26b850b00dd717dc8dc83fe",
+      "capture_start_unix": 1792761637.565853,
+      "capture_start_utc": "2026-10-23T13:20:37.565+00:00",
+      "relative_to_trigger_ms": 874.186,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 10,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761637.6728666,
+      "capture_start_utc": "2026-10-23T13:20:37.672+00:00",
+      "relative_to_trigger_ms": 981.199,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 11,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761637.793078,
+      "capture_start_utc": "2026-10-23T13:20:37.793+00:00",
+      "relative_to_trigger_ms": 1101.411,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 12,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761637.8983698,
+      "capture_start_utc": "2026-10-23T13:20:37.898+00:00",
+      "relative_to_trigger_ms": 1206.702,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 13,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761637.999115,
+      "capture_start_utc": "2026-10-23T13:20:37.999+00:00",
+      "relative_to_trigger_ms": 1307.448,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 14,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761638.113123,
+      "capture_start_utc": "2026-10-23T13:20:38.113+00:00",
+      "relative_to_trigger_ms": 1421.456,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 15,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761638.2260134,
+      "capture_start_utc": "2026-10-23T13:20:38.226+00:00",
+      "relative_to_trigger_ms": 1534.346,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 16,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761638.322037,
+      "capture_start_utc": "2026-10-23T13:20:38.322+00:00",
+      "relative_to_trigger_ms": 1630.37,
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "frame": 17,
+      "source_sha256": "d241d827cfbfc0532c5ad432307eeb9bcfa44679ea97b6069b935816bf3fdcbd",
+      "capture_start_unix": 1792761638.4124694,
+      "capture_start_utc": "2026-10-23T13:20:38.412+00:00",
+      "relative_to_trigger_ms": 1720.802,
+      "size": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "preview_duration_ms": [
+    110,
+    109,
+    101,
+    100,
+    97,
+    105,
+    104,
+    110,
+    99,
+    107,
+    120,
+    105,
+    101,
+    114,
+    113,
+    96,
+    90,
+    90
+  ],
+  "last_frame_duration_note": "last duration repeats the preceding interval; no subsequent timestamp exists"
+}

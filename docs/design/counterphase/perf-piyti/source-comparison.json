@@ -1,0 +1,14 @@
+{
+  "benchmark_direction": "piyti",
+  "current_production_default": "thears",
+  "different_files": [
+    "components/ShearField.qml",
+    "components/Counterphase.qml",
+    "core/Theme.qml"
+  ],
+  "notes": [
+    "Theme direction default is the only intentional direction difference.",
+    "Final ShearField reduced-focus suppression and Counterphase live-change/callback guards postdate perf snapshot. They do not affect fixed full/off/lowEffects runs; final scenario and focused motion evidence use updated source.",
+    "No source hot reload occurred inside the fixed benchmark copy."
+  ]
+}

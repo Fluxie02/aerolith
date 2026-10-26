@@ -1,0 +1,10 @@
+SHELL_PATH="build/ui015/verification/final-shell" AUDIO="1" HYPR_MOCK_ARGS="--mode 2560x1440 --scale 1.5 --transform 1" CONFIG="/home/user/aerolith-astra/build/ui015/verification/insane.json" tools/headless/run.sh tests/scenarios/deck.sh build/ui015/verification/deck
+[E][17:17:01.463121] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:17:01.463145] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][17:17:01.472289] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:17:01.472308] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[E][17:17:01.479004] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][17:17:01.479023] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+deck: ok
+
+exit 0

@@ -1,0 +1,7 @@
+$ SHELL_PATH=build/ui016/verification/final-thears-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json tools/headless/run.sh tests/scenarios/smoke.sh build/ui016/verification/thears-insane-full-smoke
+
+ok
+smoke: ok
+
+EXIT 0
+ELAPSED 5.296 s

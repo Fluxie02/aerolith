@@ -1,0 +1,7 @@
+$ SHELL_PATH=build/ui016/verification/extra-views-shell tools/headless/run.sh docs/design/smooth/verification/scripts/extra-views.sh build/ui016/verification/provisional-extra-views-retry
+
+OSD normal, interrupted reopen and off/reduced/lowEffects settlement: ok
+extra visual views: ok
+
+EXIT 0
+ELAPSED 8.298 s

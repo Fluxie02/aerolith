@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "generatedBy": "tools/gen-scheme-themes.mjs",
+  "source": "shell/lib/schemes.mjs",
+  "defaultScheme": "limb",
+  "schemes": [
+    {
+      "id": "limb",
+      "name": "Limb",
+      "description": "Mineral green / phosphor",
+      "directory": "limb",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "bathyal",
+      "name": "Bathyal",
+      "description": "Deep petrol / sea glass",
+      "directory": "bathyal",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "corona",
+      "name": "Corona",
+      "description": "Indigo field / ion blue",
+      "directory": "corona",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "cinder",
+      "name": "Cinder",
+      "description": "Carbon brown / fired copper",
+      "directory": "cinder",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "ferrite",
+      "name": "Ferrite",
+      "description": "Oxide red / rose alloy",
+      "directory": "ferrite",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "description": "Violet shale / lilac light",
+      "directory": "iris",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "argent",
+      "name": "Argent",
+      "description": "Graphite / silver inscription",
+      "directory": "argent",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "lichen",
+      "name": "Lichen",
+      "description": "Olive stone / living lime",
+      "directory": "lichen",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "helios",
+      "name": "Helios",
+      "description": "Blue charcoal / solar gold",
+      "directory": "helios",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "umbra",
+      "name": "Umbra",
+      "description": "Aubergine / spectral pink",
+      "directory": "umbra",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "vellum",
+      "name": "Vellum",
+      "description": "Warm slate / pale ceramic",
+      "directory": "vellum",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    },
+    {
+      "id": "glacial",
+      "name": "Glacial",
+      "description": "Polar blue / ice edge",
+      "directory": "glacial",
+      "directions": [
+        "piyti",
+        "thears"
+      ]
+    }
+  ],
+  "templates": [
+    "kitty/aerolith.conf",
+    "alacritty/aerolith.toml",
+    "foot/aerolith.ini",
+    "btop/aerolith.theme",
+    "gtk-3.0/gtk.css",
+    "gtk-4.0/gtk.css",
+    "qt/aerolith.conf",
+    "qt/aerolith.qss",
+    "hyprland/aerolith.conf",
+    "hyprland/aerolith.lua",
+    "hyprland/piyti.conf",
+    "hyprland/piyti.lua",
+    "hyprland/thears.conf",
+    "hyprland/thears.lua",
+    "firefox/piyti/manifest.json",
+    "firefox/piyti/userChrome.css",
+    "firefox/piyti/userContent.css",
+    "firefox/thears/manifest.json",
+    "firefox/thears/userChrome.css",
+    "firefox/thears/userContent.css",
+    "discord/piyti.theme.css",
+    "discord/thears.theme.css",
+    "steam/piyti/bigpicture.custom.css",
+    "steam/piyti/friends.custom.css",
+    "steam/piyti/libraryroot.custom.css",
+    "steam/piyti/skin.json",
+    "steam/thears/bigpicture.custom.css",
+    "steam/thears/friends.custom.css",
+    "steam/thears/libraryroot.custom.css",
+    "steam/thears/skin.json",
+    "artcraft/piyti/tokens.json",
+    "artcraft/thears/tokens.json",
+    "libreoffice/description.xml",
+    "libreoffice/META-INF/manifest.xml",
+    "libreoffice/piyti.xcu",
+    "libreoffice/thears.xcu"
+  ]
+}

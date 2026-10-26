@@ -1,0 +1,22 @@
+{
+  "output_mode": {
+    "width": 1920,
+    "height": 1080,
+    "refresh": 60000
+  },
+  "refresh_hz": 60.0,
+  "cpu": {
+    "idle": {
+      "seconds": 120.0328,
+      "cpu_seconds": 1.5,
+      "cpu_percent_one_core": 1.25,
+      "method": "Uninstrumented shell process utime+stime; no screenshots, logging or parallel tests."
+    },
+    "active": {
+      "seconds": 12.6082,
+      "cpu_seconds": 7.55,
+      "cpu_percent_one_core": 59.882,
+      "method": "Uninstrumented shell process utime+stime; no screenshots, logging or parallel tests."
+    }
+  }
+}

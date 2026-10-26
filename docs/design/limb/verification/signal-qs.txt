@@ -1,0 +1,32 @@
+[32m  INFO[0m: Launching config: "/src/shell/shell.qml"
+[32m  INFO[0m: Shell ID: "9c118b5a36da2ed22e2d8b04898446de" Path ID "9c118b5a36da2ed22e2d8b04898446de"
+[32m  INFO[0m: Saving logs to "/run/user/1000/quickshell/by-id/b6uffbnt/log.qslog"
+[33m  WARN[0m: Compositor does not support hyprland-toplevel-mapping-v1.It will not be possible to derive hyprland addresses from toplevels.
+[33m  WARN[97m quickshell.service.upower[0m: Could not connect to DBus. UPower service will not work.
+[E][15:38:18.709661] mod.rt       | [     module-rt.c:  295 pw_rtkit_bus_get()] Failed to connect to system bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[W][15:38:18.709673] mod.rt       | [     module-rt.c:  975 rtkit_get_bus()] Realtime scheduling disabled: insufficient realtime privileges, Portal not found on session bus, and no system bus for RTKit: Connection refused
+[32m  INFO[97m qml[0m: [aerolith:shell] AEROLITH started on HEADLESS-1; Hyprland connected
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[33m  WARN[0m: The active compositor does not support hyprland_global_shortcuts_v1.
+[33m  WARN[0m: GlobalShortcut will not work.
+[32m  INFO[0m: Configuration Loaded
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.output.set: failed: PipeWire kept Test Speakers as default
+[32m  INFO[97m qml[0m: [aerolith:ipc] media.play-pause: ok: Paused · mpv
+[32m  INFO[97m qml[0m: [aerolith:ipc] media.play-pause: ok: Playing · mpv
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.mute.toggle: ok: Muted Test Speakers
+[32m  INFO[97m qml[0m: [aerolith:ipc] audio.mute.toggle: ok: Unmuted Test Speakers

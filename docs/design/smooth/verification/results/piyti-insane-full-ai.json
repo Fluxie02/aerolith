@@ -1,0 +1,19 @@
+{
+  "name": "results/piyti-insane-full-ai",
+  "command": [
+    "tools/headless/run.sh",
+    "tests/scenarios/ai.sh",
+    "build/ui016/verification/piyti-insane-full-ai"
+  ],
+  "environment": {
+    "SHELL_PATH": "build/ui016/verification/final-shell",
+    "CONFIG": "/home/user/aerolith-astra/build/ui016/verification/insane-full.json",
+    "AUDIO": "1",
+    "AI": "1"
+  },
+  "display_command": "SHELL_PATH=build/ui016/verification/final-shell CONFIG=/home/user/aerolith-astra/build/ui016/verification/insane-full.json AUDIO=1 AI=1 tools/headless/run.sh tests/scenarios/ai.sh build/ui016/verification/piyti-insane-full-ai",
+  "started_at": "2026-10-25T03:47:51.983079+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 20.12104164099992,
+  "shell_source_manifest_sha256": "be015b93d6eceba0176ca9f469825a7497b9a99a54905463b006994c8733d929"
+}

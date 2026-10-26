@@ -1,0 +1,160 @@
+/* AEROLITH / Iris — GTK 4 / libadwaita overrides, not a replacement theme.
+ * Named colours also feed libadwaita's compatibility CSS-variable defaults.
+ * No universal reset, widget sizing, icon replacement or animation override. */
+@define-color aerolith_obsidian #161121;
+@define-color aerolith_surface #292137;
+@define-color aerolith_surface2 #372e46;
+@define-color aerolith_grid #5c4b73;
+@define-color aerolith_text #f3ecff;
+@define-color aerolith_dim #c8b8dc;
+@define-color aerolith_signal #d7b7ff;
+
+@define-color accent_color @aerolith_signal;
+@define-color accent_bg_color @aerolith_signal;
+@define-color accent_fg_color @aerolith_obsidian;
+@define-color window_bg_color @aerolith_surface;
+@define-color window_fg_color @aerolith_text;
+@define-color view_bg_color @aerolith_obsidian;
+@define-color view_fg_color @aerolith_text;
+@define-color headerbar_bg_color @aerolith_surface;
+@define-color headerbar_fg_color @aerolith_text;
+@define-color headerbar_backdrop_color @aerolith_surface;
+@define-color headerbar_border_color @aerolith_grid;
+@define-color headerbar_shade_color rgba(0, 0, 0, 0.36);
+@define-color sidebar_bg_color @aerolith_surface;
+@define-color sidebar_fg_color @aerolith_text;
+@define-color sidebar_backdrop_color @aerolith_surface;
+@define-color secondary_sidebar_bg_color @aerolith_surface2;
+@define-color secondary_sidebar_fg_color @aerolith_text;
+@define-color secondary_sidebar_backdrop_color @aerolith_surface2;
+@define-color card_bg_color @aerolith_surface2;
+@define-color card_fg_color @aerolith_text;
+@define-color dialog_bg_color @aerolith_surface;
+@define-color dialog_fg_color @aerolith_text;
+@define-color popover_bg_color @aerolith_surface;
+@define-color popover_fg_color @aerolith_text;
+@define-color thumbnail_bg_color @aerolith_surface2;
+@define-color thumbnail_fg_color @aerolith_text;
+@define-color destructive_color #ff9591;
+@define-color destructive_bg_color #ff9591;
+@define-color destructive_fg_color @aerolith_obsidian;
+@define-color error_color #ff9591;
+@define-color error_bg_color #ff9591;
+@define-color error_fg_color @aerolith_obsidian;
+@define-color warning_color #ffd071;
+@define-color warning_bg_color #ffd071;
+@define-color warning_fg_color @aerolith_obsidian;
+@define-color success_color #b3e6bd;
+@define-color success_bg_color #b3e6bd;
+@define-color success_fg_color @aerolith_obsidian;
+/* Plain GTK 4 Adwaita and applications still using GTK 3-style names. */
+@define-color theme_bg_color @window_bg_color;
+@define-color theme_fg_color @window_fg_color;
+@define-color theme_base_color @view_bg_color;
+@define-color theme_text_color @view_fg_color;
+@define-color theme_selected_bg_color @accent_bg_color;
+@define-color theme_selected_fg_color @accent_fg_color;
+@define-color theme_unfocused_bg_color @window_bg_color;
+@define-color theme_unfocused_fg_color @window_fg_color;
+@define-color theme_unfocused_base_color @view_bg_color;
+@define-color theme_unfocused_text_color @view_fg_color;
+@define-color theme_unfocused_selected_bg_color @accent_bg_color;
+@define-color theme_unfocused_selected_fg_color @accent_fg_color;
+@define-color insensitive_fg_color @aerolith_dim;
+@define-color insensitive_bg_color @aerolith_surface;
+@define-color borders @aerolith_grid;
+
+window {
+  font-family: "Inter", "Inter Variable", "Noto Sans", "Cantarell", "DejaVu Sans", sans-serif;
+}
+.monospace {
+  font-family: "JetBrains Mono", "JetBrains Mono NL", "Noto Sans Mono", monospace;
+}
+window.background { background-color: @window_bg_color; color: @window_fg_color; }
+window.csd, window.csd > contents { border-radius: 20px; }
+window.maximized, window.fullscreen, window.tiled,
+window.maximized > contents, window.fullscreen > contents, window.tiled > contents {
+  border-radius: 0;
+}
+headerbar, headerbar:backdrop {
+  background-color: @headerbar_bg_color;
+  color: @headerbar_fg_color;
+  border-color: @aerolith_grid;
+}
+.view, textview text { background-color: @view_bg_color; color: @view_fg_color; }
+.dim-label, .subtitle { color: @aerolith_dim; opacity: 1; }
+entry, spinbutton, button:not(.flat):not(.circular):not(.image-button) {
+  border-radius: 10px;
+}
+entry { background-color: @view_bg_color; color: @view_fg_color; }
+button:not(.flat):not(.suggested-action):not(.destructive-action):not(:checked) {
+  background-image: none;
+  background-color: @aerolith_surface2;
+  color: @aerolith_text;
+  border-color: @aerolith_grid;
+}
+button:not(.flat):not(.suggested-action):not(.destructive-action):not(:checked):hover {
+  background-color: #443856;
+}
+button:not(.flat):not(.suggested-action):not(.destructive-action):not(:checked):active {
+  background-color: @aerolith_surface;
+}
+/* Preserve native segmented-control joins and circular title buttons. */
+.linked > button:not(.flat):not(:first-child), .linked > entry:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.linked > button:not(.flat):not(:last-child), .linked > entry:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+popover > contents, tooltip {
+  border-radius: 10px;
+  background-color: @popover_bg_color;
+  color: @popover_fg_color;
+}
+/* Explicit opaque pairs avoid libadwaita's translucent selected-row tint. */
+selection, row:selected, treeview.view:selected, iconview.view:selected,
+gridview > child:selected, flowbox > flowboxchild:selected,
+button.suggested-action, button.suggested-action:hover,
+button.suggested-action:active, button:checked, button:checked:hover,
+switch:checked, check:checked, radio:checked {
+  background-image: none;
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+entry selection, textview text selection {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+}
+button.destructive-action, button.destructive-action:hover,
+button.destructive-action:active {
+  background-image: none;
+  background-color: @destructive_bg_color;
+  color: @destructive_fg_color;
+}
+row:selected label, gridview > child:selected label,
+flowbox > flowboxchild:selected label, button.suggested-action label,
+button.destructive-action label, button:checked label { color: inherit; }
+/* GTK 4 propagates :focus-visible to the owning widget; mouse clicks retain
+ * native feedback without adding a keyboard ring to every ancestor. */
+button:focus-visible, entry:focus-visible, spinbutton:focus-visible,
+switch:focus-visible, checkbutton:focus-visible, scale:focus-visible,
+treeview:focus-visible, row:focus-visible,
+gridview > child:focus-visible, flowbox > flowboxchild:focus-visible {
+  outline: 2px solid @aerolith_signal;
+  outline-offset: 2px;
+}
+button.suggested-action:focus-visible, button.destructive-action:focus-visible,
+button:checked:focus-visible, row:selected:focus-visible, switch:checked:focus-visible,
+gridview > child:selected:focus-visible, flowbox > flowboxchild:selected:focus-visible {
+  outline-color: @aerolith_obsidian;
+  outline-offset: -4px;
+}
+entry:focus-within { border-color: @aerolith_signal; }
+scale highlight, progressbar progress {
+  background-color: @aerolith_signal;
+  border-color: @aerolith_signal;
+  border-radius: 10px;
+}
+*:link, *:visited, .accent { color: @aerolith_signal; }

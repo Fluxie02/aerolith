@@ -1,0 +1,14 @@
+{
+  "name": "pytest",
+  "command": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/py"
+  ],
+  "environment": {},
+  "exit_code": 0,
+  "elapsed_seconds": 12.32,
+  "stdout": "docs/design/counterphase/verification/unit-final/pytest.stdout.txt"
+}

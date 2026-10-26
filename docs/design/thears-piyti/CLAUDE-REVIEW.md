@@ -1,0 +1,11 @@
+# UI-012 review of Claude systems work
+
+One read-only review, 2026-10-23. Reviewed Claude's latest functional commit `5649b02` (Settings bay/Deck integration) and the inherited hosts, demand release, compositor state and optional AI loader contracts. Git was read-only; no systems files changed.
+
+No new defect found in the reviewed Settings integration: `settings` is registered in `Ui.bays`, routed through `Deck.componentFor()`, and reachable by Ctrl+7 without disturbing Ctrl+1..6 or F1. Deck retirement immediately drops bay `active` and focus; leaving slots stay only for the bounded exit. Telemetry/audio release remains tied to `active` with destruction cleanup. The existing Theme and Bezel/Label/StatusLine API required by the separate AI package remains present.
+
+One existing release gap requires Claude after owner approval:
+
+- **P1 — Fullscreen does not release shell surfaces or their backing content.** Evidence: `shell/modules/ground/GroundSurface.qml:15` maps solely from `Config.ground.enabled` and screen availability and always instantiates `Ground`; `shell/modules/strip/FlightStrip.qml:17` maps solely from strip visibility and screen availability; `shell/modules/notices/NoticeColumn.qml:16` maps from content/screen/Deck state. `shell/services/Compositor.qml:109` returns fullscreen only inside the on-demand `windows()` snapshot; none of the surface hosts observes it. Therefore a fullscreen game does not trigger the required surface/content teardown. **Minimal correction:** expose one event-driven fullscreen suspension state for the selected output, then gate/unload all visual surface content from the systems hosts, close Deck/release detail demand immediately, and restore from service state after fullscreen ends. Verify actual GPU memory falls near zero on hardware and returns correctly; headless software results cannot establish this. Keep this explicit in `SYSTEMS-REQUESTS.md`; the visual task must not claim the lifecycle feature is implemented.
+
+This is an inherited systems feature gap, not a regression introduced by THEARS/PIYTI. No Claude revision was dispatched or performed in UI-012; one revision remains for the subsequent approved systems implementation.

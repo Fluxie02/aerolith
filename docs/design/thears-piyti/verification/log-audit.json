@@ -1,0 +1,276 @@
+{
+  "pattern": "TypeError|ReferenceError|Unable to assign|binding loop|SyntaxError|Cannot assign|failed to load configuration",
+  "runs": [
+    {
+      "run": "piyti-insane-ai",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-insane-ai-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-insane-deck",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-insane-deck-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-insane-full",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-insane-full-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-insane-motion",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-insane-motion-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-insane-off-small",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-insane-off-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-insane-reduced-small",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-insane-reduced-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-insane-smoke",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-insane-smoke-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-saturated-ai",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-saturated-ai-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-saturated-deck",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-saturated-deck-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-saturated-full",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-saturated-full-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-saturated-motion",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-saturated-motion-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-saturated-off-small",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-saturated-off-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-saturated-reduced-small",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-saturated-reduced-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "piyti-saturated-smoke",
+      "path": "docs/design/thears-piyti/verification/logs/piyti-saturated-smoke-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-insane-ai",
+      "path": "docs/design/thears-piyti/verification/logs/thears-insane-ai-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-insane-deck",
+      "path": "docs/design/thears-piyti/verification/logs/thears-insane-deck-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-insane-full",
+      "path": "docs/design/thears-piyti/verification/logs/thears-insane-full-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-insane-motion",
+      "path": "docs/design/thears-piyti/verification/logs/thears-insane-motion-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-insane-off-small",
+      "path": "docs/design/thears-piyti/verification/logs/thears-insane-off-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-insane-reduced-small",
+      "path": "docs/design/thears-piyti/verification/logs/thears-insane-reduced-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-insane-smoke",
+      "path": "docs/design/thears-piyti/verification/logs/thears-insane-smoke-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-saturated-ai",
+      "path": "docs/design/thears-piyti/verification/logs/thears-saturated-ai-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-saturated-deck",
+      "path": "docs/design/thears-piyti/verification/logs/thears-saturated-deck-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-saturated-full",
+      "path": "docs/design/thears-piyti/verification/logs/thears-saturated-full-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-saturated-motion",
+      "path": "docs/design/thears-piyti/verification/logs/thears-saturated-motion-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-saturated-off-small",
+      "path": "docs/design/thears-piyti/verification/logs/thears-saturated-off-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-saturated-reduced-small",
+      "path": "docs/design/thears-piyti/verification/logs/thears-saturated-reduced-small-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "thears-saturated-smoke",
+      "path": "docs/design/thears-piyti/verification/logs/thears-saturated-smoke-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "frozen-piyti-insane-perf",
+      "path": "docs/design/thears-piyti/verification/logs/frozen-piyti-insane-perf-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "frozen-piyti-saturated-perf",
+      "path": "docs/design/thears-piyti/verification/logs/frozen-piyti-saturated-perf-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "frozen-thears-insane-perf",
+      "path": "docs/design/thears-piyti/verification/logs/frozen-thears-insane-perf-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "frozen-thears-saturated-perf",
+      "path": "docs/design/thears-piyti/verification/logs/frozen-thears-saturated-perf-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "confirm-piyti-saturated-perf",
+      "path": "docs/design/thears-piyti/verification/logs/confirm-piyti-saturated-perf-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    },
+    {
+      "run": "confirm-thears-saturated-perf",
+      "path": "docs/design/thears-piyti/verification/logs/confirm-thears-saturated-perf-qs.txt",
+      "qml_error_matches": [],
+      "configuration_loaded": true,
+      "fatal_or_crash_lines": []
+    }
+  ],
+  "qml_error_count": 0,
+  "expected_non_qml_messages": [
+    "headless Hyprland shortcut/toplevel protocol absence",
+    "UPower/system D-Bus/RTKit absence",
+    "Qt/sway text-input focus warnings",
+    "broken-example invalid routine fixture in required runs",
+    "four deliberately failed configuration saves in Deck rollback tests",
+    "optional PipeWire teardown connection error"
+  ],
+  "fatal_or_crash_count": 0,
+  "expected_config_save_error_count": 4,
+  "expected_config_save_errors": [
+    {
+      "run": "piyti-insane-deck",
+      "line": " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3",
+      "reason": "deck.sh deliberately chmod444 tests failed-save rollback"
+    },
+    {
+      "run": "piyti-saturated-deck",
+      "line": " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3",
+      "reason": "deck.sh deliberately chmod444 tests failed-save rollback"
+    },
+    {
+      "run": "thears-insane-deck",
+      "line": " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3",
+      "reason": "deck.sh deliberately chmod444 tests failed-save rollback"
+    },
+    {
+      "run": "thears-saturated-deck",
+      "line": " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3",
+      "reason": "deck.sh deliberately chmod444 tests failed-save rollback"
+    }
+  ]
+}

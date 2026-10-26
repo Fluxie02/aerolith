@@ -1,0 +1,108 @@
+$ docker run --rm -v "$PWD:/src:ro" aerolith-dev bash -c 'cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml'
+qml: ok 1 fuzzy › rejects text that does not contain the query as a subsequence
+qml: ok 2 fuzzy › empty query matches with zero score
+qml: ok 3 fuzzy › is case and diacritic insensitive
+qml: ok 4 fuzzy › aligns to word starts rather than the first fitting letters
+qml: ok 5 fuzzy › camelCase transitions count as word starts
+qml: ok 6 fuzzy › ranks a word-start match above a mid-word match
+qml: ok 7 fuzzy › ranks exact and prefix matches above scattered ones
+qml: ok 8 fuzzy › consecutive runs beat the same letters spread out
+qml: ok 9 fuzzy › multi-token queries require every token (AND)
+qml: ok 10 fuzzy › each token uses its best field and highlights land in that field
+qml: ok 11 fuzzy › weights change ranking between fields
+qml: ok 12 fuzzy › tokenize collapses whitespace
+qml: ok 13 fuzzy › segments split text into matched and unmatched runs
+qml: ok 14 fuzzy › highlight markup escapes HTML in titles
+qml: ok 15 hyprdispatch › Lua string literals escape quotes, backslashes and control characters
+qml: ok 16 hyprdispatch › Lua string literals cannot be broken out of
+qml: ok 17 hyprdispatch › non-ASCII is emitted as three-digit UTF-8 byte escapes
+qml: ok 18 hyprdispatch › addresses are normalised and validated
+qml: ok 19 hyprdispatch › workspace selectors accept ids and safe names only
+qml: ok 20 hyprdispatch › legacy dialect produces hyprlang dispatcher strings
+qml: ok 21 hyprdispatch › Lua dialect produces hl.dsp calls with quoted selectors
+qml: ok 22 hyprdispatch › session exit in both dialects
+qml: ok 23 hyprdispatch › unknown dialects are rejected
+qml: ok 24 hyprdispatch › dispatch replies are interpreted strictly
+qml: ok 25 hyprdispatch › monitor size is converted from physical pixels to logical layout units
+qml: ok 26 registry › rejects malformed command definitions
+qml: ok 27 registry › refuses duplicate ids and aliases
+qml: ok 28 registry › search finds commands by title and keyword
+qml: ok 29 registry › alias with arguments becomes a validated invocation
+qml: ok 30 registry › unavailable commands are listed with a reason and rank lower
+qml: ok 31 registry › scope prefixes narrow results
+qml: ok 32 registry › execute validates arguments before running
+qml: ok 33 registry › execute refuses unavailable commands without running them
+qml: ok 34 registry › quiet results keep their flag; ordinary results do not get one
+qml: ok 35 registry › sensitive commands need explicit confirmation
+qml: ok 36 registry › exceptions and rejections become failed results
+qml: ok 37 registry › slow commands time out with an honest message
+qml: ok 38 registry › history is bounded and newest first
+qml: ok 39 registry › unregisterSource removes everything a module registered
+qml: ok 40 registry › AI-origin execution respects aiAllowed=false
+qml: ok 41 registry › fail() and ok() build structured results
+qml: ok 42 params › coerces typed text input
+qml: ok 43 params › reports every problem at once
+qml: ok 44 params › required parameters must be present
+qml: ok 45 params › integers reject fractions and non-finite values
+qml: ok 46 params › dynamic enum choices are evaluated with context
+qml: ok 47 params › string lists validate every entry
+qml: ok 48 params › positional words map onto parameters; trailing string absorbs the rest
+qml: ok 49 telemetry › parses /proc/stat totals and per-core jiffies
+qml: ok 50 telemetry › computes CPU utilisation from deltas
+qml: ok 51 telemetry › first sample has no utilisation rather than zero
+qml: ok 52 telemetry › identical samples give unknown, not 0%
+qml: ok 53 telemetry › parses meminfo in bytes and computes usage from MemAvailable
+qml: ok 54 telemetry › swap is unknown when the kernel does not report it
+qml: ok 55 telemetry › parses PSI pressure files and reports absence as null
+qml: ok 56 telemetry › network rates exclude loopback and virtual bridges
+qml: ok 57 telemetry › counter resets do not produce negative rates
+qml: ok 58 telemetry › nvidia-smi CSV parsing maps N/A to null
+qml: ok 59 telemetry › top processes use CPU-time deltas and skip reused PIDs
+qml: ok 60 telemetry › ps parsing keeps command names with spaces
+qml: ok 61 telemetry › df parsing
+qml: ok 62 telemetry › hwmon selection prefers package/edge sensors
+qml: ok 63 telemetry › history is bounded
+qml: ok 64 telemetry › adaptive sampling: nothing when nobody watches
+qml: ok 65 telemetry › classification and formatting distinguish unknown from zero
+qml: ok 66 config › empty or missing config yields complete defaults without errors
+qml: ok 67 config › malformed JSON is reported and defaults are used
+qml: ok 68 config › only unparsable text is flagged as invalid JSON
+qml: ok 69 config › a bad value falls back to its default without affecting siblings
+qml: ok 70 config › range and type checks
+qml: ok 71 config › unknown keys are preserved and warned about
+qml: ok 72 config › palette overrides only accept colours
+qml: ok 73 config › list settings validate their items
+qml: ok 74 config › a non-object document is rejected with defaults
+qml: ok 75 config › newer schema versions are accepted with a warning
+qml: ok 76 config › migration runs registered steps in order
+qml: ok 77 config › migration reports a missing step instead of guessing
+qml: ok 78 config › setPath validates and preserves unrelated keys
+qml: ok 79 config › JSON Schema export covers every section with defaults
+qml: ok 80 config › no AI settings in the core schema
+qml: ok 81 config › intensity defaults to saturated and accepts only known levels
+qml: ok 82 routines › valid routines pass and get typed arguments
+qml: ok 83 routines › unknown actions, bad arguments and non-routine commands are rejected
+qml: ok 84 routines › routine definitions cannot smuggle code
+qml: ok 85 routines › invalid documents and duplicate ids are reported
+qml: ok 86 routines › preview runs nothing and flags sensitive steps
+qml: ok 87 routines › run executes steps in order and records undo information
+qml: ok 88 routines › onError=stop skips the remaining steps
+qml: ok 89 routines › onError=continue keeps going and still reports failure
+qml: ok 90 routines › routines with sensitive steps do nothing until confirmed
+qml: ok 91 routines › cancellation stops before the next step
+qml: ok 92 routines › revert applies recorded inverses newest first
+qml: ok 93 launch › strips desktop-entry field codes
+qml: ok 94 launch › terminal applications need a terminal
+qml: ok 95 launch › launch prefix wraps everything
+qml: ok 96 launch › empty commands are an error, not a silent no-op
+qml: ok 97 launch › terminal detection respects preference order
+qml: ok 98 launch › frecency rewards recent and frequent use, and decays
+qml: ok 99 launch › usage table is pruned to a bound
+qml: ok 100 tokens › text colours meet WCAG AA contrast on both surfaces
+qml: ok 101 tokens › Limb's translucent planes and annunciators retain AA contrast
+qml: ok 102 tokens › palette overrides accept only known keys and valid colours
+qml: ok 103 tokens › unknown density and motion names fall back
+qml: ok 104 tokens › font lists deduplicate
+qml: # passed 104, failed 0
+
+EXIT_CODE: 0

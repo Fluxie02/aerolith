@@ -1,0 +1,170 @@
+[
+  {
+    "intensity": "saturated",
+    "scenario": "smoke",
+    "run": "verified-saturated-smoke",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/saturated-full.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/smoke.sh build/ui009/verified-saturated-smoke",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "saturated",
+    "scenario": "full",
+    "run": "verified-saturated-full",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/saturated-full.json",
+      "AUDIO": "1",
+      "MEDIA": "1",
+      "MPV_AO": "pipewire",
+      "ROUTINES": "tests/fixtures/routines.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/full.sh build/ui009/verified-saturated-full",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "saturated",
+    "scenario": "signal",
+    "run": "verified-saturated-signal",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/saturated-full.json",
+      "AUDIO": "1",
+      "MEDIA": "1",
+      "MPV_AO": "pipewire",
+      "ROUTINES": "tests/fixtures/routines.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/signal.sh build/ui009/verified-saturated-signal",
+    "result": "passed",
+    "stream_routing_skipped": true
+  },
+  {
+    "intensity": "saturated",
+    "scenario": "deck",
+    "run": "verified-saturated-deck",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/saturated-full.json",
+      "AUDIO": "1",
+      "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/deck.sh build/ui009/verified-saturated-deck",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "saturated",
+    "scenario": "notify",
+    "run": "verified-saturated-notify",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/notify-saturated.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/notify.sh build/ui009/verified-saturated-notify",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "saturated",
+    "scenario": "ai",
+    "run": "retry-saturated-ai",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/saturated-full.json",
+      "AUDIO": "1",
+      "AI": "1"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/ai.sh build/ui009/retry-saturated-ai",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "insane",
+    "scenario": "smoke",
+    "run": "verified-insane-smoke",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/insane-full.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/smoke.sh build/ui009/verified-insane-smoke",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "insane",
+    "scenario": "full",
+    "run": "verified-insane-full",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/insane-full.json",
+      "AUDIO": "1",
+      "MEDIA": "1",
+      "MPV_AO": "pipewire",
+      "ROUTINES": "tests/fixtures/routines.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/full.sh build/ui009/verified-insane-full",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "insane",
+    "scenario": "signal",
+    "run": "verified-insane-signal",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/insane-full.json",
+      "AUDIO": "1",
+      "MEDIA": "1",
+      "MPV_AO": "pipewire",
+      "ROUTINES": "tests/fixtures/routines.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/signal.sh build/ui009/verified-insane-signal",
+    "result": "passed",
+    "stream_routing_skipped": true
+  },
+  {
+    "intensity": "insane",
+    "scenario": "deck",
+    "run": "retry-insane-deck",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/insane-full.json",
+      "AUDIO": "1",
+      "HYPR_MOCK_ARGS": "--mode 2560x1440 --scale 1.5 --transform 1"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/deck.sh build/ui009/retry-insane-deck",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "insane",
+    "scenario": "notify",
+    "run": "retry-insane-notify",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/notify-insane.json"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/notify.sh build/ui009/retry-insane-notify",
+    "result": "passed",
+    "stream_routing_skipped": false
+  },
+  {
+    "intensity": "insane",
+    "scenario": "ai",
+    "run": "retry-insane-ai",
+    "environment": {
+      "SHELL_PATH": "build/ui009/verified-shell",
+      "CONFIG": "build/ui009/insane-full.json",
+      "AUDIO": "1",
+      "AI": "1"
+    },
+    "command": "tools/headless/run.sh tests/scenarios/ai.sh build/ui009/retry-insane-ai",
+    "result": "passed",
+    "stream_routing_skipped": false
+  }
+]

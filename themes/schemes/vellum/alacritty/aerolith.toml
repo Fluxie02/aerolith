@@ -1,0 +1,41 @@
+# AEROLITH / Vellum — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#181612"
+foreground = "#f7f1e6"
+[colors.cursor]
+text = "#181612"
+cursor = "#e9ccb0"
+[colors.selection]
+text = "#181612"
+background = "#e9ccb0"
+
+[colors.normal]
+black = "#a1998a"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#aebfd6"
+magenta = "#c9aed6"
+cyan = "#aed6d6"
+white = "#cfc4b2"
+
+[colors.bright]
+black = "#cfc4b2"
+red = "#fdb1ab"
+green = "#c7e9c9"
+yellow = "#fdda94"
+blue = "#c4cedb"
+magenta = "#d7c2db"
+cyan = "#c4dedb"
+white = "#f7f1e6"

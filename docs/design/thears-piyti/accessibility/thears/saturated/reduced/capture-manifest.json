@@ -1,0 +1,37 @@
+{
+  "source": "build/ui012/final2-thears-saturated-reduced-small",
+  "stills": [
+    {
+      "file": "01-idle.png",
+      "sha256": "75e9281e181c2c2a01bf432b18229b6c30d98144167e0c80bc5b97ebfba781ad",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "02-app-focus.png",
+      "sha256": "a66b549d2c98de4dc2b1ca6308199f91d19a0973d4fd26965827c2c28e8a79b2",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "03-command.png",
+      "sha256": "ce32e470c0391f284ff8a8781b09cb1c6f8acd1785cfcdb374f7222fe542d8d3",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "04-settings.png",
+      "sha256": "1997e421835406a7e788d3f51148c5a4750e6d08de182021c4a0f761df813cfc",
+      "size": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

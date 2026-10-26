@@ -1,0 +1,66 @@
+$ docker run --rm -v /home/user/aerolith-astra:/repo:ro --entrypoint Hyprland aerolith-dev --verify-config --config /repo/themes/hyprland/thears.lua --i-am-really-stupid
+[1;32mDEBUG [0m]: User-specified config location: '/repo/themes/hyprland/thears.lua'
+[ WARNING ] Running Hyprland with superuser privileges might damage your system
+Superuser privileges check is omitted. I hope you know what you're doing.
+[1;32mDEBUG [0m]: [cfg] Config is either explicit or special.
+[1;32mDEBUG [0m]: [cfg] Config is lua, loading lua mgr
+[1;32mDEBUG [0m]: Disabling stdout logs (debug.enable_stdout_logs = 0). Further logs will be written to /hyprland.log
+
+
+======== Config parsing result:
+
+config ok
+
+exit_code=0
+
+$ docker run --rm -v /home/user/aerolith-astra:/repo:ro --entrypoint Hyprland aerolith-dev --verify-config --config /repo/themes/hyprland/piyti.lua --i-am-really-stupid
+[1;32mDEBUG [0m]: User-specified config location: '/repo/themes/hyprland/piyti.lua'
+[ WARNING ] Running Hyprland with superuser privileges might damage your system
+Superuser privileges check is omitted. I hope you know what you're doing.
+[1;32mDEBUG [0m]: [cfg] Config is either explicit or special.
+[1;32mDEBUG [0m]: [cfg] Config is lua, loading lua mgr
+[1;32mDEBUG [0m]: Disabling stdout logs (debug.enable_stdout_logs = 0). Further logs will be written to /hyprland.log
+
+
+======== Config parsing result:
+
+config ok
+
+exit_code=0
+
+$ docker run --rm -v /home/user/aerolith-astra:/repo:ro --entrypoint Hyprland aerolith-dev --verify-config --config /repo/themes/hyprland/thears.conf --i-am-really-stupid
+[1;32mDEBUG [0m]: User-specified config location: '/repo/themes/hyprland/thears.conf'
+[ WARNING ] Running Hyprland with superuser privileges might damage your system
+Superuser privileges check is omitted. I hope you know what you're doing.
+[1;32mDEBUG [0m]: [cfg] Config is either explicit or special.
+[1;32mDEBUG [0m]: [cfg] Config is NOT lua, loading regular mgr
+[1;32mDEBUG [0m]: Using config: /repo/themes/hyprland/thears.conf
+[1;32mDEBUG [0m]: Using config: /repo/themes/hyprland/thears.conf
+[1;32mDEBUG [0m]: Disabling stdout logs (debug.enable_stdout_logs = 0). Further logs will be written to /hyprland.log
+[1;32mDEBUG [0m]: Using config: /repo/themes/hyprland/thears.conf
+
+
+======== Config parsing result:
+
+config ok
+
+exit_code=0
+
+$ docker run --rm -v /home/user/aerolith-astra:/repo:ro --entrypoint Hyprland aerolith-dev --verify-config --config /repo/themes/hyprland/piyti.conf --i-am-really-stupid
+[1;32mDEBUG [0m]: User-specified config location: '/repo/themes/hyprland/piyti.conf'
+[ WARNING ] Running Hyprland with superuser privileges might damage your system
+Superuser privileges check is omitted. I hope you know what you're doing.
+[1;32mDEBUG [0m]: [cfg] Config is either explicit or special.
+[1;32mDEBUG [0m]: [cfg] Config is NOT lua, loading regular mgr
+[1;32mDEBUG [0m]: Using config: /repo/themes/hyprland/piyti.conf
+[1;32mDEBUG [0m]: Using config: /repo/themes/hyprland/piyti.conf
+[1;32mDEBUG [0m]: Disabling stdout logs (debug.enable_stdout_logs = 0). Further logs will be written to /hyprland.log
+[1;32mDEBUG [0m]: Using config: /repo/themes/hyprland/piyti.conf
+
+
+======== Config parsing result:
+
+config ok
+
+exit_code=0
+

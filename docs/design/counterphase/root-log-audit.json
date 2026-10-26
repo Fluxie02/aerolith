@@ -1,0 +1,47 @@
+{
+  "pattern": "TypeError|ReferenceError|SyntaxError|Unable to assign|Cannot assign|Binding loop|is not a type|Error loading|Failed to load QML|Segmentation fault|ASSERT failure",
+  "logs": 8,
+  "records": [
+    {
+      "file": "motion-piyti/saturated/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    },
+    {
+      "file": "motion-piyti/insane/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    },
+    {
+      "file": "perf-piyti/saturated-off/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    },
+    {
+      "file": "perf-piyti/insane-low/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    },
+    {
+      "file": "perf-piyti/saturated-full/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    },
+    {
+      "file": "perf-piyti/insane-full/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    },
+    {
+      "file": "perf-piyti/saturated-low/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    },
+    {
+      "file": "perf-piyti/insane-off/qs.log",
+      "matches": [],
+      "source_reloads": 0
+    }
+  ],
+  "matches": 0
+}

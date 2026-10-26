@@ -1,0 +1,40 @@
+{
+  "id": "ferrite",
+  "name": "Ferrite",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#1b1016",
+  "surface": "#33212b",
+  "surface2": "#432e39",
+  "grid": "#6b4859",
+  "text": "#ffeaf0",
+  "textDim": "#d7b4c3",
+  "signal": "#ffa8ad",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#ffcc9c",
+  "lower": "#2c1c25",
+  "pressed": "#513744",
+  "ansi": {
+    "normal": [
+      "#a88b98",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#aac8f1",
+      "#d9aaf1",
+      "#aaf1f1",
+      "#d7b4c3"
+    ],
+    "bright": [
+      "#d7b4c3",
+      "#ffafae",
+      "#cae7cc",
+      "#ffd897",
+      "#c4d2f1",
+      "#e4bdf1",
+      "#c4eff1",
+      "#ffeaf0"
+    ]
+  }
+}

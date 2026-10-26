@@ -1,0 +1,21 @@
+{
+  "name": "piyti-insane-compact-lowEffects",
+  "command": [
+    "bash",
+    "tools/headless/run.sh",
+    "docs/design/counterphase/scripts/capture.sh",
+    "/home/user/aerolith-astra/docs/design/counterphase/verification/final-runs/piyti-insane-compact-lowEffects"
+  ],
+  "environment": {
+    "SHELL_PATH": "docs/design/counterphase/verification/piyti-shell",
+    "CONFIG": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/insane-full-scale1.5-low.json",
+    "ROUTINES": "/home/user/aerolith-astra/docs/design/counterphase/verification/configs/valid-routines.json",
+    "RES": "1280x720",
+    "SCALE": "1",
+    "HYPR_MOCK_ARGS": "--mode 1280x720 --scale 1"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 10.02,
+  "stdout": "docs/design/counterphase/verification/final-runs/piyti-insane-compact-lowEffects.stdout.txt",
+  "source_manifest_sha256": "0208189ba59f0616ad22fff07d5fb4b4ee13fe41b1c7058549050fa1b9d3533d"
+}

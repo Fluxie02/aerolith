@@ -1,0 +1,41 @@
+# AEROLITH / Bathyal — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#091619"
+foreground = "#e1f4f1"
+[colors.cursor]
+text = "#091619"
+cursor = "#80e1cf"
+[colors.selection]
+text = "#091619"
+background = "#80e1cf"
+
+[colors.normal]
+black = "#839c9f"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#aecaf2"
+magenta = "#dbaef2"
+cyan = "#aef2f2"
+white = "#acc8cc"
+
+[colors.bright]
+black = "#acc8cc"
+red = "#f6b2ae"
+green = "#c1eacd"
+yellow = "#f6db97"
+blue = "#bdd7f2"
+magenta = "#ddc3f2"
+cyan = "#bdf3f2"
+white = "#e1f4f1"

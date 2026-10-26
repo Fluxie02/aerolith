@@ -1,0 +1,40 @@
+{
+  "id": "vellum",
+  "name": "Vellum",
+  "source": "shell/lib/schemes.mjs",
+  "obsidian": "#181612",
+  "surface": "#2d2923",
+  "surface2": "#3c372f",
+  "grid": "#625b4d",
+  "text": "#f7f1e6",
+  "textDim": "#cfc4b2",
+  "signal": "#e9ccb0",
+  "caution": "#ffd071",
+  "critical": "#ff9591",
+  "nominal": "#b3e6bd",
+  "link": "#c7d6ae",
+  "lower": "#27231e",
+  "pressed": "#49443a",
+  "ansi": {
+    "normal": [
+      "#a1998a",
+      "#ff9591",
+      "#b3e6bd",
+      "#ffd071",
+      "#aebfd6",
+      "#c9aed6",
+      "#aed6d6",
+      "#cfc4b2"
+    ],
+    "bright": [
+      "#cfc4b2",
+      "#fdb1ab",
+      "#c7e9c9",
+      "#fdda94",
+      "#c4cedb",
+      "#d7c2db",
+      "#c4dedb",
+      "#f7f1e6"
+    ]
+  }
+}

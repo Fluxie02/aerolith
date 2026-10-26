@@ -1,0 +1,1 @@
+UI-016 timing done: 1920x1080@60Hz

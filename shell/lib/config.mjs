@@ -38,6 +38,7 @@ export const SCHEMA = S.obj(
     ),
     theme: S.obj(
       {
+        scheme: S.enumOf("limb", ["limb", "bathyal", "corona", "cinder", "ferrite", "iris", "argent", "lichen", "helios", "umbra", "vellum", "glacial"], "Colour spectrum. Choose in Settings; applies live. Palette overrides take precedence."),
         density: S.enumOf("standard", ["compact", "standard", "comfortable"], "Spacing and type scale."),
         uiScale: S.num(1.0, 0.75, 2.0, "Multiplier applied on top of the compositor's own scaling."),
         motion: S.enumOf("full", ["full", "reduced", "off"], "Animation level. 'off' disables all transitions."),

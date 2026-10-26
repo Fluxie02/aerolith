@@ -1,0 +1,15 @@
+{
+  "name": "unit-final/pytest",
+  "command": [
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/py"
+  ],
+  "environment": {},
+  "display_command": "python3 -m pytest -q tests/py",
+  "started_at": "2026-10-24T22:28:25.198616+00:00",
+  "exit_code": 0,
+  "elapsed_seconds": 13.170825915000023
+}

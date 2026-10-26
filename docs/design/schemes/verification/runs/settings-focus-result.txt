@@ -1,0 +1,5 @@
+SHELL_PATH="build/ui015/verification/final-shell" CONFIG="/home/user/aerolith-astra/build/ui015/verification/saturated.json" tools/headless/run.sh build/ui015/verification/settings-focus.sh build/ui015/verification/settings-focus
+ok
+settings-focus: ok
+
+exit 0

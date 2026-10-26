@@ -1,0 +1,41 @@
+# AEROLITH / Limb — import from an existing Alacritty config.
+[window]
+padding = { x = 14, y = 14 }
+opacity = 1.0
+blur = false
+
+[font]
+size = 12.0
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[colors.primary]
+background = "#0d1215"
+foreground = "#edf3f5"
+[colors.cursor]
+text = "#0d1215"
+cursor = "#ceebac"
+[colors.selection]
+text = "#0d1215"
+background = "#ceebac"
+
+[colors.normal]
+black = "#849593"
+red = "#ff9591"
+green = "#b3e6bd"
+yellow = "#ffd071"
+blue = "#83aeeb"
+magenta = "#c883eb"
+cyan = "#83ebeb"
+white = "#abc0bd"
+
+[colors.bright]
+black = "#abc0bd"
+red = "#fab1af"
+green = "#c4eace"
+yellow = "#fadb99"
+blue = "#a3c3ee"
+magenta = "#d3a5ee"
+cyan = "#a3edee"
+white = "#edf3f5"

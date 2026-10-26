@@ -6,7 +6,7 @@ import qs.core
 // unavailable metric is never mistaken for zero.
 Item {
     id: root
-    property real value: NaN
+    property var value: NaN
     property real min: 0
     property real max: 100
     property real caution: NaN
@@ -30,17 +30,21 @@ Item {
         border.color: Theme.grid
         border.width: Theme.border
 
-        Rectangle {
+        Item {
             visible: root.known
             x: Theme.border
             y: Theme.border
             height: parent.height - 2 * Theme.border
-            width: Math.max(0, (parent.width - 2 * Theme.border) * root.fraction)
-            color: Theme.alpha(root.fillColor, 0.75)
-            Behavior on width {
-                enabled: Theme.animate
-                NumberAnimation {
-                    duration: Theme.normal
+            width: Math.max(0, parent.width - 2 * Theme.border)
+            clip: true
+            Rectangle {
+                width: parent.width; height: parent.height
+                x: (root.fraction - 1) * width
+                color: Theme.lowEffects ? root.fillColor : Theme.alpha(root.fillColor, 0.75)
+                Behavior on x { enabled: Theme.travel && root.known; XAnimator { id: fillMotion; duration: Theme.normal; easing.type: Easing.OutCubic } }
+                Connections {
+                    target: Theme
+                    function onTravelChanged() { if (!Theme.travel) fillMotion.complete(); }
                 }
             }
         }
@@ -96,11 +100,17 @@ Item {
 
     // Caret
     Text {
+        textFormat: Text.PlainText
         visible: root.showCaret && root.known
         text: "▲"
         color: root.fillColor
         font.pixelSize: Math.max(6, root.height - track.height + 2)
-        x: Math.round(root.fraction * root.width - width / 2)
+        x: root.fraction * root.width - width / 2
         y: track.height - 2
+        Behavior on x { enabled: Theme.travel && root.known; XAnimator { id: caretMotion; duration: Theme.normal; easing.type: Easing.OutCubic } }
+        Connections {
+            target: Theme
+            function onTravelChanged() { if (!Theme.travel) caretMotion.complete(); }
+        }
     }
 }

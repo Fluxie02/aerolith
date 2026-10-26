@@ -1,0 +1,112 @@
+{
+  "piyti-saturated": {
+    "file": "piyti-saturated.mp4",
+    "bytes": 3698026,
+    "sha256": "a2032282f57a8554858504985e335861434eea860b3f1d6b2bd897d6f6a24e2e",
+    "duration": 124.906,
+    "codec": "h264",
+    "profile": "High",
+    "level": 40,
+    "pixel_format": "yuv420p",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "fps": "30/1",
+    "faststart": true,
+    "decode_errors": 0,
+    "source_files_changed": [],
+    "qml_engine_errors": [],
+    "log_warnings": 63,
+    "raw_frames": 3742,
+    "raw_frame_span": 124.906,
+    "raw_effective_fps": 29.95052279314044,
+    "raw_median_interval": 0.03300000000000125,
+    "raw_max_interval": 0.0759999999999934,
+    "source_gaps_over_50ms": [
+      {
+        "start": 12.119,
+        "timecode": "00:12.04",
+        "duration": 0.06099999999999994
+      },
+      {
+        "start": 120.048,
+        "timecode": "02:00.01",
+        "duration": 0.0759999999999934
+      }
+    ],
+    "timing": {
+      "first_presentation_monotonic": 827.107725507,
+      "recorder_initialization_seconds": 0.06319210200001635,
+      "raw_duration": 124.906,
+      "timecode": "mm:ss.ff, frames 00..29",
+      "method": "real-time compositor PTS; fps=30 frame hold/drop only, no interpolation, no retiming"
+    }
+  },
+  "piyti-insane": {
+    "file": "piyti-insane.mp4",
+    "bytes": 4742385,
+    "sha256": "f97d9e39e1b6772f02887940237269c178863bfc2bcb7a46ce4cca9dd9a9f299",
+    "duration": 124.903,
+    "codec": "h264",
+    "profile": "High",
+    "level": 40,
+    "pixel_format": "yuv420p",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "fps": "30/1",
+    "faststart": true,
+    "decode_errors": 0,
+    "source_files_changed": [],
+    "qml_engine_errors": [],
+    "log_warnings": 63,
+    "raw_frames": 3696,
+    "raw_frame_span": 124.903,
+    "raw_effective_fps": 29.582956374146335,
+    "raw_median_interval": 0.03300000000000125,
+    "raw_max_interval": 0.04599999999999227,
+    "source_gaps_over_50ms": [],
+    "timing": {
+      "first_presentation_monotonic": 692.049985843,
+      "recorder_initialization_seconds": 0.06457471999999598,
+      "raw_duration": 124.903,
+      "timecode": "mm:ss.ff, frames 00..29",
+      "method": "real-time compositor PTS; fps=30 frame hold/drop only, no interpolation, no retiming"
+    }
+  },
+  "thears-saturated": {
+    "file": "thears-saturated.mp4",
+    "bytes": 2214171,
+    "sha256": "e286be5d330010dafa8cee09dabd55bbb7e5d6491e0c703a8e383bca278b9496",
+    "duration": 51.933333,
+    "codec": "h264",
+    "profile": "High",
+    "level": 40,
+    "pixel_format": "yuv420p",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "fps": "30/1",
+    "faststart": true,
+    "decode_errors": 0,
+    "source_files_changed": [],
+    "qml_engine_errors": [],
+    "log_warnings": 57,
+    "raw_frames": 1551,
+    "raw_frame_span": 51.92,
+    "raw_effective_fps": 29.85362095531587,
+    "raw_median_interval": 0.03300000000000125,
+    "raw_max_interval": 0.04400000000000048,
+    "source_gaps_over_50ms": [],
+    "timing": {
+      "first_presentation_monotonic": 1496.00247459,
+      "recorder_initialization_seconds": 0.06703146600011678,
+      "raw_duration": 51.92,
+      "timecode": "mm:ss.ff, frames 00..29",
+      "method": "real-time compositor PTS; fps=30 frame hold/drop only, no interpolation, no retiming"
+    }
+  }
+}

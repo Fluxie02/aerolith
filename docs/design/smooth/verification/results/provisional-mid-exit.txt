@@ -1,0 +1,8 @@
+$ SHELL_PATH=build/ui016/verification/mid-exit-probe-shell tools/headless/run.sh build/ui016/verification/mid-exit-probe.sh build/ui016/verification/provisional-mid-exit
+
+off {"mode": "off", "saved": "", "before": {"exitMs": 160, "mapped": true, "leaving": true}, "after": {"exitMs": 0, "mapped": true, "leaving": true}}
+lowEffects {"mode": "lowEffects", "saved": "", "before": {"exitMs": 160, "mapped": true, "leaving": true}, "after": {"exitMs": 0, "mapped": true, "leaving": true}}
+mid-exit probe: observed
+
+EXIT 0
+ELAPSED 7.476 s

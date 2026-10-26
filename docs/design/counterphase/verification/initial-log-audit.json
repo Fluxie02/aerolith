@@ -1,0 +1,140 @@
+{
+  "round": "initial",
+  "pattern": "TypeError|ReferenceError|SyntaxError|Unable to assign|Cannot assign|Binding loop|is not a type|Error loading|Failed to load QML|Cannot animate|Invalid property|non-existent property|Cannot read property|Failed to create.*component|Segmentation fault|Aborted|ASSERT failure",
+  "logs": 22,
+  "matches": 0,
+  "records": [
+    {
+      "log": "runs/insane-4k-scale1-uiScale1.5/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-4k-scale1.5-uiScale1/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-4k-scale2-uiScale1/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-ai/qs.txt",
+      "lines": 43,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-compact-lowEffects/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-compact-off/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-compact-reduced/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-deck-native-output/qs.txt",
+      "lines": 36,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-full/qs.txt",
+      "lines": 38,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/insane-smoke/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-4k-scale1-uiScale1.5/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-4k-scale1.5-uiScale1/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-4k-scale2/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-4k-scale2-uiScale1/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-ai/qs.txt",
+      "lines": 43,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-compact-lowEffects/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-compact-off/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-compact-reduced/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-deck/qs.txt",
+      "lines": 29,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-deck-native-output/qs.txt",
+      "lines": 36,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-full/qs.txt",
+      "lines": 38,
+      "source_reloads": 0,
+      "matches": []
+    },
+    {
+      "log": "runs/saturated-smoke/qs.txt",
+      "lines": 28,
+      "source_reloads": 0,
+      "matches": []
+    }
+  ]
+}

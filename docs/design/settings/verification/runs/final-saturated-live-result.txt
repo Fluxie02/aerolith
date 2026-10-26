@@ -1,0 +1,2 @@
+ok
+settings-live: ok (bool, enum, number, text, draft/cancel/refusal, plain text, paging, intensity, Ctrl+7, set alias)

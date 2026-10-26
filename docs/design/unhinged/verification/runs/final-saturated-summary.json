@@ -1,0 +1,16 @@
+{
+  "smoke": {
+    "exit": 0,
+    "pngs": 2,
+    "qml_engine_errors": [],
+    "application_diagnostics": []
+  },
+  "deck": {
+    "exit": 0,
+    "pngs": 1,
+    "qml_engine_errors": [],
+    "application_diagnostics": [
+      " ERROR qml: [aerolith:config] could not save /home/pilot/.config/aerolith/config.json: 3"
+    ]
+  }
+}

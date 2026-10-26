@@ -3,9 +3,10 @@ import qs.core
 import qs.services
 
 // Workspace tape: numbered cells with occupancy ticks. The focused cell is
-// boxed with cyan registration brackets; urgent cells get an amber plate.
+// boxed with phosphor registration brackets; urgent cells get an amber plate.
 Row {
     id: tape
+    property bool compact: false
     spacing: Theme.px(2)
 
     // Cells 1..max(configured minimum, highest existing workspace).
@@ -36,43 +37,26 @@ Row {
         delegate: Item {
             id: cell
             required property var modelData
-            width: Math.round(Theme.stripHeight * 1.05)
+            width: Math.round(Theme.stripHeight * (tape.compact ? .8 : 1.05))
             height: tape.height
 
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: Theme.px(3)
-                color: cell.modelData.urgent ? Theme.alpha(Theme.caution, 0.18) : hover.containsMouse ? Theme.surface2 : "transparent"
+                color: cell.modelData.urgent ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(Theme.caution, 0.18)) : hover.containsMouse ? Theme.surface2 : "transparent"
                 radius: Theme.radius
             }
 
-            // Brackets around the focused workspace.
-            Repeater {
-                model: cell.modelData.focused ? 4 : 0
-                delegate: Item {
-                    required property int index
-                    readonly property bool r: index % 2 === 1
-                    readonly property bool b: index >= 2
-                    x: r ? cell.width - width - Theme.px(2) : Theme.px(2)
-                    y: b ? cell.height - height - Theme.px(3) : Theme.px(3)
-                    width: Theme.px(5)
-                    height: Theme.px(5)
-                    Rectangle {
-                        width: parent.width
-                        height: Theme.px(2)
-                        y: parent.b ? parent.height - height : 0
-                        color: Theme.signal
-                    }
-                    Rectangle {
-                        width: Theme.px(2)
-                        height: parent.height
-                        x: parent.r ? parent.width - width : 0
-                        color: Theme.signal
-                    }
-                }
+            // The same soft focus ring used by the Deck route.
+            Rectangle {
+                anchors.fill: parent; anchors.margins: Theme.px(3)
+                visible: cell.modelData.focused
+                color: Theme.surface2; radius: Theme.radius
+                border.width: Theme.border; border.color: Theme.signal
             }
 
             Text {
+                textFormat: Text.PlainText
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: -Theme.px(2)
                 text: cell.modelData.id
