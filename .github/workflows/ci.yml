@@ -262,6 +262,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 3
           compression-level: 9
+      - name: session
+        id: session
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/session.sh build/ci/session
+      - name: Upload failed session output
+        if: ${{ failure() && steps.session.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-failure
+          path: build/ci/session/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
       - name: installed
         id: installed
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}
