@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import qs.core
 import "../lib/launch.mjs" as Launch
+import "../lib/appbus.mjs" as Bus
 
 // Application discovery (Quickshell's DesktopEntries, which follows the XDG
 // desktop entry spec and tracks changes live) and launching.
@@ -13,6 +14,14 @@ Singleton {
 
     readonly property var entries: DesktopEntries.applications.values
     readonly property bool ready: entries.length > 0
+    property int launchRevision: 0
+    // Store.recordUse mutates its JS object in place; depend on our launch
+    // revision as well as loaded history, desktop entries and window changes.
+    // The bar slices this ordered list to its own capacity, without a timer.
+    readonly property var barApps: {
+        root.launchRevision;
+        return Bus.barApps(entries, Compositor.windows(), Store.usage, Date.now());
+    }
     property var terminal: []
 
     function find(id) {
@@ -35,6 +44,7 @@ Singleton {
             workingDirectory: entry.workingDirectory || Paths.home
         });
         Store.recordUse("apps:" + entry.id);
+        launchRevision++;
         // execDetached gives no feedback; report what was actually done.
         return Registry.ok("Started " + entry.name, {
             detail: r.argv.join(" ")

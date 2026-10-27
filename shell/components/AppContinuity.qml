@@ -3,40 +3,15 @@ import qs.core
 import qs.services
 import "../lib/appbus.mjs" as Bus
 
-// A single row of the user's applications. Sol can bind rankedEntries to
-// Apps' forthcoming ordered desktop-entry list; no usage ranking lives here.
+// A single row of the user's applications, ranked by the Apps service.
 Item {
     id: bus
     property bool instrument: false
-    property var rankedEntries: []
+    property var rankedEntries: Apps.barApps
     readonly property bool exposed: visible && Window.window && Window.window.visible
     readonly property var windows: exposed ? Compositor.windows() : []
     readonly property int capacity: Math.max(1, Math.floor((width - more.width - Theme.du(8)) / Theme.du(140)))
-    readonly property var ports: {
-        const entries = rankedEntries.length ? rankedEntries : Array.from(Apps.entries).sort((a, b) => a.name.localeCompare(b.name));
-        const out = [];
-        function add(port) {
-            if (!out.some(p => p.match === port.match)) out.push(port);
-        }
-        function fromEntry(e) {
-            const known = Bus.PORTS.find(p => Bus.matches(e.id, p));
-            return { name: e.name, icon: e.icon || "", match: known ? known.match : String(e.id).replace(/\.desktop$/, "").toLowerCase(),
-                desktopIds: [e.id], query: e.name };
-        }
-        // Running apps come first until the service supplies its ranked list.
-        if (!rankedEntries.length) {
-            for (const w of windows) {
-                if (!w.appId) continue;
-                const known = Bus.PORTS.find(p => Bus.matches(w.appId, p));
-                const probe = known || {match: String(w.appId).toLowerCase(), desktopIds: []};
-                const exact = Array.from(Apps.entries).find(e => String(e.id).replace(/\.desktop$/, "").toLowerCase() === String(w.appId).toLowerCase());
-                const e = exact || Bus.entryFor(Apps.entries, probe);
-                add(e ? fromEntry(e) : {name: w.appId || "Application", icon: "", match: probe.match, desktopIds: [], query: w.appId});
-            }
-        }
-        for (const e of entries) add(fromEntry(e));
-        return out.slice(0, capacity);
-    }
+    readonly property var ports: rankedEntries.slice(0, capacity)
     function activate(port) {
         const a = Bus.action(Compositor.windows(), port, Compositor.activeAddress, Apps.entries);
         if (a.kind === "focus") Registry.run("window.focus", { address: a.address });
