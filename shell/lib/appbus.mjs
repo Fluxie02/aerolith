@@ -2,6 +2,8 @@
 // to an application, which window a click focuses, and which desktop entry
 // starts the application when it is not running.
 
+import { usageScore } from "./launch.mjs";
+
 // The applications on the bus. `match` is checked against window classes and
 // desktop entry ids; `desktopIds` are tried first when starting the app.
 export const PORTS = [
@@ -12,7 +14,75 @@ export const PORTS = [
   { name: "ArtCraft", code: "05", kind: "CREATE", match: "craft", query: "craft", desktopIds: [] },
 ];
 
+function appKey(id) {
+  return String(id || "").toLowerCase().replace(/\.desktop$/, "");
+}
+
+export function readableName(id) {
+  const tail = String(id || "").replace(/\.desktop$/i, "").split(".").pop().replace(/[_-]+/g, " ").trim();
+  return tail ? tail.charAt(0).toUpperCase() + tail.slice(1) : "Application";
+}
+
+// Quickshell exposes Desktop Entry StartupWMClass as startupClass. Prefer
+// exact ids (including reverse-DNS/Flatpak ids) over advertised X11 classes.
+export function entryForWindow(entries, appId) {
+  const key = appKey(appId);
+  if (!key) return null;
+  const list = Array.from(entries || []);
+  const exact = list.find(e => appKey(e.id) === key);
+  if (exact) return exact;
+  const startup = list.find(e => appKey(e.startupClass) === key);
+  if (startup) return startup;
+  // Older X11 apps may use a short class while their Flatpak uses a DNS id.
+  const known = PORTS.find(p => key === p.match || p.desktopIds.some(id => appKey(id) === key));
+  return known ? entryFor(list, known) : null;
+}
+
+// One entry per desktop id, with window-only apps retained. Usage wins, then
+// running state and name break ties; unused installed entries fill spare slots.
+// No timer: callers recompute on desktop-index, window or Store changes.
+export function barApps(entries, windows, usage, now, limit) {
+  const list = Array.from(entries || []);
+  const byId = new Map();
+  function add(id, name, icon) {
+    const key = appKey(id);
+    if (!byId.has(key)) byId.set(key, {
+      id: String(id), name: name || readableName(id),
+      icon: icon || "application-x-executable", running: false, windows: [],
+      appIds: [key],
+      desktopIds: [String(id)], query: name || readableName(id)
+    });
+    return byId.get(key);
+  }
+  for (const e of list) {
+    if (appKey(e.id)) add(e.id, e.name, e.icon);
+  }
+  for (const w of windows || []) {
+    const key = appKey(w.appId);
+    if (!key) continue;
+    const e = entryForWindow(list, w.appId);
+    const app = e ? byId.get(appKey(e.id)) : add(key, readableName(w.appId), "");
+    app.running = true;
+    app.windows.push(w);
+    if (app.appIds.indexOf(key) < 0) app.appIds.push(key);
+  }
+  // Store normally uses the exact desktop id. Accept suffix/case variants
+  // from earlier indexes without counting the same launch history twice.
+  const scores = new Map();
+  for (const key of Object.keys(usage || {})) {
+    if (key.indexOf("apps:") !== 0) continue;
+    const id = appKey(key.slice(5));
+    scores.set(id, Math.max(scores.get(id) || 0, usageScore(usage, key, now)));
+  }
+  const out = Array.from(byId.values()).sort((a, b) =>
+    (scores.get(appKey(b.id)) || 0) - (scores.get(appKey(a.id)) || 0) ||
+    Number(b.running) - Number(a.running) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+  return limit === undefined ? out : out.slice(0, Math.max(0, Math.floor(limit)));
+}
+
 export function matches(appId, port) {
+  // Service-produced ports use exact aliases, never substring matching.
+  if (port.appIds) return port.appIds.indexOf(appKey(appId)) >= 0;
   const id = String(appId || "").toLowerCase();
   if (port.match === "craft") return /(^|[./_-])(photo|vector|film|light|pdf|effect|design|fig|word|sound|deck|cad|grid)craft($|[./_-])/.test(id);
   if (port.match === "steam") return /^(steam|com\.valvesoftware\.steam)$/.test(id);
@@ -41,9 +111,9 @@ function history(w) {
 // ".desktop" and case. Known ids first, then any entry the matcher accepts.
 export function entryFor(entries, port) {
   const list = Array.from(entries || []);
-  const norm = (id) => String(id || "").replace(/\.desktop$/, "").toLowerCase();
+  const norm = appKey;
   for (const want of port.desktopIds || []) {
-    const hit = list.find((e) => norm(e.id) === want.toLowerCase());
+    const hit = list.find((e) => norm(e.id) === norm(want));
     if (hit) return hit;
   }
   return list.find((e) => matches(norm(e.id), port)) || null;

@@ -1,0 +1,44 @@
+{
+  "pattern": "ReferenceError|TypeError|SyntaxError|is not defined|Cannot read|Binding loop|Unable to assign|Cannot assign|is not a type|Type .* unavailable|Error loading QML",
+  "logs_checked": 26,
+  "final_errors": 0,
+  "logs": {
+    "build/redesign-1/smoke/qs.log": [],
+    "build/redesign-1/full/qs.log": [],
+    "build/redesign-1/deck/qs.log": [],
+    "build/redesign-1/app-links/qs.log": [],
+    "build/redesign-1/fullscreen/qs.log": [],
+    "build/redesign-1/direction/qs-invalid.log": [],
+    "build/redesign-1/direction/qs-whitespace.log": [],
+    "build/redesign-1/direction/qs-array.log": [],
+    "build/redesign-1/direction/qs-null.log": [],
+    "build/redesign-1/direction/qs-broken.log": [],
+    "build/redesign-1/direction/qs-thears.log": [],
+    "build/redesign-1/direction/qs-piyti.log": [],
+    "build/redesign-1/direction/qs.log": [],
+    "build/redesign-1/direction/qs-missing.log": [],
+    "build/redesign-1/direction/qs-empty.log": [],
+    "build/redesign-1/notify/qs.log": [],
+    "build/redesign-1/after-1080/qs.log": [],
+    "build/redesign-1/after-1440/qs.log": [],
+    "build/redesign-1/after-4k/qs.log": [],
+    "build/redesign-1/compact/qs.log": [],
+    "build/redesign-1/schemes/qs.log": [],
+    "build/redesign-1/thears/qs-thears.log": [],
+    "build/redesign-1/thears/qs.log": [],
+    "build/redesign-1/early-exit-before/qs.log": [],
+    "build/redesign-1/perf-before/qs.log": [],
+    "build/redesign-1/perf-after/qs.log": []
+  },
+  "earlier_intermittent_teardown": {
+    "evidence": "docs/design/redesign-1/checks/thears-early-exit.txt",
+    "warnings": [
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Compositor.qml[49:5]: Unable to assign [undefined] to QString",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Theme.qml[146:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/ShellState.qml[35:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/ShellState.qml[36:5]: Unable to assign [undefined] to QString"
+    ],
+    "baseline_reproduced": false,
+    "settled_restart_reproduced": false
+  }
+}

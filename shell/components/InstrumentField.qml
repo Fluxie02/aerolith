@@ -11,7 +11,6 @@ Item {
     // retained chord only; its surrounding geometry stays registered.
     property real progress: 1
     readonly property int level: Theme.variantLevel
-    readonly property int workspace: Compositor.focusedWorkspaceId
     function mix(a, b, t) { return Qt.rgba(a.r+(b.r-a.r)*t,a.g+(b.g-a.g)*t,a.b+(b.b-a.b)*t,1); }
     Canvas {
         id: art
@@ -27,7 +26,6 @@ Item {
         }
         Connections {
             target: field
-            function onWorkspaceChanged() { art.requestPaint(); }
             function onLevelChanged() { art.requestPaint(); }
         }
         Connections {
@@ -73,21 +71,13 @@ Item {
                 var a=i*Math.PI/90-1.57,rr=r*1.05,len=i%15===0?20:i%5===0?11:4;
                 if(i/180>indexPhase)break;
                 line(x+Math.cos(a)*rr,y+Math.sin(a)*rr,x+Math.cos(a)*(rr+len),y+Math.sin(a)*(rr+len),i%15===0?Theme.textDim:rule);
-                if(i%15===0) text(String(i*2).padStart(3,"0"),x+Math.cos(a)*(rr+37)-9,y+Math.sin(a)*(rr+37)+3,Theme.textDim);
             }
-            // Segmented, fixed index band. Its labels are angular coordinates.
+            // Segmented, fixed index band; no synthetic coordinate labels.
             var n=L===2?64:96;
             for(i=0;i<n;i++) {
                 if(i/n>indexPhase)break;
                 a=-2.65+i*5.3/n;
                 arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(Theme.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
-            }
-            // Active workspace registration uses the same position as Limb.
-            if(field.workspace>0 && indexPhase>0) {
-                c.globalAlpha=indexPhase;
-                a=-1.6+field.workspace*.24;
-                line(x+Math.cos(a)*(r-8),y+Math.sin(a)*(r-8),x+Math.cos(a)*(r+54),y+Math.sin(a)*(r+54),Theme.signal,3);
-                c.globalAlpha=1;
             }
             c.globalAlpha=.24+.76*phase(0,.30);
             line(x-r*.18,y,x+r*.18,y,rule);line(x,y-18,x,y+18,rule);
@@ -105,7 +95,6 @@ Item {
             for(i=0;i<rows;i++) {
                 var yy=h*(.10+i*.79/Math.max(1,rows-1));
                 line(w*.025,yy,w*.045,yy,rule);line(w*.955,yy,w*.975,yy,rule);
-                text(String(Math.round(yy)),w*.975+3,yy+3,Theme.textDim);
                 if(L>1) line(w*.047,yy,w*.953,yy,weak);
             }
             // Saturated: a second, screen-sized construction cuts the first.
@@ -140,7 +129,6 @@ Item {
                     var by=h*(.34+k*.048);
                     line(w*.013,by,w*.032,by,Theme.signal,2);
                     line(w*.032,by,w*.052,by+18,rule);
-                    text(String(k+1).padStart(2,"0"),w*.014,by-8,Theme.textDim);
                 }
                 // An opaque phosphor index spine at the screen's right edge.
                 c.fillStyle=Theme.grid;c.fillRect(w*.968,h*.38,w*.004,h*.37);
