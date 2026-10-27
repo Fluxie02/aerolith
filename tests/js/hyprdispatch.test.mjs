@@ -5,6 +5,9 @@ import {
   workspaceSelector,
   focusWorkspace,
   focusWindow,
+  focusMonitor,
+  toggleSpecialWorkspace,
+  specialWorkspaceSelector,
   moveWindowToWorkspace,
   closeWindow,
   exitSession,
@@ -13,6 +16,32 @@ import {
 } from "../../shell/lib/hyprdispatch.mjs";
 
 export default suite("hyprdispatch", (test) => {
+  test("scratch dispatches use validated special selectors in both dialects", assert => {
+    assert.equal(specialWorkspaceSelector("aerolith"), "special:aerolith");
+    assert.equal(workspaceSelector({ special: "aerolith" }), "special:aerolith");
+    assert.equal(toggleSpecialWorkspace("lua", "aerolith"), 'hl.dsp.workspace.toggle_special("aerolith")');
+    assert.equal(toggleSpecialWorkspace("hyprlang", "aerolith"), "togglespecialworkspace aerolith");
+    assert.equal(moveWindowToWorkspace("lua", "5a0", { special: "aerolith" }, false),
+      'hl.dsp.window.move({ workspace = "special:aerolith", follow = false, window = "address:0x5a0" })');
+    assert.equal(moveWindowToWorkspace("hyprlang", "5a0", { special: "aerolith" }, false),
+      "movetoworkspacesilent special:aerolith,address:0x5a0");
+    assert.equal(focusMonitor("lua", "DP-1"), 'hl.dsp.focus({ monitor = "DP-1" })');
+    assert.equal(focusMonitor("hyprlang", "HDMI-A-1"), "focusmonitor HDMI-A-1");
+  });
+
+  test("scratch rejects malformed selectors, addresses, monitors and dialects", assert => {
+    for (const dialect of ["lua", "hyprlang"]) {
+      for (const name of ["", "special:aerolith", "a,b", "a\nb", 'x") --', "a ", "a".repeat(65), null, 3]) {
+        assert.throws(() => toggleSpecialWorkspace(dialect, name), /invalid special workspace/);
+        assert.throws(() => moveWindowToWorkspace(dialect, "abc", { special: name }, false), /invalid special workspace/);
+      }
+      assert.throws(() => moveWindowToWorkspace(dialect, "bad,address", { special: "aerolith" }, false), /invalid window address/);
+      for (const monitor of ["", "DP-1;exec", "a,b", 'x"', "DP-1\n", null])
+        assert.throws(() => focusMonitor(dialect, monitor), /invalid monitor/);
+    }
+    assert.throws(() => toggleSpecialWorkspace("sway", "aerolith"), /unknown dispatch dialect/);
+    assert.throws(() => focusMonitor("sway", "DP-1"), /unknown dispatch dialect/);
+  });
   test("Lua string literals escape quotes, backslashes and control characters", (assert) => {
     assert.equal(luaString('a"b'), '"a\\"b"');
     assert.equal(luaString("a\\b"), '"a\\\\b"');
