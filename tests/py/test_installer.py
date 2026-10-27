@@ -394,6 +394,35 @@ def test_conf_conflict_with_mainmod_variable():
     assert "navigator" in found and "command" not in found
 
 
+@pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
+def test_scratch_defaults_and_fragments(dialect):
+    binds = hypr.default_binds(False, False)
+    scratch = {b.name: b for b in binds if b.name.startswith("scratch")}
+    assert scratch["scratch"].combo == "SUPER + S"
+    assert scratch["scratch-park"].combo == "SUPER + SHIFT + S"
+    frag = hypr.fragment(dialect, list(scratch.values()), None)
+    if dialect == "lua":
+        assert 'hl.bind("SUPER + S", hl.dsp.global("aerolith:scratch")' in frag
+        assert 'hl.bind("SUPER + SHIFT + S", hl.dsp.global("aerolith:scratch-park")' in frag
+    else:
+        assert 'bindd = SUPER, S, AEROLITH: scratch space, global, aerolith:scratch' in frag
+        assert 'bindd = SUPER SHIFT, S, AEROLITH: park focused window, global, aerolith:scratch-park' in frag
+
+
+@pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
+def test_scratch_conflicting_binds_are_skipped(system, home, dialect):
+    if dialect == "lua":
+        (home / ".config/hypr/hyprland.lua").write_text(LUA_CONFIG + 'hl.bind("SUPER + S", hl.dsp.exec_cmd("existing"))\n')
+    else:
+        (home / ".config/hypr/hyprland.conf").write_text(CONF_CONFIG + 'bind = $mainMod, S, exec, existing\n')
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    frag = hypr.fragment_path(layout(), dialect).read_text()
+    assert "aerolith:scratch-park" in frag
+    assert 'aerolith:scratch"' not in frag and 'aerolith:scratch\n' not in frag
+    existing = [{"modmask": 65, "key": "s", "dispatcher": "exec", "arg": "existing"}]
+    assert set(hypr.conflicts(hypr.default_binds(False, False), existing, "")) == {"scratch-park"}
+
+
 def test_running_hyprland_binds_are_checked():
     binds = hypr.default_binds(False, False)
     existing = [{"modmask": 64, "key": "space", "dispatcher": "exec", "arg": "wofi"}, {"modmask": 64, "key": "TAB", "dispatcher": "global", "arg": "aerolith:navigator"}]
