@@ -29,7 +29,12 @@ Singleton {
             imageSupported: false
             onNotification: n => {
                 n.tracked = true;
-                root.items = [n].concat(root.items).slice(0, 100);
+                const all = [n].concat(root.items);
+                root.items = all.slice(0, 100);
+                // Dropping our reference alone leaves a tracked notification
+                // alive in Quickshell and open for its sender.
+                for (let i = 100; i < all.length; i++)
+                    all[i].dismiss();
                 if (!root.doNotDisturb && n.urgency !== NotificationUrgency.Low)
                     root.showPopup(n);
                 n.closed.connect(() => {

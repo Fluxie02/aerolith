@@ -34,7 +34,7 @@ Item {
             target: Theme
             function onPaletteChanged() { art.requestPaint(); }
             function onUnitChanged() { art.requestPaint(); }
-            function onMonoChanged() { art.requestPaint(); }
+            function onCanvasMonoChanged() { art.requestPaint(); }
             function onFontXsChanged() { art.requestPaint(); }
         }
         onPaint: {
@@ -58,7 +58,7 @@ Item {
                 c.beginPath();c.arc(cx,cy,rr,a,b);c.stroke();
             }
             function text(s,tx,ty,col,size) {
-                c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px "'+Theme.mono+'"';c.fillText(s,tx,ty);
+                c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px '+Theme.canvasMono;c.fillText(s,tx,ty);
             }
             // Machined annulus: the original exposed circular Limb instrument.
             c.fillStyle=field.mix(Theme.bg,Theme.surface,.45);

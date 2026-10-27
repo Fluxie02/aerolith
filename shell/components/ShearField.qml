@@ -95,7 +95,7 @@ Item {
                     target: Theme
                     function onPaletteChanged() { plate.requestPaint(); }
                     function onInsaneChanged() { plate.requestPaint(); }
-                    function onMonoChanged() { plate.requestPaint(); }
+                    function onCanvasMonoChanged() { plate.requestPaint(); }
                     function onFontXsChanged() { plate.requestPaint(); }
                     function onUnitChanged() { plate.requestPaint(); }
                 }
@@ -132,7 +132,7 @@ Item {
                         c.beginPath(); c.moveTo(.08*w,.08*h); c.lineTo(.14*w,.06*h);
                         c.lineTo(.31*w,.85*h); c.lineTo(.25*w,.85*h); c.closePath();
                         c.fillStyle=Theme.grid; c.fill();
-                        c.fillStyle=Theme.textDim;c.font=Theme.fontXs+'px "'+Theme.mono+'"';
+                        c.fillStyle=Theme.textDim;c.font=Theme.fontXs+'px '+Theme.canvasMono;
                         c.save();c.translate(w*.43,h*.29);c.rotate(1.03);
                         c.fillText('AEROLITH / WORKSPACE STRUCTURE',0,0);c.restore();
                     }

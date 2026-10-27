@@ -80,6 +80,22 @@ Singleton {
             }));
     }
 
+    function lockExternal() {
+        // loginctl succeeds even when nobody handles its Lock signal. Check
+        // this user's locker/idle listener first, rather than installed files.
+        return Exec.run(["sh", "-c", "pgrep -u \"$(id -u)\" -x 'hyprlock|swaylock|hypridle|swayidle|xss-lock|light-locker' >/dev/null"], {
+            timeoutMs: 2000
+        }).then(probe => {
+            if (probe.code === 0)
+                return root.runChecked(["loginctl", "lock-session"], "Lock requested");
+            // Desktop lockers may instead expose the standard ScreenSaver
+            // interface. Call the locker itself so an absent owner fails.
+            return Exec.run(["busctl", "--user", "--timeout=2", "call", "org.freedesktop.ScreenSaver", "/ScreenSaver", "org.freedesktop.ScreenSaver", "Lock"], {
+                timeoutMs: 3000
+            }).then(r => r.code === 0 ? Registry.ok("Lock requested") : Registry.fail("No external session locker is running. Enable lock.enabled or start a logind-integrated locker (for example hypridle with hyprlock)."));
+        });
+    }
+
     Component.onCompleted: {
         Registry.register({
             id: "power.profile.set",
@@ -111,7 +127,7 @@ Singleton {
                 // Reports "Locked" only once the compositor confirms it.
                 if (Config.lock.enabled)
                     return new Promise(resolve => Ui.requestLock((ok, text) => resolve(ok ? Registry.ok(text) : Registry.fail(text))));
-                return root.runChecked(["loginctl", "lock-session"], "Lock requested");
+                return root.lockExternal();
             }
         });
         Registry.register({

@@ -5,19 +5,84 @@
     "description": "Shared coordination state for Claude Code and Codex.",
     "repository_root": "."
   },
-  "system_state": "Astra_Design_Audit",
+  "system_state": "Claude_Performance_Audit",
   "workflow": {
     "current_task_id": "UI-016",
-    "current_owner": "Astra",
-    "last_transition_at": "2026-10-26T20:12:03+00:00",
-    "transition_reason": "Claude explicitly published integration_complete",
+    "current_owner": "Claude",
+    "last_transition_at": "2026-10-26T21:25:55+00:00",
+    "transition_reason": "Astra explicitly published design_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Astra",
+    "files": [
+      "build/redesign-1",
+      "docs/design/redesign-1",
+      "shell/components/AppContinuity.qml",
+      "shell/components/InstrumentField.qml",
+      "shell/components/Instrumentation.qml",
+      "shell/components/NowPlaying.qml",
+      "shell/components/ShearField.qml",
+      "shell/components/WorkspaceOrbit.qml",
+      "shell/lib/appbus.mjs",
+      "shell/modules/deck/DeckView.qml",
+      "tests/js/appbus.test.mjs",
+      "tests/scenarios/app-links.sh"
+    ],
+    "locks": [
+      {
+        "lock_id": "3222b440-4e99-4043-a1ea-0d1382d5bd52",
+        "agent": "Astra",
+        "files": [
+          "docs/design/redesign-1",
+          "shell/components/AppContinuity.qml",
+          "shell/components/InstrumentField.qml",
+          "shell/components/Instrumentation.qml",
+          "shell/components/NowPlaying.qml",
+          "shell/components/ShearField.qml",
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/lib/appbus.mjs",
+          "shell/modules/deck/DeckView.qml",
+          "tests/js/appbus.test.mjs",
+          "tests/scenarios/app-links.sh"
+        ],
+        "task_id": "UI-017",
+        "created_at": "2026-10-26T21:25:59+00:00",
+        "expires_epoch": 1793057159.669992,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "fa8bfcb7-a95e-45a8-a631-433a5a007733",
+        "agent": "Astra",
+        "files": [
+          "build/redesign-1",
+          "docs/design/redesign-1",
+          "shell/components/AppContinuity.qml",
+          "shell/components/InstrumentField.qml",
+          "shell/components/Instrumentation.qml",
+          "shell/components/NowPlaying.qml",
+          "shell/components/ShearField.qml",
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/modules/deck/DeckView.qml"
+        ],
+        "task_id": "UI-017",
+        "created_at": "2026-10-26T21:33:12+00:00",
+        "expires_epoch": 1793057592.4454389,
+        "ttl_seconds": 7200
+      },
+      {
+        "lock_id": "98461592-002d-4dc9-af04-207bca1b14f4",
+        "agent": "Astra",
+        "files": [
+          "tests/scenarios/app-links.sh"
+        ],
+        "task_id": "UI-017",
+        "created_at": "2026-10-26T21:37:33+00:00",
+        "expires_epoch": 1793057853.4231007,
+        "ttl_seconds": 7200
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -2512,6 +2577,23 @@
         "request": "Performance/stability audit of the completed design layer",
         "summary": "E01/E02 implemented: four bounded materials, shared semantic/lifecycle interface, native fallbacks and top-center OSD; GPU visual verification remains open",
         "notes": "Base 9b60683e5b23779edf66741ccadbe11d4daf79dd. Evidence docs/design/shaders/README.md and verification/RESULTS.md. qsb build/check passes; changed shared include correctly fails --check. Node 135/135, Qt V4 135/135, pytest 111 passed/1 skipped. smoke/full AUDIO=1 MEDIA=1/deck/notify/osd/fullscreen pass; 20 fullscreen cycles RSS screen passes. Default notices matrix aborts on outdated direction literal; unchanged scenario with compatible disposable input passes 15 cells/300 snapshots. P2 Sol review finding and minimal correction in SYSTEMS-REQUESTS.md; one revision requested. 72 native before/after/event PNGs across both directions/intensities; compact OSD and 4K DPR=2 proof. Read 35 final positive qs logs, zero QML errors. Matched 120s fallback CPU Saturated 1.492->1.542%, Insane 3.692->3.817%, within ~2/~4 budgets. No working container EGL/RHI path: no DRM FD for sway GLES, Qt over pixman produces black output; shader appearance/runtime compilation/GPU cost/cache release NOT verified. No SHADERS harness switch added. Self-review fix retains native faces until ShaderEffect.Compiled. No full-output shader; no new clock, timer, sampler, layer or live texture. Services/Deck.qml/shell root/config/schema/harness unchanged. Opus must wire validated quality, CI/package checks, Qt compatibility and hardware E03/E04/B06. No commit, no cloud dispatch.",
+        "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-26T21:25:55+00:00",
+        "task_id": "ALPHA2-ASTRA",
+        "files": [
+          "shell/core/Theme.qml",
+          "shell/components/InstrumentField.qml",
+          "shell/components/ShearField.qml",
+          "shell/lib/ambient.mjs",
+          "tests/js/ambient.test.mjs",
+          "tests/js/index.mjs",
+          "docs/verification/ALPHA2-ASTRA.md"
+        ],
+        "request": "Performance/stability audit of the completed design layer",
+        "summary": "ALPHA2-ASTRA patch delivered: exact snapshot-based desktop coverage holds ambient motion while preserving Deck/fullscreen precedence; Canvas families resolved with generic fallback. Runtime verification remains blocked.",
+        "notes": "Node 154 passed/0 failed; pytest 260 passed/1 skipped (34.17s); git diff --check passed. Smoke, deck, fullscreen, perf and Qt V4 attempted sequentially; all exit 1 before launch because Docker daemon unavailable. No screenshots or CPU/wakeup/RSS/GPU measurements obtained; no savings claimed. Static cache deferred: Canvas remap reconstruction requires renderer verification. Counterphase already uses separate small retained animated marks; unchanged. Compositor.qml left untouched under Claude lock. Single systems review P2: Compositor.qml:92 documents stale geometry snapshots; ShellState.qml:118 event triggers do not establish resize/drag freshness. Minimal systems follow-up: supported coalesced end-of-move/resize snapshot refresh or reliable exposure seam; no idle polling added. Full evidence, exact commands, remaining integration fixture and hardware checks in docs/verification/ALPHA2-ASTRA.md. Main checkout had no uncommitted peer work at review time. One review/revision cycle available; no dispatcher or commit invoked.",
         "status": "pending"
       }
     ],
@@ -5915,6 +5997,207 @@
       "notes": "",
       "task_id": "D07-R2",
       "timestamp": "2026-10-26T20:12:03+00:00"
+    },
+    {
+      "id": "2d5600ab-42a6-46a6-b5ab-9d00e271c1b9",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/components/InstrumentField.qml",
+        "shell/components/ShearField.qml"
+      ],
+      "summary": "ALPHA2-ASTRA: visual owner verified (Astra_Design_Audit/Astra); Compositor.qml remains Claude locked and will only be read. Implement ambient coverage from existing snapshots in visual layer; Docker daemon unavailable for requested harness.",
+      "notes": "",
+      "task_id": "ALPHA2-ASTRA",
+      "timestamp": "2026-10-26T21:19:37+00:00"
+    },
+    {
+      "id": "3ed924e8-c3c4-45eb-a650-dab6596ae797",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/services/Compositor.qml",
+        "shell/services/ShellState.qml"
+      ],
+      "summary": "ALPHA2-ASTRA integration review: coverage can bind existing geometry snapshots without editing locked services. Continuous resize/move has no geometry refresh trigger in current ShellState raw-event list; please confirm system-side snapshot freshness after window resize/uncover. No polling or IPC changes planned in Astra patch.",
+      "notes": "",
+      "task_id": "ALPHA2-ASTRA",
+      "timestamp": "2026-10-26T21:20:39+00:00"
+    },
+    {
+      "id": "e1d822dc-af14-4225-9019-4e63e7d2b3d1",
+      "type": "design_complete",
+      "agent": "Astra",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/components/InstrumentField.qml",
+        "shell/components/ShearField.qml",
+        "shell/lib/ambient.mjs",
+        "tests/js/ambient.test.mjs",
+        "tests/js/index.mjs",
+        "docs/verification/ALPHA2-ASTRA.md"
+      ],
+      "summary": "ALPHA2-ASTRA patch delivered: exact snapshot-based desktop coverage holds ambient motion while preserving Deck/fullscreen precedence; Canvas families resolved with generic fallback. Runtime verification remains blocked.",
+      "notes": "Node 154 passed/0 failed; pytest 260 passed/1 skipped (34.17s); git diff --check passed. Smoke, deck, fullscreen, perf and Qt V4 attempted sequentially; all exit 1 before launch because Docker daemon unavailable. No screenshots or CPU/wakeup/RSS/GPU measurements obtained; no savings claimed. Static cache deferred: Canvas remap reconstruction requires renderer verification. Counterphase already uses separate small retained animated marks; unchanged. Compositor.qml left untouched under Claude lock. Single systems review P2: Compositor.qml:92 documents stale geometry snapshots; ShellState.qml:118 event triggers do not establish resize/drag freshness. Minimal systems follow-up: supported coalesced end-of-move/resize snapshot refresh or reliable exposure seam; no idle polling added. Full evidence, exact commands, remaining integration fixture and hardware checks in docs/verification/ALPHA2-ASTRA.md. Main checkout had no uncommitted peer work at review time. One review/revision cycle available; no dispatcher or commit invoked.",
+      "task_id": "ALPHA2-ASTRA",
+      "timestamp": "2026-10-26T21:25:55+00:00"
+    },
+    {
+      "id": "b8fb9b8a-6b5d-4018-bedb-c7cdb242e43e",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/components/Instrumentation.qml",
+        "shell/components/AppContinuity.qml",
+        "shell/components/WorkspaceOrbit.qml",
+        "shell/components/ShearField.qml",
+        "shell/components/InstrumentField.qml",
+        "shell/lib/appbus.mjs",
+        "shell/modules/deck/DeckView.qml"
+      ],
+      "summary": "UI-017 owner-authorized visual redesign in isolated codex/design-3008fd23; Astra ownership confirmed (Astra_Design_Audit/current_owner Astra). UI-016 hub task is stale relative to explicit UI-017 assignment.",
+      "notes": "Preserve ALPHA2-ASTRA ambient hold, font fallback and cached-layer work when merging. Geometry/text edits in ShearField/InstrumentField will overlap; no Theme or service edits planned. Docker daemon unavailable in this worktree environment; harness rendering currently blocked.",
+      "task_id": "UI-017",
+      "timestamp": "2026-10-26T21:25:59+00:00"
+    },
+    {
+      "id": "3f6d745d-194a-4d14-b543-da85e2e50168",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "install.sh",
+        "installer/aerolith_install/checks.py",
+        "installer/aerolith_install/cli.py",
+        "installer/aerolith_install/hypr.py",
+        "installer/aerolith_install/themes.py",
+        "tests/py/test_installer.py",
+        "tests/scenarios/ai.sh",
+        "tests/scenarios/app-links.sh",
+        "tests/scenarios/app-themes.sh",
+        "tests/scenarios/brightness.sh",
+        "tests/scenarios/catalogue.sh",
+        "tests/scenarios/deck.sh",
+        "tests/scenarios/direction.sh",
+        "tests/scenarios/full.sh",
+        "tests/scenarios/fullscreen.sh",
+        "tests/scenarios/installed.sh",
+        "tests/scenarios/lock-multistep.sh",
+        "tests/scenarios/lock.sh",
+        "tests/scenarios/notices-layout.sh",
+        "tests/scenarios/notify.sh",
+        "tests/scenarios/osd.sh",
+        "tests/scenarios/perf.sh",
+        "tests/scenarios/resilience.sh",
+        "tests/scenarios/session.sh",
+        "tests/scenarios/signal.sh",
+        "tests/scenarios/smoke.sh",
+        "tests/scenarios/themes.sh"
+      ],
+      "summary": "Installer alpha fixes implemented with regression tests; 291 Python tests and 144 JS tests pass. Git index and headless checks blocked by environment.",
+      "notes": "Worked under delegated Claude ALPHA2-SOL-A locks; no lock/unlock or commits. Fixed 1 (Lua descriptions and offline mainMod), 2a/2c, 3, 5, 9 installer, UWSM launch/autostart, detached start, restart explanation. 7: all 29 scripts executable in worktree, 22 pending modes; update-index denied by read-only .git metadata, bridge must record modes. pytest 291 passed/1 skipped; node 144/0; config-doc check, bash -n (29), diff --check and install --help pass. All 23 scenarios attempted sequentially: Docker daemon unreachable. Review High: Power.qml:116 still treats loginctl success as locking with no locker; minimum correction is locker liveness check and Registry.fail when absent (2b belongs to ALPHA2-SOL-B); no new B diff available for revision. Full local evidence: build/alpha-installer/verification.txt.",
+      "task_id": "ALPHA2-SOL-A",
+      "timestamp": "2026-10-26T21:26:01+00:00"
+    },
+    {
+      "id": "22be0c77-94da-440f-a8e4-c809d044b474",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "ai-bridge/aerolith_ai/providers.py",
+        "shell/core/Exec.qml",
+        "shell/lib/launch.mjs",
+        "shell/modules/ControlSurface.qml",
+        "shell/services/Compositor.qml",
+        "shell/services/Notifications.qml",
+        "shell/services/Power.qml",
+        "docs/design/thears-piyti/APP-FORMATS.md"
+      ],
+      "summary": "Runtime work started in isolated worktree under owner-delegated Claude ALPHA2-SOL-B locks; global workflow is UI-016/Claude, assignment overridden explicitly by owner.",
+      "notes": "No lock/unlock, commits, installer or visual changes. Tests and B023 script included as explicitly requested.",
+      "task_id": "ALPHA2-SOL-B",
+      "timestamp": "2026-10-26T21:27:08+00:00"
+    },
+    {
+      "id": "82bc9a7b-4dbe-4fd6-b238-dc7d7d022cf4",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/components/Instrumentation.qml"
+      ],
+      "summary": "UI-017 started in assigned isolated worktree; explicit owner assignment overrides hub UI-016/Claude audit state.",
+      "notes": "Read owner brief and coordination state. Existing Astra UI-017 reservations honored. Systems locks remain untouched.",
+      "task_id": "UI-017",
+      "timestamp": "2026-10-26T21:33:12+00:00"
+    },
+    {
+      "id": "9226b157-cb25-4046-bfc5-ef82f0889bba",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "shell/modules/ControlSurface.qml"
+      ],
+      "summary": "Runtime verification now has Docker: runtime, notify overflow and smoke passed. ControlSurface qmllint 6.12.0 exits 0; crash not reproduced (virtual qs imports unresolved).",
+      "notes": "Confirmed upstream IpcFunction::invoke is synchronous and IpcHandler only supports scalar return types. Returning a Promise from run():string cannot deliver Registry result; direct 5-second await requires upstream async IPC support or a separate request/result client protocol. Leaving this item unmodified rather than blocking the UI thread.",
+      "task_id": "ALPHA2-SOL-B",
+      "timestamp": "2026-10-26T21:39:06+00:00"
+    },
+    {
+      "id": "745947ae-2893-4559-aedd-1a07f603c03e",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "shell/core/Theme.qml",
+        "shell/services/ShellState.qml"
+      ],
+      "summary": "One review of merged ALPHA2-ASTRA work: Medium, ambient coverage can retain stale geometry after floating/resize changes.",
+      "notes": "Evidence: Theme.qml:167-172 uses lastIpcObject geometry; ShellState.qml:118 refresh triggers omit changefloatingmode and there is no resize-only refresh trigger. Minimal correction: include changefloatingmode in the systems refresh list and verify geometry refresh after an uncovered resize; if Hyprland supplies no resize event, record the limitation or agree a bounded refresh policy. Read-only review, no visual or systems changes to the other task. One revision invited.",
+      "task_id": "ALPHA2-SOL-B",
+      "timestamp": "2026-10-26T21:40:19+00:00"
+    },
+    {
+      "id": "0a32215d-16e0-416d-b865-03b5d798ce99",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        "ai-bridge/aerolith_ai/providers.py",
+        "docs/design/smooth/summarise-positions.py",
+        "docs/design/thears-piyti/APP-FORMATS.md",
+        "shell/core/Exec.qml",
+        "shell/lib/launch.mjs",
+        "shell/services/Compositor.qml",
+        "shell/services/Notifications.qml",
+        "shell/services/Power.qml",
+        "tests/js/launch.test.mjs",
+        "tests/js/run-node.mjs",
+        "tests/py/conftest.py",
+        "tests/py/test_ai_bridge.py",
+        "tests/scenarios/ai.sh",
+        "tests/scenarios/notify.sh",
+        "docs/verification/ALPHA2-SOL-B.md",
+        "tests/js/runtime-qml.test.mjs",
+        "tests/py/test_runtime_docs.py",
+        "tests/scenarios/runtime.sh"
+      ],
+      "summary": "Runtime fixes delivered with regression tests: 267 Python passed/1 skipped, 153 Node passed, 145 Qt passed; runtime, notification overflow, smoke and both AI scenarios pass. IPC async result replies remain outstanding; qmllint crash not reproduced.",
+      "notes": "Evidence and all exact commands: docs/verification/ALPHA2-SOL-B.md; artifacts build/alpha-runtime/. Fixed Claude settings/memory isolation and Haiku default, Codex global-context refusal plus hook/memory restrictions, missing-locker failure, notification eviction, workspace stepping, embedded Exec field codes, prompt Exec start failure and bounded streams, OXT archive paths, B023. Navigator already excludes negative ids. ControlSurface unchanged because scalar synchronous IPC cannot await Registry promises; qmllint 6.12.0 exits 0 with warnings. Installer B007 left untouched. Offline installed Codex sentinel leaked before guard; after guard 0 requests. Reviewed ALPHA2-ASTRA once with Medium stale-geometry finding and invited one revision; no response yet. No visual/installer edits, commits, lock/unlock, host configuration changes or real session locking.",
+      "task_id": "ALPHA2-SOL-B",
+      "timestamp": "2026-10-26T21:46:18+00:00"
+    },
+    {
+      "id": "cea3e68f-4fd1-4d81-8539-87592d938d6d",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/services/Compositor.qml",
+        "shell/core/Theme.qml",
+        "shell/services/ShellState.qml",
+        "docs/design/redesign-1/checks/thears-exit.log"
+      ],
+      "summary": "UI-017 systems review: low-severity undefined bindings during explicit IPC teardown; visual checks and required scenarios pass.",
+      "notes": "After Exiting due to IPC request: Compositor.qml:49 undefined->QString, Theme.qml:146 undefined->bool, ShellState.qml:35-36 undefined->bool/QString. Restarted THEARS process clean. Minimal proposed correction: guard dependency reads during teardown and coerce string/bool outputs while preserving release order. Files untouched. Baseline comparison pending; one systems revision requested, no dispatcher invoked.",
+      "task_id": "UI-017",
+      "timestamp": "2026-10-26T21:51:30+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -5926,6 +6209,7 @@
     "CLAUDE.md",
     "DESIGN_BRIEF.md",
     "README.md",
+    "ai-bridge/aerolith_ai/providers.py",
     "build/UI-001-astra.bundle",
     "build/UI-001-import.txt",
     "docs/design",
@@ -7604,6 +7888,7 @@
     "docs/design/limb/verification/status-systems.json",
     "docs/design/limb/verification/windows-qs.txt",
     "docs/design/notices",
+    "docs/design/redesign-1/checks/thears-exit.log",
     "docs/design/round2/CONCEPTS.md",
     "docs/design/round2/VALIDATION.md",
     "docs/design/round2/fault/01-idle.png",
@@ -7685,6 +7970,7 @@
     "docs/design/smooth/SELF-REVIEW.md",
     "docs/design/smooth/after-source-hashes.json",
     "docs/design/smooth/after-source.tar.gz",
+    "docs/design/smooth/summarise-positions.py",
     "docs/design/thears-piyti/APP-FORMATS.md",
     "docs/design/thears-piyti/CLAUDE-REVIEW.md",
     "docs/design/thears-piyti/MOD-FORMATS.md",
@@ -8264,6 +8550,8 @@
     "docs/design/thears-piyti/verification/validate-themes.py",
     "docs/design/unhinged",
     "docs/verification/A03/README.md",
+    "docs/verification/ALPHA2-ASTRA.md",
+    "docs/verification/ALPHA2-SOL-B.md",
     "docs/verification/B05",
     "docs/verification/B05/README.md",
     "docs/verification/C01",
@@ -8274,7 +8562,9 @@
     "docs/verification/D05/README.md",
     "docs/verification/F01/README.md",
     "docs/verification/F02/README.md",
+    "install.sh",
     "installer",
+    "installer/aerolith_install/checks.py",
     "installer/aerolith_install/cli.py",
     "installer/aerolith_install/hypr.py",
     "installer/aerolith_install/manifest.py",
@@ -8372,10 +8662,14 @@
     "shell/components/Trace.qml",
     "shell/components/WorkspaceOrbit.qml",
     "shell/core/Config.qml",
+    "shell/core/Exec.qml",
     "shell/core/Paths.qml",
     "shell/core/Theme.qml",
     "shell/core/Ui.qml",
+    "shell/lib/ambient.mjs",
+    "shell/lib/appbus.mjs",
     "shell/lib/config.mjs",
+    "shell/lib/launch.mjs",
     "shell/lib/schemes.mjs",
     "shell/lib/tokens.mjs",
     "shell/modules/ControlSurface.qml",
@@ -8407,20 +8701,34 @@
     "shell/modules/systems/SystemsBay.qml",
     "shell/schema/config.schema.json",
     "shell/services/AppThemes.qml",
+    "shell/services/Compositor.qml",
+    "shell/services/Notifications.qml",
     "shell/services/Power.qml",
     "shell/services/ShellCommands.qml",
+    "shell/services/ShellState.qml",
     "shell/shaders",
     "shell/shell.qml",
     "tests",
     "tests/fixtures/fake-providers/codex",
+    "tests/js/ambient.test.mjs",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
+    "tests/js/run-node.mjs",
+    "tests/js/runtime-qml.test.mjs",
     "tests/js/schemes.test.mjs",
+    "tests/py/conftest.py",
+    "tests/py/test_ai_bridge.py",
     "tests/py/test_installer.py",
     "tests/py/test_mock_hyprland.py",
+    "tests/py/test_runtime_docs.py",
     "tests/scenarios/ai.sh",
+    "tests/scenarios/app-links.sh",
     "tests/scenarios/app-themes.sh",
+    "tests/scenarios/brightness.sh",
+    "tests/scenarios/catalogue.sh",
+    "tests/scenarios/deck.sh",
     "tests/scenarios/direction.sh",
+    "tests/scenarios/full.sh",
     "tests/scenarios/fullscreen-matrix.sh",
     "tests/scenarios/fullscreen.sh",
     "tests/scenarios/installed.sh",
@@ -8428,6 +8736,14 @@
     "tests/scenarios/lock.sh",
     "tests/scenarios/notices-layout-matrix.sh",
     "tests/scenarios/notices-layout.sh",
+    "tests/scenarios/notify.sh",
+    "tests/scenarios/osd.sh",
+    "tests/scenarios/perf.sh",
+    "tests/scenarios/resilience.sh",
+    "tests/scenarios/runtime.sh",
+    "tests/scenarios/session.sh",
+    "tests/scenarios/signal.sh",
+    "tests/scenarios/smoke.sh",
     "tests/scenarios/themes.sh",
     "themes",
     "themes/README.md",
@@ -8467,17 +8783,18 @@
     "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
-    "agent": "Claude",
-    "type": "integration_complete",
+    "agent": "Astra",
+    "type": "note",
     "files": [
-      "shell/modules/lock/LockHost.qml",
-      "tests/scenarios/lock.sh",
-      "tests/scenarios/lock-multistep.sh"
+      "shell/services/Compositor.qml",
+      "shell/core/Theme.qml",
+      "shell/services/ShellState.qml",
+      "docs/design/redesign-1/checks/thears-exit.log"
     ],
-    "summary": "D07 second revision after Sol's re-review: pending lock never withdrawn, single deadline, no PAM before confirmation, tighter tests. lock, lock-multistep, smoke, session pass. Residual fail-closed risks documented.",
-    "notes": "",
-    "task_id": "D07-R2",
-    "timestamp": "2026-10-26T20:12:03+00:00"
+    "summary": "UI-017 systems review: low-severity undefined bindings during explicit IPC teardown; visual checks and required scenarios pass.",
+    "notes": "After Exiting due to IPC request: Compositor.qml:49 undefined->QString, Theme.qml:146 undefined->bool, ShellState.qml:35-36 undefined->bool/QString. Restarted THEARS process clean. Minimal proposed correction: guard dependency reads during teardown and coerce string/bool outputs while preserving release order. Files untouched. Baseline comparison pending; one systems revision requested, no dispatcher invoked.",
+    "task_id": "UI-017",
+    "timestamp": "2026-10-26T21:51:30+00:00"
   },
-  "updated_at": "2026-10-26T20:12:03+00:00"
+  "updated_at": "2026-10-26T21:51:30+00:00"
 }

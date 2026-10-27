@@ -41,15 +41,19 @@ if provider == "claude":
     assert a[0] == "-p", a
     assert a[a.index("--tools") + 1] == "", a
     assert a[a.index("--output-format") + 1] == "json", a
+    assert a[a.index("--setting-sources") + 1] == "", a
+    assert "--safe-mode" in a, a
+    assert a[a.index("--model") + 1] == "haiku", a
     for flag in ("--no-session-persistence", "--strict-mcp-config", "--disable-slash-commands"):
         assert flag in a, a
 elif provider == "codex":
     assert a[0] == "exec" and a[-1] == "-", a
     assert a[a.index("--sandbox") + 1] == "read-only", a
-    for flag in ("--ephemeral", "--ignore-user-config", "--skip-git-repo-check", "--output-schema"):
+    for flag in ("--ephemeral", "--ignore-user-config", "--ignore-rules", "--skip-git-repo-check", "--output-schema"):
         assert flag in a, a
+    assert "project_doc_max_bytes=0" in a, a
     disabled = [a[i + 1] for i, flag in enumerate(a) if flag == "--disable"]
-    assert sorted(disabled) == sorted(("shell_tool", "apps", "plugins", "browser_use", "computer_use", "in_app_browser")), a
+    assert sorted(disabled) == sorted(("shell_tool", "apps", "plugins", "browser_use", "computer_use", "in_app_browser", "hooks", "memories")), a
     assert a[a.index("-C") + 1] == call["cwd"], a
     assert "--dangerously-bypass-approvals-and-sandbox" not in a, a
 else:

@@ -36,7 +36,7 @@ MAX_OUTPUT_BYTES = 512 * 1024
 # 0.163.0 (`codex features list`). An unknown flag is a hard error in Codex,
 # and AEROLITH treats that as "incompatible version" rather than running
 # Codex without these restrictions.
-CODEX_DISABLED_FEATURES = ("shell_tool", "apps", "plugins", "browser_use", "computer_use", "in_app_browser")
+CODEX_DISABLED_FEATURES = ("shell_tool", "apps", "plugins", "browser_use", "computer_use", "in_app_browser", "hooks", "memories")
 
 
 class ProviderError(Exception):
@@ -195,7 +195,9 @@ class Claude(Provider):
         "Runs the Claude Code CLI you installed (`claude -p`). Your prompt, the list of allowed "
         "AEROLITH actions and any context you enabled are sent to Anthropic's API under your own "
         "Claude account. All Claude Code tools are disabled for these requests (--tools \"\"), so "
-        "it cannot read files or run commands."
+        "it cannot read files or run commands. User/project settings, CLAUDE.md, hooks and installed "
+        "plugins are disabled (--setting-sources \"\" and --safe-mode). Shell requests use Haiku "
+        "unless you explicitly set a model in ai.json."
     )
 
     def executable(self) -> str:
@@ -227,14 +229,18 @@ class Claude(Provider):
             "json",
             "--tools",
             "",
+            # Verified with Claude Code 2.1.310 --help. Safe mode also
+            # disables CLAUDE.md discovery, which is separate from settings.
+            "--setting-sources",
+            "",
+            "--safe-mode",
             "--no-session-persistence",
             "--strict-mcp-config",
             "--disable-slash-commands",
             "--system-prompt",
             SYSTEM_PROMPT,
         ]
-        if self.cfg.model:
-            argv += ["--model", self.cfg.model]
+        argv += ["--model", self.cfg.model or "haiku"]
         return argv, prompt, {}
 
     def read_answer(self, res: RunResult, extra: dict[str, Any]) -> str:
@@ -268,7 +274,10 @@ class Codex(Provider):
         "Runs the Codex CLI you installed (`codex exec`). Your prompt, the list of allowed AEROLITH "
         "actions and any context you enabled are sent to OpenAI under your own Codex sign-in. "
         "AEROLITH runs it with a read-only sandbox in an empty folder, ignores your Codex config "
-        "file, and turns off its shell, plugins, apps and browser features."
+        "file, ignores project instructions and execpolicy rules, and turns off its shell, "
+        "plugins, apps, browser, hooks and memory features. Codex cannot be told to skip your "
+        "global instructions (~/.codex/AGENTS.md) and skills, so those are sent with each request, "
+        "to the same OpenAI account; keep them short, or use Claude, which AEROLITH fully isolates."
     )
 
     def executable(self) -> str:
@@ -292,6 +301,10 @@ class Codex(Provider):
     def build(self, prompt: str, workdir: str) -> tuple[list[str], str, dict[str, Any]]:
         from .prompting import SYSTEM_PROMPT
 
+        # --ignore-user-config only ignores config.toml; an offline probe of
+        # 0.163.0 still sent global AGENTS.md with project_doc_max_bytes=0.
+        # Refusing would break Codex for nearly everyone (Codex itself creates
+        # ~/.codex/skills/.system), so data_flow discloses it instead.
         schema_path = os.path.join(workdir, "aerolith-schema.json")
         out_path = os.path.join(workdir, "aerolith-answer.txt")
         Path(schema_path).write_text(json.dumps(ENVELOPE_SCHEMA), encoding="utf-8")
@@ -304,6 +317,9 @@ class Codex(Provider):
             "--ephemeral",
             "--skip-git-repo-check",
             "--ignore-user-config",
+            "--ignore-rules",
+            "-c",
+            "project_doc_max_bytes=0",
             "--color",
             "never",
             "-C",

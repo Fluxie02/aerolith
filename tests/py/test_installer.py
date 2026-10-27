@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from aerolith_install import cli, hypr, themes
+from aerolith_install import checks, cli, hypr, themes
 from aerolith_install.manifest import Manifest
 from aerolith_install.paths import layout
 from conftest import ROOT, write_exe
@@ -23,11 +23,17 @@ CONF_CONFIG = "# my config\n$mainMod = SUPER\nbind = $mainMod, Q, exec, kitty\n"
 def system(home, bindir, monkeypatch, tmp_path):
     """A fake Arch system: quickshell and Hyprland present, pacman/sudo/curl fakes."""
     monkeypatch.setenv("AEROLITH_ALLOW_ROOT", "1")
+    monkeypatch.setattr(checks, "installed_locker", lambda: None)
+    monkeypatch.setattr(checks, "notifications_owner", lambda: "nobody")
+    monkeypatch.setattr(checks, "uwsm_active", lambda: False)
     pkgdb = tmp_path / "pacman-installed"
     pkgdb.write_text("quickshell\nhyprland\n")
     monkeypatch.setenv("FAKE_PKGDB", str(pkgdb))
     write_exe(bindir / "qs", "import sys\nprint('Quickshell 0.3.2 (revision , distributed by Arch Linux)')\n")
     write_exe(bindir / "Hyprland", "print('Hyprland 0.56.2')\n")
+    for name in ("wpctl", "pw-metadata", "busctl"):
+        write_exe(bindir / name, "pass\n")
+    write_exe(bindir / "fc-list", "print('Inter\\nJetBrains Mono')\n")
     write_exe(
         bindir / "pacman",
         r'''
@@ -502,14 +508,14 @@ def test_intensity_command_creates_a_missing_config(system, home):
 @pytest.mark.parametrize("intensity,scheme", [("", ""), ("2", "iris")])
 def test_install_live_choices_interactive(system, home, monkeypatch, capsys, intensity, scheme):
     args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--direction", "piyti", "--no-hypr", "--no-themes", "--no-start"])
-    answers = iter([intensity, scheme, "y"])
+    answers = iter([intensity, scheme, "", "", "y"])
     prompts = []
     def answer(prompt):
         prompts.append(prompt)
         return next(answers)
     monkeypatch.setattr("builtins.input", answer)
     assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
-    assert len(prompts) == 3
+    assert len(prompts) == 5
     theme = json.loads(layout().config_file.read_text())["theme"]
     assert theme["intensity"] == ("insane" if intensity else "saturated")
     assert theme["scheme"] == (scheme or "limb")
@@ -537,7 +543,7 @@ def test_install_live_defaults_without_prompts(system, home, monkeypatch, yes):
 def test_install_live_flags_preserve_config_and_deploy_chosen_scheme(system, home):
     lay = layout()
     lay.config_file.parent.mkdir(parents=True, exist_ok=True)
-    data = {"schemaVersion": 1, "theme": {"motion": "off", "palette": {"signal": "#ffffff"}}, "strip": {"edge": "bottom"}, "user-note": [1, 2]}
+    data = {"schemaVersion": 1, "theme": {"motion": "off", "palette": {"signal": "#ffffff"}}, "strip": {"edge": "bottom"}, "user-note": [1, 2], "lock": {"enabled": False}, "notifications": {"server": False}}
     lay.config_file.write_text(json.dumps(data))
     assert run("install", "--yes", "--ai", "none", "--startup", "manual", "--no-hypr", "--intensity", "insane", "--scheme", "iris", "--themes", "foot") == 0
     data["theme"].update(intensity="insane", scheme="iris")
@@ -666,7 +672,7 @@ def test_status_json(system, home, capsys):
 def test_direction_interactive_default(system, home, monkeypatch, capsys):
     lua_main(home)
     args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
-    answers = iter(["", "", "", "", "y"])
+    answers = iter(["", "", "", "", "", "", "y"])
     monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
     assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
     out = capsys.readouterr().out
@@ -677,7 +683,7 @@ def test_direction_interactive_default(system, home, monkeypatch, capsys):
 def test_direction_interactive_thears(system, home, monkeypatch):
     lua_main(home)
     args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-start"])
-    answers = iter(["2", "", "", "", "y"])
+    answers = iter(["2", "", "", "", "", "", "y"])
     monkeypatch.setattr("builtins.input", lambda prompt: next(answers))
     assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
     assert json.loads(layout().installation_file.read_text())["direction"] == "thears"
@@ -692,7 +698,7 @@ def test_direction_install_reinstall_and_explicit_change(system, home, capsys, d
     data = json.loads(lay.installation_file.read_text())
     data["future"] = {"keep": True}
     lay.installation_file.write_text(json.dumps(data))
-    config = '{"theme":{"intensity":"insane"},"user-note":"keep me"}\n'
+    config = '{"theme":{"intensity":"insane"},"user-note":"keep me","lock":{"enabled":false},"notifications":{"server":false}}\n'
     lay.config_file.write_text(config)
     assert run("--yes", "install", "--startup", "manual") == 0
     assert json.loads(lay.installation_file.read_text()) == data
@@ -1581,3 +1587,191 @@ def test_refresh_interruption_restores_app(theme_home, monkeypatch, interrupt):
     assert signal.getsignal(signal.SIGTERM) == old_handler
     with themes.refresh_lock(lay):
         pass
+
+# ALPHA2-SOL-A: installer regression contracts (all session tools are mocked).
+def test_alpha_lua_reinstall_keeps_owned_binds(system, home, monkeypatch):
+    lua_main(home)
+    binds = hypr.default_binds(False, False)
+    monkeypatch.setattr(hypr, "running_binds", lambda: [
+        {"modmask": b.modmask(), "key": b.key, "dispatcher": "__lua",
+         "arg": str(103 + i), "description": b.description}
+        for i, b in enumerate(binds)
+    ])
+    for _ in range(2):
+        assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+        fragment = hypr.fragment_path(layout(), "lua").read_text()
+        assert all(f'aerolith:{b.name}' in fragment for b in binds)
+    # A second, foreign bind on the same combo must still be reported.
+    existing = hypr.running_binds() + [{"modmask": 64, "key": "SPACE", "dispatcher": "__lua", "arg": "999"}]
+    assert set(hypr.conflicts(binds, existing, "")) == {"command"}
+
+
+@pytest.mark.parametrize("quote", ['"', "'"])
+def test_alpha_offline_lua_mainmod(quote):
+    text = f'local mainMod = {quote}SUPER{quote}\nhl.bind(mainMod .. {quote} + Space{quote}, hl.dsp.exec_cmd("rofi"))'
+    assert set(hypr.conflicts(hypr.default_binds(False, False), None, text)) == {"command"}
+
+
+@pytest.mark.parametrize("locker", [None, "hyprlock", "swaylock"])
+def test_alpha_lock_choice_defaults_and_preserves(system, home, monkeypatch, locker):
+    monkeypatch.setattr(checks, "installed_locker", lambda: locker)
+    monkeypatch.setattr(checks, "notifications_owner", lambda: "nobody")
+    args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--direction", "piyti", "--no-hypr", "--no-themes", "--no-start"])
+    lay = layout()
+    lay.config.mkdir(parents=True, exist_ok=True)
+    lay.config_file.write_text('{"theme":{"intensity":"saturated","scheme":"limb"}}')
+    prompts = []
+    def confirm(question, default=False):
+        prompts.append((question, default))
+        return True if question == "Proceed?" else default
+    ui = cli.Ui(interactive=False)
+    monkeypatch.setattr(ui, "confirm", confirm)
+    assert cli.cmd_install(args, ui) == 0
+    assert ("Use AEROLITH's lock screen?", locker is None) in prompts
+    assert json.loads(lay.config_file.read_text())["lock"]["enabled"] is (locker is None)
+    prompts.clear()
+    assert cli.cmd_install(args, ui) == 0
+    assert not any("lock screen" in q for q, _ in prompts)
+
+
+@pytest.mark.parametrize("owner,daemon,expected", [("nobody", None, True), ("mako (:1.4)", None, False), ("nobody", "fnott", False), ("unknown", None, False)])
+def test_alpha_notification_offer(system, home, monkeypatch, owner, daemon, expected):
+    monkeypatch.setattr(checks, "notifications_owner", lambda: owner)
+    original = shutil.which
+    monkeypatch.setattr(checks.shutil, "which", lambda name: "/fake/fnott" if name == daemon else (None if name in ("mako", "dunst", "swaync", "fnott") else original(name)))
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes") == 0
+    config = json.loads(layout().config_file.read_text())
+    assert config.get("notifications", {}).get("server", False) is expected
+    config["notifications"] = {"server": False}
+    layout().config_file.write_text(json.dumps(config))
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes") == 0
+    assert json.loads(layout().config_file.read_text())["notifications"]["server"] is False
+
+
+@pytest.mark.parametrize("output,code,expected", [("", 0, "nobody"), ("org.freedesktop.Notifications 432 mako pilot :1.42 - - -\n", 0, "mako (:1.42)"), ("", 1, "unknown")])
+def test_alpha_notification_owner_probe(monkeypatch, output, code, expected):
+    monkeypatch.setattr(checks, "_run", lambda argv, timeout=10: subprocess.CompletedProcess(argv, code, output, ""))
+    assert checks.notifications_owner() == expected
+
+
+def test_alpha_status_reports_notification_owner(system, home, monkeypatch, capsys):
+    monkeypatch.setattr(checks, "notifications_owner", lambda: "nobody")
+    assert run("status", "--json") == 0
+    assert json.loads(capsys.readouterr().out)["notifications"] == "nobody"
+    assert run("status") == 0
+    assert "notifications: nobody" in capsys.readouterr().out
+
+
+def test_alpha_lua_theme_include_is_guarded(theme_home):
+    plan = themes.prepare_app(theme_home, Manifest.load(theme_home.manifest), ROOT / "themes", "hyprland", "limb", "piyti")
+    themes.execute(theme_home, Manifest.load(theme_home.manifest), plan)
+    text = theme_config(theme_home, "hyprland").read_text()
+    assert text.count("pcall(dofile, ") == 2
+
+
+@pytest.mark.parametrize("install_deps", [True, False, None])
+def test_alpha_recommended_packages_optional(system, home, monkeypatch, capsys, install_deps):
+    monkeypatch.setattr(checks, "run_checks", lambda lay: [checks.Check("font Inter", checks.WARN, "missing", "inter-font")])
+    args = ["--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes"]
+    if install_deps is not None:
+        args += ["--install-deps" if install_deps else "--no-install-deps"]
+    assert run(*args) == 0
+    assert "Recommended" in capsys.readouterr().out
+    assert ("inter-font" in system.read_text().split()) is (install_deps is True)
+    assert checks.missing_packages(checks.run_checks(layout())) == []
+
+
+@pytest.mark.parametrize("active,installed,code,expected", [(True, True, 0, True), (False, True, 1, False), (False, False, 0, False)])
+def test_alpha_uwsm_detection(monkeypatch, active, installed, code, expected):
+    calls = []
+    monkeypatch.setattr(checks.shutil, "which", lambda name: "/fake/uwsm" if installed else None)
+    def probe(argv, timeout=10):
+        calls.append(argv)
+        return subprocess.CompletedProcess(argv, code, "", "")
+    monkeypatch.setattr(checks, "_run", probe)
+    assert checks.uwsm_active() is expected
+    assert calls == ([["uwsm", "check", "is-active"]] if installed else [])
+
+
+def test_alpha_uwsm_install_prefix_and_autostart(system, home, monkeypatch):
+    monkeypatch.setattr(checks, "uwsm_active", lambda: True)
+    lua_main(home)
+    for _ in range(2):
+        assert run("--yes", "install", "--ai", "none", "--startup", "hyprland", "--no-themes") == 0
+        assert json.loads(layout().config_file.read_text())["commandCore"]["launchPrefix"] == ["uwsm", "app", "--"]
+        assert "uwsm app -- " in hypr.fragment_path(layout(), "lua").read_text()
+    data = json.loads(layout().config_file.read_text())
+    data["commandCore"]["launchPrefix"] = ["custom"]
+    layout().config_file.write_text(json.dumps(data))
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    assert json.loads(layout().config_file.read_text())["commandCore"]["launchPrefix"] == ["custom"]
+
+
+@pytest.mark.parametrize("uwsm", [True, False])
+def test_alpha_start_now_is_detached(system, home, monkeypatch, uwsm):
+    monkeypatch.setattr(checks, "uwsm_active", lambda: uwsm)
+    monkeypatch.setenv("HYPRLAND_INSTANCE_SIGNATURE", "mock")
+    monkeypatch.setattr(cli, "shell_running", lambda lay: False)
+    calls = []
+    # Patch only the launch, leaving subprocess.run's Popen untouched.
+    monkeypatch.setattr(cli, "start_shell", lambda lay: calls.append(lay))
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes", "--start") == 0
+    assert calls == [layout()]
+
+
+@pytest.mark.parametrize("uwsm", [True, False])
+def test_alpha_detached_launcher_argv(system, home, monkeypatch, uwsm):
+    monkeypatch.setattr(checks, "uwsm_active", lambda: uwsm)
+    calls = []
+    monkeypatch.setattr(cli.subprocess, "Popen", lambda argv, **kw: calls.append((argv, kw)))
+    cli.start_shell(layout())
+    argv, options = calls[0]
+    assert argv[:3] == (["uwsm", "app", "--"] if uwsm else ["systemd-run", "--user", "--scope"])
+    assert options["start_new_session"] is True
+    assert all(options[k] == subprocess.DEVNULL for k in ("stdin", "stdout", "stderr"))
+    assert argv[-2:] == ["-p", str(layout().shell)]
+
+
+def test_alpha_startup_choices_explain_restart():
+    descriptions = {key: desc for key, _, desc in cli.STARTUP_CHOICES}
+    assert "restart" in descriptions["hyprland"] and "crash" in descriptions["hyprland"]
+    assert "restart" in descriptions["systemd"] and "crash" in descriptions["systemd"]
+
+
+def test_alpha_shell_scripts_are_executable_in_git():
+    result = subprocess.run(["git", "ls-files", "-s", "-z", "install.sh", "tools", "tests"], cwd=ROOT, capture_output=True, check=True)
+    modes = {entry.split("\t")[1]: entry.split()[0] for entry in result.stdout.decode().split("\0") if entry.endswith(".sh")}
+    # Include pending worktree modes; the bridge stages/commits after this task.
+    diff = subprocess.run(["git", "diff", "HEAD", "--raw", "--no-renames", "--", *modes], cwd=ROOT, capture_output=True, text=True, check=True)
+    for row in diff.stdout.splitlines():
+        meta, path = row.split("\t")
+        modes[path] = meta.split()[1]
+    assert modes and set(modes.values()) == {"100755"}
+
+
+@pytest.mark.parametrize("accept", [True, False])
+def test_alpha_interactive_recommended_packages(system, home, monkeypatch, accept):
+    monkeypatch.setattr(checks, "run_checks", lambda lay: [checks.Check("font Inter", checks.WARN, "missing", "inter-font")])
+    lay = layout()
+    lay.config.mkdir(parents=True, exist_ok=True)
+    lay.config_file.write_text('{"theme":{"intensity":"saturated","scheme":"limb"}}')
+    prompts = []
+    def answer(prompt):
+        prompts.append(prompt)
+        if prompt.startswith("Install Recommended"):
+            return "y" if accept else "n"
+        return "y" if prompt.startswith("Proceed?") else ""
+    monkeypatch.setattr("builtins.input", answer)
+    args = cli.build_parser().parse_args(["install", "--ai", "none", "--startup", "manual", "--direction", "piyti", "--no-hypr", "--no-themes", "--no-start"])
+    assert cli.cmd_install(args, cli.Ui(interactive=True, color=False)) == 0
+    assert any(p.startswith("Install Recommended") for p in prompts)
+    assert ("inter-font" in system.read_text().split()) is accept
+    assert json.loads(lay.config_file.read_text())["notifications"]["server"] is True
+
+
+def test_alpha_recommended_failure_does_not_require_fonts(system, home, monkeypatch, capsys):
+    monkeypatch.setattr(checks, "run_checks", lambda lay: [checks.Check("font Inter", checks.WARN, "missing", "inter-font")])
+    monkeypatch.setenv("FAKE_PACMAN_FAIL", "1")
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes", "--install-deps") == 0
+    assert layout().manifest.is_file()
+    assert "Recommended packages could not be installed" in capsys.readouterr().out

@@ -11,5 +11,6 @@ import schemes from "./schemes.test.mjs";
 import shellstate from "./shellstate.test.mjs";
 import brightness from "./brightness.test.mjs";
 import appbus from "./appbus.test.mjs";
+import ambient from "./ambient.test.mjs";
 
-export const suites = [fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus];
+export const suites = [fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient];
