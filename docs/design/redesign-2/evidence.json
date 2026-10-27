@@ -1,0 +1,300 @@
+{
+  "interface-unavailable": {
+    "source": "build/redesign-2/after-1920/interface-state.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 83981
+  },
+  "before-1920": {
+    "source": "build/redesign-2/before-1920/desktop.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 78532
+  },
+  "1920-closed-empty": {
+    "source": "build/redesign-2/after-1920/closed-empty.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 83869
+  },
+  "1920-open-empty": {
+    "source": "build/redesign-2/after-1920/open-empty.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 84839
+  },
+  "1920-closed-parked": {
+    "source": "build/redesign-2/after-1920/closed-parked.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 84578
+  },
+  "1920-open-parked": {
+    "source": "build/redesign-2/after-1920/open-parked.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 87665
+  },
+  "before-2560": {
+    "source": "build/redesign-2/before-2560/desktop.png",
+    "capture_pixels": [
+      2560,
+      1440
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 76324
+  },
+  "2560-closed-empty": {
+    "source": "build/redesign-2/after-2560/closed-empty.png",
+    "capture_pixels": [
+      2560,
+      1440
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 79884
+  },
+  "2560-open-empty": {
+    "source": "build/redesign-2/after-2560/open-empty.png",
+    "capture_pixels": [
+      2560,
+      1440
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 79545
+  },
+  "2560-closed-parked": {
+    "source": "build/redesign-2/after-2560/closed-parked.png",
+    "capture_pixels": [
+      2560,
+      1440
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 80263
+  },
+  "2560-open-parked": {
+    "source": "build/redesign-2/after-2560/open-parked.png",
+    "capture_pixels": [
+      2560,
+      1440
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 81499
+  },
+  "before-3840": {
+    "source": "build/redesign-2/before-3840/desktop.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 59999
+  },
+  "3840-closed-empty": {
+    "source": "build/redesign-2/after-3840/closed-empty.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 60921
+  },
+  "3840-open-empty": {
+    "source": "build/redesign-2/after-3840/open-empty.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 60606
+  },
+  "3840-closed-parked": {
+    "source": "build/redesign-2/after-3840/closed-parked.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 61417
+  },
+  "3840-open-parked": {
+    "source": "build/redesign-2/after-3840/open-parked.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archive_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 61318
+  },
+  "detail-closed-empty": {
+    "source": "build/redesign-2/after-1920/closed-empty.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 23096
+  },
+  "detail-open-empty": {
+    "source": "build/redesign-2/after-1920/open-empty.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 24884
+  },
+  "detail-closed-parked": {
+    "source": "build/redesign-2/after-1920/closed-parked.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 24116
+  },
+  "detail-open-parked": {
+    "source": "build/redesign-2/after-1920/open-parked.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 31496
+  },
+  "detail-reduced-closed": {
+    "source": "build/redesign-2/after-1920/reduced-closed.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 24116
+  },
+  "detail-reduced-open": {
+    "source": "build/redesign-2/after-1920/reduced-open.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 31496
+  },
+  "detail-off-closed": {
+    "source": "build/redesign-2/after-1920/off-closed.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 24116
+  },
+  "detail-off-open": {
+    "source": "build/redesign-2/after-1920/off-open.png",
+    "archive_pixels": [
+      394,
+      583
+    ],
+    "bytes": 31496
+  },
+  "schemes-piyti-saturated": {
+    "source": "build/redesign-2/matrix",
+    "states": 24,
+    "archive_pixels": [
+      960,
+      1072
+    ],
+    "bytes": 174337
+  },
+  "schemes-piyti-insane": {
+    "source": "build/redesign-2/matrix",
+    "states": 24,
+    "archive_pixels": [
+      960,
+      1072
+    ],
+    "bytes": 200702
+  },
+  "schemes-thears-saturated": {
+    "source": "build/redesign-2/matrix",
+    "states": 24,
+    "archive_pixels": [
+      960,
+      1072
+    ],
+    "bytes": 174194
+  },
+  "schemes-thears-insane": {
+    "source": "build/redesign-2/matrix",
+    "states": 24,
+    "archive_pixels": [
+      960,
+      1072
+    ],
+    "bytes": 200645
+  },
+  "scope": {
+    "after": "Real Quickshell rendering with visual-only scratch data and test Registry command in a disposable shell copy.",
+    "before": "Unmodified shell archived from 7f2908693f97868f807a22e5b9747321f42605ad.",
+    "scale": 1.5,
+    "integration": "Actual Hyprland scratch dispatch/keybinds belong to Sol and are not exercised by the visual fixture."
+  }
+}

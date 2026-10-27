@@ -1,0 +1,3 @@
+annulus.frag: --check ok
+catch.frag: --check ok
+undercarriage.frag: --check ok
