@@ -143,6 +143,6 @@ Item {
         }
         opacity: field.instrument ? 1 : Math.min(1, Theme.bootProgress * 2)
     }
-    ShearField { id: airframe; anchors.fill: parent; instrument: field.instrument }
-    Counterphase { anchors.fill: parent; instrument: field.instrument; onBeat: airframe.breathe() }
+    Hatch { anchors.fill: parent; visible: !field.instrument }
+    Counterphase { anchors.fill: parent; instrument: field.instrument }
 }
