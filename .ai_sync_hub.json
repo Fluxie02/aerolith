@@ -15,9 +15,39 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Claude",
+    "files": [
+      ".github/workflows/ci.yml",
+      "installer/aerolith_install/hypr.py",
+      "shell/lib/hyprdispatch.mjs",
+      "shell/modules/ControlSurface.qml",
+      "shell/services/Compositor.qml",
+      "tests/js/hyprdispatch.test.mjs",
+      "tests/py/test_installer.py",
+      "tests/scenarios/scratch.sh",
+      "tools/mock-hyprland/mock_hyprland.py"
+    ],
+    "locks": [
+      {
+        "lock_id": "23bd29bc-dfb6-4315-8720-b032cfeab61e",
+        "agent": "Claude",
+        "files": [
+          ".github/workflows/ci.yml",
+          "installer/aerolith_install/hypr.py",
+          "shell/lib/hyprdispatch.mjs",
+          "shell/modules/ControlSurface.qml",
+          "shell/services/Compositor.qml",
+          "tests/js/hyprdispatch.test.mjs",
+          "tests/py/test_installer.py",
+          "tests/scenarios/scratch.sh",
+          "tools/mock-hyprland/mock_hyprland.py"
+        ],
+        "task_id": "R2-SOL-SCRATCH",
+        "created_at": "2026-10-27T06:42:10+00:00",
+        "expires_epoch": 1793085130.557618,
+        "ttl_seconds": 1800
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -8807,5 +8837,5 @@
     "task_id": "R1-SOL-APPS",
     "timestamp": "2026-10-27T02:28:35+00:00"
   },
-  "updated_at": "2026-10-27T02:29:42+00:00"
+  "updated_at": "2026-10-27T06:42:10+00:00"
 }
