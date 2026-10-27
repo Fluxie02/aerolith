@@ -15,37 +15,41 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Claude",
+    "locked_by": "Astra",
     "files": [
-      ".github/workflows/ci.yml",
-      "installer/aerolith_install/hypr.py",
-      "shell/lib/hyprdispatch.mjs",
-      "shell/modules/ControlSurface.qml",
-      "shell/services/Compositor.qml",
-      "tests/js/hyprdispatch.test.mjs",
-      "tests/py/test_installer.py",
-      "tests/scenarios/scratch.sh",
-      "tools/mock-hyprland/mock_hyprland.py"
+      "docs/design/redesign-2",
+      "shell/components/Hatch.qml",
+      "shell/components/InstrumentField.qml",
+      "shell/components/ShearField.qml",
+      "shell/shaders/bevel.frag",
+      "shell/shaders/bevel.frag.qsb"
     ],
     "locks": [
       {
-        "lock_id": "23bd29bc-dfb6-4315-8720-b032cfeab61e",
-        "agent": "Claude",
+        "lock_id": "ba079540-baa8-4a0b-b6ca-ecde321da259",
+        "agent": "Astra",
         "files": [
-          ".github/workflows/ci.yml",
-          "installer/aerolith_install/hypr.py",
-          "shell/lib/hyprdispatch.mjs",
-          "shell/modules/ControlSurface.qml",
-          "shell/services/Compositor.qml",
-          "tests/js/hyprdispatch.test.mjs",
-          "tests/py/test_installer.py",
-          "tests/scenarios/scratch.sh",
-          "tools/mock-hyprland/mock_hyprland.py"
+          "docs/design/redesign-2",
+          "shell/components/Hatch.qml",
+          "shell/components/InstrumentField.qml",
+          "shell/components/ShearField.qml",
+          "shell/shaders/bevel.frag"
         ],
-        "task_id": "R2-SOL-SCRATCH",
-        "created_at": "2026-10-27T06:42:10+00:00",
-        "expires_epoch": 1793085130.557618,
-        "ttl_seconds": 1800
+        "task_id": "UI-018",
+        "created_at": "2026-10-27T06:44:56+00:00",
+        "expires_epoch": 1793097896.253774,
+        "ttl_seconds": 14400
+      },
+      {
+        "lock_id": "eed7dd95-4e4e-433e-b9b6-449bc2248ab5",
+        "agent": "Astra",
+        "files": [
+          "shell/shaders/bevel.frag.qsb"
+        ],
+        "task_id": "UI-018",
+        "created_at": "2026-10-27T06:46:03+00:00",
+        "expires_epoch": 1793097963.2487483,
+        "ttl_seconds": 14400
       }
     ]
   },
@@ -6234,6 +6238,40 @@
       "notes": "Apps.barApps exposes id/name/icon/running/windows plus click aliases; AppContinuity slices to existing capacity. entryForWindow resolves desktop ids, StartupWMClass via startupClass, reverse-DNS, case and Flatpak aliases; unknowns use readable names and application-x-executable. Apps launchRevision invalidates in-place Store usage mutations. Checks: python3 -m pytest -q tests/py: 295 passed, 1 skipped (44.64s); node tests/js/run-node.mjs: 170 passed, 0 failed; docker run --rm -v \"$PWD:/src:ro\" aerolith-dev bash -c \"cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml\": 162 passed, 0 failed; tools/headless/run.sh tests/scenarios/smoke.sh build/r1-sol-apps/smoke: PASS; tools/headless/run.sh tests/scenarios/app-links.sh build/r1-sol-apps/app-links: PASS (Files/name/icon/window/focus, StartupWMClass, launch rank fifth to first, moved socket launch, Firefox focus/cycle, search and window register); AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/r1-sol-apps/deck: PASS. bash -n tests/scenarios/app-links.sh and git diff --check: PASS. Evidence: build/r1-sol-apps, checks/node.txt, checks/qt.txt, checks/qml-audit.json (3 logs, zero matched QML errors/new warnings). Reviewed Astra AppContinuity once: byte-identical activate() and visual delegate/layout/style remainder; no additional actionable finding. Read launch.mjs and redesign RESULTS; neither changed. Mock Hyprland/software sway only, real Hyprland/icon themes unverified. Initial probe readiness and Store invalidation failures fixed before final passes. Explicit user delegation under Opus/Claude locks; no lock/unlock, commit or dispatch.",
       "task_id": "R1-SOL-APPS",
       "timestamp": "2026-10-27T02:28:35+00:00"
+    },
+    {
+      "id": "74b10ca7-24a5-437c-842d-adcfc01c8b46",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/components/ShearField.qml",
+        "shell/components/InstrumentField.qml",
+        "docs/design/redesign-2"
+      ],
+      "summary": "Starting owner-assigned UI-018 hatch design in isolated worktree",
+      "notes": "Hub remains Claude_Performance_Audit/Claude for concurrent systems work; explicit owner task authorizes Astra visual files only. Preserve Sol scratch interface and locks. Docker daemon unavailable at initial inspection; no host changes authorized.",
+      "task_id": "UI-018",
+      "timestamp": "2026-10-27T06:44:56+00:00"
+    },
+    {
+      "id": "65dbfeaa-7709-43e0-bc04-6457f2848cdd",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        ".github/workflows/ci.yml",
+        "installer/aerolith_install/hypr.py",
+        "shell/lib/hyprdispatch.mjs",
+        "shell/modules/ControlSurface.qml",
+        "shell/services/Compositor.qml",
+        "tests/js/hyprdispatch.test.mjs",
+        "tests/py/test_installer.py",
+        "tests/scenarios/scratch.sh",
+        "tools/mock-hyprland/mock_hyprland.py"
+      ],
+      "summary": "Implemented special:aerolith scratch commands, reactive state, shortcuts, installer binds, mock protocol and CI scenario; no visual changes",
+      "notes": "R2-SOL-SCRATCH: explicit owner delegation as Sol under Opus/Claude locks; no lock/unlock or commit. scratch.toggle focuses selected shell output then toggles; scratch.park silently moves focused window. Compositor exposes scratchOpen and same-shape scratchWindows; event burst refresh has no recurring polling. IPC scratch and scratchPark plus status bool/count; exact requested hyphenated scratch-park IPC is not representable as a QML function name in Quickshell IpcHandler, so provisional camelCase used (question presented to owner); global shortcut scratch-park unchanged. Empty scratch returns an explanatory failure because Hyprland does not show an empty special workspace. Both dialect dispatch validation tests and installer conflict tests added. Tests: python3 -m pytest -q tests/py = 299 passed, 1 skipped in 65.11s; node tests/js/run-node.mjs = 172 passed, 0 failed; python3 -m py_compile tools/mock-hyprland/mock_hyprland.py, bash -n tests/scenarios/scratch.sh, git diff --check = pass. python3 build/r2-sol-scratch/checks/mock-contract.py tools/mock-hyprland/mock_hyprland.py = both dialect protocols passed (block extracted from tracked scratch.sh). node build/r2-sol-scratch/checks/runtime-contract.mjs = 33 assertions passed using extracted production QML JavaScript with fakes, not QML type verification. Sequential attempted commands: tools/headless/run.sh tests/scenarios/smoke.sh build/r2-sol-scratch/smoke; tools/headless/run.sh tests/scenarios/scratch.sh build/r2-sol-scratch/scratch; AUDIO=1 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/fullscreen.sh build/r2-sol-scratch/fullscreen; tools/headless/run.sh tests/scenarios/app-links.sh build/r2-sol-scratch/app-links. All exit 1 before scenario start: Cannot connect to Docker daemon at unix:///var/run/docker.sock. Did not start daemon/change host config. Headless/Qt/real Hyprland runtime unverified; CI needs running Docker. Evidence build/r2-sol-scratch/checks. Reviewed Astra AppContinuity.qml and Instrumentation.qml once: P2 Instrumentation.qml:137 renders W + workspaceId, exposing negative special ids such as W-99 for parked windows. Minimal proposed visual correction: render SCRATCH for Compositor.scratchWindows membership; intentionally not edited. Single revision available.",
+      "task_id": "R2-SOL-SCRATCH",
+      "timestamp": "2026-10-27T06:53:41+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7926,6 +7964,7 @@
     "docs/design/notices",
     "docs/design/redesign-1",
     "docs/design/redesign-1/checks/thears-exit.log",
+    "docs/design/redesign-2",
     "docs/design/round2/CONCEPTS.md",
     "docs/design/round2/VALIDATION.md",
     "docs/design/round2/fault/01-idle.png",
@@ -8707,6 +8746,7 @@
     "shell/lib/ambient.mjs",
     "shell/lib/appbus.mjs",
     "shell/lib/config.mjs",
+    "shell/lib/hyprdispatch.mjs",
     "shell/lib/launch.mjs",
     "shell/lib/schemes.mjs",
     "shell/lib/tokens.mjs",
@@ -8751,6 +8791,7 @@
     "tests/fixtures/fake-providers/codex",
     "tests/js/ambient.test.mjs",
     "tests/js/appbus.test.mjs",
+    "tests/js/hyprdispatch.test.mjs",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/run-node.mjs",
@@ -8781,6 +8822,7 @@
     "tests/scenarios/perf.sh",
     "tests/scenarios/resilience.sh",
     "tests/scenarios/runtime.sh",
+    "tests/scenarios/scratch.sh",
     "tests/scenarios/session.sh",
     "tests/scenarios/signal.sh",
     "tests/scenarios/smoke.sh",
@@ -8826,16 +8868,20 @@
     "agent": "Sol",
     "type": "integration_complete",
     "files": [
-      "shell/services/Apps.qml",
-      "shell/lib/appbus.mjs",
-      "shell/components/AppContinuity.qml",
-      "tests/js/appbus.test.mjs",
-      "tests/scenarios/app-links.sh"
+      ".github/workflows/ci.yml",
+      "installer/aerolith_install/hypr.py",
+      "shell/lib/hyprdispatch.mjs",
+      "shell/modules/ControlSurface.qml",
+      "shell/services/Compositor.qml",
+      "tests/js/hyprdispatch.test.mjs",
+      "tests/py/test_installer.py",
+      "tests/scenarios/scratch.sh",
+      "tools/mock-hyprland/mock_hyprland.py"
     ],
-    "summary": "Completed usage-ranked app bar with desktop-entry identity and exact window aliases; visual design unchanged",
-    "notes": "Apps.barApps exposes id/name/icon/running/windows plus click aliases; AppContinuity slices to existing capacity. entryForWindow resolves desktop ids, StartupWMClass via startupClass, reverse-DNS, case and Flatpak aliases; unknowns use readable names and application-x-executable. Apps launchRevision invalidates in-place Store usage mutations. Checks: python3 -m pytest -q tests/py: 295 passed, 1 skipped (44.64s); node tests/js/run-node.mjs: 170 passed, 0 failed; docker run --rm -v \"$PWD:/src:ro\" aerolith-dev bash -c \"cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml\": 162 passed, 0 failed; tools/headless/run.sh tests/scenarios/smoke.sh build/r1-sol-apps/smoke: PASS; tools/headless/run.sh tests/scenarios/app-links.sh build/r1-sol-apps/app-links: PASS (Files/name/icon/window/focus, StartupWMClass, launch rank fifth to first, moved socket launch, Firefox focus/cycle, search and window register); AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/r1-sol-apps/deck: PASS. bash -n tests/scenarios/app-links.sh and git diff --check: PASS. Evidence: build/r1-sol-apps, checks/node.txt, checks/qt.txt, checks/qml-audit.json (3 logs, zero matched QML errors/new warnings). Reviewed Astra AppContinuity once: byte-identical activate() and visual delegate/layout/style remainder; no additional actionable finding. Read launch.mjs and redesign RESULTS; neither changed. Mock Hyprland/software sway only, real Hyprland/icon themes unverified. Initial probe readiness and Store invalidation failures fixed before final passes. Explicit user delegation under Opus/Claude locks; no lock/unlock, commit or dispatch.",
-    "task_id": "R1-SOL-APPS",
-    "timestamp": "2026-10-27T02:28:35+00:00"
+    "summary": "Implemented special:aerolith scratch commands, reactive state, shortcuts, installer binds, mock protocol and CI scenario; no visual changes",
+    "notes": "R2-SOL-SCRATCH: explicit owner delegation as Sol under Opus/Claude locks; no lock/unlock or commit. scratch.toggle focuses selected shell output then toggles; scratch.park silently moves focused window. Compositor exposes scratchOpen and same-shape scratchWindows; event burst refresh has no recurring polling. IPC scratch and scratchPark plus status bool/count; exact requested hyphenated scratch-park IPC is not representable as a QML function name in Quickshell IpcHandler, so provisional camelCase used (question presented to owner); global shortcut scratch-park unchanged. Empty scratch returns an explanatory failure because Hyprland does not show an empty special workspace. Both dialect dispatch validation tests and installer conflict tests added. Tests: python3 -m pytest -q tests/py = 299 passed, 1 skipped in 65.11s; node tests/js/run-node.mjs = 172 passed, 0 failed; python3 -m py_compile tools/mock-hyprland/mock_hyprland.py, bash -n tests/scenarios/scratch.sh, git diff --check = pass. python3 build/r2-sol-scratch/checks/mock-contract.py tools/mock-hyprland/mock_hyprland.py = both dialect protocols passed (block extracted from tracked scratch.sh). node build/r2-sol-scratch/checks/runtime-contract.mjs = 33 assertions passed using extracted production QML JavaScript with fakes, not QML type verification. Sequential attempted commands: tools/headless/run.sh tests/scenarios/smoke.sh build/r2-sol-scratch/smoke; tools/headless/run.sh tests/scenarios/scratch.sh build/r2-sol-scratch/scratch; AUDIO=1 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/fullscreen.sh build/r2-sol-scratch/fullscreen; tools/headless/run.sh tests/scenarios/app-links.sh build/r2-sol-scratch/app-links. All exit 1 before scenario start: Cannot connect to Docker daemon at unix:///var/run/docker.sock. Did not start daemon/change host config. Headless/Qt/real Hyprland runtime unverified; CI needs running Docker. Evidence build/r2-sol-scratch/checks. Reviewed Astra AppContinuity.qml and Instrumentation.qml once: P2 Instrumentation.qml:137 renders W + workspaceId, exposing negative special ids such as W-99 for parked windows. Minimal proposed visual correction: render SCRATCH for Compositor.scratchWindows membership; intentionally not edited. Single revision available.",
+    "task_id": "R2-SOL-SCRATCH",
+    "timestamp": "2026-10-27T06:53:41+00:00"
   },
-  "updated_at": "2026-10-27T06:42:10+00:00"
+  "updated_at": "2026-10-27T06:57:04+00:00"
 }
