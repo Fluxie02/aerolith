@@ -14,7 +14,7 @@ Item {
     readonly property string cpu: T.formatPercent(Telemetry.cpu.total)
     readonly property string mem: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)
     readonly property real ignition: instrument ? 1 : Theme.bootProgress
-    readonly property var entryBays: [{label:"Command",bay:"command"}, {label:"Navigator",bay:"navigator"}, {label:"Systems",bay:"systems"}, {label:"Settings",bay:"settings"}]
+    readonly property var entryBays: [{label:"SEARCH",bay:"command"}, {label:"WINDOWS",bay:"navigator"}, {label:"SYSTEM MONITOR",bay:"systems"}, {label:"SETTINGS",bay:"settings"}]
     opacity: Math.min(1, ignition * 3)
 
     Column {
@@ -23,19 +23,19 @@ Item {
         spacing: Theme.du(12)
         visible: !rig.instrument || !rig.compact
         Text {
-            text: "AEROLITH   /   " + Theme.applicationName + " / COUNTERPHASE " + (Theme.insane ? "III" : "II")
+            text: "AEROLITH   /   YOUR WORKSPACE"
             textFormat: Text.PlainText; color: Theme.signal
             font.family: Theme.mono; font.pixelSize: Theme.fontSm; font.letterSpacing: 1.6
         }
         Text {
             visible: !rig.compact
-            text: "WORKSPACE " + rig.ws + "   /   " + rig.windows.length + " WINDOWS   /   " + (Compositor.available ? "COMPOSITOR LINKED" : "COMPOSITOR N/A")
+            text: "WORKSPACE " + rig.ws + "   /   " + rig.windows.length + " WINDOWS   /   " + (Compositor.available ? "DESKTOP CONNECTED" : "DESKTOP UNAVAILABLE")
             textFormat: Text.PlainText; color: Theme.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontSm
         }
         Text {
             visible: !rig.compact
-            text: "CPU " + rig.cpu + "    MEMORY " + rig.mem + "    SAMPLE / " + (Telemetry.interval > 0 ? Telemetry.interval + " MS" : "OFF")
+            text: "CPU " + rig.cpu + "    MEMORY " + rig.mem
             textFormat: Text.PlainText; color: Theme.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontSm
         }
@@ -72,37 +72,19 @@ Item {
         }
         Text {
             width: parent.width; elide: Text.ElideRight
-            text: Compositor.activeTitle || "Open Command to begin"
+            visible: !rig.compact
+            text: Compositor.activeTitle || "Search for an app to begin"
             textFormat: Text.PlainText; color: Theme.textDim
             font.family: Theme.sans; font.pixelSize: Theme.fontMd
         }
     }
 
     Column {
-        id: identity
-        x: parent.width * .69; y: parent.height * (rig.compact ? .27 : .26)
+        x: parent.width * .69; y: parent.height * .27
         width: parent.width * .25
-        spacing: Theme.du(rig.compact ? 6 : 9); visible: !rig.instrument
+        spacing: Theme.du(24); visible: !rig.instrument
         opacity: Math.max(0, Math.min(1, (rig.ignition - .22) / .30))
-        Text {
-            width: parent.width
-            text: Theme.integratedApps ? "APPLICATION / INSTRUMENT" : "APPLICATION / RESONANCE"; textFormat: Text.PlainText
-            color: Theme.appLink; font.family: Theme.mono
-            font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
-        }
-        Text {
-            text: rig.compact ? Theme.applicationName : Theme.integratedApps ? "PIY\nTI" : "THE\nARS"; textFormat: Text.PlainText; color: Theme.text
-            font.family: Theme.displaySans
-            font.pixelSize: Math.min(Theme.du(Theme.insane ? 112 : 100), rig.width * (rig.compact ? .045 : .078))
-            font.weight: Font.Light; font.letterSpacing: Theme.insane ? 4 : 1
-            lineHeight: .87
-        }
-        Rectangle { width: parent.width * (Theme.integratedApps ? .72 : .22); height: Theme.du(5); color: Theme.appLink }
-        Text {
-            text: Theme.integratedApps ? "TASK INSTRUMENT / " + (Compositor.activeClass || "NO FOCUS").toUpperCase() : "COUNTERPHASE / " + (!Theme.ambient ? "HELD" : Theme.ambientReduced ? "REDUCED" : "ACTIVE");
-            width: parent.width; elide: Text.ElideRight; textFormat: Text.PlainText
-            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
-        }
+        NowPlaying { width: parent.width }
         Flow {
             width: parent.width; spacing: Theme.du(5)
             Repeater {
@@ -113,9 +95,11 @@ Item {
                     color: entryPointer.containsMouse ? Theme.signal : Theme.bg
                     border.color: entryPointer.containsMouse ? Theme.signal : Theme.grid
                     Text {
-                        anchors.centerIn: parent; text: modelData.label; textFormat: Text.PlainText
+                        anchors.centerIn: parent; width: parent.width - Theme.du(8)
+                        horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight
+                        text: modelData.label; textFormat: Text.PlainText
                         color: entryPointer.containsMouse ? Theme.bg : Theme.text
-                        font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                        font.family: Theme.mono; font.pixelSize: Theme.fontXs
                     }
                     MouseArea {
                         id: entryPointer; anchors.fill: parent; hoverEnabled: true
@@ -134,7 +118,7 @@ Item {
         spacing: Theme.du(8); visible: !rig.instrument && !rig.compact
         opacity: Math.max(0, Math.min(1, (rig.ignition - .48) / .26))
         Text {
-            text: "WINDOW REGISTER / " + rig.windows.length; textFormat: Text.PlainText
+            text: "OPEN WINDOWS / " + rig.windows.length; textFormat: Text.PlainText
             color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
         }
         Repeater {
@@ -171,7 +155,7 @@ Item {
         width: parent.width * .25; height: parent.height * .085
         visible: !rig.compact && !rig.instrument
         Text {
-            text: "CORE ARRAY / " + Math.min(Theme.insane ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
+            text: "CPU CORES / " + Math.min(Theme.insane ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
             textFormat: Text.PlainText; color: Theme.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontXs
         }
@@ -198,19 +182,19 @@ Item {
         }
     }
 
-    WorkspaceOrbit { anchors.fill: parent; instrument: rig.instrument; visible: !rig.instrument && !rig.compact }
+    WorkspaceOrbit { anchors.fill: parent; instrument: rig.instrument; visible: !rig.instrument }
     Text {
         x: parent.width * .055; y: parent.height * .846
         visible: !rig.instrument && !rig.compact
-        text: "WORKSPACE ARC / SELECT A STATION"; textFormat: Text.PlainText
+        text: "WORKSPACES / CLICK TO SWITCH"; textFormat: Text.PlainText
         color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
     }
 
     // THEARS offers native surfaces; PIYTI exposes real window continuity.
     AppContinuity {
-        x: parent.width * .055; y: rig.compact ? parent.height - height - Theme.stripHeight - Theme.du(12) : parent.height * .87
+        x: parent.width * .055; y: parent.height - height - Theme.du(16) - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0)
         width: parent.width * .885
-        height: rig.compact ? Theme.du(99) : parent.height * .125
+        height: Theme.du(48)
         visible: !rig.instrument
         instrument: rig.instrument
     }

@@ -22,16 +22,24 @@ wait_field() {
   echo "timeout: status.$name is $(field "$name"), wanted $want" >&2
   return 1
 }
-# Socket centres: x = 0.055 W + i (socket + 8) + socket / 2, y = 0.87 H + 30 + 49.
-FIREFOX=(272 1018) LIBREOFFICE=(614 1018) STEAM=(955 1018)
+# This scenario supplies a deterministic desktop-entry index in its disposable
+# container. The bar contains the four running apps, then LibreOffice.
+# Five slots of 164 + 6 spacing; the row is 48 high, 16 above the bottom.
+FIREFOX=(358 1040) LIBREOFFICE=(868 1040) ALL_APPS=(1753 1040)
 addr_of() { mock '{"op":"state"}' | python3 -c 'import json,sys; s=json.load(sys.stdin); print([c["address"] for c in s["clients"] if c["title"]==sys.argv[1]][0])' "$1"; }
 focus() { mock "{\"op\":\"focus_window\",\"address\":\"$(addr_of "$1")\"}" >/dev/null; wait_field activeWindow "$1" 3 || fail "could not focus $1"; }
 no_navigator() { [ "$(field bay)" != navigator ] || fail "$1 opened the Navigator"; }
 
 FOOT="pilot@aerolith: ~"
 WIKI="Hyprland Wiki — Mozilla Firefox"
-# A LibreOffice that only leaves a mark when started.
+# Hide the dev image's launchers through user-local overrides, then provide
+# two exact running-app entries and one launch fixture. Host files are untouched.
 mkdir -p "$HOME/.local/share/applications"
+for desktop in /usr/share/applications/*.desktop; do
+  printf '[Desktop Entry]\nType=Application\nName=Hidden test entry\nHidden=true\n' >"$HOME/.local/share/applications/$(basename "$desktop")"
+done
+printf '[Desktop Entry]\nType=Application\nName=Foot\nExec=foot\nIcon=foot\n' >"$HOME/.local/share/applications/foot.desktop"
+printf '[Desktop Entry]\nType=Application\nName=Firefox\nExec=true\nIcon=firefox\n' >"$HOME/.local/share/applications/firefox.desktop"
 printf '[Desktop Entry]\nType=Application\nName=LibreOffice\nExec=touch %s/libreoffice-started\n' "$OUT" \
   >"$HOME/.local/share/applications/libreoffice-startcenter.desktop"
 sleep 5
@@ -67,11 +75,11 @@ done
 no_navigator "the LibreOffice link"
 [ "$(field bay)" = "" ] || fail "starting LibreOffice opened the Deck ($(field bay))"
 
-# 4. Not installed: the search.
-click "${STEAM[@]}"
-wait_field bay command 3 || fail "the Steam link (not installed) did not open the search"
-[ "$(field query)" = steam ] || fail "the search was not for Steam ($(field query))"
-shot 02-steam-search
+# 4. The persistent All apps entry opens search regardless of the dock list.
+click "${ALL_APPS[@]}"
+wait_field bay command 3 || fail "All apps did not open the search"
+[ "$(field query)" = "" ] || fail "All apps should start with an empty query"
+shot 02-all-apps-search
 ipc close >/dev/null
 wait_field deckMapped False 3 || fail "the Deck did not close"
 

@@ -1,0 +1,203 @@
+{
+  "before-1920": {
+    "source": "build/redesign-1/before-1080/desktop.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 120016
+  },
+  "after-1920": {
+    "source": "build/redesign-1/after-1080/desktop.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 102494
+  },
+  "before-2560": {
+    "source": "build/redesign-1/before-1440/desktop.png",
+    "capture_pixels": [
+      2560,
+      1440
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 98387
+  },
+  "after-2560": {
+    "source": "build/redesign-1/after-1440/desktop.png",
+    "capture_pixels": [
+      2560,
+      1440
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 85642
+  },
+  "before-3840": {
+    "source": "build/redesign-1/before-4k/desktop.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 99994
+  },
+  "after-3840": {
+    "source": "build/redesign-1/after-4k/desktop.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 88569
+  },
+  "media-cover": {
+    "source": "build/redesign-1/after-1080/media-cover.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 109116
+  },
+  "media-paused": {
+    "source": "build/redesign-1/after-1080/media-paused.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 110961
+  },
+  "workspace-05": {
+    "source": "build/redesign-1/after-1080/workspace-05.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 114157
+  },
+  "reduced-workspace-05": {
+    "source": "build/redesign-1/after-1080/reduced-workspace-05.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 114592
+  },
+  "reduced-workspace-01": {
+    "source": "build/redesign-1/after-1080/reduced-workspace-01.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 112457
+  },
+  "deck": {
+    "source": "build/redesign-1/after-1080/motion-off-command.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 108487
+  },
+  "compact": {
+    "source": "build/redesign-1/compact/media-cover.png",
+    "capture_pixels": [
+      1280,
+      720
+    ],
+    "archived_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 97796
+  },
+  "compact-deck": {
+    "source": "build/redesign-1/compact/compact-command.png",
+    "capture_pixels": [
+      1280,
+      720
+    ],
+    "archived_pixels": [
+      1280,
+      720
+    ],
+    "bytes": 72819
+  },
+  "thears": {
+    "source": "build/redesign-1/thears/thears-desktop.png",
+    "capture_pixels": [
+      1920,
+      1080
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 102423
+  },
+  "media-3840": {
+    "source": "build/redesign-1/after-4k/media-cover.png",
+    "capture_pixels": [
+      3840,
+      2160
+    ],
+    "archived_pixels": [
+      1600,
+      900
+    ],
+    "bytes": 93786
+  },
+  "reduced_motion": {
+    "wing_crop": [
+      980,
+      350,
+      1270,
+      700
+    ],
+    "identical_across_workspace_changes": true
+  }
+}
