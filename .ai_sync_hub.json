@@ -9,80 +9,15 @@
   "workflow": {
     "current_task_id": "UI-016",
     "current_owner": "Claude",
-    "last_transition_at": "2026-10-26T21:25:55+00:00",
+    "last_transition_at": "2026-10-26T21:55:06+00:00",
     "transition_reason": "Astra explicitly published design_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "Astra",
-    "files": [
-      "build/redesign-1",
-      "docs/design/redesign-1",
-      "shell/components/AppContinuity.qml",
-      "shell/components/InstrumentField.qml",
-      "shell/components/Instrumentation.qml",
-      "shell/components/NowPlaying.qml",
-      "shell/components/ShearField.qml",
-      "shell/components/WorkspaceOrbit.qml",
-      "shell/lib/appbus.mjs",
-      "shell/modules/deck/DeckView.qml",
-      "tests/js/appbus.test.mjs",
-      "tests/scenarios/app-links.sh"
-    ],
-    "locks": [
-      {
-        "lock_id": "3222b440-4e99-4043-a1ea-0d1382d5bd52",
-        "agent": "Astra",
-        "files": [
-          "docs/design/redesign-1",
-          "shell/components/AppContinuity.qml",
-          "shell/components/InstrumentField.qml",
-          "shell/components/Instrumentation.qml",
-          "shell/components/NowPlaying.qml",
-          "shell/components/ShearField.qml",
-          "shell/components/WorkspaceOrbit.qml",
-          "shell/lib/appbus.mjs",
-          "shell/modules/deck/DeckView.qml",
-          "tests/js/appbus.test.mjs",
-          "tests/scenarios/app-links.sh"
-        ],
-        "task_id": "UI-017",
-        "created_at": "2026-10-26T21:25:59+00:00",
-        "expires_epoch": 1793057159.669992,
-        "ttl_seconds": 7200
-      },
-      {
-        "lock_id": "fa8bfcb7-a95e-45a8-a631-433a5a007733",
-        "agent": "Astra",
-        "files": [
-          "build/redesign-1",
-          "docs/design/redesign-1",
-          "shell/components/AppContinuity.qml",
-          "shell/components/InstrumentField.qml",
-          "shell/components/Instrumentation.qml",
-          "shell/components/NowPlaying.qml",
-          "shell/components/ShearField.qml",
-          "shell/components/WorkspaceOrbit.qml",
-          "shell/modules/deck/DeckView.qml"
-        ],
-        "task_id": "UI-017",
-        "created_at": "2026-10-26T21:33:12+00:00",
-        "expires_epoch": 1793057592.4454389,
-        "ttl_seconds": 7200
-      },
-      {
-        "lock_id": "98461592-002d-4dc9-af04-207bca1b14f4",
-        "agent": "Astra",
-        "files": [
-          "tests/scenarios/app-links.sh"
-        ],
-        "task_id": "UI-017",
-        "created_at": "2026-10-26T21:37:33+00:00",
-        "expires_epoch": 1793057853.4231007,
-        "ttl_seconds": 7200
-      }
-    ]
+    "locked_by": "None",
+    "files": [],
+    "locks": []
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -2594,6 +2529,25 @@
         "request": "Performance/stability audit of the completed design layer",
         "summary": "ALPHA2-ASTRA patch delivered: exact snapshot-based desktop coverage holds ambient motion while preserving Deck/fullscreen precedence; Canvas families resolved with generic fallback. Runtime verification remains blocked.",
         "notes": "Node 154 passed/0 failed; pytest 260 passed/1 skipped (34.17s); git diff --check passed. Smoke, deck, fullscreen, perf and Qt V4 attempted sequentially; all exit 1 before launch because Docker daemon unavailable. No screenshots or CPU/wakeup/RSS/GPU measurements obtained; no savings claimed. Static cache deferred: Canvas remap reconstruction requires renderer verification. Counterphase already uses separate small retained animated marks; unchanged. Compositor.qml left untouched under Claude lock. Single systems review P2: Compositor.qml:92 documents stale geometry snapshots; ShellState.qml:118 event triggers do not establish resize/drag freshness. Minimal systems follow-up: supported coalesced end-of-move/resize snapshot refresh or reliable exposure seam; no idle polling added. Full evidence, exact commands, remaining integration fixture and hardware checks in docs/verification/ALPHA2-ASTRA.md. Main checkout had no uncommitted peer work at review time. One review/revision cycle available; no dispatcher or commit invoked.",
+        "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-26T21:55:06+00:00",
+        "task_id": "UI-017",
+        "files": [
+          "shell/components/AppContinuity.qml",
+          "shell/components/InstrumentField.qml",
+          "shell/components/Instrumentation.qml",
+          "shell/components/NowPlaying.qml",
+          "shell/components/ShearField.qml",
+          "shell/components/WorkspaceOrbit.qml",
+          "shell/modules/deck/DeckView.qml",
+          "tests/scenarios/app-links.sh",
+          "docs/design/redesign-1"
+        ],
+        "request": "Performance/stability audit of the completed design layer",
+        "summary": "UI-017 redesign round 1 complete: clear desktop, bounded workspace-pointing wing, occupied/active stations, MPRIS Now Playing, slim personal app row, plain labels, simplified Deck rail.",
+        "notes": "Evidence and exact commands: docs/design/redesign-1/RESULTS.md. Node 155/155; Qt 155/155; Python 260 passed, 1 skipped. Required smoke/full/deck/app-links/fullscreen/direction and notify passed sequentially. Before/after 1920x1080@1, 2560x1440@1, 3840x2160@1.5; extra 720p/uiScale1.5/Noto/lowEffects, both directions, 12 schemes x 2 intensities, cover/Pause/Next, workspace click, F1 and identical reduced-motion wing crop. Final 26 QML logs have zero matched errors. Earlier immediate-startup IPC exit had four undefined binding warnings in untouched systems files, archived; neither baseline early exit nor settled redesigned restart reproduced. One low-severity systems review request recorded. Short matched software perf: idle CPU 1.27->0.87% core, peak RSS 210.9->201.6 MiB, idle RSS about +2 MiB; no GPU claims. Preserve existing coverage hold/cache/font fallback/fullscreen paths. Sol needs combined Apps.rankedEntries (id/name/icon) to bind AppContinuity.rankedEntries; Opus real Hyprland/NVIDIA review. Reviewed Claude 5bd2715 once; no visual finding in tiling-gap fix. No commit or dispatcher invocation.",
         "status": "pending"
       }
     ],
@@ -6198,6 +6152,26 @@
       "notes": "After Exiting due to IPC request: Compositor.qml:49 undefined->QString, Theme.qml:146 undefined->bool, ShellState.qml:35-36 undefined->bool/QString. Restarted THEARS process clean. Minimal proposed correction: guard dependency reads during teardown and coerce string/bool outputs while preserving release order. Files untouched. Baseline comparison pending; one systems revision requested, no dispatcher invoked.",
       "task_id": "UI-017",
       "timestamp": "2026-10-26T21:51:30+00:00"
+    },
+    {
+      "id": "5eabf7c4-610b-4817-b0c8-7bf29c05a732",
+      "type": "design_complete",
+      "agent": "Astra",
+      "files": [
+        "shell/components/AppContinuity.qml",
+        "shell/components/InstrumentField.qml",
+        "shell/components/Instrumentation.qml",
+        "shell/components/NowPlaying.qml",
+        "shell/components/ShearField.qml",
+        "shell/components/WorkspaceOrbit.qml",
+        "shell/modules/deck/DeckView.qml",
+        "tests/scenarios/app-links.sh",
+        "docs/design/redesign-1"
+      ],
+      "summary": "UI-017 redesign round 1 complete: clear desktop, bounded workspace-pointing wing, occupied/active stations, MPRIS Now Playing, slim personal app row, plain labels, simplified Deck rail.",
+      "notes": "Evidence and exact commands: docs/design/redesign-1/RESULTS.md. Node 155/155; Qt 155/155; Python 260 passed, 1 skipped. Required smoke/full/deck/app-links/fullscreen/direction and notify passed sequentially. Before/after 1920x1080@1, 2560x1440@1, 3840x2160@1.5; extra 720p/uiScale1.5/Noto/lowEffects, both directions, 12 schemes x 2 intensities, cover/Pause/Next, workspace click, F1 and identical reduced-motion wing crop. Final 26 QML logs have zero matched errors. Earlier immediate-startup IPC exit had four undefined binding warnings in untouched systems files, archived; neither baseline early exit nor settled redesigned restart reproduced. One low-severity systems review request recorded. Short matched software perf: idle CPU 1.27->0.87% core, peak RSS 210.9->201.6 MiB, idle RSS about +2 MiB; no GPU claims. Preserve existing coverage hold/cache/font fallback/fullscreen paths. Sol needs combined Apps.rankedEntries (id/name/icon) to bind AppContinuity.rankedEntries; Opus real Hyprland/NVIDIA review. Reviewed Claude 5bd2715 once; no visual finding in tiling-gap fix. No commit or dispatcher invocation.",
+      "task_id": "UI-017",
+      "timestamp": "2026-10-26T21:55:06+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7888,6 +7862,7 @@
     "docs/design/limb/verification/status-systems.json",
     "docs/design/limb/verification/windows-qs.txt",
     "docs/design/notices",
+    "docs/design/redesign-1",
     "docs/design/redesign-1/checks/thears-exit.log",
     "docs/design/round2/CONCEPTS.md",
     "docs/design/round2/VALIDATION.md",
@@ -8655,6 +8630,7 @@
     "shell/components/Label.qml",
     "shell/components/Material.qml",
     "shell/components/MetricTape.qml",
+    "shell/components/NowPlaying.qml",
     "shell/components/Readout.qml",
     "shell/components/ShearField.qml",
     "shell/components/StatusLine.qml",
@@ -8784,17 +8760,22 @@
   ],
   "last_agent_event": {
     "agent": "Astra",
-    "type": "note",
+    "type": "design_complete",
     "files": [
-      "shell/services/Compositor.qml",
-      "shell/core/Theme.qml",
-      "shell/services/ShellState.qml",
-      "docs/design/redesign-1/checks/thears-exit.log"
+      "shell/components/AppContinuity.qml",
+      "shell/components/InstrumentField.qml",
+      "shell/components/Instrumentation.qml",
+      "shell/components/NowPlaying.qml",
+      "shell/components/ShearField.qml",
+      "shell/components/WorkspaceOrbit.qml",
+      "shell/modules/deck/DeckView.qml",
+      "tests/scenarios/app-links.sh",
+      "docs/design/redesign-1"
     ],
-    "summary": "UI-017 systems review: low-severity undefined bindings during explicit IPC teardown; visual checks and required scenarios pass.",
-    "notes": "After Exiting due to IPC request: Compositor.qml:49 undefined->QString, Theme.qml:146 undefined->bool, ShellState.qml:35-36 undefined->bool/QString. Restarted THEARS process clean. Minimal proposed correction: guard dependency reads during teardown and coerce string/bool outputs while preserving release order. Files untouched. Baseline comparison pending; one systems revision requested, no dispatcher invoked.",
+    "summary": "UI-017 redesign round 1 complete: clear desktop, bounded workspace-pointing wing, occupied/active stations, MPRIS Now Playing, slim personal app row, plain labels, simplified Deck rail.",
+    "notes": "Evidence and exact commands: docs/design/redesign-1/RESULTS.md. Node 155/155; Qt 155/155; Python 260 passed, 1 skipped. Required smoke/full/deck/app-links/fullscreen/direction and notify passed sequentially. Before/after 1920x1080@1, 2560x1440@1, 3840x2160@1.5; extra 720p/uiScale1.5/Noto/lowEffects, both directions, 12 schemes x 2 intensities, cover/Pause/Next, workspace click, F1 and identical reduced-motion wing crop. Final 26 QML logs have zero matched errors. Earlier immediate-startup IPC exit had four undefined binding warnings in untouched systems files, archived; neither baseline early exit nor settled redesigned restart reproduced. One low-severity systems review request recorded. Short matched software perf: idle CPU 1.27->0.87% core, peak RSS 210.9->201.6 MiB, idle RSS about +2 MiB; no GPU claims. Preserve existing coverage hold/cache/font fallback/fullscreen paths. Sol needs combined Apps.rankedEntries (id/name/icon) to bind AppContinuity.rankedEntries; Opus real Hyprland/NVIDIA review. Reviewed Claude 5bd2715 once; no visual finding in tiling-gap fix. No commit or dispatcher invocation.",
     "task_id": "UI-017",
-    "timestamp": "2026-10-26T21:51:30+00:00"
+    "timestamp": "2026-10-26T21:55:06+00:00"
   },
-  "updated_at": "2026-10-26T21:51:30+00:00"
+  "updated_at": "2026-10-26T21:55:07+00:00"
 }
