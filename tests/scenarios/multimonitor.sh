@@ -30,6 +30,12 @@ probe='''
                 const children = item.children || [];
                 for (let i = 0; i < children.length; i++) collect(children[i], found);
             }
+            function appBars(item, found) {
+                if (!item) return found;
+                if (item.toString().indexOf("AppContinuity") === 0) found.push(item.visible);
+                for (const child of item.children || []) appBars(child, found);
+                return found;
+            }
             function contents(window) {
                 const found = [];
                 if (window) collect(window.contentItem, found);
@@ -38,7 +44,7 @@ probe='''
             function surface(loader) {
                 const w = loader.item;
                 return { output: loader.modelData.name, loaded: w !== null,
-                    visible: !!w && w.visible, screen: w && w.screen ? w.screen.name : "", consumers: contents(w) };
+                    visible: !!w && w.visible, screen: w && w.screen ? w.screen.name : "", consumers: contents(w), appBars: w ? appBars(w.contentItem, []) : [] };
             }
             const deck = overlayLoader.item;
             const notices = noticeLoader.item;
@@ -87,6 +93,7 @@ config() {
 wait_check 'len(o)==2 and all(x["loaded"] and x["visible"] and x["screen"]==x["output"] for x in p["grounds"]+p["strips"]) and len(p["grounds"])==2 and len(p["strips"])==2'
 wait_check 's["display"]=="HEADLESS-1" and s["noticeOutput"]=="HEADLESS-1"'
 wait_check 'p["stripDemand"]==2 and s["telemetryIntervalMs"]==5000'
+wait_check 'all(x["appBars"]==[o[x["output"]]["primary"]] for x in p["grounds"])'
 # Clear seeded clients so coverage can be exercised independently on each output.
 mock '{"op":"state"}' | python3 -c 'import json,sys;print("\n".join(c["address"] for c in json.load(sys.stdin)["clients"]))' >"$OUT/seed-clients.txt"
 while read -r address; do
@@ -180,6 +187,7 @@ mock "{\"op\":\"fullscreen\",\"address\":\"$primary_game\",\"mode\":0}" >/dev/nu
 wait_check 'all(not x["released"] for x in o.values()) and all(x["loaded"] for x in p["grounds"]+p["strips"])'
 config "{\"display\":{\"primary\":\"$second\",\"overlayOn\":\"primary\"}}"
 wait_check "s['display']=='$second' and s['noticeOutput']=='$second' and o['$second']['primary']"
+wait_check 'all(x["appBars"]==[o[x["output"]]["primary"]] for x in p["grounds"])'
 ipc open command >/dev/null
 wait_check "p['deck']=='$second'"
 ipc close
@@ -209,6 +217,7 @@ assert after==before, (before,after)
 PYSTOP
 config '{}'
 wait_check 'p["stripDemand"]==1 and s["telemetryIntervalMs"]==5000'
+wait_check 'p["grounds"][0]["appBars"]==[True]'
 shot 04-single-output
 alive || fail "quickshell died"
 if grep -nEi 'dangling|destroyed screen|ReferenceError|TypeError|SyntaxError|is not defined|Cannot read|Binding loop|Unable to assign|Cannot assign|is not a type|Type .* unavailable|Error loading QML' "$OUT/qs.log"; then fail "QML errors"; fi

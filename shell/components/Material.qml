@@ -10,12 +10,12 @@ Item {
     readonly property string outputName: Screen.name
     required property string shader
     property vector4d parameters: Qt.vector4d(0, 0, 0, 0)
-    property color accent: Theme.integratedApps ? Theme.appLink : Theme.signal
+    property color accent: Theme.integratedApps ? material.profile.appLink : material.profile.signal
     property real strength: 1
     readonly property real outputScale: Screen.devicePixelRatio
     readonly property bool supported: GraphicsInfo.shaderType === GraphicsInfo.RhiShader
         && GraphicsInfo.api !== GraphicsInfo.Null && GraphicsInfo.api !== GraphicsInfo.Unknown
-    readonly property bool available: supported && !profile.idleDimmed && !Theme.lowEffects && Theme.shaderQuality > 0 && !Theme.ambientHeldFor(outputName)
+    readonly property bool available: supported && !(profile.idleDimmed || profile.idleAnimationHeld) && !Theme.lowEffects && Theme.shaderQuality > 0 && !Theme.ambientHeldFor(outputName)
         && visible && width > 0 && height > 0 && Window.window !== null && Window.window.visible
     // Loader.Ready only means the QML object exists. Keep the native faces
     // until the actual material compiles, including a missing/broken package.
@@ -31,13 +31,13 @@ Item {
             readonly property color surface: material.profile.surface
             readonly property color surface2: material.profile.surface2
             readonly property color grid: material.profile.grid
-            readonly property color signal: Theme.signal
-            readonly property color appLink: Theme.appLink
-            readonly property color text: Theme.text
-            readonly property color textDim: Theme.textDim
-            readonly property color caution: Theme.caution
-            readonly property color critical: Theme.critical
-            readonly property color nominal: Theme.nominal
+            readonly property color signal: material.profile.signal
+            readonly property color appLink: material.profile.appLink
+            readonly property color text: material.profile.text
+            readonly property color textDim: material.profile.textDim
+            readonly property color caution: material.profile.caution
+            readonly property color critical: material.profile.critical
+            readonly property color nominal: material.profile.nominal
             readonly property color accent: material.accent
             readonly property vector4d metrics: Qt.vector4d(width, height, Theme.unit, material.outputScale)
             // Full/reduced/off, intensity, installation direction, quality.

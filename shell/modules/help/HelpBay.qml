@@ -9,6 +9,7 @@ import qs.services
 // each bay. Generated from the live registry, so it is never out of date.
 FocusScope {
     id: help
+    property var profile: Theme
     Connections {
         target: Theme
         function onAnimateChanged() {
@@ -93,7 +94,7 @@ FocusScope {
         }
     }
 
-    Bezel {
+    Bezel { profile: help.profile;
         anchors.fill: parent
         designation: "HLP / 00"
         title: "Help and shortcuts"
@@ -127,7 +128,7 @@ FocusScope {
                             required property var modelData
                             width: keysCol.width
                             spacing: Theme.px(3)
-                            Label {
+                            Label { profile: help.profile;
                                 text: modelData.title
                                 strong: true
                             }
@@ -141,7 +142,7 @@ FocusScope {
                                         textFormat: Text.PlainText
                                         width: Math.min(Theme.px(170), keysCol.width * .48)
                                         text: modelData[0]
-                                        color: Theme.signal
+                                        color: help.profile.signal
                                         font.family: Theme.mono
                                         font.pixelSize: Theme.fontXs
                                         wrapMode: Text.WrapAnywhere
@@ -151,7 +152,7 @@ FocusScope {
                                         width: Math.max(0, keysCol.width - Math.min(Theme.px(170), keysCol.width * .48) - Theme.gap)
                                         wrapMode: Text.WordWrap
                                         text: modelData[1]
-                                        color: Theme.text
+                                        color: help.profile.text
                                         font.family: Theme.sans
                                         font.pixelSize: Theme.fontXs
                                     }
@@ -171,8 +172,8 @@ FocusScope {
                 Rectangle {
                     Layout.fillWidth: true
                     implicitHeight: Math.round(Theme.rowHeight * 1.1)
-                    color: Theme.bg
-                    border.color: filterInput.activeFocus ? Theme.signal : Theme.grid
+                    color: help.profile.bg
+                    border.color: filterInput.activeFocus ? help.profile.signal : help.profile.grid
                     border.width: Theme.border
                     radius: Theme.radius
                     TextInput {
@@ -181,7 +182,7 @@ FocusScope {
                         anchors.leftMargin: Theme.pad
                         verticalAlignment: TextInput.AlignVCenter
                         focus: true
-                        color: Theme.text
+                        color: help.profile.text
                         font.family: Theme.mono
                         font.pixelSize: Theme.fontSm
                         clip: true
@@ -191,7 +192,7 @@ FocusScope {
                             visible: filterInput.text === ""
                             anchors.verticalCenter: parent.verticalCenter
                             text: "filter commands"
-                            color: Theme.textDim
+                            color: help.profile.textDim
                             font: filterInput.font
                         }
                     }
@@ -204,7 +205,7 @@ FocusScope {
                     model: help.commands
                     spacing: Theme.px(2)
                     section.property: "category"
-                    section.delegate: Label {
+                    section.delegate: Label { profile: help.profile;
                         required property string section
                         text: section
                         strong: true
@@ -218,7 +219,7 @@ FocusScope {
                             textFormat: Text.PlainText
                             Layout.preferredWidth: list.width * .36
                             text: modelData.title
-                            color: modelData.hidden ? Theme.textDim : Theme.text
+                            color: modelData.hidden ? help.profile.textDim : help.profile.text
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontXs
                             elide: Text.ElideRight
@@ -227,7 +228,7 @@ FocusScope {
                             textFormat: Text.PlainText
                             Layout.preferredWidth: list.width * .26
                             text: modelData.alias ? modelData.alias + (modelData.params.length ? " " + modelData.params.map(p => "‹" + p.name + "›").join(" ") : "") : ""
-                            color: Theme.signal
+                            color: help.profile.signal
                             font.family: Theme.mono
                             font.pixelSize: Theme.fontXs
                             elide: Text.ElideRight
@@ -236,7 +237,7 @@ FocusScope {
                             textFormat: Text.PlainText
                             Layout.fillWidth: true
                             text: modelData.id + (modelData.sensitive ? " · confirm" : "") + (modelData.routine ? " · routine" : "") + (modelData.source !== "core" ? " · " + modelData.source : "")
-                            color: Theme.textDim
+                            color: help.profile.textDim
                             font.family: Theme.mono
                             font.pixelSize: Theme.fontXs
                             elide: Text.ElideRight
@@ -245,7 +246,7 @@ FocusScope {
                 }
             }
         }
-        ScrollMark { viewport: keysView }
-        ScrollMark { viewport: list }
+        ScrollMark { profile: help.profile; viewport: keysView }
+        ScrollMark { profile: help.profile; viewport: list }
     }
 }

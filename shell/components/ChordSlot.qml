@@ -71,7 +71,7 @@ Item {
             c.fillStyle = chord.profile.surface2; c.fill();
             c.strokeStyle = chord.profile.grid; c.lineWidth = Theme.border; c.stroke();
             // Finite index comb: machining marks, never a frame callback.
-            c.strokeStyle = Theme.textDim; c.beginPath();
+            c.strokeStyle = chord.profile.textDim; c.beginPath();
             for (var i = 0; i < (Theme.insane ? 12 : 7); i++) {
                 var px = w - Theme.du(30 + i * 7);
                 c.moveTo(px, h - Theme.du(6));
@@ -107,7 +107,7 @@ Item {
         z: -2
         x: -Theme.du(8); y: Theme.du(24)
         width: Theme.du(3); height: Math.min(chord.height * .36, Theme.du(112))
-        color: Theme.signal
+        color: chord.profile.signal
         visible: chord.slot.bay !== "" && !chord.compactScreen && !Theme.lowEffects
     }
 

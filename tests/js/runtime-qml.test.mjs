@@ -68,6 +68,22 @@ export default suite("runtime-qml", test => {
     a.match(orbit, /onAmbientChanged: if \(!ambient\) indexMotion.complete\(\)/);
   });
 
+  test("OLED seat idle holds ambient work even when a transient surface bypasses dimming", a => {
+    const Theme = { ambientFor: () => true, ambientHeldFor: () => false,
+      travel: true, bootProgress: 1, lowEffects: false, shaderQuality: 1 };
+    const context = { Theme, Window: { window: { visible: true } }, outputName: "OLED",
+      profile: { idleDimmed: false, idleAnimationHeld: true }, visible: true, width: 1, height: 1,
+      supported: true, exposed: true, ambient: true, instrument: true,
+      machine: { ambient: true, deckHere: false }, hatch: { ambient: true, deckHere: false } };
+    for (const [name, prop] of [["Counterphase", "driving"], ["Hatch", "motionAllowed"], ["WorkspaceOrbit", "ambient"], ["Material", "available"]]) {
+      const path = "shell/components/" + name + ".qml";
+      a.equal(binding(path, prop, context), false, name + " stops work at idle");
+      context.profile.idleAnimationHeld = false;
+      a.equal(binding(path, prop, context), true, name + " resumes on input");
+      context.profile.idleAnimationHeld = true;
+    }
+  });
+
   test("per-output coverage normalises Qt array-like IPC geometry", a => {
     const outputs = [{ name: "DP-1", monitorName: "DP-1", strip: true }, { name: "DP-2", monitorName: "DP-2", strip: true }];
     const monitors = outputs.map((o, i) => ({ name: o.name, x: i * 1920, y: 0,

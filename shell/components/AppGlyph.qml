@@ -33,7 +33,7 @@ Item {
             textFormat: Text.PlainText
             anchors.centerIn: parent
             text: (root.fallback || root.icon || "?").replace(/[^A-Za-z0-9]/g, "").slice(0, 3).toUpperCase()
-            color: Theme.textDim
+            color: root.profile.textDim
             font.family: Theme.mono
             font.pixelSize: Math.max(7, Math.round(root.size * 0.36))
         }

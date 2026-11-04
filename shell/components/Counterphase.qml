@@ -15,7 +15,8 @@ Item {
     property bool instrument: false
     readonly property bool exposed: visible && Window.window && Window.window.visible
     opacity: profile.decorationOpacity === undefined ? 1 : profile.decorationOpacity
-    readonly property bool driving: !profile.idleDimmed && machine.ambient && exposed && (instrument || !machine.deckHere) && Theme.bootProgress >= 1
+    Behavior on opacity { enabled: Theme.animate && targetValue < opacity; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
+    readonly property bool driving: !(profile.idleDimmed || profile.idleAnimationHeld) && machine.ambient && exposed && (instrument || !machine.deckHere) && Theme.bootProgress >= 1
     readonly property real stroke: Theme.ambientReduced ? Theme.du(3) : Theme.du(Theme.insane ? 120 : 80)
     readonly property int direction: Compositor.focusedWorkspaceId % 2 === 0 ? -1 : 1
     signal beat()
@@ -50,13 +51,13 @@ Item {
             height: Theme.du(11)
             opacity: machine.instrument ? .55 : 1
             Rectangle { width: parent.width; height: Theme.du(2); color: machine.profile.grid }
-            Rectangle { width: Theme.du(3); height: parent.height; color: Theme.textDim }
-            Rectangle { x: parent.width - width; width: Theme.du(3); height: parent.height; color: Theme.textDim }
+            Rectangle { width: Theme.du(3); height: parent.height; color: machine.profile.textDim }
+            Rectangle { x: parent.width - width; width: Theme.du(3); height: parent.height; color: machine.profile.textDim }
             Rectangle {
                 id: carrier
                 x: bearing.width * .42; y: -Theme.du(2)
                 width: Theme.du(bearing.index === 2 ? 24 : 42); height: Theme.du(5)
-                color: bearing.index === 1 ? Theme.appLink : Theme.signal
+                color: bearing.index === 1 ? machine.profile.appLink : machine.profile.signal
                 Material { profile: machine.profile;
                     anchors.fill: parent
                     shader: "catch"
@@ -117,14 +118,14 @@ Item {
                 required property int index
                 y: index * vernier.height / 6
                 x: -Theme.du(3); width: Theme.du(index % 3 === 0 ? 12 : 7); height: Theme.du(2)
-                color: Theme.textDim
+                color: machine.profile.textDim
             }
         }
         Rectangle {
             id: returnMark
             y: vernier.height * .44; x: -Theme.du(3)
             width: Theme.du(8); height: Theme.du(24)
-            color: Theme.appLink
+            color: machine.profile.appLink
             Material { profile: machine.profile;
                 anchors.fill: parent
                 shader: "catch"

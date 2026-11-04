@@ -12,6 +12,7 @@ import qs.services
 // re-route stream · , . previous/next track.
 FocusScope {
     id: rack
+    property var profile: Theme
 
     property int selected: 0
     property string statusText: ""
@@ -180,12 +181,12 @@ FocusScope {
         return -1;
     }
 
-    Bezel {
+    Bezel { profile: rack.profile;
         anchors.fill: parent
         designation: "SIG / 04"
         title: "Signal Rack"
         status: Audio.ready ? Audio.sinks.length + " OUT · " + Audio.sources.length + " IN · " + Audio.playbackStreams.length + " STREAMS · " + Media.players.length + " PLAYERS" : "PIPEWIRE NOT CONNECTED"
-        statusColor: Audio.ready ? Theme.textDim : Theme.caution
+        statusColor: Audio.ready ? rack.profile.textDim : rack.profile.caution
 
         MouseArea {
             anchors.fill: parent
@@ -223,12 +224,12 @@ FocusScope {
                         Layout.preferredWidth: 36
                         Layout.fillHeight: true
                         spacing: Theme.px(2)
-                        Label {
+                        Label { profile: rack.profile;
                             text: "Output devices"
                         }
                         Repeater {
                             model: Audio.sinks
-                            delegate: DeviceRow {
+                            delegate: DeviceRow { profile: rack.profile;
                                 id: deviceRow
                                 onSelectedChanged: if (selected) contentView.reveal(deviceRow)
                                 required property var modelData
@@ -254,19 +255,19 @@ FocusScope {
                             text: Audio.ready ? "No output devices" : "Waiting for PipeWire…"
                             textFormat: Text.PlainText
                             wrapMode: Text.WordWrap
-                            color: Theme.textDim
+                            color: rack.profile.textDim
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontSm
                         }
                         Item {
                             Layout.preferredHeight: Theme.pad
                         }
-                        Label {
+                        Label { profile: rack.profile;
                             text: "Input devices"
                         }
                         Repeater {
                             model: Audio.sources
-                            delegate: DeviceRow {
+                            delegate: DeviceRow { profile: rack.profile;
                                 id: deviceRow
                                 onSelectedChanged: if (selected) contentView.reveal(deviceRow)
                                 required property var modelData
@@ -292,7 +293,7 @@ FocusScope {
                             text: "No input devices"
                             textFormat: Text.PlainText
                             wrapMode: Text.WordWrap
-                            color: Theme.textDim
+                            color: rack.profile.textDim
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontSm
                         }
@@ -308,12 +309,12 @@ FocusScope {
                         Layout.fillHeight: true
                         visible: Config.audio.showStreams
                         spacing: Theme.px(2)
-                        Label {
+                        Label { profile: rack.profile;
                             text: "Application streams"
                         }
                         Repeater {
                             model: Audio.playbackStreams
-                            delegate: StreamRow {
+                            delegate: StreamRow { profile: rack.profile;
                                 id: streamRow
                                 onSelectedChanged: if (selected) contentView.reveal(streamRow)
                                 required property var modelData
@@ -333,7 +334,7 @@ FocusScope {
                             text: "No application is playing audio"
                             textFormat: Text.PlainText
                             wrapMode: Text.WordWrap
-                            color: Theme.textDim
+                            color: rack.profile.textDim
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontSm
                         }
@@ -348,12 +349,12 @@ FocusScope {
                         Layout.preferredWidth: 32
                         Layout.fillHeight: true
                         spacing: Theme.pad
-                        Label {
+                        Label { profile: rack.profile;
                             text: "Media players (MPRIS)"
                         }
                         Repeater {
                             model: Media.players
-                            delegate: PlayerCard {
+                            delegate: PlayerCard { profile: rack.profile;
                                 id: playerRow
                                 onSelectedChanged: if (selected) contentView.reveal(playerRow)
                                 required property var modelData
@@ -376,7 +377,7 @@ FocusScope {
                             text: "No MPRIS player is running"
                             textFormat: Text.PlainText
                             wrapMode: Text.WordWrap
-                            color: Theme.textDim
+                            color: rack.profile.textDim
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontSm
                         }
@@ -386,9 +387,9 @@ FocusScope {
                     }
                 }
             }
-            ScrollMark { viewport: contentView }
+            ScrollMark { profile: rack.profile; viewport: contentView }
 
-            StatusLine {
+            StatusLine { profile: rack.profile;
                 Layout.fillWidth: true
                 hints: [
                     {

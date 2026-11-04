@@ -10,6 +10,7 @@ import qs.services
 // only renders results and turns keys into registry calls.
 FocusScope {
     id: core
+    property var profile: Theme
     readonly property bool compact: height < Theme.du(600)
 
     property string query: Ui.pendingQuery
@@ -229,7 +230,7 @@ FocusScope {
         }
     }
 
-    Bezel {
+    Bezel { profile: core.profile;
         id: bezel
         anchors.fill: parent
         contentPadding: core.compact ? Theme.pad : Theme.contentInset
@@ -254,7 +255,7 @@ FocusScope {
                 Text {
                     text: "UNIVERSAL INPUT"
                     textFormat: Text.PlainText
-                    color: Theme.textDim
+                    color: core.profile.textDim
                     font.family: Theme.mono
                     font.pixelSize: Theme.fontSm
                     font.letterSpacing: 1
@@ -262,7 +263,7 @@ FocusScope {
                 Text {
                     text: core.results.length + " MATCH" + (core.results.length === 1 ? "" : "ES")
                     textFormat: Text.PlainText
-                    color: Theme.signal
+                    color: core.profile.signal
                     font.family: Theme.mono
                     font.pixelSize: Theme.fontSm
                 }
@@ -275,13 +276,13 @@ FocusScope {
                 width: parent.width
                 height: core.compact ? Theme.du(48) : Math.max(Theme.px(76), Theme.rowHeight * 1.9)
                 radius: Theme.radius
-                color: Theme.lowEffects ? Theme.bg : Theme.alpha(Theme.bg, 0.8)
+                color: Theme.lowEffects ? core.profile.bg : Theme.alpha(core.profile.bg, 0.8)
 
                 Rectangle {
                     anchors.bottom: parent.bottom
                     x: Theme.radius; width: parent.width - 2 * x
                     height: Theme.px(2)
-                    color: Theme.signal
+                    color: core.profile.signal
                 }
                 Text {
                     id: prompt
@@ -290,7 +291,7 @@ FocusScope {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "›"
                     textFormat: Text.PlainText
-                    color: Theme.signal
+                    color: core.profile.signal
                     font.family: Theme.mono
                     font.pixelSize: core.compact ? Theme.fontLg : Theme.px(34)
                 }
@@ -305,9 +306,9 @@ FocusScope {
                     focus: true
                     text: core.query
                     onTextChanged: core.query = text
-                    color: Theme.text
-                    selectionColor: Theme.signal
-                    selectedTextColor: Theme.bg
+                    color: core.profile.text
+                    selectionColor: core.profile.signal
+                    selectedTextColor: core.profile.bg
                     font.family: Theme.mono
                     font.pixelSize: core.compact ? Theme.fontLg : Theme.px(28)
                     clip: true
@@ -317,7 +318,7 @@ FocusScope {
                         visible: input.text === ""
                         text: "App, window, command…"
                         textFormat: Text.PlainText
-                        color: Theme.textDim
+                        color: core.profile.textDim
                         font.family: Theme.mono
                         font.pixelSize: core.compact ? Theme.fontLg : Theme.px(24)
                         elide: Text.ElideRight
@@ -326,7 +327,7 @@ FocusScope {
                 }
             }
 
-            InstrumentTabs {
+            InstrumentTabs { profile: core.profile;
                 id: scopeRow
                 anchors.top: inputRow.bottom
                 anchors.topMargin: core.compact ? Theme.gap : Theme.pad * 1.8
@@ -353,7 +354,7 @@ FocusScope {
                 highlightMoveDuration: Theme.animate ? Theme.fast : 0
                 keyNavigationEnabled: false
 
-                delegate: ResultRow {
+                delegate: ResultRow { profile: core.profile;
                     required property var modelData
                     required property int index
                     width: list.width
@@ -379,7 +380,7 @@ FocusScope {
                         horizontalAlignment: Text.AlignHCenter
                         text: !Apps.ready && core.query.trim() !== "" ? "INDEXING APPLICATIONS…" : core.query.trim() === "" ? "START TYPING" : "NO MATCH"
                         textFormat: Text.PlainText
-                        color: Theme.text
+                        color: core.profile.text
                         font.family: Theme.mono
                         font.pixelSize: Theme.fontSm
                     }
@@ -388,7 +389,7 @@ FocusScope {
                         horizontalAlignment: Text.AlignHCenter
                         text: "> commands · @ windows · ! routines · ? AI · F1 help"
                         textFormat: Text.PlainText
-                        color: Theme.textDim
+                        color: core.profile.textDim
                         font.family: Theme.mono
                         font.pixelSize: Theme.fontXs
                         wrapMode: Text.WordWrap
@@ -405,7 +406,7 @@ FocusScope {
                     width: parent.width
                     text: "↑↓ SELECT    ⏎ RUN    ⇧⏎ RUN, STAY    TAB SCOPE"
                     textFormat: Text.PlainText
-                    color: Theme.textDim
+                    color: core.profile.textDim
                     font.family: Theme.mono
                     font.pixelSize: Theme.fontXs
                     wrapMode: Text.WordWrap
@@ -414,7 +415,7 @@ FocusScope {
                     width: parent.width
                     text: core.statusText !== "" ? core.statusText : core.current && !core.current.available ? "N/A · " + core.current.reason : ""
                     textFormat: Text.PlainText
-                    color: core.statusState === "error" ? Theme.critical : core.statusState === "caution" || core.current && !core.current.available ? Theme.caution : Theme.textDim
+                    color: core.statusState === "error" ? core.profile.critical : core.statusState === "caution" || core.current && !core.current.available ? core.profile.caution : core.profile.textDim
                     font.family: Theme.mono
                     font.pixelSize: Theme.fontXs
                     elide: Text.ElideRight

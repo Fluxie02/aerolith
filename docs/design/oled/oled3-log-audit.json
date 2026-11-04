@@ -1,0 +1,22 @@
+{
+  "smoke": {
+    "qml_errors": 0,
+    "messages": []
+  },
+  "oled": {
+    "qml_errors": 0,
+    "messages": []
+  },
+  "multimonitor": {
+    "qml_errors": 0,
+    "messages": []
+  },
+  "deck": {
+    "qml_errors": 0,
+    "messages": []
+  },
+  "app-links": {
+    "qml_errors": 0,
+    "messages": []
+  }
+}

@@ -19,7 +19,7 @@ Item {
 
     readonly property bool known: !isNaN(value) && value !== null && isFinite(value)
     readonly property real fraction: known ? Math.max(0, Math.min(1, (value - min) / (max - min))) : 0
-    readonly property color fillColor: status === "caution" ? Theme.caution : status === "critical" ? Theme.critical : Theme.signal
+    readonly property color fillColor: status === "caution" ? root.profile.caution : status === "critical" ? root.profile.critical : root.profile.signal
 
     Rectangle {
         id: track
@@ -88,7 +88,7 @@ Item {
         y: 0
         width: Theme.px(2)
         height: track.height
-        color: Theme.caution
+        color: root.profile.caution
     }
     Rectangle {
         visible: !isNaN(root.critical)
@@ -96,7 +96,7 @@ Item {
         y: 0
         width: Theme.px(2)
         height: track.height
-        color: Theme.critical
+        color: root.profile.critical
     }
 
     // Caret

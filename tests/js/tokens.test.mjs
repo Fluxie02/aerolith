@@ -1,8 +1,8 @@
 import { suite } from "./harness.mjs";
 import { SCHEMES, paletteForScheme } from "../../shell/lib/schemes.mjs";
-import { PALETTE, MIN_TEXT_CONTRAST, contrast, luminance, oledPalette, profileState, OLED_DEFAULTS, resolvePalette } from "../../shell/lib/tokens.mjs";
+import { PALETTE, MIN_TEXT_CONTRAST, contrast, luminance, oledPalette, profileState, OLED_DEFAULTS, OPACITY, resolvePalette } from "../../shell/lib/tokens.mjs";
 
-const foregrounds = ["text", "textDim", "signal", "caution", "critical", "nominal"];
+const foregrounds = ["text", "textDim", "signal", "caution", "critical", "nominal", "appLink"];
 const backgrounds = ["obsidian", "surface", "surface2"];
 
 function assertReadable(assert, p) {
@@ -30,7 +30,7 @@ export function checkQmlProfiles(assert, profile, other, theme, idle, config) {
   profile.output = "OLED-1";
   other.output = "LCD-1";
   profile.profile = "oled";
-  const expected = oledPalette(theme.palette);
+  const expected = oledPalette(theme.palette, { appLink: String(theme.appLink) });
   assert.equal(profile.background.toString(), "#000000");
   assert.equal(profile.bg.toString(), profile.background.toString());
   const roles = ["surface", "surface2", "grid"].concat(foregrounds);
@@ -70,7 +70,7 @@ export const oledTokensSuite = suite("oled tokens", test => {
     test(scheme.id + ": black fill, separate planes, dimmer accents and AA contrast", assert => {
       const standard = resolvePalette({}, scheme.id);
       const snapshot = JSON.stringify(standard);
-      const p = oledPalette(standard);
+      const p = oledPalette(standard, { appLink: scheme.link });
       assert.equal(p.obsidian, "#000000");
       assert.equal(p.background, "#000000");
       assert.ok(luminance(p.surface) > 0);
@@ -79,7 +79,7 @@ export const oledTokensSuite = suite("oled tokens", test => {
       assert.ok(luminance(p.surface2) < luminance(standard.surface2));
       assert.ok(luminance(p.grid) < luminance(standard.grid));
       for (let k = 2; k < foregrounds.length; k++)
-        assert.ok(luminance(p[foregrounds[k]]) < luminance(standard[foregrounds[k]]), foregrounds[k] + " dims");
+        assert.ok(luminance(p[foregrounds[k]]) < luminance(k === 6 ? scheme.link : standard[foregrounds[k]]), foregrounds[k] + " dims");
       assert.ok(p.decorationOpacity > 0 && p.decorationOpacity < 1);
       assert.ok(p.idleDim > 0 && p.idleDim < 1);
       assert.equal(p.text, standard.text);
@@ -109,13 +109,41 @@ export const oledTokensSuite = suite("oled tokens", test => {
 
   test("seat idle policy is opt-in, live, and disables at zero timeout", assert => {
     const opts = { idleDimAfter: 2, idleDimLevel: 0.4, hideDecorationWhenIdle: true };
-    assert.deepEqual(profileState("standard", opts, true), { idleDimmed: false, opacity: 1, decorationOpacity: 1 });
-    assert.deepEqual(profileState("oled", opts, false), { idleDimmed: false, opacity: 1, decorationOpacity: OLED_DEFAULTS.decorationOpacity });
-    assert.deepEqual(profileState("oled", opts, true), { idleDimmed: true, opacity: 0.4, decorationOpacity: 0 });
+    assert.deepEqual(profileState("standard", opts, true), { idleDimmed: false, opacity: 1, hideContent: false, decorationOpacity: 1 });
+    assert.deepEqual(profileState("oled", opts, false), { idleDimmed: false, opacity: 1, hideContent: false, decorationOpacity: OLED_DEFAULTS.decorationOpacity });
+    assert.deepEqual(profileState("oled", opts, true), { idleDimmed: true, opacity: 1, hideContent: true, decorationOpacity: 0 });
     assert.equal(profileState("oled", Object.assign({}, opts, { idleDimAfter: 0 }), true).opacity, 1);
-    assert.equal(profileState("oled", Object.assign({}, opts, { hideDecorationWhenIdle: false }), true).decorationOpacity, OLED_DEFAULTS.decorationOpacity);
+    assert.equal(profileState("oled", Object.assign({}, opts, { hideDecorationWhenIdle: false }), true).decorationOpacity, OLED_DEFAULTS.decorationOpacity * 0.4);
     assert.equal(profileState("standard", opts, true).idleDimmed, false, "live switch restores");
     assert.equal(profileState("unknown", opts, true).opacity, 1);
+  });
+
+  test("continuity uses resolved link x0.80 with repair, including composited materials", assert => {
+    function composite(fg, bg, alpha) {
+      return "#" + [1, 3, 5].map(i => {
+        const c = Math.round(parseInt(fg.slice(i, i+2), 16)*alpha + parseInt(bg.slice(i, i+2), 16)*(1-alpha)).toString(16);
+        return c.length < 2 ? "0" + c : c;
+      }).join("");
+    }
+    for (let i = 0; i < SCHEMES.length; i++) {
+      const scheme = SCHEMES[i];
+      const p = oledPalette(scheme.palette, { appLink: scheme.link });
+      const fills = [p.bg || p.obsidian, p.surface, p.surface2,
+        composite(p.surface, p.obsidian, OPACITY.panel), // Bezel over Deck backing
+        composite(p.obsidian, p.surface, .8)]; // recessed Command input
+      for (let j = 0; j < foregrounds.length; j++)
+        for (let k = 0; k < fills.length; k++)
+          assert.ok(contrast(p[foregrounds[j]], fills[k]) >= MIN_TEXT_CONTRAST, scheme.id + ": " + foregrounds[j] + " over " + fills[k]);
+      if (scheme.id === "limb") assert.equal(p.appLink, "#67b8be");
+      assert.equal(p.appLink, composite(scheme.link, "#000000", .8));
+    }
+    const p = oledPalette(PALETTE, { appLink: "#80000000" });
+    for (let i = 0; i < backgrounds.length; i++)
+      assert.ok(contrast(p.appLink, p[backgrounds[i]]) >= MIN_TEXT_CONTRAST, "custom link repair");
+    const idle = profileState("oled", { idleDimAfter: 300, hideDecorationWhenIdle: false }, true);
+    assert.equal(idle.opacity, 1, "retained functional text stays opaque");
+    assert.equal(idle.decorationOpacity, .55*.65, "idle dims only decoration once");
+    assert.equal(idle.hideContent, false);
   });
 
   test("options bound opacity multipliers and do not change standard resolution", assert => {

@@ -1,5 +1,8 @@
 # OLED-2 verification and Astra review packet
 
+Current implementation and refreshed captures: [OLED-3 verification](OLED-3.md).
+The remainder of this page is the historical OLED-2 record.
+
 Baseline revision: `05912cb44a70aeada1b71d34ca7d9cd89cc61149`.
 
 4 November 2026. Implementation by Terra in the OLED-2 worktree; no commit,

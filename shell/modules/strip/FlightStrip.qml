@@ -16,6 +16,7 @@ PanelWindow {
     readonly property alias profile: displayProfile
     DisplayProfile {
         id: displayProfile
+        persistent: true
         output: strip.outputScreen ? strip.outputScreen.name : ""
     }
     contentItem {
@@ -40,6 +41,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
+    readonly property bool hideContent: displayProfile.hideContent
     readonly property bool atTop: Config.strip.edge === "top"
     readonly property string telemetryMode: Config.strip.telemetry
     readonly property bool compact: width < Theme.px(1500)
@@ -51,6 +53,7 @@ PanelWindow {
         y: strip.atTop ? parent.height - height : 0
         height: Theme.border
         color: strip.profile.grid
+        opacity: displayProfile.decorationOpacity
     }
 
     RowLayout {
@@ -61,6 +64,9 @@ PanelWindow {
 
         // Identity mark: opens the Command Core.
         Item {
+            opacity: strip.hideContent ? 0 : 1
+            Behavior on opacity { enabled: Theme.animate && targetValue < 1; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
+            enabled: !strip.hideContent
             Layout.fillHeight: true
             implicitWidth: mark.implicitWidth + Theme.pad
             Row {
@@ -72,7 +78,7 @@ PanelWindow {
                     height: width
                     rotation: 45
                     color: "transparent"
-                    border.color: Ui.deckOpen ? Theme.signal : Theme.textDim
+                    border.color: Ui.deckOpen ? strip.profile.signal : strip.profile.textDim
                     border.width: Theme.px(2)
                     anchors.verticalCenter: parent.verticalCenter
                 }
@@ -80,7 +86,7 @@ PanelWindow {
                     textFormat: Text.PlainText
                     visible: !strip.compact
                     text: "AEROLITH"
-                    color: Theme.text
+                    color: strip.profile.text
                     font.family: Theme.sans
                     font.pixelSize: Theme.fontXs
                     font.weight: Font.DemiBold
@@ -98,6 +104,9 @@ PanelWindow {
         StripDivider {}
 
         Flickable {
+            opacity: strip.hideContent ? 0 : 1
+            Behavior on opacity { enabled: Theme.animate && targetValue < 1; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
+            enabled: !strip.hideContent
             Layout.fillHeight: true
             Layout.minimumHeight: Theme.stripHeight
             Layout.preferredHeight: Theme.stripHeight
@@ -116,13 +125,15 @@ PanelWindow {
             Layout.fillHeight: true
             Layout.minimumWidth: 0
             visible: Config.strip.showWindowTitle && !strip.compact
+            opacity: strip.hideContent ? 0 : 1
+            Behavior on opacity { enabled: Theme.animate && targetValue < 1; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
             spacing: Theme.gap
             clip: true
             Text {
                 textFormat: Text.PlainText
                 visible: Compositor.activeClass !== ""
                 text: Compositor.activeClass.toUpperCase()
-                color: Theme.appLink
+                color: strip.profile.appLink
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
                 font.letterSpacing: 0.8
@@ -133,7 +144,7 @@ PanelWindow {
             Text {
                 textFormat: Text.PlainText
                 text: Compositor.available ? Compositor.activeTitle : "COMPOSITOR LINK DOWN"
-                color: Compositor.available ? Theme.text : Theme.caution
+                color: Compositor.available ? strip.profile.text : strip.profile.caution
                 font.family: Compositor.available ? Theme.sans : Theme.mono
                 font.pixelSize: Theme.fontSm
                 elide: Text.ElideRight
@@ -151,6 +162,8 @@ PanelWindow {
             spacing: Theme.px(2)
 
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: Compositor.screencastActive
                 code: "● SHARE"
@@ -159,6 +172,8 @@ PanelWindow {
                 interactive: false
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: Config.errors.length > 0 || Routines.errors.length > 0
                 code: "CFG"
@@ -170,6 +185,8 @@ PanelWindow {
                 }
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && Telemetry.cpuState === "caution")
                 code: "CPU"
@@ -178,6 +195,8 @@ PanelWindow {
                 onClicked: Ui.toggle("systems")
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && Telemetry.memState === "caution")
                 code: "MEM"
@@ -186,6 +205,8 @@ PanelWindow {
                 onClicked: Ui.toggle("systems")
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && (Telemetry.tempState === "caution" || Telemetry.tempState === "critical"))
                 code: "TMP"
@@ -194,6 +215,8 @@ PanelWindow {
                 onClicked: Ui.toggle("systems")
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: Media.active !== null
                 code: Media.playing ? "▶" : "Ⅱ"
@@ -210,6 +233,8 @@ PanelWindow {
                 }
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: true
                 code: "AUD"
@@ -226,6 +251,8 @@ PanelWindow {
                     })
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: Audio.ready && Audio.source !== null && Audio.sourceMuted
                 code: "MIC"
@@ -234,6 +261,8 @@ PanelWindow {
                 onClicked: Registry.run("audio.input.mute.toggle")
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: Power.hasBattery
                 code: Power.charging ? "CHG" : "BAT"
@@ -242,6 +271,8 @@ PanelWindow {
                 interactive: false
             }
             Annunciator { profile: strip.profile;
+                opacity: strip.hideContent && !raised ? 0 : 1
+                enabled: opacity > 0
                 compact: strip.compact
                 visible: Notifications.enabled && (Notifications.count > 0 || Notifications.doNotDisturb)
                 code: Notifications.doNotDisturb ? "DND" : "NTF"
@@ -254,6 +285,7 @@ PanelWindow {
         StripDivider {}
 
         StripClock {
+            profile: strip.profile
             compact: strip.compact
             Layout.fillHeight: true
         }
@@ -265,5 +297,6 @@ PanelWindow {
         Layout.topMargin: Theme.px(7)
         Layout.bottomMargin: Theme.px(7)
         color: strip.profile.grid
+        opacity: displayProfile.decorationOpacity
     }
 }

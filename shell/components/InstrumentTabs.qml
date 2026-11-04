@@ -26,6 +26,7 @@ Item {
 
     Canvas {
         id: track
+        opacity: route.profile.decorationOpacity === undefined ? 1 : route.profile.decorationOpacity
         Connections {
             target: route.profile
             function onPaletteChanged() { track.requestPaint(); }
@@ -92,11 +93,11 @@ Item {
             target: Theme
             function onTravelChanged() { if (!Theme.travel) { routeX.complete(); routeY.complete(); } }
         }
-        Rectangle { anchors.fill: parent; radius: Theme.radius; color: route.profile.surface2; border.color: Theme.signal; border.width: Theme.border }
+        Rectangle { anchors.fill: parent; radius: Theme.radius; color: route.profile.surface2; border.color: route.profile.signal; border.width: Theme.border }
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             y: parent.height + Theme.du(2)
-            width: Theme.du(6); height: width; radius: width / 2; color: Theme.signal
+            width: Theme.du(6); height: width; radius: width / 2; color: route.profile.signal
         }
     }
 
@@ -128,7 +129,7 @@ Item {
                     text: station.modelData.label === "AI" ? "AI" : station.modelData.label.charAt(0) + station.modelData.label.slice(1).toLowerCase()
                     textFormat: Text.PlainText
                     elide: Text.ElideRight
-                    color: station.selected ? Theme.signal : pointer.containsMouse ? Theme.text : Theme.textDim
+                    color: station.selected ? route.profile.signal : pointer.containsMouse ? route.profile.text : route.profile.textDim
                     font.family: Theme.sans; font.pixelSize: route.shortcuts ? Theme.fontMd : Theme.fontSm
                     font.weight: station.selected ? Font.DemiBold : Font.Normal
                     Behavior on color { enabled: Theme.animate; ColorAnimation { id: colorFade; duration: Theme.fast } }
@@ -143,7 +144,7 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                     text: station.modelData.key === "F1" ? "F1" : "Ctrl+" + station.modelData.key
                     textFormat: Text.PlainText
-                    color: Theme.textDim
+                    color: route.profile.textDim
                     font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 }
             }

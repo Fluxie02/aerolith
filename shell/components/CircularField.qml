@@ -19,6 +19,7 @@ Item {
 
     Canvas {
         id: art
+        opacity: field.profile.decorationOpacity === undefined ? 1 : field.profile.decorationOpacity
         Connections {
             target: field.profile
             function onPaletteChanged() { art.requestPaint(); }
@@ -66,9 +67,9 @@ Item {
                 var inner = r + Theme.px(20);
                 line(x + Math.cos(a) * inner, y + Math.sin(a) * inner,
                      x + Math.cos(a) * (inner + len), y + Math.sin(a) * (inner + len),
-                     field.blend(field.profile.grid, Theme.textDim, i % 5 === 0 ? .3 : 0));
+                     field.blend(field.profile.grid, field.profile.textDim, i % 5 === 0 ? .3 : 0));
             }
-            var registration = field.blend(field.profile.grid, Theme.textDim, .25);
+            var registration = field.blend(field.profile.grid, field.profile.textDim, .25);
             line(x - r * .22, y, x + r * .22, y, registration);
             line(x, y - Theme.px(16), x, y + Theme.px(16), registration);
             if (field.instrument) {
@@ -93,6 +94,6 @@ Item {
             target: Theme
             function onTravelChanged() { if (!Theme.travel) needle.complete(); }
         }
-        Rectangle { x: parent.width - Theme.px(8); y: -height / 2; width: Theme.px(46); height: Theme.px(3); color: Theme.signal }
+        Rectangle { x: parent.width - Theme.px(8); y: -height / 2; width: Theme.px(46); height: Theme.px(3); color: field.profile.signal }
     }
 }

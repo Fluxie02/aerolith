@@ -20,6 +20,6 @@ Item {
         height: Math.min(mark.height, Math.max(Theme.du(18), mark.height * mark.viewport.visibleArea.heightRatio))
         y: Math.max(0, Math.min(mark.height - height, mark.viewport.visibleArea.yPosition * mark.height))
         radius: width / 2
-        color: Theme.textDim
+        color: mark.profile.textDim
     }
 }

@@ -25,29 +25,41 @@ probe='''
         function idle(value: bool): void { Idle.testIdle = value ? 1 : 0; }
         function resume(): string {
             Idle.testIdle = 0;
-            return JSON.stringify(oledGrounds.instances.concat(oledStrips.instances).map(l => l.item.contentItem.opacity));
+            const surfaces = JSON.parse(snapshot());
+            return JSON.stringify({ roots: surfaces.grounds.concat(surfaces.strips).map(w => w.opacity),
+                ground: oledGrounds.instances.map(l => l.item.contentItem.children[0].children[0].opacity),
+                tapes: surfaces.strips.map(w => w.parts.filter(c => c.type.indexOf("WorkspaceTape") === 0).map(c => c.opacity)) });
         }
         function notice(): void { Ui.notify("OLED profile check", "info", "Transient notice"); }
         function osd(): void { oledOsd.armed = true; oledOsd.show("volume"); }
         function dismiss(): void { Ui.sessionOpen = false; }
         function snapshot(): string {
-            function children(item, found) {
+            function children(item, found, opacity) {
                 if (!item) return;
+                opacity *= item.opacity === undefined ? 1 : item.opacity;
                 const type = item.toString().split("(")[0];
-                const required = ["Ground", "InstrumentField", "Instrumentation", "Hatch", "Counterphase", "Material", "WorkspaceOrbit", "NowPlaying", "AppContinuity", "AppGlyph", "WorkspaceTape", "Annunciator", "Bezel", "ChordSlot", "InstrumentTabs", "ScrollMark", "NoticeStack", "OsdView", "SessionView", "DeckView"];
+                const required = ["Ground", "InstrumentField", "Instrumentation", "Hatch", "Counterphase", "Material", "WorkspaceOrbit", "NowPlaying", "AppContinuity", "AppGlyph", "WorkspaceTape", "Annunciator", "Bezel", "ChordSlot", "InstrumentTabs", "ScrollMark", "NoticeStack", "OsdView", "SessionView", "DeckView", "CommandCore", "ResultRow", "SpatialNavigator", "Sector", "SystemsBay", "CoreBus", "SignalRack", "DeviceRow", "StreamRow", "PlayerCard", "RoutineConsole", "HelpBay", "SettingsBay", "SettingControl", "SchemePicker", "Label", "KeyHint", "StatusLine", "Trace", "TapeGauge", "StripClock", "AiConsole"];
                 if ((item.profile !== undefined && item.profile !== null) || required.indexOf(type.split("_QMLTYPE")[0]) >= 0)
-                    found.push({ type: type,
+                    found.push({ type: type, visible: item.visible, opacity: opacity,
+                        color: item.color === undefined ? "" : String(item.color),
+                        appLink: item.profile ? String(item.profile.appLink) : "",
+                        time: item.timeText, seconds: item.seconds,
+                        texts: type.indexOf("StripClock") === 0 ? item.children[0].children.map(t => ({text: t.text, color: String(t.color), opacity: t.opacity, visible: t.visible})) : [],
                         profile: item.profile ? (item.profile.profile || "standard-default") : "missing",
                         bg: item.profile ? String(item.profile.bg) : "", grid: item.profile ? String(item.profile.grid) : "" });
-                for (const child of item.children || []) children(child, found);
+                for (const child of item.children || []) children(child, found, opacity);
             }
             function surface(w) {
                 if (!w || !w.profile) return null;
-                const parts = []; children(w.contentItem, parts);
+                const parts = []; children(w.contentItem, parts, 1);
+                const slot = w.slotA ? (w.slotA.current ? w.slotA : w.slotB) : null;
                 return { output: w.screen ? w.screen.name : "", visible: w.visible,
+                    bayType: slot && slot.item ? slot.item.toString().split("(")[0] : "",
+                    bayReady: !!slot && !!slot.item, bay: slot ? slot.bay : "",
+                    bayProfile: slot && slot.item && slot.item.profile ? (slot.item.profile.profile || "standard-default") : "missing",
                     profile: w.profile.profile, bg: String(w.profile.bg),
                     surface: String(w.profile.surface), grid: String(w.profile.grid),
-                    decoration: w.profile.decorationOpacity, dimmed: w.profile.idleDimmed,
+                    textDim: String(w.profile.textDim), hide: w.profile.hideContent, decoration: w.profile.decorationOpacity, dimmed: w.profile.idleDimmed,
                     opacity: (w.dimItem || w.contentItem).opacity, frames: w.testFrames, parts: parts };
             }
             const extras = [surface(oledOsd.testWindow), surface(oledSession.testWindow)].filter(w => w !== null);
@@ -79,7 +91,9 @@ for name,ident in [('ground/GroundSurface','ground'),('strip/FlightStrip','strip
 # Sway versions without ext-idle-notify can exercise the SAME production
 # bindings with this test-owned input. The scenario records any fallback.
 p=root/'services/Idle.qml'; s=p.read_text().replace('id: root','id: root\n    property int testIdle: -1',1).replace('monitor.isIdle','(testIdle < 0 ? monitor.isIdle : testIdle === 1)'); p.write_text(s)
-# Keep the standard screenshot byte comparison independent of wall-clock minutes.
+# Keep pixel comparisons independent of wall-clock minutes and live memory.
+p=root/'components/Instrumentation.qml'; p.write_text(p.read_text().replace('Telemetry.cpu', '({total:null, cores:[]})').replace('readonly property string mem: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)', 'readonly property string mem: "50%"'))
+# Freeze the clock display, while still checking its real precision policy.
 p=root/'modules/strip/StripClock.qml'; p.write_text(p.read_text().replace('text: root.timeText','text: "12:34"').replace('text: root.dateText','text: "WED 04 NOV"'))
 PY
 qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &
@@ -92,6 +106,7 @@ config() {
 import json,sys,os
 fixture,path,profile,after,hide,motion=sys.argv[1:]
 c=json.load(open(fixture)); c['display']['outputs']['HEADLESS-2']['profile']=profile
+c['strip']['showSeconds']=True
 c['display']['oled']['idleDimAfter']=int(after); c['display']['oled']['hideDecorationWhenIdle']=hide=='true'; c['theme']['motion']=motion
 with open(path+'.tmp','w') as f: json.dump(c,f)
 os.replace(path+'.tmp',path)
@@ -155,7 +170,10 @@ else
   echo 'Headless compositor did not deliver idle: disposable test hook drives production idle bindings' | tee "$OUT/idle-source.txt"
   probe idle true
 fi
-wait_check 'o["HEADLESS-2"]["idleDimmed"] and not o["HEADLESS-1"]["idleDimmed"] and g["HEADLESS-2"]["opacity"]==t["HEADLESS-2"]["opacity"]==0.4 and g["HEADLESS-2"]["decoration"]==0 and g["HEADLESS-1"]["opacity"]==t["HEADLESS-1"]["opacity"]==1'
+wait_check 'o["HEADLESS-2"]["idleDimmed"] and not o["HEADLESS-1"]["idleDimmed"] and g["HEADLESS-2"]["opacity"]==t["HEADLESS-2"]["opacity"]==1 and g["HEADLESS-2"]["decoration"]==0 and g["HEADLESS-1"]["opacity"]==t["HEADLESS-1"]["opacity"]==1'
+wait_check 'g["HEADLESS-2"]["hide"] and all(not c["visible"] or c["opacity"]==0 for c in g["HEADLESS-2"]["parts"] if not c["type"].startswith("Ground"))'
+wait_check 'all(not c["visible"] or c["opacity"]==0 for c in t["HEADLESS-2"]["parts"] if c["type"].startswith("WorkspaceTape"))'
+wait_check 'any(c["type"].startswith("StripClock") and c["visible"] and c["opacity"]==1 and not c["seconds"] and c["texts"][-1]["color"]==t["HEADLESS-2"]["textDim"] and c["texts"][-1]["opacity"]==1 and c["texts"][0]["opacity"]==0 for c in t["HEADLESS-2"]["parts"])'
 capture idle
 cmp "$OUT/standard-1.ppm" "$OUT/idle-1.ppm" || fail 'LCD changed at OLED idle'
 ! cmp -s "$OUT/oled-2.ppm" "$OUT/idle-2.ppm" || fail 'OLED did not visibly dim'
@@ -184,7 +202,8 @@ cmp "$OUT/oled-2.ppm" "$OUT/resumed-2.ppm" || fail 'OLED did not restore its exa
 # Keeping decoration is independent of dimming; zero timeout restores both.
 config oled 2 false
 probe idle true
-wait_check 'g["HEADLESS-2"]["opacity"]==0.4 and g["HEADLESS-2"]["decoration"]>0'
+wait_check 'g["HEADLESS-2"]["opacity"]==1 and not g["HEADLESS-2"]["hide"] and g["HEADLESS-2"]["decoration"]==0.55*0.4'
+wait_check 'any(c["type"].startswith("StripClock") and c["texts"][0]["opacity"]==1 and c["opacity"]==1 for c in t["HEADLESS-2"]["parts"])'
 # Reduced motion uses its existing shorter fade. Interrupting the fade with
 # activity must restore every root synchronously, without an upward fade.
 config oled 2 true reduced
@@ -194,7 +213,8 @@ probe idle true
 probe resume >"$OUT/immediate-resume.json"
 python3 - "$OUT/immediate-resume.json" <<'PYRESUME'
 import json,sys
-assert json.load(open(sys.argv[1]))==[1,1,1,1], 'activity must restore at once, including during a fade'
+p=json.load(open(sys.argv[1]))
+assert p=={'roots':[1,1,1,1], 'ground':[1,1], 'tapes':[[1],[1]]}, ('activity must restore at once, including during a fade',p)
 PYRESUME
 config oled 0
 wait_check 'p["timeout"]==0 and not p["idle"] and g["HEADLESS-2"]["opacity"]==1'
@@ -206,7 +226,37 @@ ipc open command
 wait_check 'p["deck"] and p["deck"]["visible"] and p["deck"]["profile"]=="oled" and p["deck"]["bg"]=="#000000"'
 probe notice
 wait_check 's["notices"]>0 and p["notices"]["profile"]=="oled"'
+wait_check 'p["deck"]["bayReady"] and p["deck"]["bayProfile"]=="oled" and all(c["profile"]=="oled" for c in p["deck"]["parts"])'
 capture deck-oled
+# Every actual bay, including selected rows/inputs/nested instruments, follows
+# the destination live. Keep a record of each interior for review.
+for bay in command navigator systems signal routines help settings ai; do
+  case "$bay" in
+    command) bay_type=CommandCore;; navigator) bay_type=SpatialNavigator;;
+    systems) bay_type=SystemsBay;; signal) bay_type=SignalRack;;
+    routines) bay_type=RoutineConsole;; help) bay_type=HelpBay;;
+    settings) bay_type=SettingsBay;; ai) bay_type="";; # inline console/fallback has an engine-generated class name
+  esac
+  ipc open "$bay"
+  wait_check "p['deck'] and p['deck']['bayReady'] and p['deck']['bay']=='$bay' and p['deck']['bayType'].startswith('$bay_type') and p['deck']['bayProfile']=='oled' and all(c['profile']=='oled' for c in p['deck']['parts'])"
+  probe snapshot >"$OUT/bay-$bay.json"
+  capture "bay-$bay"
+  mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
+  wait_check 'p["deck"]["profile"]=="standard" and all(c["profile"]=="standard" for c in p["deck"]["parts"])'
+  mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
+  wait_check 'p["deck"]["profile"]=="oled" and all(c["profile"]=="oled" for c in p["deck"]["parts"])'
+done
+# Transient foregrounds and Deck retain full opacity while persistent content hides.
+probe notice
+wait_check 's["notices"]>0'
+config oled 2
+probe idle true
+wait_check 'g["HEADLESS-2"]["hide"] and not p["deck"]["dimmed"] and p["deck"]["decoration"]==0.55 and p["deck"]["opacity"]==1 and not p["notices"]["dimmed"] and p["notices"]["opacity"]==1'
+mock '{"op":"screencast","active":true,"owner":0}' >/dev/null
+wait_check 'any(c["type"].startswith("Annunciator") and c["visible"] and c["opacity"]==1 for c in t["HEADLESS-2"]["parts"])'
+mock '{"op":"screencast","active":false,"owner":0}' >/dev/null
+probe idle false
+config oled 0
 mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
 wait_check 'p["deck"] and p["deck"]["profile"]=="standard"'
 ipc close
@@ -214,6 +264,11 @@ mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
 probe osd
 ipc session
 wait_check 's["session"] and len(p["extras"])==2 and all(x["profile"]=="oled" and all(c["profile"]=="oled" for c in x["parts"]) for x in p["extras"])'
+config oled 2
+probe idle true
+wait_check 'all(not x["dimmed"] and x["opacity"]==1 and x["decoration"]==0.55 for x in p["extras"])'
+probe idle false
+config oled 0
 probe dismiss
 ipc close
 mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null

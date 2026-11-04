@@ -200,7 +200,7 @@ PanelWindow {
     }
 
     // Back OLED content with black while keeping the strip's reserved lane
-    // transparent. Only the presentation root below dims, including bay slots.
+    // transparent. Foregrounds bypass idle decoration policy.
     Rectangle {
         anchors.fill: parent
         anchors.topMargin: Config.strip.edge === "top" ? Theme.stripHeight : 0
@@ -309,6 +309,8 @@ PanelWindow {
         }
 
         onLoaded: {
+            if (item.profile !== undefined)
+                item.profile = Qt.binding(() => deck.profile);
             if (current)
                 item.forceActiveFocus();
         }
@@ -321,30 +323,30 @@ PanelWindow {
 
     Component {
         id: commandBay
-        CommandCore {}
+        CommandCore { profile: deck.profile }
     }
     Component {
         id: navigatorBay
-        SpatialNavigator {}
+        SpatialNavigator { profile: deck.profile }
     }
     Component {
         id: systemsBay
-        SystemsBay {}
+        SystemsBay { profile: deck.profile }
     }
     Component {
         id: signalBay
-        SignalRack {}
+        SignalRack { profile: deck.profile }
     }
     Component {
         id: routinesBay
-        RoutineConsole {}
+        RoutineConsole { profile: deck.profile }
     }
     Component {
         id: helpBay
-        HelpBay {}
+        HelpBay { profile: deck.profile }
     }
     Component {
         id: settingsBay
-        SettingsBay {}
+        SettingsBay { profile: deck.profile }
     }
 }

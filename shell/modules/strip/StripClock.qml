@@ -6,21 +6,24 @@ import qs.core
 // minute instead of every second.
 Item {
     id: root
+    property var profile: Theme
+    readonly property bool idle: profile.idleDimmed === true
+    readonly property bool seconds: Config.strip.showSeconds && !idle
     property bool compact: false
     implicitWidth: row.implicitWidth + Theme.pad
 
     SystemClock {
         id: clock
-        precision: Config.strip.showSeconds ? SystemClock.Seconds : SystemClock.Minutes
+        precision: root.seconds ? SystemClock.Seconds : SystemClock.Minutes
     }
 
     readonly property string timeText: {
         const d = clock.date;
         if (Config.strip.clock === "12h") {
             const h = d.getHours() % 12 === 0 ? 12 : d.getHours() % 12;
-            return h + ":" + pad(d.getMinutes()) + (Config.strip.showSeconds ? ":" + pad(d.getSeconds()) : "") + (d.getHours() < 12 ? " AM" : " PM");
+            return h + ":" + pad(d.getMinutes()) + (root.seconds ? ":" + pad(d.getSeconds()) : "") + (d.getHours() < 12 ? " AM" : " PM");
         }
-        return pad(d.getHours()) + ":" + pad(d.getMinutes()) + (Config.strip.showSeconds ? ":" + pad(d.getSeconds()) : "");
+        return pad(d.getHours()) + ":" + pad(d.getMinutes()) + (root.seconds ? ":" + pad(d.getSeconds()) : "");
     }
     readonly property string dateText: {
         const d = clock.date;
@@ -40,8 +43,9 @@ Item {
         Text {
             textFormat: Text.PlainText
             visible: Config.strip.showDate && !root.compact
+            opacity: root.profile.hideContent ? 0 : 1
             text: root.dateText
-            color: Theme.textDim
+            color: root.profile.textDim
             font.family: Theme.mono
             font.pixelSize: Theme.fontXs
             font.letterSpacing: 0.8
@@ -50,7 +54,7 @@ Item {
         Text {
             textFormat: Text.PlainText
             text: root.timeText
-            color: Theme.text
+            color: root.idle ? root.profile.textDim : root.profile.text
             font.family: Theme.mono
             font.pixelSize: Theme.fontMd
             font.weight: Font.Medium

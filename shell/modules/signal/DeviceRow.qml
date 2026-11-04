@@ -7,6 +7,7 @@ import qs.services
 // Audio device row: default marker, name, volume tape, mute state.
 Rectangle {
     id: row
+    property var profile: Theme
     property var node: null
     property bool isDefault: false
     property bool preferred: false
@@ -20,8 +21,8 @@ Rectangle {
     readonly property bool muted: bound ? node.audio.muted : false
 
     implicitHeight: Math.round(Theme.rowHeight * 1.7)
-    color: selected ? Theme.surface2 : "transparent"
-    border.color: selected ? Theme.signal : "transparent"
+    color: selected ? row.profile.surface2 : "transparent"
+    border.color: selected ? row.profile.signal : "transparent"
     border.width: Theme.border
     radius: Theme.radius
 
@@ -32,7 +33,7 @@ Rectangle {
         x: 0
         anchors.verticalCenter: parent.verticalCenter
         visible: row.selected
-        color: Theme.signal
+        color: row.profile.signal
     }
 
     MouseArea {
@@ -56,7 +57,7 @@ Rectangle {
             spacing: Theme.gap
             Text {
                 text: row.isDefault ? "◉" : "○"
-                color: row.isDefault ? Theme.signal : Theme.textDim
+                color: row.isDefault ? row.profile.signal : row.profile.textDim
                 font.pixelSize: Theme.fontSm
                 MouseArea {
                     anchors.fill: parent
@@ -69,7 +70,7 @@ Rectangle {
                 Layout.fillWidth: true
                 text: Audio.label(row.node)
                 textFormat: Text.PlainText
-                color: Theme.text
+                color: row.profile.text
                 font.family: Theme.displaySans
                 font.pixelSize: Theme.fontSm
                 font.weight: row.isDefault ? Font.Medium : Font.Normal
@@ -78,13 +79,13 @@ Rectangle {
             Text {
                 visible: row.preferred && !row.isDefault
                 text: "PREFERRED"
-                color: Theme.caution
+                color: row.profile.caution
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
             }
             Text {
                 text: row.muted ? "MUTE" : isNaN(row.pct) ? "N/A" : Math.round(row.pct) + "%"
-                color: row.muted ? Theme.caution : Theme.text
+                color: row.muted ? row.profile.caution : row.profile.text
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
                 MouseArea {
@@ -95,7 +96,7 @@ Rectangle {
                 }
             }
         }
-        TapeGauge {
+        TapeGauge { profile: row.profile;
             Layout.fillWidth: true
             implicitHeight: Theme.px(10)
             value: row.muted ? NaN : row.pct

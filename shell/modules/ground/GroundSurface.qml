@@ -15,6 +15,7 @@ PanelWindow {
     readonly property alias profile: displayProfile
     DisplayProfile {
         id: displayProfile
+        persistent: true
         output: ground.outputScreen ? ground.outputScreen.name : ""
     }
     contentItem {

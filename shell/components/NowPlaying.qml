@@ -16,7 +16,7 @@ Item {
         Text {
             text: now.hasTrack ? (Media.playing ? "NOW PLAYING" : "MEDIA / PAUSED") : "NOW PLAYING / NOTHING YET"
             textFormat: Text.PlainText
-            color: Media.playing ? Theme.appLink : Theme.textDim
+            color: Media.playing ? now.profile.appLink : now.profile.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
         }
         Row {
@@ -35,25 +35,25 @@ Item {
                 spacing: Theme.du(5)
                 Text {
                     width: parent.width; text: Media.title; textFormat: Text.PlainText
-                    color: Theme.text; font.family: Theme.displaySans
+                    color: now.profile.text; font.family: Theme.displaySans
                     font.pixelSize: Theme.fontXl; font.weight: Font.Medium
                     maximumLineCount: 2; wrapMode: Text.Wrap; elide: Text.ElideRight
                 }
                 Text {
                     width: parent.width; text: Media.artist || (now.player ? now.player.identity : "")
                     textFormat: Text.PlainText; elide: Text.ElideRight
-                    color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontMd
+                    color: now.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontMd
                 }
             }
         }
         Row {
             spacing: Theme.du(8); visible: now.hasTrack
-            MediaButton {
+            MediaButton { profile: now.profile;
                 label: Media.playing ? "PAUSE" : "PLAY"
                 enabled: now.player !== null && now.player.canTogglePlaying
                 onTriggered: Registry.run("media.play-pause", {})
             }
-            MediaButton {
+            MediaButton { profile: now.profile;
                 label: "NEXT  →"
                 enabled: now.player !== null && now.player.canGoNext
                 onTriggered: Registry.run("media.next", {})
@@ -63,18 +63,19 @@ Item {
     }
     component MediaButton: Rectangle {
         id: control
+        property var profile: Theme
         property string label: ""
         signal triggered()
         width: Theme.du(100); height: Theme.du(36)
-        color: pointer.containsMouse && enabled ? now.profile.surface2 : now.profile.bg
-        border.color: activeFocus ? Theme.signal : now.profile.grid
+        color: pointer.containsMouse && enabled ? control.profile.surface2 : control.profile.bg
+        border.color: activeFocus ? control.profile.signal : control.profile.grid
         opacity: enabled ? 1 : Theme.disabledOpacity
         activeFocusOnTab: true
         Keys.onReturnPressed: if (enabled) triggered()
         Keys.onSpacePressed: if (enabled) triggered()
         Text {
             anchors.centerIn: parent; text: control.label; textFormat: Text.PlainText
-            color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+            color: control.profile.text; font.family: Theme.mono; font.pixelSize: Theme.fontSm
         }
         MouseArea {
             id: pointer; anchors.fill: parent; enabled: control.enabled

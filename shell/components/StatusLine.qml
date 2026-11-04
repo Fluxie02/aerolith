@@ -27,7 +27,7 @@ Item {
         spacing: Theme.pad
         Repeater {
             model: root.hints
-            KeyHint {
+            KeyHint { profile: root.profile;
                 required property var modelData
                 key: modelData.key
                 action: modelData.action
@@ -45,7 +45,7 @@ Item {
         maximumLineCount: 2
         elide: Text.ElideRight
         text: root.messageState === "busy" ? "◌ " + root.message : root.message
-        color: root.messageState === "ok" ? Theme.signal : root.messageState === "error" ? Theme.critical : root.messageState === "caution" ? Theme.caution : Theme.textDim
+        color: root.messageState === "ok" ? root.profile.signal : root.messageState === "error" ? root.profile.critical : root.messageState === "caution" ? root.profile.caution : root.profile.textDim
         font.family: Theme.mono
         font.pixelSize: Theme.fontXs
     }

@@ -7,6 +7,7 @@ Item {
     property var profile: Theme
     property int spacing: Theme.px(24)
     property color color: root.profile.grid
+    opacity: profile.decorationOpacity === undefined ? 1 : profile.decorationOpacity
     implicitHeight: Theme.px(4)
 
     Rectangle {

@@ -36,7 +36,7 @@ Item {
                 width: Math.min(Theme.du(164), (bus.width - more.width - Theme.du(8)) / Math.max(1, bus.ports.length) - sockets.spacing)
                 height: sockets.height
                 color: pointer.containsMouse || current ? bus.profile.surface2 : bus.profile.bg
-                border.width: activeFocus ? Theme.du(2) : 0; border.color: Theme.signal
+                border.width: activeFocus ? Theme.du(2) : 0; border.color: bus.profile.signal
                 activeFocusOnTab: true
                 Keys.onReturnPressed: bus.activate(modelData)
                 Keys.onSpacePressed: bus.activate(modelData)
@@ -48,14 +48,14 @@ Item {
                     x: Theme.du(43); anchors.verticalCenter: parent.verticalCenter
                     width: parent.width - x - Theme.du(8)
                     text: socket.modelData.name; textFormat: Text.PlainText; elide: Text.ElideRight
-                    color: socket.current ? Theme.appLink : Theme.text
+                    color: socket.current ? bus.profile.appLink : bus.profile.text
                     font.family: Theme.sans; font.pixelSize: Theme.fontSm
                 }
                 Rectangle {
                     visible: socket.windowCount > 0
                     anchors.bottom: parent.bottom; anchors.horizontalCenter: parent.horizontalCenter
                     width: socket.current ? parent.width - Theme.du(16) : Theme.du(14); height: Theme.du(2)
-                    color: socket.current ? Theme.appLink : Theme.textDim
+                    color: socket.current ? bus.profile.appLink : bus.profile.textDim
                 }
                 MouseArea {
                     id: pointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
@@ -72,13 +72,13 @@ Item {
         anchors.right: parent.right; y: sockets.y
         width: Theme.du(104); height: sockets.height
         color: morePointer.containsMouse ? bus.profile.surface2 : bus.profile.bg
-        border.color: activeFocus ? Theme.signal : bus.profile.grid
+        border.color: activeFocus ? bus.profile.signal : bus.profile.grid
         activeFocusOnTab: true
         Keys.onReturnPressed: Ui.openCommand("")
         Keys.onSpacePressed: Ui.openCommand("")
         Text {
             anchors.centerIn: parent; text: "ALL APPS  ↗"; textFormat: Text.PlainText
-            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+            color: bus.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
         }
         MouseArea {
             id: morePointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor

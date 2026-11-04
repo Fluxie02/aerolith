@@ -108,13 +108,15 @@ export function profileState(profile, options, idle) {
   const idleDimmed = oled && opts.idleDimAfter > 0 && !!idle;
   return {
     idleDimmed: idleDimmed,
-    opacity: idleDimmed ? oledLevel(opts.idleDimLevel, OLED_DEFAULTS.idleDimLevel) : 1,
-    decorationOpacity: oled ? (idleDimmed && opts.hideDecorationWhenIdle !== false ? 0 : OLED_DEFAULTS.decorationOpacity) : 1,
+    // Functional text and transient surfaces always remain opaque.
+    opacity: 1,
+    hideContent: idleDimmed && opts.hideDecorationWhenIdle !== false,
+    decorationOpacity: oled ? (idleDimmed && opts.hideDecorationWhenIdle !== false ? 0 : OLED_DEFAULTS.decorationOpacity * (idleDimmed ? oledLevel(opts.idleDimLevel, OLED_DEFAULTS.idleDimLevel) : 1)) : 1,
   };
 }
 
 // OLED-1: opt-in derivation only; never mutate the resolved standard palette.
-// Fills are opaque. idleDim is a surface opacity multiplier, not a timeout.
+// Fills are opaque. idleDim affects decoration only, never functional text.
 // Options may override decorationOpacity/idleDim with finite values in [0, 1].
 export function oledPalette(palette, options) {
   const out = Object.assign({}, palette);
@@ -132,11 +134,12 @@ export function oledPalette(palette, options) {
   out.idleDim = oledLevel(opts.idleDim, OLED_DEFAULTS.idleDimLevel);
 
   const backgrounds = [out.obsidian, out.surface, out.surface2];
-  const roles = ["text", "textDim", "signal", "caution", "critical", "nominal"];
+  const roles = ["text", "textDim", "signal", "caution", "critical", "nominal", "appLink"];
   for (let i = 0; i < roles.length; i++) {
     const role = roles[i];
     // Retain text brightness; reduce stationary accents while preserving hue.
-    const candidate = mixColor(palette[role], "#000000", i < 2 ? 0 : 0.2);
+    const source = role === "appLink" ? (opts.appLink || palette.appLink || palette.signal) : palette[role];
+    const candidate = mixColor(source, "#000000", i < 2 ? 0 : 0.2);
     out[role] = readableOledColor(candidate, backgrounds);
   }
   return out;

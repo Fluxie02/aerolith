@@ -10,12 +10,12 @@ Item {
     property string reading: "N/A"
     property var values: []
     property int seq: Telemetry.sampleSeq
-    property color ink: Theme.signal
+    property color ink: tape.profile.signal
     implicitHeight: Theme.du(90)
     Rectangle { width: parent.width; height: 1; color: tape.profile.grid }
     Text {
         y: Theme.du(10); text: tape.label; textFormat: Text.PlainText
-        font.family: Theme.mono; font.pixelSize: Theme.fontSm; color: Theme.textDim
+        font.family: Theme.mono; font.pixelSize: Theme.fontSm; color: tape.profile.textDim
     }
     Text {
         y: Theme.du(28); text: tape.reading; textFormat: Text.PlainText
@@ -29,7 +29,7 @@ Item {
     Text {
         anchors.bottom: parent.bottom
         text: "HISTORY / " + Math.min(36, tape.values.length) + " SAMPLES"
-        textFormat: Text.PlainText; color: Theme.textDim
+        textFormat: Text.PlainText; color: tape.profile.textDim
         font.family: Theme.mono; font.pixelSize: Theme.fontXs
     }
 }

@@ -15,6 +15,7 @@ import "../../lib/config.mjs" as ConfigLib
 // Keep buildRows(), valueOf(), change(), commitText() and the key handling.
 FocusScope {
     id: bay
+    property var profile: Theme
 
     // Set by the Deck; this bay holds no demand, so nothing depends on it.
     property bool active: true
@@ -166,12 +167,12 @@ FocusScope {
         return leaf.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, c => c.toUpperCase());
     }
 
-    Bezel {
+    Bezel { profile: bay.profile;
         anchors.fill: parent
         designation: "SET / 07"
         title: "Settings"
         status: bay.editing ? "EDIT / UNSAVED" : "CONFIG / LIVE"
-        statusColor: bay.editing ? Theme.caution : Theme.signal
+        statusColor: bay.editing ? bay.profile.caution : bay.profile.signal
 
         Column {
             id: content
@@ -189,11 +190,11 @@ FocusScope {
                         required property int index
                         readonly property bool chosen: index === (bay.spectra ? 0 : 1)
                         width: Math.min(Theme.du(180), (content.width - Theme.du(6)) / 2); height: Theme.du(32)
-                        color: chosen ? Theme.surface2 : Theme.bg
-                        border.color: chosen ? Theme.signal : Theme.grid; radius: Theme.du(4)
+                        color: chosen ? bay.profile.surface2 : bay.profile.bg
+                        border.color: chosen ? bay.profile.signal : bay.profile.grid; radius: Theme.du(4)
                         Text {
                             anchors.centerIn: parent; text: modelData; textFormat: Text.PlainText
-                            color: parent.chosen ? Theme.signal : Theme.textDim
+                            color: parent.chosen ? bay.profile.signal : bay.profile.textDim
                             font.family: Theme.mono; font.pixelSize: Theme.fontXs
                         }
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: if (index === 0) bay.showSpectra(); else bay.showRegister(); }
@@ -203,7 +204,7 @@ FocusScope {
                     width: Math.max(0, parent.width - x); height: parent.height
                     horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter
                     text: "TAB / " + (bay.spectra ? "REGISTER" : "SPECTRA"); textFormat: Text.PlainText
-                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    color: bay.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                     elide: Text.ElideRight
                 }
             }
@@ -212,14 +213,14 @@ FocusScope {
                 width: parent.width
                 height: Theme.du(36)
                 radius: Theme.radius
-                color: Theme.surface
-                border.color: Theme.grid
+                color: bay.profile.surface
+                border.color: bay.profile.grid
                 border.width: Theme.border
                 Text {
                     x: Theme.du(12); width: Math.max(0, parent.width * .64 - x)
                     height: parent.height; verticalAlignment: Text.AlignVCenter
                     text: bay.motionLabel; textFormat: Text.PlainText
-                    color: Theme.animate ? Theme.signal : Theme.textDim
+                    color: Theme.animate ? bay.profile.signal : bay.profile.textDim
                     font.family: Theme.mono; font.pixelSize: Theme.fontXs
                     elide: Text.ElideRight
                 }
@@ -229,7 +230,7 @@ FocusScope {
                     horizontalAlignment: Text.AlignRight
                     text: (Ui.screenName ? Ui.screenName + " · " : "") + bay.refreshLabel
                     textFormat: Text.PlainText
-                    color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    color: bay.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                     elide: Text.ElideLeft
                 }
                 Accessible.role: Accessible.StaticText
@@ -240,7 +241,7 @@ FocusScope {
                 width: parent.width
                 height: Math.max(0, content.height - y - feedback.height - status.height - content.spacing * 3)
 
-                SchemePicker {
+                SchemePicker { profile: bay.profile;
                     id: spectrum
                     anchors.fill: parent
                     visible: bay.spectra
@@ -266,15 +267,15 @@ FocusScope {
                         Row {
                             anchors.verticalCenter: parent.verticalCenter
                             width: parent.width; spacing: Theme.du(12)
-                            Rectangle { width: Theme.du(18); height: Theme.px(2); color: Theme.signal; anchors.verticalCenter: parent.verticalCenter }
+                            Rectangle { width: Theme.du(18); height: Theme.px(2); color: bay.profile.signal; anchors.verticalCenter: parent.verticalCenter }
                             Text {
                                 id: sectionLabel
                                 text: section.toUpperCase(); textFormat: Text.PlainText
-                                color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 2
+                                color: bay.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 2
                             }
                             Rectangle {
                                 width: Math.max(0, parent.width - sectionLabel.width - Theme.du(42))
-                                height: Theme.border; color: Theme.grid; anchors.verticalCenter: parent.verticalCenter
+                                height: Theme.border; color: bay.profile.grid; anchors.verticalCenter: parent.verticalCenter
                             }
                         }
                     }
@@ -286,18 +287,18 @@ FocusScope {
                         width: list.width
                         height: Math.max(Theme.du(74), row.modelData.path === "theme.scheme" ? 0 : valueControl.implicitHeight + Theme.du(24), rowLabels.implicitHeight + Theme.du(24))
                         radius: Theme.radius
-                        color: selected ? Theme.surface2 : Theme.surface
-                        border.color: selected ? (bay.editing ? Theme.caution : Theme.grid) : "transparent"
+                        color: selected ? bay.profile.surface2 : bay.profile.surface
+                        border.color: selected ? (bay.editing ? bay.profile.caution : bay.profile.grid) : "transparent"
                         border.width: Theme.border
                         Rectangle {
                             y: Theme.radius; width: Theme.du(3); height: Math.max(0, parent.height - 2 * y); radius: width / 2
-                            color: bay.editing ? Theme.caution : Theme.signal; visible: row.selected
+                            color: bay.editing ? bay.profile.caution : bay.profile.signal; visible: row.selected
                         }
                         Text {
                             visible: Theme.insane
                             x: Theme.du(12); y: Theme.du(12)
                             text: (row.index + 1 < 10 ? "0" : "") + (row.index + 1); textFormat: Text.PlainText
-                            color: row.selected ? Theme.signal : Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                            color: row.selected ? bay.profile.signal : bay.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                         }
                         Column {
                             id: rowLabels
@@ -307,17 +308,17 @@ FocusScope {
                             spacing: Theme.du(5)
                             Text {
                                 width: parent.width; text: bay.caption(row.modelData.path); textFormat: Text.PlainText
-                                color: row.selected ? Theme.signal : Theme.text; font.family: Theme.sans; font.pixelSize: Theme.fontMd
+                                color: row.selected ? bay.profile.signal : bay.profile.text; font.family: Theme.sans; font.pixelSize: Theme.fontMd
                                 elide: Text.ElideRight
                             }
                             Text {
                                 width: parent.width; text: row.modelData.description; textFormat: Text.PlainText
-                                color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontXs
+                                color: bay.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontXs
                                 wrapMode: row.selected && !bay.inspectorVisible ? Text.WordWrap : Text.NoWrap
                                 elide: row.selected && !bay.inspectorVisible ? Text.ElideNone : Text.ElideRight
                             }
                         }
-                        SettingControl {
+                        SettingControl { profile: bay.profile;
                             id: valueControl
                             visible: row.modelData.path !== "theme.scheme"
                             z: 1
@@ -340,12 +341,12 @@ FocusScope {
                         Rectangle {
                             z: 2; visible: row.modelData.path === "theme.scheme"
                             x: valueControl.x; width: valueControl.width; height: Theme.du(34); anchors.verticalCenter: parent.verticalCenter
-                            color: Theme.bg; border.color: Theme.signal; radius: Theme.du(4)
+                            color: bay.profile.bg; border.color: bay.profile.signal; radius: Theme.du(4)
                             Text {
                                 anchors.fill: parent; anchors.margins: Theme.du(8)
                                 text: Theme.specimen.name + "  /  OPEN SPECTRA"; textFormat: Text.PlainText
                                 verticalAlignment: Text.AlignVCenter; elide: Text.ElideRight
-                                color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                                color: bay.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                             }
                             MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: bay.showSpectra(); }
                         }
@@ -364,7 +365,7 @@ FocusScope {
                         width: Theme.px(2)
                         height: Math.min(list.height, Math.max(Theme.du(18), list.height * list.visibleArea.heightRatio))
                         y: Math.max(0, Math.min(list.height - height, list.visibleArea.yPosition * list.height))
-                        color: Theme.signal
+                        color: bay.profile.signal
                         visible: list.contentHeight > list.height
                     }
                 }
@@ -374,32 +375,32 @@ FocusScope {
                     x: parent.width * .68 + Theme.pad
                     width: Math.max(0, parent.width - x)
                     height: parent.height
-                    Rectangle { x: -Theme.pad; width: Theme.border; height: parent.height; color: Theme.grid }
+                    Rectangle { x: -Theme.pad; width: Theme.border; height: parent.height; color: bay.profile.grid }
                     Column {
                         width: parent.width
                         spacing: Theme.du(18)
                         Text {
                             text: bay.editing ? "DRAFT / TEXT" : "SELECTED / " + bay.selectedRow.type.toUpperCase(); textFormat: Text.PlainText
-                            color: bay.editing ? Theme.caution : Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+                            color: bay.editing ? bay.profile.caution : bay.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
                         }
                         Text {
                             width: parent.width; text: bay.caption(bay.selectedRow.path); textFormat: Text.PlainText
-                            wrapMode: Text.WordWrap; color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(30)
+                            wrapMode: Text.WordWrap; color: bay.profile.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(30)
                         }
                         Text {
                             width: parent.width; text: bay.selectedRow.path; textFormat: Text.PlainText
-                            wrapMode: Text.WrapAnywhere; color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                            wrapMode: Text.WrapAnywhere; color: bay.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontSm
                         }
-                        Rectangle { width: parent.width; height: Theme.border; color: Theme.grid }
+                        Rectangle { width: parent.width; height: Theme.border; color: bay.profile.grid }
                         Text {
                             width: parent.width; text: bay.selectedRow.description; textFormat: Text.PlainText
-                            wrapMode: Text.WordWrap; color: Theme.text; font.family: Theme.sans; font.pixelSize: Theme.fontSm; lineHeight: 1.4
+                            wrapMode: Text.WordWrap; color: bay.profile.text; font.family: Theme.sans; font.pixelSize: Theme.fontSm; lineHeight: 1.4
                         }
                         Text {
                             width: parent.width
                             text: bay.editing ? "Text is a draft until Enter.\nEscape discards the draft." : bay.selectedRow.type === "string" ? "Enter to edit text.\nChanges save when confirmed." : "← / →  " + (bay.selectedRow.type === "bool" ? "Toggle on or off" : bay.selectedRow.type === "enum" ? "Cycle choices" : "Step " + bay.stepOf(bay.selectedRow)) + "\nChanges save and apply live."
                             textFormat: Text.PlainText; wrapMode: Text.WordWrap
-                            color: bay.editing ? Theme.caution : Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; lineHeight: 1.5
+                            color: bay.editing ? bay.profile.caution : bay.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; lineHeight: 1.5
                         }
                     }
                 }
@@ -410,19 +411,19 @@ FocusScope {
                 width: parent.width
                 height: feedbackText.implicitHeight + Theme.du(18)
                 radius: Theme.radius
-                color: bay.messageState === "error" ? Theme.bg : Theme.surface
-                border.color: bay.messageState === "error" ? Theme.critical : Theme.grid
+                color: bay.messageState === "error" ? bay.profile.bg : bay.profile.surface
+                border.color: bay.messageState === "error" ? bay.profile.critical : bay.profile.grid
                 border.width: Theme.border
                 Text {
                     id: feedbackText
                     x: Theme.du(12); y: Theme.du(9); width: parent.width - 2 * x
                     text: bay.editing ? "DRAFT  /  " + bay.selectedRow.path + "  /  Enter to save · Esc to cancel" : bay.message ? (bay.messageState === "error" ? "REFUSED  /  " : "SAVED  /  ") + bay.message : "READY  /  Settings save to config.json and apply immediately."
                     textFormat: Text.PlainText; wrapMode: Text.WrapAnywhere
-                    color: bay.editing ? Theme.caution : bay.messageState === "error" ? Theme.critical : bay.messageState === "ok" ? Theme.signal : Theme.textDim
+                    color: bay.editing ? bay.profile.caution : bay.messageState === "error" ? bay.profile.critical : bay.messageState === "ok" ? bay.profile.signal : bay.profile.textDim
                     font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 }
             }
-            StatusLine {
+            StatusLine { profile: bay.profile;
                 id: status
                 width: parent.width
                 hints: bay.editing ? [{key: "⏎", action: "save text"}, {key: "Esc", action: "cancel"}] : bay.spectra ? [

@@ -19,7 +19,7 @@ Canvas {
     property real min: 0
     property real max: 100
     property bool autoMax: false
-    property color color: Theme.signal
+    property color color: root.profile.signal
     property int capacity: 120
     property real caution: NaN
     renderStrategy: Canvas.Cooperative
@@ -76,7 +76,7 @@ Canvas {
 
         if (!isNaN(root.caution) && !root.autoMax) {
             const cy = Math.round(h - (root.caution - root.min) / span * h) + 0.5;
-            ctx.strokeStyle = Theme.lowEffects ? Theme.caution : Theme.alpha(Theme.caution, 0.6);
+            ctx.strokeStyle = Theme.lowEffects ? root.profile.caution : Theme.alpha(root.profile.caution, 0.6);
             ctx.setLineDash([3, 3]);
             ctx.beginPath();
             ctx.moveTo(0, cy);

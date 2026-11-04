@@ -5,6 +5,7 @@ import qs.core
 // Unknown cores (no delta yet) are drawn as hollow frames.
 Item {
     id: bus
+    property var profile: Theme
     property var cores: []
     property real caution: 85
 
@@ -13,15 +14,15 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Theme.bg
-        border.color: Theme.grid
+        color: bus.profile.bg
+        border.color: bus.profile.grid
         border.width: Theme.border
     }
     Rectangle {
         y: Math.round(bus.height * (1 - bus.caution / 100))
         width: bus.width
         height: Theme.border
-        color: Theme.caution
+        color: bus.profile.caution
     }
     Row {
         anchors.fill: parent
@@ -38,8 +39,8 @@ Item {
                     anchors.bottom: parent.bottom
                     width: parent.width
                     height: parent.known ? Math.max(1, parent.height * modelData / 100) : parent.height
-                    color: !parent.known ? "transparent" : modelData >= bus.caution ? Theme.caution : Theme.signal
-                    border.color: parent.known ? "transparent" : Theme.grid
+                    color: !parent.known ? "transparent" : modelData >= bus.caution ? bus.profile.caution : bus.profile.signal
+                    border.color: parent.known ? "transparent" : bus.profile.grid
                     border.width: Theme.border
                 }
             }

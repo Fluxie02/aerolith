@@ -65,7 +65,7 @@ Item {
                 c.beginPath();c.arc(cx,cy,rr,a,b);c.stroke();
             }
             function text(s,tx,ty,col,size) {
-                c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px '+Theme.canvasMono;c.fillText(s,tx,ty);
+                c.fillStyle=col||field.profile.textDim;c.font=(size||Theme.fontXs)+'px '+Theme.canvasMono;c.fillText(s,tx,ty);
             }
             // Machined annulus: the original exposed circular Limb instrument.
             c.fillStyle=field.mix(field.profile.bg,field.profile.surface,.45);
@@ -79,14 +79,14 @@ Item {
             for(var i=0;i<180;i++) {
                 var a=i*Math.PI/90-1.57,rr=r*1.05,len=i%15===0?20:i%5===0?11:4;
                 if(i/180>indexPhase)break;
-                line(x+Math.cos(a)*rr,y+Math.sin(a)*rr,x+Math.cos(a)*(rr+len),y+Math.sin(a)*(rr+len),i%15===0?Theme.textDim:rule);
+                line(x+Math.cos(a)*rr,y+Math.sin(a)*rr,x+Math.cos(a)*(rr+len),y+Math.sin(a)*(rr+len),i%15===0?field.profile.textDim:rule);
             }
             // Segmented, fixed index band; no synthetic coordinate labels.
             var n=L===2?64:96;
             for(i=0;i<n;i++) {
                 if(i/n>indexPhase)break;
                 a=-2.65+i*5.3/n;
-                arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(field.profile.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
+                arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(field.profile.grid,field.profile.signal,.5):rule,Theme.du(L===3?14:8));
             }
             c.globalAlpha=.24+.76*phase(0,.30);
             line(x-r*.18,y,x+r*.18,y,rule);line(x,y-18,x,y+18,rule);
@@ -97,7 +97,7 @@ Item {
             line(w*.055,h*.87,w*.94,h*.87,rule);
             for(i=0;i<140;i++) {
                 var xx=w*.055+i*(w*.885)/140;
-                line(xx,datum,xx,datum-(i%10===0?10:4),i%10===0?Theme.textDim:rule);
+                line(xx,datum,xx,datum-(i%10===0?10:4),i%10===0?field.profile.textDim:rule);
             }
             // Datum extensions and genuine construction coordinates.
             var rows=L===2?8:14;
@@ -120,7 +120,7 @@ Item {
                 // Rectilinear joins deliberately cross the circular field.
                 for(k=0;k<(L===2?7:15);k++) {
                     var ax=w*(.50+k*.024),ay=h*(.08+k*.016);
-                    c.strokeStyle=k%4===0?field.mix(rule,Theme.signal,.25):weak;c.lineWidth=1;
+                    c.strokeStyle=k%4===0?field.mix(rule,field.profile.signal,.25):weak;c.lineWidth=1;
                     c.beginPath();c.moveTo(ax,ay);c.lineTo(ax,h*.18);c.lineTo(ax+w*.09,h*.31);c.lineTo(w*.965,h*.31+k*9);c.stroke();
                 }
             }
@@ -132,25 +132,26 @@ Item {
                 }
                 for(i=0;i<56;i++) {
                     xx=w*.055+i*w*.0158;
-                    line(xx,h*.945,xx,h*(i%4===0?.975:.96),i%4===0?Theme.textDim:rule,i%4===0?3:1);
+                    line(xx,h*.945,xx,h*(i%4===0?.975:.96),i%4===0?field.profile.textDim:rule,i%4===0?3:1);
                 }
                 for(k=0;k<9;k++) {
                     var by=h*(.34+k*.048);
-                    line(w*.013,by,w*.032,by,Theme.signal,2);
+                    line(w*.013,by,w*.032,by,field.profile.signal,2);
                     line(w*.032,by,w*.052,by+18,rule);
                 }
                 // An opaque phosphor index spine at the screen's right edge.
                 c.fillStyle=field.profile.grid;c.fillRect(w*.968,h*.38,w*.004,h*.37);
-                for(i=0;i<40;i++) line(w*.968,h*(.38+i*.009),w*(i%5===0?.962:.965),h*(.38+i*.009),Theme.signal);
+                for(i=0;i<40;i++) line(w*.968,h*(.38+i*.009),w*(i%5===0?.962:.965),h*(.38+i*.009),field.profile.signal);
             }
             // All four registration points survive every intensity level.
             c.globalAlpha=1;
             for(k=0;k<4;k++) {
                 xx=w*(k%2===0?.055:.94);yy=h*(k<2?.10:.87);
-                line(xx-5,yy,xx+5,yy,Theme.textDim);line(xx,yy-5,xx,yy+5,Theme.textDim);
+                line(xx-5,yy,xx+5,yy,field.profile.textDim);line(xx,yy-5,xx,yy+5,field.profile.textDim);
             }
         }
         opacity: (field.profile.decorationOpacity === undefined ? 1 : field.profile.decorationOpacity) * (field.instrument ? 1 : Math.min(1, Theme.bootProgress * 2))
+        Behavior on opacity { enabled: Theme.animate && targetValue < opacity; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
     }
     Hatch { profile: field.profile; anchors.fill: parent; visible: !field.instrument }
     Counterphase { profile: field.profile; anchors.fill: parent; instrument: field.instrument }

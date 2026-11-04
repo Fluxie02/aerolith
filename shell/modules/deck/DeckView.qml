@@ -54,7 +54,7 @@ Item {
         visible: !view.compactScreen
         x: railRow.x - Theme.du(12); y: railRow.y + Theme.du(10)
         width: Theme.du(3); height: railRow.height - Theme.du(20)
-        color: Theme.signal
+        color: view.profile.signal
     }
     InstrumentTabs { profile: view.profile;
         id: railRow
@@ -72,11 +72,11 @@ Item {
         x: railRow.x + railRow.width + Theme.du(8); y: railRow.y + Theme.du(10)
         width: Theme.du(52); height: Theme.du(44)
         color: settingsPointer.containsMouse ? view.profile.surface2 : view.profile.bg
-        border.color: Ui.activeBay === "settings" || activeFocus ? Theme.signal : view.profile.grid
+        border.color: Ui.activeBay === "settings" || activeFocus ? view.profile.signal : view.profile.grid
         activeFocusOnTab: true
         Keys.onReturnPressed: Ui.open("settings")
         Keys.onSpacePressed: Ui.open("settings")
-        Text { anchors.centerIn: parent; text: "⚙"; color: Theme.text; font.pixelSize: Theme.du(23) }
+        Text { anchors.centerIn: parent; text: "⚙"; color: view.profile.text; font.pixelSize: Theme.du(23) }
         MouseArea {
             id: settingsPointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
             onClicked: Ui.open("settings")
@@ -87,7 +87,7 @@ Item {
     Text {
         x: railRow.x + railRow.width + Theme.du(8); y: railRow.y + Theme.du(58)
         text: "F1 HELP"; textFormat: Text.PlainText
-        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+        color: view.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
     }
     // Notices own a lane below the rail, beside the working planes. Reserve
     // its width in the bays too: merely lowering a toast covers bay controls
@@ -111,11 +111,11 @@ Item {
         spacing: Theme.du(10)
         Rectangle {
             width: Theme.du(26); height: Theme.du(3)
-            anchors.verticalCenter: parent.verticalCenter; color: Theme.signal
+            anchors.verticalCenter: parent.verticalCenter; color: view.profile.signal
         }
         Text {
             text: (view.bayNames[view.shownBay] || view.shownBay).toUpperCase()
-            textFormat: Text.PlainText; color: Theme.signal
+            textFormat: Text.PlainText; color: view.profile.signal
             font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
         }
     }
@@ -156,7 +156,7 @@ Item {
                 c.fillStyle = view.profile.bg; c.fill();
                 c.strokeStyle = view.profile.grid; c.lineWidth = Theme.border; c.stroke();
                 c.beginPath(); c.moveTo(0, Theme.du(8)); c.lineTo(0, Theme.du(66));
-                c.strokeStyle = Theme.signal; c.lineWidth = Theme.du(3); c.stroke();
+                c.strokeStyle = view.profile.signal; c.lineWidth = Theme.du(3); c.stroke();
             }
             Connections {
                 target: Theme
@@ -170,22 +170,22 @@ Item {
         }
         Text {
             text: "SEARCH & LAUNCH"; textFormat: Text.PlainText
-            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+            color: view.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
         }
         Text {
             y: Theme.du(24); text: "FIND"; textFormat: Text.PlainText
-            color: Theme.text; font.family: Theme.displaySans
+            color: view.profile.text; font.family: Theme.displaySans
             font.pixelSize: Math.min(Theme.du(98), parent.width * .34)
             font.weight: Font.Light; font.letterSpacing: -Theme.du(4)
         }
         Rectangle {
             x: Theme.du(2); y: Theme.du(138)
-            width: parent.width * .64; height: Theme.du(3); color: Theme.signal
+            width: parent.width * .64; height: Theme.du(3); color: view.profile.signal
         }
         Text {
             x: Theme.du(2); y: Theme.du(158); width: parent.width - Theme.du(20)
             text: "TYPE TO SEARCH\n>  COMMANDS\n@  WINDOWS\n!  ROUTINES\n?  AI IF INSTALLED"
-            textFormat: Text.PlainText; color: Theme.textDim
+            textFormat: Text.PlainText; color: view.profile.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontSm; lineHeight: 1.6
         }
     }
@@ -193,7 +193,7 @@ Item {
         x: parent.width * .055; y: parent.height * .84
         visible: !view.compactScreen
         text: Theme.applicationName + " / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
-        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+        color: view.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
     }
     NoticeStack { profile: view.profile;
         id: deckNotices
@@ -208,26 +208,27 @@ Item {
     Component {
         id: missingAiBay
         FocusScope {
+            property var profile: view.profile
             Bezel { profile: view.profile;
                 anchors.fill: parent
-                designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: Theme.caution
+                designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: view.profile.caution
                 MouseArea { anchors.fill: parent }
                 Column {
                     width: parent.width; spacing: Theme.pad
-                    Label { width: parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
+                    Label { profile: view.profile; width: parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
                     Text {
                         width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                        color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
+                        color: view.profile.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
                         text: "Add a provider when you need one."
                     }
                     Text {
                         width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                        color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                        color: view.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
                         text: "The desktop is ready without AI. Configure a provider to ask questions and review proposed actions here."
                     }
                     Text {
                         width: parent.width; wrapMode: Text.WrapAnywhere; textFormat: Text.PlainText
-                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
+                        color: view.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
                         text: "aerolith ai configure"
                     }
                 }

@@ -1,12 +1,14 @@
 import QtQuick
 import qs.core
 import "../../lib/schemes.mjs" as Schemes
+import "../../lib/tokens.mjs" as Tokens
 
 // A spectrum register: actual mineral planes, inscription and selection
 // samples, followed by fixed-order signal / link / status bands. Cursor and
 // active state are independent. No timers, shaders or offscreen layers.
 FocusScope {
     id: picker
+    property var profile: Theme
     signal picked(string scheme)
     signal registerRequested()
     readonly property int schemeCount: Schemes.SCHEMES.length
@@ -61,12 +63,12 @@ FocusScope {
             Text {
                 width: parent.width * .65
                 text: "COLOUR / SPECTRUM REGISTER"; textFormat: Text.PlainText
-                color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.5
+                color: picker.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.5
             }
             Text {
                 width: parent.width * .35; horizontalAlignment: Text.AlignRight
                 text: Theme.applicationName + " / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
-                color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                color: picker.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 elide: Text.ElideRight
             }
         }
@@ -75,13 +77,13 @@ FocusScope {
             spacing: Theme.du(16)
             Text {
                 text: Theme.specimen.name; textFormat: Text.PlainText
-                color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(picker.shallow ? 24 : 36); font.weight: Font.Light
+                color: picker.profile.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(picker.shallow ? 24 : 36); font.weight: Font.Light
             }
             Text {
                 anchors.bottom: parent.bottom; anchors.bottomMargin: Theme.du(5)
                 width: Math.max(0, parent.width - x)
                 text: Theme.specimen.description; textFormat: Text.PlainText
-                color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                color: picker.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
                 elide: Text.ElideRight
             }
         }
@@ -89,7 +91,7 @@ FocusScope {
             width: parent.width
             text: picker.overrides ? "Custom palette overrides remain active. Specimens show the original spectra." : "Choose a spectrum. Every instrument follows immediately."
             textFormat: Text.PlainText; wrapMode: Text.WordWrap
-            color: picker.overrides ? Theme.caution : Theme.textDim
+            color: picker.overrides ? picker.profile.caution : picker.profile.textDim
             font.family: Theme.sans; font.pixelSize: Theme.fontSm
         }
     }
@@ -111,7 +113,7 @@ FocusScope {
             id: specimen
             required property var modelData
             required property int index
-            readonly property var p: modelData.palette
+            readonly property var p: picker.profile.profile === "oled" ? Tokens.oledPalette(modelData.palette, { appLink: modelData.link }) : modelData.palette
             readonly property bool chosen: Theme.scheme === modelData.id
             readonly property bool cursorHere: picker.cursor === index && picker.activeFocus
             readonly property bool compact: registerView.cellHeight < Theme.du(110)
@@ -177,7 +179,7 @@ FocusScope {
                     height: Theme.du(specimen.compact ? 8 : 22)
                     spacing: Theme.px(2)
                     Repeater {
-                        model: [specimen.p.surface2, specimen.p.signal, specimen.modelData.link, specimen.p.nominal, specimen.p.caution, specimen.p.critical]
+                        model: [specimen.p.surface2, specimen.p.signal, (picker.profile.profile === "oled" ? specimen.p.appLink : specimen.modelData.link), specimen.p.nominal, specimen.p.caution, specimen.p.critical]
                         Rectangle {
                             required property color modelData
                             required property int index
@@ -214,7 +216,7 @@ FocusScope {
             width: Theme.px(2)
             height: Math.min(registerView.height, Math.max(Theme.du(18), registerView.height * registerView.visibleArea.heightRatio))
             y: Math.max(0, Math.min(registerView.height - height, registerView.visibleArea.yPosition * registerView.height))
-            color: Theme.signal
+            color: picker.profile.signal
             visible: registerView.contentHeight > registerView.height
         }
     }
@@ -225,6 +227,6 @@ FocusScope {
         width: parent.width
         text: "BANDS  /  PLANE · FOCUS · APP EDGE · READY · CAUTION · CRITICAL"
         textFormat: Text.PlainText; wrapMode: Text.WordWrap
-        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+        color: picker.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
     }
 }

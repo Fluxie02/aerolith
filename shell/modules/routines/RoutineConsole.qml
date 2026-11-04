@@ -12,6 +12,7 @@ import qs.services
 // run · E edit routines.json.
 FocusScope {
     id: console_
+    property var profile: Theme
 
     property int selected: 0
     property string confirmId: ""
@@ -80,12 +81,12 @@ FocusScope {
         event.accepted = true;
     }
 
-    Bezel {
+    Bezel { profile: console_.profile;
         anchors.fill: parent
         designation: "RTN / 05"
         title: "Routine Console"
         status: Routines.routines.length + " ROUTINES" + (Routines.errors.length ? " · " + Routines.errors.length + " PROBLEMS" : "") + (Routines.running ? " · RUNNING" : "")
-        statusColor: Routines.errors.length ? Theme.caution : Theme.textDim
+        statusColor: Routines.errors.length ? console_.profile.caution : console_.profile.textDim
 
         MouseArea {
             anchors.fill: parent
@@ -102,8 +103,8 @@ FocusScope {
                 visible: Routines.errors.length > 0
                 Layout.fillWidth: true
                 implicitHeight: errCol.implicitHeight + Theme.pad
-                color: Theme.surface2
-                border.color: Theme.caution
+                color: console_.profile.surface2
+                border.color: console_.profile.caution
                 border.width: Theme.border
                 radius: Theme.radius
                 Column {
@@ -119,7 +120,7 @@ FocusScope {
                             width: errCol.width
                             text: "⚠ " + (modelData.routine ? modelData.routine + (modelData.step ? " · step " + modelData.step : "") + ": " : "") + modelData.message
                             textFormat: Text.PlainText
-                            color: Theme.caution
+                            color: console_.profile.caution
                             font.family: Theme.mono
                             font.pixelSize: Theme.fontXs
                             elide: Text.ElideRight
@@ -154,7 +155,7 @@ FocusScope {
                         Layout.preferredWidth: 32
                         Layout.fillHeight: true
                         spacing: Theme.gap
-                        Label {
+                        Label { profile: console_.profile;
                             text: "ROUTINE INDEX / " + console_.list.length
                             strong: true
                         }
@@ -162,7 +163,7 @@ FocusScope {
                             Layout.fillWidth: true
                             text: Paths.routinesFile.replace(Paths.home, "~")
                             textFormat: Text.PlainText
-                            color: Theme.textDim
+                            color: console_.profile.textDim
                             font.family: Theme.mono
                             font.pixelSize: Theme.fontXs
                             elide: Text.ElideMiddle
@@ -176,8 +177,8 @@ FocusScope {
                                 onSelChanged: if (sel) contentView.reveal(this)
                                 Layout.fillWidth: true
                                 implicitHeight: Math.round(Theme.rowHeight * 1.8)
-                                color: sel ? Theme.surface2 : Theme.bg
-                                border.color: sel ? Theme.signal : Theme.grid
+                                color: sel ? console_.profile.surface2 : console_.profile.bg
+                                border.color: sel ? console_.profile.signal : console_.profile.grid
                                 border.width: Theme.border
                                 radius: Theme.radius
 
@@ -185,7 +186,7 @@ FocusScope {
                                     x: Theme.px(10)
                                     anchors.verticalCenter: parent.verticalCenter
                                     text: String(index + 1).padStart(2, "0")
-                                    color: sel ? Theme.signal : Theme.textDim
+                                    color: sel ? console_.profile.signal : console_.profile.textDim
                                     font.family: Theme.mono
                                     font.pixelSize: Theme.fontXs
                                 }
@@ -199,7 +200,7 @@ FocusScope {
                                         width: parent.width
                                         text: modelData.name
                                         textFormat: Text.PlainText
-                                        color: Theme.text
+                                        color: console_.profile.text
                                         font.family: Theme.displaySans
                                         font.pixelSize: Theme.fontSm
                                         font.weight: Font.Medium
@@ -209,7 +210,7 @@ FocusScope {
                                         width: parent.width
                                         text: modelData.id + " · " + modelData.steps.length + " steps" + (modelData.steps.some(s => s.sensitive) ? " · CONFIRM" : "")
                                         textFormat: Text.PlainText
-                                        color: Theme.textDim
+                                        color: console_.profile.textDim
                                         font.family: Theme.mono
                                         font.pixelSize: Theme.fontXs
                                         elide: Text.ElideRight
@@ -231,7 +232,7 @@ FocusScope {
                             wrapMode: Text.WordWrap
                             text: Routines.fileMissing ? "No routines yet. Create " + Paths.routinesFile + " (see docs/COMMANDS.md for the format and an example), then it loads automatically." : "No valid routines in the file."
                             textFormat: Text.PlainText
-                            color: Theme.textDim
+                            color: console_.profile.textDim
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontSm
                         }
@@ -246,7 +247,7 @@ FocusScope {
                         Layout.preferredWidth: 68
                         Layout.fillHeight: true
                         spacing: Theme.gap
-                        Label {
+                        Label { profile: console_.profile;
                             text: "EXECUTION PLAN / " + (console_.current && console_.current.onError === "continue" ? "CONTINUE ON ERROR" : "STOP ON ERROR")
                             strong: true
                         }
@@ -254,7 +255,7 @@ FocusScope {
                             Layout.fillWidth: true
                             text: console_.current ? console_.current.name : "No routine selected"
                             textFormat: Text.PlainText
-                            color: Theme.text
+                            color: console_.profile.text
                             font.family: Theme.displaySans
                             font.pixelSize: Theme.fontXl
                             font.weight: Font.Medium
@@ -265,7 +266,7 @@ FocusScope {
                             Layout.fillWidth: true
                             text: console_.current ? console_.current.description : ""
                             textFormat: Text.PlainText
-                            color: Theme.textDim
+                            color: console_.profile.textDim
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontSm
                             wrapMode: Text.WordWrap
@@ -275,12 +276,12 @@ FocusScope {
                             Layout.fillWidth: true
                             text: Routines.errors.length ? "Repair routines.json to load your execution plans. Press E to open the file." : "Add an execution plan to routines.json. Press E to open the file; each plan is previewed here before it runs."
                             textFormat: Text.PlainText
-                            color: Theme.textDim
+                            color: console_.profile.textDim
                             font.family: Theme.sans
                             font.pixelSize: Theme.fontSm
                             wrapMode: Text.WordWrap
                         }
-                        Ruler {
+                        Ruler { profile: console_.profile;
                             Layout.fillWidth: true
                         }
                         Repeater {
@@ -302,14 +303,14 @@ FocusScope {
                                 Text {
                                     Layout.preferredWidth: Theme.px(58)
                                     text: stepRow.result ? (stepRow.result.skipped ? "[SKIP]" : stepRow.result.ok ? "[ OK ]" : "[FAIL]") : Routines.runningId === (console_.current ? console_.current.id : "") ? "[ .. ]" : "[    ]"
-                                    color: stepRow.result ? (stepRow.result.skipped ? Theme.textDim : stepRow.result.ok ? Theme.signal : Theme.critical) : Theme.textDim
+                                    color: stepRow.result ? (stepRow.result.skipped ? console_.profile.textDim : stepRow.result.ok ? console_.profile.signal : console_.profile.critical) : console_.profile.textDim
                                     font.family: Theme.mono
                                     font.pixelSize: Theme.fontXs
                                 }
                                 Text {
                                     Layout.preferredWidth: Theme.px(24)
                                     text: String(modelData.index).padStart(2, "0")
-                                    color: Theme.textDim
+                                    color: console_.profile.textDim
                                     font.family: Theme.mono
                                     font.pixelSize: Theme.fontXs
                                 }
@@ -317,7 +318,7 @@ FocusScope {
                                     Layout.preferredWidth: Theme.px(190)
                                     text: modelData.title
                                     textFormat: Text.PlainText
-                                    color: Theme.text
+                                    color: console_.profile.text
                                     font.family: Theme.displaySans
                                     font.pixelSize: Theme.fontSm
                                     elide: Text.ElideRight
@@ -326,7 +327,7 @@ FocusScope {
                                     Layout.fillWidth: true
                                     text: stepRow.result ? stepRow.result.message : modelData.description
                                     textFormat: Text.PlainText
-                                    color: stepRow.result && !stepRow.result.ok && !stepRow.result.skipped ? Theme.critical : Theme.textDim
+                                    color: stepRow.result && !stepRow.result.ok && !stepRow.result.skipped ? console_.profile.critical : console_.profile.textDim
                                     font.family: Theme.mono
                                     font.pixelSize: Theme.fontXs
                                     elide: Text.ElideRight
@@ -335,7 +336,7 @@ FocusScope {
                                     visible: modelData.sensitive || !modelData.available
                                     text: !modelData.available ? "N/A · " + modelData.reason : "SENSITIVE"
                                     textFormat: Text.PlainText
-                                    color: Theme.caution
+                                    color: console_.profile.caution
                                     font.family: Theme.mono
                                     font.pixelSize: Theme.fontXs
                                 }
@@ -348,16 +349,16 @@ FocusScope {
                             visible: Routines.lastReport !== null && Routines.lastReport.undo && Routines.lastReport.undo.length > 0
                             text: "Last run of " + (Routines.lastReport ? Routines.lastReport.name : "") + " can be reverted (" + (Routines.lastReport && Routines.lastReport.undo ? Routines.lastReport.undo.length : 0) + " steps): press R"
                             textFormat: Text.PlainText
-                            color: Theme.textDim
+                            color: console_.profile.textDim
                             font.family: Theme.mono
                             font.pixelSize: Theme.fontXs
                         }
                     }
                 }
             }
-            ScrollMark { viewport: contentView }
+            ScrollMark { profile: console_.profile; viewport: contentView }
 
-            StatusLine {
+            StatusLine { profile: console_.profile;
                 Layout.fillWidth: true
                 hints: [
                     {

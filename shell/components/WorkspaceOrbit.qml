@@ -8,7 +8,7 @@ Item {
     id: orbit
     property var profile: Theme
     readonly property string outputName: Screen.name
-    readonly property bool ambient: !profile.idleDimmed && Theme.ambientFor(outputName)
+    readonly property bool ambient: !(profile.idleDimmed || profile.idleAnimationHeld) && Theme.ambientFor(outputName)
     property bool instrument: false
     readonly property int count: Config.strip.workspaceCount
     readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
@@ -53,8 +53,8 @@ Item {
         transformOrigin: Item.Left
         visible: Compositor.focusedWorkspaceId > 0 && Compositor.focusedWorkspaceId <= orbit.count
         Behavior on rotation { enabled: Theme.travel && orbit.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
-        Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: Theme.signal }
-        Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: Theme.signal }
+        Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: orbit.profile.signal }
+        Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: orbit.profile.signal }
     }
     Repeater {
         model: orbit.count
@@ -75,32 +75,32 @@ Item {
             function choose() { Registry.execute("workspace.focus", {workspace: workspaceId}, {record: false}); }
             Rectangle {
                 anchors.fill: parent
-                color: station.current ? Theme.signal : hover.containsMouse ? orbit.profile.surface2 : orbit.profile.bg
-                border.color: station.current || hover.containsMouse || station.activeFocus ? Theme.signal : station.occupancy > 0 ? Theme.textDim : orbit.profile.grid
+                color: station.current ? orbit.profile.signal : hover.containsMouse ? orbit.profile.surface2 : orbit.profile.bg
+                border.color: station.current || hover.containsMouse || station.activeFocus ? orbit.profile.signal : station.occupancy > 0 ? orbit.profile.textDim : orbit.profile.grid
                 border.width: station.activeFocus ? Theme.du(2) : Theme.border
             }
             Rectangle {
                 x: -Theme.du(4); y: -Theme.du(4)
                 width: Theme.du(12); height: Theme.du(2)
-                color: station.current ? Theme.signal : orbit.profile.grid
+                color: station.current ? orbit.profile.signal : orbit.profile.grid
             }
             Rectangle {
                 anchors.right: parent.right; anchors.rightMargin: -Theme.du(4)
                 anchors.bottom: parent.bottom; anchors.bottomMargin: -Theme.du(4)
                 width: Theme.du(12); height: Theme.du(2)
-                color: station.current ? Theme.signal : orbit.profile.grid
+                color: station.current ? orbit.profile.signal : orbit.profile.grid
             }
             Text {
                 y: Theme.du(6); anchors.horizontalCenter: parent.horizontalCenter
                 text: (station.workspaceId < 10 ? "0" : "") + station.workspaceId
-                textFormat: Text.PlainText; color: station.current ? orbit.profile.bg : Theme.text
+                textFormat: Text.PlainText; color: station.current ? orbit.profile.bg : orbit.profile.text
                 font.family: Theme.mono; font.pixelSize: Theme.du(18)
             }
             Text {
                 y: Theme.du(34); width: parent.width; horizontalAlignment: Text.AlignHCenter
                 text: station.occupancy > 0 ? station.occupancy + " OPEN" : "EMPTY"
                 textFormat: Text.PlainText
-                color: station.current ? orbit.profile.bg : station.occupancy > 0 ? Theme.text : Theme.textDim
+                color: station.current ? orbit.profile.bg : station.occupancy > 0 ? orbit.profile.text : orbit.profile.textDim
                 font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 elide: Text.ElideRight
             }
