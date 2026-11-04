@@ -64,6 +64,15 @@ def is_arch_based() -> bool:
     return "arch" in ids or "cachyos" in ids
 
 
+def hyprland_version() -> tuple[int, ...] | None:
+    exe = shutil.which("Hyprland") or shutil.which("hyprland")
+    if not exe:
+        return None
+    r = _run([exe, "--version"])
+    m = re.search(r"(\d+)\.(\d+)\.(\d+)", (r.stdout if r else "") or "")
+    return tuple(int(x) for x in m.groups()) if m else None
+
+
 def quickshell_version() -> tuple[int, ...] | None:
     exe = shutil.which("qs") or shutil.which("quickshell")
     if not exe:
@@ -133,9 +142,12 @@ def run_checks(lay: Layout) -> list[Check]:
     for cmd, pkg in RECOMMENDED.items():
         found = shutil.which(cmd)
         out.append(Check(cmd, OK if found else WARN, found or "not installed (some features unavailable)", pkg))
-    dialect = "lua" if (lay.hypr / "hyprland.lua").is_file() else "hyprlang" if (lay.hypr / "hyprland.conf").is_file() else "none"
-    out.append(Check("hyprland config", OK if dialect != "none" else WARN,
-                     {"lua": "hyprland.lua (Lua, Hyprland 0.55+)", "hyprlang": "hyprland.conf (hyprlang, deprecated since 0.55)", "none": "no config found in " + str(lay.hypr)}[dialect]))
+    from . import hypr
+    dialect = hypr.detect_dialect(lay, hyprland_version())[0]
+    out.append(Check("hyprland config", OK if dialect in ("lua", "hyprlang") else WARN,
+                     {"lua": "hyprland.lua (Lua, Hyprland 0.55+)", "hyprlang": "hyprland.conf (hyprlang, deprecated since 0.55)",
+                      "unsupported": "only hyprland.conf, which Hyprland 0.57+ no longer reads; migrate it to hyprland.lua, then run `aerolith install` again",
+                      "none": "no config found in " + str(lay.hypr)}[dialect]))
     mons = hyprland_monitors()
     if mons is None:
         out.append(Check("displays", INFO, "Hyprland is not running here; display check skipped"))
