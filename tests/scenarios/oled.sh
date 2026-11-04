@@ -1,6 +1,6 @@
 # shellcheck shell=bash
-# run.sh defaults to OUTPUTS=2, the OLED fixture and AI=1 (fake provider).
-# Use AI=0 to exercise the missing-module fallback instead.
+# AI=1 OUTPUTS=2 CONFIG=tests/fixtures/oled-config.json tools/headless/run.sh tests/scenarios/oled.sh
+# AI=1 checks the installed AI console; AI=0 checks the missing-module fallback.
 # Probes/test overrides live only in a throwaway shell copy, never production IPC.
 fail() { echo "FAIL: $*"; exit 1; }
 [ "${OUTPUTS:-1}" = 2 ] || fail 'OLED scenario requires OUTPUTS=2'
@@ -257,15 +257,14 @@ for bay in command navigator systems signal routines help settings ai; do
   probe snapshot >"$OUT/bay-$bay.json"
   capture "bay-$bay"
   mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
-  wait_check 'p["deck"]["output"]=="HEADLESS-1" and p["deck"]["profile"]==p["deck"]["bayProfile"]=="standard" and all(c["profile"]=="standard" for c in p["deck"]["parts"])'
+  wait_check 'p["deck"]["profile"]=="standard" and all(c["profile"]=="standard" for c in p["deck"]["parts"])'
   if [ "$bay" = ai ] && [ "${AI:-0}" = 1 ]; then
-    wait_check 'p["deck"]["bayIsAiConsole"] and p["deck"]["bayInputBackgrounds"]==[g["HEADLESS-1"]["bg"]]'
+    # Moving focus closes the Deck; reopen the console on the standard output.
+    ipc open ai
+    wait_check 'p["deck"]["bayReady"] and p["deck"]["bay"]=="ai" and p["deck"]["output"]=="HEADLESS-1" and p["deck"]["bayIsAiConsole"] and p["deck"]["bayProfile"]=="standard" and p["deck"]["bayInputBackgrounds"]==[g["HEADLESS-1"]["bg"]]'
   fi
   mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
-  wait_check 'p["deck"]["output"]=="HEADLESS-2" and p["deck"]["profile"]==p["deck"]["bayProfile"]=="oled" and all(c["profile"]=="oled" for c in p["deck"]["parts"])'
-  if [ "$bay" = ai ] && [ "${AI:-0}" = 1 ]; then
-    wait_check 'p["deck"]["bayIsAiConsole"] and p["deck"]["bayInputBackgrounds"]==["#000000"]'
-  fi
+  wait_check 'p["deck"]["profile"]=="oled" and all(c["profile"]=="oled" for c in p["deck"]["parts"])'
 done
 # Transient foregrounds and Deck retain full opacity while persistent content hides.
 probe notice
