@@ -12,7 +12,7 @@ RUN pacman -Syu --noconfirm --needed \
         hyprland sway grim wlr-randr \
         pipewire wireplumber pipewire-pulse libpulse \
         mpv mpv-mpris playerctl \
-        dbus python python-pytest python-gobject \
+        dbus python python-pytest python-gobject python-dbusmock \
         nodejs shellcheck jq procps-ng which file \
         mesa ttf-jetbrains-mono inter-font noto-fonts \
         hicolor-icon-theme adwaita-icon-theme \

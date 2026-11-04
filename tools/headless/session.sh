@@ -40,6 +40,43 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# NET=1 is entirely private to this container/user. Never use the host bus.
+if [ "${NET:-0}" = 1 ]; then
+  export DBUS_SYSTEM_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/system-bus"
+  cat >"$XDG_RUNTIME_DIR/system-bus.conf" <<BUS
+<busconfig>
+  <type>system</type>
+  <listen>$DBUS_SYSTEM_BUS_ADDRESS</listen>
+  <policy context="default">
+    <allow own="*"/><allow send_destination="*"/><allow receive_sender="*"/>
+  </policy>
+</busconfig>
+BUS
+  dbus-daemon --config-file="$XDG_RUNTIME_DIR/system-bus.conf" --nofork --nopidfile >"$OUT/system-bus.log" 2>&1 &
+  PIDS+=($!)
+  for _ in $(seq 50); do [ -S "$XDG_RUNTIME_DIR/system-bus" ] && break; sleep 0.1; done
+  python3 -m dbusmock --system -t networkmanager >"$OUT/networkmanager.log" 2>&1 &
+  PIDS+=($!)
+  python3 -m dbusmock --system -t bluez5 >"$OUT/bluez.log" 2>&1 &
+  PIDS+=($!)
+  ready=0
+  for _ in $(seq 50); do
+    if python3 -c 'import dbus; b=dbus.SystemBus(); assert b.name_has_owner("org.freedesktop.NetworkManager") and b.name_has_owner("org.bluez")' 2>/dev/null; then ready=1; break; fi
+    sleep 0.1
+  done
+  [ "$ready" = 1 ] || { echo "FAIL: network mocks did not start"; exit 1; }
+  # dbusmock's NM template models 0.9.6. Supply the modern query Quickshell
+  # uses, with the same device list, plus connectivity-check capabilities.
+  python3 - <<'PYMOCK'
+import dbus
+from dbusmock import MOCK_IFACE
+name = 'org.freedesktop.NetworkManager'
+manager = dbus.Interface(dbus.SystemBus().get_object(name, '/org/freedesktop/NetworkManager'), MOCK_IFACE)
+manager.AddMethod(name, 'GetAllDevices', '', 'ao', "ret = self.Get('org.freedesktop.NetworkManager', 'Devices')")
+manager.AddProperties(name, {'ConnectivityCheckAvailable': True, 'ConnectivityCheckEnabled': True})
+PYMOCK
+fi
+
 # start_mock / start_audio are also used by scenarios that restart them.
 start_mock() {
   read -ra mock_args <<<"${HYPR_MOCK_ARGS:-}"
