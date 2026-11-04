@@ -1,0 +1,5 @@
+Killed yaipznt
+Killed c2bipznt
+Killed 56gipznt
+Killed k8jipznt
+tour: ok (state persistence, primary surface/focus, real navigation, fullscreen lifetime, keyboard returned to foot)

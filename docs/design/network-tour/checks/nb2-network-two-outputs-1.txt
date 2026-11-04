@@ -1,0 +1,4 @@
+Killed j14jpznt
+SKIP: picker lock dismissal (requires LOCK=1/PAM fixture); Deck dismissal verified for both pickers
+PSK absent from qs.log, probe snapshots and every shell state file
+network NET=1: ok (services, real picker input/lifetimes, Deck dismissal, PSK call and secrecy)

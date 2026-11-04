@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# State-only tour contract; TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh
+# Tour UI and state contract; TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh
 # All config/state writes below belong to the disposable container user.
 
 fail() { echo "FAIL: $*"; exit 1; }
@@ -60,18 +60,73 @@ start_shell() {
 }
 state_file="$XDG_STATE_HOME/aerolith/state.json"
 config_before=$(config_hash)
+# Probe rendered objects only in a disposable copy, never production IPC.
+stop_shell
+cp -r "$SHELL_DIR" "$HOME/tour-shell"
+SHELL_DIR="$HOME/tour-shell"
+python3 "$SRC/docs/design/network-tour/fixture.py" "$SHELL_DIR" --behavior
+source "$SRC/docs/design/network-tour/ui-input.sh"
+start_shell
+# Keep one idle virtual keyboard attached while probing focus. A one-shot
+# wtype removes the seat's last keyboard on exit, making activeFocus false
+# between injections even though the exclusive tour receives the next key.
+wtype -k Shift_L -s 240000 &
+PIDS+=($!)
 wait_tour active True
 assert_state fresh '{"active":true,"step":0,"stepId":"hatch","completed":false}'
-tour next
+surface_ready='s["tour"] is not None and s["tour"]["name"] == "tourHost" and s["tour"]["output"] == s["primaryOutput"] and any(p["focus"] for p in s["tour"]["parts"])'
+wait_ui "$surface_ready"
+cp "$OUT/ui.json" "$OUT/tour-focused.json"
+# A real normal window waits behind the exclusive layer surface. Do not
+# refocus it after dismissal: compositor focus must return there by itself.
+foot --app-id=nb2-tour-input bash -c 'while IFS= read -r line; do printf "%s\n" "$line" >"$1"; done' -- "$OUT/normal-input.txt" >"$OUT/foot.log" 2>&1 &
+PIDS+=($!)
+foot_ready=0
+for _ in $(seq 50); do
+  if swaymsg -t get_tree | python3 -c 'import json,sys
+def walk(n):
+    yield n
+    for c in n.get("nodes",[])+n.get("floating_nodes",[]): yield from walk(c)
+assert any(n.get("app_id")=="nb2-tour-input" for n in walk(json.load(sys.stdin)))' 2>/dev/null; then
+    foot_ready=1; break
+  fi
+  sleep .1
+done
+[ "$foot_ready" = 1 ] || fail 'normal foot window did not map'
+wait_ui "$surface_ready"
+ui_key Return 's["tour"] is not None and s["tour"]["step"] == 1'
 wait_tour step 1
 assert_state next '{"active":true,"step":1,"stepId":"ring","completed":false}'
-tour back
+ui_key Right 's["tour"] is not None and s["tour"]["step"] == 2'
+ui_key Left 's["tour"] is not None and s["tour"]["step"] == 1'
+ui_key Left 's["tour"] is not None and s["tour"]["step"] == 0'
 wait_tour step 0
 tour back
 assert_state back '{"active":true,"step":0,"stepId":"hatch","completed":false}'
-tour skip
+ui_key Escape 's["tour"] is None'
 wait_tour completed True
 assert_state skipped '{"active":false,"step":0,"stepId":"hatch","completed":true}'
+for _ in 1 2 3; do
+  wtype -k Shift_L -M ctrl -k u -m ctrl
+  typ 'NB2-normal-window-keys'
+  key Return
+  for _ in $(seq 15); do
+    [ "$(cat "$OUT/normal-input.txt" 2>/dev/null)" = NB2-normal-window-keys ] && break
+    sleep .1
+  done
+  [ "$(cat "$OUT/normal-input.txt" 2>/dev/null)" = NB2-normal-window-keys ] && break
+done
+[ "$(cat "$OUT/normal-input.txt" 2>/dev/null)" = NB2-normal-window-keys ] || fail 'keyboard did not return to the normal foot window'
+swaymsg -t get_tree >"$OUT/focus-after-tour.json"
+python3 - "$OUT/focus-after-tour.json" <<'PY'
+import json, sys
+def walk(n):
+    yield n
+    for child in n.get('nodes', []) + n.get('floating_nodes', []):
+        yield from walk(child)
+assert any(n.get('app_id') == 'nb2-tour-input' and n.get('focused')
+           for n in walk(json.load(open(sys.argv[1])))), 'foot did not regain focus'
+PY
 for _ in $(seq 50); do
   python3 - "$state_file" <<'PY' 2>/dev/null && break
 import json, sys
@@ -92,6 +147,7 @@ start_shell
 wait_tour completed True
 sleep 0.7
 assert_state restarted '{"active":false,"step":0,"stepId":"hatch","completed":true}'
+wait_ui 's["tour"] is None'
 ipc commands >"$OUT/commands.json"
 python3 - "$OUT/commands.json" <<'PY'
 import json, sys
@@ -101,9 +157,11 @@ PY
 ipc run tour.start '{}' >"$OUT/replay-reply.txt"
 wait_tour active True
 assert_state replay '{"active":true,"step":0,"stepId":"hatch","completed":true}'
+wait_ui "$surface_ready"
 for _ in $(seq 5); do tour next; done
 wait_tour active False
 assert_state finished '{"active":false,"step":4,"stepId":"strip","completed":true}'
+wait_ui 's["tour"] is None'
 tour start
 wait_tour active True
 wait_tour step 0
@@ -125,6 +183,7 @@ PY
 start_shell
 sleep 0.7
 assert_state disabled '{"active":false,"step":0,"stepId":"hatch","completed":false}'
+wait_ui 's["tour"] is None'
 tour start
 assert_state disabled-start '{"active":false,"step":0,"stepId":"hatch","completed":false}'
 
@@ -143,19 +202,23 @@ mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":2}" >/dev/null
 start_shell
 sleep 1
 assert_state fullscreen-held '{"active":false,"step":0,"stepId":"hatch","completed":false}'
+wait_ui 's["tour"] is None'
 mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
 wait_tour active True
 assert_state fullscreen-cleared '{"active":true,"step":0,"stepId":"hatch","completed":false}'
+wait_ui "$surface_ready"
 # Later fullscreen temporarily hides an active tour without losing its step.
 tour next
 mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":2}" >/dev/null
 wait_tour active False
 wait_tour step 1
+wait_ui 's["tour"] is None'
 tour next
 wait_tour step 1
 mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
 wait_tour active True
 wait_tour step 1
-tour skip
+wait_ui "$surface_ready and s[\"tour\"][\"step\"] == 1"
+ui_key Escape 's["tour"] is None'
 check_life
-echo "tour: ok"
+echo 'tour: ok (state persistence, primary surface/focus, real navigation, fullscreen lifetime, keyboard returned to foot)'

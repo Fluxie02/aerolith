@@ -1,0 +1,19 @@
+bash -n tests/scenarios/network.sh tests/scenarios/tour.sh docs/design/network-tour/ui-input.sh docs/design/network-tour/jpeg.sh docs/design/network-tour/visuals.sh docs/design/network-tour/compact.sh
+Result: exit 0
+
+git diff --check
+Result: exit 0
+
+python3 docs/design/network-tour/checks.py --evidence-only
+Result: exit 0; 38 JPEG shots; entire evidence directory below 4 MiB
+
+Python ast.parse for every docs/design/network-tour/*.py
+Result: all parsed
+
+Pillow Image.open for every evidence.json entry
+Result: all 38 are JPEG; all dimensions match width/height in the manifest
+
+jpeg.sh shot() with grim replaced by a fixture stream in aerolith-dev
+Result: exit 0; ffmpeg output opened as JPEG 1920x1080
+
+No changes under shell/, tools/, or tests/scenarios/app-links.sh.

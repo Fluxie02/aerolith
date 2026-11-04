@@ -1,4 +1,5 @@
 # Extra fit check, 1280x720 / UI scale 1.5 / reduced motion.
+source "$SRC/docs/design/network-tour/jpeg.sh"
 qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
 cp -r "$SHELL_DIR" "$HOME/compact-shell"

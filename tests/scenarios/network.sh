@@ -36,6 +36,8 @@ qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
 cp -r "$SHELL_DIR" "$HOME/network-shell"
 SHELL_DIR="$HOME/network-shell"
+python3 "$SRC/docs/design/network-tour/fixture.py" "$SHELL_DIR" --behavior
+source "$SRC/docs/design/network-tour/ui-input.sh"
 python3 - "$SHELL_DIR/modules/ControlSurface.qml" <<'PY'
 from pathlib import Path
 import sys
@@ -138,6 +140,25 @@ else:
     elif op == 'signal': update(NM,p['ap'],AI,{'Strength':dbus.Byte(72)})
     elif op == 'connect':
         dbus.Interface(b.get_object('org.bluez',p['device']),'org.bluez.Device1').Connect()
+    elif op == 'secure':
+        ap = str(nm.AddAccessPoint(p['wifi'],'secured','NB2 secured','00:11:22:33:44:99',2,2412,54000,82,264))
+        # RSN advertises PSK + CCMP so Quickshell recognises WPA2-Personal.
+        # The old template's profile builder only understands WpaFlags=256.
+        update(NM,ap,AI,{'WpaFlags':dbus.UInt32(256)})
+    elif op == 'psk-called':
+        # Inspect the actual template call in memory. Never dump its arguments.
+        calls = dbus.Interface(b.get_object(NM, NP), MOCK_IFACE).GetMethodCalls('AddAndActivateConnection')
+        matches = [args for stamp,args in calls
+                   if str(args[0].get('802-11-wireless-security',{}).get('psk','')) == sys.argv[2]]
+        assert len(matches) == 1, 'expected exactly one activation carrying the test PSK'
+        args = matches[0]
+        assert str(args[1]) == p['wifi'] and str(args[2]).endswith('/secured')
+        ssid = dbus.Interface(b.get_object(NM,args[2]),dbus.PROPERTIES_IFACE).Get(AI,'Ssid')
+        assert bytes(ssid).decode() == 'NB2 secured'
+        print('AddAndActivateConnection: exact PSK, SSID, device and AP verified (redacted)')
+    elif op == 'discovery':
+        actual = dbus.Interface(b.get_object('org.bluez',p['adapter']), dbus.PROPERTIES_IFACE).Get(BI,'Discovering')
+        assert bool(actual) == (sys.argv[2] == 'true'), 'mock adapter discovery mismatch'
     elif op == 'remove-adapter': bluez.RemoveAdapterWithDevices('hci0')
     else: raise ValueError(op)
 PY
@@ -187,6 +208,66 @@ probe demand release
 probe demand release
 wait_probe 'p["scanning"] == [False] and p["discovering"] == False'
 cp "$OUT/probe.json" "$OUT/idle.json"
+
+# Real picker lifetimes: creation/destruction, scan controller and mock radio.
+# No direct picker setters or scan demand calls participate in these checks.
+closed='s["scan"] == 0 and s["scanning"] == [False] and s["discovery"] == 0 and not s["discovering"] and all(w["popup"] is None for w in s["strips"])'
+wait_ui "$closed"
+for output in HEADLESS-1 $([ "${OUTPUTS:-1}" = 2 ] && echo HEADLESS-2); do
+  for kind in network bluetooth; do
+    if [ "$kind" = network ]; then
+      opened='s["scan"] == 1 and s["scanning"] == [True]'
+    else
+      opened='s["discovery"] == 1 and s["discovering"]'
+    fi
+    opened="$opened and len([w for w in s[\"strips\"] if w[\"popup\"]]) == 1 and any(w[\"output\"] == \"$output\" and w[\"popup\"] and w[\"popup\"][\"output\"] == \"$output\" and w[\"popup\"][\"name\"] == \"${kind}Picker\" for w in s[\"strips\"])"
+    ui_click "${kind}Indicator" "$output"
+    wait_ui "$opened"
+    if [ "$kind" = bluetooth ]; then python3 "$OUT/network-mock.py" discovery true; fi
+    key Escape
+    wait_ui "$closed"
+    if [ "$kind" = bluetooth ]; then python3 "$OUT/network-mock.py" discovery false; fi
+    ui_click "${kind}Indicator" "$output"
+    wait_ui "$opened"
+    ui_click "${kind}Indicator" "$output"
+    wait_ui "$closed"
+    ui_click "${kind}Indicator" "$output"
+    wait_ui "$opened"
+    ui_click pickerOutside "$output"
+    wait_ui "$closed"
+    ui_click "${kind}Indicator" "$output"
+    wait_ui "$opened"
+    ipc open command >/dev/null
+    wait_status 's["deckMapped"]'
+    wait_ui "$closed"
+    ipc close >/dev/null
+    wait_status 'not s["deckMapped"]'
+  done
+done
+if [ "${OUTPUTS:-1}" != 2 ]; then echo 'SKIP: per-output picker placement (run with OUTPUTS=2)'; fi
+echo 'SKIP: picker lock dismissal (requires LOCK=1/PAM fixture); Deck dismissal verified for both pickers'
+
+# A new secured AP must prompt; real text/Enter must reach NM with that PSK.
+python3 "$OUT/network-mock.py" secure
+ui_click networkIndicator
+wait_ui 's["scan"] == 1 and any(n["name"] == "NB2 secured" and n["secured"] and not n["known"] for n in s["network"])'
+ui_click 'pickerRow-NB2 secured'
+password_ready='any(c["name"] == "networkPasswordInput" and c["focus"] for w in s["strips"] if w["popup"] for c in w["popup"]["controls"])'
+wait_ui "$password_ready"
+test_psk='NB2-distinctive-psk-7193'
+# Retyping is safe before submission; require the full length before Enter.
+for _ in 1 2 3; do
+  ui_click networkPasswordInput
+  wtype -k Shift_L -M ctrl -k a -m ctrl -k BackSpace -- "$test_psk"
+  if ui_is 'any(c["name"] == "networkPasswordInput" and c["length"] == 24 for w in s["strips"] if w["popup"] for c in w["popup"]["controls"])'; then break; fi
+done
+wait_ui 'any(c["name"] == "networkPasswordInput" and c["length"] == 24 for w in s["strips"] if w["popup"] for c in w["popup"]["controls"])'
+key Return
+wait_ui 'all(c["name"] != "networkPasswordInput" and not (c["name"] == "networkPasswordRow" and c["loaded"]) for w in s["strips"] if w["popup"] for c in w["popup"]["controls"])'
+python3 "$OUT/network-mock.py" psk-called "$test_psk" >"$OUT/psk-call.txt"
+key Escape
+wait_ui "$closed"
+
 probe demand acquire
 wait_probe 'p["scanning"] == [True] and p["discovering"] == True'
 python3 "$OUT/network-mock.py" remove-adapter
@@ -195,5 +276,17 @@ probe demand release
 wait_probe 'p["scanning"] == [False] and p["discovering"] == False and p["devices"] == []'
 ipc run network.disconnect '{}' >/dev/null
 wait_status 's["network"]["state"] == "disconnected" and s["network"]["kind"] == "none" and s["network"]["connectionName"] == "" and s["network"]["signal"] == -1'
+ui_snapshot
+probe snapshot >"$OUT/probe.json"
+python3 - "$test_psk" "$OUT" "$XDG_STATE_HOME/aerolith" <<'PY'
+from pathlib import Path
+import sys
+secret = sys.argv[1].encode(); out, state = map(Path, sys.argv[2:])
+files = [out/'qs.log', out/'ui.json', out/'probe.json', *state.rglob('*')]
+for path in files:
+    if path.is_file():
+        assert secret not in path.read_bytes(), f'test PSK leaked into {path.name}'
+print('PSK absent from qs.log, probe snapshots and every shell state file')
+PY
 clean_log
-echo 'network NET=1: ok (wired, Wi-Fi, Bluetooth, radio commands, demand lifetime)'
+echo 'network NET=1: ok (services, real picker input/lifetimes, Deck dismissal, PSK call and secrecy)'

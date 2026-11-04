@@ -3,6 +3,22 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
+
+# Keep the archive small, complete and consistent with every linked filename.
+evidence = Path(__file__).resolve().parent
+manifest = json.loads((evidence / 'evidence.json').read_text())
+shots = {p.relative_to(evidence).as_posix() for p in evidence.rglob('*.jpg')}
+assert len(manifest) == len(shots) == 38
+assert {shot['file'] for shot in manifest} == shots
+assert not list(evidence.rglob('*.png'))
+for shot in manifest:
+    assert (evidence / shot['file']).read_bytes().startswith(b'\xff\xd8\xff')
+size = sum(p.stat().st_size for p in evidence.rglob('*') if p.is_file())
+assert size < 4 * 1024 * 1024, size
+print(f'evidence: 38 JPEG shots, {size} bytes total', flush=True)
+if '--evidence-only' in sys.argv:
+    raise SystemExit(0)
 
 out = Path('build/network-tour')
 out.mkdir(parents=True, exist_ok=True)

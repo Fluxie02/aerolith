@@ -1,4 +1,5 @@
 # Sourced in a throwaway container by tools/headless/run.sh. No host state.
+source "$SRC/docs/design/network-tour/jpeg.sh"
 fail() { echo "FAIL: $*"; exit 1; }
 qs -p "$SHELL_DIR" ipc call tour skip >/dev/null
 qs -p "$SHELL_DIR" kill
