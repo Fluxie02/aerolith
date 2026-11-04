@@ -368,6 +368,40 @@ def test_layer_rules_managed_roundtrip(system, home, dialect):
     assert not lay.hypr_fragment_dir.exists()
 
 
+def test_hyprland_057_leaves_unreadable_hyprland_conf_alone(system, home, bindir, capsys):
+    # Hyprland 0.57 removed the hyprland.conf format: writing hyprlang would go
+    # unread, and a new hyprland.lua would replace the user's whole config.
+    write_exe(bindir / "Hyprland", "print('Hyprland 0.57.1 built from branch v0.57.1')\n")
+    p = home / ".config" / "hypr" / "hyprland.conf"
+    p.write_text(CONF_CONFIG)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
+    err = capsys.readouterr()
+    assert "Hyprland 0.57+ no longer reads" in err.out + err.err
+    assert p.read_text() == CONF_CONFIG
+    assert not (home / ".config" / "hypr" / "aerolith").exists()
+    assert not (home / ".config" / "hypr" / "hyprland.lua").exists()
+    assert Manifest.load(layout().manifest).hypr_dialect == "none"
+
+
+def test_hyprland_057_still_integrates_lua(system, home, bindir):
+    write_exe(bindir / "Hyprland", "print('Hyprland 0.57.1 built from branch v0.57.1')\n")
+    main = lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
+    assert 'pcall(require, "aerolith/aerolith")' in main.read_text()
+    assert Manifest.load(layout().manifest).hypr_dialect == "lua"
+
+
+def test_detect_dialect_by_version(home):
+    lay = layout()
+    lay.hypr.mkdir(parents=True, exist_ok=True)
+    (lay.hypr / "hyprland.conf").write_text(CONF_CONFIG)
+    assert hypr.detect_dialect(lay)[0] == "hyprlang"
+    assert hypr.detect_dialect(lay, (0, 56, 2))[0] == "hyprlang"
+    assert hypr.detect_dialect(lay, (0, 57, 0))[0] == "unsupported"
+    (lay.hypr / "hyprland.lua").write_text(LUA_CONFIG)
+    assert hypr.detect_dialect(lay, (0, 57, 1))[0] == "lua"
+
+
 def test_hyprlang_config_gets_source_block(system, home):
     p = home / ".config" / "hypr" / "hyprland.conf"
     p.write_text(CONF_CONFIG)

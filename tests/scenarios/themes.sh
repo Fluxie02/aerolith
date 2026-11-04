@@ -25,6 +25,18 @@ printf '{"theme":{"scheme":"iris"}}\n' >"$XDG_CONFIG_HOME/aerolith/config.json"
 cp "$XDG_CONFIG_HOME/hypr/hyprland.lua" "$out/hyprland.original"
 cp "$XDG_CONFIG_HOME/kitty/kitty.conf" "$out/kitty.original"
 cp "$XDG_CONFIG_HOME/foot/foot.ini" "$out/foot.original"
+# Hyprland 0.57.1's --verify-config sometimes segfaults on a valid file (about
+# one run in six, same input). A crash is no verdict on the config: retry it,
+# but never retry a rejection.
+verify_hypr() {
+  local rc=0
+  for _ in 1 2 3; do
+    Hyprland "$@" && return 0
+    rc=$?
+    [ "$rc" -ge 128 ] || return "$rc"
+  done
+  return "$rc"
+}
 for direction in piyti thears; do
     sh "$src/install.sh" --yes --ai none --startup manual --direction "$direction" --themes kitty,foot,hyprland --no-start --no-install-deps --no-install-provider >"$out/install-$direction.log" 2>&1
     aerolith themes status --json >"$out/status-$direction.json"
@@ -55,7 +67,7 @@ PYREFRESH
     luac -p "$XDG_CONFIG_HOME/hypr/hyprland.lua"
     luac -p "$XDG_DATA_HOME/aerolith/themes/hyprland/aerolith.lua"
     luac -p "$XDG_DATA_HOME/aerolith/themes/hyprland/direction.lua"
-    Hyprland "${verify_flags[@]}" --verify-config -c "$XDG_CONFIG_HOME/hypr/hyprland.lua" >"$out/hyprland-$direction.log" 2>&1
+    verify_hypr "${verify_flags[@]}" --verify-config -c "$XDG_CONFIG_HOME/hypr/hyprland.lua" >"$out/hyprland-$direction.log" 2>&1
     aerolith themes apply kitty foot hyprland >"$out/reapply-$direction.log" 2>&1
     aerolith --yes uninstall --remove-config >"$out/uninstall-$direction.log" 2>&1
     cmp "$out/hyprland.original" "$XDG_CONFIG_HOME/hypr/hyprland.lua"

@@ -44,8 +44,23 @@ for namespace in aerolith-ground aerolith-strip aerolith-deck aerolith-notices a
   grep -qxF "hl.layer_rule({ match = { namespace = \"^$namespace\$\" }, no_anim = true })" "$hypr/aerolith/aerolith.lua" || fail "Lua no_anim missing: $namespace"
   grep -qxF "layerrule = no_anim on, match:namespace ^$namespace\$" "$OUT/fragment.conf" || fail "hyprlang no_anim missing: $namespace"
 done
-for config in "$hypr/aerolith/aerolith.lua" "$OUT/fragment.conf"; do
-  Hyprland --verify-config --config "$config" >"$OUT/verify-$(basename "$config").log" 2>&1 || fail "Hyprland rejected $config"
+# Hyprland 0.57.1's --verify-config sometimes segfaults on a valid file (about
+# one run in six, same input). A crash is no verdict on the config: retry it,
+# but never retry a rejection.
+verify_hypr() {
+  local rc=0
+  for _ in 1 2 3; do
+    Hyprland "$@" && return 0
+    rc=$?
+    [ "$rc" -ge 128 ] || return "$rc"
+  done
+  return "$rc"
+}
+# Hyprland 0.57 removed the hyprlang format: check that fragment only below it.
+configs=("$hypr/aerolith/aerolith.lua")
+python3 -c 'import re,subprocess,sys; v=re.search(r"(\d+)\.(\d+)", subprocess.run(["Hyprland","--version"],capture_output=True,text=True).stdout); sys.exit(0 if v and (int(v[1]),int(v[2])) < (0,57) else 1)' && configs+=("$OUT/fragment.conf")
+for config in "${configs[@]}"; do
+  verify_hypr --verify-config --config "$config" >"$OUT/verify-$(basename "$config").log" 2>&1 || fail "Hyprland rejected $config"
 done
 grep -q 'aerolith:ai' "$hypr/aerolith/aerolith.lua" || fail "AI bind missing from fragment"
 aerolith status --json >"$OUT/status.json"
