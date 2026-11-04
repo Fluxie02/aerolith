@@ -90,9 +90,9 @@ merge.
 - [x] MM-1b (Sol): ambient per output (and coverage detection fixed: it had stopped seeing covered desktops after MM-1), telemetry demand across outputs, popup expiry on the notice output, Deck notice takeover only on the notice output, config-doc map label, hot-unplug warnings 2 -> 0. Opus verified: JS 203, pytest 303, headless multimonitor, fullscreen, deck, app-links, perf pass. perf.sh idle with the desktop covered by a tiled window: 0.1% of one core, 1.6 context switches/s (Sol measured 2.80% / 39.6 before the coverage fix).
 - [x] OLED-1 (Terra): oledPalette (min contrast 4.99:1, 12 schemes), DisplayProfile, Idle (IdleMonitor, off by default). Suite tests/js/tokens.test.mjs registered after MM-1 merges.
 - [x] OLED-2 (Terra): per-output DisplayProfile wired into Ground, Strip, notices, OSD, session and Deck frame; display.oled (idleDimAfter 300 s, idleDimLevel, hideDecorationWhenIdle); OLED-only idle dimming; status fields; oled.sh in CI. Standard outputs pixel-identical; idle unchanged (0.11% CPU, 1.7 cs/s). Opus verified: JS 205, pytest 303, headless oled, multimonitor, smoke, deck pass. Gap: Deck bay interiors (command, navigator, systems, ...) still use Theme tokens on an OLED output.
-- [ ] OLED-3: Deck bay interiors + Astra's decisions
+- [x] OLED-3 (Terra): Astra's decisions 1, 2 and 4; decision 3 for every core bay. Opus verified: JS 207, pytest 303; headless oled, multimonitor, smoke, deck, fullscreen, app-links, scratch pass; idle 0.11% CPU, 1.6 cs/s. Open: the optional AI console (ai-bridge/qml/AiModule.qml) still reads Theme on an OLED output.
 - [x] Astra review: docs/design/oled/ASTRA-DECISIONS.md (palette kept, cyan x0.80; idle hides static content, clock stays; Deck bays take the output's profile; app bar on the primary output only)
-- [ ] Final review, measurements, PR
+- [x] Final review (Opus), measurements, PR
 
 ## Needs real hardware
 
