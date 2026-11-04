@@ -15,9 +15,91 @@
     "require_explicit_completion_event": true
   },
   "active_file_locks": {
-    "locked_by": "None",
-    "files": [],
-    "locks": []
+    "locked_by": "Claude",
+    "files": [
+      ".github/workflows/ci.yml",
+      "docs/CONFIGURATION.md",
+      "shell/core/DisplayProfile.qml",
+      "shell/core/Theme.qml",
+      "shell/core/Ui.qml",
+      "shell/lib/config.mjs",
+      "shell/lib/displays.mjs",
+      "shell/lib/shellstate.mjs",
+      "shell/lib/tokens.mjs",
+      "shell/modules/ControlSurface.qml",
+      "shell/modules/deck/Deck.qml",
+      "shell/modules/ground/Ground.qml",
+      "shell/modules/ground/GroundSurface.qml",
+      "shell/modules/notices/NoticeColumn.qml",
+      "shell/modules/osd/OsdHost.qml",
+      "shell/modules/session/SessionHost.qml",
+      "shell/modules/strip/FlightStrip.qml",
+      "shell/schema/config.schema.json",
+      "shell/services/Displays.qml",
+      "shell/services/Idle.qml",
+      "shell/services/ShellState.qml",
+      "shell/shell.qml",
+      "tests/js/displays.test.mjs",
+      "tests/js/index.mjs",
+      "tests/js/shellstate.test.mjs",
+      "tests/js/tokens.test.mjs",
+      "tests/scenarios/multimonitor.sh",
+      "tools/headless/run.sh",
+      "tools/headless/session.sh",
+      "tools/mock-hyprland/mock_hyprland.py"
+    ],
+    "locks": [
+      {
+        "lock_id": "fff3c86b-de69-46c8-8571-43ba0a6f7e34",
+        "agent": "Claude",
+        "files": [
+          ".github/workflows/ci.yml",
+          "docs/CONFIGURATION.md",
+          "shell/core/Theme.qml",
+          "shell/core/Ui.qml",
+          "shell/lib/config.mjs",
+          "shell/lib/displays.mjs",
+          "shell/lib/shellstate.mjs",
+          "shell/modules/ControlSurface.qml",
+          "shell/modules/deck/Deck.qml",
+          "shell/modules/ground/Ground.qml",
+          "shell/modules/ground/GroundSurface.qml",
+          "shell/modules/notices/NoticeColumn.qml",
+          "shell/modules/osd/OsdHost.qml",
+          "shell/modules/session/SessionHost.qml",
+          "shell/modules/strip/FlightStrip.qml",
+          "shell/schema/config.schema.json",
+          "shell/services/Displays.qml",
+          "shell/services/ShellState.qml",
+          "shell/shell.qml",
+          "tests/js/displays.test.mjs",
+          "tests/js/index.mjs",
+          "tests/js/shellstate.test.mjs",
+          "tests/scenarios/multimonitor.sh",
+          "tools/headless/run.sh",
+          "tools/headless/session.sh",
+          "tools/mock-hyprland/mock_hyprland.py"
+        ],
+        "task_id": "MM-1",
+        "created_at": "2026-11-04T07:45:31+00:00",
+        "expires_epoch": 1793780131.9694502,
+        "ttl_seconds": 1800
+      },
+      {
+        "lock_id": "ba71fbaa-7811-4870-9074-16014248c0e4",
+        "agent": "Claude",
+        "files": [
+          "shell/core/DisplayProfile.qml",
+          "shell/lib/tokens.mjs",
+          "shell/services/Idle.qml",
+          "tests/js/tokens.test.mjs"
+        ],
+        "task_id": "OLED-1",
+        "created_at": "2026-11-04T07:45:32+00:00",
+        "expires_epoch": 1793780132.2030654,
+        "ttl_seconds": 1800
+      }
+    ]
   },
   "design_tokens": {
     "theme_name": "To be determined by Astra",
@@ -8882,5 +8964,5 @@
     "task_id": "UI-018",
     "timestamp": "2026-10-27T07:10:23+00:00"
   },
-  "updated_at": "2026-10-27T07:10:23+00:00"
+  "updated_at": "2026-11-04T07:45:32+00:00"
 }
