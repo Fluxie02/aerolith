@@ -73,12 +73,20 @@ class Bind:
         return sum(MODMASK.get(m.upper(), 0) for m in self.mods.split())
 
 
-def detect_dialect(lay: Layout) -> tuple[str, Path | None]:
+# Hyprland 0.57 removed the hyprlang (hyprland.conf) config format.
+HYPRLANG_REMOVED = (0, 57, 0)
+
+
+def detect_dialect(lay: Layout, version: tuple[int, ...] | None = None) -> tuple[str, Path | None]:
+    """The config dialect to integrate with. "unsupported": only a
+    hyprland.conf, on a Hyprland (version) that no longer reads it."""
     lua = lay.hypr / "hyprland.lua"
     conf = lay.hypr / "hyprland.conf"
     if lua.is_file():
         return "lua", lua
     if conf.is_file():
+        if version is not None and tuple(version) >= HYPRLANG_REMOVED:
+            return "unsupported", conf
         return "hyprlang", conf
     return "none", None
 

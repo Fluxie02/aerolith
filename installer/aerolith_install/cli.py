@@ -394,10 +394,15 @@ def install_pkgs(names: list[str], manifest: Manifest) -> None:
 
 
 def plan_hypr(args: argparse.Namespace, ui: Ui, lay: Layout, manifest: Manifest, plan: Plan, with_ai: bool, startup: str) -> None:
-    dialect, main = hypr.detect_dialect(lay)
-    if args.no_hypr or dialect == "none":
+    dialect, main = hypr.detect_dialect(lay, checks.hyprland_version())
+    if args.no_hypr or dialect in ("none", "unsupported"):
         if dialect == "none":
             ui.warn(f"no Hyprland config found in {tilde(lay.hypr)}; skipping Hyprland integration")
+        elif dialect == "unsupported":
+            # Writing hyprlang would go unread; writing a new hyprland.lua
+            # would replace the user's whole config. Neither is safe.
+            ui.warn(f"{tilde(main)} is in the hyprland.conf format, which Hyprland 0.57+ no longer reads; "
+                    "skipping Hyprland integration. Migrate it to hyprland.lua, then run `aerolith install` again.")
         manifest.hypr_dialect = "none"
         return
     binds = bind_overrides(lay, hypr.default_binds(with_ai, args.media_keys))
