@@ -87,7 +87,7 @@ merge.
 ## Status
 
 - [x] MM-1 (Sol): Displays service, display.primary/outputs/overlayOn/noticesOn (display.output kept as alias), per-output Ground/Strip, overlay/notice placement, per-output fullscreen lifecycles, OUTPUTS=2 harness, multimonitor scenario in CI. Opus verified: JS 197, pytest 302, headless multimonitor, smoke, fullscreen, deck, scratch, notify pass. Single-output idle CPU 0.92% -> 0.87%.
-- [ ] MM-1b (Sol): remaining shared consumers (ambient and telemetry demand per output, notification expiry, Deck notice takeover across outputs), config-doc map label, hot-unplug dangling-screen warnings
+- [x] MM-1b (Sol): ambient per output (and coverage detection fixed: it had stopped seeing covered desktops after MM-1), telemetry demand across outputs, popup expiry on the notice output, Deck notice takeover only on the notice output, config-doc map label, hot-unplug warnings 2 -> 0. Opus verified: JS 203, pytest 303, headless multimonitor, fullscreen, deck, app-links, perf pass. perf.sh idle with the desktop covered by a tiled window: 0.1% of one core, 1.6 context switches/s (Sol measured 2.80% / 39.6 before the coverage fix).
 - [x] OLED-1 (Terra): oledPalette (min contrast 4.99:1, 12 schemes), DisplayProfile, Idle (IdleMonitor, off by default). Suite tests/js/tokens.test.mjs registered after MM-1 merges.
 - [ ] OLED-2 (Terra)
 - [ ] Astra review
