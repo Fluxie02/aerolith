@@ -6,6 +6,7 @@ import "../lib/appbus.mjs" as Bus
 // A single row of the user's applications, ranked by the Apps service.
 Item {
     id: bus
+    property var profile: Theme
     property bool instrument: false
     property var rankedEntries: Apps.barApps
     readonly property bool exposed: visible && Window.window && Window.window.visible
@@ -20,8 +21,8 @@ Item {
         if (instrument && a.kind !== "none") Ui.close();
     }
     opacity: instrument ? 1 : Math.max(0, Math.min(1, (Theme.bootProgress - .62) / .30))
-    Rectangle { anchors.fill: parent; color: Theme.bg }
-    Rectangle { width: parent.width; height: Theme.border; color: Theme.grid }
+    Rectangle { anchors.fill: parent; color: bus.profile.bg }
+    Rectangle { width: parent.width; height: Theme.border; color: bus.profile.grid }
     Row {
         id: sockets
         y: Theme.du(4); height: parent.height - y; spacing: Theme.du(6)
@@ -34,12 +35,12 @@ Item {
                 readonly property bool current: Bus.matches(Compositor.activeClass, modelData)
                 width: Math.min(Theme.du(164), (bus.width - more.width - Theme.du(8)) / Math.max(1, bus.ports.length) - sockets.spacing)
                 height: sockets.height
-                color: pointer.containsMouse || current ? Theme.surface2 : Theme.bg
-                border.width: activeFocus ? Theme.du(2) : 0; border.color: Theme.signal
+                color: pointer.containsMouse || current ? bus.profile.surface2 : bus.profile.bg
+                border.width: activeFocus ? Theme.du(2) : 0; border.color: bus.profile.signal
                 activeFocusOnTab: true
                 Keys.onReturnPressed: bus.activate(modelData)
                 Keys.onSpacePressed: bus.activate(modelData)
-                AppGlyph {
+                AppGlyph { profile: bus.profile;
                     x: Theme.du(10); anchors.verticalCenter: parent.verticalCenter
                     size: Theme.du(24); icon: socket.modelData.icon; fallback: socket.modelData.name
                 }
@@ -47,14 +48,14 @@ Item {
                     x: Theme.du(43); anchors.verticalCenter: parent.verticalCenter
                     width: parent.width - x - Theme.du(8)
                     text: socket.modelData.name; textFormat: Text.PlainText; elide: Text.ElideRight
-                    color: socket.current ? Theme.appLink : Theme.text
+                    color: socket.current ? bus.profile.appLink : bus.profile.text
                     font.family: Theme.sans; font.pixelSize: Theme.fontSm
                 }
                 Rectangle {
                     visible: socket.windowCount > 0
                     anchors.bottom: parent.bottom; anchors.horizontalCenter: parent.horizontalCenter
                     width: socket.current ? parent.width - Theme.du(16) : Theme.du(14); height: Theme.du(2)
-                    color: socket.current ? Theme.appLink : Theme.textDim
+                    color: socket.current ? bus.profile.appLink : bus.profile.textDim
                 }
                 MouseArea {
                     id: pointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
@@ -70,14 +71,14 @@ Item {
         id: more
         anchors.right: parent.right; y: sockets.y
         width: Theme.du(104); height: sockets.height
-        color: morePointer.containsMouse ? Theme.surface2 : Theme.bg
-        border.color: activeFocus ? Theme.signal : Theme.grid
+        color: morePointer.containsMouse ? bus.profile.surface2 : bus.profile.bg
+        border.color: activeFocus ? bus.profile.signal : bus.profile.grid
         activeFocusOnTab: true
         Keys.onReturnPressed: Ui.openCommand("")
         Keys.onSpacePressed: Ui.openCommand("")
         Text {
             anchors.centerIn: parent; text: "ALL APPS  ↗"; textFormat: Text.PlainText
-            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+            color: bus.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
         }
         MouseArea {
             id: morePointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor

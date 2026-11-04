@@ -6,14 +6,26 @@ import qs.services
 
 // Surface for transient notices and notification popups (NoticeStack). It is
 // only as large as its content and takes no keyboard focus, so it never
-// blocks other windows. While the Deck is mapped the Deck shows the stack
-// itself, because two Overlay surfaces have no reliable stacking order; this
-// surface then unmaps.
+// blocks other windows. When the mapped Deck shares this output it shows the
+// stack itself, because two Overlay surfaces have no reliable stacking order;
+// this surface then unmaps.
 PanelWindow {
     id: column
 
-    screen: Ui.screen
-    visible: stack.hasContent && Ui.screen !== null && !Ui.deckMapped
+    readonly property alias profile: displayProfile
+    DisplayProfile {
+        id: displayProfile
+        output: column.screen ? column.screen.name : ""
+    }
+    contentItem {
+        opacity: displayProfile.opacity
+        Behavior on opacity {
+            enabled: Theme.animate && targetValue < 1
+            NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+        }
+    }
+    screen: Ui.noticeScreen
+    visible: stack.hasContent && Ui.noticeScreen !== null && !ShellState.noticesInDeck
     color: "transparent"
     anchors {
         right: true
@@ -27,15 +39,16 @@ PanelWindow {
     }
     exclusionMode: ExclusionMode.Normal
     exclusiveZone: 0
-    implicitWidth: Math.min(stack.implicitWidth, (Ui.screen ? Ui.screen.width : stack.implicitWidth) - 2 * Theme.pad)
+    implicitWidth: Math.min(stack.implicitWidth, (Ui.noticeScreen ? Ui.noticeScreen.width : stack.implicitWidth) - 2 * Theme.pad)
     implicitHeight: Math.max(1, stack.implicitHeight)
     WlrLayershell.namespace: "aerolith-notices"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
     NoticeStack {
+        profile: displayProfile
         id: stack
         width: parent.width
-        maximumHeight: Math.max(0, (Ui.screen ? Ui.screen.height : 0) - Theme.stripHeight - 2 * Theme.pad)
+        maximumHeight: Math.max(0, (Ui.noticeScreen ? Ui.noticeScreen.height : 0) - Theme.stripHeight - 2 * Theme.pad)
     }
 }

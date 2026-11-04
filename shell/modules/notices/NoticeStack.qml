@@ -15,6 +15,7 @@ import qs.services
 // Ui.dismiss(id). Notification text is untrusted: plain text only.
 Item {
     id: column
+    property var profile: Theme
 
     readonly property var notices: Ui.notices
     readonly property var popups: Notifications.popups
@@ -52,7 +53,7 @@ Item {
                 model: ScriptModel {
                     values: column.popups
                 }
-                delegate: NoticeCard {
+                delegate: NoticeCard { profile: column.profile;
                     required property var modelData
                     width: stack.width
                     severity: modelData.urgency === 2 ? "error" : "info"
@@ -67,7 +68,7 @@ Item {
                     values: column.notices
                     objectProp: "id"
                 }
-                delegate: NoticeCard {
+                delegate: NoticeCard { profile: column.profile;
                     required property var modelData
                     width: stack.width
                     severity: modelData.severity
@@ -78,7 +79,7 @@ Item {
                 }
             }
         }
-        ScrollMark { viewport: viewport }
+        ScrollMark { profile: column.profile; viewport: viewport }
     }
     Connections {
         target: Theme
@@ -87,6 +88,7 @@ Item {
 
     component NoticeCard: Rectangle {
         id: card
+        property var profile: Theme
         property string severity: "info"
         property string code: "INFO"
         property string message: ""
@@ -95,8 +97,8 @@ Item {
 
         readonly property color tone: severity === "error" ? Theme.critical : severity === "caution" ? Theme.caution : severity === "ok" ? Theme.signal : Theme.textDim
         implicitHeight: body.implicitHeight + Theme.du(32)
-        color: Theme.surface
-        border.color: Theme.grid
+        color: card.profile.surface
+        border.color: card.profile.grid
         border.width: Theme.border
         radius: Theme.radius
         Rectangle {

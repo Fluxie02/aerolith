@@ -3,6 +3,8 @@
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
 import { suite } from "./harness.mjs";
+import * as Ambient from "../../shell/lib/ambient.mjs";
+import * as HD from "../../shell/lib/hyprdispatch.mjs";
 
 function source(path) {
   return readFileSync(new URL("../../" + path, import.meta.url), "utf8");
@@ -37,6 +39,121 @@ function registry() {
 }
 
 export default suite("runtime-qml", test => {
+  // Evaluate the actual production bindings; the headless scenario also
+  // checks their live QML dependencies and mapped surfaces.
+  function binding(path, name, context) {
+    const text = source(path);
+    const match = text.match(new RegExp("^    (?:readonly )?property \\w+ " + name + ": ([^\\n]*(?:\\n        [^\\n]+)*)", "m"));
+    if (!match) throw new Error("missing binding: " + path + ":" + name);
+    return vm.runInNewContext(match[1], context);
+  }
+
+  test("ambient consumers use their own window on either held output", a => {
+    for (const held of ["DP-1", "DP-2"]) for (const output of ["DP-1", "DP-2"]) {
+      const Theme = { ambient: held !== "DP-1", ambientSuspended: held === "DP-1",
+        ambientFor: name => name !== held, ambientHeldFor: name => name === held,
+        travel: true, bootProgress: 1, lowEffects: false, shaderQuality: 1 };
+      for (const [name, prop] of [["Counterphase", "driving"], ["Hatch", "motionAllowed"], ["WorkspaceOrbit", "ambient"], ["Material", "available"]]) {
+        const path = "shell/components/" + name + ".qml";
+        const Window = { window: { visible: true, screen: { name: output } } };
+        const outputName = binding(path, "outputName", { Window, Screen: { name: output } });
+        const context = { Theme, Window, outputName, profile: { idleDimmed: false }, visible: true, width: 1, height: 1,
+          supported: true, exposed: true, instrument: false, Ui: { deckOpen: false } };
+        const ambient = name === "Material" ? true : binding(path, "ambient", context);
+        a.equal(binding(path, prop, Object.assign(context, { ambient,
+          machine: { ambient, deckHere: false }, hatch: { ambient, deckHere: false }, orbit: { ambient } })), output !== held);
+      }
+    }
+    const orbit = source("shell/components/WorkspaceOrbit.qml");
+    a.match(orbit, /onAmbientChanged: if \(!ambient\) indexMotion.complete\(\)/);
+  });
+
+  test("OLED seat idle holds ambient work even when a transient surface bypasses dimming", a => {
+    const Theme = { ambientFor: () => true, ambientHeldFor: () => false,
+      travel: true, bootProgress: 1, lowEffects: false, shaderQuality: 1 };
+    const context = { Theme, Window: { window: { visible: true } }, outputName: "OLED",
+      profile: { idleDimmed: false, idleAnimationHeld: true }, visible: true, width: 1, height: 1,
+      supported: true, exposed: true, ambient: true, instrument: true,
+      machine: { ambient: true, deckHere: false }, hatch: { ambient: true, deckHere: false } };
+    for (const [name, prop] of [["Counterphase", "driving"], ["Hatch", "motionAllowed"], ["WorkspaceOrbit", "ambient"], ["Material", "available"]]) {
+      const path = "shell/components/" + name + ".qml";
+      a.equal(binding(path, prop, context), false, name + " stops work at idle");
+      context.profile.idleAnimationHeld = false;
+      a.equal(binding(path, prop, context), true, name + " resumes on input");
+      context.profile.idleAnimationHeld = true;
+    }
+  });
+
+  test("per-output coverage normalises Qt array-like IPC geometry", a => {
+    const outputs = [{ name: "DP-1", monitorName: "DP-1", strip: true }, { name: "DP-2", monitorName: "DP-2", strip: true }];
+    const monitors = outputs.map((o, i) => ({ name: o.name, x: i * 1920, y: 0,
+      width: 1920, height: 1080, scale: 1, activeWorkspace: { id: i + 1 }, lastIpcObject: {} }));
+    const windows = [{ workspaceId: 2, at: null, size: null, floating: false,
+      toplevel: { lastIpcObject: { at: { 0: 1920, 1: 32, length: 2 }, size: { 0: 1920, 1: 1048, length: 2 } } } }];
+    const covered = vm.runInNewContext("(function() {" + block(source("shell/core/Theme.qml"), "readonly property var coveredOutputs: {") + "})()", {
+      Displays: { outputs }, Compositor: { available: true, windows: () => windows },
+      Hyprland: { monitors: { values: monitors } }, Ambient, HD, stripHeight: 32,
+      Config: { strip: { edge: "top" } }, du: n => n
+    });
+    a.equal(covered["DP-1"], false);
+    a.equal(covered["DP-2"], true);
+  });
+
+  test("removed fullscreen delegates cannot reload before Variants deletes them", a => {
+    const text = source("shell/shell.qml");
+    for (const id of ["groundLoader", "stripLoader"]) {
+      const component = text.slice(text.indexOf("id: " + id));
+      const active = component.match(/^            active: (.*)$/m)[1];
+      const removed = { name: "DP-2" };
+      const ctx = { modelData: removed, outputScreen: null, ShellState: { releasedFor: () => false } };
+      a.equal(vm.runInNewContext(active, ctx), false);
+      ctx.outputScreen = { name: "DP-1" };
+      a.equal(vm.runInNewContext(active, ctx), true);
+      ctx.ShellState.releasedFor = () => true;
+      a.equal(vm.runInNewContext(active, ctx), false);
+    }
+  });
+
+  test("strip demand counts enabled visible outputs and keeps one sampling cadence", a => {
+    const outputs = [{ name: "DP-1", strip: true }, { name: "DP-2", strip: true }];
+    const released = new Set();
+    const ctx = { Config: { strip: { telemetry: "alert", visible: true } },
+      Displays: { outputs }, ShellState: { releasedFor: name => released.has(name), surfacesReleased: false } };
+    const demand = () => binding("shell/services/Telemetry.qml", "stripDemand", ctx);
+    a.equal(demand(), 2);
+    released.add("DP-1"); a.equal(demand(), 1);
+    released.add("DP-2"); a.equal(demand(), 0);
+    released.clear(); outputs[0].strip = false; a.equal(demand(), 1);
+    outputs[1].strip = false; a.equal(demand(), 0);
+    outputs[1].strip = true; ctx.Config.strip.telemetry = "off"; a.equal(demand(), 0);
+    ctx.Config.strip.telemetry = "alert"; ctx.Displays.outputs = []; a.equal(demand(), 0);
+  });
+
+  test("Deck takeover and popup hold follow the notice output including fullscreen Deck", a => {
+    const primary = { name: "DP-1" }, secondary = { name: "DP-2" };
+    for (const noticeScreen of [primary, secondary, null]) for (const overlayScreen of [primary, secondary]) {
+      for (const deckMapped of [false, true]) for (const released of ["DP-1", "DP-2"]) {
+        const Ui = { noticeScreen, overlayScreen, deckMapped };
+        const ShellState = { releasedFor: name => name === released, surfacesReleased: released === "DP-1" };
+        ShellState.noticesInDeck = binding("shell/services/ShellState.qml", "noticesInDeck", { Ui });
+        a.equal(ShellState.noticesInDeck, deckMapped && noticeScreen === overlayScreen);
+        a.equal(binding("shell/services/Notifications.qml", "held", { Ui, ShellState }),
+          !noticeScreen || (noticeScreen.name === released && !ShellState.noticesInDeck));
+      }
+    }
+    const column = source("shell/modules/notices/NoticeColumn.qml");
+    const deck = source("shell/modules/deck/DeckView.qml");
+    const columnVisible = column.match(/^    visible: (.*)$/m)[1];
+    const deckVisible = deck.match(/^        visible: hasContent.*$/m)[0].split("visible: ")[1];
+    for (const takeover of [false, true]) {
+      const ctx = { hasContent: true, stack: { hasContent: true }, Ui: { noticeScreen: primary, deckMapped: true }, ShellState: { noticesInDeck: takeover } };
+      a.equal(vm.runInNewContext(columnVisible, ctx), !takeover);
+      a.equal(vm.runInNewContext(deckVisible, ctx), takeover);
+      a.equal(binding("shell/modules/deck/DeckView.qml", "noticeReserve", {
+        deckNotices: { visible: takeover, hasContent: true, width: 100 }, Theme: { pad: 10 } }), takeover ? 120 : 0);
+    }
+  });
+
   test("external lock refuses absent lockers and never calls loginctl", async assert => {
     const calls = [];
     const ctx = {

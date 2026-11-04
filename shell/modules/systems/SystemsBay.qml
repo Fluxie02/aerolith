@@ -11,6 +11,7 @@ import "../../lib/telemetry.mjs" as T
 // hidden.
 FocusScope {
     id: bay
+    property var profile: Theme
 
     readonly property var cfg: Config.telemetry
     readonly property int seq: Telemetry.sampleSeq
@@ -58,7 +59,7 @@ FocusScope {
         return Telemetry.gpu ? Telemetry.gpu[field] : null;
     }
 
-    Bezel {
+    Bezel { profile: bay.profile;
         anchors.fill: parent
         designation: "SYS / 03"
         title: "Systems Bay"
@@ -90,26 +91,26 @@ FocusScope {
                             Layout.fillWidth: true
                             Layout.preferredHeight: Theme.du(215)
                             spacing: Theme.du(24)
-                            TracePanel {
+                            TracePanel { profile: bay.profile;
                                 title: "CPU LOAD"
                                 reading: T.formatPercent(Telemetry.cpu.total)
-                                readingColor: Theme.signal
+                                readingColor: bay.profile.signal
                                 values: { bay.seq; return Telemetry.cpuHistory.values(); }
                                 seq: bay.seq; caution: bay.cfg.cpuCautionPercent
                             }
-                            TracePanel {
+                            TracePanel { profile: bay.profile;
                                 title: "MEMORY"
                                 reading: T.formatPercent(Telemetry.memory ? Telemetry.memory.percent : null)
                                 values: { bay.seq; return Telemetry.memHistory.values(); }
                                 seq: bay.seq; caution: bay.cfg.memoryCautionPercent
                             }
-                            TracePanel {
+                            TracePanel { profile: bay.profile;
                                 title: "NETWORK / RX"
                                 reading: T.formatRate(Telemetry.net ? Telemetry.net.rxBps : null)
                                 values: { bay.seq; return Telemetry.rxHistory.values(); }
                                 seq: bay.seq; autoMax: true
                             }
-                            TracePanel {
+                            TracePanel { profile: bay.profile;
                                 title: "GPU LOAD"
                                 reading: T.formatPercent(bay.gpuValue("utilPercent"))
                                 values: { bay.seq; return Telemetry.gpuHistory.values(); }
@@ -133,11 +134,11 @@ FocusScope {
                                 Text {
                                     required property var modelData
                                     text: modelData; textFormat: Text.PlainText
-                                    color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                                    color: bay.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                                 }
                             }
                         }
-                        Ruler { Layout.fillWidth: true }
+                        Ruler { profile: bay.profile; Layout.fillWidth: true }
 
                         RowLayout {
                             Layout.fillWidth: true
@@ -151,17 +152,17 @@ FocusScope {
                                 Layout.fillHeight: true
                                 spacing: Theme.pad
 
-                                Label {
+                                Label { profile: bay.profile;
                                     text: "Core bus · " + Telemetry.cpu.cores.length + " logical CPUs"
                                 }
-                                CoreBus {
+                                CoreBus { profile: bay.profile;
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Theme.px(64)
                                     cores: Telemetry.cpu.cores
                                     caution: bay.cfg.cpuCautionPercent
                                 }
 
-                                Label {
+                                Label { profile: bay.profile;
                                     text: "Storage"
                                 }
                                 Repeater {
@@ -175,11 +176,11 @@ FocusScope {
                                             textFormat: Text.PlainText
                                             text: modelData.mount
                                             elide: Text.ElideMiddle
-                                            color: Theme.text
+                                            color: bay.profile.text
                                             font.family: Theme.mono
                                             font.pixelSize: Theme.fontXs
                                         }
-                                        TapeGauge {
+                                        TapeGauge { profile: bay.profile;
                                             Layout.fillWidth: true
                                             value: modelData.percent === null ? NaN : modelData.percent
                                             caution: 90
@@ -189,32 +190,32 @@ FocusScope {
                                             Layout.preferredWidth: Theme.px(150)
                                             horizontalAlignment: Text.AlignRight
                                             text: T.formatBytes(modelData.usedBytes) + " / " + T.formatBytes(modelData.sizeBytes)
-                                            color: Theme.textDim
+                                            color: bay.profile.textDim
                                             font.family: Theme.mono
                                             font.pixelSize: Theme.fontXs
                                         }
                                     }
                                 }
-                                Label {
+                                Label { profile: bay.profile;
                                     visible: Telemetry.disks.length === 0
                                     text: "Reading filesystems…"
                                 }
 
-                                Label {
+                                Label { profile: bay.profile;
                                     visible: Power.hasBattery
                                     text: "Battery"
                                 }
                                 RowLayout {
                                     visible: Power.hasBattery
                                     Layout.fillWidth: true
-                                    TapeGauge {
+                                    TapeGauge { profile: bay.profile;
                                         Layout.fillWidth: true
                                         value: Power.batteryPercent
                                         status: Power.batteryPercent < 10 ? "critical" : Power.batteryPercent < 20 ? "caution" : "nominal"
                                     }
                                     Text {
                                         text: Math.round(Power.batteryPercent) + "% · " + (Power.charging ? "charging" : T.formatDuration(Power.timeToEmpty) + " left")
-                                        color: Theme.textDim
+                                        color: bay.profile.textDim
                                         font.family: Theme.mono
                                         font.pixelSize: Theme.fontXs
                                     }
@@ -230,35 +231,35 @@ FocusScope {
                                 Layout.preferredWidth: 58
                                 Layout.fillHeight: true
                                 spacing: Theme.px(2)
-                                Label {
+                                Label { profile: bay.profile;
                                     text: "Top processes · sorted by " + (Telemetry.processSort === "cpu" ? "CPU (1 core = 100%)" : "memory")
                                 }
                                 RowLayout {
                                     Layout.fillWidth: true
-                                    ProcCell {
+                                    ProcCell { profile: bay.profile;
                                         text: "PID"
                                         w: 70
                                         dim: true
                                     }
-                                    ProcCell {
+                                    ProcCell { profile: bay.profile;
                                         text: "COMMAND"
                                         Layout.fillWidth: true
                                         dim: true
                                     }
-                                    ProcCell {
+                                    ProcCell { profile: bay.profile;
                                         text: "CPU"
                                         w: 70
                                         dim: true
                                         alignRight: true
                                     }
-                                    ProcCell {
+                                    ProcCell { profile: bay.profile;
                                         text: "RSS"
                                         w: 100
                                         dim: true
                                         alignRight: true
                                     }
                                 }
-                                Ruler {
+                                Ruler { profile: bay.profile;
                                     Layout.fillWidth: true
                                 }
                                 Repeater {
@@ -266,29 +267,29 @@ FocusScope {
                                     delegate: RowLayout {
                                         required property var modelData
                                         Layout.fillWidth: true
-                                        ProcCell {
+                                        ProcCell { profile: bay.profile;
                                             text: modelData.pid
                                             w: 70
                                             dim: true
                                         }
-                                        ProcCell {
+                                        ProcCell { profile: bay.profile;
                                             text: modelData.comm
                                             Layout.fillWidth: true
                                         }
-                                        ProcCell {
+                                        ProcCell { profile: bay.profile;
                                             text: modelData.cpuPercent === null ? "—" : modelData.cpuPercent.toFixed(0) + "%"
                                             w: 70
                                             alignRight: true
-                                            tone: modelData.cpuPercent !== null && modelData.cpuPercent > 80 ? Theme.caution : Theme.text
+                                            tone: modelData.cpuPercent !== null && modelData.cpuPercent > 80 ? bay.profile.caution : bay.profile.text
                                         }
-                                        ProcCell {
+                                        ProcCell { profile: bay.profile;
                                             text: T.formatBytes(modelData.rssBytes)
                                             w: 100
                                             alignRight: true
                                         }
                                     }
                                 }
-                                Label {
+                                Label { profile: bay.profile;
                                     visible: Telemetry.processes.length === 0
                                     text: "Sampling processes…"
                                 }
@@ -300,9 +301,9 @@ FocusScope {
                 }
             }
 
-            ScrollMark { viewport: instrumentsView }
+            ScrollMark { profile: bay.profile; viewport: instrumentsView }
 
-            StatusLine {
+            StatusLine { profile: bay.profile;
                 id: systemsStatus
                 anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
                 hints: [
@@ -333,20 +334,22 @@ FocusScope {
     }
 
     component TracePanel: ColumnLayout {
+        id: panel
+        property var profile: Theme
         // Equal stretch for every trace regardless of its label width.
         Layout.preferredWidth: 1
         property string title: ""
         property string reading: "N/A"
-        property color readingColor: Theme.text
+        property color readingColor: panel.profile.text
         property var values: []
         property int seq: 0
         property real caution: NaN
         property bool autoMax: false
-        property color traceColor: Theme.signal
+        property color traceColor: panel.profile.signal
         Layout.fillWidth: true
         Layout.fillHeight: true
         spacing: Theme.px(3)
-        Label {
+        Label { profile: panel.profile;
             text: parent.title
         }
         Text {
@@ -356,15 +359,15 @@ FocusScope {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: Theme.bg
-            border.color: Theme.grid
+            color: panel.profile.bg
+            border.color: panel.profile.grid
             border.width: Theme.border
             Text {
                 anchors.centerIn: parent; visible: parent.parent.reading === "N/A"
                 text: "N/A"; textFormat: Text.PlainText
-                color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                color: panel.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
             }
-            Trace {
+            Trace { profile: panel.profile;
                 anchors.fill: parent
                 anchors.margins: Theme.border
                 values: parent.parent.values
@@ -378,14 +381,16 @@ FocusScope {
     }
 
     component ProcCell: Text {
+        id: cell
+        property var profile: Theme
         textFormat: Text.PlainText
         property int w: 0
         property bool dim: false
         property bool alignRight: false
-        property color tone: Theme.text
+        property color tone: cell.profile.text
         Layout.preferredWidth: w > 0 ? Theme.px(w) : -1
         horizontalAlignment: alignRight ? Text.AlignRight : Text.AlignLeft
-        color: dim ? Theme.textDim : tone
+        color: dim ? cell.profile.textDim : tone
         font.family: Theme.mono
         font.pixelSize: Theme.fontXs
         elide: Text.ElideRight

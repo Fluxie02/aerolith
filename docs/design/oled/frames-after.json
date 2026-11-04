@@ -1,0 +1,38 @@
+{
+  "grounds": [
+    {
+      "output": "HEADLESS-1",
+      "profile": "standard",
+      "dimmed": false,
+      "opacity": 1,
+      "decoration": 1,
+      "frames": 8
+    },
+    {
+      "output": "HEADLESS-2",
+      "profile": "oled",
+      "dimmed": true,
+      "opacity": 0.4,
+      "decoration": 0,
+      "frames": 11
+    }
+  ],
+  "strips": [
+    {
+      "output": "HEADLESS-1",
+      "profile": "standard",
+      "dimmed": false,
+      "opacity": 1,
+      "decoration": 1,
+      "frames": 3
+    },
+    {
+      "output": "HEADLESS-2",
+      "profile": "oled",
+      "dimmed": true,
+      "opacity": 0.4,
+      "decoration": 0,
+      "frames": 9
+    }
+  ]
+}

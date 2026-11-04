@@ -4,6 +4,7 @@ import qs.core
 // [KEY] ACTION hint used in status lines.
 Row {
     id: root
+    property var profile: Theme
     property string key: ""
     property string action: ""
     spacing: Theme.px(4)
@@ -19,12 +20,12 @@ Row {
             id: keyText
             anchors.centerIn: parent
             text: root.key
-            color: Theme.textDim
+            color: root.profile.textDim
             font.family: Theme.mono
             font.pixelSize: Theme.fontXs
         }
     }
-    Label {
+    Label { profile: root.profile;
         anchors.verticalCenter: parent.verticalCenter
         text: root.action
     }

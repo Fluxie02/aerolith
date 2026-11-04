@@ -98,6 +98,96 @@ export function resolvePalette(overrides, scheme) {
   return out;
 }
 
+// Shared defaults for config and profile resolution; these are the OLED-1 values.
+export const OLED_DEFAULTS = { idleDimLevel: 0.65, decorationOpacity: 0.55 };
+
+// Pure policy: a global seat-idle event only affects opted-in outputs.
+export function profileState(profile, options, idle) {
+  const oled = profile === "oled";
+  const opts = options || {};
+  const idleDimmed = oled && opts.idleDimAfter > 0 && !!idle;
+  return {
+    idleDimmed: idleDimmed,
+    // Functional text and transient surfaces always remain opaque.
+    opacity: 1,
+    hideContent: idleDimmed && opts.hideDecorationWhenIdle !== false,
+    decorationOpacity: oled ? (idleDimmed && opts.hideDecorationWhenIdle !== false ? 0 : OLED_DEFAULTS.decorationOpacity * (idleDimmed ? oledLevel(opts.idleDimLevel, OLED_DEFAULTS.idleDimLevel) : 1)) : 1,
+  };
+}
+
+// OLED-1: opt-in derivation only; never mutate the resolved standard palette.
+// Fills are opaque. idleDim affects decoration only, never functional text.
+// Options may override decorationOpacity/idleDim with finite values in [0, 1].
+export function oledPalette(palette, options) {
+  const out = Object.assign({}, palette);
+  const opts = options || {};
+  out.obsidian = "#000000";
+  out.background = out.obsidian;
+  out.surface = oledTone(palette.surface, 0.55);
+  out.surface2 = oledTone(palette.surface2, 0.55);
+  // Black overrides must still leave two distinguishable material planes.
+  if (luminance(out.surface) < luminance("#0d0d0d")) out.surface = "#0d0d0d";
+  if (luminance(out.surface2) <= luminance(out.surface))
+    out.surface2 = mixColor(out.surface, "#ffffff", 0.04);
+  out.grid = mixColor(palette.grid, "#000000", 0.45);
+  out.decorationOpacity = oledLevel(opts.decorationOpacity, OLED_DEFAULTS.decorationOpacity);
+  out.idleDim = oledLevel(opts.idleDim, OLED_DEFAULTS.idleDimLevel);
+
+  const backgrounds = [out.obsidian, out.surface, out.surface2];
+  const roles = ["text", "textDim", "signal", "caution", "critical", "nominal", "appLink"];
+  for (let i = 0; i < roles.length; i++) {
+    const role = roles[i];
+    // Retain text brightness; reduce stationary accents while preserving hue.
+    const source = role === "appLink" ? (opts.appLink || palette.appLink || palette.signal) : palette[role];
+    const candidate = mixColor(source, "#000000", i < 2 ? 0 : 0.2);
+    out[role] = readableOledColor(candidate, backgrounds);
+  }
+  return out;
+}
+
+function oledLevel(value, fallback) {
+  return typeof value === "number" && isFinite(value) ? Math.max(0, Math.min(1, value)) : fallback;
+}
+
+function mixColor(color, target, amount) {
+  // Qt palette overrides use #AARRGGBB; OLED roles deliberately drop alpha.
+  const source = color.length === 9 ? color.slice(3) : color.slice(1);
+  let out = "#";
+  for (let i = 0; i < 6; i += 2) {
+    const a = parseInt(source.slice(i, i + 2), 16);
+    const b = parseInt(target.slice(i + 1, i + 3), 16);
+    const channel = Math.round(a + (b - a) * amount).toString(16);
+    out += channel.length === 1 ? "0" + channel : channel;
+  }
+  return out;
+}
+
+function oledTone(color, scale) {
+  // Bound even a white custom fill to a dark plane so AA remains achievable.
+  const tone = mixColor(color, "#000000", 1 - scale);
+  const channels = [1, 3, 5].map(i => parseInt(tone.slice(i, i + 2), 16));
+  const peak = Math.max.apply(null, channels);
+  return peak > 48 ? mixColor(tone, "#000000", 1 - 48 / peak) : tone;
+}
+
+function readableOledColor(color, backgrounds) {
+  function readable(candidate) {
+    for (let i = 0; i < backgrounds.length; i++)
+      if (contrast(candidate, backgrounds[i]) < MIN_TEXT_CONTRAST) return false;
+    return true;
+  }
+  if (readable(color)) return color;
+  // A bounded search also repairs low-contrast custom foreground overrides.
+  let low = 0;
+  let high = 1;
+  for (let i = 0; i < 16; i++) {
+    const mid = (low + high) / 2;
+    if (readable(mixColor(color, "#ffffff", mid))) high = mid;
+    else low = mid;
+  }
+  return mixColor(color, "#ffffff", high);
+}
+
 export function isColor(s) {
   return typeof s === "string" && /^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(s);
 }

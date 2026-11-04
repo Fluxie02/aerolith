@@ -1,0 +1,49 @@
+{
+  "smoke": {
+    "errors": [],
+    "starts": 1
+  },
+  "multimonitor": {
+    "errors": [],
+    "starts": 1
+  },
+  "oled": {
+    "errors": [],
+    "starts": 1
+  },
+  "fullscreen": {
+    "errors": [],
+    "starts": 1
+  },
+  "deck": {
+    "errors": [],
+    "starts": 1
+  },
+  "standard-before": {
+    "errors": [],
+    "starts": 2,
+    "teardown_before_copy": []
+  },
+  "standard-after": {
+    "errors": [],
+    "starts": 2,
+    "teardown_before_copy": [
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Theme.qml[185:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Theme.qml[186:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Idle.qml[14:5]: Unable to assign [undefined] to double",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Ui.qml[24:5]: Unable to assign [undefined] to QString",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Theme.qml[129:5]: Unable to assign [undefined] to double",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Notifications.qml[70:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Compositor.qml[61:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Compositor.qml[49:5]: Unable to assign [undefined] to QString"
+    ]
+  },
+  "perf-before-isolated": {
+    "errors": [],
+    "starts": 1
+  },
+  "perf-after-oled": {
+    "errors": [],
+    "starts": 1
+  }
+}

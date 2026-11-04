@@ -9,6 +9,7 @@ import "../notices"
 // Surface, focus, input lifetime and all bay demand belong to Deck.qml.
 Item {
     id: view
+    property var profile: Theme
     required property var deck
     readonly property alias frameA: frameA
     readonly property alias frameB: frameB
@@ -20,7 +21,7 @@ Item {
     readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
     readonly property string shownBay: Ui.activeBay || (deck.slotA.leaving ? deck.slotA.bay : deck.slotB.bay)
     readonly property string shownCode: codes[shownBay] || "—"
-    readonly property real noticeReserve: deckNotices.hasContent ? deckNotices.width + 2 * Theme.pad : 0
+    readonly property real noticeReserve: deckNotices.visible && deckNotices.hasContent ? deckNotices.width + 2 * Theme.pad : 0
 
     // Keep the strip, especially its sharing indicator, visible above the ground.
     Item {
@@ -28,15 +29,15 @@ Item {
         anchors.topMargin: Config.strip.edge === "top" ? Theme.stripHeight : 0
         anchors.bottomMargin: Config.strip.edge === "bottom" ? Theme.stripHeight : 0
         clip: true
-        Rectangle { anchors.fill: parent; color: Theme.bg }
-        InstrumentField {
+        Rectangle { anchors.fill: parent; color: view.profile.bg }
+        InstrumentField { profile: view.profile;
             y: Config.strip.edge === "top" ? -Theme.stripHeight : 0
             width: view.width; height: view.height
             instrument: true; progress: view.fieldProgress
         }
     }
     MouseArea { anchors.fill: parent; onClicked: Ui.close() }
-    Instrumentation { anchors.fill: parent; instrument: true }
+    Instrumentation { profile: view.profile; anchors.fill: parent; instrument: true }
 
 
     // A navigation bus shields names from the instrument engraving beneath.
@@ -46,16 +47,16 @@ Item {
         y: Config.strip.edge === "top" ? Theme.stripHeight : 0
         width: view.compactScreen ? view.width : railRow.width + 2 * Theme.pad
         height: railRow.y - y + railRow.height + Theme.du(4)
-        color: Theme.bg
+        color: view.profile.bg
         radius: 0
     }
     Rectangle {
         visible: !view.compactScreen
         x: railRow.x - Theme.du(12); y: railRow.y + Theme.du(10)
         width: Theme.du(3); height: railRow.height - Theme.du(20)
-        color: Theme.signal
+        color: view.profile.signal
     }
-    InstrumentTabs {
+    InstrumentTabs { profile: view.profile;
         id: railRow
         x: view.width * (view.compactScreen ? .045 : .37)
         y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(8)
@@ -70,12 +71,12 @@ Item {
     Rectangle {
         x: railRow.x + railRow.width + Theme.du(8); y: railRow.y + Theme.du(10)
         width: Theme.du(52); height: Theme.du(44)
-        color: settingsPointer.containsMouse ? Theme.surface2 : Theme.bg
-        border.color: Ui.activeBay === "settings" || activeFocus ? Theme.signal : Theme.grid
+        color: settingsPointer.containsMouse ? view.profile.surface2 : view.profile.bg
+        border.color: Ui.activeBay === "settings" || activeFocus ? view.profile.signal : view.profile.grid
         activeFocusOnTab: true
         Keys.onReturnPressed: Ui.open("settings")
         Keys.onSpacePressed: Ui.open("settings")
-        Text { anchors.centerIn: parent; text: "⚙"; color: Theme.text; font.pixelSize: Theme.du(23) }
+        Text { anchors.centerIn: parent; text: "⚙"; color: view.profile.text; font.pixelSize: Theme.du(23) }
         MouseArea {
             id: settingsPointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
             onClicked: Ui.open("settings")
@@ -86,17 +87,17 @@ Item {
     Text {
         x: railRow.x + railRow.width + Theme.du(8); y: railRow.y + Theme.du(58)
         text: "F1 HELP"; textFormat: Text.PlainText
-        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+        color: view.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
     }
     // Notices own a lane below the rail, beside the working planes. Reserve
     // its width in the bays too: merely lowering a toast covers bay controls
     // on compact outputs. Both retained slots share the same constraint.
-    ChordSlot {
+    ChordSlot { profile: view.profile;
         id: frameA
         slot: view.deck.slotA
         width: Math.max(0, view.width - leftOrigin - view.width * (compactScreen ? .045 : .08) - view.noticeReserve)
     }
-    ChordSlot {
+    ChordSlot { profile: view.profile;
         id: frameB
         slot: view.deck.slotB
         width: Math.max(0, view.width - leftOrigin - view.width * (compactScreen ? .045 : .08) - view.noticeReserve)
@@ -110,11 +111,11 @@ Item {
         spacing: Theme.du(10)
         Rectangle {
             width: Theme.du(26); height: Theme.du(3)
-            anchors.verticalCenter: parent.verticalCenter; color: Theme.signal
+            anchors.verticalCenter: parent.verticalCenter; color: view.profile.signal
         }
         Text {
             text: (view.bayNames[view.shownBay] || view.shownBay).toUpperCase()
-            textFormat: Text.PlainText; color: Theme.signal
+            textFormat: Text.PlainText; color: view.profile.signal
             font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1.2
         }
     }
@@ -130,6 +131,15 @@ Item {
         }
         Canvas {
             id: commandElevation
+            opacity: view.profile.decorationOpacity === undefined ? 1 : view.profile.decorationOpacity
+            Connections {
+                target: view.profile
+                function onPaletteChanged() { commandElevation.requestPaint(); }
+            }
+            Connections {
+                target: view
+                function onProfileChanged() { commandElevation.requestPaint(); }
+            }
             x: -Theme.du(18); y: -Theme.du(15)
             width: parent.width + Theme.du(30); height: parent.height + Theme.du(22)
             renderTarget: Canvas.Image
@@ -143,10 +153,10 @@ Item {
                 c.beginPath(); c.moveTo(0, 0); c.lineTo(width - cut, 0);
                 c.lineTo(width, cut); c.lineTo(width, height - Theme.du(30));
                 c.lineTo(width - Theme.du(30), height); c.lineTo(0, height); c.closePath();
-                c.fillStyle = Theme.bg; c.fill();
-                c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+                c.fillStyle = view.profile.bg; c.fill();
+                c.strokeStyle = view.profile.grid; c.lineWidth = Theme.border; c.stroke();
                 c.beginPath(); c.moveTo(0, Theme.du(8)); c.lineTo(0, Theme.du(66));
-                c.strokeStyle = Theme.signal; c.lineWidth = Theme.du(3); c.stroke();
+                c.strokeStyle = view.profile.signal; c.lineWidth = Theme.du(3); c.stroke();
             }
             Connections {
                 target: Theme
@@ -160,22 +170,22 @@ Item {
         }
         Text {
             text: "SEARCH & LAUNCH"; textFormat: Text.PlainText
-            color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
+            color: view.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
         }
         Text {
             y: Theme.du(24); text: "FIND"; textFormat: Text.PlainText
-            color: Theme.text; font.family: Theme.displaySans
+            color: view.profile.text; font.family: Theme.displaySans
             font.pixelSize: Math.min(Theme.du(98), parent.width * .34)
             font.weight: Font.Light; font.letterSpacing: -Theme.du(4)
         }
         Rectangle {
             x: Theme.du(2); y: Theme.du(138)
-            width: parent.width * .64; height: Theme.du(3); color: Theme.signal
+            width: parent.width * .64; height: Theme.du(3); color: view.profile.signal
         }
         Text {
             x: Theme.du(2); y: Theme.du(158); width: parent.width - Theme.du(20)
             text: "TYPE TO SEARCH\n>  COMMANDS\n@  WINDOWS\n!  ROUTINES\n?  AI IF INSTALLED"
-            textFormat: Text.PlainText; color: Theme.textDim
+            textFormat: Text.PlainText; color: view.profile.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontSm; lineHeight: 1.6
         }
     }
@@ -183,9 +193,9 @@ Item {
         x: parent.width * .055; y: parent.height * .84
         visible: !view.compactScreen
         text: Theme.applicationName + " / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
-        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+        color: view.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
     }
-    NoticeStack {
+    NoticeStack { profile: view.profile;
         id: deckNotices
         z: 10
         anchors.right: parent.right
@@ -193,31 +203,32 @@ Item {
         y: railRow.y + railRow.height + Theme.pad
         width: Math.min(implicitWidth, view.width * .32)
         maximumHeight: Math.max(0, view.height - y - Theme.pad - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0))
-        visible: hasContent
+        visible: hasContent && ShellState.noticesInDeck
     }
     Component {
         id: missingAiBay
         FocusScope {
-            Bezel {
+            property var profile: view.profile
+            Bezel { profile: view.profile;
                 anchors.fill: parent
-                designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: Theme.caution
+                designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: view.profile.caution
                 MouseArea { anchors.fill: parent }
                 Column {
                     width: parent.width; spacing: Theme.pad
-                    Label { width: parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
+                    Label { profile: view.profile; width: parent.width; text: "OPTIONAL MODULE / OFFLINE"; strong: true }
                     Text {
                         width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                        color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
+                        color: view.profile.text; font.family: Theme.displaySans; font.pixelSize: Theme.fontXl
                         text: "Add a provider when you need one."
                     }
                     Text {
                         width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                        color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                        color: view.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
                         text: "The desktop is ready without AI. Configure a provider to ask questions and review proposed actions here."
                     }
                     Text {
                         width: parent.width; wrapMode: Text.WrapAnywhere; textFormat: Text.PlainText
-                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
+                        color: view.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontMd
                         text: "aerolith ai configure"
                     }
                 }

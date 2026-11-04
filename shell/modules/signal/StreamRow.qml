@@ -7,6 +7,7 @@ import qs.services
 // Application playback stream: name, what it plays, volume, current route.
 Rectangle {
     id: row
+    property var profile: Theme
     property var node: null
     property bool selected: false
     signal picked
@@ -18,8 +19,8 @@ Rectangle {
     readonly property string mediaName: node && node.properties ? (node.properties["media.name"] || "") : ""
 
     implicitHeight: Math.round(Theme.rowHeight * 1.9)
-    color: selected ? Theme.surface2 : "transparent"
-    border.color: selected ? Theme.signal : "transparent"
+    color: selected ? row.profile.surface2 : "transparent"
+    border.color: selected ? row.profile.signal : "transparent"
     border.width: Theme.border
     radius: Theme.radius
 
@@ -30,7 +31,7 @@ Rectangle {
         x: 0
         anchors.verticalCenter: parent.verticalCenter
         visible: row.selected
-        color: Theme.signal
+        color: row.profile.signal
     }
 
     MouseArea {
@@ -48,14 +49,14 @@ Rectangle {
                 Layout.fillWidth: true
                 text: Audio.streamLabel(row.node)
                 textFormat: Text.PlainText
-                color: Theme.text
+                color: row.profile.text
                 font.family: Theme.displaySans
                 font.pixelSize: Theme.fontSm
                 elide: Text.ElideRight
             }
             Text {
                 text: row.bound && row.node.audio.muted ? "MUTE" : isNaN(row.pct) ? "N/A" : Math.round(row.pct) + "%"
-                color: Theme.text
+                color: row.profile.text
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
             }
@@ -65,7 +66,7 @@ Rectangle {
             Layout.fillWidth: true
             text: row.mediaName
             textFormat: Text.PlainText
-            color: Theme.textDim
+            color: row.profile.textDim
             font.family: Theme.sans
             font.pixelSize: Theme.fontXs
             elide: Text.ElideRight
@@ -73,7 +74,7 @@ Rectangle {
         RowLayout {
             Layout.fillWidth: true
             spacing: Theme.gap
-            TapeGauge {
+            TapeGauge { profile: row.profile;
                 Layout.fillWidth: true
                 implicitHeight: Theme.px(10)
                 value: row.pct
@@ -85,7 +86,7 @@ Rectangle {
                 text: "→ " + (row.targets.length ? row.targets.map(t => Audio.label(t)).join(", ") : "unlinked")
                 textFormat: Text.PlainText
                 elide: Text.ElideRight
-                color: Theme.signal
+                color: row.profile.signal
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
                 MouseArea {

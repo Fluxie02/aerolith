@@ -15,6 +15,8 @@
 //
 // V4-compatible JavaScript (see docs/RESEARCH.md).
 
+import { OLED_DEFAULTS } from "./tokens.mjs";
+
 export const SCHEMA_VERSION = 1;
 
 const S = {
@@ -31,10 +33,28 @@ export const SCHEMA = S.obj(
     schemaVersion: S.int(SCHEMA_VERSION, 1, 1000, "Configuration schema version. Written by AEROLITH; do not change by hand."),
     display: S.obj(
       {
-        output: S.str("", 64, "Output (monitor) name to run on, e.g. \"DP-1\". Empty selects automatically."),
-        warnOnMultipleDisplays: S.bool(true, "Show a caution annunciator when more than one display is connected."),
+        primary: S.str("", 64, "Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live."),
+        output: S.str("", 64, "Deprecated alias for display.primary (one release). Used when primary is empty or unavailable."),
+        outputs: {
+          type: "map",
+          values: S.obj({
+            strip: S.bool(true, "Enable the Flight Strip on this output (also requires strip.visible)."),
+            ground: S.bool(true, "Enable Ground on this output (also requires ground.enabled)."),
+            profile: S.enumOf("standard", ["standard", "oled"], "Display profile: standard preserves the theme; oled uses black fills and display.oled idle protection. Applies live."),
+          }, "Per-output settings."),
+          default: {},
+          description: "Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults.",
+        },
+        oled: Object.assign(S.obj({
+          idleDimAfter: S.int(300, 0, 86400, "Seconds without activity before dimming shell surfaces on OLED outputs. 0 disables idle protection. Respects idle inhibitors."),
+          idleDimLevel: S.num(OLED_DEFAULTS.idleDimLevel, 0, 1, "Shell surface opacity when idle, on OLED outputs only."),
+          hideDecorationWhenIdle: S.bool(true, "Hide static decorative geometry while OLED shell surfaces are idle-dimmed."),
+        }, "Protection for outputs whose profile is oled; standard outputs are unaffected. idleDimAfter is idle seconds (0 disables); idleDimLevel is surface opacity (0–1); hideDecorationWhenIdle hides static geometry. No display brightness changes or pixel shifting."), { default: { idleDimAfter: 300, idleDimLevel: OLED_DEFAULTS.idleDimLevel, hideDecorationWhenIdle: true } }),
+        overlayOn: S.enumOf("focused", ["focused", "primary"], "Output for Deck, OSD and session menu. Missing focus falls back to primary."),
+        noticesOn: S.str("primary", 64, "Output for notices: primary, focused, or an output name. Missing names fall back to primary."),
+        warnOnMultipleDisplays: S.bool(true, "Retired; accepted for compatibility and ignored. All enabled outputs get surfaces."),
       },
-      "AEROLITH supports exactly one display. These settings choose which one.",
+      "Multi-monitor placement. Ground and Strip run on every enabled output; global services remain singletons.",
     ),
     theme: S.obj(
       {
@@ -243,9 +263,13 @@ function walk(schema, value, path, errors, warnings) {
     }
     const out = {};
     for (const k in value) {
-      const e = checkLeaf(schema.values, value[k]);
-      if (e) errors.push({ path: path + "." + k, message: e + "; ignored" });
-      else out[k] = value[k];
+      if (schema.values.type === "object") {
+        out[k] = walk(schema.values, value[k], path + "." + k, errors, warnings);
+      } else {
+        const e = checkLeaf(schema.values, value[k]);
+        if (e) errors.push({ path: path + "." + k, message: e + "; ignored" });
+        else out[k] = value[k];
+      }
     }
     return out;
   }

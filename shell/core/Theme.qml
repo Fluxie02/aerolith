@@ -7,6 +7,7 @@ import qs.services
 import "../lib/tokens.mjs" as Tokens
 import "../lib/schemes.mjs" as Schemes
 import "../lib/ambient.mjs" as Ambient
+import "../lib/hyprdispatch.mjs" as HD
 
 // Limb's mineral planes and phosphor inscriptions, resolved against config.
 // Every visual value used by components comes from here.
@@ -140,38 +141,49 @@ Singleton {
     // UI-013: the only ambient-motion switch. Claude's fullscreen lifecycle
     // hook sets ambientSuspended before unmapping/unloading visual surfaces.
     property bool ambientSuspended: false
-    // Mapping is not exposure: tiled/maximized clients may cover the Ground
-    // while it stays mapped. Read the existing snapshots only when they change.
-    // Coverage holds motion, without invoking the fullscreen release lifecycle.
-    readonly property bool desktopCovered: {
-        if (!Compositor.available || !Ui.screen) return false;
-        const geometry = Compositor.monitorGeometry();
-        if (!geometry) return false;
-        const monitors = Hyprland.monitors.values;
-        let monitor = null;
-        for (let i = 0; i < monitors.length; i++)
-            if (monitors[i].name === Ui.screenName) monitor = monitors[i];
-        if (!monitor && monitors.length === 1) monitor = monitors[0];
-        if (!monitor) return false;
-        const ipc = monitor.lastIpcObject || {};
-        // Conservatively keep motion available over a shown special workspace.
-        if (ipc.specialWorkspace && ipc.specialWorkspace.id < 0) return false;
-        const workspace = monitor.activeWorkspace ? monitor.activeWorkspace.id
-            : ipc.activeWorkspace ? ipc.activeWorkspace.id : -1;
-        // Client coordinates and monitorGeometry() are both logical, including
-        // rotated/fractionally scaled outputs. Ignore the strip's reserved lane.
-        const lane = Config.strip.visible ? Math.min(stripHeight, geometry.height) : 0;
-        const output = { x: geometry.x,
-            y: geometry.y + (Config.strip.edge === "top" ? lane : 0),
-            width: geometry.width, height: geometry.height - lane };
-        const windows = Compositor.windows().map(w => ({
-            workspaceId: w.workspaceId, at: w.at, size: w.size, floating: w.floating,
-            ipc: w.toplevel ? w.toplevel.lastIpcObject : null
-        }));
-        // 40 logical px: Hyprland gaps between tiled windows still count as covered.
-        return Ambient.desktopCovered(windows, output, workspace, du(40));
+    // Coverage and fullscreen hold belong to the surface's output. The
+    // compatibility properties below continue to describe the primary.
+    readonly property var coveredOutputs: {
+        const covered = {};
+        const outputs = Displays.outputs;
+        const monitors = Compositor.available ? Hyprland.monitors.values : [];
+        const windows = Compositor.available ? Compositor.windows().map(w => {
+            const ipc = w.toplevel ? w.toplevel.lastIpcObject : null;
+            // Qt exposes JSON lists as array-like values, not always JS Arrays.
+            // Normalise geometry before passing it to the pure coverage test.
+            return { workspaceId: w.workspaceId,
+                at: ipc && ipc.at ? [ipc.at[0], ipc.at[1]] : w.at,
+                size: ipc && ipc.size ? [ipc.size[0], ipc.size[1]] : w.size,
+                floating: w.floating, ipc: ipc };
+        }) : [];
+        for (let k = 0; k < outputs.length; k++) {
+            const output = outputs[k];
+            let monitor = null;
+            for (let i = 0; i < monitors.length; i++)
+                if (monitors[i].name === output.monitorName) monitor = monitors[i];
+            if (!monitor) continue;
+            const ipc = monitor.lastIpcObject || {};
+            if (ipc.specialWorkspace && ipc.specialWorkspace.id < 0) continue;
+            const workspace = monitor.activeWorkspace ? monitor.activeWorkspace.id
+                : ipc.activeWorkspace ? ipc.activeWorkspace.id : -1;
+            const size = HD.logicalMonitorSize(monitor.width, monitor.height, monitor.scale, ipc.transform || 0);
+            if (!size) continue;
+            const lane = output.strip ? Math.min(stripHeight, size.height) : 0;
+            const geometry = { x: monitor.x,
+                y: monitor.y + (Config.strip.edge === "top" ? lane : 0),
+                width: size.width, height: size.height - lane };
+            covered[output.name] = Ambient.desktopCovered(windows, geometry, workspace, du(40));
+        }
+        return covered;
     }
-    readonly property bool ambientHeld: ambientSuspended || (desktopCovered && !Ui.deckOpen)
+    function desktopCoveredFor(name) { return coveredOutputs[name] === true; }
+    function ambientHeldFor(name) {
+        const deckHere = Ui.deckOpen && Ui.overlayScreen && Ui.overlayScreen.name === name;
+        return ShellState.heldFor(name) || (desktopCoveredFor(name) && !deckHere);
+    }
+    function ambientFor(name) { return animate && !lowEffects && !ambientHeldFor(name); }
+    readonly property bool desktopCovered: desktopCoveredFor(Ui.screenName)
+    readonly property bool ambientHeld: ambientSuspended || ambientHeldFor(Ui.screenName)
     readonly property bool ambient: animate && !lowEffects && !ambientHeld
     onAmbientChanged: if (!ambient) { ignition.stop(); bootProgress = 1; }
     readonly property bool ambientReduced: cfg.motion === "reduced"

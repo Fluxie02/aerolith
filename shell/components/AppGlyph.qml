@@ -7,6 +7,7 @@ import qs.core
 // theme has none. No icon font dependency.
 Item {
     id: root
+    property var profile: Theme
     property string icon: ""
     property string fallback: ""
     property int size: Theme.px(20)
@@ -25,14 +26,14 @@ Item {
         anchors.fill: parent
         visible: root.resolved === ""
         color: "transparent"
-        border.color: Theme.grid
+        border.color: root.profile.grid
         border.width: Theme.border
         radius: Theme.radius
         Text {
             textFormat: Text.PlainText
             anchors.centerIn: parent
             text: (root.fallback || root.icon || "?").replace(/[^A-Za-z0-9]/g, "").slice(0, 3).toUpperCase()
-            color: Theme.textDim
+            color: root.profile.textDim
             font.family: Theme.mono
             font.pixelSize: Math.max(7, Math.round(root.size * 0.36))
         }

@@ -22,7 +22,7 @@ function typeOf(spec) {
     case "array":
       return "list of strings";
     case "map":
-      return "object of colours";
+      return spec.values.type === "color" ? "object of colours" : "map of " + (spec.values.type === "object" ? "objects" : spec.values.type);
     default:
       return spec.type;
   }

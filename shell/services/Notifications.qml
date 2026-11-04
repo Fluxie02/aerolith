@@ -67,7 +67,8 @@ Singleton {
     // released (ShellState), so popups cannot be seen: their clock stops and
     // they get their remaining time after the game. A popup that arrives
     // during it gets its full time.
-    readonly property bool held: ShellState.surfacesReleased
+    readonly property bool held: !Ui.noticeScreen
+        || (ShellState.releasedFor(Ui.noticeScreen.name) && !ShellState.noticesInDeck)
     property real heldAt: 0
     onHeldChanged: {
         if (held) {

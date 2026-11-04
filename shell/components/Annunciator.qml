@@ -1,11 +1,13 @@
 import QtQuick
 import qs.core
+import "../lib/tokens.mjs" as Tokens
 
 // Flight Strip annunciator cell: a short code, optional value, and a
 // status colour (nominal | caution | critical | active | unknown).
 // Caution and critical cells get a tinted plate so they read at a glance.
 Item {
     id: root
+    property var profile: Theme
     property string code: ""
     property string value: ""
     property string status: "nominal"
@@ -16,7 +18,7 @@ Item {
     signal wheel(var wheel)
 
     readonly property bool raised: status === "caution" || status === "critical"
-    readonly property color tone: status === "nominal" ? Theme.textDim : Theme.stateColor(status)
+    readonly property color tone: status === "nominal" ? root.profile.textDim : Tokens.stateColor(root.profile, status)
     implicitWidth: (compact ? Math.max(codeText.implicitWidth, valueText.width) : codeText.implicitWidth + (value !== "" ? Theme.px(5) + valueText.width : 0)) + Theme.pad
     implicitHeight: parent ? parent.height : Theme.stripHeight
 
@@ -24,7 +26,7 @@ Item {
         anchors.fill: parent
         anchors.topMargin: root.compact ? Theme.border : Theme.px(4)
         anchors.bottomMargin: root.compact ? Theme.border : Theme.px(4)
-        color: root.raised ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(root.tone, 0.14)) : mouse.containsMouse && root.interactive ? Theme.surface2 : "transparent"
+        color: root.raised ? (Theme.lowEffects || root.profile.profile === "oled" ? root.profile.surface2 : Theme.alpha(root.tone, 0.14)) : mouse.containsMouse && root.interactive ? root.profile.surface2 : "transparent"
         border.color: root.raised ? root.tone : "transparent"
         border.width: Theme.border
         radius: Theme.radius
@@ -51,7 +53,7 @@ Item {
             text: root.value
             width: Math.min(implicitWidth, root.valueLimit)
             elide: Text.ElideRight
-            color: root.status === "nominal" ? Theme.text : root.tone
+            color: root.status === "nominal" ? root.profile.text : root.tone
             font.family: Theme.mono
             font.pixelSize: root.compact ? Theme.fontXs : Theme.fontSm
             x: root.compact ? (parent.width - width) / 2 : codeText.x + codeText.width + Theme.px(5)

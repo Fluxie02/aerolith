@@ -22,32 +22,44 @@ ShellRoot {
 
     // Touch services so they initialise and register their commands even
     // before anything visible references them.
-    readonly property var services: [Compositor, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands, AppThemes]
+    readonly property var services: [Compositor, Displays, Idle, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands, AppThemes]
 
-    // While a fullscreen window owns the output (ShellState), the visual
-    // surfaces are destroyed, not just hidden: a hidden window keeps its
-    // scene graph and render resources. They are rebuilt once when it ends.
-    // Summoning the Deck during fullscreen maps the Deck alone; ambient
-    // motion stays held until the shell is back to desktop.
-    LazyLoader {
-        active: !ShellState.surfacesReleased
-        GroundSurface {}
+    // Stable screen keys retain delegates on focus/metadata changes. Each
+    // loader destroys only its output's surface while fullscreen owns it.
+    Variants {
+        model: Displays.groundScreens
+        LazyLoader {
+            id: groundLoader
+            required property var modelData
+            // A removed lifecycle falls back to desktop before Variants'
+            // deferred delegate deletion. Never reload it on a dead screen.
+            readonly property var outputScreen: Displays.liveScreen(modelData)
+            active: !!outputScreen && !ShellState.releasedFor(outputScreen.name)
+            GroundSurface { outputScreen: groundLoader.outputScreen }
+        }
+    }
+    Variants {
+        model: Displays.stripScreens
+        LazyLoader {
+            id: stripLoader
+            required property var modelData
+            // A removed lifecycle falls back to desktop before Variants'
+            // deferred delegate deletion. Never reload it on a dead screen.
+            readonly property var outputScreen: Displays.liveScreen(modelData)
+            active: !!outputScreen && !ShellState.releasedFor(outputScreen.name)
+            FlightStrip { outputScreen: stripLoader.outputScreen }
+        }
     }
 
     LazyLoader {
-        active: !ShellState.surfacesReleased
-        FlightStrip {}
-    }
-
-    LazyLoader {
-        active: !ShellState.surfacesReleased || Ui.deckOpen || Ui.deckMapped
+        active: !!Ui.overlayScreen && (!ShellState.releasedFor(Ui.overlayScreen.name) || Ui.deckOpen || Ui.deckMapped)
         Deck {
             aiBay: aiLoader.bayComponent
         }
     }
 
     LazyLoader {
-        active: !ShellState.surfacesReleased
+        active: !!Ui.noticeScreen && !ShellState.releasedFor(Ui.noticeScreen.name)
         NoticeColumn {}
     }
 
@@ -71,6 +83,6 @@ ShellRoot {
     }
 
     Component.onCompleted: {
-        Log.info("shell", "AEROLITH started on " + (Ui.screenName || "no display") + (Ui.multipleDisplays ? " (" + Ui.screenCount + " displays connected; single-display mode)" : "") + "; Hyprland " + (Compositor.available ? "connected" : "not detected") + (Paths.devMode ? "; development mode" : ""));
+        Log.info("shell", "AEROLITH started on " + (Ui.screenName || "no display") + (Ui.multipleDisplays ? " (" + Ui.screenCount + " displays connected)" : "") + "; Hyprland " + (Compositor.available ? "connected" : "not detected") + (Paths.devMode ? "; development mode" : ""));
     }
 }

@@ -16,6 +16,7 @@ import qs.services
 // window, X twice closes it, / filters, Esc clears filter or closes.
 FocusScope {
     id: nav
+    property var profile: Theme
 
     property int sectorIndex: 0
     property int windowIndex: 0
@@ -208,12 +209,12 @@ FocusScope {
         event.accepted = true;
     }
 
-    Bezel {
+    Bezel { profile: nav.profile;
         anchors.fill: parent
         designation: "NAV / 02"
         title: "Spatial Navigator"
         status: Compositor.available ? nav.allWindows.length + " WINDOWS / " + nav.sectors.length + " WORKSPACES" : "COMPOSITOR OFFLINE"
-        statusColor: Compositor.available ? Theme.textDim : Theme.caution
+        statusColor: Compositor.available ? nav.profile.textDim : nav.profile.caution
         MouseArea { anchors.fill: parent; z: -1 }
         Item {
             anchors.fill: parent
@@ -223,22 +224,22 @@ FocusScope {
                 height: Theme.du(35)
                 Text {
                     text: "/"; textFormat: Text.PlainText
-                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.du(17)
+                    color: nav.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.du(17)
                 }
                 TextInput {
                     id: filterInput
                     x: Theme.du(28); width: parent.width - x; height: parent.height
-                    color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.fontMd
+                    color: nav.profile.text; font.family: Theme.mono; font.pixelSize: Theme.fontMd
                     onTextChanged: nav.filter = text
                     Keys.forwardTo: [nav]
                     Text {
                         visible: filterInput.text === ""
                         text: nav.filtering ? "FILTER BY TITLE OR APPLICATION" : "PRESS / TO FILTER"
                         textFormat: Text.PlainText
-                        color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                        color: nav.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
                     }
                 }
-                Rectangle { anchors.bottom: parent.bottom; width: parent.width; height: Theme.border; color: Theme.grid }
+                Rectangle { anchors.bottom: parent.bottom; width: parent.width; height: Theme.border; color: nav.profile.grid }
             }
             Flickable {
                 id: field
@@ -258,7 +259,7 @@ FocusScope {
                 onWidthChanged: reveal()
                 Repeater {
                     model: Compositor.available ? nav.sectors : []
-                    delegate: Sector {
+                    delegate: Sector { profile: nav.profile;
                         required property var modelData
                         required property int index
                         x: index * (field.cellW + Theme.du(22))
@@ -278,10 +279,10 @@ FocusScope {
                     text: "HYPRLAND LINK / UNAVAILABLE\n\nWindow and workspace controls need a Hyprland session.\nThe overview will return when the compositor reconnects."
                     horizontalAlignment: Text.AlignHCenter; lineHeight: 1.4
                     textFormat: Text.PlainText; wrapMode: Text.WordWrap
-                    color: Theme.caution; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                    color: nav.profile.caution; font.family: Theme.mono; font.pixelSize: Theme.fontSm
                 }
             }
-            StatusLine {
+            StatusLine { profile: nav.profile;
                 id: status
                 anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
                 hints: [{key:"←→",action:"workspace"},{key:"↑↓ / TAB",action:"window"},{key:"⏎",action:"focus"},{key:"1–9",action:"workspace"},{key:"M",action:"move"},{key:"X X",action:"close"},{key:"/",action:"filter"}]

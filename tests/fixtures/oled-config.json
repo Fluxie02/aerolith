@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "theme": {
+    "motion": "off"
+  },
+  "strip": {
+    "telemetry": "off"
+  },
+  "display": {
+    "outputs": {
+      "HEADLESS-2": {
+        "profile": "oled"
+      }
+    },
+    "oled": {
+      "idleDimAfter": 2,
+      "idleDimLevel": 0.4,
+      "hideDecorationWhenIdle": true
+    },
+    "noticesOn": "focused"
+  }
+}

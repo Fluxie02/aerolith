@@ -6,6 +6,7 @@ import qs.services
 // boxed with phosphor registration brackets; urgent cells get an amber plate.
 Row {
     id: tape
+    property var profile: Theme
     property bool compact: false
     spacing: Theme.px(2)
 
@@ -43,7 +44,7 @@ Row {
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: Theme.px(3)
-                color: cell.modelData.urgent ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(Theme.caution, 0.18)) : hover.containsMouse ? Theme.surface2 : "transparent"
+                color: cell.modelData.urgent ? (Theme.lowEffects || tape.profile.profile === "oled" ? tape.profile.surface2 : Theme.alpha(tape.profile.caution, 0.18)) : hover.containsMouse ? tape.profile.surface2 : "transparent"
                 radius: Theme.radius
             }
 
@@ -51,8 +52,8 @@ Row {
             Rectangle {
                 anchors.fill: parent; anchors.margins: Theme.px(3)
                 visible: cell.modelData.focused
-                color: Theme.surface2; radius: Theme.radius
-                border.width: Theme.border; border.color: Theme.signal
+                color: tape.profile.surface2; radius: Theme.radius
+                border.width: Theme.border; border.color: tape.profile.signal
             }
 
             Text {
@@ -60,7 +61,7 @@ Row {
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: -Theme.px(2)
                 text: cell.modelData.id
-                color: cell.modelData.focused ? Theme.signal : cell.modelData.urgent ? Theme.caution : cell.modelData.windows > 0 ? Theme.text : Theme.textDim
+                color: cell.modelData.focused ? tape.profile.signal : cell.modelData.urgent ? tape.profile.caution : cell.modelData.windows > 0 ? tape.profile.text : tape.profile.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontSm
                 font.weight: cell.modelData.focused ? Font.Bold : Font.Normal
@@ -77,7 +78,7 @@ Row {
                     Rectangle {
                         width: Theme.px(3)
                         height: Theme.px(2)
-                        color: cell.modelData.focused ? Theme.signal : Theme.textDim
+                        color: cell.modelData.focused ? tape.profile.signal : tape.profile.textDim
                     }
                 }
             }

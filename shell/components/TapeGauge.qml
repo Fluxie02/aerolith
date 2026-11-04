@@ -6,6 +6,7 @@ import qs.core
 // unavailable metric is never mistaken for zero.
 Item {
     id: root
+    property var profile: Theme
     property var value: NaN
     property real min: 0
     property real max: 100
@@ -18,7 +19,7 @@ Item {
 
     readonly property bool known: !isNaN(value) && value !== null && isFinite(value)
     readonly property real fraction: known ? Math.max(0, Math.min(1, (value - min) / (max - min))) : 0
-    readonly property color fillColor: status === "caution" ? Theme.caution : status === "critical" ? Theme.critical : Theme.signal
+    readonly property color fillColor: status === "caution" ? root.profile.caution : status === "critical" ? root.profile.critical : root.profile.signal
 
     Rectangle {
         id: track
@@ -26,8 +27,8 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
         height: Math.round(root.height * 0.55)
-        color: Theme.surface2
-        border.color: Theme.grid
+        color: root.profile.surface2
+        border.color: root.profile.grid
         border.width: Theme.border
 
         Item {
@@ -61,7 +62,7 @@ Item {
                 Rectangle {
                     width: Theme.border
                     height: parent.height
-                    color: Theme.grid
+                    color: root.profile.grid
                 }
             }
         }
@@ -76,7 +77,7 @@ Item {
             y: track.height
             width: Theme.border
             height: index % 5 === 0 ? root.height - track.height : Math.round((root.height - track.height) / 2)
-            color: Theme.grid
+            color: root.profile.grid
         }
     }
 
@@ -87,7 +88,7 @@ Item {
         y: 0
         width: Theme.px(2)
         height: track.height
-        color: Theme.caution
+        color: root.profile.caution
     }
     Rectangle {
         visible: !isNaN(root.critical)
@@ -95,7 +96,7 @@ Item {
         y: 0
         width: Theme.px(2)
         height: track.height
-        color: Theme.critical
+        color: root.profile.critical
     }
 
     // Caret

@@ -1,0 +1,206 @@
+ok 1 displays › live screen rejects removed wrappers and same-name replacements
+ok 2 displays › joins by name, preserves screens and monitor metadata
+ok 3 displays › primary, deprecated alias, lowest id, then first screen
+ok 4 displays › per-output defaults, profiles and global disable switches
+ok 5 displays › overlay follows focus by default; notices use primary or explicit output
+ok 6 displays › hotplug only creates real screens and missing choices fall back and recover
+ok 7 displays › single mismatched names retain monitor focus and alias compatibility
+ok 8 displays › config validates nested output settings independently and keeps old keys
+ok 9 output lifecycles › fullscreen releases only its output; hold precedes release
+ok 10 output lifecycles › unplug cancels pending timers; replug never inherits suspension
+ok 11 output lifecycles › a removed output cannot run an entry callback and unavailable IPC restores
+ok 12 output lifecycles › single mismatched names use the joined monitor name
+ok 13 fuzzy › rejects text that does not contain the query as a subsequence
+ok 14 fuzzy › empty query matches with zero score
+ok 15 fuzzy › is case and diacritic insensitive
+ok 16 fuzzy › aligns to word starts rather than the first fitting letters
+ok 17 fuzzy › camelCase transitions count as word starts
+ok 18 fuzzy › ranks a word-start match above a mid-word match
+ok 19 fuzzy › ranks exact and prefix matches above scattered ones
+ok 20 fuzzy › consecutive runs beat the same letters spread out
+ok 21 fuzzy › multi-token queries require every token (AND)
+ok 22 fuzzy › each token uses its best field and highlights land in that field
+ok 23 fuzzy › weights change ranking between fields
+ok 24 fuzzy › tokenize collapses whitespace
+ok 25 fuzzy › segments split text into matched and unmatched runs
+ok 26 fuzzy › highlight markup escapes HTML in titles
+ok 27 hyprdispatch › scratch dispatches use validated special selectors in both dialects
+ok 28 hyprdispatch › scratch rejects malformed selectors, addresses, monitors and dialects
+ok 29 hyprdispatch › Lua string literals escape quotes, backslashes and control characters
+ok 30 hyprdispatch › Lua string literals cannot be broken out of
+ok 31 hyprdispatch › non-ASCII is emitted as three-digit UTF-8 byte escapes
+ok 32 hyprdispatch › addresses are normalised and validated
+ok 33 hyprdispatch › workspace selectors accept ids and safe names only
+ok 34 hyprdispatch › legacy dialect produces hyprlang dispatcher strings
+ok 35 hyprdispatch › Lua dialect produces hl.dsp calls with quoted selectors
+ok 36 hyprdispatch › session exit in both dialects
+ok 37 hyprdispatch › unknown dialects are rejected
+ok 38 hyprdispatch › dispatch replies are interpreted strictly
+ok 39 hyprdispatch › monitor size is converted from physical pixels to logical layout units
+ok 40 registry › rejects malformed command definitions
+ok 41 registry › refuses duplicate ids and aliases
+ok 42 registry › search finds commands by title and keyword
+ok 43 registry › alias with arguments becomes a validated invocation
+ok 44 registry › unavailable commands are listed with a reason and rank lower
+ok 45 registry › scope prefixes narrow results
+ok 46 registry › execute validates arguments before running
+ok 47 registry › execute refuses unavailable commands without running them
+ok 48 registry › quiet results keep their flag; ordinary results do not get one
+ok 49 registry › sensitive commands need explicit confirmation
+ok 50 registry › exceptions and rejections become failed results
+ok 51 registry › slow commands time out with an honest message
+ok 52 registry › history is bounded and newest first
+ok 53 registry › unregisterSource removes everything a module registered
+ok 54 registry › AI-origin execution respects aiAllowed=false
+ok 55 registry › fail() and ok() build structured results
+ok 56 params › coerces typed text input
+ok 57 params › reports every problem at once
+ok 58 params › required parameters must be present
+ok 59 params › integers reject fractions and non-finite values
+ok 60 params › dynamic enum choices are evaluated with context
+ok 61 params › string lists validate every entry
+ok 62 params › positional words map onto parameters; trailing string absorbs the rest
+ok 63 telemetry › parses /proc/stat totals and per-core jiffies
+ok 64 telemetry › computes CPU utilisation from deltas
+ok 65 telemetry › first sample has no utilisation rather than zero
+ok 66 telemetry › identical samples give unknown, not 0%
+ok 67 telemetry › parses meminfo in bytes and computes usage from MemAvailable
+ok 68 telemetry › swap is unknown when the kernel does not report it
+ok 69 telemetry › parses PSI pressure files and reports absence as null
+ok 70 telemetry › network rates exclude loopback and virtual bridges
+ok 71 telemetry › counter resets do not produce negative rates
+ok 72 telemetry › nvidia-smi CSV parsing maps N/A to null
+ok 73 telemetry › top processes use CPU-time deltas and skip reused PIDs
+ok 74 telemetry › ps parsing keeps command names with spaces
+ok 75 telemetry › df parsing
+ok 76 telemetry › hwmon selection prefers package/edge sensors
+ok 77 telemetry › history is bounded
+ok 78 telemetry › adaptive sampling: nothing when nobody watches
+ok 79 telemetry › classification and formatting distinguish unknown from zero
+ok 80 config › OLED defaults preserve old configs, validate bounds and retain output profiles
+ok 81 config › empty or missing config yields complete defaults without errors
+ok 82 config › malformed JSON is reported and defaults are used
+ok 83 config › only unparsable text is flagged as invalid JSON
+ok 84 config › a bad value falls back to its default without affecting siblings
+ok 85 config › range and type checks
+ok 86 config › unknown keys are preserved and warned about
+ok 87 config › palette overrides only accept colours
+ok 88 config › list settings validate their items
+ok 89 config › a non-object document is rejected with defaults
+ok 90 config › newer schema versions are accepted with a warning
+ok 91 config › migration runs registered steps in order
+ok 92 config › migration reports a missing step instead of guessing
+ok 93 config › setPath validates and preserves unrelated keys
+ok 94 config › JSON Schema export covers every section with defaults
+ok 95 config › no AI settings in the core schema
+ok 96 config › intensity defaults to saturated and accepts only known levels
+ok 97 routines › valid routines pass and get typed arguments
+ok 98 routines › unknown actions, bad arguments and non-routine commands are rejected
+ok 99 routines › routine definitions cannot smuggle code
+ok 100 routines › invalid documents and duplicate ids are reported
+ok 101 routines › preview runs nothing and flags sensitive steps
+ok 102 routines › run executes steps in order and records undo information
+ok 103 routines › onError=stop skips the remaining steps
+ok 104 routines › onError=continue keeps going and still reports failure
+ok 105 routines › routines with sensitive steps do nothing until confirmed
+ok 106 routines › cancellation stops before the next step
+ok 107 routines › revert applies recorded inverses newest first
+ok 108 launch › strips desktop-entry field codes
+ok 109 launch › strips embedded field codes and unescapes literal percent once
+ok 110 launch › terminal applications need a terminal
+ok 111 launch › launch prefix wraps everything
+ok 112 launch › empty commands are an error, not a silent no-op
+ok 113 launch › terminal detection respects preference order
+ok 114 launch › frecency rewards recent and frequent use, and decays
+ok 115 launch › usage table is pruned to a bound
+ok 116 tokens › text colours meet WCAG AA contrast on both surfaces
+ok 117 tokens › Limb's translucent planes and annunciators retain AA contrast
+ok 118 tokens › palette overrides accept only known keys and valid colours
+ok 119 tokens › unknown density and motion names fall back
+ok 120 tokens › font lists deduplicate
+ok 121 schemes › schema accepts exactly the catalog, defaults safely and persists choices
+ok 122 schemes › unknown schemes fall back and overrides preserve known role semantics
+ok 123 schemes › Limb: readable text, selection, PIYTI edges and focus
+ok 124 schemes › Bathyal: readable text, selection, PIYTI edges and focus
+ok 125 schemes › Corona: readable text, selection, PIYTI edges and focus
+ok 126 schemes › Cinder: readable text, selection, PIYTI edges and focus
+ok 127 schemes › Ferrite: readable text, selection, PIYTI edges and focus
+ok 128 schemes › Iris: readable text, selection, PIYTI edges and focus
+ok 129 schemes › Argent: readable text, selection, PIYTI edges and focus
+ok 130 schemes › Lichen: readable text, selection, PIYTI edges and focus
+ok 131 schemes › Helios: readable text, selection, PIYTI edges and focus
+ok 132 schemes › Umbra: readable text, selection, PIYTI edges and focus
+ok 133 schemes › Vellum: readable text, selection, PIYTI edges and focus
+ok 134 schemes › Glacial: readable text, selection, PIYTI edges and focus
+ok 135 shellstate › reads the Hyprland fullscreen bitmask and the pre-0.42 boolean
+ok 136 shellstate › ignores the fullscreen state the client asked for
+ok 137 shellstate › a fullscreen window on the output's active workspace takes the output
+ok 138 shellstate › a floating window focused over a fullscreen game leaves the output taken
+ok 139 shellstate › a fullscreen game on a named workspace takes the output
+ok 140 shellstate › an unknown active workspace is never fullscreen
+ok 141 shellstate › maximized windows and other workspaces do not count
+ok 142 shellstate › a shown special workspace or an unmapped window releases the output
+ok 143 shellstate › a removed or unknown output is never fullscreen
+ok 144 shellstate › suspends after the enter delay and restores immediately
+ok 145 shellstate › repeated detections do not postpone suspension
+ok 146 shellstate › a fullscreen flap shorter than the delay never suspends
+ok 147 shellstate › re-entering fullscreen while restoring suspends again
+ok 148 shellstate › a flap while restoring still finishes restoring
+ok 149 brightness › prefers firmware, then platform, then raw backlights
+ok 150 brightness › among equals the finest control wins; unusable entries are skipped
+ok 151 brightness › parses the probe output
+ok 152 brightness › converts between raw values and percent without ever reaching 0
+ok 153 brightness › steps align to the step size and stay in range
+ok 154 appbus › a running app's link focuses its most recent window, not the Navigator
+ok 155 appbus › clicking the focused app again visits each of its windows in turn
+ok 156 appbus › an app whose only window has focus does nothing
+ok 157 appbus › an installed app that is not running is started from its desktop entry
+ok 158 appbus › an app that is not installed opens the search
+ok 159 appbus › games launched by Steam are not Steam's windows
+ok 160 appbus › desktop ids match without .desktop and case
+ok 161 appbus › window classes resolve desktop ids and suffixes case-insensitively
+ok 162 appbus › StartupWMClass resolves a different desktop id, but exact ids win
+ok 163 appbus › reverse-DNS and Flatpak classes keep their desktop entry name and icon
+ok 164 appbus › unknown windows have readable names, stable ids and a generic icon
+ok 165 appbus › usage ranks before running apps and unused installs, with a caller limit
+ok 166 appbus › resolved aliases deduplicate windows and preserve focus, cycle and launch
+ok 167 ambient exposure › a maximized client covers the logical 4K/1.5 work area
+ok 168 ambient exposure › adjacent tiled windows cover together; removing one resumes
+ok 169 ambient exposure › overlap does not count twice and a narrow exposed gap resumes
+ok 170 ambient exposure › four tiles and overlap cover the full union
+ok 171 ambient exposure › switching workspaces, including named workspaces, changes exposure
+ok 172 ambient exposure › hidden and unmapped clients cannot hold ambient
+ok 173 ambient exposure › ordinary floating windows do not hold; a maximized floating client can
+ok 174 ambient exposure › offset, rotated logical outputs and bottom strip reserve use the same coordinates
+ok 175 ambient exposure › bad or absent geometry never guesses coverage
+ok 176 ambient exposure › font family lists resolve installed multiword names with generic fallback
+ok 177 ambient exposure › ordinary tiling gaps count as covered with slack, a real empty area does not
+ok 178 oled tokens › limb: black fill, separate planes, dimmer accents and AA contrast
+ok 179 oled tokens › bathyal: black fill, separate planes, dimmer accents and AA contrast
+ok 180 oled tokens › corona: black fill, separate planes, dimmer accents and AA contrast
+ok 181 oled tokens › cinder: black fill, separate planes, dimmer accents and AA contrast
+ok 182 oled tokens › ferrite: black fill, separate planes, dimmer accents and AA contrast
+ok 183 oled tokens › iris: black fill, separate planes, dimmer accents and AA contrast
+ok 184 oled tokens › argent: black fill, separate planes, dimmer accents and AA contrast
+ok 185 oled tokens › lichen: black fill, separate planes, dimmer accents and AA contrast
+ok 186 oled tokens › helios: black fill, separate planes, dimmer accents and AA contrast
+ok 187 oled tokens › umbra: black fill, separate planes, dimmer accents and AA contrast
+ok 188 oled tokens › vellum: black fill, separate planes, dimmer accents and AA contrast
+ok 189 oled tokens › glacial: black fill, separate planes, dimmer accents and AA contrast
+ok 190 oled tokens › custom dark foregrounds and black/bright/alpha fills remain readable and separate
+ok 191 oled tokens › seat idle policy is opt-in, live, and disables at zero timeout
+ok 192 oled tokens › options bound opacity multipliers and do not change standard resolution
+ok 193 runtime-qml › ambient consumers use their own window on either held output
+ok 194 runtime-qml › per-output coverage normalises Qt array-like IPC geometry
+ok 195 runtime-qml › removed fullscreen delegates cannot reload before Variants deletes them
+ok 196 runtime-qml › strip demand counts enabled visible outputs and keeps one sampling cadence
+ok 197 runtime-qml › Deck takeover and popup hold follow the notice output including fullscreen Deck
+ok 198 runtime-qml › external lock refuses absent lockers and never calls loginctl
+ok 199 runtime-qml › the built-in lock bypasses the external probe and preserves confirmation
+ok 200 runtime-qml › loginctl errors are preserved when an external listener exists
+ok 201 runtime-qml › external lock supports idle listeners and the ScreenSaver interface
+ok 202 runtime-qml › Navigator inputs already exclude named and special workspace ids
+ok 203 runtime-qml › numbered stepping enters from either end of named/special workspaces
+ok 204 runtime-qml › the 101st notification closes the evicted sender and removes its popup
+ok 205 runtime-qml › Exec rejects failed starts on runningChanged and bounds streaming output
+# passed 205, failed 0

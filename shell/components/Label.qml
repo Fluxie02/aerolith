@@ -3,9 +3,11 @@ import qs.core
 
 // Small uppercase instrument label.
 Text {
+    id: label
+    property var profile: Theme
     textFormat: Text.PlainText
     property bool strong: false
-    color: strong ? Theme.text : Theme.textDim
+    color: strong ? label.profile.text : label.profile.textDim
     font.family: Theme.mono
     font.pixelSize: Theme.fontXs
     font.weight: strong ? Font.DemiBold : Font.Medium

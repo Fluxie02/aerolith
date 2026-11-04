@@ -120,3 +120,69 @@ export function createLifecycle(options) {
     },
   };
 }
+
+// Independent lifecycle controllers, sharing the caller's scheduler. Removal
+// cancels entry/restore/release callbacks; replug starts fresh. Only pending
+// transitions schedule work, never a repeating timer per output.
+export function createOutputLifecycles(options) {
+  const entries = Object.create(null);
+  const notify = options.onChange || function () {};
+  const transition = options.onTransition || function () {};
+  function publish() { notify(states()); }
+  function states() {
+    const out = {};
+    for (const name in entries) {
+      const e = entries[name];
+      out[name] = { phase: e.lifecycle.phase, fullscreen: e.detected.fullscreen,
+        ownerClass: e.detected.appClass, ambientHeld: e.ambientHeld, released: e.released };
+    }
+    return out;
+  }
+  function remove(name) {
+    const e = entries[name];
+    e.lifecycle.dispose();
+    if (e.release !== null) options.scheduler.clearTimeout(e.release);
+    delete entries[name];
+  }
+  return {
+    update(outputs, snapshot) {
+      const names = outputs.map(o => o.name);
+      for (const name in entries) if (names.indexOf(name) < 0) remove(name);
+      for (let i = 0; i < outputs.length; i++) {
+        const output = outputs[i];
+        const name = output.name;
+        if (!entries[name]) {
+          const e = { detected: outputFullscreen(null), ambientHeld: false, released: false, release: null };
+          entries[name] = e;
+          e.lifecycle = createLifecycle({
+            scheduler: options.scheduler, enterDelayMs: options.enterDelayMs, restoreMs: options.restoreMs,
+            onChange: (next, previous) => {
+              if (e.release !== null) options.scheduler.clearTimeout(e.release);
+              e.release = null;
+              if (next === SUSPENDED) {
+                e.ambientHeld = true;
+                e.release = options.scheduler.setTimeout(() => {
+                  e.release = null;
+                  e.released = e.lifecycle.phase === SUSPENDED;
+                  publish();
+                }, 0);
+              } else {
+                e.released = false;
+                e.ambientHeld = next === RESTORING;
+              }
+              publish();
+              transition(name, next, previous, e.detected);
+            }
+          });
+        }
+        const e = entries[name];
+        e.detected = outputFullscreen(snapshot ? { output: output.monitorName || name,
+          monitors: snapshot.monitors, clients: snapshot.clients } : null);
+        e.lifecycle.update(e.detected.fullscreen);
+      }
+      publish();
+    },
+    states: states,
+    dispose() { for (const name in entries) remove(name); }
+  };
+}

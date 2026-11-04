@@ -90,10 +90,16 @@ PanelWindow {
         }
     ]
 
-    readonly property string wanted: Ui.deckOpen && Ui.screen !== null ? Ui.activeBay : ""
+    readonly property string wanted: Ui.deckOpen && Ui.overlayScreen !== null ? Ui.activeBay : ""
 
-    screen: Ui.screen
-    visible: holdSurface && Ui.screen !== null
+    readonly property alias profile: displayProfile
+    DisplayProfile {
+        id: displayProfile
+        output: deck.screen ? deck.screen.name : ""
+    }
+    readonly property alias dimItem: scope
+    screen: Ui.overlayScreen
+    visible: holdSurface && Ui.overlayScreen !== null
     color: "transparent"
     anchors {
         top: true
@@ -112,17 +118,32 @@ PanelWindow {
         id: noInput
     }
 
+    property string mappedOutput: ""
     onVisibleChanged: {
         Ui.deckMapped = visible;
-        if (visible)
+        if (visible) {
             Ui.deckMaps++;
+            mappedOutput = screen ? screen.name : "";
+        }
     }
     // shell.qml unloads the Deck while a fullscreen window owns the output;
     // a destroyed Deck is not mapped.
     Component.onDestruction: Ui.deckMapped = false
-    // The compositor closed the surface (e.g. its output went away): treat
-    // it as closed, so no bay keeps its demand without being seen.
-    onClosed: Ui.close()
+    // A removed output closes its old layer surface. Let Displays settle,
+    // then remap the requested bay on the surviving output. Other compositor
+    // closes still end the bay and its service demand.
+    onClosed: {
+        const previousOutput = mappedOutput;
+        Qt.callLater(() => {
+            const removed = !Quickshell.screens.some(s => s.name === previousOutput);
+            if (removed && Ui.overlayScreen && Ui.deckOpen) {
+                deck.screen = Qt.binding(() => Ui.overlayScreen);
+                deck.visible = Qt.binding(() => deck.holdSurface && Ui.overlayScreen !== null);
+            } else {
+                Ui.close();
+            }
+        });
+    }
     onWantedChanged: sync()
     onAiBayChanged: sync()
     Component.onCompleted: sync()
@@ -178,8 +199,23 @@ PanelWindow {
         free.present(wanted, comp);
     }
 
+    // Back OLED content with black while keeping the strip's reserved lane
+    // transparent. Foregrounds bypass idle decoration policy.
+    Rectangle {
+        anchors.fill: parent
+        anchors.topMargin: Config.strip.edge === "top" ? Theme.stripHeight : 0
+        anchors.bottomMargin: Config.strip.edge === "bottom" ? Theme.stripHeight : 0
+        visible: displayProfile.profile === "oled"
+        color: displayProfile.bg
+    }
+
     FocusScope {
         id: scope
+        opacity: displayProfile.opacity
+        Behavior on opacity {
+            enabled: Theme.animate && targetValue < 1
+            NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+        }
         anchors.fill: parent
         focus: true
 
@@ -202,6 +238,7 @@ PanelWindow {
         }
 
         DeckView {
+            profile: displayProfile
             id: view
             anchors.fill: parent
             deck: deck
@@ -272,6 +309,8 @@ PanelWindow {
         }
 
         onLoaded: {
+            if (item.profile !== undefined)
+                item.profile = Qt.binding(() => deck.profile);
             if (current)
                 item.forceActiveFocus();
         }
@@ -284,30 +323,30 @@ PanelWindow {
 
     Component {
         id: commandBay
-        CommandCore {}
+        CommandCore { profile: deck.profile }
     }
     Component {
         id: navigatorBay
-        SpatialNavigator {}
+        SpatialNavigator { profile: deck.profile }
     }
     Component {
         id: systemsBay
-        SystemsBay {}
+        SystemsBay { profile: deck.profile }
     }
     Component {
         id: signalBay
-        SignalRack {}
+        SignalRack { profile: deck.profile }
     }
     Component {
         id: routinesBay
-        RoutineConsole {}
+        RoutineConsole { profile: deck.profile }
     }
     Component {
         id: helpBay
-        HelpBay {}
+        HelpBay { profile: deck.profile }
     }
     Component {
         id: settingsBay
-        SettingsBay {}
+        SettingsBay { profile: deck.profile }
     }
 }

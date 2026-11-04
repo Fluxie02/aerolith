@@ -5,6 +5,7 @@ import qs.core
 // right coloured by state (ok/error/caution/busy).
 Item {
     id: root
+    property var profile: Theme
     property var hints: []        // [{ key, action }]
     property string message: ""
     property string messageState: "" // ok | error | caution | busy | ""
@@ -16,7 +17,7 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
         height: Theme.border
-        color: Theme.grid
+        color: root.profile.grid
     }
     Flow {
         id: hintsFlow
@@ -26,7 +27,7 @@ Item {
         spacing: Theme.pad
         Repeater {
             model: root.hints
-            KeyHint {
+            KeyHint { profile: root.profile;
                 required property var modelData
                 key: modelData.key
                 action: modelData.action
@@ -44,7 +45,7 @@ Item {
         maximumLineCount: 2
         elide: Text.ElideRight
         text: root.messageState === "busy" ? "◌ " + root.message : root.message
-        color: root.messageState === "ok" ? Theme.signal : root.messageState === "error" ? Theme.critical : root.messageState === "caution" ? Theme.caution : Theme.textDim
+        color: root.messageState === "ok" ? root.profile.signal : root.messageState === "error" ? root.profile.critical : root.messageState === "caution" ? root.profile.caution : root.profile.textDim
         font.family: Theme.mono
         font.pixelSize: Theme.fontXs
     }

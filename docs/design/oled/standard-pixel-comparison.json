@@ -1,0 +1,22 @@
+[
+  {
+    "output": 1,
+    "size": [
+      1920,
+      1080
+    ],
+    "different_pixels_bbox": null,
+    "identical": true,
+    "fixture": "clock/date and memory text frozen, motion and strip telemetry off"
+  },
+  {
+    "output": 2,
+    "size": [
+      1920,
+      1080
+    ],
+    "different_pixels_bbox": null,
+    "identical": true,
+    "fixture": "clock/date and memory text frozen, motion and strip telemetry off"
+  }
+]

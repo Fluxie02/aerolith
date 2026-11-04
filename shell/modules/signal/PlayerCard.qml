@@ -9,6 +9,7 @@ import "../../lib/telemetry.mjs" as T
 // disabled instead of being attempted.
 Rectangle {
     id: card
+    property var profile: Theme
     property var player: null
     property bool active: false
     property bool selected: false
@@ -28,8 +29,8 @@ Rectangle {
     }
 
     implicitHeight: col.implicitHeight + Theme.pad * 2
-    color: selected ? Theme.surface2 : Theme.bg
-    border.color: selected ? Theme.signal : Theme.grid
+    color: selected ? card.profile.surface2 : card.profile.bg
+    border.color: selected ? card.profile.signal : card.profile.grid
     border.width: Theme.border
     radius: Theme.radius
 
@@ -39,7 +40,7 @@ Rectangle {
         width: Theme.px(5)
         height: width
         rotation: 45
-        color: card.selected || card.active ? Theme.signal : Theme.grid
+        color: card.selected || card.active ? card.profile.signal : card.profile.grid
     }
 
     MouseArea {
@@ -60,12 +61,12 @@ Rectangle {
             Layout.fillWidth: true
             Text {
                 text: card.player.isPlaying ? "PLAYING / MPRIS" : "PAUSED / MPRIS"
-                color: card.player.isPlaying ? Theme.signal : Theme.textDim
+                color: card.player.isPlaying ? card.profile.signal : card.profile.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
                 font.letterSpacing: 0.8
             }
-            Label {
+            Label { profile: card.profile;
                 Layout.fillWidth: true
                 text: card.player.identity + (card.active ? " · active" : "")
             }
@@ -74,7 +75,7 @@ Rectangle {
             Layout.fillWidth: true
             text: card.player.trackTitle || "Unknown title"
             textFormat: Text.PlainText
-            color: Theme.text
+            color: card.profile.text
             font.family: Theme.displaySans
             font.pixelSize: Theme.fontLg
             font.weight: Font.Medium
@@ -85,7 +86,7 @@ Rectangle {
             visible: (card.player.trackArtist || card.player.trackAlbum) !== ""
             text: [card.player.trackArtist, card.player.trackAlbum].filter(s => s && s.length > 0).join(" · ")
             textFormat: Text.PlainText
-            color: Theme.textDim
+            color: card.profile.textDim
             font.family: Theme.sans
             font.pixelSize: Theme.fontSm
             elide: Text.ElideRight
@@ -96,11 +97,11 @@ Rectangle {
             spacing: Theme.gap
             Text {
                 text: card.clock(card.player.position)
-                color: Theme.textDim
+                color: card.profile.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
             }
-            TapeGauge {
+            TapeGauge { profile: card.profile;
                 Layout.fillWidth: true
                 implicitHeight: Theme.px(10)
                 value: card.lengthKnown ? card.player.position / card.player.length * 100 : NaN
@@ -108,14 +109,14 @@ Rectangle {
             }
             Text {
                 text: card.lengthKnown ? card.clock(card.player.length) : "--:--"
-                color: Theme.textDim
+                color: card.profile.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
             }
         }
         Row {
             spacing: Theme.gap
-            Control {
+            Control { profile: card.profile;
                 glyph: "⏮"
                 enabled: card.player.canGoPrevious
                 onTriggered: {
@@ -123,7 +124,7 @@ Rectangle {
                     card.command("media.previous");
                 }
             }
-            Control {
+            Control { profile: card.profile;
                 glyph: card.player.isPlaying ? "⏸" : "▶"
                 enabled: card.player.canTogglePlaying
                 onTriggered: {
@@ -131,7 +132,7 @@ Rectangle {
                     card.command("media.play-pause");
                 }
             }
-            Control {
+            Control { profile: card.profile;
                 glyph: "⏭"
                 enabled: card.player.canGoNext
                 onTriggered: {
@@ -144,19 +145,20 @@ Rectangle {
 
     component Control: Rectangle {
         id: btn
+        property var profile: Theme
         property string glyph: ""
         signal triggered
         width: Theme.px(44)
         height: Theme.px(30)
-        color: controlMouse.containsMouse && enabled ? Theme.surface2 : "transparent"
-        border.color: Theme.grid
+        color: controlMouse.containsMouse && enabled ? btn.profile.surface2 : "transparent"
+        border.color: btn.profile.grid
         border.width: Theme.border
         radius: Theme.radius
         opacity: enabled ? 1 : Theme.disabledOpacity
         Text {
             anchors.centerIn: parent
             text: btn.glyph
-            color: Theme.text
+            color: btn.profile.text
             font.pixelSize: Theme.fontMd
         }
         MouseArea {

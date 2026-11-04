@@ -11,6 +11,7 @@ import qs.components
 
 FocusScope {
     id: root
+    property var profile: Theme
     property var actions: []
     signal activated(string id)
     signal cancelled()
@@ -51,7 +52,7 @@ FocusScope {
         else if (event.key === Qt.Key_Down || event.key === Qt.Key_Tab) { selected = Math.max(0,Math.min(actions.length-1,selected+1)); event.accepted = true; }
         else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) { if (!event.isAutoRepeat) choose(selected); event.accepted = true; }
     }
-    Rectangle { anchors.fill: parent; color: Theme.lowEffects ? Theme.bg : Theme.alpha(Theme.bg,.97) }
+    Rectangle { anchors.fill: parent; color: Theme.lowEffects ? root.profile.bg : Theme.alpha(root.profile.bg,.97) }
     // Static, content-free registration field. No compositor/window metadata.
     Repeater {
         model: Theme.insane ? 20 : 10
@@ -59,10 +60,10 @@ FocusScope {
             required property int index
             x: Theme.du(36); y: (index+1)*root.height/((Theme.insane ? 20 : 10)+1)
             width: index%5 === 0 ? root.width-Theme.du(72) : Theme.du(24)
-            height: 1; color: Theme.grid
+            height: 1; color: root.profile.grid
         }
     }
-    Bezel {
+    Bezel { profile: root.profile;
         id: panel
         anchors.centerIn: parent
         width: Math.min(root.width-Theme.du(48),Theme.du(640))
@@ -101,10 +102,10 @@ FocusScope {
                 required property var modelData
                 required property int index
                 width: list.width; height: Math.max(Theme.du(62), labels.implicitHeight+Theme.du(20))
-                color: root.selected === index ? Theme.surface2 : Theme.surface
+                color: root.selected === index ? root.profile.surface2 : root.profile.surface
                 radius: Theme.radius
-                border.width: Theme.border; border.color: root.selected === index ? Theme.signal : Theme.grid
-                Rectangle { x: 0; y: 0; width: Theme.du(3); height: parent.height; color: modelData.available === true ? root.sensitive(modelData) ? Theme.caution : Theme.signal : Theme.grid }
+                border.width: Theme.border; border.color: root.selected === index ? Theme.signal : root.profile.grid
+                Rectangle { x: 0; y: 0; width: Theme.du(3); height: parent.height; color: modelData.available === true ? root.sensitive(modelData) ? Theme.caution : Theme.signal : root.profile.grid }
                 Text {
                     x: Theme.du(16); anchors.verticalCenter: parent.verticalCenter
                     text: String(index+1).padStart(2,"0"); textFormat: Text.PlainText
@@ -158,10 +159,10 @@ FocusScope {
                         required property string modelData
                         required property int index
                         width: (parent.width-Theme.du(12))/2; height: Theme.du(56)
-                        color: (index === 1) === root.confirmSelected ? Theme.surface2 : Theme.surface
+                        color: (index === 1) === root.confirmSelected ? root.profile.surface2 : root.profile.surface
                         radius: Theme.radius
                         border.width: Theme.border
-                        border.color: (index === 1) === root.confirmSelected ? (index === 1 ? Theme.caution : Theme.signal) : Theme.grid
+                        border.color: (index === 1) === root.confirmSelected ? (index === 1 ? Theme.caution : Theme.signal) : root.profile.grid
                         Text {
                             anchors.fill: parent; anchors.margins: Theme.du(12)
                             horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter

@@ -10,6 +10,7 @@ import qs.components
 
 Item {
     id: root
+    property var profile: Theme
     property string kind: "volume"
     property real value: NaN
     property bool muted: false
@@ -33,7 +34,7 @@ Item {
     Component.onCompleted: { ready = true; if (!presentationOpen) settled(); }
     onPresentationOpenChanged: { exitPending = !presentationOpen; if (exitPending) Qt.callLater(finishExit); }
 
-    Bezel {
+    Bezel { profile: root.profile;
         id: face; anchors.fill: parent
         opacity: root.ready && root.presentationOpen ? 1 : 0
         transform: Translate { y: Theme.travel && !Theme.lowEffects && (!root.ready || !root.presentationOpen) ? Theme.du(8) : 0
@@ -70,7 +71,7 @@ Item {
             }
             Item {
                 width: parent.width; height: Theme.du(14)
-                Rectangle { anchors.fill: parent; radius: Theme.radius; color: Theme.bg; border.color: Theme.grid; border.width: Theme.border }
+                Rectangle { anchors.fill: parent; radius: Theme.radius; color: root.profile.bg; border.color: root.profile.grid; border.width: Theme.border }
                 Rectangle {
                     x: 1; y: 1; height: parent.height-2
                     width: Math.max(0,(parent.width-2)*root.bounded/root.ceiling)
@@ -81,7 +82,7 @@ Item {
                     Rectangle {
                         required property int index
                         x: (index+1)*parent.width/((Theme.insane ? 32 : 16)+1)
-                        width: 1; height: parent.height; color: Theme.surface
+                        width: 1; height: parent.height; color: root.profile.surface
                     }
                 }
                 Rectangle {

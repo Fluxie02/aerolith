@@ -6,6 +6,9 @@ import qs.services
 // window occupancy adds teeth, without changing the click targets.
 Item {
     id: orbit
+    property var profile: Theme
+    readonly property string outputName: Screen.name
+    readonly property bool ambient: !(profile.idleDimmed || profile.idleAnimationHeld) && Theme.ambientFor(outputName)
     property bool instrument: false
     readonly property int count: Config.strip.workspaceCount
     readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
@@ -20,11 +23,11 @@ Item {
             : height * .55 + Math.cos(-.92 + index * 1.84 / Math.max(1, count - 1)) * radius;
     }
     readonly property bool exposed: visible && Window.window && Window.window.visible
+    onAmbientChanged: if (!ambient) indexMotion.complete()
     onExposedChanged: if (!exposed) indexMotion.complete()
     Connections {
         target: Theme
         function onTravelChanged() { if (!Theme.travel) indexMotion.complete(); }
-        function onAmbientChanged() { if (!Theme.ambient) indexMotion.complete(); }
     }
     readonly property real radius: height * .29
     readonly property int focusIndex: Math.max(0, Math.min(count - 1, Compositor.focusedWorkspaceId - 1))
@@ -33,7 +36,7 @@ Item {
 
     // Follow the machined annulus in InstrumentField, not the clickable
     // station radius. Only its two lips are shaded; the numeral stays dark.
-    Material {
+    Material { profile: orbit.profile;
         shader: "annulus"
         readonly property real ringRadius: orbit.height * .34
         x: orbit.width * .27 - width / 2
@@ -49,9 +52,9 @@ Item {
         rotation: 90 - orbit.focusAngle * 180 / Math.PI
         transformOrigin: Item.Left
         visible: Compositor.focusedWorkspaceId > 0 && Compositor.focusedWorkspaceId <= orbit.count
-        Behavior on rotation { enabled: Theme.travel && Theme.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
-        Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: Theme.signal }
-        Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: Theme.signal }
+        Behavior on rotation { enabled: Theme.travel && orbit.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+        Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: orbit.profile.signal }
+        Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: orbit.profile.signal }
     }
     Repeater {
         model: orbit.count
@@ -72,32 +75,32 @@ Item {
             function choose() { Registry.execute("workspace.focus", {workspace: workspaceId}, {record: false}); }
             Rectangle {
                 anchors.fill: parent
-                color: station.current ? Theme.signal : hover.containsMouse ? Theme.surface2 : Theme.bg
-                border.color: station.current || hover.containsMouse || station.activeFocus ? Theme.signal : station.occupancy > 0 ? Theme.textDim : Theme.grid
+                color: station.current ? orbit.profile.signal : hover.containsMouse ? orbit.profile.surface2 : orbit.profile.bg
+                border.color: station.current || hover.containsMouse || station.activeFocus ? orbit.profile.signal : station.occupancy > 0 ? orbit.profile.textDim : orbit.profile.grid
                 border.width: station.activeFocus ? Theme.du(2) : Theme.border
             }
             Rectangle {
                 x: -Theme.du(4); y: -Theme.du(4)
                 width: Theme.du(12); height: Theme.du(2)
-                color: station.current ? Theme.signal : Theme.grid
+                color: station.current ? orbit.profile.signal : orbit.profile.grid
             }
             Rectangle {
                 anchors.right: parent.right; anchors.rightMargin: -Theme.du(4)
                 anchors.bottom: parent.bottom; anchors.bottomMargin: -Theme.du(4)
                 width: Theme.du(12); height: Theme.du(2)
-                color: station.current ? Theme.signal : Theme.grid
+                color: station.current ? orbit.profile.signal : orbit.profile.grid
             }
             Text {
                 y: Theme.du(6); anchors.horizontalCenter: parent.horizontalCenter
                 text: (station.workspaceId < 10 ? "0" : "") + station.workspaceId
-                textFormat: Text.PlainText; color: station.current ? Theme.bg : Theme.text
+                textFormat: Text.PlainText; color: station.current ? orbit.profile.bg : orbit.profile.text
                 font.family: Theme.mono; font.pixelSize: Theme.du(18)
             }
             Text {
                 y: Theme.du(34); width: parent.width; horizontalAlignment: Text.AlignHCenter
                 text: station.occupancy > 0 ? station.occupancy + " OPEN" : "EMPTY"
                 textFormat: Text.PlainText
-                color: station.current ? Theme.bg : station.occupancy > 0 ? Theme.text : Theme.textDim
+                color: station.current ? orbit.profile.bg : station.occupancy > 0 ? orbit.profile.text : orbit.profile.textDim
                 font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 elide: Text.ElideRight
             }

@@ -5,14 +5,16 @@ import qs.core
 // registration rails. The body API also serves the separately shipped AI bay.
 Item {
     id: root
+    property var profile: Theme
+    readonly property real decorationOpacity: profile.decorationOpacity === undefined ? 1 : profile.decorationOpacity
 
     property string designation: ""
     property string title: ""
     property string status: ""
-    property color statusColor: Theme.textDim
+    property color statusColor: root.profile.textDim
     property bool active: true
     property bool showHeader: title !== "" || designation !== ""
-    property color accent: active ? Theme.appLink : Theme.grid
+    property color accent: active ? root.profile.appLink : root.profile.grid
     property alias headerRight: headerRightSlot.data
     default property alias content: body.data
     readonly property bool compact: height < Theme.du(600)
@@ -24,6 +26,14 @@ Item {
 
     Canvas {
         id: face
+        Connections {
+            target: root.profile
+            function onPaletteChanged() { face.requestPaint(); }
+        }
+        Connections {
+            target: root
+            function onProfileChanged() { face.requestPaint(); }
+        }
         anchors.fill: parent
         onWidthChanged: requestPaint()
         onHeightChanged: requestPaint()
@@ -55,10 +65,11 @@ Item {
             c.lineTo(0.5, h - cut - step - 0.5);
             c.lineTo(0.5, cut + 0.5);
             c.closePath();
-            c.fillStyle = Theme.alpha(Theme.surface, Theme.panelOpacity);
+            c.fillStyle = Theme.alpha(root.profile.surface, Theme.panelOpacity);
             c.fill();
+            c.globalAlpha = root.decorationOpacity;
             c.lineWidth = Theme.border;
-            c.strokeStyle = Theme.grid;
+            c.strokeStyle = root.profile.grid;
             c.stroke();
 
             // A recessed perimeter. These traces live in the padding; inner
@@ -72,7 +83,7 @@ Item {
             c.lineTo(w - cut - seam, h - seam - 0.5);
             c.lineTo(shoulder + Theme.du(12), h - seam - 0.5);
             c.lineWidth = Theme.border;
-            c.strokeStyle = Theme.grid;
+            c.strokeStyle = root.profile.grid;
             c.stroke();
 
             // Calibrated slots are structural marks, not simulated telemetry.
@@ -105,6 +116,7 @@ Item {
             target: root
             function onAccentChanged() { face.requestPaint(); }
             function onHeaderHeightChanged() { face.requestPaint(); }
+            function onDecorationOpacityChanged() { face.requestPaint(); }
         }
         Connections {
             target: face.Window.window
@@ -118,13 +130,22 @@ Item {
         model: 2
         delegate: Canvas {
             id: insert
+            visible: root.decorationOpacity > 0
+            Connections {
+                target: root.profile
+                function onPaletteChanged() { insert.requestPaint(); }
+            }
+            Connections {
+                target: root
+                function onProfileChanged() { insert.requestPaint(); }
+            }
             required property int index
             width: root.cut + Theme.du(64)
             height: root.cut + Theme.du(22)
             x: index === 0 ? 0 : root.width - width
             y: index === 0 ? 0 : root.height - height
             rotation: index === 0 ? 0 : 180
-            opacity: Theme.lowEffects ? 1 : root.engagement
+            opacity: (Theme.lowEffects ? 1 : root.engagement) * root.decorationOpacity
             Behavior on opacity { enabled: Theme.animate; OpacityAnimator { id: insertFade; duration: Theme.fast; easing.type: Easing.OutCubic } }
             onWidthChanged: requestPaint()
             onHeightChanged: requestPaint()
@@ -188,7 +209,7 @@ Item {
                 text: root.title
                 width: Math.max(0, headerLabel.width - (designationText.visible ? designationText.width + headerLabel.spacing : 0))
                 elide: Text.ElideRight
-                color: Theme.text
+                color: root.profile.text
                 font.family: Theme.sans
                 font.pixelSize: Theme.fontMd
                 font.weight: Font.DemiBold
@@ -219,7 +240,7 @@ Item {
         y: header.height - height
         width: Math.max(0, root.width - 2 * x)
         height: Theme.border
-        color: Theme.grid
+        color: root.profile.grid
     }
     Rectangle {
         visible: root.showHeader
