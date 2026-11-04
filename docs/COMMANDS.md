@@ -42,7 +42,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 
 <!-- BEGIN GENERATED: tools/gen-commands-doc.py -->
 
-63 commands with the AI module installed; without it the `ai` category is absent.
+64 commands with the AI module installed; without it the `ai` category is absent.
 
 ### shell
 
@@ -61,6 +61,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 | `shell.open.settings`<br>Open Settings | `set` | — | — |
 | `shell.open.signal`<br>Open Signal Rack | `sig` | — | — |
 | `shell.open.systems`<br>Open Systems Bay | `sys` | — | — |
+| `tour.start`<br>Show the tour again | — | — | — |
 
 ### apps
 

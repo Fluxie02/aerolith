@@ -94,6 +94,12 @@ export const SCHEMA = S.obj(
       },
       "The desktop background surface.",
     ),
+    tour: S.obj(
+      {
+        enabled: S.bool(true, "Show the first-run tour on the primary output. Completion is saved in shell state, separately from this config."),
+      },
+      "First-run tour.",
+    ),
     commandCore: S.obj(
       {
         maxResults: S.int(40, 5, 200, "Maximum results listed."),
