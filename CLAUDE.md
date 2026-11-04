@@ -38,6 +38,12 @@ never does design work. Route to Sol with `codex_coding_buddy`:
   for the files you hand Sol (Sol works under your locks), and review its
   branch before merging.
 
+Terra is a second coding agent on the same account as Sol (`mine`), also
+reached with `codex_coding_buddy`. Give Sol and Terra disjoint files and
+tasks; run them in parallel only when their files do not overlap, otherwise
+one after the other with a short handoff. Lock the files of each job under
+its own task id. Current work record: `docs/MULTI-MONITOR-OLED.md`.
+
 ## Running all three at once
 
 Claude, Astra and Sol can work at the same time. `codex_design_task` and

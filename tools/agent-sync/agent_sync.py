@@ -38,7 +38,7 @@ except ImportError:
     FileSystemEventHandler = object
     Observer = None
 
-AGENTS = {"Claude", "Astra", "Sol"}
+AGENTS = {"Claude", "Astra", "Sol", "Terra"}
 STATES = {
     "Astra_Design_Phase",
     "Claude_Integration_Phase",
