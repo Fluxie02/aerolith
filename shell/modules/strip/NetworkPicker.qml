@@ -59,6 +59,10 @@ PanelWindow {
         else if (row.kind === "wired" || row.kind === "network" && row.data.connected) result = Network.disconnect();
         else if (row.kind === "network") {
             if (row.data.connecting) return;
+            if (row.data.secured && !row.data.known && !row.data.takesPassword) {
+                feedback = row.name + " needs an enterprise sign-in (user name and certificate). Set it up once in your network settings, for example with nmtui; after that it shows as saved.";
+                return;
+            }
             if (row.data.secured && !row.data.known) { passwordRows = rows; passwordName = row.name; return; }
             result = Network.connect(row.name);
         } else {
@@ -202,8 +206,9 @@ PanelWindow {
                                         inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoPredictiveText | Qt.ImhSensitiveData
                                         clip: true
                                         function submit() {
-                                            Network.connectWithPsk(row.modelData.name, text);
+                                            const result = Network.connectWithPsk(row.modelData.name, text);
                                             clear();
+                                            if (result && result.ok === false) picker.feedback = result.message || "Could not connect. Try again.";
                                             picker.passwordName = "";
                                             navigation.forceActiveFocus();
                                         }

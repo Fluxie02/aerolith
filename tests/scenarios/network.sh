@@ -145,6 +145,10 @@ else:
         # RSN advertises PSK + CCMP so Quickshell recognises WPA2-Personal.
         # The old template's profile builder only understands WpaFlags=256.
         update(NM,ap,AI,{'WpaFlags':dbus.UInt32(256)})
+    elif op == 'enterprise':
+        # RSN 802.1X + CCMP: WPA2-Enterprise (eduroam-style), no PSK possible.
+        ap = str(nm.AddAccessPoint(p['wifi'],'enterprise','NB2 enterprise','00:11:22:33:44:98',2,2412,54000,80,648))
+        update(NM,ap,AI,{'WpaFlags':dbus.UInt32(0)})
     elif op == 'psk-called':
         # Inspect the actual template call in memory. Never dump its arguments.
         calls = dbus.Interface(b.get_object(NM, NP), MOCK_IFACE).GetMethodCalls('AddAndActivateConnection')
@@ -246,6 +250,15 @@ for output in HEADLESS-1 $([ "${OUTPUTS:-1}" = 2 ] && echo HEADLESS-2); do
 done
 if [ "${OUTPUTS:-1}" != 2 ]; then echo 'SKIP: per-output picker placement (run with OUTPUTS=2)'; fi
 echo 'SKIP: picker lock dismissal (requires LOCK=1/PAM fixture); Deck dismissal verified for both pickers'
+
+# An enterprise network never gets a password prompt; it explains instead.
+python3 "$OUT/network-mock.py" enterprise
+ui_click networkIndicator
+wait_ui 's["scan"] == 1 and any(n["name"] == "NB2 enterprise" and n["secured"] and not n["takesPassword"] for n in s["network"])'
+ui_click 'pickerRow-NB2 enterprise'
+wait_ui 'any("enterprise sign-in" in w["popup"]["feedback"] for w in s["strips"] if w["popup"]) and all(c["name"] != "networkPasswordInput" for w in s["strips"] if w["popup"] for c in w["popup"]["controls"])'
+key Escape
+wait_ui "$closed"
 
 # A new secured AP must prompt; real text/Enter must reach NM with that PSK.
 python3 "$OUT/network-mock.py" secure

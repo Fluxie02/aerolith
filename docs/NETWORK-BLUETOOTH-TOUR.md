@@ -34,7 +34,7 @@ contract between the three jobs and their status record.
 | `signal` | 0–100 for Wi-Fi, -1 otherwise |
 | `online` | connectivity check result when the backend offers it, else `connected` |
 | `wifiAvailable`, `wifiEnabled` | a Wi-Fi device exists; radio on |
-| `networks` | sorted `[{ name, signal, secured, known, connected, connecting, failed, failReason }]`: connected first, then known, then signal; one entry per SSID |
+| `networks` | sorted `[{ name, signal, secured, takesPassword, known, connected, connecting, failed, failReason }]`: connected first, then known, then signal; one entry per SSID |
 
 Actions: `setWifiEnabled(bool)`, `connect(name)` (known or open network),
 `connectWithPsk(name, psk)`, `disconnect()`, `forget(name)`,
@@ -88,5 +88,9 @@ services are not changed in that job.
 
 - [x] NB-1 (Sol): Network and Bluetooth services, demand-only scanning/discovery, Registry toggles, status fields, private system bus with dbusmock NetworkManager/BlueZ (NET=1), network.sh. Sol ran its own headless runs. Opus verified: network NET=1 and NET=0 pass. Limits: availability needs a device; several wired profiles show the interface name (Quickshell 0.3.2 exposes no active-profile id).
 - [x] TOUR-1 (Terra): Tour state, Store persistence (versioned), tour.enabled, primary-output, lock and fullscreen hold, "Show the tour again", tour.sh. Terra ran its own headless runs. Opus: suites registered, CI steps (network, network-absent, tour), tour status field, harness marks the tour done unless TOUR=1. Opus verified: JS 233, pytest 306; tour, smoke, network, fullscreen, deck, app-links, catalogue pass.
-- [ ] UI-NB (Astra)
-- [ ] Final review and PR (Opus)
+- [x] UI-NB (Astra): network and Bluetooth indicators and pickers (demand-only scanning, password in place), five-step tour pointing at the real elements, OLED profile, 38 shots at 1080p, 4K x1.5, compact and OLED (docs/design/network-tour). Astra ran the scenario set.
+- [x] NB-2 (Sol): real-input UI tests in network.sh (picker lifetimes, scan/discovery, Deck dismissal, exact PSK call, password absent from logs and state) and tour.sh (focus, keys, fullscreen, keyboard returned); shots as JPEG (14 MiB -> 3.8 MiB). Each run 3/3. Sol found that an enterprise (802.1X) network got a password prompt that silently did nothing.
+- [x] Opus: enterprise fix: networks carry `takesPassword` (WPA/WPA2/WPA3 personal only); an enterprise network explains how to set it up instead of asking for a password, and a failed password submit shows its reason. Covered in network.sh (3/3).
+- [x] Final review and PR (Opus): JS 234, pytest 306; smoke, deck, app-links, fullscreen, network (NET=1, NET=0), tour, oled, multimonitor, scratch, catalogue pass; idle 0.17% of one core and 2.8 context switches/s, same as main (0.17%, 2.7).
+
+Open: the picker cannot lock dismissal in the harness without the PAM fixture (Deck dismissal is tested); real radios, real pairing and enterprise sign-in setup need the owner's PC; several wired profiles show the interface name.

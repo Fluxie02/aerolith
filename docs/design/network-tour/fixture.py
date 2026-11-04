@@ -37,7 +37,7 @@ probe = '''
                 let popup = null;
                 if (w.testPicker) {
                     let controls = []; walk(w.testPicker.contentItem, w.testPicker, controls);
-                    popup = {output:w.testPicker.screen.name, name:w.testPicker.objectName, rows:w.testPicker.rows, controls:controls};
+                    popup = {output:w.testPicker.screen.name, name:w.testPicker.objectName, rows:w.testPicker.rows, feedback:w.testPicker.feedback, controls:controls};
                 }
                 return {output:w.screen.name, profile:w.profile.profile, parts:parts, popup:popup};
             });

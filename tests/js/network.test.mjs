@@ -21,6 +21,10 @@ const tests = suite("network", test => {
     a.deepEqual(sortNetworks(rows).map(n => n.name), ["Active", "Known", "Strong"]);
     a.equal(rows[0].name, "Strong");
   });
+  test("password support is kept per network, so enterprise networks never get a password prompt", a => {
+    const rows = sortNetworks([{name:"Home", signal:60, secured:true, takesPassword:true}, {name:"eduroam", signal:80, secured:true}]);
+    a.deepEqual(rows.map(n => [n.name, n.secured, n.takesPassword]), [["eduroam", true, false], ["Home", true, true]]);
+  });
   test("duplicate SSIDs select the actionable connected/known representative", a => {
     const rows = [{name:"Air", signal:95}, {name:"Air", signal:20, known:true}, {name:"Air", signal:10, connected:true}];
     a.equal(sortNetworks(rows).length, 1);

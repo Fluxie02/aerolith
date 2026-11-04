@@ -16,7 +16,7 @@ export function sortNetworks(rows) {
       if (seen[n.name]) return false;
       seen[n.name] = true;
       return true;
-    }).map(n => ({ name: n.name, signal: n.signal, secured: !!n.secured,
+    }).map(n => ({ name: n.name, signal: n.signal, secured: !!n.secured, takesPassword: !!n.takesPassword,
       known: !!n.known, connected: !!n.connected, connecting: !!n.connecting,
       failed: !!n.failed, failReason: n.failReason || "" }));
 }
