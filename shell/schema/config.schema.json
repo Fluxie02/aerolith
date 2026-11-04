@@ -255,6 +255,17 @@
         }
       }
     },
+    "tour": {
+      "type": "object",
+      "description": "First-run tour.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Show the first-run tour on the primary output. Completion is saved in shell state, separately from this config.",
+          "default": true
+        }
+      }
+    },
     "commandCore": {
       "type": "object",
       "description": "The universal command palette.",
