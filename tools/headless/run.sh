@@ -41,7 +41,7 @@ fi
 
 docker run --rm --cap-add=SYS_NICE \
   -v "$here:/src:ro" -v "$out:/out" "${extra[@]}" \
-  -e APP_THEMES -e AUDIO -e BACKLIGHT -e LOCK -e LOCK_PAM -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
+  -e APP_THEMES -e AUDIO -e BACKLIGHT -e LOCK -e LOCK_PAM -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e OUTPUTS -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
   "$image" bash -c '
     set -e
     if [ -d /pkgs ]; then pacman -U --noconfirm /pkgs/*.pkg.tar.zst >/out/pacman.log 2>&1 || { cat /out/pacman.log; exit 1; }; fi
@@ -58,5 +58,5 @@ docker run --rm --cap-add=SYS_NICE \
       gcc -shared -fPIC -o /usr/lib/security/pam_twice.so /src/tests/fixtures/pam/pam_twice.c -lpam
       printf "auth required pam_twice.so aerolith-test\naccount required pam_unix.so\n" >/etc/pam.d/login
     fi
-    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} APP_THEMES=${APP_THEMES:-0} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} LOCK=${LOCK:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
+    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} APP_THEMES=${APP_THEMES:-0} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} LOCK=${LOCK:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} OUTPUTS=${OUTPUTS:-1} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
   '

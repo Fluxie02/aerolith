@@ -10,6 +10,32 @@ this file, and edits made to the file apply as soon as it is saved.
 installation-only choice of application direction (THEARS or PIYTI), which is
 set by `aerolith install --direction` and has no Settings control.
 
+For multiple outputs, `display.primary` chooses the primary screen and
+`display.outputs` maps connector names to optional settings objects. For example:
+
+```json
+{
+  "display": {
+    "primary": "DP-1",
+    "outputs": {
+      "DP-1": { "strip": true, "ground": true, "profile": "oled" },
+      "HDMI-A-1": { "strip": true, "ground": false }
+    },
+    "overlayOn": "focused",
+    "noticesOn": "primary"
+  }
+}
+```
+
+Unlisted outputs use `strip: true`, `ground: true`, `profile: "standard"`.
+The global `strip.visible` and `ground.enabled` switches still apply.
+A missing primary falls back to the deprecated `display.output`, the lowest
+Hyprland monitor id, then the first Qt screen. Disconnected connector settings
+are kept; a renamed connector uses defaults until its new name is configured.
+`display.output` remains readable for one release. `warnOnMultipleDisplays`
+is accepted and ignored. Profile selection is metadata for the separate OLED
+profile work; profile metadata alone does not change colours or add OLED protection.
+
 The reference below is generated from `shell/lib/config.mjs`, the single
 source of truth, by `node tools/gen-config-doc.mjs` (CI checks it is current).
 
@@ -17,12 +43,16 @@ source of truth, by `node tools/gen-config-doc.mjs` (CI checks it is current).
 
 ### `display`
 
-AEROLITH supports exactly one display. These settings choose which one.
+Multi-monitor placement. Ground and Strip run on every enabled output; global services remain singletons.
 
 | Key | Type | Default | Meaning |
 |---|---|---|---|
-| `display.output` | string (≤ 64) | `""` | Output (monitor) name to run on, e.g. "DP-1". Empty selects automatically. |
-| `display.warnOnMultipleDisplays` | bool | `true` | Show a caution annunciator when more than one display is connected. |
+| `display.primary` | string (≤ 64) | `""` | Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live. |
+| `display.output` | string (≤ 64) | `""` | Deprecated alias for display.primary (one release). Used when primary is empty or unavailable. |
+| `display.outputs` | object of colours | `{}` | Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults. |
+| `display.overlayOn` | `focused` \| `primary` | `"focused"` | Output for Deck, OSD and session menu. Missing focus falls back to primary. |
+| `display.noticesOn` | string (≤ 64) | `"primary"` | Output for notices: primary, focused, or an output name. Missing names fall back to primary. |
+| `display.warnOnMultipleDisplays` | bool | `true` | Retired; accepted for compatibility and ignored. All enabled outputs get surfaces. |
 
 ### `theme`
 

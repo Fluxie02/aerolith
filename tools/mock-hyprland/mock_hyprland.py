@@ -128,6 +128,8 @@ class State:
     special_names: dict[int, str] = field(default_factory=dict)
     special_by_monitor: dict[str, int] = field(default_factory=dict)
     focused_monitor: str = "DP-1"
+    active_by_monitor: dict[str, int] = field(default_factory=lambda: {"DP-1": 1})
+    workspace_monitors: dict[int, str] = field(default_factory=dict)
     active_ws: int = 1
     active_addr: str = ""
     next_addr: int = 0x5A00_0000_0000
@@ -137,16 +139,21 @@ class State:
         return self.special_names.get(wid, ws_name(wid))
 
     def ws_ids(self) -> list[int]:
-        ids = {c.workspace for c in self.clients.values()} | self.persistent_ws | {self.active_ws} | set(self.special_by_monitor.values())
+        ids = {c.workspace for c in self.clients.values()} | self.persistent_ws | {self.active_ws} | set(self.active_by_monitor.values()) | set(self.special_by_monitor.values())
         return sorted(ids)
 
     def monitor(self) -> dict:
-        return self.monitors[0]
+        return next((m for m in self.monitors if m["name"] == self.focused_monitor), self.monitors[0])
+
+    def workspace_monitor(self, wid: int) -> dict:
+        name = next((name for name, special in self.special_by_monitor.items() if special == wid),
+                    self.workspace_monitors.get(wid, self.monitors[0]["name"]))
+        return next((m for m in self.monitors if m["name"] == name), self.monitors[0])
 
     def workspaces_json(self) -> list[dict]:
         out = []
-        mon = self.monitor()
         for wid in self.ws_ids():
+            mon = self.workspace_monitor(wid)
             wins = [c for c in self.clients.values() if c.workspace == wid]
             last = max(wins, key=lambda c: -c.focus_history_id, default=None)
             out.append(
@@ -166,33 +173,34 @@ class State:
 
     def layout(self) -> None:
         """Tile windows like a simple master/stack layout so geometry is realistic."""
-        mon = self.monitor()
         gap, top = 8, 36
-        w, h = mon["width"], mon["height"]
         for wid in self.ws_ids():
+            mon = self.workspace_monitor(wid)
+            w, h = mon["width"], mon["height"]
+            x, y = mon["x"], mon["y"]
             wins = [c for c in self.clients.values() if c.workspace == wid and not c.floating]
             if not wins:
                 continue
             if len(wins) == 1:
-                wins[0].at, wins[0].size = (gap, top), (w - 2 * gap, h - top - gap)
+                wins[0].at, wins[0].size = (x + gap, y + top), (w - 2 * gap, h - top - gap)
                 continue
             half = (w - 3 * gap) // 2
-            wins[0].at, wins[0].size = (gap, top), (half, h - top - gap)
+            wins[0].at, wins[0].size = (x + gap, y + top), (half, h - top - gap)
             rest = wins[1:]
             each = (h - top - gap * (len(rest) + 1)) // len(rest)
             for i, c in enumerate(rest):
-                c.at, c.size = (2 * gap + half, top + i * (each + gap)), (half, each)
+                c.at, c.size = (x + 2 * gap + half, y + top + i * (each + gap)), (half, each)
 
     def clients_json(self) -> list[dict]:
-        mon = self.monitor()
         self.layout()
-        return [c.to_json(self.ws_name(c.workspace), mon["id"]) for c in self.clients.values()]
+        return [c.to_json(self.ws_name(c.workspace), self.workspace_monitor(c.workspace)["id"]) for c in self.clients.values()]
 
     def monitors_json(self) -> list[dict]:
         out = []
         for i, m in enumerate(self.monitors):
             d = dict(m)
-            d["activeWorkspace"] = {"id": self.active_ws, "name": self.ws_name(self.active_ws)} if i == 0 else {"id": 1, "name": "1"}
+            wid = self.active_by_monitor.get(m["name"], 1)
+            d["activeWorkspace"] = {"id": wid, "name": self.ws_name(wid)}
             special = self.special_by_monitor.get(m["name"], 0)
             d["specialWorkspace"] = {"id": special, "name": self.ws_name(special) if special else ""}
             d["focused"] = m["name"] == self.focused_monitor
@@ -267,6 +275,7 @@ class Mock:
         if not any(m["name"] == name for m in st.monitors):
             return False
         st.focused_monitor = name
+        st.active_ws = st.active_by_monitor.get(name, 1)
         self.emit("focusedmon", f"{name},{st.ws_name(st.active_ws)}")
         self.emit("focusedmonv2", f"{name},{st.active_ws}")
         return True
@@ -318,7 +327,12 @@ class Mock:
         st = self.state
         created = wid not in st.ws_ids()
         old = st.active_ws
+        owner = st.workspace_monitor(wid)["name"] if wid in st.ws_ids() else st.focused_monitor
+        if owner != st.focused_monitor:
+            self.focus_monitor(owner)
         st.active_ws = wid
+        st.active_by_monitor[st.focused_monitor] = wid
+        st.workspace_monitors[wid] = st.focused_monitor
         if created:
             self.emit("createworkspace", st.ws_name(wid))
             self.emit("createworkspacev2", f"{wid},{st.ws_name(wid)}")
@@ -335,7 +349,7 @@ class Mock:
                 if special == wid:
                     self.hide_special(monitor)
                     self.refocus_visible()
-        if wid != st.active_ws and wid not in st.persistent_ws and not any(c.workspace == wid for c in st.clients.values()):
+        if wid not in st.active_by_monitor.values() and wid not in st.persistent_ws and not any(c.workspace == wid for c in st.clients.values()):
             self.emit("destroyworkspace", st.ws_name(wid))
             self.emit("destroyworkspacev2", f"{wid},{st.ws_name(wid)}")
 
@@ -504,7 +518,7 @@ class Mock:
             return next((w for w in st.workspaces_json() if w["id"] == st.active_ws), {})
         if cmd == "activewindow":
             c = st.clients.get(st.active_addr)
-            return c.to_json(st.ws_name(c.workspace), 0) if c else {}
+            return c.to_json(st.ws_name(c.workspace), st.workspace_monitor(c.workspace)["id"]) if c else {}
         if cmd == "version":
             return {
                 "branch": "mock",
@@ -565,6 +579,29 @@ class Mock:
                 return {"ok": self.focus_window(msg["address"])}
             if op == "close":
                 return {"ok": self.close_window(msg["address"])}
+            if op == "focus_monitor":
+                return {"ok": self.focus_monitor(msg["name"])}
+            if op == "rename_monitor":
+                old, new = msg["name"], msg["newName"]
+                mon = next((m for m in self.state.monitors if m["name"] == old), None)
+                if not mon or any(m["name"] == new for m in self.state.monitors):
+                    return {"ok": False}
+                mon["name"] = new
+                self.state.active_by_monitor[new] = self.state.active_by_monitor.pop(old, 1)
+                self.state.workspace_monitors = {wid: new if name == old else name
+                                                for wid, name in self.state.workspace_monitors.items()}
+                # Unassigned workspaces belonged to the first monitor too.
+                if mon is self.state.monitors[0]:
+                    for wid in self.state.ws_ids():
+                        self.state.workspace_monitors.setdefault(wid, new)
+                if old in self.state.special_by_monitor:
+                    self.state.special_by_monitor[new] = self.state.special_by_monitor.pop(old)
+                if self.state.focused_monitor == old:
+                    self.state.focused_monitor = new
+                self.emit("monitorremoved", old)
+                self.emit("monitoradded", new)
+                self.focus_monitor(self.state.focused_monitor)
+                return {"ok": True}
             if op == "focus_workspace":
                 self.focus_workspace(int(msg["workspace"]))
                 return {"ok": True}
@@ -590,8 +627,16 @@ class Mock:
             if op == "add_monitor":
                 mid = max(m["id"] for m in self.state.monitors) + 1
                 mon = dict(self.state.monitors[0])
-                mon.update({"id": mid, "name": msg.get("name", f"HDMI-A-{mid}"), "x": 1920 * mid})
+                name = msg.get("name", f"HDMI-A-{mid}")
+                if any(m["name"] == name for m in self.state.monitors):
+                    return {"ok": False}
+                wid = int(msg.get("workspace", max((w for w in self.state.ws_ids() if w > 0), default=0) + 1))
+                if wid in self.state.ws_ids():
+                    return {"ok": False}
+                mon.update({"id": mid, "name": name, "x": int(msg.get("x", mon["width"] * mid))})
                 self.state.monitors.append(mon)
+                self.state.active_by_monitor[name] = wid
+                self.state.workspace_monitors[wid] = name
                 self.emit("monitoradded", mon["name"])
                 self.emit("monitoraddedv2", f"{mid},{mon['name']},{mon['description']}")
                 return {"ok": True}
@@ -600,7 +645,13 @@ class Mock:
                 keep = [m for m in self.state.monitors if m["name"] != name]
                 if len(keep) == len(self.state.monitors) or not keep:
                     return {"ok": False}
+                # Migrate workspace ownership to a surviving output and cancel
+                # the vanished output's special/active state.
+                for wid in self.state.ws_ids():
+                    if self.state.workspace_monitor(wid)["name"] == name:
+                        self.state.workspace_monitors[wid] = keep[0]["name"]
                 self.state.monitors = keep
+                self.state.active_by_monitor.pop(name, None)
                 self.state.special_by_monitor.pop(name, None)
                 if self.state.focused_monitor == name:
                     self.focus_monitor(keep[0]["name"])

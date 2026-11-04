@@ -14,17 +14,66 @@
     },
     "display": {
       "type": "object",
-      "description": "AEROLITH supports exactly one display. These settings choose which one.",
+      "description": "Multi-monitor placement. Ground and Strip run on every enabled output; global services remain singletons.",
       "properties": {
+        "primary": {
+          "type": "string",
+          "description": "Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live.",
+          "default": "",
+          "maxLength": 64
+        },
         "output": {
           "type": "string",
-          "description": "Output (monitor) name to run on, e.g. \"DP-1\". Empty selects automatically.",
+          "description": "Deprecated alias for display.primary (one release). Used when primary is empty or unavailable.",
           "default": "",
+          "maxLength": 64
+        },
+        "outputs": {
+          "type": "object",
+          "description": "Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults.",
+          "additionalProperties": {
+            "type": "object",
+            "description": "Per-output settings.",
+            "properties": {
+              "strip": {
+                "type": "boolean",
+                "description": "Enable the Flight Strip on this output (also requires strip.visible).",
+                "default": true
+              },
+              "ground": {
+                "type": "boolean",
+                "description": "Enable Ground on this output (also requires ground.enabled).",
+                "default": true
+              },
+              "profile": {
+                "enum": [
+                  "standard",
+                  "oled"
+                ],
+                "description": "Output profile metadata; OLED appearance/protection is configured separately.",
+                "default": "standard"
+              }
+            }
+          },
+          "default": {}
+        },
+        "overlayOn": {
+          "enum": [
+            "focused",
+            "primary"
+          ],
+          "description": "Output for Deck, OSD and session menu. Missing focus falls back to primary.",
+          "default": "focused"
+        },
+        "noticesOn": {
+          "type": "string",
+          "description": "Output for notices: primary, focused, or an output name. Missing names fall back to primary.",
+          "default": "primary",
           "maxLength": 64
         },
         "warnOnMultipleDisplays": {
           "type": "boolean",
-          "description": "Show a caution annunciator when more than one display is connected.",
+          "description": "Retired; accepted for compatibility and ignored. All enabled outputs get surfaces.",
           "default": true
         }
       }

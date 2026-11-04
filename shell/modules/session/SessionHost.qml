@@ -79,9 +79,9 @@ Scope {
     }
 
     LazyLoader {
-        active: Ui.sessionOpen && Ui.screen !== null
+        active: Ui.sessionOpen && Ui.overlayScreen !== null
         PanelWindow {
-            screen: Ui.screen
+            screen: Ui.overlayScreen
             color: "transparent"
             anchors {
                 top: true

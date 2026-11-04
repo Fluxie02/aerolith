@@ -90,10 +90,10 @@ PanelWindow {
         }
     ]
 
-    readonly property string wanted: Ui.deckOpen && Ui.screen !== null ? Ui.activeBay : ""
+    readonly property string wanted: Ui.deckOpen && Ui.overlayScreen !== null ? Ui.activeBay : ""
 
-    screen: Ui.screen
-    visible: holdSurface && Ui.screen !== null
+    screen: Ui.overlayScreen
+    visible: holdSurface && Ui.overlayScreen !== null
     color: "transparent"
     anchors {
         top: true
@@ -112,17 +112,32 @@ PanelWindow {
         id: noInput
     }
 
+    property string mappedOutput: ""
     onVisibleChanged: {
         Ui.deckMapped = visible;
-        if (visible)
+        if (visible) {
             Ui.deckMaps++;
+            mappedOutput = screen ? screen.name : "";
+        }
     }
     // shell.qml unloads the Deck while a fullscreen window owns the output;
     // a destroyed Deck is not mapped.
     Component.onDestruction: Ui.deckMapped = false
-    // The compositor closed the surface (e.g. its output went away): treat
-    // it as closed, so no bay keeps its demand without being seen.
-    onClosed: Ui.close()
+    // A removed output closes its old layer surface. Let Displays settle,
+    // then remap the requested bay on the surviving output. Other compositor
+    // closes still end the bay and its service demand.
+    onClosed: {
+        const previousOutput = mappedOutput;
+        Qt.callLater(() => {
+            const removed = !Quickshell.screens.some(s => s.name === previousOutput);
+            if (removed && Ui.overlayScreen && Ui.deckOpen) {
+                deck.screen = Qt.binding(() => Ui.overlayScreen);
+                deck.visible = Qt.binding(() => deck.holdSurface && Ui.overlayScreen !== null);
+            } else {
+                Ui.close();
+            }
+        });
+    }
     onWantedChanged: sync()
     onAiBayChanged: sync()
     Component.onCompleted: sync()

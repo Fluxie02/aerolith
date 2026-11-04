@@ -20,6 +20,8 @@ OUT=${OUT:-/out}
 SCENARIO=${1:?usage: session.sh <scenario.sh>}
 RES=${RES:-1920x1080}
 SCALE=${SCALE:-1}
+OUTPUTS=${OUTPUTS:-1}
+[[ "$OUTPUTS" =~ ^[1-9][0-9]*$ ]] && [ "$OUTPUTS" -le 8 ] || { echo "OUTPUTS must be 1–8" >&2; exit 1; }
 
 XDG_RUNTIME_DIR=/run/user/$(id -u)
 export XDG_RUNTIME_DIR
@@ -41,6 +43,9 @@ trap cleanup EXIT
 # start_mock / start_audio are also used by scenarios that restart them.
 start_mock() {
   read -ra mock_args <<<"${HYPR_MOCK_ARGS:-}"
+  # Multi-output geometry follows the Wayland session; explicit mock args
+  # may still override it for deliberate scale/transform fixtures.
+  if [ "$OUTPUTS" -gt 1 ]; then mock_args=(--mode "$RES" --scale "$SCALE" "${mock_args[@]}"); fi
   python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --seed --log "$OUT/hypr-requests.jsonl" "${mock_args[@]}" >>"$OUT/mock.log" 2>&1 &
   PIDS+=($!)
   export HYPRLAND_INSTANCE_SIGNATURE=aerolith_mock
@@ -70,6 +75,22 @@ export WAYLAND_DISPLAY
 SWAYSOCK=
 for sock in "$XDG_RUNTIME_DIR"/sway-ipc.*.sock; do [ -S "$sock" ] && SWAYSOCK=$sock && break; done
 export SWAYSOCK
+
+# Keep the mock and real Wayland outputs aligned in multi-output runs.
+# The historical single-output mock name DP-1 is retained for old scenarios.
+if [ "$OUTPUTS" -gt 1 ]; then
+  for ((i=2; i<=OUTPUTS; i++)); do
+    swaymsg create_output >/dev/null
+    swaymsg "output HEADLESS-$i mode $RES scale $SCALE pos $(( (i - 1) * ${RES%x*} )) 0" >/dev/null
+  done
+  if [ "${HYPR_MOCK:-1}" = 1 ]; then
+    mock_cli=(python3 "$SRC/tools/mock-hyprland/mock_hyprland.py" --control)
+    "${mock_cli[@]}" '{"op":"rename_monitor","name":"DP-1","newName":"HEADLESS-1"}' >/dev/null
+    for ((i=2; i<=OUTPUTS; i++)); do
+      "${mock_cli[@]}" "{\"op\":\"add_monitor\",\"name\":\"HEADLESS-$i\",\"workspace\":$((i+2)),\"x\":$(( (i - 1) * ${RES%x*} ))}" >/dev/null
+    done
+  fi
+fi
 
 start_audio() {
   PIPEWIRE_DEBUG="${PIPEWIRE_DEBUG:-2}" pipewire >>"$OUT/pipewire.log" 2>&1 &
