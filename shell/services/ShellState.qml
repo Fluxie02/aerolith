@@ -18,6 +18,10 @@ Singleton {
     function releasedFor(name) { return stateFor(name).released; }
     function heldFor(name) { return stateFor(name).ambientHeld; }
 
+    // Only co-located notices transfer to the mapped Deck (including exit).
+    readonly property bool noticesInDeck: Ui.deckMapped && !!Ui.overlayScreen
+        && !!Ui.noticeScreen && Ui.overlayScreen === Ui.noticeScreen
+
     // Compatibility: the original public state describes the primary output.
     readonly property var primaryState: stateFor(Ui.screenName)
     readonly property string phase: primaryState.phase

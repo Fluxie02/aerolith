@@ -6,14 +6,14 @@ import qs.services
 
 // Surface for transient notices and notification popups (NoticeStack). It is
 // only as large as its content and takes no keyboard focus, so it never
-// blocks other windows. While the Deck is mapped the Deck shows the stack
-// itself, because two Overlay surfaces have no reliable stacking order; this
-// surface then unmaps.
+// blocks other windows. When the mapped Deck shares this output it shows the
+// stack itself, because two Overlay surfaces have no reliable stacking order;
+// this surface then unmaps.
 PanelWindow {
     id: column
 
     screen: Ui.noticeScreen
-    visible: stack.hasContent && Ui.noticeScreen !== null && !Ui.deckMapped
+    visible: stack.hasContent && Ui.noticeScreen !== null && !ShellState.noticesInDeck
     color: "transparent"
     anchors {
         right: true

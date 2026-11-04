@@ -49,7 +49,7 @@ Multi-monitor placement. Ground and Strip run on every enabled output; global se
 |---|---|---|---|
 | `display.primary` | string (≤ 64) | `""` | Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live. |
 | `display.output` | string (≤ 64) | `""` | Deprecated alias for display.primary (one release). Used when primary is empty or unavailable. |
-| `display.outputs` | object of colours | `{}` | Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults. |
+| `display.outputs` | map of objects | `{}` | Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults. |
 | `display.overlayOn` | `focused` \| `primary` | `"focused"` | Output for Deck, OSD and session menu. Missing focus falls back to primary. |
 | `display.noticesOn` | string (≤ 64) | `"primary"` | Output for notices: primary, focused, or an output name. Missing names fall back to primary. |
 | `display.warnOnMultipleDisplays` | bool | `true` | Retired; accepted for compatibility and ignored. All enabled outputs get surfaces. |

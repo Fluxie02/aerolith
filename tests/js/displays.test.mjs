@@ -5,6 +5,14 @@ import { validateConfig, toJsonSchema } from "../../shell/lib/config.mjs";
 const screens = [{ name: "DP-1" }, { name: "HDMI-A-1" }];
 const monitors = [{ name: "DP-1", id: 3, scale: 1.5, refreshRate: 240 }, { name: "HDMI-A-1", id: 0, scale: 1, refreshRate: 60, focused: true }];
 export default suite("displays", test => {
+  test("live screen rejects removed wrappers and same-name replacements", a => {
+    const removed = { name: "DP-1" }, replugged = { name: "DP-1" };
+    a.equal(D.liveScreen([removed], removed), removed);
+    a.equal(D.liveScreen([], removed), null);
+    a.equal(D.liveScreen([replugged], removed), null);
+    a.equal(D.liveScreen([replugged], replugged), replugged);
+    a.equal(D.liveScreen(null, removed), null);
+  });
   test("joins by name, preserves screens and monitor metadata", a => {
     const r = D.resolveDisplays(screens, monitors);
     a.equal(r.outputs[0].screen, screens[0]);

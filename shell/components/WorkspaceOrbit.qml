@@ -6,6 +6,8 @@ import qs.services
 // window occupancy adds teeth, without changing the click targets.
 Item {
     id: orbit
+    readonly property string outputName: Screen.name
+    readonly property bool ambient: Theme.ambientFor(outputName)
     property bool instrument: false
     readonly property int count: Config.strip.workspaceCount
     readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
@@ -20,11 +22,11 @@ Item {
             : height * .55 + Math.cos(-.92 + index * 1.84 / Math.max(1, count - 1)) * radius;
     }
     readonly property bool exposed: visible && Window.window && Window.window.visible
+    onAmbientChanged: if (!ambient) indexMotion.complete()
     onExposedChanged: if (!exposed) indexMotion.complete()
     Connections {
         target: Theme
         function onTravelChanged() { if (!Theme.travel) indexMotion.complete(); }
-        function onAmbientChanged() { if (!Theme.ambient) indexMotion.complete(); }
     }
     readonly property real radius: height * .29
     readonly property int focusIndex: Math.max(0, Math.min(count - 1, Compositor.focusedWorkspaceId - 1))
@@ -49,7 +51,7 @@ Item {
         rotation: 90 - orbit.focusAngle * 180 / Math.PI
         transformOrigin: Item.Left
         visible: Compositor.focusedWorkspaceId > 0 && Compositor.focusedWorkspaceId <= orbit.count
-        Behavior on rotation { enabled: Theme.travel && Theme.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
+        Behavior on rotation { enabled: Theme.travel && orbit.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
         Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: Theme.signal }
         Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: Theme.signal }
     }

@@ -69,7 +69,13 @@ shot 01-suspended
 mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
 wait_field surfacesReleased False 3 || fail "the surfaces did not come back"
 wait_field phase desktop 3 || fail "the shell did not return to desktop"
-wait_field ambient True 2 || fail "ambient motion did not resume"
+# The tiled game still covers the desktop after leaving fullscreen. Ambient
+# resumes on an exposed workspace, rather than moving unseen below that tile.
+wait_field ambient False 2 || fail "covered desktop did not hold ambient motion"
+mock '{"op":"focus_workspace","workspace":9}' >/dev/null
+wait_field ambient True 2 || fail "ambient motion did not resume on the exposed desktop"
+mock '{"op":"focus_workspace","workspace":1}' >/dev/null
+wait_field ambient False 2 || fail "returning to the covered workspace did not hold ambient motion"
 [ "$(field telemetryIntervalMs)" = 5000 ] || fail "telemetry did not resume after fullscreen"
 shot 02-restored
 

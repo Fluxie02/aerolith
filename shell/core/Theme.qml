@@ -147,10 +147,15 @@ Singleton {
         const covered = {};
         const outputs = Displays.outputs;
         const monitors = Compositor.available ? Hyprland.monitors.values : [];
-        const windows = Compositor.available ? Compositor.windows().map(w => ({
-            workspaceId: w.workspaceId, at: w.at, size: w.size, floating: w.floating,
-            ipc: w.toplevel ? w.toplevel.lastIpcObject : null
-        })) : [];
+        const windows = Compositor.available ? Compositor.windows().map(w => {
+            const ipc = w.toplevel ? w.toplevel.lastIpcObject : null;
+            // Qt exposes JSON lists as array-like values, not always JS Arrays.
+            // Normalise geometry before passing it to the pure coverage test.
+            return { workspaceId: w.workspaceId,
+                at: ipc && ipc.at ? [ipc.at[0], ipc.at[1]] : w.at,
+                size: ipc && ipc.size ? [ipc.size[0], ipc.size[1]] : w.size,
+                floating: w.floating, ipc: ipc };
+        }) : [];
         for (let k = 0; k < outputs.length; k++) {
             const output = outputs[k];
             let monitor = null;

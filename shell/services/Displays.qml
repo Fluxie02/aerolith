@@ -35,6 +35,7 @@ Singleton {
     readonly property var overlayScreen: overlay ? overlay.screen : null
     readonly property var noticeScreen: notices ? notices.screen : null
 
+    function liveScreen(screen) { return D.liveScreen(Quickshell.screens, screen); }
     function output(name) { return D.namedOutput(outputs, name); }
     function settings(name) { return D.settingsFor(Config.display, name, { strip: Config.strip, ground: Config.ground }); }
 

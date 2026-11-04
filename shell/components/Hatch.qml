@@ -6,6 +6,9 @@ import qs.services
 // travel; no canvas, texture, timer, thumbnail or independent surface is owned.
 Item {
     id: hatch
+    readonly property string outputName: Screen.name
+    readonly property bool ambient: Theme.ambientFor(outputName)
+    readonly property bool deckHere: Ui.deckOpen && !!Ui.overlayScreen && Ui.overlayScreen.name === outputName
     // Guard the shared interface while the systems change lands separately.
     readonly property var parkedWindows: Compositor.scratchWindows || []
     readonly property bool known: Compositor.available && typeof Compositor.scratchWindows !== "undefined"
@@ -15,7 +18,7 @@ Item {
         return Compositor.available && !!Registry.get("scratch.toggle");
     }
     readonly property bool exposed: visible && Window.window !== null && Window.window.visible
-    readonly property bool motionAllowed: Theme.travel && Theme.ambient && exposed && !Ui.deckOpen
+    readonly property bool motionAllowed: Theme.travel && hatch.ambient && exposed && !hatch.deckHere
     readonly property string inventory: known ? (parkedWindows.length ? parkedWindows.length + " PARKED" : "EMPTY") : "UNAVAILABLE"
     function toggle() {
         if (canToggle) Registry.run("scratch.toggle", {}, {record: false});

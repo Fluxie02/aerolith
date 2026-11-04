@@ -62,3 +62,9 @@ export function resolveDisplays(screens, monitors, display, globals) {
     : namedOutput(outputs, cfg.noticesOn) || primary;
   return { outputs: outputs, primary: primary, focused: focused, overlay: overlay, notices: notices };
 }
+
+// Screen identity matters across unplug/replug; do not dereference a stale
+// Qt wrapper, even when its replacement has the same connector name.
+export function liveScreen(screens, screen) {
+  return (screens || []).indexOf(screen) >= 0 ? screen : null;
+}

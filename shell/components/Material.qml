@@ -6,6 +6,7 @@ import qs.core
 // The Loader also releases the effect during the pre-teardown ambient hold.
 Item {
     id: material
+    readonly property string outputName: Screen.name
     required property string shader
     property vector4d parameters: Qt.vector4d(0, 0, 0, 0)
     property color accent: Theme.integratedApps ? Theme.appLink : Theme.signal
@@ -13,7 +14,7 @@ Item {
     readonly property real outputScale: Screen.devicePixelRatio
     readonly property bool supported: GraphicsInfo.shaderType === GraphicsInfo.RhiShader
         && GraphicsInfo.api !== GraphicsInfo.Null && GraphicsInfo.api !== GraphicsInfo.Unknown
-    readonly property bool available: supported && !Theme.lowEffects && Theme.shaderQuality > 0 && !Theme.ambientSuspended
+    readonly property bool available: supported && !Theme.lowEffects && Theme.shaderQuality > 0 && !Theme.ambientHeldFor(outputName)
         && visible && width > 0 && height > 0 && Window.window !== null && Window.window.visible
     // Loader.Ready only means the QML object exists. Keep the native faces
     // until the actual material compiles, including a missing/broken package.

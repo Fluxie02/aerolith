@@ -20,7 +20,7 @@ Item {
     readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
     readonly property string shownBay: Ui.activeBay || (deck.slotA.leaving ? deck.slotA.bay : deck.slotB.bay)
     readonly property string shownCode: codes[shownBay] || "—"
-    readonly property real noticeReserve: deckNotices.hasContent ? deckNotices.width + 2 * Theme.pad : 0
+    readonly property real noticeReserve: deckNotices.visible && deckNotices.hasContent ? deckNotices.width + 2 * Theme.pad : 0
 
     // Keep the strip, especially its sharing indicator, visible above the ground.
     Item {
@@ -193,7 +193,7 @@ Item {
         y: railRow.y + railRow.height + Theme.pad
         width: Math.min(implicitWidth, view.width * .32)
         maximumHeight: Math.max(0, view.height - y - Theme.pad - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0))
-        visible: hasContent
+        visible: hasContent && ShellState.noticesInDeck
     }
     Component {
         id: missingAiBay

@@ -31,8 +31,11 @@ ShellRoot {
         LazyLoader {
             id: groundLoader
             required property var modelData
-            active: !ShellState.releasedFor(modelData.name)
-            GroundSurface { outputScreen: groundLoader.modelData }
+            // A removed lifecycle falls back to desktop before Variants'
+            // deferred delegate deletion. Never reload it on a dead screen.
+            readonly property var outputScreen: Displays.liveScreen(modelData)
+            active: !!outputScreen && !ShellState.releasedFor(outputScreen.name)
+            GroundSurface { outputScreen: groundLoader.outputScreen }
         }
     }
     Variants {
@@ -40,8 +43,11 @@ ShellRoot {
         LazyLoader {
             id: stripLoader
             required property var modelData
-            active: !ShellState.releasedFor(modelData.name)
-            FlightStrip { outputScreen: stripLoader.modelData }
+            // A removed lifecycle falls back to desktop before Variants'
+            // deferred delegate deletion. Never reload it on a dead screen.
+            readonly property var outputScreen: Displays.liveScreen(modelData)
+            active: !!outputScreen && !ShellState.releasedFor(outputScreen.name)
+            FlightStrip { outputScreen: stripLoader.outputScreen }
         }
     }
 

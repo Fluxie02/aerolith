@@ -8,9 +8,12 @@ import qs.services
 // instrument and all typography stay registered to the desktop.
 Item {
     id: machine
+    readonly property string outputName: Screen.name
+    readonly property bool ambient: Theme.ambientFor(outputName)
+    readonly property bool deckHere: Ui.deckOpen && !!Ui.overlayScreen && Ui.overlayScreen.name === outputName
     property bool instrument: false
     readonly property bool exposed: visible && Window.window && Window.window.visible
-    readonly property bool driving: Theme.ambient && exposed && (instrument || !Ui.deckOpen) && Theme.bootProgress >= 1
+    readonly property bool driving: machine.ambient && exposed && (instrument || !machine.deckHere) && Theme.bootProgress >= 1
     readonly property real stroke: Theme.ambientReduced ? Theme.du(3) : Theme.du(Theme.insane ? 120 : 80)
     readonly property int direction: Compositor.focusedWorkspaceId % 2 === 0 ? -1 : 1
     signal beat()
@@ -56,7 +59,7 @@ Item {
                     anchors.fill: parent
                     shader: "catch"
                     accent: carrier.color
-                    visible: Theme.ambient
+                    visible: machine.ambient
                 }
                 // Animator changes the scene-graph transform, not layout.
                 SequentialAnimation {
@@ -124,7 +127,7 @@ Item {
                 anchors.fill: parent
                 shader: "catch"
                 parameters: Qt.vector4d(1, 0, 0, 0)
-                visible: Theme.ambient
+                visible: machine.ambient
             }
             SequentialAnimation {
                 id: returnCycle
