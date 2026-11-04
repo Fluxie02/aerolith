@@ -19,13 +19,11 @@
     "files": [
       ".github/workflows/ci.yml",
       "docs/CONFIGURATION.md",
-      "shell/core/DisplayProfile.qml",
       "shell/core/Theme.qml",
       "shell/core/Ui.qml",
       "shell/lib/config.mjs",
       "shell/lib/displays.mjs",
       "shell/lib/shellstate.mjs",
-      "shell/lib/tokens.mjs",
       "shell/modules/ControlSurface.qml",
       "shell/modules/deck/Deck.qml",
       "shell/modules/ground/Ground.qml",
@@ -36,13 +34,11 @@
       "shell/modules/strip/FlightStrip.qml",
       "shell/schema/config.schema.json",
       "shell/services/Displays.qml",
-      "shell/services/Idle.qml",
       "shell/services/ShellState.qml",
       "shell/shell.qml",
       "tests/js/displays.test.mjs",
       "tests/js/index.mjs",
       "tests/js/shellstate.test.mjs",
-      "tests/js/tokens.test.mjs",
       "tests/scenarios/multimonitor.sh",
       "tools/headless/run.sh",
       "tools/headless/session.sh",
@@ -83,20 +79,6 @@
         "task_id": "MM-1",
         "created_at": "2026-11-04T07:45:31+00:00",
         "expires_epoch": 1793780131.9694502,
-        "ttl_seconds": 1800
-      },
-      {
-        "lock_id": "ba71fbaa-7811-4870-9074-16014248c0e4",
-        "agent": "Claude",
-        "files": [
-          "shell/core/DisplayProfile.qml",
-          "shell/lib/tokens.mjs",
-          "shell/services/Idle.qml",
-          "tests/js/tokens.test.mjs"
-        ],
-        "task_id": "OLED-1",
-        "created_at": "2026-11-04T07:45:32+00:00",
-        "expires_epoch": 1793780132.2030654,
         "ttl_seconds": 1800
       }
     ]
@@ -6353,6 +6335,49 @@
       "notes": "Exact commands, rationale, 29 small JPEGs and limits: docs/design/redesign-2/RESULTS.md. Native before/after at 1920x1080, 2560x1440, 3840x2160, all output scale 1.5. Node 170/170; Qt V4 162/162; Python 295 passed, 1 skipped. Sequential smoke, deck AUDIO=1, fullscreen AUDIO=1, direction and app-links PASS. Fullscreen 20-cycle RSS 163228/165964/169072 KiB; steady-growth false. Visual empty/parked open/closed, click delivery and reduced/off PASS at all sizes. 96-view matrix: 12 schemes x 2 intensities x 2 directions x open/closed PASS. Real intermediate opening/closing pixels captured. Remaining shader packages check PASS. Final 27 QML logs: zero matched errors. Missing scratch interface renders disabled/unavailable cleanly. Visual fixture changes only a disposable Hatch copy and uses unique visual.hatch.toggle; it does not validate Sol special-workspace dispatch or keybinds. No systems/host changes, installs or commit. Reviewed merged Sol 4183709 app-ranking once: delegate layout and activation retained, no actionable visual finding. Parallel scratch patch unavailable here. Please perform one systems/performance review of real Hyprland/GPU restoration and the shared-interface integration; one revision available. No dispatcher invoked.",
       "task_id": "UI-018",
       "timestamp": "2026-10-27T07:10:23+00:00"
+    },
+    {
+      "id": "c04e8dc6-e5ad-47cc-8fa9-9df3619e31b0",
+      "type": "note",
+      "agent": "Terra",
+      "files": [
+        "shell/lib/tokens.mjs",
+        "shell/core/DisplayProfile.qml",
+        "shell/services/Idle.qml",
+        "tests/js/tokens.test.mjs"
+      ],
+      "summary": "OLED-1 started under Opus-held OLED-1 reservations per explicit assignment; locks left unchanged.",
+      "notes": "Legacy global workflow remains Claude_Performance_Audit/Claude. Installed harness Quickshell is 0.3.2; upstream 0.3.0 documents Wayland IdleMonitor with enabled, timeout seconds, isIdle and respectInhibitors. Only four assigned paths will change.",
+      "task_id": "OLED-1",
+      "timestamp": "2026-11-04T07:48:55+00:00"
+    },
+    {
+      "id": "9e4e79eb-9642-41b3-8ac6-55dca4c530fb",
+      "type": "note",
+      "agent": "Sol",
+      "files": [
+        "shell/lib/displays.mjs",
+        "tests/js/displays.test.mjs"
+      ],
+      "summary": "MM-1 started under explicit Sol assignment and Opus-held reservations; locks left unchanged.",
+      "notes": "Global workflow still Claude_Performance_Audit/Claude; task MM-1 reservation verified. Quickshell 0.3.2 installed API metadata verifies screensChanged, Variants, LazyLoader, focusedMonitor, monitor snapshots, rawEvent and refreshMonitors. No visual redesign.",
+      "task_id": "MM-1",
+      "timestamp": "2026-11-04T07:50:41+00:00"
+    },
+    {
+      "id": "2b7f5041-4d2e-45cb-b0ec-75c442099b31",
+      "type": "integration_complete",
+      "agent": "Terra",
+      "files": [
+        "shell/lib/tokens.mjs",
+        "shell/core/DisplayProfile.qml",
+        "shell/services/Idle.qml",
+        "tests/js/tokens.test.mjs"
+      ],
+      "summary": "OLED-1 complete: opt-in contrast-safe OLED palette, non-singleton DisplayProfile and unused event-driven Idle singleton; four assigned source files only.",
+      "notes": "Node 172/172 existing + OLED 14/14; Qt V4 164/164 existing + OLED 14/14 in native Quickshell probe; Python 299 passed/1 skipped; config docs current; sequential probe/smoke/deck/notify/perf all exit 0; five qs.log files free of QML errors; git diff --check clean. Quickshell 0.3.2 native IdleMonitor API and real Wayland idle/disable/re-enable/input-resume verified. Minimum built-in OLED contrast 4.993 across 216 pairs; custom black/white/alpha overrides covered. resolvePalette body unchanged. Standard profile neutral decorationOpacity/idleDim=1; OLED defaults .55/.65 (opacity multipliers). No production wiring/config. Opus must register default tokens.test.mjs suite at merge; index untouched. Exact commands, probe source/results and perf measurements: build/oled1/RESULTS.md (ignored local artifact), build/oled1/perf/perf.json. Current-tree idle CPU .88% initial and .77% after use; no before/after claim. Reviewed Theme and existing launch contrast contract once: no findings; MM-1 integration/review remains pending. Real Hyprland inhibitors/sleep-wake, mixed outputs and OLED visual review remain hardware work. Opus-held locks left unchanged per explicit instruction; no commit.",
+      "task_id": "OLED-1",
+      "timestamp": "2026-11-04T07:58:58+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -8821,6 +8846,7 @@
     "shell/components/Trace.qml",
     "shell/components/WorkspaceOrbit.qml",
     "shell/core/Config.qml",
+    "shell/core/DisplayProfile.qml",
     "shell/core/Exec.qml",
     "shell/core/Paths.qml",
     "shell/core/Theme.qml",
@@ -8828,6 +8854,7 @@
     "shell/lib/ambient.mjs",
     "shell/lib/appbus.mjs",
     "shell/lib/config.mjs",
+    "shell/lib/displays.mjs",
     "shell/lib/hyprdispatch.mjs",
     "shell/lib/launch.mjs",
     "shell/lib/schemes.mjs",
@@ -8863,6 +8890,7 @@
     "shell/services/AppThemes.qml",
     "shell/services/Apps.qml",
     "shell/services/Compositor.qml",
+    "shell/services/Idle.qml",
     "shell/services/Notifications.qml",
     "shell/services/Power.qml",
     "shell/services/ShellCommands.qml",
@@ -8875,12 +8903,14 @@
     "tests/fixtures/fake-providers/codex",
     "tests/js/ambient.test.mjs",
     "tests/js/appbus.test.mjs",
+    "tests/js/displays.test.mjs",
     "tests/js/hyprdispatch.test.mjs",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/run-node.mjs",
     "tests/js/runtime-qml.test.mjs",
     "tests/js/schemes.test.mjs",
+    "tests/js/tokens.test.mjs",
     "tests/py/conftest.py",
     "tests/py/test_ai_bridge.py",
     "tests/py/test_installer.py",
@@ -8949,20 +8979,18 @@
     "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
-    "agent": "Astra",
-    "type": "design_complete",
+    "agent": "Terra",
+    "type": "integration_complete",
     "files": [
-      "shell/components/Hatch.qml",
-      "shell/components/InstrumentField.qml",
-      "shell/components/ShearField.qml",
-      "shell/shaders/bevel.frag",
-      "shell/shaders/bevel.frag.qsb",
-      "docs/design/redesign-2"
+      "shell/lib/tokens.mjs",
+      "shell/core/DisplayProfile.qml",
+      "shell/services/Idle.qml",
+      "tests/js/tokens.test.mjs"
     ],
-    "summary": "UI-018 complete: wing replaced by an explicit two-leaf scratch-space hatch, inventory hint, guarded shared interface and reduced/off motion; remaining round-1 visuals preserved.",
-    "notes": "Exact commands, rationale, 29 small JPEGs and limits: docs/design/redesign-2/RESULTS.md. Native before/after at 1920x1080, 2560x1440, 3840x2160, all output scale 1.5. Node 170/170; Qt V4 162/162; Python 295 passed, 1 skipped. Sequential smoke, deck AUDIO=1, fullscreen AUDIO=1, direction and app-links PASS. Fullscreen 20-cycle RSS 163228/165964/169072 KiB; steady-growth false. Visual empty/parked open/closed, click delivery and reduced/off PASS at all sizes. 96-view matrix: 12 schemes x 2 intensities x 2 directions x open/closed PASS. Real intermediate opening/closing pixels captured. Remaining shader packages check PASS. Final 27 QML logs: zero matched errors. Missing scratch interface renders disabled/unavailable cleanly. Visual fixture changes only a disposable Hatch copy and uses unique visual.hatch.toggle; it does not validate Sol special-workspace dispatch or keybinds. No systems/host changes, installs or commit. Reviewed merged Sol 4183709 app-ranking once: delegate layout and activation retained, no actionable visual finding. Parallel scratch patch unavailable here. Please perform one systems/performance review of real Hyprland/GPU restoration and the shared-interface integration; one revision available. No dispatcher invoked.",
-    "task_id": "UI-018",
-    "timestamp": "2026-10-27T07:10:23+00:00"
+    "summary": "OLED-1 complete: opt-in contrast-safe OLED palette, non-singleton DisplayProfile and unused event-driven Idle singleton; four assigned source files only.",
+    "notes": "Node 172/172 existing + OLED 14/14; Qt V4 164/164 existing + OLED 14/14 in native Quickshell probe; Python 299 passed/1 skipped; config docs current; sequential probe/smoke/deck/notify/perf all exit 0; five qs.log files free of QML errors; git diff --check clean. Quickshell 0.3.2 native IdleMonitor API and real Wayland idle/disable/re-enable/input-resume verified. Minimum built-in OLED contrast 4.993 across 216 pairs; custom black/white/alpha overrides covered. resolvePalette body unchanged. Standard profile neutral decorationOpacity/idleDim=1; OLED defaults .55/.65 (opacity multipliers). No production wiring/config. Opus must register default tokens.test.mjs suite at merge; index untouched. Exact commands, probe source/results and perf measurements: build/oled1/RESULTS.md (ignored local artifact), build/oled1/perf/perf.json. Current-tree idle CPU .88% initial and .77% after use; no before/after claim. Reviewed Theme and existing launch contrast contract once: no findings; MM-1 integration/review remains pending. Real Hyprland inhibitors/sleep-wake, mixed outputs and OLED visual review remain hardware work. Opus-held locks left unchanged per explicit instruction; no commit.",
+    "task_id": "OLED-1",
+    "timestamp": "2026-11-04T07:58:58+00:00"
   },
-  "updated_at": "2026-11-04T07:45:32+00:00"
+  "updated_at": "2026-11-04T07:59:41+00:00"
 }

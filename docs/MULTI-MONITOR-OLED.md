@@ -87,7 +87,7 @@ merge.
 ## Status
 
 - [ ] MM-1 (Sol)
-- [ ] OLED-1 (Terra)
+- [x] OLED-1 (Terra): oledPalette (min contrast 4.99:1, 12 schemes), DisplayProfile, Idle (IdleMonitor, off by default). Suite tests/js/tokens.test.mjs registered after MM-1 merges.
 - [ ] OLED-2 (Terra)
 - [ ] Astra review
 - [ ] Final review, measurements, PR
