@@ -94,6 +94,7 @@ Scope {
                     wifiEnabled: Network.wifiEnabled, networks: Network.networks.length },
                 bluetooth: { available: Bluetooth.available, powered: Bluetooth.powered,
                     connectedCount: Bluetooth.connectedCount, devices: Bluetooth.devices.length },
+                tour: { active: Tour.active, step: Tour.steps[Tour.step], completed: Tour.completed },
                 pipewire: Audio.ready,
                 players: Media.players.length,
                 commands: Registry.api.size(),

@@ -29,6 +29,13 @@ export XDG_CONFIG_HOME=$HOME/.config XDG_STATE_HOME=$HOME/.local/state
 export QT_FORCE_STDERR_LOGGING=1 QT_QUICK_BACKEND=software
 export WLR_BACKENDS=headless WLR_RENDERER=pixman WLR_LIBINPUT_NO_DEVICES=1
 mkdir -p "$OUT" "$XDG_CONFIG_HOME/aerolith" "$XDG_STATE_HOME"
+# The first-run tour would auto-start in every scenario on fresh state; mark
+# it done unless the scenario tests it (TOUR=1). Version from lib/tour.mjs.
+if [ "${TOUR:-0}" != 1 ] && [ ! -e "$XDG_STATE_HOME/aerolith/state.json" ]; then
+  mkdir -p "$XDG_STATE_HOME/aerolith"
+  tour_version=$(node -e 'import(process.argv[1]).then(m => console.log(m.VERSION))' "$SRC/${SHELL_PATH:-shell}/lib/tour.mjs" 2>/dev/null || echo 1)
+  printf '{"version":1,"usage":{},"recent":[],"tour":{"completed":true,"version":%s}}\n' "$tour_version" >"$XDG_STATE_HOME/aerolith/state.json"
+fi
 
 dbus-daemon --session --address="unix:path=$XDG_RUNTIME_DIR/bus" --fork --nopidfile >/dev/null
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"

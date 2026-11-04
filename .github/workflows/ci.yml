@@ -318,6 +318,48 @@ jobs:
           path: build/ci/scratch/
           if-no-files-found: warn
           retention-days: 3
+      - name: network
+        id: network
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          NET=1 tools/headless/run.sh tests/scenarios/network.sh build/ci/network
+      - name: Upload failed network output
+        if: ${{ failure() && steps.network.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: network-failure
+          path: build/ci/network/
+          if-no-files-found: warn
+          retention-days: 3
+      - name: network-absent
+        id: network_absent
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          NET=0 tools/headless/run.sh tests/scenarios/network.sh build/ci/network-absent
+      - name: Upload failed network-absent output
+        if: ${{ failure() && steps.network_absent.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: network-absent-failure
+          path: build/ci/network-absent/
+          if-no-files-found: warn
+          retention-days: 3
+      - name: tour
+        id: tour
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh build/ci/tour
+      - name: Upload failed tour output
+        if: ${{ failure() && steps.tour.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: tour-failure
+          path: build/ci/tour/
+          if-no-files-found: warn
+          retention-days: 3
       - name: runtime
         id: runtime
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

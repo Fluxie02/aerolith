@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# State-only tour contract; tools/headless/run.sh tests/scenarios/tour.sh
+# State-only tour contract; TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh
 # All config/state writes below belong to the disposable container user.
 
 fail() { echo "FAIL: $*"; exit 1; }

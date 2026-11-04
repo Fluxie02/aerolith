@@ -86,7 +86,7 @@ services are not changed in that job.
 
 ## Status
 
-- [ ] NB-1 (Sol)
-- [ ] TOUR-1 (Terra)
+- [x] NB-1 (Sol): Network and Bluetooth services, demand-only scanning/discovery, Registry toggles, status fields, private system bus with dbusmock NetworkManager/BlueZ (NET=1), network.sh. Sol ran its own headless runs. Opus verified: network NET=1 and NET=0 pass. Limits: availability needs a device; several wired profiles show the interface name (Quickshell 0.3.2 exposes no active-profile id).
+- [x] TOUR-1 (Terra): Tour state, Store persistence (versioned), tour.enabled, primary-output, lock and fullscreen hold, "Show the tour again", tour.sh. Terra ran its own headless runs. Opus: suites registered, CI steps (network, network-absent, tour), tour status field, harness marks the tour done unless TOUR=1. Opus verified: JS 233, pytest 306; tour, smoke, network, fullscreen, deck, app-links, catalogue pass.
 - [ ] UI-NB (Astra)
 - [ ] Final review and PR (Opus)
