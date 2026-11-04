@@ -391,8 +391,7 @@ def test_hyprland_057_still_integrates_lua(system, home, bindir):
     assert Manifest.load(layout().manifest).hypr_dialect == "lua"
 
 
-def test_detect_dialect_by_version(tmp_path):
-    from aerolith_install.paths import Layout
+def test_detect_dialect_by_version(home):
     lay = layout()
     lay.hypr.mkdir(parents=True, exist_ok=True)
     (lay.hypr / "hyprland.conf").write_text(CONF_CONFIG)
