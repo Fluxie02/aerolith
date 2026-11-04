@@ -81,8 +81,12 @@ PY
 
 # Add a read-only probe in a disposable copy to inspect the public list itself,
 # rather than accepting a matching count with the wrong window or record shape.
+# QML errors are checked per shell lifetime: what the engine logs while it
+# tears down the shell this scenario kills is not a runtime error.
+first_life_end=$(wc -l <"$OUT/qs.log")
 qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
+second_life_start=$(( $(wc -l <"$OUT/qs.log") + 1 ))
 cp -r "$SHELL_DIR" "$HOME/scratch-shell"
 SHELL_DIR="$HOME/scratch-shell"
 python3 - "$SHELL_DIR/modules/ControlSurface.qml" <<'PY'
@@ -205,6 +209,7 @@ wait_field scratchOpen False || fail "last parked close did not hide scratch"
 
 ipc status >"$OUT/final.json"
 alive || fail "quickshell died"
-if grep -nEi 'ReferenceError|TypeError|SyntaxError|is not defined|Cannot read|Binding loop|Unable to assign|Cannot assign|is not a type|Type .* unavailable|Error loading QML' "$OUT/qs.log"; then fail "QML errors in qs.log"; fi
+{ sed -n "1,${first_life_end}p" "$OUT/qs.log"; sed -n "${second_life_start},\$p" "$OUT/qs.log"; } >"$OUT/qs-lifetimes.log"
+if grep -nEi 'ReferenceError|TypeError|SyntaxError|is not defined|Cannot read|Binding loop|Unable to assign|Cannot assign|is not a type|Type .* unavailable|Error loading QML' "$OUT/qs-lifetimes.log"; then fail "QML errors in qs.log"; fi
 if grep -nE 'scratch\.(toggle|park): failed|Invalid dispatcher|lua dispatch not understood' "$OUT/qs.log"; then fail "scratch command failed"; fi
 echo "scratch: ok"
