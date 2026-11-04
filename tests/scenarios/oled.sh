@@ -1,5 +1,6 @@
 # shellcheck shell=bash
-# OUTPUTS=2 CONFIG=tests/fixtures/oled-config.json tools/headless/run.sh tests/scenarios/oled.sh
+# AI=1 OUTPUTS=2 CONFIG=tests/fixtures/oled-config.json tools/headless/run.sh tests/scenarios/oled.sh
+# AI=1 checks the installed AI console; AI=0 checks the missing-module fallback.
 # Probes/test overrides live only in a throwaway shell copy, never production IPC.
 fail() { echo "FAIL: $*"; exit 1; }
 [ "${OUTPUTS:-1}" = 2 ] || fail 'OLED scenario requires OUTPUTS=2'
@@ -53,9 +54,20 @@ probe='''
                 if (!w || !w.profile) return null;
                 const parts = []; children(w.contentItem, parts, 1);
                 const slot = w.slotA ? (w.slotA.current ? w.slotA : w.slotB) : null;
+                // Inspect the actual recessed prompt fill, not just profile.bg.
+                function inputBackgrounds(item, found) {
+                    if (!item) return;
+                    if (item.selectionColor !== undefined && item.parent && item.parent.color !== undefined)
+                        found.push(String(item.parent.color));
+                    for (const child of item.children || []) inputBackgrounds(child, found);
+                }
+                const backgrounds = [];
+                if (slot) inputBackgrounds(slot.item, backgrounds);
                 return { output: w.screen ? w.screen.name : "", visible: w.visible,
                     bayType: slot && slot.item ? slot.item.toString().split("(")[0] : "",
                     bayReady: !!slot && !!slot.item, bay: slot ? slot.bay : "",
+                    bayIsAiConsole: !!slot && !!slot.item && slot.item.module !== undefined && slot.item.module !== null,
+                    bayInputBackgrounds: backgrounds,
                     bayProfile: slot && slot.item && slot.item.profile ? (slot.item.profile.profile || "standard-default") : "missing",
                     profile: w.profile.profile, bg: String(w.profile.bg),
                     surface: String(w.profile.surface), grid: String(w.profile.grid),
@@ -239,10 +251,18 @@ for bay in command navigator systems signal routines help settings ai; do
   esac
   ipc open "$bay"
   wait_check "p['deck'] and p['deck']['bayReady'] and p['deck']['bay']=='$bay' and p['deck']['bayType'].startswith('$bay_type') and p['deck']['bayProfile']=='oled' and all(c['profile']=='oled' for c in p['deck']['parts'])"
+  if [ "$bay" = ai ] && [ "${AI:-0}" = 1 ]; then
+    wait_check 's["ai"] and p["deck"]["output"]=="HEADLESS-2" and p["deck"]["bayIsAiConsole"] and p["deck"]["bayInputBackgrounds"]==["#000000"]'
+  fi
   probe snapshot >"$OUT/bay-$bay.json"
   capture "bay-$bay"
   mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
   wait_check 'p["deck"]["profile"]=="standard" and all(c["profile"]=="standard" for c in p["deck"]["parts"])'
+  if [ "$bay" = ai ] && [ "${AI:-0}" = 1 ]; then
+    # Moving focus closes the Deck; reopen the console on the standard output.
+    ipc open ai
+    wait_check 'p["deck"]["bayReady"] and p["deck"]["bay"]=="ai" and p["deck"]["output"]=="HEADLESS-1" and p["deck"]["bayIsAiConsole"] and p["deck"]["bayProfile"]=="standard" and p["deck"]["bayInputBackgrounds"]==[g["HEADLESS-1"]["bg"]]'
+  fi
   mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
   wait_check 'p["deck"]["profile"]=="oled" and all(c["profile"]=="oled" for c in p["deck"]["parts"])'
 done
