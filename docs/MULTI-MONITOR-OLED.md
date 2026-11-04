@@ -91,7 +91,7 @@ merge.
 - [x] OLED-1 (Terra): oledPalette (min contrast 4.99:1, 12 schemes), DisplayProfile, Idle (IdleMonitor, off by default). Suite tests/js/tokens.test.mjs registered after MM-1 merges.
 - [x] OLED-2 (Terra): per-output DisplayProfile wired into Ground, Strip, notices, OSD, session and Deck frame; display.oled (idleDimAfter 300 s, idleDimLevel, hideDecorationWhenIdle); OLED-only idle dimming; status fields; oled.sh in CI. Standard outputs pixel-identical; idle unchanged (0.11% CPU, 1.7 cs/s). Opus verified: JS 205, pytest 303, headless oled, multimonitor, smoke, deck pass. Gap: Deck bay interiors (command, navigator, systems, ...) still use Theme tokens on an OLED output.
 - [ ] OLED-3: Deck bay interiors + Astra's decisions
-- [ ] Astra review
+- [x] Astra review: docs/design/oled/ASTRA-DECISIONS.md (palette kept, cyan x0.80; idle hides static content, clock stays; Deck bays take the output's profile; app bar on the primary output only)
 - [ ] Final review, measurements, PR
 
 ## Needs real hardware
