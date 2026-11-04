@@ -7,14 +7,14 @@ import qs.components
 import qs.services
 import "../../lib/telemetry.mjs" as T
 
-// The Flight Strip: a thin edge-mounted status strip on the one display
-// AEROLITH runs on. It never takes keyboard focus; everything here is also
+// The Flight Strip: a thin edge-mounted status strip on its assigned output. It never takes keyboard focus; everything here is also
 // reachable through the Command Core.
 PanelWindow {
     id: strip
 
-    screen: Ui.screen
-    visible: Config.strip.visible && Ui.screen !== null
+    required property var outputScreen
+    screen: outputScreen
+    visible: Config.strip.visible && outputScreen !== null
     color: Theme.bg
     implicitHeight: Theme.stripHeight
     exclusiveZone: Theme.stripHeight
@@ -145,14 +145,6 @@ PanelWindow {
                 value: Compositor.screencastOwner.toUpperCase()
                 status: "critical"
                 interactive: false
-            }
-            Annunciator {
-                compact: strip.compact
-                visible: Ui.multipleDisplays && Config.display.warnOnMultipleDisplays
-                code: "DISP"
-                value: "1/" + Ui.screenCount
-                status: "caution"
-                onClicked: Ui.notify("AEROLITH runs on one display (" + Ui.screenName + "). Other outputs are left untouched.", "caution", "Set display.output in config.json to choose the output.")
             }
             Annunciator {
                 compact: strip.compact

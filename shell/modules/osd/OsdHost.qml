@@ -121,9 +121,9 @@ Scope {
     }
 
     LazyLoader {
-        active: host.mapped && Ui.screen !== null
+        active: host.mapped && Ui.overlayScreen !== null
         PanelWindow {
-            screen: Ui.screen
+            screen: Ui.overlayScreen
             color: "transparent"
             anchors.top: true
             margins.top: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.pad

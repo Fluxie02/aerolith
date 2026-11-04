@@ -31,10 +31,23 @@ export const SCHEMA = S.obj(
     schemaVersion: S.int(SCHEMA_VERSION, 1, 1000, "Configuration schema version. Written by AEROLITH; do not change by hand."),
     display: S.obj(
       {
-        output: S.str("", 64, "Output (monitor) name to run on, e.g. \"DP-1\". Empty selects automatically."),
-        warnOnMultipleDisplays: S.bool(true, "Show a caution annunciator when more than one display is connected."),
+        primary: S.str("", 64, "Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live."),
+        output: S.str("", 64, "Deprecated alias for display.primary (one release). Used when primary is empty or unavailable."),
+        outputs: {
+          type: "map",
+          values: S.obj({
+            strip: S.bool(true, "Enable the Flight Strip on this output (also requires strip.visible)."),
+            ground: S.bool(true, "Enable Ground on this output (also requires ground.enabled)."),
+            profile: S.enumOf("standard", ["standard", "oled"], "Output profile metadata; OLED appearance/protection is configured separately."),
+          }, "Per-output settings."),
+          default: {},
+          description: "Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults.",
+        },
+        overlayOn: S.enumOf("focused", ["focused", "primary"], "Output for Deck, OSD and session menu. Missing focus falls back to primary."),
+        noticesOn: S.str("primary", 64, "Output for notices: primary, focused, or an output name. Missing names fall back to primary."),
+        warnOnMultipleDisplays: S.bool(true, "Retired; accepted for compatibility and ignored. All enabled outputs get surfaces."),
       },
-      "AEROLITH supports exactly one display. These settings choose which one.",
+      "Multi-monitor placement. Ground and Strip run on every enabled output; global services remain singletons.",
     ),
     theme: S.obj(
       {
@@ -243,9 +256,13 @@ function walk(schema, value, path, errors, warnings) {
     }
     const out = {};
     for (const k in value) {
-      const e = checkLeaf(schema.values, value[k]);
-      if (e) errors.push({ path: path + "." + k, message: e + "; ignored" });
-      else out[k] = value[k];
+      if (schema.values.type === "object") {
+        out[k] = walk(schema.values, value[k], path + "." + k, errors, warnings);
+      } else {
+        const e = checkLeaf(schema.values, value[k]);
+        if (e) errors.push({ path: path + "." + k, message: e + "; ignored" });
+        else out[k] = value[k];
+      }
     }
     return out;
   }

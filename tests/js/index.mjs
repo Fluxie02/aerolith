@@ -13,4 +13,7 @@ import brightness from "./brightness.test.mjs";
 import appbus from "./appbus.test.mjs";
 import ambient from "./ambient.test.mjs";
 
-export const suites = [fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient];
+import displays from "./displays.test.mjs";
+import outputLifecycles from "./displays-lifecycle.test.mjs";
+
+export const suites = [displays, outputLifecycles, fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient];

@@ -2,14 +2,9 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
+import qs.services
 
-// Shell-wide UI state: which bay is open, which display AEROLITH runs on,
-// and transient notices.
-//
-// Single-display policy: AEROLITH creates its surfaces on exactly one
-// output. With several outputs connected it picks one (config, else the
-// first output Hyprland reports, else the first Qt screen), shows a caution
-// annunciator and never duplicates itself onto other outputs.
+// Shell-wide bay, placement and transient notice state. Displays owns output policy.
 Singleton {
     id: root
 
@@ -25,27 +20,12 @@ Singleton {
     readonly property var screens: Quickshell.screens
     readonly property int screenCount: screens.length
     readonly property bool multipleDisplays: screenCount > 1
-    readonly property var screen: pickScreen(screens, Config.display.output)
+    readonly property var screen: Displays.primary ? Displays.primary.screen : null
     readonly property string screenName: screen ? screen.name : ""
-    readonly property bool configuredOutputMissing: Config.display.output !== "" && screen !== null && screen.name !== Config.display.output
-
-    function pickScreen(list, wanted) {
-        if (!list || list.length === 0)
-            return null;
-        if (wanted)
-            for (let i = 0; i < list.length; i++)
-                if (list[i].name === wanted)
-                    return list[i];
-        // Hyprland's monitor list is ordered by id; prefer the lowest id.
-        const order = outputOrder;
-        for (let k = 0; k < order.length; k++)
-            for (let i = 0; i < list.length; i++)
-                if (list[i].name === order[k])
-                    return list[i];
-        return list[0];
-    }
-
-    // Filled by the Compositor service with Hyprland monitor names by id.
+    readonly property var overlayScreen: Displays.overlayScreen
+    readonly property var noticeScreen: Displays.noticeScreen
+    readonly property bool configuredOutputMissing: Config.display.primary !== "" && screenName !== Config.display.primary
+    // Compatibility for Compositor's legacy writer; Displays owns selection.
     property var outputOrder: []
 
     function open(bay) {
