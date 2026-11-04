@@ -32,6 +32,14 @@ Scope {
         function session(): void {
             Ui.sessionOpen = true;
         }
+        function scratch(): string {
+            return run("scratch.toggle", "{}");
+        }
+        // IPC function names are literal QML identifiers; the global shortcut
+        // below can use a hyphen, while this callable uses camelCase.
+        function scratchPark(): string {
+            return run("scratch.park", "{}");
+        }
         function close(): void {
             Ui.close();
         }
@@ -66,6 +74,8 @@ Scope {
                 dialect: Compositor.dialect,
                 focusedWorkspace: Compositor.focusedWorkspaceId,
                 activeWindow: Compositor.activeTitle,
+                scratchOpen: Compositor.scratchOpen,
+                scratchWindows: Compositor.scratchWindows.length,
                 toplevels: Compositor.available ? Compositor.windows().map(w => w.address) : [],
                 pipewire: Audio.ready,
                 players: Media.players.length,
@@ -152,6 +162,16 @@ Scope {
     LazyLoader {
         active: Compositor.available
         Scope {
+            AeroShortcut {
+                name: "scratch"
+                description: "AEROLITH: scratch space"
+                onPressed: Registry.execute("scratch.toggle", {}, { record: false })
+            }
+            AeroShortcut {
+                name: "scratch-park"
+                description: "AEROLITH: park focused window"
+                onPressed: Registry.execute("scratch.park", {}, { record: false })
+            }
             AeroShortcut {
                 name: "command"
                 description: "AEROLITH: Command Core"

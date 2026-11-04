@@ -1,0 +1,11 @@
+{
+  "sha256": {
+    "shell/components/Hatch.qml": "257d9c73090555f73bd6e66940f5ae880766e933fd8e46a1b77a3ccafdffc1d1",
+    "shell/components/InstrumentField.qml": "7c59b04ecf3420347bd6d3fae41997597ade90d423d2554e761886cb0ede3c57"
+  },
+  "deleted": [
+    "shell/components/ShearField.qml",
+    "shell/shaders/bevel.frag",
+    "shell/shaders/bevel.frag.qsb"
+  ]
+}

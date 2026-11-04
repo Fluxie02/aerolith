@@ -50,6 +50,26 @@ Singleton {
     readonly property string activeClass: activeToplevel && activeToplevel.lastIpcObject ? String(activeToplevel.lastIpcObject["class"] || "") : ""
     readonly property int monitorCount: available ? Hyprland.monitors.values.length : 0
 
+    readonly property string scratchWorkspaceName: "special:aerolith"
+    readonly property var selectedMonitor: {
+        const list = available ? Hyprland.monitors.values : [];
+        for (let i = 0; i < list.length; i++)
+            if (list[i].name === Ui.screenName)
+                return list[i];
+        return list.length === 1 ? list[0] : null;
+    }
+    readonly property bool scratchOpen: {
+        const ipc = selectedMonitor ? selectedMonitor.lastIpcObject : null;
+        return !!(ipc && ipc.specialWorkspace && ipc.specialWorkspace.name === scratchWorkspaceName);
+    }
+    // Same records as windows(); this binding follows refreshed IPC objects,
+    // including window title, geometry and workspace membership changes.
+    readonly property var scratchWindows: windows().filter(w => {
+        const t = w.toplevel;
+        const ipc = t.lastIpcObject || {};
+        return (t.workspace ? t.workspace.name : (ipc.workspace ? ipc.workspace.name : "")) === root.scratchWorkspaceName;
+    })
+
     // Screen sharing state from the documented `screencast` event.
     property bool screencastActive: false
     property string screencastOwner: ""
@@ -238,6 +258,30 @@ Singleton {
         const id = Number(ws);
         return dispatch(d => HD.moveWindowToWorkspace(d, address, ws, follow), () => t.workspace !== null && t.workspace.id === id, 1500, "Hyprland did not move the window");
     }
+    function toggleScratch() {
+        const monitor = selectedMonitor;
+        if (!monitor)
+            return Promise.resolve({ ok: false, message: "Shell output is not available in Hyprland" });
+        if (!scratchOpen && scratchWindows.length === 0)
+            return Promise.resolve({ ok: false, message: "Scratch space is empty; park a window first" });
+        const name = monitor.name;
+        const wasOpen = scratchOpen;
+        // Special workspace toggles act on the focused monitor. Confirm that
+        // focus reached the shell's output before sending the toggle.
+        const focus = monitor.lastIpcObject && monitor.lastIpcObject.focused
+            ? Promise.resolve({ ok: true })
+            : dispatch(d => HD.focusMonitor(d, name), () => root.selectedMonitor !== null && root.selectedMonitor.name === name && root.selectedMonitor.lastIpcObject.focused === true, 1500, "Hyprland did not focus the shell output");
+        return focus.then(r => r.ok
+            ? dispatch(d => HD.toggleSpecialWorkspace(d, "aerolith"), () => root.selectedMonitor !== null && root.selectedMonitor.name === name && root.scratchOpen !== wasOpen, 1500, "Hyprland did not toggle the scratch space")
+            : r);
+    }
+    function parkScratch() {
+        const t = activeToplevel;
+        if (!t)
+            return Promise.resolve({ ok: false, message: "No active window" });
+        return dispatch(d => HD.moveWindowToWorkspace(d, t.address, { special: "aerolith" }, false),
+            () => root.scratchWindows.some(w => w.toplevel === t), 1500, "Hyprland did not park the window");
+    }
     // Closing asks the application; it may legitimately refuse or prompt to
     // save, so a window that stays open is reported, not treated as an error.
     function closeWindow(address) {
@@ -277,6 +321,8 @@ Singleton {
     Connections {
         target: root.available ? Hyprland : null
         function onRawEvent(event) {
+            if (["activespecial", "activespecialv2", "movewindow", "movewindowv2", "openwindow", "closewindow"].indexOf(event.name) >= 0)
+                scratchRefresh.restart();
             if (event.name === "screencast") {
                 const args = event.parse(2);
                 root.screencastActive = args[0] === "1";
@@ -285,6 +331,13 @@ Singleton {
                 root.refresh();
             }
         }
+    }
+
+    // Coalesce event bursts; no recurring timer or state polling.
+    Timer {
+        id: scratchRefresh
+        interval: 30
+        onTriggered: root.refresh()
     }
 
     // --- commands -------------------------------------------------------------
@@ -296,6 +349,22 @@ Singleton {
     }
 
     Component.onCompleted: {
+        Registry.register({
+            id: "scratch.toggle",
+            title: "Open or close scratch space",
+            category: "workspaces",
+            keywords: ["hatch", "scratch", "parked"],
+            available: hyprAvailable,
+            run: () => root.toggleScratch().then(r => root.result(r, root.scratchOpen ? "Scratch space opened" : "Scratch space closed"))
+        });
+        Registry.register({
+            id: "scratch.park",
+            title: "Park focused window in scratch space",
+            category: "windows",
+            keywords: ["hatch", "scratch", "park"],
+            available: () => !root.available ? "Hyprland is not running" : root.activeToplevel ? true : "No active window",
+            run: () => root.parkScratch().then(r => root.result(r, "Window parked in scratch space"))
+        });
         Registry.register({
             id: "workspace.focus",
             title: "Go to workspace",

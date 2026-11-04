@@ -63,3 +63,21 @@ the owner can use it and list what is wrong, then redesign.
   records launches), workspace ring data and clicks, media service for Now
   playing, network and Bluetooth services (Quickshell Networking and
   Bluetooth modules), tour state, Deck bay registry changes.
+
+## Follow-up after redesign round 1 (27 October 2026)
+
+The rest of round 1 is fine. The wing is not: it does not read as a wing,
+and it looks as if it should open something, but it does not.
+
+- **Replace the wing with a hatch** as the centrepiece (owner: "not a wing at
+  all"; a hatch, accepted).
+- **Clicking the hatch opens and closes a scratch space**: Hyprland's special
+  workspace, holding **any windows the user parks** there.
+- **Parking:** Super + Shift + S sends the focused window into the hatch;
+  Super + S opens and closes it, the same as a click.
+- **Opening animation:** Astra decides, as long as it is clearly the hatch
+  that opens.
+- **At rest:** the hatch hints at what is inside (e.g. how many windows are
+  parked).
+- Split: Astra designs the hatch, its opening and its hint; Opus and Sol
+  provide the scratch-space commands, data, keybinds and tests.

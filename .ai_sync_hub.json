@@ -9,7 +9,7 @@
   "workflow": {
     "current_task_id": "UI-016",
     "current_owner": "Claude",
-    "last_transition_at": "2026-10-26T21:55:06+00:00",
+    "last_transition_at": "2026-10-27T07:10:23+00:00",
     "transition_reason": "Astra explicitly published design_complete",
     "max_review_cycles": 1,
     "require_explicit_completion_event": true
@@ -2548,6 +2548,22 @@
         "request": "Performance/stability audit of the completed design layer",
         "summary": "UI-017 redesign round 1 complete: clear desktop, bounded workspace-pointing wing, occupied/active stations, MPRIS Now Playing, slim personal app row, plain labels, simplified Deck rail.",
         "notes": "Evidence and exact commands: docs/design/redesign-1/RESULTS.md. Node 155/155; Qt 155/155; Python 260 passed, 1 skipped. Required smoke/full/deck/app-links/fullscreen/direction and notify passed sequentially. Before/after 1920x1080@1, 2560x1440@1, 3840x2160@1.5; extra 720p/uiScale1.5/Noto/lowEffects, both directions, 12 schemes x 2 intensities, cover/Pause/Next, workspace click, F1 and identical reduced-motion wing crop. Final 26 QML logs have zero matched errors. Earlier immediate-startup IPC exit had four undefined binding warnings in untouched systems files, archived; neither baseline early exit nor settled redesigned restart reproduced. One low-severity systems review request recorded. Short matched software perf: idle CPU 1.27->0.87% core, peak RSS 210.9->201.6 MiB, idle RSS about +2 MiB; no GPU claims. Preserve existing coverage hold/cache/font fallback/fullscreen paths. Sol needs combined Apps.rankedEntries (id/name/icon) to bind AppContinuity.rankedEntries; Opus real Hyprland/NVIDIA review. Reviewed Claude 5bd2715 once; no visual finding in tiling-gap fix. No commit or dispatcher invocation.",
+        "status": "pending"
+      },
+      {
+        "timestamp": "2026-10-27T07:10:23+00:00",
+        "task_id": "UI-018",
+        "files": [
+          "shell/components/Hatch.qml",
+          "shell/components/InstrumentField.qml",
+          "shell/components/ShearField.qml",
+          "shell/shaders/bevel.frag",
+          "shell/shaders/bevel.frag.qsb",
+          "docs/design/redesign-2"
+        ],
+        "request": "Performance/stability audit of the completed design layer",
+        "summary": "UI-018 complete: wing replaced by an explicit two-leaf scratch-space hatch, inventory hint, guarded shared interface and reduced/off motion; remaining round-1 visuals preserved.",
+        "notes": "Exact commands, rationale, 29 small JPEGs and limits: docs/design/redesign-2/RESULTS.md. Native before/after at 1920x1080, 2560x1440, 3840x2160, all output scale 1.5. Node 170/170; Qt V4 162/162; Python 295 passed, 1 skipped. Sequential smoke, deck AUDIO=1, fullscreen AUDIO=1, direction and app-links PASS. Fullscreen 20-cycle RSS 163228/165964/169072 KiB; steady-growth false. Visual empty/parked open/closed, click delivery and reduced/off PASS at all sizes. 96-view matrix: 12 schemes x 2 intensities x 2 directions x open/closed PASS. Real intermediate opening/closing pixels captured. Remaining shader packages check PASS. Final 27 QML logs: zero matched errors. Missing scratch interface renders disabled/unavailable cleanly. Visual fixture changes only a disposable Hatch copy and uses unique visual.hatch.toggle; it does not validate Sol special-workspace dispatch or keybinds. No systems/host changes, installs or commit. Reviewed merged Sol 4183709 app-ranking once: delegate layout and activation retained, no actionable visual finding. Parallel scratch patch unavailable here. Please perform one systems/performance review of real Hyprland/GPU restoration and the shared-interface integration; one revision available. No dispatcher invoked.",
         "status": "pending"
       }
     ],
@@ -6204,6 +6220,57 @@
       "notes": "Apps.barApps exposes id/name/icon/running/windows plus click aliases; AppContinuity slices to existing capacity. entryForWindow resolves desktop ids, StartupWMClass via startupClass, reverse-DNS, case and Flatpak aliases; unknowns use readable names and application-x-executable. Apps launchRevision invalidates in-place Store usage mutations. Checks: python3 -m pytest -q tests/py: 295 passed, 1 skipped (44.64s); node tests/js/run-node.mjs: 170 passed, 0 failed; docker run --rm -v \"$PWD:/src:ro\" aerolith-dev bash -c \"cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml\": 162 passed, 0 failed; tools/headless/run.sh tests/scenarios/smoke.sh build/r1-sol-apps/smoke: PASS; tools/headless/run.sh tests/scenarios/app-links.sh build/r1-sol-apps/app-links: PASS (Files/name/icon/window/focus, StartupWMClass, launch rank fifth to first, moved socket launch, Firefox focus/cycle, search and window register); AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/r1-sol-apps/deck: PASS. bash -n tests/scenarios/app-links.sh and git diff --check: PASS. Evidence: build/r1-sol-apps, checks/node.txt, checks/qt.txt, checks/qml-audit.json (3 logs, zero matched QML errors/new warnings). Reviewed Astra AppContinuity once: byte-identical activate() and visual delegate/layout/style remainder; no additional actionable finding. Read launch.mjs and redesign RESULTS; neither changed. Mock Hyprland/software sway only, real Hyprland/icon themes unverified. Initial probe readiness and Store invalidation failures fixed before final passes. Explicit user delegation under Opus/Claude locks; no lock/unlock, commit or dispatch.",
       "task_id": "R1-SOL-APPS",
       "timestamp": "2026-10-27T02:28:35+00:00"
+    },
+    {
+      "id": "74b10ca7-24a5-437c-842d-adcfc01c8b46",
+      "type": "note",
+      "agent": "Astra",
+      "files": [
+        "shell/components/ShearField.qml",
+        "shell/components/InstrumentField.qml",
+        "docs/design/redesign-2"
+      ],
+      "summary": "Starting owner-assigned UI-018 hatch design in isolated worktree",
+      "notes": "Hub remains Claude_Performance_Audit/Claude for concurrent systems work; explicit owner task authorizes Astra visual files only. Preserve Sol scratch interface and locks. Docker daemon unavailable at initial inspection; no host changes authorized.",
+      "task_id": "UI-018",
+      "timestamp": "2026-10-27T06:44:56+00:00"
+    },
+    {
+      "id": "65dbfeaa-7709-43e0-bc04-6457f2848cdd",
+      "type": "integration_complete",
+      "agent": "Sol",
+      "files": [
+        ".github/workflows/ci.yml",
+        "installer/aerolith_install/hypr.py",
+        "shell/lib/hyprdispatch.mjs",
+        "shell/modules/ControlSurface.qml",
+        "shell/services/Compositor.qml",
+        "tests/js/hyprdispatch.test.mjs",
+        "tests/py/test_installer.py",
+        "tests/scenarios/scratch.sh",
+        "tools/mock-hyprland/mock_hyprland.py"
+      ],
+      "summary": "Implemented special:aerolith scratch commands, reactive state, shortcuts, installer binds, mock protocol and CI scenario; no visual changes",
+      "notes": "R2-SOL-SCRATCH: explicit owner delegation as Sol under Opus/Claude locks; no lock/unlock or commit. scratch.toggle focuses selected shell output then toggles; scratch.park silently moves focused window. Compositor exposes scratchOpen and same-shape scratchWindows; event burst refresh has no recurring polling. IPC scratch and scratchPark plus status bool/count; exact requested hyphenated scratch-park IPC is not representable as a QML function name in Quickshell IpcHandler, so provisional camelCase used (question presented to owner); global shortcut scratch-park unchanged. Empty scratch returns an explanatory failure because Hyprland does not show an empty special workspace. Both dialect dispatch validation tests and installer conflict tests added. Tests: python3 -m pytest -q tests/py = 299 passed, 1 skipped in 65.11s; node tests/js/run-node.mjs = 172 passed, 0 failed; python3 -m py_compile tools/mock-hyprland/mock_hyprland.py, bash -n tests/scenarios/scratch.sh, git diff --check = pass. python3 build/r2-sol-scratch/checks/mock-contract.py tools/mock-hyprland/mock_hyprland.py = both dialect protocols passed (block extracted from tracked scratch.sh). node build/r2-sol-scratch/checks/runtime-contract.mjs = 33 assertions passed using extracted production QML JavaScript with fakes, not QML type verification. Sequential attempted commands: tools/headless/run.sh tests/scenarios/smoke.sh build/r2-sol-scratch/smoke; tools/headless/run.sh tests/scenarios/scratch.sh build/r2-sol-scratch/scratch; AUDIO=1 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/fullscreen.sh build/r2-sol-scratch/fullscreen; tools/headless/run.sh tests/scenarios/app-links.sh build/r2-sol-scratch/app-links. All exit 1 before scenario start: Cannot connect to Docker daemon at unix:///var/run/docker.sock. Did not start daemon/change host config. Headless/Qt/real Hyprland runtime unverified; CI needs running Docker. Evidence build/r2-sol-scratch/checks. Reviewed Astra AppContinuity.qml and Instrumentation.qml once: P2 Instrumentation.qml:137 renders W + workspaceId, exposing negative special ids such as W-99 for parked windows. Minimal proposed visual correction: render SCRATCH for Compositor.scratchWindows membership; intentionally not edited. Single revision available.",
+      "task_id": "R2-SOL-SCRATCH",
+      "timestamp": "2026-10-27T06:53:41+00:00"
+    },
+    {
+      "id": "8d44ca19-cc42-41f2-ab98-08ea93799564",
+      "type": "design_complete",
+      "agent": "Astra",
+      "files": [
+        "shell/components/Hatch.qml",
+        "shell/components/InstrumentField.qml",
+        "shell/components/ShearField.qml",
+        "shell/shaders/bevel.frag",
+        "shell/shaders/bevel.frag.qsb",
+        "docs/design/redesign-2"
+      ],
+      "summary": "UI-018 complete: wing replaced by an explicit two-leaf scratch-space hatch, inventory hint, guarded shared interface and reduced/off motion; remaining round-1 visuals preserved.",
+      "notes": "Exact commands, rationale, 29 small JPEGs and limits: docs/design/redesign-2/RESULTS.md. Native before/after at 1920x1080, 2560x1440, 3840x2160, all output scale 1.5. Node 170/170; Qt V4 162/162; Python 295 passed, 1 skipped. Sequential smoke, deck AUDIO=1, fullscreen AUDIO=1, direction and app-links PASS. Fullscreen 20-cycle RSS 163228/165964/169072 KiB; steady-growth false. Visual empty/parked open/closed, click delivery and reduced/off PASS at all sizes. 96-view matrix: 12 schemes x 2 intensities x 2 directions x open/closed PASS. Real intermediate opening/closing pixels captured. Remaining shader packages check PASS. Final 27 QML logs: zero matched errors. Missing scratch interface renders disabled/unavailable cleanly. Visual fixture changes only a disposable Hatch copy and uses unique visual.hatch.toggle; it does not validate Sol special-workspace dispatch or keybinds. No systems/host changes, installs or commit. Reviewed merged Sol 4183709 app-ranking once: delegate layout and activation retained, no actionable visual finding. Parallel scratch patch unavailable here. Please perform one systems/performance review of real Hyprland/GPU restoration and the shared-interface integration; one revision available. No dispatcher invoked.",
+      "task_id": "UI-018",
+      "timestamp": "2026-10-27T07:10:23+00:00"
     }
   ],
   "changed_files_since_last_completion": [
@@ -7896,6 +7963,7 @@
     "docs/design/notices",
     "docs/design/redesign-1",
     "docs/design/redesign-1/checks/thears-exit.log",
+    "docs/design/redesign-2",
     "docs/design/round2/CONCEPTS.md",
     "docs/design/round2/VALIDATION.md",
     "docs/design/round2/fault/01-idle.png",
@@ -8655,6 +8723,7 @@
     "shell/components/ChordSlot.qml",
     "shell/components/CircularField.qml",
     "shell/components/Counterphase.qml",
+    "shell/components/Hatch.qml",
     "shell/components/InstrumentField.qml",
     "shell/components/InstrumentTabs.qml",
     "shell/components/Instrumentation.qml",
@@ -8677,6 +8746,7 @@
     "shell/lib/ambient.mjs",
     "shell/lib/appbus.mjs",
     "shell/lib/config.mjs",
+    "shell/lib/hyprdispatch.mjs",
     "shell/lib/launch.mjs",
     "shell/lib/schemes.mjs",
     "shell/lib/tokens.mjs",
@@ -8716,11 +8786,14 @@
     "shell/services/ShellCommands.qml",
     "shell/services/ShellState.qml",
     "shell/shaders",
+    "shell/shaders/bevel.frag",
+    "shell/shaders/bevel.frag.qsb",
     "shell/shell.qml",
     "tests",
     "tests/fixtures/fake-providers/codex",
     "tests/js/ambient.test.mjs",
     "tests/js/appbus.test.mjs",
+    "tests/js/hyprdispatch.test.mjs",
     "tests/js/index.mjs",
     "tests/js/launch.test.mjs",
     "tests/js/run-node.mjs",
@@ -8751,6 +8824,7 @@
     "tests/scenarios/perf.sh",
     "tests/scenarios/resilience.sh",
     "tests/scenarios/runtime.sh",
+    "tests/scenarios/scratch.sh",
     "tests/scenarios/session.sh",
     "tests/scenarios/signal.sh",
     "tests/scenarios/smoke.sh",
@@ -8793,19 +8867,20 @@
     "tools/mock-hyprland/mock_hyprland.py"
   ],
   "last_agent_event": {
-    "agent": "Sol",
-    "type": "integration_complete",
+    "agent": "Astra",
+    "type": "design_complete",
     "files": [
-      "shell/services/Apps.qml",
-      "shell/lib/appbus.mjs",
-      "shell/components/AppContinuity.qml",
-      "tests/js/appbus.test.mjs",
-      "tests/scenarios/app-links.sh"
+      "shell/components/Hatch.qml",
+      "shell/components/InstrumentField.qml",
+      "shell/components/ShearField.qml",
+      "shell/shaders/bevel.frag",
+      "shell/shaders/bevel.frag.qsb",
+      "docs/design/redesign-2"
     ],
-    "summary": "Completed usage-ranked app bar with desktop-entry identity and exact window aliases; visual design unchanged",
-    "notes": "Apps.barApps exposes id/name/icon/running/windows plus click aliases; AppContinuity slices to existing capacity. entryForWindow resolves desktop ids, StartupWMClass via startupClass, reverse-DNS, case and Flatpak aliases; unknowns use readable names and application-x-executable. Apps launchRevision invalidates in-place Store usage mutations. Checks: python3 -m pytest -q tests/py: 295 passed, 1 skipped (44.64s); node tests/js/run-node.mjs: 170 passed, 0 failed; docker run --rm -v \"$PWD:/src:ro\" aerolith-dev bash -c \"cd /src && QT_QPA_PLATFORM=offscreen QT_FORCE_STDERR_LOGGING=1 qml6 tests/js/run-qt.qml\": 162 passed, 0 failed; tools/headless/run.sh tests/scenarios/smoke.sh build/r1-sol-apps/smoke: PASS; tools/headless/run.sh tests/scenarios/app-links.sh build/r1-sol-apps/app-links: PASS (Files/name/icon/window/focus, StartupWMClass, launch rank fifth to first, moved socket launch, Firefox focus/cycle, search and window register); AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/r1-sol-apps/deck: PASS. bash -n tests/scenarios/app-links.sh and git diff --check: PASS. Evidence: build/r1-sol-apps, checks/node.txt, checks/qt.txt, checks/qml-audit.json (3 logs, zero matched QML errors/new warnings). Reviewed Astra AppContinuity once: byte-identical activate() and visual delegate/layout/style remainder; no additional actionable finding. Read launch.mjs and redesign RESULTS; neither changed. Mock Hyprland/software sway only, real Hyprland/icon themes unverified. Initial probe readiness and Store invalidation failures fixed before final passes. Explicit user delegation under Opus/Claude locks; no lock/unlock, commit or dispatch.",
-    "task_id": "R1-SOL-APPS",
-    "timestamp": "2026-10-27T02:28:35+00:00"
+    "summary": "UI-018 complete: wing replaced by an explicit two-leaf scratch-space hatch, inventory hint, guarded shared interface and reduced/off motion; remaining round-1 visuals preserved.",
+    "notes": "Exact commands, rationale, 29 small JPEGs and limits: docs/design/redesign-2/RESULTS.md. Native before/after at 1920x1080, 2560x1440, 3840x2160, all output scale 1.5. Node 170/170; Qt V4 162/162; Python 295 passed, 1 skipped. Sequential smoke, deck AUDIO=1, fullscreen AUDIO=1, direction and app-links PASS. Fullscreen 20-cycle RSS 163228/165964/169072 KiB; steady-growth false. Visual empty/parked open/closed, click delivery and reduced/off PASS at all sizes. 96-view matrix: 12 schemes x 2 intensities x 2 directions x open/closed PASS. Real intermediate opening/closing pixels captured. Remaining shader packages check PASS. Final 27 QML logs: zero matched errors. Missing scratch interface renders disabled/unavailable cleanly. Visual fixture changes only a disposable Hatch copy and uses unique visual.hatch.toggle; it does not validate Sol special-workspace dispatch or keybinds. No systems/host changes, installs or commit. Reviewed merged Sol 4183709 app-ranking once: delegate layout and activation retained, no actionable visual finding. Parallel scratch patch unavailable here. Please perform one systems/performance review of real Hyprland/GPU restoration and the shared-interface integration; one revision available. No dispatcher invoked.",
+    "task_id": "UI-018",
+    "timestamp": "2026-10-27T07:10:23+00:00"
   },
-  "updated_at": "2026-10-27T02:29:42+00:00"
+  "updated_at": "2026-10-27T07:10:23+00:00"
 }

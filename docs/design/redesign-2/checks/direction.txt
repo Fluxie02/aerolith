@@ -1,0 +1,10 @@
+Killed y511knt
+Killed 52711knt
+Killed h3811knt
+Killed m4911knt
+Killed r5a11knt
+Killed x6b11knt
+Killed 38b11knt
+Killed 89c11knt
+Killed cad11knt
+direction: ok (startup choice, no live switch, invalid fallback, missing fallback)

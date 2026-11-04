@@ -36,19 +36,23 @@ import time
 from dataclasses import dataclass, field
 
 LEGACY_DISPATCH = {
+    "focusmonitor": re.compile(r"^focusmonitor (?P<monitor>[A-Za-z0-9_.-]+)$"),
+    "togglespecialworkspace": re.compile(r"^togglespecialworkspace (?P<special>[A-Za-z0-9_.-]+)$"),
     "workspace": re.compile(r"^workspace (?P<ws>-?\d+|name:[\w .-]+)$"),
     "focuswindow": re.compile(r"^focuswindow address:(?P<addr>0x[0-9a-f]+)$"),
     "movetoworkspacesilent": re.compile(
-        r"^movetoworkspacesilent (?P<ws>-?\d+|name:[\w .-]+),address:(?P<addr>0x[0-9a-f]+)$"
+        r"^movetoworkspacesilent (?P<ws>-?\d+|name:[\w .-]+|special:[A-Za-z0-9_.-]+)(?:,address:(?P<addr>0x[0-9a-f]+))?$"
     ),
     "movetoworkspace": re.compile(
-        r"^movetoworkspace (?P<ws>-?\d+|name:[\w .-]+),address:(?P<addr>0x[0-9a-f]+)$"
+        r"^movetoworkspace (?P<ws>-?\d+|name:[\w .-]+|special:[A-Za-z0-9_.-]+)(?:,address:(?P<addr>0x[0-9a-f]+))?$"
     ),
     "closewindow": re.compile(r"^closewindow address:(?P<addr>0x[0-9a-f]+)$"),
 }
 
 LUA_STR = r'"(?:[^"\\]|\\.)*"'
 LUA_DISPATCH = {
+    "focus_mon": re.compile(r"^hl\.dsp\.focus\(\{ monitor = (?P<monitor>" + LUA_STR + r") \}\)$"),
+    "toggle_special": re.compile(r"^hl\.dsp\.workspace\.toggle_special\((?P<special>" + LUA_STR + r")\)$"),
     "focus_ws": re.compile(r"^hl\.dsp\.focus\(\{ workspace = (?P<ws>" + LUA_STR + r") \}\)$"),
     "focus_win": re.compile(r"^hl\.dsp\.focus\(\{ window = (?P<win>" + LUA_STR + r") \}\)$"),
     "move": re.compile(
@@ -121,13 +125,19 @@ class State:
     monitors: list[dict] = field(default_factory=list)
     clients: dict[str, Client] = field(default_factory=dict)
     persistent_ws: set[int] = field(default_factory=set)
+    special_names: dict[int, str] = field(default_factory=dict)
+    special_by_monitor: dict[str, int] = field(default_factory=dict)
+    focused_monitor: str = "DP-1"
     active_ws: int = 1
     active_addr: str = ""
     next_addr: int = 0x5A00_0000_0000
     lock: threading.RLock = field(default_factory=threading.RLock)
 
+    def ws_name(self, wid: int) -> str:
+        return self.special_names.get(wid, ws_name(wid))
+
     def ws_ids(self) -> list[int]:
-        ids = {c.workspace for c in self.clients.values()} | self.persistent_ws | {self.active_ws}
+        ids = {c.workspace for c in self.clients.values()} | self.persistent_ws | {self.active_ws} | set(self.special_by_monitor.values())
         return sorted(ids)
 
     def monitor(self) -> dict:
@@ -142,7 +152,7 @@ class State:
             out.append(
                 {
                     "id": wid,
-                    "name": ws_name(wid),
+                    "name": self.ws_name(wid),
                     "monitor": mon["name"],
                     "monitorID": mon["id"],
                     "windows": len(wins),
@@ -176,15 +186,16 @@ class State:
     def clients_json(self) -> list[dict]:
         mon = self.monitor()
         self.layout()
-        return [c.to_json(ws_name(c.workspace), mon["id"]) for c in self.clients.values()]
+        return [c.to_json(self.ws_name(c.workspace), mon["id"]) for c in self.clients.values()]
 
     def monitors_json(self) -> list[dict]:
         out = []
         for i, m in enumerate(self.monitors):
             d = dict(m)
-            d["activeWorkspace"] = {"id": self.active_ws, "name": ws_name(self.active_ws)} if i == 0 else {"id": 1, "name": "1"}
-            d["specialWorkspace"] = {"id": 0, "name": ""}
-            d["focused"] = i == 0
+            d["activeWorkspace"] = {"id": self.active_ws, "name": self.ws_name(self.active_ws)} if i == 0 else {"id": 1, "name": "1"}
+            special = self.special_by_monitor.get(m["name"], 0)
+            d["specialWorkspace"] = {"id": special, "name": self.ws_name(special) if special else ""}
+            d["focused"] = m["name"] == self.focused_monitor
             out.append(d)
         return out
 
@@ -251,32 +262,92 @@ class Mock:
         self.log("event", f"{name}>>{data}")
 
     # -- state transitions ---------------------------------------------------
+    def focus_monitor(self, name: str) -> bool:
+        st = self.state
+        if not any(m["name"] == name for m in st.monitors):
+            return False
+        st.focused_monitor = name
+        self.emit("focusedmon", f"{name},{st.ws_name(st.active_ws)}")
+        self.emit("focusedmonv2", f"{name},{st.active_ws}")
+        return True
+
+    def show_special(self, wid: int, monitor: str) -> None:
+        st = self.state
+        # A special workspace is visible on at most one monitor.
+        for name, current in list(st.special_by_monitor.items()):
+            if current == wid and name != monitor:
+                self.hide_special(name)
+        st.special_by_monitor[monitor] = wid
+        self.emit("activespecial", f"{st.ws_name(wid)},{monitor}")
+        self.emit("activespecialv2", f"{wid},{st.ws_name(wid)},{monitor}")
+
+    def hide_special(self, monitor: str) -> None:
+        self.state.special_by_monitor.pop(monitor, None)
+        self.emit("activespecial", f",{monitor}")
+        self.emit("activespecialv2", f"0,,{monitor}")
+
+    def toggle_special(self, name: str) -> bool:
+        st = self.state
+        wid = self.parse_ws("special:" + name)
+        if wid is None:
+            return False
+        monitor = st.focused_monitor
+        if st.special_by_monitor.get(monitor) == wid:
+            self.hide_special(monitor)
+            self.refocus_visible()
+        else:
+            # Hyprland does not show an empty special workspace.
+            if not any(c.workspace == wid for c in st.clients.values()):
+                return True
+            self.show_special(wid, monitor)
+            self.refocus_visible()
+        return True
+
+    def refocus_visible(self) -> None:
+        st = self.state
+        wid = st.special_by_monitor.get(st.focused_monitor, st.active_ws)
+        wins = [c for c in st.clients.values() if c.workspace == wid]
+        if wins:
+            self.focus_window(min(wins, key=lambda c: c.focus_history_id).address)
+        else:
+            st.active_addr = ""
+            self.emit("activewindow", ",")
+            self.emit("activewindowv2", "")
+
     def focus_workspace(self, wid: int) -> None:
         st = self.state
         created = wid not in st.ws_ids()
         old = st.active_ws
         st.active_ws = wid
         if created:
-            self.emit("createworkspace", ws_name(wid))
-            self.emit("createworkspacev2", f"{wid},{ws_name(wid)}")
-        self.emit("workspace", ws_name(wid))
-        self.emit("workspacev2", f"{wid},{ws_name(wid)}")
-        self.emit("focusedmon", f"{st.monitor()['name']},{ws_name(wid)}")
-        self.emit("focusedmonv2", f"{st.monitor()['name']},{ws_name(wid)}")
+            self.emit("createworkspace", st.ws_name(wid))
+            self.emit("createworkspacev2", f"{wid},{st.ws_name(wid)}")
+        self.emit("workspace", st.ws_name(wid))
+        self.emit("workspacev2", f"{wid},{st.ws_name(wid)}")
+        self.emit("focusedmon", f"{st.monitor()['name']},{st.ws_name(wid)}")
+        self.emit("focusedmonv2", f"{st.monitor()['name']},{st.ws_name(wid)}")
         self.maybe_destroy(old)
 
     def maybe_destroy(self, wid: int) -> None:
         st = self.state
+        if not any(c.workspace == wid for c in st.clients.values()):
+            for monitor, special in list(st.special_by_monitor.items()):
+                if special == wid:
+                    self.hide_special(monitor)
+                    self.refocus_visible()
         if wid != st.active_ws and wid not in st.persistent_ws and not any(c.workspace == wid for c in st.clients.values()):
-            self.emit("destroyworkspace", ws_name(wid))
-            self.emit("destroyworkspacev2", f"{wid},{ws_name(wid)}")
+            self.emit("destroyworkspace", st.ws_name(wid))
+            self.emit("destroyworkspacev2", f"{wid},{st.ws_name(wid)}")
 
     def focus_window(self, addr: str) -> bool:
         st = self.state
         c = st.clients.get(addr)
         if not c:
             return False
-        if c.workspace != st.active_ws:
+        if c.workspace in st.special_names:
+            if st.special_by_monitor.get(st.focused_monitor) != c.workspace:
+                self.show_special(c.workspace, st.focused_monitor)
+        elif c.workspace != st.active_ws:
             self.focus_workspace(c.workspace)
         st.active_addr = addr
         for other in st.clients.values():
@@ -295,12 +366,14 @@ class Mock:
         created = wid not in st.ws_ids()
         c.workspace = wid
         if created:
-            self.emit("createworkspace", ws_name(wid))
-            self.emit("createworkspacev2", f"{wid},{ws_name(wid)}")
-        self.emit("movewindow", f"{addr[2:]},{ws_name(wid)}")
-        self.emit("movewindowv2", f"{addr[2:]},{wid},{ws_name(wid)}")
+            self.emit("createworkspace", st.ws_name(wid))
+            self.emit("createworkspacev2", f"{wid},{st.ws_name(wid)}")
+        self.emit("movewindow", f"{addr[2:]},{st.ws_name(wid)}")
+        self.emit("movewindowv2", f"{addr[2:]},{wid},{st.ws_name(wid)}")
         if follow:
-            self.focus_workspace(wid)
+            self.focus_window(addr)
+        elif st.active_addr == addr and wid != st.special_by_monitor.get(st.focused_monitor, st.active_ws):
+            self.refocus_visible()
         self.maybe_destroy(old)
         return True
 
@@ -312,8 +385,8 @@ class Mock:
         # A new unfocused window goes to the back of the history.
         history = max((c.focus_history_id for c in st.clients.values()), default=-1) + 1
         st.clients[addr] = Client(addr, cls, title, wid, pid=4000 + len(st.clients), floating=floating, focus_history_id=history)
-        self.emit("openwindow", f"{addr[2:]},{ws_name(wid)},{cls},{title}")
-        if wid == st.active_ws:
+        self.emit("openwindow", f"{addr[2:]},{st.ws_name(wid)},{cls},{title}")
+        if wid == st.special_by_monitor.get(st.focused_monitor, st.active_ws):
             self.focus_window(addr)
         return addr
 
@@ -330,8 +403,16 @@ class Mock:
         self.maybe_destroy(c.workspace)
         return True
 
-    @staticmethod
-    def parse_ws(sel: str) -> int | None:
+    def parse_ws(self, sel: str) -> int | None:
+        if re.fullmatch(r"special:[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}", sel):
+            for wid, name in self.state.special_names.items():
+                if name == sel:
+                    return wid
+            wid = -99 + len(self.state.special_names)
+            if wid >= -1:
+                return None
+            self.state.special_names[wid] = sel
+            return wid
         if re.fullmatch(r"-?\d+", sel):
             return int(sel)
         return None
@@ -343,6 +424,10 @@ class Mock:
                 m = rx.match(body)
                 if not m:
                     continue
+                if kind == "focus_mon":
+                    return "ok" if self.focus_monitor(lua_unquote(m["monitor"])) else "error: invalid monitor"
+                if kind == "toggle_special":
+                    return "ok" if self.toggle_special(lua_unquote(m["special"])) else "error: invalid special workspace"
                 if kind == "no_op":
                     return "ok"
                 if kind == "focus_ws":
@@ -369,13 +454,17 @@ class Mock:
             m = rx.match(body)
             if not m:
                 continue
+            if name == "focusmonitor":
+                return "ok" if self.focus_monitor(m["monitor"]) else "Invalid monitor"
+            if name == "togglespecialworkspace":
+                return "ok" if self.toggle_special(m["special"]) else "Invalid workspace"
             if name == "workspace":
                 wid = self.parse_ws(m["ws"])
                 if wid is None:
                     return "Invalid workspace"
                 self.focus_workspace(wid)
                 return "ok"
-            addr = m["addr"]
+            addr = m["addr"] or st.active_addr
             if name == "focuswindow":
                 return "ok" if self.focus_window(addr) else "No such window found"
             if name == "closewindow":
@@ -415,7 +504,7 @@ class Mock:
             return next((w for w in st.workspaces_json() if w["id"] == st.active_ws), {})
         if cmd == "activewindow":
             c = st.clients.get(st.active_addr)
-            return c.to_json(ws_name(c.workspace), 0) if c else {}
+            return c.to_json(st.ws_name(c.workspace), 0) if c else {}
         if cmd == "version":
             return {
                 "branch": "mock",
@@ -483,6 +572,7 @@ class Mock:
                 return {
                     "active_workspace": self.state.active_ws,
                     "active_window": self.state.active_addr,
+                    "monitors": self.state.monitors_json(),
                     "workspaces": self.state.workspaces_json(),
                     "clients": self.state.clients_json(),
                 }
@@ -498,7 +588,7 @@ class Mock:
                 self.emit("screencast", f"{1 if msg.get('active') else 0},{msg.get('owner', 0)}")
                 return {"ok": True}
             if op == "add_monitor":
-                mid = len(self.state.monitors)
+                mid = max(m["id"] for m in self.state.monitors) + 1
                 mon = dict(self.state.monitors[0])
                 mon.update({"id": mid, "name": msg.get("name", f"HDMI-A-{mid}"), "x": 1920 * mid})
                 self.state.monitors.append(mon)
@@ -511,6 +601,9 @@ class Mock:
                 if len(keep) == len(self.state.monitors) or not keep:
                     return {"ok": False}
                 self.state.monitors = keep
+                self.state.special_by_monitor.pop(name, None)
+                if self.state.focused_monitor == name:
+                    self.focus_monitor(keep[0]["name"])
                 self.emit("monitorremoved", name)
                 return {"ok": True}
         return {"error": f"unknown op {op!r}"}

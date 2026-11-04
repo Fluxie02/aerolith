@@ -276,6 +276,20 @@ jobs:
           path: build/ci/app-links/
           if-no-files-found: warn
           retention-days: 3
+      - name: scratch
+        id: scratch
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/scratch.sh build/ci/scratch
+      - name: Upload failed scratch output
+        if: ${{ failure() && steps.scratch.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: scratch-failure
+          path: build/ci/scratch/
+          if-no-files-found: warn
+          retention-days: 3
       - name: runtime
         id: runtime
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

@@ -42,6 +42,8 @@ DEFAULT_BINDS: dict[str, tuple[str, str, str]] = {
     "signal": ("SUPER", "F10", "AEROLITH: Signal Rack"),
     "routines": ("SUPER", "F11", "AEROLITH: Routine Console"),
     "session": ("SUPER SHIFT", "ESCAPE", "AEROLITH: session menu"),
+    "scratch": ("SUPER", "S", "AEROLITH: scratch space"),
+    "scratch-park": ("SUPER SHIFT", "S", "AEROLITH: park focused window"),
 }
 AI_BIND = ("ai", ("SUPER", "F12", "AEROLITH: AI Bridge"))
 MEDIA_BINDS: dict[str, tuple[str, str, str]] = {

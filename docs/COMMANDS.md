@@ -42,7 +42,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 
 <!-- BEGIN GENERATED: tools/gen-commands-doc.py -->
 
-61 commands with the AI module installed; without it the `ai` category is absent.
+63 commands with the AI module installed; without it the `ai` category is absent.
 
 ### shell
 
@@ -72,6 +72,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 
 | Command | Alias | Parameters | Notes |
 |---|---|---|---|
+| `scratch.park`<br>Park focused window in scratch space | — | — | — |
 | `window.close`<br>Close window — Ask the application to close (it may prompt to save) | — | `address`: string | — |
 | `window.focus`<br>Focus window | — | `address`: string | — |
 | `window.move`<br>Move window to workspace | — | `address`: string<br>`workspace`: integer 1–99<br>`follow`: bool (optional, default `false`) | — |
@@ -81,6 +82,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 
 | Command | Alias | Parameters | Notes |
 |---|---|---|---|
+| `scratch.toggle`<br>Open or close scratch space | — | — | — |
 | `workspace.focus`<br>Go to workspace — Switch to a workspace by number | `ws` | `workspace`: integer 1–99 | routine step, AI may propose |
 | `workspace.next`<br>Next workspace | — | — | routine step, AI may propose |
 | `workspace.previous`<br>Previous workspace | — | — | routine step, AI may propose |

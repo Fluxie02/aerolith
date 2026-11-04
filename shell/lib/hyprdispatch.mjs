@@ -79,11 +79,20 @@ export function normalizeAddress(address) {
 }
 
 const WORKSPACE_NAME = /^[A-Za-z0-9_.+-][A-Za-z0-9 _.+-]{0,63}$/;
+const SPECIAL_NAME = /^[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}$/;
+
+export function specialWorkspaceSelector(name) {
+  if (typeof name !== "string" || !SPECIAL_NAME.test(name))
+    throw new DispatchError("invalid special workspace name: " + JSON.stringify(name));
+  return "special:" + name;
+}
 
 // Accepts a workspace id (integer, 1..9999 or negative special ids are not
 // accepted) or { name } for a named workspace. Returns the selector string
-// Hyprland understands in both dialects: "3" or "name:web".
+// Hyprland understands in both dialects: "3" or "name:web". An explicit
+// { special: name } selects a special workspace for window parking.
 export function workspaceSelector(ws) {
+  if (ws && typeof ws === "object" && "special" in ws) return specialWorkspaceSelector(ws.special);
   if (typeof ws === "number" || (typeof ws === "string" && /^\d+$/.test(ws))) {
     const n = Number(ws);
     if (!Number.isInteger(n) || n < 1 || n > 9999) throw new DispatchError("workspace id out of range: " + ws);
@@ -112,6 +121,20 @@ export function focusWindow(dialect, address) {
   const addr = normalizeAddress(address);
   if (dialectOf(dialect) === DIALECT_LUA) return "hl.dsp.focus({ window = " + luaString("address:" + addr) + " })";
   return "focuswindow address:" + addr;
+}
+
+export function focusMonitor(dialect, name) {
+  if (typeof name !== "string" || !/^[A-Za-z0-9_][A-Za-z0-9_.-]{0,127}$/.test(name))
+    throw new DispatchError("invalid monitor name: " + JSON.stringify(name));
+  if (dialectOf(dialect) === DIALECT_LUA) return "hl.dsp.focus({ monitor = " + luaString(name) + " })";
+  return "focusmonitor " + name;
+}
+
+// Lua API: https://wiki.hypr.land/0.55.0/Configuring/Basics/Dispatchers/#workspace-1
+export function toggleSpecialWorkspace(dialect, name) {
+  specialWorkspaceSelector(name);
+  if (dialectOf(dialect) === DIALECT_LUA) return "hl.dsp.workspace.toggle_special(" + luaString(name) + ")";
+  return "togglespecialworkspace " + name;
 }
 
 export function moveWindowToWorkspace(dialect, address, workspace, follow) {

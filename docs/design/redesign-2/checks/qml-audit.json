@@ -1,0 +1,141 @@
+{
+  "logs": 27,
+  "matched_errors": 0,
+  "records": [
+    {
+      "path": "build/redesign-2/smoke/qs.log",
+      "sha256": "0bfa0c4c228dfd1ffab4d228f812e2ca3883fa3a9811a0256221d1667bd47d2b",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/deck/qs.log",
+      "sha256": "fc5da17afe78d4fb6028581ef8c1e0e9ff91785a6b69dd195c097c00a13fa582",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/fullscreen/qs.log",
+      "sha256": "6af66e4eca2d04823566b4ae0386bd42e31a2aca4bdf811cab87fd34eb019a38",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-array.log",
+      "sha256": "55d09ccfd90ac8f0bd1c2ffb246ff0adfda1255cbaccd75b7bafbc38c0f26b0e",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-broken.log",
+      "sha256": "367b52a4058631b1e8bd8d28d93921b427bfd1eb65a5dc34f4790770c7bb20ff",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-empty.log",
+      "sha256": "a45e5a9504a290d186412021478cc54cdd974891ec0d616469881dc03b31841a",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-invalid.log",
+      "sha256": "1c071bf9f3d5c04e1a85cf96a87b0dfbcc56da7b81f07f425da99161d91ae9c7",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-missing.log",
+      "sha256": "5596997d6be03e51e988f595b1410661a745d0fec8144fb8a8361261066705b5",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-null.log",
+      "sha256": "e435518298136897d1a8076f760d008c1c34a5f0e71259d000f4ffb7c76e78c3",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-piyti.log",
+      "sha256": "fde187dc5dc9d59480def040b2a6a45a2f4f938ff7d81bd46113c26698c803a1",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-thears.log",
+      "sha256": "7bf0d627a9bbe6817dc6576cddab5d98e2587b4741657646e65578e21ef8f4e0",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs-whitespace.log",
+      "sha256": "83633dc9e7bf5e1568c791b02d81061e4747fc48219849eaecaf94ebafb447aa",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/direction/qs.log",
+      "sha256": "28d5cf03f7333e1fa69fb7c5ffdce4d51adb6d5552291db796bef6007cb638dc",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/app-links/qs.log",
+      "sha256": "1d78566d93c800e322329da8a4060be52b32060732251b650726655fa645ead1",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/before-1920/qs.log",
+      "sha256": "5faf85146c14fbfb471f81f937996424060f07eb51287c9b80bcece632f2f474",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/before-2560/qs.log",
+      "sha256": "772573e2142ea5ad1b1e750be0e6db35fc9801bd762dc185a711b5deaa5c3965",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/before-3840/qs.log",
+      "sha256": "5292c381b4b4980981a46a32dbb414d609f87d9d904aa7f8c6fcf62c9099ef4a",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/after-1920/qs-fixture.log",
+      "sha256": "089d1f58ddb6ccaaf70cc4409ddcc1f3a6225b41c3d6b672c79ccc8e722dba24",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/after-1920/qs.log",
+      "sha256": "60629def82fb2f8aea47bc3cc2a4e77fa6314d8eebecf384fe91cb7f76d43e31",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/after-2560/qs-fixture.log",
+      "sha256": "a8173402e5873a560f8d555b2e83f87f771febadc33e320e153d9cb202bff9a9",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/after-2560/qs.log",
+      "sha256": "7dbf1bed576e294ffd48cbff672c25e1a1c451ae1616d9de73726edd65258fb4",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/after-3840/qs-fixture.log",
+      "sha256": "b22fa54b8ed55aaa6b7da297c5caacbda17d3d009e1963b6aecebfe80400b794",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/after-3840/qs.log",
+      "sha256": "d8a4d5bdfbe144d89c712b4c7be13f8af007a80748f520859783ebad32a1f5b0",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/matrix/qs-fixture.log",
+      "sha256": "43f44abcc0e9e96752c62b984b6856e44cff007546a09048efd1118d23b9df21",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/matrix/qs.log",
+      "sha256": "58513e38012a5015c1783c89444f61adb551541d2c358540f21800ff2390acc2",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/motion/qs-fixture.log",
+      "sha256": "18464a82c5b43bc765bac38d506b208cdac9bb82ff841825dc6a9fd136daa4d5",
+      "errors": []
+    },
+    {
+      "path": "build/redesign-2/motion/qs.log",
+      "sha256": "2e80de5cead7c301c93fd646cdaba97c431432450a15c8c95279f611b11fb082",
+      "errors": []
+    }
+  ]
+}
