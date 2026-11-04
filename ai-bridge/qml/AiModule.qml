@@ -392,6 +392,7 @@ Scope {
     // approved separately with A. Nothing runs automatically.
     component AiConsole: FocusScope {
         id: console_
+        property var profile: Theme
         property var module: null
         property int selected: 0
         property bool inProposals: false
@@ -473,6 +474,7 @@ Scope {
         // One scrollable response register keeps long replies and every proposal
         // reachable on small displays. The disclosure and input stay in view.
         Bezel {
+            profile: console_.profile
             anchors.fill: parent
             contentPadding: height < Theme.du(600) ? Theme.pad : Theme.contentInset
             titleHeight: height < Theme.du(600) ? Theme.du(42) : Theme.headerHeight
@@ -486,7 +488,7 @@ Scope {
                 if (!s.ok) return "CONFIG PROBLEM";
                 return console_.module.providerName.toUpperCase() + (s.remote ? " · REMOTE SERVICE" : " · LOCAL PROGRAM") + (s.installed ? " · " + (s.providerVersion || "installed") : " · NOT INSTALLED");
             }
-            statusColor: console_.module && console_.module.enabled && console_.module.status && console_.module.status.installed ? Theme.textDim : Theme.caution
+            statusColor: console_.module && console_.module.enabled && console_.module.status && console_.module.status.installed ? console_.profile.textDim : console_.profile.caution
             MouseArea { anchors.fill: parent; anchors.margins: -Theme.pad; z: -1 }
 
             ColumnLayout {
@@ -495,10 +497,10 @@ Scope {
                 Rectangle {
                     Layout.fillWidth: true
                     implicitHeight: disclosure.implicitHeight + Theme.gap * 2
-                    color: Theme.bg; radius: Theme.radius
-                    border.color: Theme.grid
+                    color: console_.profile.bg; radius: Theme.radius
+                    border.color: console_.profile.grid
                     border.width: Theme.border
-                    Rectangle { width: Theme.px(2); height: parent.height; color: Theme.signal }
+                    Rectangle { width: Theme.px(2); height: parent.height; color: console_.profile.signal }
                     Column {
                         id: disclosure
                         anchors.left: parent.left; anchors.right: parent.right
@@ -507,19 +509,19 @@ Scope {
                         spacing: Theme.px(3)
                         Text {
                             width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                            color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                            color: console_.profile.text; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                             text: "SENT ON ENTER / prompt + allowed actions" + (console_.module && console_.module.sharedContext.length ? " + context: " + console_.module.sharedContext.join(", ") : " · desktop context OFF")
                         }
                         Text {
                             visible: !!(console_.module && console_.module.status && console_.module.status.dataFlow)
                             width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                            color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontXs
+                            color: console_.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontXs
                             text: console_.module && console_.module.status ? (console_.module.status.dataFlow || "") : ""
                         }
                         Text {
                             visible: !!(console_.module && console_.module.status && console_.module.status.problem)
                             width: parent.width; wrapMode: Text.WordWrap; textFormat: Text.PlainText
-                            color: Theme.caution; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                            color: console_.profile.caution; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                             text: console_.module && console_.module.status && console_.module.status.problem ? console_.module.status.problem.message : ""
                         }
                     }
@@ -527,14 +529,14 @@ Scope {
                 Rectangle {
                     Layout.fillWidth: true
                     implicitHeight: Theme.rowHeight * 1.5
-                    color: Theme.bg; radius: Theme.radius
-                    border.color: prompt.activeFocus ? Theme.signal : Theme.grid
+                    color: console_.profile.bg; radius: Theme.radius
+                    border.color: prompt.activeFocus ? console_.profile.signal : console_.profile.grid
                     border.width: Theme.border
                     Text {
                         id: chevron
                         anchors.left: parent.left; anchors.leftMargin: Theme.pad; anchors.verticalCenter: parent.verticalCenter
                         text: "?"; textFormat: Text.PlainText
-                        color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.inputSize
+                        color: console_.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.inputSize
                     }
                     TextInput {
                         id: prompt
@@ -544,7 +546,7 @@ Scope {
                         focus: true
                         enabled: console_.module && !console_.module.busy
                         maximumLength: 4000
-                        color: Theme.text; selectionColor: Theme.signal; selectedTextColor: Theme.bg
+                        color: console_.profile.text; selectionColor: console_.profile.signal; selectedTextColor: console_.profile.bg
                         font.family: Theme.mono; font.pixelSize: Theme.fontMd
                         clip: true
                         onAccepted: {
@@ -556,7 +558,7 @@ Scope {
                             visible: prompt.text === ""
                             text: "Ask " + (console_.module ? console_.module.providerName : "the AI") + " · Enter to send"
                             textFormat: Text.PlainText
-                            color: Theme.textDim; font: prompt.font
+                            color: console_.profile.textDim; font: prompt.font
                             elide: Text.ElideRight; width: parent.width
                         }
                     }
@@ -569,7 +571,7 @@ Scope {
                         return "ACTIVE / " + (console_.module ? console_.module.providerName : "") + " · " + Math.round((Date.now() - (console_.module ? console_.module.startedAt : 0)) / 1000) + " s · Esc cancels";
                     }
                     textFormat: Text.PlainText
-                    color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    color: console_.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                     elide: Text.ElideRight
                 }
                 Flickable {
@@ -595,13 +597,14 @@ Scope {
                         width: responseView.width
                         spacing: Theme.gap
                         Label {
+                            profile: console_.profile
                             width: parent.width; strong: true
                             text: !console_.result ? (console_.module && console_.module.busy ? "RESPONSE REGISTER / WAITING" : "RESPONSE REGISTER / READY") : !console_.result.ok ? (console_.result.error.code === "cancelled" ? "RESPONSE REGISTER / CANCELLED" : "RESPONSE REGISTER / FAULT") : "RESPONSE REGISTER / RECEIVED"
                         }
                         Text {
                             width: parent.width
                             wrapMode: Text.Wrap; textFormat: Text.PlainText
-                            color: console_.result && !console_.result.ok ? (console_.result.error.code === "cancelled" ? Theme.caution : Theme.critical) : console_.result ? Theme.text : Theme.textDim
+                            color: console_.result && !console_.result.ok ? (console_.result.error.code === "cancelled" ? console_.profile.caution : console_.profile.critical) : console_.result ? console_.profile.text : console_.profile.textDim
                             font.family: Theme.sans; font.pixelSize: Theme.fontSm; lineHeight: 1.25
                             text: !console_.result ? (console_.module && console_.module.busy ? "Awaiting the provider response. Press Esc to cancel this request." : "Ask a question or describe a change. Review each proposed action before approving it. Nothing runs automatically.") : console_.result.ok ? console_.result.reply : (console_.result.error.code === "cancelled" ? "CANCELLED · " : "FAULT · ") + console_.errorText(console_.result)
                         }
@@ -611,11 +614,12 @@ Scope {
                                 required property var modelData
                                 width: responseColumn.width
                                 text: "NOTE / " + modelData; textFormat: Text.PlainText; wrapMode: Text.Wrap
-                                color: Theme.caution; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                                color: console_.profile.caution; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                             }
                         }
-                        Rectangle { width: parent.width; height: Theme.border; color: Theme.grid }
+                        Rectangle { width: parent.width; height: Theme.border; color: console_.profile.grid }
                         Label {
+                            profile: console_.profile
                             visible: console_.proposals.length > 0
                             width: parent.width
                             text: "ACTION REVIEW / " + console_.proposals.length + " PROPOSED · TAB TO SELECT · A APPROVES ONE"
@@ -631,9 +635,9 @@ Scope {
                                 width: responseColumn.width
                                 height: proposalCol.implicitHeight + Theme.pad * 2
                                 radius: Theme.radius
-                                color: sel ? Theme.surface2 : Theme.bg
-                                border.color: sel ? Theme.signal : Theme.grid; border.width: Theme.border
-                                Rectangle { y: Theme.radius; width: Theme.px(2); height: Math.max(0, parent.height-2*y); radius: width/2; color: parent.sel ? Theme.signal : Theme.grid }
+                                color: sel ? console_.profile.surface2 : console_.profile.bg
+                                border.color: sel ? console_.profile.signal : console_.profile.grid; border.width: Theme.border
+                                Rectangle { y: Theme.radius; width: Theme.px(2); height: Math.max(0, parent.height-2*y); radius: width/2; color: parent.sel ? console_.profile.signal : console_.profile.grid }
                                 Column {
                                     id: proposalCol
                                     x: Theme.pad; y: Theme.pad; width: parent.width - 2 * x
@@ -641,18 +645,18 @@ Scope {
                                     Text {
                                         width: parent.width; textFormat: Text.PlainText; wrapMode: Text.Wrap
                                         text: String(index + 1).padStart(2, "0") + " / " + (modelData.state === "done" ? "DONE" : modelData.state === "failed" ? "FAILED" : modelData.state === "dismissed" ? "DISMISSED" : modelData.state === "approved" ? "RUNNING" : modelData.valid && modelData.available ? "REVIEW" : "REJECTED") + " · " + modelData.action
-                                        color: modelData.state === "done" ? Theme.signal : modelData.state === "failed" || (!modelData.valid && modelData.state === "proposed") ? Theme.critical : Theme.caution
+                                        color: modelData.state === "done" ? console_.profile.signal : modelData.state === "failed" || (!modelData.valid && modelData.state === "proposed") ? console_.profile.critical : console_.profile.caution
                                         font.family: Theme.mono; font.pixelSize: Theme.fontXs
                                     }
                                     Text {
                                         width: parent.width; textFormat: Text.PlainText; wrapMode: Text.Wrap
                                         text: modelData.title + "  " + JSON.stringify(modelData.args)
-                                        color: Theme.text; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                                        color: console_.profile.text; font.family: Theme.mono; font.pixelSize: Theme.fontSm
                                     }
                                     Text {
                                         width: parent.width; textFormat: Text.PlainText; wrapMode: Text.Wrap
                                         text: modelData.outcome || modelData.problem || modelData.reason || ""
-                                        color: modelData.problem && modelData.state === "proposed" ? Theme.critical : Theme.textDim
+                                        color: modelData.problem && modelData.state === "proposed" ? console_.profile.critical : console_.profile.textDim
                                         font.family: Theme.sans; font.pixelSize: Theme.fontXs
                                     }
                                 }
@@ -668,8 +672,9 @@ Scope {
                         }
                     }
                 }
-                ScrollMark { viewport: responseView }
+                ScrollMark { profile: console_.profile; viewport: responseView }
                 StatusLine {
+                    profile: console_.profile
                     Layout.fillWidth: true
                     hints: console_.inProposals ? [{key:"↑↓",action:"select"},{key:"A",action:"approve"},{key:"D",action:"dismiss"},{key:"TAB",action:"prompt"}] : [{key:"⏎",action:"send"},{key:"TAB",action:"review"},{key:"ESC",action:console_.module && console_.module.busy ? "cancel" : "close"}]
                     message: console_.result ? (console_.result.ok ? "answered in " + (console_.result.elapsedMs / 1000).toFixed(1) + " s · each action needs approval" : console_.result.error.code) : "Explicit requests only · nothing runs automatically"

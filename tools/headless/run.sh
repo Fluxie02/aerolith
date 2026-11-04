@@ -22,6 +22,12 @@
 set -euo pipefail
 here=$(cd "$(dirname "$0")/../.." && pwd)
 scenario=${1:?usage: run.sh <scenario.sh> [output-dir]}
+# Exercise the installed AI console in the existing OLED CI invocation.
+# AI=0 remains available to check the missing-module fallback separately.
+if [ "$scenario" = tests/scenarios/oled.sh ]; then
+  export AI=${AI:-1} OUTPUTS=${OUTPUTS:-2}
+  CONFIG=${CONFIG:-$here/tests/fixtures/oled-config.json}
+fi
 out=${2:-$here/build/headless/$(basename "$scenario" .sh)}
 image=${AEROLITH_DEV_IMAGE:-aerolith-dev}
 mkdir -p "$out"

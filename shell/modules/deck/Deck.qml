@@ -309,7 +309,9 @@ PanelWindow {
         }
 
         onLoaded: {
-            if (item.profile !== undefined)
+            // Core bays and the fallback bind inline. The separately shipped
+            // AI bay opts in when its version exposes the profile property.
+            if (bay === "ai" && sourceComponent === deck.aiBay && item.profile !== undefined)
                 item.profile = Qt.binding(() => deck.profile);
             if (current)
                 item.forceActiveFocus();
