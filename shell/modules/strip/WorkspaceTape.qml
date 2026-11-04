@@ -6,6 +6,7 @@ import qs.services
 // boxed with phosphor registration brackets; urgent cells get an amber plate.
 Row {
     id: tape
+    property var profile: Theme
     property bool compact: false
     spacing: Theme.px(2)
 
@@ -43,7 +44,7 @@ Row {
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: Theme.px(3)
-                color: cell.modelData.urgent ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(Theme.caution, 0.18)) : hover.containsMouse ? Theme.surface2 : "transparent"
+                color: cell.modelData.urgent ? (Theme.lowEffects ? tape.profile.surface2 : Theme.alpha(Theme.caution, 0.18)) : hover.containsMouse ? tape.profile.surface2 : "transparent"
                 radius: Theme.radius
             }
 
@@ -51,7 +52,7 @@ Row {
             Rectangle {
                 anchors.fill: parent; anchors.margins: Theme.px(3)
                 visible: cell.modelData.focused
-                color: Theme.surface2; radius: Theme.radius
+                color: tape.profile.surface2; radius: Theme.radius
                 border.width: Theme.border; border.color: Theme.signal
             }
 

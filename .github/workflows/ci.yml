@@ -290,6 +290,20 @@ jobs:
           path: build/ci/multimonitor/
           if-no-files-found: warn
           retention-days: 3
+      - name: oled
+        id: oled
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          OUTPUTS=2 CONFIG=tests/fixtures/oled-config.json tools/headless/run.sh tests/scenarios/oled.sh build/ci/oled
+      - name: Upload failed oled output
+        if: ${{ failure() && steps.oled.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: oled-failure
+          path: build/ci/oled/
+          if-no-files-found: warn
+          retention-days: 3
       - name: scratch
         id: scratch
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

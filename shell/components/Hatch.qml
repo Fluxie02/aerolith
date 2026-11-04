@@ -6,6 +6,7 @@ import qs.services
 // travel; no canvas, texture, timer, thumbnail or independent surface is owned.
 Item {
     id: hatch
+    property var profile: Theme
     readonly property string outputName: Screen.name
     readonly property bool ambient: Theme.ambientFor(outputName)
     readonly property bool deckHere: Ui.deckOpen && !!Ui.overlayScreen && Ui.overlayScreen.name === outputName
@@ -18,7 +19,7 @@ Item {
         return Compositor.available && !!Registry.get("scratch.toggle");
     }
     readonly property bool exposed: visible && Window.window !== null && Window.window.visible
-    readonly property bool motionAllowed: Theme.travel && hatch.ambient && exposed && !hatch.deckHere
+    readonly property bool motionAllowed: !profile.idleDimmed && Theme.travel && hatch.ambient && exposed && !hatch.deckHere
     readonly property string inventory: known ? (parkedWindows.length ? parkedWindows.length + " PARKED" : "EMPTY") : "UNAVAILABLE"
     function toggle() {
         if (canToggle) Registry.run("scratch.toggle", {}, {record: false});
@@ -56,7 +57,7 @@ Item {
             id: aperture
             y: Theme.du(28); width: parent.width
             height: Math.min(hatch.height * .34, Theme.du(380))
-            color: Theme.bg
+            color: hatch.profile.bg
             border.color: entrance.activeFocus || pointer.containsMouse || hatch.opened ? Theme.signal : Theme.textDim
             border.width: entrance.activeFocus ? Theme.du(2) : Theme.border
 
@@ -71,7 +72,7 @@ Item {
                         text: "SCRATCH SPACE"; textFormat: Text.PlainText
                         color: Theme.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
                     }
-                    Rectangle { width: parent.width; height: Theme.border; color: Theme.grid }
+                    Rectangle { width: parent.width; height: Theme.border; color: hatch.profile.grid }
                     Repeater {
                         model: hatch.parkedWindows.slice(0, 3)
                         delegate: Item {
@@ -129,8 +130,8 @@ Item {
                         width: parent.width / 2; height: parent.height
                         x: leftLeaf ? (hatch.opened ? -width + Theme.du(5) : 0)
                             : (hatch.opened ? parent.width - Theme.du(5) : width)
-                        color: Theme.surface
-                        border.color: Theme.grid; border.width: Theme.border
+                        color: hatch.profile.surface
+                        border.color: hatch.profile.grid; border.width: Theme.border
                         Behavior on x {
                             enabled: hatch.motionAllowed
                             XAnimator { id: leafMotion; duration: Theme.slow; easing.type: Easing.InOutCubic }
@@ -142,14 +143,14 @@ Item {
                         Rectangle {
                             x: leaf.leftLeaf ? Theme.du(8) : parent.width - width - Theme.du(8)
                             y: Theme.du(10); width: Theme.du(3); height: parent.height - Theme.du(20)
-                            color: Theme.grid
+                            color: hatch.profile.grid
                         }
                         Repeater {
                             model: Theme.insane ? 9 : 5
                             delegate: Rectangle {
                                 required property int index
                                 x: Theme.du(18); y: Theme.du(18) + index * Theme.du(6)
-                                width: leaf.width - Theme.du(36); height: Theme.border; color: Theme.grid
+                                width: leaf.width - Theme.du(36); height: Theme.border; color: hatch.profile.grid
                             }
                         }
                         Text {
@@ -161,7 +162,7 @@ Item {
                         Rectangle {
                             x: leaf.leftLeaf ? parent.width - width - Theme.du(8) : Theme.du(8)
                             y: parent.height * .36; width: Theme.du(8); height: parent.height * .20
-                            color: Theme.surface2; border.color: Theme.textDim; border.width: Theme.border
+                            color: hatch.profile.surface2; border.color: Theme.textDim; border.width: Theme.border
                             Rectangle {
                                 anchors.centerIn: parent; width: Theme.du(2); height: parent.height - Theme.du(10)
                                 color: hatch.canToggle && (pointer.containsMouse || entrance.activeFocus) ? Theme.signal : Theme.text
@@ -192,14 +193,14 @@ Item {
         Rectangle {
             y: aperture.y + aperture.height + Theme.du(8)
             width: parent.width; height: Theme.du(30)
-            color: hatch.canToggle && (pointer.containsMouse || entrance.activeFocus) ? Theme.signal : Theme.bg
-            border.color: hatch.canToggle ? Theme.signal : Theme.grid; border.width: Theme.border
+            color: hatch.canToggle && (pointer.containsMouse || entrance.activeFocus) ? Theme.signal : hatch.profile.bg
+            border.color: hatch.canToggle ? Theme.signal : hatch.profile.grid; border.width: Theme.border
             Text {
                 anchors.centerIn: parent; width: parent.width - Theme.du(12)
                 horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight
                 text: hatch.canToggle ? (hatch.opened ? "CLOSE SCRATCH SPACE" : "OPEN SCRATCH SPACE") : "SCRATCH SPACE UNAVAILABLE"
                 textFormat: Text.PlainText
-                color: hatch.canToggle && (pointer.containsMouse || entrance.activeFocus) ? Theme.bg : Theme.text
+                color: hatch.canToggle && (pointer.containsMouse || entrance.activeFocus) ? hatch.profile.bg : Theme.text
                 font.family: Theme.mono; font.pixelSize: Theme.fontXs
             }
         }

@@ -39,6 +39,15 @@ profile work; profile metadata alone does not change colours or add OLED protect
 The reference below is generated from `shell/lib/config.mjs`, the single
 source of truth, by `node tools/gen-config-doc.mjs` (CI checks it is current).
 
+`display.oled` applies only to connectors with `profile: "oled"`. Set
+`idleDimAfter` to the number of idle seconds (default 300, range 0–86400);
+0 disables both dimming and idle decoration hiding. `idleDimLevel` sets the
+shell surface opacity (default 0.65, range 0–1). `hideDecorationWhenIdle`
+defaults to true; false retains decoration at its OLED intensity while idle.
+The shared Wayland idle monitor respects idle inhibitors. Activity restores
+the shell immediately; entering idle fades with the configured motion level.
+These settings do not change monitor brightness or move pixels.
+
 <!-- BEGIN GENERATED: tools/gen-config-doc.mjs -->
 
 ### `display`
@@ -50,6 +59,7 @@ Multi-monitor placement. Ground and Strip run on every enabled output; global se
 | `display.primary` | string (≤ 64) | `""` | Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live. |
 | `display.output` | string (≤ 64) | `""` | Deprecated alias for display.primary (one release). Used when primary is empty or unavailable. |
 | `display.outputs` | map of objects | `{}` | Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults. |
+| `display.oled` | object | `{"idleDimAfter":300,"idleDimLevel":0.65,"hideDecorationWhenIdle":true}` | Protection for outputs whose profile is oled; standard outputs are unaffected. idleDimAfter is idle seconds (0 disables); idleDimLevel is surface opacity (0–1); hideDecorationWhenIdle hides static geometry. No display brightness changes or pixel shifting. |
 | `display.overlayOn` | `focused` \| `primary` | `"focused"` | Output for Deck, OSD and session menu. Missing focus falls back to primary. |
 | `display.noticesOn` | string (≤ 64) | `"primary"` | Output for notices: primary, focused, or an output name. Missing names fall back to primary. |
 | `display.warnOnMultipleDisplays` | bool | `true` | Retired; accepted for compatibility and ignored. All enabled outputs get surfaces. |

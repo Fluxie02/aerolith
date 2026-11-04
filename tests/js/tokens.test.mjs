@@ -1,6 +1,6 @@
 import { suite } from "./harness.mjs";
 import { SCHEMES, paletteForScheme } from "../../shell/lib/schemes.mjs";
-import { PALETTE, MIN_TEXT_CONTRAST, contrast, luminance, oledPalette, resolvePalette } from "../../shell/lib/tokens.mjs";
+import { PALETTE, MIN_TEXT_CONTRAST, contrast, luminance, oledPalette, profileState, OLED_DEFAULTS, resolvePalette } from "../../shell/lib/tokens.mjs";
 
 const foregrounds = ["text", "textDim", "signal", "caution", "critical", "nominal"];
 const backgrounds = ["obsidian", "surface", "surface2"];
@@ -105,6 +105,17 @@ export const oledTokensSuite = suite("oled tokens", test => {
         if (typeof p[role] === "string") assert.match(p[role], /^#[0-9a-f]{6}$/);
       assert.equal(JSON.stringify(standard), snapshot);
     }
+  });
+
+  test("seat idle policy is opt-in, live, and disables at zero timeout", assert => {
+    const opts = { idleDimAfter: 2, idleDimLevel: 0.4, hideDecorationWhenIdle: true };
+    assert.deepEqual(profileState("standard", opts, true), { idleDimmed: false, opacity: 1, decorationOpacity: 1 });
+    assert.deepEqual(profileState("oled", opts, false), { idleDimmed: false, opacity: 1, decorationOpacity: OLED_DEFAULTS.decorationOpacity });
+    assert.deepEqual(profileState("oled", opts, true), { idleDimmed: true, opacity: 0.4, decorationOpacity: 0 });
+    assert.equal(profileState("oled", Object.assign({}, opts, { idleDimAfter: 0 }), true).opacity, 1);
+    assert.equal(profileState("oled", Object.assign({}, opts, { hideDecorationWhenIdle: false }), true).decorationOpacity, OLED_DEFAULTS.decorationOpacity);
+    assert.equal(profileState("standard", opts, true).idleDimmed, false, "live switch restores");
+    assert.equal(profileState("unknown", opts, true).opacity, 1);
   });
 
   test("options bound opacity multipliers and do not change standard resolution", assert => {

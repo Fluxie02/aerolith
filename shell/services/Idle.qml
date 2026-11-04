@@ -3,13 +3,15 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import qs.core
+import qs.services
 
 // Quickshell 0.3.x IdleMonitor uses ext-idle-notify-v1 and seconds.
-// Shared across outputs; OLED-2 opts in by setting a positive timeout.
+// One shared seat monitor, disabled when no connected output opts in.
 Singleton {
     id: root
 
-    property real timeout: 0 // seconds; zero/negative/non-finite means off
+    property real timeout: Displays.outputs.some(o => o.profile === "oled") ? Config.display.oled.idleDimAfter : 0
     readonly property bool idle: monitor.enabled && monitor.isIdle
 
     IdleMonitor {

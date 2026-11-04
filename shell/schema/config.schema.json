@@ -50,12 +50,37 @@
                   "standard",
                   "oled"
                 ],
-                "description": "Output profile metadata; OLED appearance/protection is configured separately.",
+                "description": "Display profile: standard preserves the theme; oled uses black fills and display.oled idle protection. Applies live.",
                 "default": "standard"
               }
             }
           },
           "default": {}
+        },
+        "oled": {
+          "type": "object",
+          "description": "Protection for outputs whose profile is oled; standard outputs are unaffected. idleDimAfter is idle seconds (0 disables); idleDimLevel is surface opacity (0–1); hideDecorationWhenIdle hides static geometry. No display brightness changes or pixel shifting.",
+          "properties": {
+            "idleDimAfter": {
+              "type": "integer",
+              "description": "Seconds without activity before dimming shell surfaces on OLED outputs. 0 disables idle protection. Respects idle inhibitors.",
+              "default": 300,
+              "minimum": 0,
+              "maximum": 86400
+            },
+            "idleDimLevel": {
+              "type": "number",
+              "description": "Shell surface opacity when idle, on OLED outputs only.",
+              "default": 0.65,
+              "minimum": 0,
+              "maximum": 1
+            },
+            "hideDecorationWhenIdle": {
+              "type": "boolean",
+              "description": "Hide static decorative geometry while OLED shell surfaces are idle-dimmed.",
+              "default": true
+            }
+          }
         },
         "overlayOn": {
           "enum": [

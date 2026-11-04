@@ -74,6 +74,7 @@ Scope {
                     primary: !!Displays.primary && o.name === Displays.primary.name,
                     focused: !!Displays.focused && o.name === Displays.focused.name,
                     strip: o.strip, ground: o.ground, profile: o.profile,
+                    idleDimmed: o.profile === "oled" && Idle.idle,
                     released: ShellState.releasedFor(o.name),
                     ambient: Theme.ambientFor(o.name) })),
                 overlayOutput: Ui.overlayScreen ? Ui.overlayScreen.name : "",

@@ -123,6 +123,19 @@ Scope {
     LazyLoader {
         active: host.mapped && Ui.overlayScreen !== null
         PanelWindow {
+            id: osdSurface
+            readonly property alias profile: displayProfile
+            DisplayProfile {
+                id: displayProfile
+                output: osdSurface.screen ? osdSurface.screen.name : ""
+            }
+            contentItem {
+                opacity: displayProfile.opacity
+                Behavior on opacity {
+                    enabled: Theme.animate && targetValue < 1
+                    NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+                }
+            }
             screen: Ui.overlayScreen
             color: "transparent"
             anchors.top: true
@@ -136,6 +149,7 @@ Scope {
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
             OsdView {
+                profile: displayProfile
                 id: view
                 anchors.fill: parent
                 kind: host.kind

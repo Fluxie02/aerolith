@@ -5,6 +5,7 @@ import qs.core
 // arc. The owner retains selection, keys and actions; this view never takes focus.
 Item {
     id: route
+    property var profile: Theme
     required property var entries
     property int currentIndex: 0
     property bool arc: false
@@ -25,6 +26,14 @@ Item {
 
     Canvas {
         id: track
+        Connections {
+            target: route.profile
+            function onPaletteChanged() { track.requestPaint(); }
+        }
+        Connections {
+            target: route
+            function onProfileChanged() { track.requestPaint(); }
+        }
         anchors.fill: parent
         onWidthChanged: requestPaint()
         onHeightChanged: requestPaint()
@@ -33,7 +42,7 @@ Item {
         onPaint: {
             const c = getContext("2d");
             c.reset();
-            c.strokeStyle = Theme.grid; c.lineWidth = Theme.border;
+            c.strokeStyle = route.profile.grid; c.lineWidth = Theme.border;
             c.beginPath();
             for (let x = 0; x <= width; x += 2) {
                 const u = route.count > 1 ? (x - route.stride / 2) / (width - route.stride) * 2 - 1 : 0;
@@ -83,7 +92,7 @@ Item {
             target: Theme
             function onTravelChanged() { if (!Theme.travel) { routeX.complete(); routeY.complete(); } }
         }
-        Rectangle { anchors.fill: parent; radius: Theme.radius; color: Theme.surface2; border.color: Theme.signal; border.width: Theme.border }
+        Rectangle { anchors.fill: parent; radius: Theme.radius; color: route.profile.surface2; border.color: Theme.signal; border.width: Theme.border }
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             y: parent.height + Theme.du(2)
@@ -104,8 +113,8 @@ Item {
             height: route.stationHeight
             Rectangle {
                 anchors.fill: parent
-                color: pointer.containsMouse && !station.selected ? Theme.surface : "transparent"
-                border.color: pointer.containsMouse && !station.selected ? Theme.grid : "transparent"
+                color: pointer.containsMouse && !station.selected ? route.profile.surface : "transparent"
+                border.color: pointer.containsMouse && !station.selected ? route.profile.grid : "transparent"
                 border.width: Theme.border
                 radius: Theme.radius
             }

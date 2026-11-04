@@ -6,6 +6,7 @@ import qs.core
 // The Loader also releases the effect during the pre-teardown ambient hold.
 Item {
     id: material
+    property var profile: Theme
     readonly property string outputName: Screen.name
     required property string shader
     property vector4d parameters: Qt.vector4d(0, 0, 0, 0)
@@ -14,7 +15,7 @@ Item {
     readonly property real outputScale: Screen.devicePixelRatio
     readonly property bool supported: GraphicsInfo.shaderType === GraphicsInfo.RhiShader
         && GraphicsInfo.api !== GraphicsInfo.Null && GraphicsInfo.api !== GraphicsInfo.Unknown
-    readonly property bool available: supported && !Theme.lowEffects && Theme.shaderQuality > 0 && !Theme.ambientHeldFor(outputName)
+    readonly property bool available: supported && !profile.idleDimmed && !Theme.lowEffects && Theme.shaderQuality > 0 && !Theme.ambientHeldFor(outputName)
         && visible && width > 0 && height > 0 && Window.window !== null && Window.window.visible
     // Loader.Ready only means the QML object exists. Keep the native faces
     // until the actual material compiles, including a missing/broken package.
@@ -26,10 +27,10 @@ Item {
         active: material.available
         sourceComponent: ShaderEffect {
             // std140 order is shared by every shader through material.glsl.
-            readonly property color bg: Theme.bg
-            readonly property color surface: Theme.surface
-            readonly property color surface2: Theme.surface2
-            readonly property color grid: Theme.grid
+            readonly property color bg: material.profile.bg
+            readonly property color surface: material.profile.surface
+            readonly property color surface2: material.profile.surface2
+            readonly property color grid: material.profile.grid
             readonly property color signal: Theme.signal
             readonly property color appLink: Theme.appLink
             readonly property color text: Theme.text

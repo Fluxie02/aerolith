@@ -7,6 +7,7 @@ import qs.core
 // theme has none. No icon font dependency.
 Item {
     id: root
+    property var profile: Theme
     property string icon: ""
     property string fallback: ""
     property int size: Theme.px(20)
@@ -25,7 +26,7 @@ Item {
         anchors.fill: parent
         visible: root.resolved === ""
         color: "transparent"
-        border.color: Theme.grid
+        border.color: root.profile.grid
         border.width: Theme.border
         radius: Theme.radius
         Text {

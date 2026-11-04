@@ -8,12 +8,14 @@ import qs.services
 // instrument and all typography stay registered to the desktop.
 Item {
     id: machine
+    property var profile: Theme
     readonly property string outputName: Screen.name
     readonly property bool ambient: Theme.ambientFor(outputName)
     readonly property bool deckHere: Ui.deckOpen && !!Ui.overlayScreen && Ui.overlayScreen.name === outputName
     property bool instrument: false
     readonly property bool exposed: visible && Window.window && Window.window.visible
-    readonly property bool driving: machine.ambient && exposed && (instrument || !machine.deckHere) && Theme.bootProgress >= 1
+    opacity: profile.decorationOpacity === undefined ? 1 : profile.decorationOpacity
+    readonly property bool driving: !profile.idleDimmed && machine.ambient && exposed && (instrument || !machine.deckHere) && Theme.bootProgress >= 1
     readonly property real stroke: Theme.ambientReduced ? Theme.du(3) : Theme.du(Theme.insane ? 120 : 80)
     readonly property int direction: Compositor.focusedWorkspaceId % 2 === 0 ? -1 : 1
     signal beat()
@@ -47,7 +49,7 @@ Item {
             width: machine.width * (index === 2 ? .12 : .16)
             height: Theme.du(11)
             opacity: machine.instrument ? .55 : 1
-            Rectangle { width: parent.width; height: Theme.du(2); color: Theme.grid }
+            Rectangle { width: parent.width; height: Theme.du(2); color: machine.profile.grid }
             Rectangle { width: Theme.du(3); height: parent.height; color: Theme.textDim }
             Rectangle { x: parent.width - width; width: Theme.du(3); height: parent.height; color: Theme.textDim }
             Rectangle {
@@ -55,7 +57,7 @@ Item {
                 x: bearing.width * .42; y: -Theme.du(2)
                 width: Theme.du(bearing.index === 2 ? 24 : 42); height: Theme.du(5)
                 color: bearing.index === 1 ? Theme.appLink : Theme.signal
-                Material {
+                Material { profile: machine.profile;
                     anchors.fill: parent
                     shader: "catch"
                     accent: carrier.color
@@ -108,7 +110,7 @@ Item {
         id: vernier
         x: machine.width * .968; y: machine.height * .38
         width: Theme.du(9); height: machine.height * .37
-        Rectangle { width: Theme.du(2); height: parent.height; color: Theme.grid }
+        Rectangle { width: Theme.du(2); height: parent.height; color: machine.profile.grid }
         Repeater {
             model: 7
             delegate: Rectangle {
@@ -123,7 +125,7 @@ Item {
             y: vernier.height * .44; x: -Theme.du(3)
             width: Theme.du(8); height: Theme.du(24)
             color: Theme.appLink
-            Material {
+            Material { profile: machine.profile;
                 anchors.fill: parent
                 shader: "catch"
                 parameters: Qt.vector4d(1, 0, 0, 0)

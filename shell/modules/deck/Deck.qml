@@ -92,6 +92,12 @@ PanelWindow {
 
     readonly property string wanted: Ui.deckOpen && Ui.overlayScreen !== null ? Ui.activeBay : ""
 
+    readonly property alias profile: displayProfile
+    DisplayProfile {
+        id: displayProfile
+        output: deck.screen ? deck.screen.name : ""
+    }
+    readonly property alias dimItem: scope
     screen: Ui.overlayScreen
     visible: holdSurface && Ui.overlayScreen !== null
     color: "transparent"
@@ -193,8 +199,23 @@ PanelWindow {
         free.present(wanted, comp);
     }
 
+    // Back OLED content with black while keeping the strip's reserved lane
+    // transparent. Only the presentation root below dims, including bay slots.
+    Rectangle {
+        anchors.fill: parent
+        anchors.topMargin: Config.strip.edge === "top" ? Theme.stripHeight : 0
+        anchors.bottomMargin: Config.strip.edge === "bottom" ? Theme.stripHeight : 0
+        visible: displayProfile.profile === "oled"
+        color: displayProfile.bg
+    }
+
     FocusScope {
         id: scope
+        opacity: displayProfile.opacity
+        Behavior on opacity {
+            enabled: Theme.animate && targetValue < 1
+            NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+        }
         anchors.fill: parent
         focus: true
 
@@ -217,6 +238,7 @@ PanelWindow {
         }
 
         DeckView {
+            profile: displayProfile
             id: view
             anchors.fill: parent
             deck: deck

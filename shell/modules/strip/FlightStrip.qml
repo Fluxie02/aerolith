@@ -13,9 +13,21 @@ PanelWindow {
     id: strip
 
     required property var outputScreen
+    readonly property alias profile: displayProfile
+    DisplayProfile {
+        id: displayProfile
+        output: strip.outputScreen ? strip.outputScreen.name : ""
+    }
+    contentItem {
+        opacity: displayProfile.opacity
+        Behavior on opacity {
+            enabled: Theme.animate && targetValue < 1
+            NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+        }
+    }
     screen: outputScreen
     visible: Config.strip.visible && outputScreen !== null
-    color: Theme.bg
+    color: displayProfile.bg
     implicitHeight: Theme.stripHeight
     exclusiveZone: Theme.stripHeight
     anchors {
@@ -38,7 +50,7 @@ PanelWindow {
         anchors.right: parent.right
         y: strip.atTop ? parent.height - height : 0
         height: Theme.border
-        color: Theme.grid
+        color: strip.profile.grid
     }
 
     RowLayout {
@@ -93,7 +105,7 @@ PanelWindow {
             Layout.minimumWidth: Layout.preferredWidth
             contentWidth: workspaces.implicitWidth; contentHeight: height
             clip: true; boundsBehavior: Flickable.StopAtBounds
-            WorkspaceTape { id: workspaces; height: Theme.stripHeight; compact: strip.compact }
+            WorkspaceTape { profile: strip.profile; id: workspaces; height: Theme.stripHeight; compact: strip.compact }
         }
 
         StripDivider {}
@@ -138,7 +150,7 @@ PanelWindow {
             Layout.fillHeight: true
             spacing: Theme.px(2)
 
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: Compositor.screencastActive
                 code: "● SHARE"
@@ -146,7 +158,7 @@ PanelWindow {
                 status: "critical"
                 interactive: false
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: Config.errors.length > 0 || Routines.errors.length > 0
                 code: "CFG"
@@ -157,7 +169,7 @@ PanelWindow {
                     Ui.notify(msgs.length + " configuration problem(s)", "caution", msgs.slice(0, 4).join("\n"));
                 }
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && Telemetry.cpuState === "caution")
                 code: "CPU"
@@ -165,7 +177,7 @@ PanelWindow {
                 status: Telemetry.cpuState === "unknown" ? "unknown" : Telemetry.cpuState
                 onClicked: Ui.toggle("systems")
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && Telemetry.memState === "caution")
                 code: "MEM"
@@ -173,7 +185,7 @@ PanelWindow {
                 status: Telemetry.memState === "unknown" ? "unknown" : Telemetry.memState
                 onClicked: Ui.toggle("systems")
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && (Telemetry.tempState === "caution" || Telemetry.tempState === "critical"))
                 code: "TMP"
@@ -181,7 +193,7 @@ PanelWindow {
                 status: Telemetry.tempState === "unknown" ? "unknown" : Telemetry.tempState
                 onClicked: Ui.toggle("systems")
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: Media.active !== null
                 code: Media.playing ? "▶" : "Ⅱ"
@@ -197,7 +209,7 @@ PanelWindow {
                         Ui.toggle("signal");
                 }
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: true
                 code: "AUD"
@@ -213,7 +225,7 @@ PanelWindow {
                         record: false
                     })
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: Audio.ready && Audio.source !== null && Audio.sourceMuted
                 code: "MIC"
@@ -221,7 +233,7 @@ PanelWindow {
                 status: "caution"
                 onClicked: Registry.run("audio.input.mute.toggle")
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: Power.hasBattery
                 code: Power.charging ? "CHG" : "BAT"
@@ -229,7 +241,7 @@ PanelWindow {
                 status: Power.charging ? "nominal" : T.classify(100 - Power.batteryPercent, 80, 90)
                 interactive: false
             }
-            Annunciator {
+            Annunciator { profile: strip.profile;
                 compact: strip.compact
                 visible: Notifications.enabled && (Notifications.count > 0 || Notifications.doNotDisturb)
                 code: Notifications.doNotDisturb ? "DND" : "NTF"
@@ -252,6 +264,6 @@ PanelWindow {
         Layout.fillHeight: true
         Layout.topMargin: Theme.px(7)
         Layout.bottomMargin: Theme.px(7)
-        color: Theme.grid
+        color: strip.profile.grid
     }
 }

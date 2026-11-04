@@ -6,6 +6,7 @@ import qs.services
 // No frame callbacks, persistent GPU content, shader or sampling timer.
 Item {
     id: field
+    property var profile: Theme
     property bool instrument: false
     // DeckView supplies progress for API compatibility. Opening moves the
     // retained chord only; its surrounding geometry stays registered.
@@ -14,6 +15,14 @@ Item {
     function mix(a, b, t) { return Qt.rgba(a.r+(b.r-a.r)*t,a.g+(b.g-a.g)*t,a.b+(b.b-a.b)*t,1); }
     Canvas {
         id: art
+        Connections {
+            target: field.profile
+            function onPaletteChanged() { art.requestPaint(); }
+        }
+        Connections {
+            target: field
+            function onProfileChanged() { art.requestPaint(); }
+        }
         anchors.fill: parent
         renderTarget: Canvas.Image
         onWidthChanged: requestPaint()
@@ -46,7 +55,7 @@ Item {
                 return t*t*(3-2*t);
             }
             var ringPhase=phase(.04,.60), indexPhase=phase(.20,.78), outerPhase=phase(.38,.96);
-            var weak=field.mix(Theme.bg,Theme.grid,.28), rule=field.mix(Theme.bg,Theme.grid,.72);
+            var weak=field.mix(field.profile.bg,field.profile.grid,.28), rule=field.mix(field.profile.bg,field.profile.grid,.72);
             function line(a,b,d,e,col,weight) {
                 c.strokeStyle=col||rule;c.lineWidth=weight||1;
                 c.beginPath();c.moveTo(a,b);c.lineTo(d,e);c.stroke();
@@ -59,9 +68,9 @@ Item {
                 c.fillStyle=col||Theme.textDim;c.font=(size||Theme.fontXs)+'px '+Theme.canvasMono;c.fillText(s,tx,ty);
             }
             // Machined annulus: the original exposed circular Limb instrument.
-            c.fillStyle=field.mix(Theme.bg,Theme.surface,.45);
+            c.fillStyle=field.mix(field.profile.bg,field.profile.surface,.45);
             c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();
-            c.fillStyle=Theme.bg;c.beginPath();c.arc(x,y,r*.91,0,Math.PI*2);c.fill();
+            c.fillStyle=field.profile.bg;c.beginPath();c.arc(x,y,r*.91,0,Math.PI*2);c.fill();
             var rings=L===2 ? [.61,.69,.79,.86,1,1.055,1.17,1.27] : [.43,.48,.61,.69,.79,.86,1,1.055,1.17,1.27,1.39,1.48];
             for(var k=0;k<rings.length;k++) {
                 var sweep=Math.max(0,Math.min(1,ringPhase*1.4-k/rings.length*.4));
@@ -77,7 +86,7 @@ Item {
             for(i=0;i<n;i++) {
                 if(i/n>indexPhase)break;
                 a=-2.65+i*5.3/n;
-                arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(Theme.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
+                arc(x,y,r*.955,a,a+3.9/n,i%8===0?field.mix(field.profile.grid,Theme.signal,.5):rule,Theme.du(L===3?14:8));
             }
             c.globalAlpha=.24+.76*phase(0,.30);
             line(x-r*.18,y,x+r*.18,y,rule);line(x,y-18,x,y+18,rule);
@@ -101,7 +110,7 @@ Item {
             if(L>=2) {
                 c.globalAlpha=outerPhase;
                 var sx=w*.82,sy=h*.39,sr=h*.56;
-                c.fillStyle=field.mix(Theme.bg,Theme.surface,.32);
+                c.fillStyle=field.mix(field.profile.bg,field.profile.surface,.32);
                 c.beginPath();c.arc(sx,sy,sr*.84,-2.7,1.9);c.lineTo(sx,sy);c.fill();
                 for(k=0;k<(L===2?6:12);k++) arc(sx,sy,sr*(.72+k*.045),-2.8,-2.8+4.85*outerPhase,k%3===0?rule:weak);
                 for(i=0;i<110;i++) {
@@ -131,7 +140,7 @@ Item {
                     line(w*.032,by,w*.052,by+18,rule);
                 }
                 // An opaque phosphor index spine at the screen's right edge.
-                c.fillStyle=Theme.grid;c.fillRect(w*.968,h*.38,w*.004,h*.37);
+                c.fillStyle=field.profile.grid;c.fillRect(w*.968,h*.38,w*.004,h*.37);
                 for(i=0;i<40;i++) line(w*.968,h*(.38+i*.009),w*(i%5===0?.962:.965),h*(.38+i*.009),Theme.signal);
             }
             // All four registration points survive every intensity level.
@@ -141,8 +150,8 @@ Item {
                 line(xx-5,yy,xx+5,yy,Theme.textDim);line(xx,yy-5,xx,yy+5,Theme.textDim);
             }
         }
-        opacity: field.instrument ? 1 : Math.min(1, Theme.bootProgress * 2)
+        opacity: (field.profile.decorationOpacity === undefined ? 1 : field.profile.decorationOpacity) * (field.instrument ? 1 : Math.min(1, Theme.bootProgress * 2))
     }
-    Hatch { anchors.fill: parent; visible: !field.instrument }
-    Counterphase { anchors.fill: parent; instrument: field.instrument }
+    Hatch { profile: field.profile; anchors.fill: parent; visible: !field.instrument }
+    Counterphase { profile: field.profile; anchors.fill: parent; instrument: field.instrument }
 }

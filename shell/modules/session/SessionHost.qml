@@ -81,6 +81,19 @@ Scope {
     LazyLoader {
         active: Ui.sessionOpen && Ui.overlayScreen !== null
         PanelWindow {
+            id: sessionSurface
+            readonly property alias profile: displayProfile
+            DisplayProfile {
+                id: displayProfile
+                output: sessionSurface.screen ? sessionSurface.screen.name : ""
+            }
+            contentItem {
+                opacity: displayProfile.opacity
+                Behavior on opacity {
+                    enabled: Theme.animate && targetValue < 1
+                    NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+                }
+            }
             screen: Ui.overlayScreen
             color: "transparent"
             anchors {
@@ -96,6 +109,7 @@ Scope {
             onClosed: Ui.sessionOpen = false
 
             SessionView {
+                profile: displayProfile
                 anchors.fill: parent
                 focus: true
                 actions: host.actions

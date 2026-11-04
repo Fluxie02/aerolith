@@ -6,6 +6,7 @@ import qs.core
 // Caution and critical cells get a tinted plate so they read at a glance.
 Item {
     id: root
+    property var profile: Theme
     property string code: ""
     property string value: ""
     property string status: "nominal"
@@ -24,7 +25,7 @@ Item {
         anchors.fill: parent
         anchors.topMargin: root.compact ? Theme.border : Theme.px(4)
         anchors.bottomMargin: root.compact ? Theme.border : Theme.px(4)
-        color: root.raised ? (Theme.lowEffects ? Theme.surface2 : Theme.alpha(root.tone, 0.14)) : mouse.containsMouse && root.interactive ? Theme.surface2 : "transparent"
+        color: root.raised ? (Theme.lowEffects ? root.profile.surface2 : Theme.alpha(root.tone, 0.14)) : mouse.containsMouse && root.interactive ? root.profile.surface2 : "transparent"
         border.color: root.raised ? root.tone : "transparent"
         border.width: Theme.border
         radius: Theme.radius

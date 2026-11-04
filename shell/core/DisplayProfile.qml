@@ -1,12 +1,15 @@
 import QtQuick
 import qs.core
+import qs.services
 import "../lib/tokens.mjs" as Tokens
 
-// One lightweight value object per surface. OLED-2 supplies the output's
-// configured profile; this object does not discover outputs or own services.
+// One value object at each surface boundary; children receive it explicitly.
 QtObject {
     property string output: ""
-    property string profile: "standard" // standard | oled
+    property string profile: Displays.settings(output).profile
+    readonly property var state: Tokens.profileState(profile, Config.display.oled, Idle.idle)
+    readonly property bool idleDimmed: state.idleDimmed
+    readonly property real opacity: state.opacity
 
     readonly property var palette: profile === "oled" ? Tokens.oledPalette(Theme.palette) : Theme.palette
     readonly property color background: profile === "oled" ? palette.obsidian : Theme.bg
@@ -15,8 +18,8 @@ QtObject {
     readonly property color surface2: profile === "oled" ? palette.surface2 : Theme.surface2
     readonly property color grid: profile === "oled" ? palette.grid : Theme.grid
     // Neutral multipliers preserve current standard-profile rendering.
-    readonly property real decorationOpacity: profile === "oled" ? palette.decorationOpacity : 1
-    readonly property real idleDim: profile === "oled" ? palette.idleDim : 1
+    readonly property real decorationOpacity: state.decorationOpacity
+    readonly property real idleDim: profile === "oled" ? Config.display.oled.idleDimLevel : 1
     readonly property color text: profile === "oled" ? palette.text : Theme.text
     readonly property color textDim: profile === "oled" ? palette.textDim : Theme.textDim
     readonly property color signal: profile === "oled" ? palette.signal : Theme.signal

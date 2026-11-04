@@ -5,6 +5,7 @@ import qs.core
 // becomes completely still. The host owns focus, demand and its lifetime.
 Item {
     id: chord
+    property var profile: Theme
     required property var slot
     readonly property bool wide: slot.bay !== "command" && slot.bay !== "ai"
     readonly property bool compactScreen: parent.width < Theme.du(1500) || parent.height < Theme.du(850)
@@ -40,11 +41,20 @@ Item {
     // The bay itself remains an ordinary, rectangular functional surface.
     Canvas {
         id: carriage
+        Connections {
+            target: chord.profile
+            function onPaletteChanged() { carriage.requestPaint(); }
+        }
+        Connections {
+            target: chord
+            function onProfileChanged() { carriage.requestPaint(); }
+        }
         x: -Theme.du(12); y: -Theme.du(12)
         width: chord.width + Theme.du(36)
         height: chord.height + Theme.du(32)
         z: -3
-        visible: chord.slot.bay !== "" && !Theme.lowEffects
+        visible: chord.slot.bay !== "" && !Theme.lowEffects && (chord.profile.decorationOpacity === undefined || chord.profile.decorationOpacity > 0)
+        opacity: chord.profile.decorationOpacity === undefined ? 1 : chord.profile.decorationOpacity
         renderTarget: Canvas.Image
         onWidthChanged: requestPaint()
         onHeightChanged: requestPaint()
@@ -58,8 +68,8 @@ Item {
             c.lineTo(w - 1, u * 4); c.lineTo(w - 1, h - u * 2);
             c.lineTo(w - u * 3, h - 1); c.lineTo(u * 2, h - 1);
             c.lineTo(1, h - u * 3); c.lineTo(1, u * 3); c.closePath();
-            c.fillStyle = Theme.surface2; c.fill();
-            c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+            c.fillStyle = chord.profile.surface2; c.fill();
+            c.strokeStyle = chord.profile.grid; c.lineWidth = Theme.border; c.stroke();
             // Finite index comb: machining marks, never a frame callback.
             c.strokeStyle = Theme.textDim; c.beginPath();
             for (var i = 0; i < (Theme.insane ? 12 : 7); i++) {
@@ -81,13 +91,13 @@ Item {
         }
         // Two exposed strips inherit the exact retained bay transform.
         // Avoid a mostly-occluded bay-sized shader or any live-content texture.
-        Material {
+        Material { profile: chord.profile;
             shader: "undercarriage"
             x: carriage.width - Theme.du(24); y: Theme.du(48)
             width: Theme.du(23); height: Math.max(0, carriage.height - Theme.du(72))
             parameters: Qt.vector4d(1, 0, 0, 0)
         }
-        Material {
+        Material { profile: chord.profile;
             shader: "undercarriage"
             x: Theme.du(24); y: carriage.height - Theme.du(20)
             width: Math.max(0, carriage.width - Theme.du(60)); height: Theme.du(19)

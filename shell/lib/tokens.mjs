@@ -98,6 +98,21 @@ export function resolvePalette(overrides, scheme) {
   return out;
 }
 
+// Shared defaults for config and profile resolution; these are the OLED-1 values.
+export const OLED_DEFAULTS = { idleDimLevel: 0.65, decorationOpacity: 0.55 };
+
+// Pure policy: a global seat-idle event only affects opted-in outputs.
+export function profileState(profile, options, idle) {
+  const oled = profile === "oled";
+  const opts = options || {};
+  const idleDimmed = oled && opts.idleDimAfter > 0 && !!idle;
+  return {
+    idleDimmed: idleDimmed,
+    opacity: idleDimmed ? oledLevel(opts.idleDimLevel, OLED_DEFAULTS.idleDimLevel) : 1,
+    decorationOpacity: oled ? (idleDimmed && opts.hideDecorationWhenIdle !== false ? 0 : OLED_DEFAULTS.decorationOpacity) : 1,
+  };
+}
+
 // OLED-1: opt-in derivation only; never mutate the resolved standard palette.
 // Fills are opaque. idleDim is a surface opacity multiplier, not a timeout.
 // Options may override decorationOpacity/idleDim with finite values in [0, 1].
@@ -113,8 +128,8 @@ export function oledPalette(palette, options) {
   if (luminance(out.surface2) <= luminance(out.surface))
     out.surface2 = mixColor(out.surface, "#ffffff", 0.04);
   out.grid = mixColor(palette.grid, "#000000", 0.45);
-  out.decorationOpacity = oledLevel(opts.decorationOpacity, 0.55);
-  out.idleDim = oledLevel(opts.idleDim, 0.65);
+  out.decorationOpacity = oledLevel(opts.decorationOpacity, OLED_DEFAULTS.decorationOpacity);
+  out.idleDim = oledLevel(opts.idleDim, OLED_DEFAULTS.idleDimLevel);
 
   const backgrounds = [out.obsidian, out.surface, out.surface2];
   const roles = ["text", "textDim", "signal", "caution", "critical", "nominal"];

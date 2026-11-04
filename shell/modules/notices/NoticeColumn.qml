@@ -12,6 +12,18 @@ import qs.services
 PanelWindow {
     id: column
 
+    readonly property alias profile: displayProfile
+    DisplayProfile {
+        id: displayProfile
+        output: column.screen ? column.screen.name : ""
+    }
+    contentItem {
+        opacity: displayProfile.opacity
+        Behavior on opacity {
+            enabled: Theme.animate && targetValue < 1
+            NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+        }
+    }
     screen: Ui.noticeScreen
     visible: stack.hasContent && Ui.noticeScreen !== null && !ShellState.noticesInDeck
     color: "transparent"
@@ -34,6 +46,7 @@ PanelWindow {
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
     NoticeStack {
+        profile: displayProfile
         id: stack
         width: parent.width
         maximumHeight: Math.max(0, (Ui.noticeScreen ? Ui.noticeScreen.height : 0) - Theme.stripHeight - 2 * Theme.pad)

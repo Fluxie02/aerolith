@@ -6,8 +6,9 @@ import qs.services
 // window occupancy adds teeth, without changing the click targets.
 Item {
     id: orbit
+    property var profile: Theme
     readonly property string outputName: Screen.name
-    readonly property bool ambient: Theme.ambientFor(outputName)
+    readonly property bool ambient: !profile.idleDimmed && Theme.ambientFor(outputName)
     property bool instrument: false
     readonly property int count: Config.strip.workspaceCount
     readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
@@ -35,7 +36,7 @@ Item {
 
     // Follow the machined annulus in InstrumentField, not the clickable
     // station radius. Only its two lips are shaded; the numeral stays dark.
-    Material {
+    Material { profile: orbit.profile;
         shader: "annulus"
         readonly property real ringRadius: orbit.height * .34
         x: orbit.width * .27 - width / 2
@@ -74,32 +75,32 @@ Item {
             function choose() { Registry.execute("workspace.focus", {workspace: workspaceId}, {record: false}); }
             Rectangle {
                 anchors.fill: parent
-                color: station.current ? Theme.signal : hover.containsMouse ? Theme.surface2 : Theme.bg
-                border.color: station.current || hover.containsMouse || station.activeFocus ? Theme.signal : station.occupancy > 0 ? Theme.textDim : Theme.grid
+                color: station.current ? Theme.signal : hover.containsMouse ? orbit.profile.surface2 : orbit.profile.bg
+                border.color: station.current || hover.containsMouse || station.activeFocus ? Theme.signal : station.occupancy > 0 ? Theme.textDim : orbit.profile.grid
                 border.width: station.activeFocus ? Theme.du(2) : Theme.border
             }
             Rectangle {
                 x: -Theme.du(4); y: -Theme.du(4)
                 width: Theme.du(12); height: Theme.du(2)
-                color: station.current ? Theme.signal : Theme.grid
+                color: station.current ? Theme.signal : orbit.profile.grid
             }
             Rectangle {
                 anchors.right: parent.right; anchors.rightMargin: -Theme.du(4)
                 anchors.bottom: parent.bottom; anchors.bottomMargin: -Theme.du(4)
                 width: Theme.du(12); height: Theme.du(2)
-                color: station.current ? Theme.signal : Theme.grid
+                color: station.current ? Theme.signal : orbit.profile.grid
             }
             Text {
                 y: Theme.du(6); anchors.horizontalCenter: parent.horizontalCenter
                 text: (station.workspaceId < 10 ? "0" : "") + station.workspaceId
-                textFormat: Text.PlainText; color: station.current ? Theme.bg : Theme.text
+                textFormat: Text.PlainText; color: station.current ? orbit.profile.bg : Theme.text
                 font.family: Theme.mono; font.pixelSize: Theme.du(18)
             }
             Text {
                 y: Theme.du(34); width: parent.width; horizontalAlignment: Text.AlignHCenter
                 text: station.occupancy > 0 ? station.occupancy + " OPEN" : "EMPTY"
                 textFormat: Text.PlainText
-                color: station.current ? Theme.bg : station.occupancy > 0 ? Theme.text : Theme.textDim
+                color: station.current ? orbit.profile.bg : station.occupancy > 0 ? Theme.text : Theme.textDim
                 font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 elide: Text.ElideRight
             }

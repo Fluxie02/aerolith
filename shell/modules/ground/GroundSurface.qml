@@ -12,9 +12,21 @@ PanelWindow {
     id: ground
 
     required property var outputScreen
+    readonly property alias profile: displayProfile
+    DisplayProfile {
+        id: displayProfile
+        output: ground.outputScreen ? ground.outputScreen.name : ""
+    }
+    contentItem {
+        opacity: displayProfile.opacity
+        Behavior on opacity {
+            enabled: Theme.animate && targetValue < 1
+            NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic }
+        }
+    }
     screen: outputScreen
     visible: Config.ground.enabled && outputScreen !== null
-    color: "transparent"
+    color: displayProfile.profile === "oled" ? displayProfile.bg : "transparent"
     anchors {
         top: true
         bottom: true
@@ -27,6 +39,7 @@ PanelWindow {
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
     Ground {
+        profile: displayProfile
         anchors.fill: parent
     }
 }

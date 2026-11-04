@@ -2,6 +2,24 @@ import { suite } from "./harness.mjs";
 import { validateConfig, defaultsOf, SCHEMA, SCHEMA_VERSION, migrate, setPath, getPath, toJsonSchema } from "../../shell/lib/config.mjs";
 
 export default suite("config", (test) => {
+  test("OLED defaults preserve old configs, validate bounds and retain output profiles", assert => {
+    const parse = value => validateConfig(JSON.stringify(value));
+    const old = parse({ display: { output: "DP-1" } });
+    assert.equal(old.errors.length, 0);
+    assert.deepEqual(old.config.display.oled, { idleDimAfter: 300, idleDimLevel: 0.65, hideDecorationWhenIdle: true });
+    const custom = parse({ display: { outputs: { "DP-2": { profile: "oled" } }, oled: { idleDimAfter: 0, idleDimLevel: 0, hideDecorationWhenIdle: false } } });
+    assert.equal(custom.errors.length, 0);
+    assert.equal(custom.config.display.outputs["DP-2"].profile, "oled");
+    assert.equal(custom.config.display.oled.idleDimAfter, 0);
+    assert.equal(custom.config.display.oled.idleDimLevel, 0);
+    assert.equal(custom.config.display.oled.hideDecorationWhenIdle, false);
+    const bad = parse({ display: { oled: { idleDimAfter: -1, idleDimLevel: 2, hideDecorationWhenIdle: "no" } } });
+    assert.equal(bad.errors.length, 3);
+    assert.deepEqual(bad.config.display.oled, old.config.display.oled);
+    assert.ok(parse({ display: { oled: { idleDimAfter: 0.5 } } }).errors.length > 0);
+    const schema = toJsonSchema();
+    assert.equal(schema.properties.display.properties.oled.properties.idleDimAfter.default, 300);
+  });
   test("empty or missing config yields complete defaults without errors", (assert) => {
     const r = validateConfig("");
     assert.equal(r.errors.length, 0);

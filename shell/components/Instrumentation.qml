@@ -7,6 +7,7 @@ import "../lib/telemetry.mjs" as T
 // in the exposed annulus, existing service samples on the lower datum.
 Item {
     id: rig
+    property var profile: Theme
     property bool instrument: false
     readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
     readonly property var windows: Compositor.windows()
@@ -84,7 +85,7 @@ Item {
         width: parent.width * .25
         spacing: Theme.du(24); visible: !rig.instrument
         opacity: Math.max(0, Math.min(1, (rig.ignition - .22) / .30))
-        NowPlaying { width: parent.width }
+        NowPlaying { profile: rig.profile; width: parent.width }
         Flow {
             width: parent.width; spacing: Theme.du(5)
             Repeater {
@@ -92,13 +93,13 @@ Item {
                 delegate: Rectangle {
                     required property var modelData
                     width: (parent.width - Theme.du(5)) / 2; height: Theme.du(34)
-                    color: entryPointer.containsMouse ? Theme.signal : Theme.bg
-                    border.color: entryPointer.containsMouse ? Theme.signal : Theme.grid
+                    color: entryPointer.containsMouse ? Theme.signal : rig.profile.bg
+                    border.color: entryPointer.containsMouse ? Theme.signal : rig.profile.grid
                     Text {
                         anchors.centerIn: parent; width: parent.width - Theme.du(8)
                         horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight
                         text: modelData.label; textFormat: Text.PlainText
-                        color: entryPointer.containsMouse ? Theme.bg : Theme.text
+                        color: entryPointer.containsMouse ? rig.profile.bg : Theme.text
                         font.family: Theme.mono; font.pixelSize: Theme.fontXs
                     }
                     MouseArea {
@@ -126,7 +127,7 @@ Item {
             delegate: Item {
                 required property var modelData
                 width: parent.width; height: Theme.du(32)
-                Rectangle { width: parent.width; height: 1; color: Theme.grid }
+                Rectangle { width: parent.width; height: 1; color: rig.profile.grid }
                 Text {
                     y: Theme.du(9); width: parent.width - Theme.du(38); elide: Text.ElideRight
                     text: modelData.title; textFormat: Text.PlainText; color: Theme.text
@@ -170,7 +171,7 @@ Item {
                     readonly property bool known: modelData !== null && modelData !== undefined && isFinite(modelData)
                     width: Math.max(1, Math.min(Theme.du(14), (coreRow.width - Math.max(0, coreRepeater.count - 1) * coreRow.spacing) / Math.max(1, coreRepeater.count)))
                     height: coreRow.height
-                    Rectangle { anchors.fill: parent; color: Theme.surface; border.width: core.known ? 0 : Theme.border; border.color: Theme.textDim }
+                    Rectangle { anchors.fill: parent; color: rig.profile.surface; border.width: core.known ? 0 : Theme.border; border.color: Theme.textDim }
                     Rectangle {
                         anchors.bottom: parent.bottom; width: parent.width
                         height: core.known ? Math.max(1, parent.height * Math.min(100, modelData) / 100) : 0
@@ -182,7 +183,7 @@ Item {
         }
     }
 
-    WorkspaceOrbit { anchors.fill: parent; instrument: rig.instrument; visible: !rig.instrument }
+    WorkspaceOrbit { profile: rig.profile; anchors.fill: parent; instrument: rig.instrument; visible: !rig.instrument }
     Text {
         x: parent.width * .055; y: parent.height * .846
         visible: !rig.instrument && !rig.compact
@@ -191,7 +192,7 @@ Item {
     }
 
     // THEARS offers native surfaces; PIYTI exposes real window continuity.
-    AppContinuity {
+    AppContinuity { profile: rig.profile;
         x: parent.width * .055; y: parent.height - height - Theme.du(16) - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0)
         width: parent.width * .885
         height: Theme.du(48)

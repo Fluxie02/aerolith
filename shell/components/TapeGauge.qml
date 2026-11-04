@@ -6,6 +6,7 @@ import qs.core
 // unavailable metric is never mistaken for zero.
 Item {
     id: root
+    property var profile: Theme
     property var value: NaN
     property real min: 0
     property real max: 100
@@ -26,8 +27,8 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
         height: Math.round(root.height * 0.55)
-        color: Theme.surface2
-        border.color: Theme.grid
+        color: root.profile.surface2
+        border.color: root.profile.grid
         border.width: Theme.border
 
         Item {
@@ -61,7 +62,7 @@ Item {
                 Rectangle {
                     width: Theme.border
                     height: parent.height
-                    color: Theme.grid
+                    color: root.profile.grid
                 }
             }
         }
@@ -76,7 +77,7 @@ Item {
             y: track.height
             width: Theme.border
             height: index % 5 === 0 ? root.height - track.height : Math.round((root.height - track.height) / 2)
-            color: Theme.grid
+            color: root.profile.grid
         }
     }
 

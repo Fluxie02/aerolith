@@ -5,6 +5,7 @@ import qs.core
 // right coloured by state (ok/error/caution/busy).
 Item {
     id: root
+    property var profile: Theme
     property var hints: []        // [{ key, action }]
     property string message: ""
     property string messageState: "" // ok | error | caution | busy | ""
@@ -16,7 +17,7 @@ Item {
         anchors.right: parent.right
         anchors.top: parent.top
         height: Theme.border
-        color: Theme.grid
+        color: root.profile.grid
     }
     Flow {
         id: hintsFlow

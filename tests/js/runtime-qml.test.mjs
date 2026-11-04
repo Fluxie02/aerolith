@@ -57,7 +57,7 @@ export default suite("runtime-qml", test => {
         const path = "shell/components/" + name + ".qml";
         const Window = { window: { visible: true, screen: { name: output } } };
         const outputName = binding(path, "outputName", { Window, Screen: { name: output } });
-        const context = { Theme, Window, outputName, visible: true, width: 1, height: 1,
+        const context = { Theme, Window, outputName, profile: { idleDimmed: false }, visible: true, width: 1, height: 1,
           supported: true, exposed: true, instrument: false, Ui: { deckOpen: false } };
         const ambient = name === "Material" ? true : binding(path, "ambient", context);
         a.equal(binding(path, prop, Object.assign(context, { ambient,

@@ -9,6 +9,7 @@ import "../notices"
 // Surface, focus, input lifetime and all bay demand belong to Deck.qml.
 Item {
     id: view
+    property var profile: Theme
     required property var deck
     readonly property alias frameA: frameA
     readonly property alias frameB: frameB
@@ -28,15 +29,15 @@ Item {
         anchors.topMargin: Config.strip.edge === "top" ? Theme.stripHeight : 0
         anchors.bottomMargin: Config.strip.edge === "bottom" ? Theme.stripHeight : 0
         clip: true
-        Rectangle { anchors.fill: parent; color: Theme.bg }
-        InstrumentField {
+        Rectangle { anchors.fill: parent; color: view.profile.bg }
+        InstrumentField { profile: view.profile;
             y: Config.strip.edge === "top" ? -Theme.stripHeight : 0
             width: view.width; height: view.height
             instrument: true; progress: view.fieldProgress
         }
     }
     MouseArea { anchors.fill: parent; onClicked: Ui.close() }
-    Instrumentation { anchors.fill: parent; instrument: true }
+    Instrumentation { profile: view.profile; anchors.fill: parent; instrument: true }
 
 
     // A navigation bus shields names from the instrument engraving beneath.
@@ -46,7 +47,7 @@ Item {
         y: Config.strip.edge === "top" ? Theme.stripHeight : 0
         width: view.compactScreen ? view.width : railRow.width + 2 * Theme.pad
         height: railRow.y - y + railRow.height + Theme.du(4)
-        color: Theme.bg
+        color: view.profile.bg
         radius: 0
     }
     Rectangle {
@@ -55,7 +56,7 @@ Item {
         width: Theme.du(3); height: railRow.height - Theme.du(20)
         color: Theme.signal
     }
-    InstrumentTabs {
+    InstrumentTabs { profile: view.profile;
         id: railRow
         x: view.width * (view.compactScreen ? .045 : .37)
         y: (Config.strip.edge === "top" ? Theme.stripHeight : 0) + Theme.du(8)
@@ -70,8 +71,8 @@ Item {
     Rectangle {
         x: railRow.x + railRow.width + Theme.du(8); y: railRow.y + Theme.du(10)
         width: Theme.du(52); height: Theme.du(44)
-        color: settingsPointer.containsMouse ? Theme.surface2 : Theme.bg
-        border.color: Ui.activeBay === "settings" || activeFocus ? Theme.signal : Theme.grid
+        color: settingsPointer.containsMouse ? view.profile.surface2 : view.profile.bg
+        border.color: Ui.activeBay === "settings" || activeFocus ? Theme.signal : view.profile.grid
         activeFocusOnTab: true
         Keys.onReturnPressed: Ui.open("settings")
         Keys.onSpacePressed: Ui.open("settings")
@@ -91,12 +92,12 @@ Item {
     // Notices own a lane below the rail, beside the working planes. Reserve
     // its width in the bays too: merely lowering a toast covers bay controls
     // on compact outputs. Both retained slots share the same constraint.
-    ChordSlot {
+    ChordSlot { profile: view.profile;
         id: frameA
         slot: view.deck.slotA
         width: Math.max(0, view.width - leftOrigin - view.width * (compactScreen ? .045 : .08) - view.noticeReserve)
     }
-    ChordSlot {
+    ChordSlot { profile: view.profile;
         id: frameB
         slot: view.deck.slotB
         width: Math.max(0, view.width - leftOrigin - view.width * (compactScreen ? .045 : .08) - view.noticeReserve)
@@ -130,6 +131,15 @@ Item {
         }
         Canvas {
             id: commandElevation
+            opacity: view.profile.decorationOpacity === undefined ? 1 : view.profile.decorationOpacity
+            Connections {
+                target: view.profile
+                function onPaletteChanged() { commandElevation.requestPaint(); }
+            }
+            Connections {
+                target: view
+                function onProfileChanged() { commandElevation.requestPaint(); }
+            }
             x: -Theme.du(18); y: -Theme.du(15)
             width: parent.width + Theme.du(30); height: parent.height + Theme.du(22)
             renderTarget: Canvas.Image
@@ -143,8 +153,8 @@ Item {
                 c.beginPath(); c.moveTo(0, 0); c.lineTo(width - cut, 0);
                 c.lineTo(width, cut); c.lineTo(width, height - Theme.du(30));
                 c.lineTo(width - Theme.du(30), height); c.lineTo(0, height); c.closePath();
-                c.fillStyle = Theme.bg; c.fill();
-                c.strokeStyle = Theme.grid; c.lineWidth = Theme.border; c.stroke();
+                c.fillStyle = view.profile.bg; c.fill();
+                c.strokeStyle = view.profile.grid; c.lineWidth = Theme.border; c.stroke();
                 c.beginPath(); c.moveTo(0, Theme.du(8)); c.lineTo(0, Theme.du(66));
                 c.strokeStyle = Theme.signal; c.lineWidth = Theme.du(3); c.stroke();
             }
@@ -185,7 +195,7 @@ Item {
         text: Theme.applicationName + " / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
         color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
     }
-    NoticeStack {
+    NoticeStack { profile: view.profile;
         id: deckNotices
         z: 10
         anchors.right: parent.right
@@ -198,7 +208,7 @@ Item {
     Component {
         id: missingAiBay
         FocusScope {
-            Bezel {
+            Bezel { profile: view.profile;
                 anchors.fill: parent
                 designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: Theme.caution
                 MouseArea { anchors.fill: parent }

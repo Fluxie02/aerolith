@@ -3,9 +3,11 @@ import qs.core
 import qs.components
 
 Rectangle {
-    color: Theme.bg
+    id: ground
+    property var profile: Theme
+    color: profile.bg
     clip: true
-    InstrumentField { anchors.fill: parent }
-    Instrumentation { anchors.fill: parent }
+    InstrumentField { profile: ground.profile; anchors.fill: parent }
+    Instrumentation { profile: ground.profile; anchors.fill: parent }
     Component.onCompleted: Theme.ignite()
 }

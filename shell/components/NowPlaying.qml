@@ -5,6 +5,7 @@ import qs.services
 // A quiet empty state, with controls gated by the existing MPRIS service.
 Item {
     id: now
+    property var profile: Theme
     readonly property var player: Media.active
     readonly property bool hasTrack: player !== null
     implicitHeight: content.height
@@ -58,15 +59,15 @@ Item {
                 onTriggered: Registry.run("media.next", {})
             }
         }
-        Rectangle { width: parent.width; height: Theme.border; color: Theme.grid }
+        Rectangle { width: parent.width; height: Theme.border; color: now.profile.grid }
     }
     component MediaButton: Rectangle {
         id: control
         property string label: ""
         signal triggered()
         width: Theme.du(100); height: Theme.du(36)
-        color: pointer.containsMouse && enabled ? Theme.surface2 : Theme.bg
-        border.color: activeFocus ? Theme.signal : Theme.grid
+        color: pointer.containsMouse && enabled ? now.profile.surface2 : now.profile.bg
+        border.color: activeFocus ? Theme.signal : now.profile.grid
         opacity: enabled ? 1 : Theme.disabledOpacity
         activeFocusOnTab: true
         Keys.onReturnPressed: if (enabled) triggered()

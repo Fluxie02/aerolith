@@ -5,6 +5,15 @@ import qs.core
 // samples or visual tokens change while visible; a hidden trace costs nothing.
 Canvas {
     id: root
+    Connections {
+        target: root.profile
+        function onPaletteChanged() { root.requestPaint(); }
+    }
+    Connections {
+        target: root
+        function onProfileChanged() { root.requestPaint(); }
+    }
+    property var profile: Theme
     property var values: []
     property int seq: 0
     property real min: 0
@@ -37,7 +46,7 @@ Canvas {
         ctx.clearRect(0, 0, w, h);
 
         // Grid: quarter lines and a vertical line every 10 samples.
-        ctx.strokeStyle = Theme.lowEffects ? Theme.grid : Theme.alpha(Theme.grid, Theme.gridMinorOpacity);
+        ctx.strokeStyle = Theme.lowEffects ? root.profile.grid : Theme.alpha(root.profile.grid, Theme.gridMinorOpacity);
         ctx.lineWidth = 1;
         ctx.beginPath();
         for (let i = 1; i < 4; i++) {
