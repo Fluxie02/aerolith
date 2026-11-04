@@ -1,0 +1,4 @@
+Killed xbnoznt
+compact: ok (five steps fit and leave targets clear)
+ok
+keyboard after tour: ok (F1 to Help, Esc closes Deck)

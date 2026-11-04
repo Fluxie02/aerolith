@@ -9,6 +9,7 @@ import Quickshell
 import qs.core
 import qs.services
 import "modules/strip"
+import "modules/tour"
 import "modules/deck"
 import "modules/notices"
 import "modules/ground"
@@ -75,6 +76,8 @@ ShellRoot {
     // session-lock protocol: the compositor keeps the session locked even if
     // the shell stops.
     LockHost {}
+
+    LazyLoader { id: tourSurface; objectName: "tourLoader"; active: Tour.active; TourHost {} }
 
     ControlSurface {}
 

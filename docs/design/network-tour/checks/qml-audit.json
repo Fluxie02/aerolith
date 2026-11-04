@@ -1,0 +1,58 @@
+[
+  {
+    "file": "build/network-tour/smoke/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/deck/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/app-links/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/fullscreen/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/network-present/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/network-absent/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/tour/qs-lifetimes.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/tour/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/oled/startup-qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/oled/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/visual-1080/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/visual-4k/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/visual-oled/qs.log",
+    "matches": []
+  },
+  {
+    "file": "build/network-tour/compact/qs.log",
+    "matches": []
+  }
+]

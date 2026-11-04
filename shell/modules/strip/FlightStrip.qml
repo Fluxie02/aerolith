@@ -11,6 +11,8 @@ import "../../lib/telemetry.mjs" as T
 // reachable through the Command Core.
 PanelWindow {
     id: strip
+    objectName: "flightStrip"
+    property string picker: ""
 
     required property var outputScreen
     readonly property alias profile: displayProfile
@@ -28,6 +30,7 @@ PanelWindow {
     }
     screen: outputScreen
     visible: Config.strip.visible && outputScreen !== null
+    onVisibleChanged: if (!visible) picker = ""
     color: displayProfile.bg
     implicitHeight: Theme.stripHeight
     exclusiveZone: Theme.stripHeight
@@ -161,6 +164,24 @@ PanelWindow {
             Layout.fillHeight: true
             spacing: Theme.px(2)
 
+            NetworkIndicator {
+                id: networkIndicator
+                profile: strip.profile
+                compact: strip.compact
+                visible: Network.available
+                opacity: strip.hideContent ? 0 : 1
+                enabled: opacity > 0
+                onClicked: strip.picker = strip.picker === "network" ? "" : "network"
+            }
+            BluetoothIndicator {
+                id: bluetoothIndicator
+                profile: strip.profile
+                compact: strip.compact
+                visible: Bluetooth.available
+                opacity: strip.hideContent ? 0 : 1
+                enabled: opacity > 0
+                onClicked: strip.picker = strip.picker === "bluetooth" ? "" : "bluetooth"
+            }
             Annunciator { profile: strip.profile;
                 opacity: strip.hideContent && !raised ? 0 : 1
                 enabled: opacity > 0
@@ -289,6 +310,48 @@ PanelWindow {
             compact: strip.compact
             Layout.fillHeight: true
         }
+    }
+
+    // The lifetime of each surface is the scan/discovery lifetime. Removing an
+    // output destroys its loader and releases demand through the picker too.
+    LazyLoader {
+        id: networkPickerLoader
+        objectName: "networkPickerLoader"
+        active: strip.picker === "network" && Network.available && !Ui.locked
+        NetworkPicker {
+            outputScreen: strip.outputScreen
+            profile: strip.profile
+            anchorX: networkIndicator.mapToItem(strip.contentItem, networkIndicator.width, 0).x
+            onDismissed: strip.picker = ""
+        }
+    }
+    LazyLoader {
+        id: bluetoothPickerLoader
+        objectName: "bluetoothPickerLoader"
+        active: strip.picker === "bluetooth" && Bluetooth.available && !Ui.locked
+        BluetoothPicker {
+            outputScreen: strip.outputScreen
+            profile: strip.profile
+            anchorX: bluetoothIndicator.mapToItem(strip.contentItem, bluetoothIndicator.width, 0).x
+            onDismissed: strip.picker = ""
+        }
+    }
+    Connections {
+        target: Ui
+        function onLockedChanged() { if (Ui.locked) strip.picker = ""; }
+        function onDeckOpenChanged() { if (Ui.deckOpen) strip.picker = ""; }
+    }
+    Connections {
+        target: Tour
+        function onActiveChanged() { if (Tour.active) strip.picker = ""; }
+    }
+    Connections {
+        target: Network
+        function onAvailableChanged() { if (!Network.available && strip.picker === "network") strip.picker = ""; }
+    }
+    Connections {
+        target: Bluetooth
+        function onAvailableChanged() { if (!Bluetooth.available && strip.picker === "bluetooth") strip.picker = ""; }
     }
 
     component StripDivider: Rectangle {

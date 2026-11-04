@@ -1,0 +1,3 @@
+Killed b1gmoznt
+ok
+visuals: ok (pointer, keyboard, demand, password, tour bounds and lifecycle)

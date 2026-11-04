@@ -1,0 +1,15 @@
+Killed h13hoznt
+Wayland IdleMonitor delivered idle notifications
+OLED/LCD idle: zero scene-graph swaps over 3s
+Virtual input did not resume the headless idle monitor; disposable test override tests resume bindings
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+oled: ok
