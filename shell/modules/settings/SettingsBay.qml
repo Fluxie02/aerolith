@@ -46,7 +46,7 @@ FocusScope {
             for (const k in node.props) {
                 const p = node.props[k];
                 const path = prefix ? prefix + "." + k : k;
-                if (skipped.indexOf(path) !== -1)
+                if (p.hidden || skipped.indexOf(path) !== -1)
                     continue;
                 if (p.type === "object")
                     walk(p, path);

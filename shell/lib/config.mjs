@@ -34,7 +34,7 @@ export const SCHEMA = S.obj(
     display: S.obj(
       {
         primary: S.str("", 64, "Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live."),
-        output: S.str("", 64, "Deprecated alias for display.primary (one release). Used when primary is empty or unavailable."),
+        output: Object.assign(S.str("", 64, "Deprecated alias for display.primary (one release). Used when primary is empty or unavailable."), { hidden: true, deprecated: true }),
         outputs: {
           type: "map",
           values: S.obj({
@@ -52,7 +52,7 @@ export const SCHEMA = S.obj(
         }, "Protection for outputs whose profile is oled; standard outputs are unaffected. idleDimAfter is idle seconds (0 disables); idleDimLevel is surface opacity (0–1); hideDecorationWhenIdle hides static geometry. No display brightness changes or pixel shifting."), { default: { idleDimAfter: 300, idleDimLevel: OLED_DEFAULTS.idleDimLevel, hideDecorationWhenIdle: true } }),
         overlayOn: S.enumOf("focused", ["focused", "primary"], "Output for Deck, OSD and session menu. Missing focus falls back to primary."),
         noticesOn: S.str("primary", 64, "Output for notices: primary, focused, or an output name. Missing names fall back to primary."),
-        warnOnMultipleDisplays: S.bool(true, "Retired; accepted for compatibility and ignored. All enabled outputs get surfaces."),
+        warnOnMultipleDisplays: Object.assign(S.bool(true, "Retired; accepted for compatibility and ignored. All enabled outputs get surfaces."), { hidden: true, deprecated: true }),
       },
       "Multi-monitor placement. Ground and Strip run on every enabled output; global services remain singletons.",
     ),
@@ -374,8 +374,16 @@ export function getPath(obj, path) {
 export function setPath(raw, path, value) {
   const leaf = schemaAt(path);
   if (!leaf || leaf.type === "object") return { error: "unknown setting " + path };
-  const e = leaf.type === "array" || leaf.type === "map" ? null : checkLeaf(leaf, value);
-  if (e) return { error: path + ": " + e };
+  if (leaf.type === "array" || leaf.type === "map") {
+    // Check only the proposed subtree: unrelated invalid values must not
+    // prevent repairing a setting, and unknown keys must survive the write.
+    const errors = [];
+    walk(leaf, value, path, errors, []);
+    if (errors.length) return { error: errors.map(e => e.path + ": " + e.message).join("; ") };
+  } else {
+    const e = checkLeaf(leaf, value);
+    if (e) return { error: path + ": " + e };
+  }
   const out = typeName(raw) === "object" ? clone(raw) : {};
   const parts = String(path).split(".");
   let cur = out;
@@ -392,6 +400,7 @@ export function setPath(raw, path, value) {
 export function toJsonSchema(schema, root) {
   const s = schema || SCHEMA;
   const desc = s.description ? { description: s.description } : {};
+  if (s.deprecated) desc.deprecated = true;
   switch (s.type) {
     case "object": {
       const props = {};

@@ -24,6 +24,8 @@ const tests = suite("network", test => {
   test("password support is kept per network, so enterprise networks never get a password prompt", a => {
     const rows = sortNetworks([{name:"Home", signal:60, secured:true, takesPassword:true}, {name:"eduroam", signal:80, secured:true}]);
     a.deepEqual(rows.map(n => [n.name, n.secured, n.takesPassword]), [["eduroam", true, false], ["Home", true, true]]);
+    a.equal(sortNetworks([{name:"eduroam", signal:80, secured:true, enterprise:true}])[0].enterprise, true);
+    a.equal(sortNetworks([{name:"Old", signal:80, secured:true}])[0].enterprise, false);
   });
   test("duplicate SSIDs select the actionable connected/known representative", a => {
     const rows = [{name:"Air", signal:95}, {name:"Air", signal:20, known:true}, {name:"Air", signal:10, connected:true}];

@@ -60,7 +60,9 @@ PanelWindow {
         else if (row.kind === "network") {
             if (row.data.connecting) return;
             if (row.data.secured && !row.data.known && !row.data.takesPassword) {
-                feedback = row.name + " needs an enterprise sign-in (user name and certificate). Set it up once in your network settings, for example with nmtui; after that it shows as saved.";
+                feedback = row.data.enterprise
+                    ? row.name + " needs an enterprise sign-in (user name and certificate). Set it up once in your network settings, for example with nmtui; after that it shows as saved."
+                    : row.name + " uses a sign-in method AEROLITH cannot set up here. Set it up once in your network settings, for example with nmtui; after that it shows as saved.";
                 return;
             }
             if (row.data.secured && !row.data.known) { passwordRows = rows; passwordName = row.name; return; }

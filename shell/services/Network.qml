@@ -53,6 +53,9 @@ Singleton {
             secured: n.security !== NM.WifiSecurityType.Open && n.security !== NM.WifiSecurityType.Owe,
             takesPassword: n.security === NM.WifiSecurityType.WpaPsk || n.security === NM.WifiSecurityType.Wpa2Psk
                 || n.security === NM.WifiSecurityType.Sae,
+            enterprise: n.security === NM.WifiSecurityType.Wpa2Eap || n.security === NM.WifiSecurityType.WpaEap
+                || n.security === NM.WifiSecurityType.Wpa3SuiteB192 || n.security === NM.WifiSecurityType.Leap
+                || n.security === NM.WifiSecurityType.DynamicWep,
             known: n.known,
             connected: n.connected, connecting: n.state === NM.ConnectionState.Connecting,
             failed: !!failure, failReason: failure ? failure.reason : "" };
@@ -80,7 +83,8 @@ Singleton {
         if (!wifiEnabled || !n) return Registry.fail("Wi-Fi network unavailable");
         const row = networkRow(n);
         if (!n.known && row.secured)
-            return Registry.fail(row.takesPassword ? "A password is required" : "This network needs an enterprise sign-in");
+            return Registry.fail(row.takesPassword ? "A password is required"
+                : row.enterprise ? "This network needs an enterprise sign-in" : "This sign-in method needs your network settings");
         clearFailure(n);
         n.connect();
         return Registry.ok("Network connection requested");
@@ -88,7 +92,7 @@ Singleton {
     function connectWithPsk(name, psk) {
         const n = find(name);
         if (!wifiEnabled || !n) return Registry.fail("Wi-Fi network unavailable");
-        if (!networkRow(n).takesPassword) return Registry.fail("This network needs an enterprise sign-in");
+        if (!networkRow(n).takesPassword) return Registry.fail("This sign-in method needs your network settings");
         clearFailure(n);
         n.connectWithPsk(psk);
         // The secret is never retained in service state, Registry or logs.

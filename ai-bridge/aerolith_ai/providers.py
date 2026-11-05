@@ -4,8 +4,7 @@ Each adapter turns a request into one locked-down, non-interactive
 invocation of the provider's own CLI (or a custom program), runs it in an
 empty private working directory with a timeout, and returns its raw text.
 
-Adapter contract (also what a custom provider implements, see
-docs/INTEGRATIONS.md):
+Adapter contract (custom program input/output is handled by Custom.ask_request):
   identity      name, remote or local, documentation of data flow
   available()   local checks only (binary present, version); never a
                 network request
@@ -205,7 +204,7 @@ class Claude(Provider):
         if not exe:
             raise ProviderError(
                 "not_installed",
-                "Claude Code (`claude`) is not installed. See docs/INTEGRATIONS.md, or run: aerolith ai configure",
+                "Claude Code (`claude`) is not installed. Run: aerolith ai configure",
             )
         return exe
 
