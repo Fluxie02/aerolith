@@ -79,8 +79,9 @@ Integration:
 
 ## Status
 
-- [ ] P3-SOL-1: Welcome systems
-- [ ] P3-ASTRA-1: Personalize UI
-- [ ] P3-SOL-2: Presets and tour resume
+- [x] P3-SOL-1 (Sol): Welcome service, SystemInfo, first-run arbitration with the tour (including resume), `aerolith startup`, `aerolith welcome`, `welcome.sh` in CI.
+- [x] P3-ASTRA-1 (Astra): Personalize mode in Settings: live preview, Apply/Cancel/Keep editing, contrast-guarded palette, View desktop, `personalize.sh`.
+- [x] P3-SOL-2 (Sol): Presets (built-in, user, import/export, backups), the Deck leave-confirmation protocol (`mayRetire`), and a cold-start fix (`Config.refreshData`: no more "Unable to assign [undefined]"; `smoke.sh` now checks for it). Tour resume landed in P3-SOL-1.
+- [x] P3-TERRA-1 (Terra): `theme.textSize`, per-output `blackBackground`, strip item toggles, Ground widget toggles and workspace names, with their consumers. Defaults stay byte-identical. `schema-keys.sh` in CI. Per-output text and density overrides are skipped (ASTRA.md marks them "could").
 - [ ] P3-ASTRA-2: Welcome UI and the presets section
 - [ ] Integration, harness and PR (Opus)
