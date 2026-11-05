@@ -25,12 +25,14 @@ Singleton {
     property int detailDemand: 0
     // Each enabled, unreleased strip is a visible consumer. Count all outputs,
     // but keep one singleton ticker at the shared sampling interval.
-    readonly property int stripDemand: Config.strip.telemetry === "off" ? 0
+    readonly property int stripDemand: Config.committedData.strip.telemetry === "off" ? 0
         : Displays.outputs.reduce((count, output) => count
-            + (output.strip && !ShellState.releasedFor(output.name) ? 1 : 0), 0)
+            + (Config.committedData.strip.visible
+                && (!Config.committedData.display.outputs[output.name] || Config.committedData.display.outputs[output.name].strip !== false)
+                && !ShellState.releasedFor(output.name) ? 1 : 0), 0)
     readonly property bool panelActive: panelDemand > 0
     readonly property bool detailActive: detailDemand > 0
-    readonly property var cfg: Config.telemetry
+    readonly property var cfg: Config.committedData.telemetry
     readonly property int interval: T.samplingInterval({
         strip: stripDemand,
         panel: panelActive,

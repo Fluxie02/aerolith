@@ -17,14 +17,7 @@ Singleton {
     function observe() {
         if (!Config.loaded || Config.fileBroken)
             return;
-        // setValue applies before its asynchronous save finishes. Only
-        // observe a scheme once Config's last-known disk text agrees with it.
-        let saved;
-        try { saved = JSON.parse(Config.diskText || "{}"); }
-        catch (e) { return; }
-        const scheme = saved && saved.theme && typeof saved.theme.scheme === "string" ? saved.theme.scheme : "limb";
-        if (scheme !== Config.theme.scheme)
-            return;
+        const scheme = Config.committedData.theme.scheme;
         if (!ready) {
             ready = true;
             observed = handled = scheme;
@@ -83,8 +76,7 @@ Singleton {
 
     Connections {
         target: Config
-        function onReloaded() { root.observe(); }
-        function onDiskTextChanged() { root.observe(); }
+        function onCommittedChanged() { root.observe(); }
     }
     Connections {
         target: ShellState

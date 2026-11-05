@@ -11,7 +11,8 @@ import qs.services
 Singleton {
     id: root
 
-    property real timeout: Displays.outputs.some(o => o.profile === "oled") ? Config.display.oled.idleDimAfter : 0
+    property real timeout: Displays.outputs.some(o => Config.committedData.display.outputs[o.name]
+        && Config.committedData.display.outputs[o.name].profile === "oled") ? Config.committedData.display.oled.idleDimAfter : 0
     readonly property bool idle: monitor.enabled && monitor.isIdle
 
     IdleMonitor {

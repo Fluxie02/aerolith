@@ -9,6 +9,27 @@ import "../lib/schemes.mjs" as Schemes
 Singleton {
     id: root
 
+    // Lifecycle policy stays outside Config, avoiding a core/services cycle.
+    property var previewScreens: []
+    Connections {
+        target: Config
+        function onPreviewActiveChanged() {
+            root.previewScreens = Config.previewActive ? Quickshell.screens.slice() : [];
+        }
+    }
+    Connections {
+        target: Quickshell
+        function onScreensChanged() {
+            if (Config.previewActive && root.previewScreens.some(screen => Quickshell.screens.indexOf(screen) < 0))
+                Config.cancelPreview();
+        }
+    }
+    Connections {
+        target: Ui
+        function onLockRequested() { Config.cancelPreview(); }
+        function onLockedChanged() { if (Ui.locked) Config.cancelPreview(); }
+    }
+
     function openBay(bay, title) {
         return () => {
             Ui.open(bay);
@@ -17,7 +38,7 @@ Singleton {
     }
 
     function setting(path, value, label) {
-        const err = Config.setValue(path, value);
+        const err = Config.setValues([{path: path, value: value}]);
         return err ? Registry.fail(err) : Registry.ok(label + " (change requested)");
     }
 
@@ -124,7 +145,7 @@ Singleton {
             title: "Toggle low-effects mode",
             category: "settings",
             keywords: ["performance", "opaque", "effects", "recording"],
-            run: () => root.setting("theme.lowEffects", !Config.theme.lowEffects, "Low-effects " + (!Config.theme.lowEffects ? "on" : "off"))
+            run: () => root.setting("theme.lowEffects", !Config.projectedData.theme.lowEffects, "Low-effects " + (!Config.projectedData.theme.lowEffects ? "on" : "off"))
         });
         Registry.register({
             id: "settings.strip.telemetry",
