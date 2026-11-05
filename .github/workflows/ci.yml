@@ -157,6 +157,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 3
           compression-level: 9
+      - name: presets
+        id: presets
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/presets.sh build/ci/presets
+      - name: Upload failed presets output
+        if: ${{ failure() && steps.presets.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: presets-failure
+          path: build/ci/presets/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
       - name: full
         id: full
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

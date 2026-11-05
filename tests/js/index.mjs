@@ -22,5 +22,6 @@ import welcome from "./welcome.test.mjs";
 import tour from "./tour.test.mjs";
 import anchors from "./anchors.test.mjs";
 import geometry from "./geometry.test.mjs";
+import presets from "./presets.test.mjs";
 
-export const suites = [displays, outputLifecycles, fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient, oledTokens, network, bluetooth, welcome, tour, anchors, geometry];
+export const suites = [displays, outputLifecycles, fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient, oledTokens, network, bluetooth, welcome, tour, anchors, geometry, presets];
