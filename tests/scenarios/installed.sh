@@ -96,6 +96,45 @@ python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["direction
 python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); assert s["installed"] and s["mode"] == sys.argv[2] and s["ai_provider"] == sys.argv[3] and s["hyprland_dialect"] == "lua", s' "$OUT/status.json" "$mode" "$expected_provider" \
   || fail "status: $(cat "$OUT/status.json")"
 aerolith doctor >"$OUT/doctor.log" 2>&1 || true
+doctor_rc=0
+aerolith doctor --json >"$OUT/doctor.json" || doctor_rc=$?
+python3 - "$OUT/doctor.json" "$doctor_rc" "$OUT/shell-status.json" "$XDG_STATE_HOME/aerolith/manifest.json" <<'PY' || fail "doctor JSON / installed version"
+import json, sys
+doctor, status, manifest = (json.load(open(sys.argv[i])) for i in (1, 3, 4))
+assert doctor["exit_code"] == int(sys.argv[2]) == 0, doctor
+assert doctor["checks"] and doctor["log_location"] and "hyprland_version" in doctor
+assert all({"section", "name", "status", "detail"} <= c.keys() for c in doctor["checks"])
+assert status["versionLabel"] == "installed version", status
+assert status["version"]["aerolith"] == manifest["aerolith_version"], status
+assert set(status["version"]) == {"aerolith", "quickshell", "hyprland"}, status
+assert status["version"]["hyprland"] == "0.56.2", status  # protocol mock
+assert status["version"]["quickshell"] is None or isinstance(status["version"]["quickshell"], str)
+PY
+
+# Manifest watch: replacement, absent version, malformed JSON, deletion and
+# recreation must update installed metadata without restarting or crashing.
+manifest_file="$XDG_STATE_HOME/aerolith/manifest.json"
+cp "$manifest_file" "$OUT/manifest-before-watch.json"
+wait_version() {
+  for _ in $(seq 60); do
+    ipc status >"$OUT/version-watch-status.json"
+    if python3 -c 'import json,sys; v=json.load(open(sys.argv[1]))["version"]["aerolith"]; assert v == json.loads(sys.argv[2]), v' "$OUT/version-watch-status.json" "$1" 2>/dev/null; then return 0; fi
+    sleep 0.1
+  done
+  fail "manifest watch did not reach installed version $1"
+}
+for content in '{"version":1,"aerolith_version":"watch-test"}' '{"version":1}' '{broken'; do
+  printf '%s\n' "$content" >"$manifest_file.next"
+  mv "$manifest_file.next" "$manifest_file"
+  expected=null; [[ "$content" == *watch-test* ]] && expected='"watch-test"'
+  wait_version "$expected"
+done
+rm "$manifest_file"
+wait_version null
+cp "$OUT/manifest-before-watch.json" "$manifest_file.next"
+mv "$manifest_file.next" "$manifest_file"
+expected=$(python3 -c 'import json,sys; print(json.dumps(json.load(open(sys.argv[1]))["aerolith_version"]))' "$manifest_file")
+wait_version "$expected"
 python3 -c 'import json,sys; s=json.loads(sys.argv[1]); assert s["ai"] is True, s' "$(ipc status)" || fail "AI commands not registered"
 [ ! -s "$FAKE_LOG" ] || fail "provider was contacted before any request"
 

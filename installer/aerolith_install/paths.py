@@ -113,8 +113,8 @@ def layout() -> Layout:
     return Layout(
         home=home,
         data=data_home / "aerolith",
-        config=config_home / "aerolith",
-        state=state_home / "aerolith",
+        config=_xdg("AEROLITH_CONFIG_DIR", str(config_home / "aerolith")),
+        state=_xdg("AEROLITH_STATE_DIR", str(state_home / "aerolith")),
         bindir=home / ".local" / "bin",
         hypr=config_home / "hypr",
         systemd_user=config_home / "systemd" / "user",

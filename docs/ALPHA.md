@@ -34,6 +34,28 @@ anything it changes.
 - **Remove:** `aerolith uninstall` (keeps your configuration;
   `--remove-config` removes it too).
 
+`--startup systemd` installs and enables the user unit for the next
+`graphical-session.target` (for example, a uwsm session). It does not start
+the unit immediately: the installer cannot assume the current session target
+and Wayland environment are ready. Switching startup modes removes the old
+managed startup path. A missing user bus stops the change before files are
+written; uninstall also needs the bus to disable an enabled unit.
+
+The manifest records the **installed version**, source commit and whether
+the checkout was dirty. `aerolith status` and reinstall compare it with the
+local checkout, reporting “different local source” when commits differ.
+This is offline; unknown Git identity stays unavailable, including packaged
+installs. A dirty flag does not identify the exact uncommitted changes.
+Shell `ipc status` exposes `version: {aerolith, quickshell, hyprland}`;
+unknown versions are `null`. The AEROLITH field is the installed version,
+which can differ from a process still running after an upgrade.
+
+`aerolith doctor --json` includes structured checks, partial failures, log
+location, and the running Hyprland IPC version (plus an executable version
+check). Checks have a three-second budget within a 30-second total budget.
+Text and JSON return 0 for a healthy install, 1 for missing installation or
+failed checks, and 2 for invalid/unreadable installation metadata.
+
 ## Using it
 
 - **Super + Space** (or a click on AEROLITH in the top bar) opens the command
