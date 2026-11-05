@@ -257,6 +257,17 @@
         }
       }
     },
+    "welcome": {
+      "type": "object",
+      "description": "Welcome startup preference.",
+      "properties": {
+        "showOnStartup": {
+          "type": "boolean",
+          "description": "Show Welcome on every shell start. Fresh installs show it once regardless; this does not enable shell autostart.",
+          "default": false
+        }
+      }
+    },
     "tour": {
       "type": "object",
       "description": "First-run tour.",

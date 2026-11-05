@@ -23,7 +23,7 @@ ShellRoot {
 
     // Touch services so they initialise and register their commands even
     // before anything visible references them.
-    readonly property var services: [Compositor, Displays, Idle, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands, AppThemes, Tour]
+    readonly property var services: [Compositor, Displays, Idle, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands, AppThemes, Welcome, Tour, SystemInfo]
 
     // Stable screen keys retain delegates on focus/metadata changes. Each
     // loader destroys only its output's surface while fullscreen owns it.

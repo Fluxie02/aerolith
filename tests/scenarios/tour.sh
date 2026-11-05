@@ -271,6 +271,7 @@ d['tour'] = {'enabled': False}
 config.write_text(json.dumps(d))
 s = json.loads(state.read_text())
 s.pop('tour', None)
+s['welcome'] = {'version': 1, 'seen': True, 'handedOff': True, 'tourStep': 0}
 state.write_text(json.dumps(s))
 PY
 start_shell
@@ -299,6 +300,7 @@ d['tour']['enabled'] = True
 p.write_text(json.dumps(d))
 state = pathlib.Path(sys.argv[2])
 s = json.loads(state.read_text()); s.pop('tour', None)
+s['welcome'] = {'version': 1, 'seen': True, 'handedOff': True, 'tourStep': 0}
 state.write_text(json.dumps(s))
 PY
 game=$(mock '{"op":"open","class":"tour-game","title":"Tour fullscreen hold","workspace":1}' | python3 -c 'import json,sys; print(json.load(sys.stdin)["address"])')

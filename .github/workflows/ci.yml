@@ -376,6 +376,20 @@ jobs:
           path: build/ci/network-absent/
           if-no-files-found: warn
           retention-days: 3
+      - name: welcome
+        id: welcome
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          WELCOME=1 OUTPUTS=2 tools/headless/run.sh tests/scenarios/welcome.sh build/ci/welcome
+      - name: Upload failed welcome output
+        if: ${{ failure() && steps.welcome.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: welcome-failure
+          path: build/ci/welcome/
+          if-no-files-found: warn
+          retention-days: 3
       - name: tour
         id: tour
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

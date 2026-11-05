@@ -94,6 +94,9 @@ export const SCHEMA = S.obj(
       },
       "The desktop background surface.",
     ),
+    welcome: S.obj({
+      showOnStartup: S.bool(false, "Show Welcome on every shell start. Fresh installs show it once regardless; this does not enable shell autostart."),
+    }, "Welcome startup preference."),
     tour: S.obj(
       {
         enabled: S.bool(true, "Show the first-run tour on the primary output. Completion is saved in shell state, separately from this config."),

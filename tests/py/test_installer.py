@@ -473,7 +473,7 @@ def test_layer_rules_managed_roundtrip(system, home, dialect):
     original = main.read_bytes()
     expected = [rule(ns) for ns in (
         "aerolith-ground", "aerolith-strip", "aerolith-deck", "aerolith-notices", "aerolith-osd", "aerolith-session",
-        "aerolith-tour", "aerolith-network", "aerolith-bluetooth",
+        "aerolith-tour", "aerolith-welcome", "aerolith-network", "aerolith-bluetooth",
     )]
     frag = hypr.fragment_path(lay, dialect)
     assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
@@ -2306,3 +2306,123 @@ def test_uninstall_disable_failure_restores_enablement_and_files(system, home, m
     assert run("--yes", "uninstall", "--remove-config") == 2
     assert snapshot(home) == before
     assert systemctl_state() == {"enabled": True, "active": True}
+
+
+# P3-SOL-1: Welcome startup operations use the real transaction and fake bus.
+@pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
+def test_startup_hyprland_enable_disable_truthful(system, home, dialect, capsys):
+    lay = layout()
+    main = lay.hypr / ("hyprland.lua" if dialect == "lua" else "hyprland.conf")
+    main.write_text(LUA_CONFIG if dialect == "lua" else CONF_CONFIG)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    config = lay.config_file.read_bytes()
+    assert run("startup", "enable", "--method", "hyprland", "--json") == 0
+    capsys.readouterr()
+    assert run("status", "--json") == 0
+    assert json.loads(capsys.readouterr().out)["startupState"] == {
+        "method": "hyprland", "enabled": True, "state": "enabled", "error": None}
+    fragment = hypr.fragment_path(lay, dialect)
+    enabled = fragment.read_text()
+    assert run("startup", "disable", "--json") == 0
+    assert hypr.without_autostart(enabled) == fragment.read_text()
+    assert lay.config_file.read_bytes() == config
+    assert run("startup", "enable", "--json") == 0
+    # A removed include is disabled, even though the manifest still says enabled.
+    main.write_text(LUA_CONFIG if dialect == "lua" else CONF_CONFIG)
+    capsys.readouterr()
+    assert run("startup", "status", "--json") == 0
+    assert json.loads(capsys.readouterr().out)["startupState"]["enabled"] is False
+
+
+def test_startup_systemd_reconciles_bus_and_keeps_running_shell(system, home, capsys):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    assert run("startup", "enable", "--method", "systemd", "--json") == 0
+    assert systemctl_state()["enabled"] is True
+    assert all("--now" not in args for args in systemctl_log())
+    p = Path(os.environ["FAKE_SYSTEMCTL_STATE"])
+    p.write_text(json.dumps({"enabled": False, "active": True}))
+    capsys.readouterr()
+    assert run("startup", "status", "--json") == 0
+    assert json.loads(capsys.readouterr().out)["startupState"]["enabled"] is False
+    assert run("startup", "disable", "--json") == 0
+    assert systemctl_state() == {"enabled": False, "active": True}
+    assert all("--now" not in args for args in systemctl_log())
+
+
+@pytest.mark.parametrize("failure", ["enable", "daemon-reload"])
+def test_startup_failure_rolls_back_files_manifest_and_enablement(system, home, monkeypatch, failure):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland", "--no-themes") == 0
+    lay = layout()
+    paths = [lay.manifest, lay.config_file, lay.hypr / "hyprland.lua", hypr.fragment_path(lay, "lua")]
+    before = {p: p.read_bytes() for p in paths}
+    monkeypatch.setenv("FAKE_SYSTEMCTL_FAIL", failure)
+    assert run("startup", "enable", "--method", "systemd", "--json") == 2
+    assert {p: p.read_bytes() for p in paths} == before
+    assert not lay.service.exists()
+    assert systemctl_state()["enabled"] is False
+
+
+def test_startup_missing_bus_and_unowned_or_modified_files_refused(system, home, monkeypatch, capsys):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd", "--no-themes") == 0
+    lay = layout()
+    before = lay.manifest.read_bytes()
+    monkeypatch.setenv("FAKE_USER_BUS", "missing")
+    capsys.readouterr()
+    assert run("startup", "status", "--json") == 2
+    assert json.loads(capsys.readouterr().out)["startupState"]["enabled"] is None
+    assert run("startup", "disable", "--json") == 2
+    assert lay.manifest.read_bytes() == before
+    monkeypatch.delenv("FAKE_USER_BUS")
+    lay.service.write_text(lay.service.read_text() + "# modified\n")
+    assert run("startup", "disable", "--json") == 2
+    assert lay.manifest.read_bytes() == before
+
+
+def test_welcome_cli_uses_installed_shell_ipc(system, home, bindir, tmp_path):
+    log = tmp_path / "qs-argv.json"
+    write_exe(bindir / "qs", f"import json,sys\nopen({str(log)!r}, 'w').write(json.dumps(sys.argv[1:]))\n")
+    assert run("welcome") == 0
+    assert json.loads(log.read_text()) == ["-p", str(layout().shell), "ipc", "call", "welcome", "open"]
+
+
+@pytest.mark.parametrize("method", ["hyprland", "systemd"])
+def test_startup_packaged_keeps_package_files(system, home, packaged, method):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    before = snapshot(packaged)
+    assert run("startup", "enable", "--method", method, "--json") == 0
+    lay = layout()
+    target = lay.service if method == "systemd" else hypr.fragment_path(lay, "lua")
+    assert str(packaged / "shell") in target.read_text()
+    assert run("startup", "disable", "--json") == 0
+    assert snapshot(packaged) == before
+
+
+def test_startup_refuses_unowned_fragment(system, home):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes") == 0
+    lay = layout()
+    frag = hypr.fragment_path(lay, "lua")
+    frag.parent.mkdir(parents=True)
+    frag.write_text("-- user's fragment\n")
+    before = lay.manifest.read_bytes()
+    assert run("startup", "enable", "--method", "hyprland", "--json") == 2
+    assert frag.read_text() == "-- user's fragment\n"
+    assert lay.manifest.read_bytes() == before
+
+
+@pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
+def test_startup_refuses_modified_include(system, home, dialect):
+    lay = layout()
+    main = lay.hypr / ("hyprland.lua" if dialect == "lua" else "hyprland.conf")
+    main.write_text(LUA_CONFIG if dialect == "lua" else CONF_CONFIG)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-themes") == 0
+    begin, body, end = hypr.include_block(lay, dialect)
+    main.write_text(main.read_text().replace(body, "# edited include"))
+    fragment = hypr.fragment_path(lay, dialect)
+    before = [p.read_bytes() for p in (main, fragment, lay.manifest)]
+    assert run("startup", "enable", "--method", "hyprland", "--json") == 2
+    assert [p.read_bytes() for p in (main, fragment, lay.manifest)] == before

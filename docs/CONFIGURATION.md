@@ -104,6 +104,14 @@ The desktop background surface.
 |---|---|---|---|
 | `ground.enabled` | bool | `true` | Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg. |
 
+### `welcome`
+
+Welcome startup preference.
+
+| Key | Type | Default | Meaning |
+|---|---|---|---|
+| `welcome.showOnStartup` | bool | `false` | Show Welcome on every shell start. Fresh installs show it once regardless; this does not enable shell autostart. |
+
 ### `tour`
 
 First-run tour.

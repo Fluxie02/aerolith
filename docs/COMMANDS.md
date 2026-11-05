@@ -6,6 +6,23 @@ routines and the optional AI proposals all go through it, with the same typed
 parameter checks. Sensitive commands (suspend, reboot, power off, log out)
 always need an explicit confirmation.
 
+## Welcome and shell startup
+
+`aerolith welcome` opens Welcome in the installed shell. For a development
+shell, use `qs -p <shell> ipc call welcome open`. The registry command is
+`welcome.open`; it has no default shortcut.
+
+`aerolith startup status --json` reports actual startup enablement. Explicitly
+change it with `aerolith startup enable [--method hyprland|systemd]` or
+`aerolith startup disable`. Enabling without a method uses the detected method;
+if none is available, choose one explicitly. These operations use ownership
+checks and rollback, preserve live configuration, and leave the running shell
+alone. Systemd enablement takes effect for the next graphical session.
+
+`welcome.showOnStartup` only controls Welcome's visibility; it never enables
+shell startup. Welcome opens automatically on a fresh install. Existing state
+is an upgrade and does not restart onboarding. Doctor runs only when requested.
+
 ## Routines
 
 A routine is a named list of command steps in
@@ -42,7 +59,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 
 <!-- BEGIN GENERATED: tools/gen-commands-doc.py -->
 
-67 commands with the AI module installed; without it the `ai` category is absent.
+68 commands with the AI module installed; without it the `ai` category is absent.
 
 ### shell
 
@@ -62,6 +79,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 | `shell.open.signal`<br>Open Signal Rack | `sig` | — | — |
 | `shell.open.systems`<br>Open Systems Bay | `sys` | — | — |
 | `tour.start`<br>Show the tour again | — | — | — |
+| `welcome.open`<br>Welcome | — | — | — |
 
 ### apps
 
