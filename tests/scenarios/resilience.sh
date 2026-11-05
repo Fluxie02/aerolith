@@ -61,7 +61,11 @@ wait_field configFileBroken True 10 || fail "broken config.json not detected"
 [ "$(field configErrors)" = 1 ] || fail "broken config.json not reported"
 before=$(sha256sum <"$cfg")
 ipc run settings.density '{"density":"compact"}' >/dev/null
-wait_for_log "settings.density: failed" 5 || fail "a setting was changed while config.json was broken"
+# Saves are asynchronous since Phase 1: the command is accepted, then the fresh
+# read before writing refuses it (the watcher can miss atomic replaces, so a
+# synchronous fileBroken check would also block recovery). The disk check
+# below is the guarantee.
+wait_for_log "fix it before saving settings" 5 || fail "a setting change was not refused while config.json was broken"
 [ "$(sha256sum <"$cfg")" = "$before" ] || fail "the shell wrote over the user's broken config.json"
 shot r2-config-broken
 printf '{ "schemaVersion": 1, "strip": { "edge": "top" } }\n' >"$cfg"

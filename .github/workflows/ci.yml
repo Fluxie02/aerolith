@@ -390,6 +390,20 @@ jobs:
           path: build/ci/tour/
           if-no-files-found: warn
           retention-days: 3
+      - name: resilience
+        id: resilience
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          AUDIO=1 tools/headless/run.sh tests/scenarios/resilience.sh build/ci/resilience
+      - name: Upload failed resilience output
+        if: ${{ failure() && steps.resilience.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: resilience-failure
+          path: build/ci/resilience/
+          if-no-files-found: warn
+          retention-days: 3
       - name: runtime
         id: runtime
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

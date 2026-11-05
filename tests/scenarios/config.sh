@@ -43,8 +43,8 @@ probe = '''
         }
         function set(path: string, value: string): string { return Config.setValue(path, JSON.parse(value)); }
         function begin(): string { return Config.beginPreview(); }
-        function draft(values: string): string { return Config.setPreviewValues(JSON.parse(values)); }
-        function batch(values: string): string { return Config.setValues(JSON.parse(values)); }
+        function draft(values: string): string { return Config.setPreviewValues(JSON.parse(Qt.atob(values))); }
+        function batch(values: string): string { return Config.setValues(JSON.parse(Qt.atob(values))); }
         function apply(): string { return Config.applyPreview(); }
         function cancel(): void { Config.cancelPreview(); }
         function watch(): void { Config.testWatch = true; Config.reload(); }
@@ -67,6 +67,9 @@ qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &
 QS_PID=$!
 PIDS+=("$QS_PID")
 probe() { qs -p "$SHELL_DIR" ipc call configTest "$@"; }
+# qs ipc splits a JSON list argument ("Too many arguments"), so list
+# arguments travel base64-encoded and the probe decodes them with Qt.atob.
+b64() { printf %s "$1" | base64 -w0; }
 check_config() {
   for _ in $(seq 80); do
     if probe snapshot >"$OUT/config-probe.json" 2>/dev/null && python3 - "$OUT/config-probe.json" "$1" <<'PY' 2>"$OUT/config-check-error.txt"
@@ -145,7 +148,7 @@ probe doubleStep
 check_config 's["queued"] == 0 and s["data"]["theme"]["density"] == "standard"'
 # A rejected batch is all-or-nothing, even when its first leaf is valid.
 cp "$config_path" "$OUT/batch-before.json"
-error=$(probe batch '[{"path":"theme.scheme","value":"iris"},{"path":"strip.edge","value":"left"}]')
+error=$(probe batch "$(b64 '[{"path":"theme.scheme","value":"iris"},{"path":"strip.edge","value":"left"}]')")
 [[ "$error" == *strip* ]] || fail 'invalid batch accepted'
 cmp "$OUT/batch-before.json" "$config_path" || fail 'partial batch written'
 
@@ -155,17 +158,17 @@ count_refreshes() { if [ -f "$OUT/app-theme-calls.jsonl" ]; then wc -l <"$OUT/ap
 refreshes=$(count_refreshes)
 cp "$config_path" "$OUT/preview-before.json"
 probe begin
-probe draft '[{"path":"theme.scheme","value":"iris"},{"path":"theme.density","value":"compact"},{"path":"strip.edge","value":"top"}]'
+probe draft "$(b64 '[{"path":"theme.scheme","value":"iris"},{"path":"theme.density","value":"compact"},{"path":"strip.edge","value":"top"}]')"
 check_config "s['active'] and s['dirty'] and s['queued'] == 0 and s['theme'] == 'iris' and s['committed']['theme']['scheme'] == 'cinder' and len(s['strips']) == ${OUTPUTS:-1} and all(o['visible'] and o['signal'] == s['signal'] for o in s['strips'])"
-error=$(probe draft '[{"path":"notifications.server","value":true}]')
+error=$(probe draft "$(b64 '[{"path":"notifications.server","value":true}]')")
 [[ "$error" == *"not an appearance setting"* ]] || fail 'non-appearance preview accepted'
-error=$(probe draft '[{"path":"theme.scheme","value":"invalid"}]')
+error=$(probe draft "$(b64 '[{"path":"theme.scheme","value":"invalid"}]')")
 [[ "$error" == *"must be one of"* ]] || fail 'invalid preview accepted'
 check_config 's["theme"] == "iris" and not s["server"]'
 # Draft visibility/profile changes must not change external probe demand.
-probe draft '[{"path":"strip.visible","value":false},{"path":["display","outputs","HEADLESS-1","profile"],"value":"oled"}]'
+probe draft "$(b64 '[{"path":"strip.visible","value":false},{"path":["display","outputs","HEADLESS-1","profile"],"value":"oled"}]')"
 check_config "not s['strips'] and s['stripDemand'] == ${OUTPUTS:-1} and s['idleTimeout'] == 0"
-probe draft '[{"path":"strip.visible","value":true}]'
+probe draft "$(b64 '[{"path":"strip.visible","value":true}]')"
 check_config "len(s['strips']) == ${OUTPUTS:-1}"
 sleep 2
 [ "$(count_refreshes)" = "$refreshes" ] || fail 'draft refreshed app themes'
@@ -176,7 +179,7 @@ cmp "$OUT/preview-before.json" "$config_path" || fail 'cancel wrote disk'
 
 # Apply a multi-leaf draft in ONE atomic write, rebased on an unseen CLI edit.
 probe begin
-probe draft '[{"path":"theme.scheme","value":"iris"},{"path":"strip.edge","value":"top"}]'
+probe draft "$(b64 '[{"path":"theme.scheme","value":"iris"},{"path":"strip.edge","value":"top"}]')"
 replace_config '{"theme":{"scheme":"cinder","density":"comfortable"},"strip":{"edge":"bottom"},"future":{"cli":true}}'
 probe snapshot >"$OUT/before-apply.json"
 writes=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["writes"])' "$OUT/before-apply.json")
@@ -195,7 +198,7 @@ fi
 
 # A same-path CLI edit refuses the WHOLE Apply and retains the reviewable draft.
 probe begin
-probe draft '[{"path":"theme.scheme","value":"corona"},{"path":"strip.edge","value":"bottom"}]'
+probe draft "$(b64 '[{"path":"theme.scheme","value":"corona"},{"path":"strip.edge","value":"bottom"}]')"
 replace_config '{"theme":{"scheme":"bathyal","density":"comfortable"},"strip":{"edge":"top"},"future":{"conflict":true}}'
 cp "$config_path" "$OUT/preview-conflict.json"
 probe apply
@@ -207,7 +210,7 @@ check_config 'not s["active"] and s["theme"] == "bathyal" and s["data"]["strip"]
 # The live watcher updates the base and re-applies the draft, before Apply too.
 probe watch
 probe begin
-probe draft '[{"path":"theme.scheme","value":"corona"}]'
+probe draft "$(b64 '[{"path":"theme.scheme","value":"corona"}]')"
 replace_config '{"theme":{"scheme":"bathyal","density":"compact"},"strip":{"clock":"12h"}}'
 check_config 's["active"] and s["theme"] == "corona" and s["data"]["strip"]["clock"] == "12h" and s["data"]["theme"]["density"] == "compact" and not s["conflicts"]'
 replace_config '{"theme":{"scheme":"vellum","density":"compact"},"strip":{"clock":"12h"}}'
@@ -217,7 +220,7 @@ check_config 'not s["active"] and s["theme"] == "vellum" and s["data"]["strip"][
 
 # Failed Apply preserves the draft for retry; no partial batch escapes to disk.
 probe begin
-probe draft '[{"path":"theme.scheme","value":"iris"}]'
+probe draft "$(b64 '[{"path":"theme.scheme","value":"iris"}]')"
 cp "$config_path" "$OUT/failed-apply-before.json"
 chmod 500 "$(dirname "$config_path")"
 probe apply
@@ -228,12 +231,12 @@ probe cancel
 
 # Lock and physical output loss discard an uncommitted transaction.
 probe begin
-probe draft '[{"path":"theme.scheme","value":"corona"}]'
+probe draft "$(b64 '[{"path":"theme.scheme","value":"corona"}]')"
 probe lockPreview
 check_config 'not s["active"] and s["theme"] == "vellum"'
 if [ "${OUTPUTS:-1}" = 2 ]; then
   probe begin
-  probe draft '[{"path":"theme.scheme","value":"corona"}]'
+  probe draft "$(b64 '[{"path":"theme.scheme","value":"corona"}]')"
   swaymsg output HEADLESS-2 unplug >/dev/null
   mock '{"op":"remove_monitor","name":"HEADLESS-2"}' >/dev/null
   check_config 'not s["active"] and s["theme"] == "vellum" and len(s["strips"]) == 1'
@@ -242,7 +245,7 @@ fi
 # Killing a shell with a dirty draft never persists it; a new process is clean.
 cp "$config_path" "$OUT/crash-before.json"
 probe begin
-probe draft '[{"path":"theme.scheme","value":"corona"}]'
+probe draft "$(b64 '[{"path":"theme.scheme","value":"corona"}]')"
 check_config 's["active"] and s["theme"] == "corona"'
 kill -KILL "$QS_PID"
 wait "$QS_PID" || true
