@@ -194,4 +194,125 @@ missing `aerolith-tour`, `aerolith-network` and `aerolith-bluetooth`.
 
 ## Design system and components
 
-See the section below, added when that audit completes.
+**Tokens:**
+- **Flow:** `lib/schemes.mjs` and `lib/tokens.mjs` feed `core/Theme.qml`
+  (a singleton). Each surface creates a `core/DisplayProfile.qml` and passes
+  it to its children as `profile`.
+- **Colours:**
+  - 12 schemes: obsidian, surface, surface2, grid, text, textDim, signal and
+    link;
+  - fixed status colours: caution, critical, nominal;
+  - no hex colours in QML;
+  - `appLink` cannot be overridden.
+- **Scaling:**
+  - density sets strip and row height, pad, gap and fontXs–fontXl;
+  - uiScale feeds `px()`;
+  - `du()` adds a density factor of ×0.92 or ×1.08, so there are two scaling
+    functions.
+- **Shape and opacity:**
+  - radius du(10), panelRadius du(20);
+  - opacities: backdrop .64 (unused), panel .97 (only in Bezel's canvas),
+    disabled .4.
+- **Motion:**
+  - full 90/160/260 ms, reduced 0/80/120, off;
+  - the `animate`, `travel` and `ambientFor(output)` gates also hold while a
+    window covers the output or it is fullscreen;
+  - `shaderQuality` is hardcoded to 1.
+- **Intensity:** saturated|insane changes the amount of decoration.
+- **Direction:** THEARS|PIYTI changes only the accent link and the shader
+  policy.
+
+**No blur or translucency anywhere:**
+- no `layer.effect` or MultiEffect;
+- the Hyprland theme sets `blur { enabled = false }`;
+- every surface paints an opaque `profile.bg`.
+
+**True black** exists only through `DisplayProfile` (OLED profile).
+
+**Per output:** the Ground and Strip (each strip with its own pickers).
+**Single surfaces:** Deck, OSD, Session, Notices and Tour.
+
+**Lock screen:** a surface on every screen, but `LockView` loads only on the
+primary.
+
+**High severity:**
+- **H1. The lock screen ignores the OLED profile.** Verified by Opus:
+  `LockView.qml` has no profile and 21 uses of `Theme.*` colours, and the
+  lock surfaces on other screens paint `Theme.bg` (`LockHost.qml:314`). A
+  lock screen is static and stays up for hours, which makes it the worst
+  case on OLED.
+- **H2. Overlays mix OLED and Theme colours.** SessionView (16 uses), OsdView
+  (6) and NoticeStack (3) take text and accents from `Theme.*` but fills from
+  `profile.*`.
+
+**Medium severity:**
+- **M1. Ground geometry is copied in several places:**
+  - the ring centre (.27w, .55h) and radius in InstrumentField, CircularField
+    and WorkspaceOrbit;
+  - TourHost rebuilds the Hatch, Orbit and app-bar rectangles by hand;
+  - the ChordSlot width is copied and overridden in DeckView.
+
+  Changing one copy misaims the others.
+- **M2. Compact thresholds disagree:** the strip uses `Theme.px(1500)`, while
+  Ground, Deck and Tour use `Theme.du(1500)`. Bezel 600, Lock 760/1100 and
+  others are one-offs.
+- **M3. Unused tokens and components:**
+  - tokens: `titleSize`, `inputSize`, `resultSize`, `resultHeight`,
+    `inputHeight`, `bracket`, `backdropOpacity`, `Theme.stateColor`, FONTS
+    fallbacks;
+  - components: `CircularField`, `MetricTape` and `Readout` have no
+    references.
+- **M4. Old labels against the owner brief:**
+  - Bezel designations are old rail numbers ("CMD / 01", "SIG / 04", "AI /
+    06", "SET / 07", "HLP / 00"), while the rail now shows 3 bays;
+  - "PIYTI / SATURATED" jargon is still shown (DeckView.qml:195,
+    SchemePicker.qml:70).
+- **M5. The tour text says "top bar" even when the strip is at the bottom**
+  (TourHost.qml:96).
+
+**Low severity:**
+- **InstrumentField dead code:** constant `boot`, an unused `text()`, unused
+  `progress`, conditions that are always true, and tick lengths in raw
+  pixels.
+- **Hardcoded tint alphas** in 7 files; `.97` in SessionView instead of
+  `panelOpacity`; 23 literal `letterSpacing` values.
+- **Static decoration:** in Saturated, the Counterphase vernier never moves.
+- **Workspace count mismatch:** the ring shows `workspaceCount` stations,
+  while the strip shows max(count, highest existing workspace).
+
+**Already resolved from the owner brief:** the scale numbers, the 839/961
+edge numbers, the "PIY TI" title and the wing are gone. The app bar is
+du(48) tall and ranked by use.
+
+**Reuse opportunities:**
+- **One ground-geometry object**, or better, targets that report their own
+  rectangles with `mapToItem`, so the tour stops copying layout maths.
+- **One event-painted canvas base:** the repaint wiring is copied in about 8
+  components.
+- **One `SelectableRow`:** the same selected/unselected styling is in 15
+  files.
+- **One set of corner registration marks** (currently 3 copies).
+- **One annunciator binding pattern** (10 copies) and one fade-when-hidden
+  behavior (about 14 copies).
+- **One popup surface base**, generalising the NetworkPicker housing.
+- **Rule:** every colour comes from `profile`, everything else from Theme,
+  enforced by a lint.
+
+**Risks:**
+- **Portrait:** the ring runs off-screen on 1080×1920.
+- **Ultrawide:** there are no maximum widths; NowPlaying grows to .25w and
+  the app bar to .885w.
+- **1920×1080:** the window list touches the second bearing.
+- **Compact station row with a bottom strip and comfortable density:** about
+  2 px clearance.
+- **4K ×1.5:** fine.
+- **Idle cost is low.** The only ambient timer is Counterphase's, and it is
+  properly gated. Remaining costs:
+  - full-screen Canvas repaints when a surface remaps;
+  - `Theme.coveredOutputs` rebuilds window geometry for all outputs on every
+    window event (while dragging a window, for example).
+- **Multi-monitor:**
+  - `refreshRate` and the ambient cadence come from the primary output only;
+  - every ground shows the globally focused workspace, not its own
+    monitor's;
+  - the app bar is on the primary only (by decision).
