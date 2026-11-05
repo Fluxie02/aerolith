@@ -244,7 +244,7 @@ Diagnostics run only on request, through `Exec` (argv, timeout).
   - hiding the retired keys in Settings;
   - closing the array/map validation hole in `setPath`.
 
-**Phase 1: quick improvements, about a day of agent work.** Items #1, #2,
+**Phase 1: quick improvements (done: #1–#7 by Sol and Astra, verified by Opus; see the Phase 1 PR).** Items #1, #2,
 #3, #4, #5, #6 and #7. Mostly Sol, with copy and captures from Astra, and
 one PR. Each has tests:
 - a lock-screen OLED capture;

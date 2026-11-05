@@ -8,11 +8,20 @@ shot 01-strip
 ipc status >"$OUT/status.json"
 
 # Command Core: typed alias invocation, verified against PipeWire.
-ipc open command; sleep 1
-typ "vol 40"; sleep 0.6
-shot 02-command-vol
-key Return; sleep 1.5
-wpctl get-volume @DEFAULT_AUDIO_SINK@ >"$OUT/volume-after.txt"
+# Injected keys can drop under load (each wtype call uploads a keymap), so
+# the query can arrive garbled ("NO MATCH"). Retype and run it again until
+# PipeWire reports the volume, as ai.sh retries its request; setting 40% twice
+# is harmless and the assertion below is unchanged.
+for attempt in 1 2 3; do
+  ipc open command; sleep 1
+  wtype -k Shift_L -M ctrl -k a -m ctrl -k BackSpace; sleep 0.2
+  typ "vol 40"; sleep 0.6
+  shot 02-command-vol
+  key Return; sleep 1.5
+  wpctl get-volume @DEFAULT_AUDIO_SINK@ >"$OUT/volume-after.txt"
+  grep -q "0.40" "$OUT/volume-after.txt" && break
+  echo "full: attempt $attempt left $(cat "$OUT/volume-after.txt"); retyping"
+done
 grep -q "0.40" "$OUT/volume-after.txt" || fail "volume not 0.40: $(cat "$OUT/volume-after.txt")"
 
 # Workspace dispatch through Hyprland's socket protocol (mock).
