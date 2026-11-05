@@ -33,8 +33,9 @@ A missing primary falls back to the deprecated `display.output`, the lowest
 Hyprland monitor id, then the first Qt screen. Disconnected connector settings
 are kept; a renamed connector uses defaults until its new name is configured.
 `display.output` remains readable for one release. `warnOnMultipleDisplays`
-is accepted and ignored. Profile selection is metadata for the separate OLED
-profile work; profile metadata alone does not change colours or add OLED protection.
+is accepted and ignored. The `standard` profile preserves the theme; `oled`
+uses true-black fills, adjusts the palette and decoration, and enables the
+idle protection configured by `display.oled` below.
 
 The reference below is generated from `shell/lib/config.mjs`, the single
 source of truth, by `node tools/gen-config-doc.mjs` (CI checks it is current).

@@ -420,7 +420,7 @@ Scope {
                 not_installed: "Install the provider CLI or run: aerolith ai configure",
                 not_authenticated: "Sign in with the provider's own command (claude / codex login) in a terminal",
                 timeout: "Raise timeoutSeconds in ai.json if this provider is slow",
-                incompatible_version: "Update AEROLITH or the provider CLI; see docs/INTEGRATIONS.md",
+                incompatible_version: "Update AEROLITH or the provider CLI, then run: aerolith ai configure",
                 config_error: "Check ~/.config/aerolith/ai.json (aerolith ai status)",
                 disabled: "Enable with: aerolith ai enable"
             };

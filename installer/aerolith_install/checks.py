@@ -151,11 +151,10 @@ def run_checks(lay: Layout) -> list[Check]:
     mons = hyprland_monitors()
     if mons is None:
         out.append(Check("displays", INFO, "Hyprland is not running here; display check skipped"))
-    elif len(mons) == 1:
-        out.append(Check("displays", OK, f"one display ({mons[0].get('name')}, {mons[0].get('width')}x{mons[0].get('height')})"))
     else:
-        names = ", ".join(str(m.get("name")) for m in mons)
-        out.append(Check("displays", WARN, f"{len(mons)} displays ({names}). AEROLITH supports one display and will run on one of them only; set display.output to choose."))
+        displays = ", ".join(f"{m.get('name')}, {m.get('width')}x{m.get('height')}" for m in mons)
+        label = "display" if len(mons) == 1 else "displays"
+        out.append(Check("displays", OK, f"{len(mons)} {label} ({displays})"))
     for fam, pkg in (("Inter", "inter-font"), ("JetBrains Mono", "ttf-jetbrains-mono")):
         have = font_available(fam)
         if have is not None:

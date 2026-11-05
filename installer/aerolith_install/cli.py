@@ -40,8 +40,8 @@ AI_CHOICES = [
     (
         "custom",
         "Custom: a program you provide",
-        "Any executable that speaks AEROLITH's documented adapter protocol\n"
-        "(docs/INTEGRATIONS.md). You are responsible for where it sends data.",
+        "A program that accepts an AEROLITH JSON request or a plain-text prompt on stdin\n"
+        "and returns a reply on stdout. You are responsible for where it sends data.",
     ),
     (
         "none",
@@ -288,8 +288,8 @@ def plan_ai(args: argparse.Namespace, ui: Ui, lay: Layout, src: Path, manifest: 
         bridge_src = None
         if not (lay.ai_module / "AiModule.qml").is_file():
             raise Abort(
-                "the AI Bridge is a separate package: build and install aerolith-ai-bridge (packaging/arch, "
-                "`makepkg`), then run this again. Nothing was changed"
+                "the AI Bridge is a separate package: install aerolith-ai-bridge, "
+                "then run this again. Nothing was changed"
             )
     else:
         bridge_src = ai_bridge_source(src, lay)
@@ -425,7 +425,7 @@ def plan_hypr(args: argparse.Namespace, ui: Ui, lay: Layout, manifest: Manifest,
     ui.say(f"  One block appended to YOUR {tilde(main)} (a backup is taken first):")
     ui.code(f"{begin}\n{body}\n{end}")
     if not ui.confirm(f"Add this include block to {main.name}?", default=None if not args.yes else True):
-        ui.info("not editing your Hyprland config; include the fragment yourself (see docs/INSTALLATION.md)")
+        ui.info("not editing your Hyprland config; add the include block shown above yourself (`aerolith hypr show` shows the integration)")
         manifest.hypr_dialect = dialect
 
         def write_fragment_only() -> None:

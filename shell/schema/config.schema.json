@@ -25,6 +25,7 @@
         "output": {
           "type": "string",
           "description": "Deprecated alias for display.primary (one release). Used when primary is empty or unavailable.",
+          "deprecated": true,
           "default": "",
           "maxLength": 64
         },
@@ -99,6 +100,7 @@
         "warnOnMultipleDisplays": {
           "type": "boolean",
           "description": "Retired; accepted for compatibility and ignored. All enabled outputs get surfaces.",
+          "deprecated": true,
           "default": true
         }
       }

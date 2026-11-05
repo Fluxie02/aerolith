@@ -329,6 +329,19 @@ def test_uninstall_without_manifest_removes_nothing(system, home, capsys):
 
 # --- hyprland details ---------------------------------------------------------------
 
+@pytest.mark.parametrize("monitors, status, detail", [
+    (None, checks.INFO, "Hyprland is not running here; display check skipped"),
+    ([], checks.OK, "0 displays ()"),
+    ([{"name": "DP-1", "width": 1920, "height": 1080}], checks.OK, "1 display (DP-1, 1920x1080)"),
+    ([{"name": "DP-1", "width": 1920, "height": 1080}, {"name": "HDMI-A-1", "width": 3840, "height": 2160}],
+     checks.OK, "2 displays (DP-1, 1920x1080, HDMI-A-1, 3840x2160)"),
+])
+def test_displays_check_supports_multiple_outputs(system, monkeypatch, monitors, status, detail):
+    monkeypatch.setattr(checks, "hyprland_monitors", lambda: monitors)
+    result = next(c for c in checks.run_checks(layout()) if c.name == "displays")
+    assert result.status == status
+    assert result.detail == detail
+
 @pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
 def test_layer_rules_managed_roundtrip(system, home, dialect):
     lay = layout()
@@ -345,6 +358,7 @@ def test_layer_rules_managed_roundtrip(system, home, dialect):
     original = main.read_bytes()
     expected = [rule(ns) for ns in (
         "aerolith-ground", "aerolith-strip", "aerolith-deck", "aerolith-notices", "aerolith-osd", "aerolith-session",
+        "aerolith-tour", "aerolith-network", "aerolith-bluetooth",
     )]
     frag = hypr.fragment_path(lay, dialect)
     assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0

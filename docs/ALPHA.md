@@ -9,8 +9,9 @@ may still be renamed.
 
 - Arch Linux (or an Arch-based distribution) with **Hyprland** running.
 - **Quickshell 0.3.0 or newer**, Python 3.11 or newer.
-- One display. With several connected, AEROLITH runs on one of them
-  (choose it with `display.output` in `~/.config/aerolith/config.json`).
+- One or more displays. Ground and the Flight Strip run on every enabled
+  output. Set `display.primary` and per-output `display.outputs` options in
+  `~/.config/aerolith/config.json`; see [Configuration](CONFIGURATION.md).
 
 `./install.sh` checks all of this first and says what is missing.
 
@@ -38,12 +39,24 @@ anything it changes.
 - **Super + Space** (or a click on AEROLITH in the top bar) opens the command
   overlay: type to search apps and commands. **Super + Tab** shows all
   windows, **Super + Shift + Escape** the session menu (lock, log out,
-  power). Inside the overlay, **F1** lists every shortcut. The Super keys
-  are added when you let the installer set up Hyprland (`aerolith hypr
+  power). Inside the overlay, **F1** shows shortcut help and available commands.
+  The Super keys are added when you let the installer set up Hyprland (`aerolith hypr
   show` lists them).
 - The desktop shows your workspaces, open windows and an application bar:
   click an application to switch to it, again to go to its next window, or
   to start it.
+- The Hatch opens scratch space: click it or press **Super + S** to toggle;
+  **Super + Shift + S** parks the focused window there.
+- Click the network or Bluetooth indicator in the Flight Strip to open its
+  picker. Network controls include Wi-Fi power, scanning and connections;
+  Bluetooth controls include power, discovery, pairing and connections.
+  Enterprise Wi-Fi needs setup in an external tool first.
+- A first-run tour introduces the Hatch, workspaces, search, apps and strip.
+  Enter/Right advances, Left goes back and Esc skips. Replay it by searching
+  for **Show the tour again** in Command Core (`tour.enabled` must be true).
+- OLED outputs can use `display.outputs.<connector>.profile: "oled"` for
+  black fills and idle dimming/decoration hiding; configure `display.oled`
+  in [Configuration](CONFIGURATION.md). This does not change monitor brightness.
 - Fullscreen games: AEROLITH steps back while a window is fullscreen and
   comes back when it leaves.
 - The lock screen is off by default. Turn it on with
@@ -56,12 +69,7 @@ anything it changes.
 
 ## Known gaps in this alpha
 
-- **The desktop design is being reworked.** Decoration that does nothing,
-  parts that are too big (the wing, the application bar) and unclear labels
-  are known; see the owner brief.
-- The application bar shows a fixed five applications (Firefox,
-  LibreOffice, Steam, Discord, ArtCraft) instead of your own.
-- No network or Bluetooth controls in the top bar yet.
+- **The desktop design is being reworked.** See the owner brief for its direction.
 - Fullscreen detection on named workspaces and NVIDIA memory readings were
   fixed after a real-hardware report and still need a second confirmation.
 - No Arch package yet: install from the repository as above.

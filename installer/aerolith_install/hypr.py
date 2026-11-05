@@ -31,6 +31,7 @@ END_CONF = "# <<< AEROLITH"
 LAYER_NAMESPACES = (
     "aerolith-ground", "aerolith-strip", "aerolith-deck",
     "aerolith-notices", "aerolith-osd", "aerolith-session",
+    "aerolith-tour", "aerolith-network", "aerolith-bluetooth",
 )
 
 # name -> (modifiers, key, description). Function keys are rarely bound, so

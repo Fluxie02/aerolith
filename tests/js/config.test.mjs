@@ -135,6 +135,74 @@ export default suite("config", (test) => {
     assert.equal(js.properties.theme.properties.palette.additionalProperties.pattern, "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$");
   });
 
+  test("retired display keys are hidden metadata but remain readable for compatibility", assert => {
+    const display = SCHEMA.props.display.props;
+    const jsonDisplay = toJsonSchema().properties.display.properties;
+    for (const key of ["output", "warnOnMultipleDisplays"]) {
+      assert.equal(display[key].hidden, true);
+      assert.equal(display[key].deprecated, true);
+      assert.equal(jsonDisplay[key].deprecated, true);
+    }
+    assert.ok(!display.primary.hidden);
+    const result = validateConfig('{"display":{"output":"DP-2","warnOnMultipleDisplays":false}}');
+    assert.equal(result.errors.length, 0);
+    assert.equal(result.config.display.output, "DP-2");
+    assert.equal(result.config.display.warnOnMultipleDisplays, false);
+  });
+
+  test("setPath rejects invalid array items, types and limits without mutating input", assert => {
+    const raw = { commandCore: { terminal: ["foot"] }, custom: { keep: 1 } };
+    const tooMany = [];
+    for (let i = 0; i < 17; i++) tooMany.push("arg");
+    for (const value of [[1], "foot", null, tooMany, ["x".repeat(257)]]) {
+      const result = setPath(raw, "commandCore.terminal", value);
+      assert.match(result.error, /commandCore\.terminal/);
+      assert.equal(result.raw, undefined, "invalid arrays must not produce a writable config");
+    }
+    assert.deepEqual(raw, { commandCore: { terminal: ["foot"] }, custom: { keep: 1 } });
+    const result = setPath(raw, "commandCore.terminal", ["kitty", "-e"]);
+    assert.equal(result.error, undefined);
+    assert.deepEqual(result.raw.commandCore.terminal, ["kitty", "-e"]);
+    assert.deepEqual(result.raw.custom, raw.custom);
+  });
+
+  test("setPath validates nested output profiles and map values", assert => {
+    const raw = { display: { outputs: { "DP-1": { profile: "standard" } } } };
+    for (const value of [{ "DP-1": { profile: "invalid" } }, { "DP-1": { strip: 1 } }, { "DP-1": [] }, [], null]) {
+      const result = setPath(raw, "display.outputs", value);
+      assert.match(result.error, /display\.outputs/);
+      assert.equal(result.raw, undefined);
+    }
+    assert.match(setPath(raw, "display.outputs", { "DP-1": { profile: "invalid" } }).error, /display\.outputs\.DP-1\.profile/);
+    assert.match(setPath(raw, "theme.palette", { signal: "orange" }).error, /theme\.palette\.signal/);
+    assert.deepEqual(raw.display.outputs, { "DP-1": { profile: "standard" } });
+    const outputs = { "DP-1": { profile: "oled", strip: false }, "DP-2": {} };
+    const result = setPath(raw, "display.outputs", outputs);
+    assert.equal(result.error, undefined);
+    assert.deepEqual(result.raw.display.outputs, outputs);
+    assert.equal(validateConfig(JSON.stringify(result.raw)).errors.length, 0);
+  });
+
+  test("setPath repairs a subtree despite unrelated errors and preserves unknown keys", assert => {
+    const raw = {
+      commandCore: { terminal: [1], future: "keep" },
+      display: { outputs: { "DP-1": { profile: "bad" } } },
+      strip: { edge: "left", future: true },
+      custom: { keep: [1, 2] }
+    };
+    const terminal = setPath(raw, "commandCore.terminal", ["foot"]);
+    assert.equal(terminal.error, undefined);
+    assert.equal(terminal.raw.commandCore.future, "keep");
+    assert.equal(terminal.raw.display.outputs["DP-1"].profile, "bad");
+    const outputs = { "DP-1": { profile: "oled", future: "kept" } };
+    const result = setPath(terminal.raw, "display.outputs", outputs);
+    assert.equal(result.error, undefined);
+    assert.deepEqual(result.raw.display.outputs, outputs);
+    assert.deepEqual(result.raw.strip, raw.strip);
+    assert.deepEqual(result.raw.custom, raw.custom);
+    assert.deepEqual(raw.commandCore.terminal, [1]);
+  });
+
   test("no AI settings in the core schema", (assert) => {
     assert.equal(SCHEMA.props.ai, undefined);
     assert.equal(JSON.stringify(SCHEMA).toLowerCase().indexOf("claude"), -1);
