@@ -106,17 +106,27 @@ Singleton {
         value: root.ambientHeld
     }
 
-    readonly property var triggers: ["fullscreen", "workspacev2", "workspace", "activewindowv2", "openwindow", "closewindow", "movewindowv2", "movewindow", "activespecial", "activespecialv2", "focusedmon", "focusedmonv2", "monitoradded", "monitoraddedv2", "monitorremoved", "monitorremovedv2", "configreloaded"]
+    readonly property var triggers: ["fullscreen", "workspacev2", "workspace", "createworkspacev2", "destroyworkspacev2", "moveworkspacev2", "activewindowv2", "openwindow", "closewindow", "movewindowv2", "movewindow", "activespecial", "activespecialv2", "focusedmon", "focusedmonv2", "monitoradded", "monitoraddedv2", "monitorremoved", "monitorremovedv2", "configreloaded"]
     Connections {
         target: root.available ? Hyprland : null
         function onRawEvent(event) {
             if (root.triggers.indexOf(event.name) >= 0) refresh.restart();
         }
     }
+    Connections {
+        target: root.available ? Hyprland.monitors : null
+        // Reconcile after a reply changes model membership too: the raw
+        // hotplug refresh may have been dropped behind that pending request.
+        function onValuesChanged() { refresh.restart(); }
+    }
     Timer {
         id: refresh
         interval: 30
         onTriggered: {
+            // A late pre-hotplug monitor reply can remove the new monitor
+            // from Quickshell's model. Workspace snapshots restore its link;
+            // refreshMonitors() alone only updates already tracked monitors.
+            Hyprland.refreshWorkspaces();
             Hyprland.refreshToplevels();
             Hyprland.refreshMonitors();
         }

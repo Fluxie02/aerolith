@@ -59,6 +59,7 @@ probe='''
             const notices = noticeLoader.item;
             return JSON.stringify({ stripDemand: Telemetry.stripDemand, samples: Telemetry.samplesTaken,
                 covered: Theme.coveredOutputs,
+                detection: ShellState.detection, lifecycle: ShellState.outputStates,
                 notificationServer: Notifications.server !== null, popupHeld: Notifications.held, noticesInDeck: ShellState.noticesInDeck,
                 deckContents: contents(deck),
                 grounds: grounds.instances.map(surface),
@@ -92,6 +93,7 @@ wait_check() {
     sleep 0.1
   done
   cat "$OUT/check-error.txt" >&2
+  mock '{"op":"state"}' >"$OUT/mock-failure.json"
   fail "$expression"
 }
 config() {
@@ -198,6 +200,7 @@ wait_check 'len(o)==2 and all(not x["released"] for x in o.values()) and len(p["
 primary_game=$(mock '{"op":"open","class":"mm1-primary-game","title":"Primary game","workspace":1}' | python3 -c 'import json,sys;print(json.load(sys.stdin)["address"])')
 mock "{\"op\":\"fullscreen\",\"address\":\"$primary_game\",\"mode\":2}" >/dev/null
 wait_check "o['HEADLESS-1']['released'] and not o['$second']['released'] and all(x['loaded']==(x['output']=='$second') for x in p['grounds']+p['strips'])"
+wait_check "any(m['name']=='$second' and m['activeWorkspaceId']==5 for m in p['detection']['monitors'])"
 wait_check "p['stripDemand']==1 and all(all(c['ambient'] for c in x['consumers']) for x in p['grounds'] if x['output']=='$second')"
 mock "{\"op\":\"fullscreen\",\"address\":\"$primary_game\",\"mode\":0}" >/dev/null
 wait_check 'all(not x["released"] for x in o.values()) and all(x["loaded"] for x in p["grounds"]+p["strips"])'

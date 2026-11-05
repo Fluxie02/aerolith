@@ -641,6 +641,12 @@ class Mock:
                 self.state.monitors.append(mon)
                 self.state.active_by_monitor[name] = wid
                 self.state.workspace_monitors[wid] = name
+                # Hyprland v0.56.2: CMonitor::onConnect calls setupDefaultWS
+                # (src/output/Monitor.cpp:321) before monitoradded[v2]
+                # (:387-388). CWorkspace::init emits creation first
+                # (src/desktop/Workspace.cpp:72-73).
+                self.emit("createworkspace", self.state.ws_name(wid))
+                self.emit("createworkspacev2", f"{wid},{self.state.ws_name(wid)}")
                 self.emit("monitoradded", mon["name"])
                 self.emit("monitoraddedv2", f"{mid},{mon['name']},{mon['description']}")
                 return {"ok": True}
