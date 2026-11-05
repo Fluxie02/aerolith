@@ -180,22 +180,29 @@ if [ "$notifications" = 1 ]; then
   wait_field popups 0 4 || fail "the popup never expired after fullscreen"
 fi
 
-# RSS is noisy and may retain allocator caches. Flag sustained growth above
-# an explicit 8 MiB budget in BOTH sampled intervals, rather than one bump.
-# Keep every sample for review; this is a regression screen, not leak proof.
+# RSS is noisy and may retain allocator caches: single samples at cycles 1,
+# 10 and 20 swing by +/-20 MiB on a healthy shell (measured on main), so a
+# three-point check fails at random. Fit a least-squares slope over cycles
+# 3-20 (the first cycles warm caches) and keep the same budget: 8 MiB per 10
+# cycles. Keep every sample for review; a regression screen, not leak proof.
 python3 - "$OUT/rss.tsv" "$OUT/rss-summary.json" <<'PY'
 import csv, json, sys
 with open(sys.argv[1]) as f:
     rows = {int(r['cycle']): int(r['rss_kib']) for r in csv.DictReader(f, delimiter='\t')}
-a, b, c = (rows[n] for n in (1, 10, 20))
-steady = b - a > 8192 and c - b > 8192
+xs = [x for x in sorted(rows) if x >= 3]
+mx = sum(xs) / len(xs)
+my = sum(rows[x] for x in xs) / len(xs)
+slope = sum((x - mx) * (rows[x] - my) for x in xs) / sum((x - mx) ** 2 for x in xs)
+budget = 8192 / 10
+steady = slope > budget
 result = {'rss_kib': {str(n): rows[n] for n in (1, 10, 20)},
-          'interval_budget_kib': 8192, 'steady_growth': steady}
+          'slope_kib_per_cycle': round(slope), 'budget_kib_per_cycle': budget,
+          'samples': len(xs), 'steady_growth': steady}
 with open(sys.argv[2], 'w') as f:
     json.dump(result, f, indent=2)
 print(json.dumps(result))
 if steady:
-    sys.exit('FAIL: RSS grew by more than 8 MiB in both intervals; investigate before approving B05')
+    sys.exit('FAIL: RSS grows by more than 8 MiB per 10 cycles (least-squares over cycles 3-20); investigate before approving B05')
 PY
 
 # 8. Hyprland lets a floating client take focus above fullscreen without
