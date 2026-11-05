@@ -9,8 +9,8 @@ Opus's synthesis for the owner. Its sources:
   costs and corrections.
 
 Everything below describes `main` at 9729b47 unless it is marked
-*proposed*. Nothing here is built yet, apart from the quick fixes listed in
-§5 Phase 0.
+*proposed*. Nothing here is built yet, apart from the quick fixes in §5
+Phase 0, which are done in this PR.
 
 ## 1. Assessment
 
@@ -233,10 +233,10 @@ Diagnostics run only on request, through `Exec` (argv, timeout).
 
 ## 5. Implementation roadmap
 
-**Phase 0: quick, safe fixes (in progress now)**
+**Phase 0: quick, safe fixes (done, in this PR)**
 - **Opus (done):** the Wi-Fi picker says "enterprise" only for real
   enterprise types, after Astra's review.
-- **Sol (QF-1, running):**
+- **Sol (QF-1, done; Opus verified: JS 238, pytest 310, config doc check, smoke):**
   - Hyprland layer rules for the tour, network and Bluetooth surfaces;
   - the outdated "supports one display" doctor warning;
   - the three dead doc references;
