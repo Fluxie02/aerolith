@@ -7,6 +7,11 @@ import "../lib/appbus.mjs" as Bus
 Item {
     id: bus
     property var profile: Theme
+    readonly property var geometry: Theme.groundGeometry(parent ? parent.width : 0, parent ? parent.height : 0, Screen.name)
+    x: geometry.apps.x; y: geometry.apps.y
+    width: geometry.apps.width; height: geometry.apps.height
+    objectName: "appBar"
+    AnchorTarget { name: "apps"; anchors.fill: parent; active: !bus.instrument }
     property bool instrument: false
     property var rankedEntries: Apps.barApps
     readonly property bool exposed: visible && Window.window && Window.window.visible

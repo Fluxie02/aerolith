@@ -44,13 +44,15 @@ export function fullscreenMode(ipc) {
 // Returns { fullscreen, address, appClass } for the window that owns the
 // selected output, or fullscreen false. A shown special workspace sits on top
 // of the fullscreen window, so the output is not considered taken then.
-export function outputFullscreen(snapshot) {
+// The name-mismatch fallback is only safe when Qt also has just one output;
+// an incomplete IPC monitor model during hotplug does not imply that.
+export function outputFullscreen(snapshot, allowSingleMonitor = true) {
   const none = { fullscreen: false, address: "", appClass: "" };
   if (!snapshot || !Array.isArray(snapshot.monitors) || !Array.isArray(snapshot.clients)) return none;
   let monitor = null;
   for (let i = 0; i < snapshot.monitors.length; i++)
     if (snapshot.monitors[i].name === snapshot.output) monitor = snapshot.monitors[i];
-  if (!monitor && snapshot.monitors.length === 1) monitor = snapshot.monitors[0];
+  if (!monitor && allowSingleMonitor && snapshot.monitors.length === 1) monitor = snapshot.monitors[0];
   // Hyprland numbers named workspaces from -1337 down; -1 is its invalid id
   // and the snapshot's "unknown".
   if (!monitor || !Number.isInteger(monitor.activeWorkspaceId) || monitor.activeWorkspaceId === -1) return none;
@@ -177,7 +179,7 @@ export function createOutputLifecycles(options) {
         }
         const e = entries[name];
         e.detected = outputFullscreen(snapshot ? { output: output.monitorName || name,
-          monitors: snapshot.monitors, clients: snapshot.clients } : null);
+          monitors: snapshot.monitors, clients: snapshot.clients } : null, outputs.length === 1);
         e.lifecycle.update(e.detected.fullscreen);
       }
       publish();

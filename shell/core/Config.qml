@@ -13,7 +13,17 @@ Singleton {
     id: root
 
     property var raw: ({})
-    property var data: ConfigLib.defaultsOf(ConfigLib.SCHEMA)
+    // raw is committed only. Queued immediate edits have a separate projection
+    // for stepping controls; only the explicit appearance draft reaches data.
+    readonly property var committedData: ConfigLib.previewData(raw, null)
+    readonly property var data: ConfigLib.previewData(raw, preview)
+    readonly property var projectedData: ConfigLib.previewData(projectedRaw(), preview)
+    property var preview: null
+    readonly property bool previewActive: preview !== null
+    readonly property bool previewDirty: previewActive && preview.changes.length > 0
+    readonly property var previewConflicts: previewActive ? ConfigLib.conflictsFor(raw, preview.changes) : []
+    property string previewError: ""
+    property bool previewApplying: false
     property var errors: []
     property var warnings: []
     property bool loaded: false
@@ -64,6 +74,7 @@ Singleton {
     readonly property var routines: data.routines
     readonly property var notifications: data.notifications
 
+    signal committedChanged
     signal reloaded
     signal saveFailed(string message)
 
@@ -93,7 +104,7 @@ Singleton {
         fileBroken = r.invalidJson === true;
         if (!fileBroken)
             hasGood = true;
-        data = r.config;
+        const previousRaw = JSON.stringify(raw);
         errors = r.errors;
         warnings = r.warnings;
         try {
@@ -103,11 +114,13 @@ Singleton {
         }
         loaded = true;
         revision++;
-        Log.level = data.logging.level;
+        Log.level = committedData.logging.level;
         for (let i = 0; i < errors.length; i++)
             Log.warn("config", errors[i].path + ": " + errors[i].message);
         for (let i = 0; i < warnings.length; i++)
             Log.info("config", warnings[i].path + ": " + warnings[i].message);
+        if (JSON.stringify(raw) !== previousRaw || revision === 1)
+            committedChanged();
         reloaded();
     }
 
@@ -119,20 +132,69 @@ Singleton {
     property bool reloadPending: false
     property bool freshStarted: false
 
-    // Returns an immediate validation error, or accepts a queued save. Disk
-    // conflicts/read/write failures are reported through saveFailed.
-    function setValue(path, value) {
+    function projectedRaw() {
         let projected = raw;
         for (const pending of saves) {
-            const prior = ConfigLib.setPath(projected, pending.path, pending.value);
-            if (!prior.error) projected = prior.raw;
+            if (!pending.cancelled)
+                projected = ConfigLib.overlay(projected, pending.changes);
         }
-        const r = ConfigLib.setPath(projected, path, value);
+        return projected;
+    }
+
+    // Returns a validation error, or accepts ONE batch in the serialized queue.
+    // Async conflicts/read/write failures are reported through saveFailed.
+    function setValues(values) {
+        if (previewActive || previewApplying) return "Apply or cancel the preview before saving settings";
+        const r = ConfigLib.prepareBatch(projectedRaw(), values);
         if (r.error) return r.error;
-        saves = saves.concat([{ path: path, value: value,
-            expected: ConfigLib.getPath(projected, path) }]);
+        if (!r.changes.length) return "";
+        saves = saves.concat([{ changes: r.changes, isPreview: false, cancelled: false }]);
         Qt.callLater(root.saveNext);
         return "";
+    }
+
+    function setValue(path, value) {
+        return setValues([{path: path, value: value}]);
+    }
+
+    function beginPreview() {
+        if (previewActive) return "A preview is already active";
+        if (!loaded) return "Wait for configuration to load";
+        if (saves.length || savePhase) return "Wait for pending settings to finish saving";
+        if (fileBroken) return "Fix the configuration file before previewing settings";
+        previewError = "";
+        preview = ConfigLib.beginPreview(raw);
+        return "";
+    }
+
+    function setPreviewValues(values) {
+        if (previewApplying) return "Wait for Apply to finish";
+        const r = ConfigLib.setPreviewValues(preview, values);
+        previewError = r.error || "";
+        if (r.error) return r.error;
+        preview = r.preview;
+        return "";
+    }
+
+    function applyPreview() {
+        if (!previewActive) return "No preview is active";
+        if (previewApplying) return "Wait for Apply to finish";
+        if (!previewDirty) { cancelPreview(); return ""; }
+        previewError = "";
+        previewApplying = true;
+        saves = saves.concat([{changes: preview.changes, isPreview: true, cancelled: false}]);
+        Qt.callLater(root.saveNext);
+        return "";
+    }
+
+    function cancelPreview() {
+        // Invalidate even an Apply waiting for its fresh read/write callback.
+        // Once setText has submitted an authorized atomic commit it may finish.
+        for (const request of saves) {
+            if (request.isPreview) request.cancelled = true;
+        }
+        preview = null;
+        previewError = "";
     }
 
     function saveNext() {
@@ -149,23 +211,33 @@ Singleton {
     function readForSave(text) {
         if (savePhase !== "reading") return;
         const request = saves[0];
-        const r = ConfigLib.mergeChange(text, request.path, request.value, request.expected);
+        if (request.cancelled) { finishSave(""); return; }
+        const r = ConfigLib.mergeChanges(text, request.changes);
         // Adopt external edits even when this request conflicts or is invalid.
         diskText = text;
         apply(text);
         if (r.error) { finishSave(r.error); return; }
         writeText = JSON.stringify(r.raw, null, 2) + "\n";
-        if (writeText === text) { finishSave(""); return; }
+        if (writeText === text) {
+            if (request.isPreview) preview = null;
+            finishSave("");
+            return;
+        }
         savePhase = "writing";
         // Leave FileView's load-completion handler before starting its write.
         Qt.callLater(root.writeSave);
     }
 
     function writeSave() {
+        if (saves[0].cancelled) { finishSave(""); return; }
         fresh.setText(writeText);
     }
 
     function finishSave(message) {
+        if (saves.length && saves[0].isPreview) {
+            previewApplying = false;
+            if (previewActive) previewError = message;
+        }
         saves = saves.slice(1);
         savePhase = "";
         if (message) {
@@ -193,6 +265,7 @@ Singleton {
             root.fileMissing = false;
             root.diskText = root.writeText;
             root.apply(root.diskText);
+            if (root.saves[0].isPreview) root.preview = null;
             root.finishSave("");
         }
         onLoaded: root.readForSave(text())

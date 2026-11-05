@@ -53,6 +53,40 @@ def system(home, bindir, monkeypatch, tmp_path):
         ''',
     )
     write_exe(bindir / "sudo", "import os, sys\nos.execvp(sys.argv[1], sys.argv[1:])\n")
+    monkeypatch.setenv("FAKE_SYSTEMCTL_STATE", str(tmp_path / "systemctl-state.json"))
+    monkeypatch.setenv("FAKE_SYSTEMCTL_LOG", str(tmp_path / "systemctl-log.jsonl"))
+    write_exe(bindir / "systemctl", r'''
+        import json, os, sys
+        from pathlib import Path
+        args = sys.argv[1:]
+        assert args.pop(0) == "--user", args
+        with open(os.environ["FAKE_SYSTEMCTL_LOG"], "a") as log:
+            log.write(json.dumps(args) + "\n")
+        if os.environ.get("FAKE_USER_BUS") == "missing":
+            print("Failed to connect to user bus", file=sys.stderr); sys.exit(1)
+        state_path = Path(os.environ["FAKE_SYSTEMCTL_STATE"])
+        state = json.loads(state_path.read_text()) if state_path.exists() else {"enabled": False, "active": False}
+        cmd = args[0]
+        failure = os.environ.get("FAKE_SYSTEMCTL_FAIL")
+        marker = state_path.with_suffix(".failed")
+        if cmd == failure and not marker.exists():
+            marker.touch()
+            if cmd == "enable":
+                state["enabled"] = True  # simulate partially written wants symlinks
+                state_path.write_text(json.dumps(state))
+            print("injected failure", file=sys.stderr); sys.exit(1)
+        if cmd == "is-enabled":
+            print("enabled" if state["enabled"] else "disabled"); sys.exit(0 if state["enabled"] else 1)
+        if cmd == "is-active":
+            print("active" if state["active"] else "inactive"); sys.exit(0 if state["active"] else 3)
+        if cmd == "enable": state["enabled"] = True
+        if cmd == "disable":
+            state["enabled"] = False
+            if "--now" in args: state["active"] = False
+        if cmd == "start": state["active"] = True
+        if cmd in ("enable", "disable", "start"):
+            state_path.write_text(json.dumps(state))
+        ''')
     (home / ".config" / "hypr").mkdir(parents=True)
     return pkgdb
 
@@ -1933,3 +1967,342 @@ def test_alpha_recommended_failure_does_not_require_fonts(system, home, monkeypa
     assert run("--yes", "install", "--ai", "none", "--startup", "manual", "--no-hypr", "--no-themes", "--install-deps") == 0
     assert layout().manifest.is_file()
     assert "Recommended packages could not be installed" in capsys.readouterr().out
+
+
+# --- November P2-SOL-B: installed identity, bounded doctor and startup ---------
+
+
+def systemctl_state():
+    p = Path(os.environ["FAKE_SYSTEMCTL_STATE"])
+    return json.loads(p.read_text()) if p.exists() else {"enabled": False, "active": False}
+
+
+def systemctl_log():
+    p = Path(os.environ["FAKE_SYSTEMCTL_LOG"])
+    return [json.loads(line) for line in p.read_text().splitlines()] if p.exists() else []
+
+
+@pytest.mark.parametrize("dirty", [False, True])
+def test_build_identity_reads_git_without_executing_source(home, bindir, tmp_path, dirty):
+    from aerolith_install import build
+    src = tmp_path / "source"
+    (src / ".git").mkdir(parents=True)
+    init = src / "installer/aerolith_install/__init__.py"
+    init.parent.mkdir(parents=True)
+    init.write_text('__version__ = "9.1.0"\nraise RuntimeError("must not execute")\n')
+    write_exe(bindir / "git", "import sys\n"
+        "assert sys.argv[1] == '--no-optional-locks'\n"
+        "if sys.argv[-2:] == ['rev-parse', 'HEAD']: print('" + "a" * 40 + "')\n"
+        "else: print(" + repr(" M changed.py" if dirty else "") + ")\n")
+    assert build.identity(src) == {"version": "9.1.0", "commit": "a" * 40, "dirty": dirty}
+    assert build.identity(src, packaged=True)["commit"] is None
+
+
+@pytest.mark.parametrize("mode", ["archive", "missing-git", "invalid-revision", "failed-status"])
+def test_build_identity_unknown_git(home, bindir, tmp_path, mode):
+    from aerolith_install import build
+    src = tmp_path / "src"
+    src.mkdir()
+    if mode != "archive":
+        (src / ".git").touch()
+        body = "raise OSError('no git')" if mode == "missing-git" else "print('invalid')"
+        if mode == "failed-status":
+            body = "import sys\nif 'rev-parse' in sys.argv: print('" + "a" * 40 + "')\nelse: sys.exit(1)"
+        write_exe(bindir / "git", body)
+    result = build.identity(src)
+    assert result["dirty"] is None
+    assert result["commit"] == ("a" * 40 if mode == "failed-status" else None)
+
+
+def test_install_records_identity_and_offline_comparison(system, home, monkeypatch, capsys):
+    from aerolith_install import build
+    local = {"version": "0.1.0a1", "commit": "a" * 40, "dirty": True}
+    monkeypatch.setattr(build, "identity", lambda *args, **kwargs: dict(local))
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    m = Manifest.load(layout().manifest)
+    assert (m.source_commit, m.source_dirty) == ("a" * 40, True)
+    local.update(commit="b" * 40, dirty=False)
+    capsys.readouterr()
+    assert run("status", "--json") == 0
+    result = json.loads(capsys.readouterr().out)
+    assert "different local source" in result["source_notice"]
+    assert result["version_label"] == "installed version"
+    assert result["source_dirty"] is True and result["local_source"]["dirty"] is False
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    assert "different local source" in capsys.readouterr().out
+    assert Manifest.load(layout().manifest).source_commit == "b" * 40
+    assert build.comparison(m, {"commit": None}) is None
+
+
+@pytest.mark.parametrize("value,expected", [(None, ""), ("0.1.0a1", "0.1.0a1")])
+def test_manifest_installed_version_compatibility(home, value, expected):
+    lay = layout()
+    m = Manifest()
+    m.save(lay.manifest)
+    raw = json.loads(lay.manifest.read_text())
+    if value is None:
+        del raw["aerolith_version"]
+    else:
+        raw["aerolith_version"] = value
+    lay.manifest.write_text(json.dumps(raw))
+    loaded = Manifest.load(lay.manifest)
+    assert loaded.aerolith_version == expected
+    assert loaded.source_commit is None and loaded.source_dirty is None
+    assert loaded.systemd_enabled is False
+
+
+@pytest.mark.parametrize("content", ['{', '[]', '{"version":1,"aerolith_version":42}',
+    '{"version":1,"source_commit":1234567890123456789012345678901234567890}',
+    '{"version":1,"source_dirty":"false"}', '{"version":1,"systemd_enabled":1}'])
+def test_corrupt_manifest_is_rejected(home, content):
+    lay = layout()
+    lay.state.mkdir(parents=True, exist_ok=True)
+    lay.manifest.write_text(content)
+    with pytest.raises(ValueError):
+        Manifest.load(lay.manifest)
+
+
+@pytest.mark.parametrize("mode,code", [("valid", 0), ("missing", 1), ("corrupt", 2), ("modified", 1), ("config", 1)])
+def test_doctor_json_structure_and_exit_codes(system, home, capsys, mode, code):
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    lay = layout()
+    if mode == "missing": lay.manifest.unlink()
+    if mode == "corrupt": lay.manifest.write_text('{')
+    if mode == "modified": (lay.shell / "shell.qml").write_text("changed")
+    if mode == "config": lay.config_file.write_text('{')
+    capsys.readouterr()
+    assert run("doctor", "--json") == code
+    result = json.loads(capsys.readouterr().out)
+    assert result["exit_code"] == code
+    assert result["checks"] and "quickshell/by-id" in result["log_location"]
+    assert "hyprland_version" in result
+    assert all({"section", "name", "status", "detail", "package"} <= c.keys() for c in result["checks"])
+    assert any(c["name"] == "Hyprland version (executable)" and c["detail"] == "0.56.2" for c in result["checks"])
+    if code in (1, 2) and mode != "missing":
+        assert any(c["status"] == "fail" for c in result["checks"])
+    assert run("doctor") == code
+    assert "shell log location" in capsys.readouterr().out
+
+
+def test_doctor_probe_timeout_keeps_partial_results(system, home, bindir, monkeypatch, capsys):
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    # An actual blocking child must be reaped and later probes must still run.
+    write_exe(bindir / "qs", "import time\ntime.sleep(30)\n")
+    monkeypatch.setattr(cli, "DOCTOR_CHECK_SECONDS", 0.1)
+    capsys.readouterr()
+    assert run("doctor", "--json") == 1
+    result = json.loads(capsys.readouterr().out)
+    assert any(c["name"] == "quickshell version" and "timed out" in c["detail"] for c in result["checks"])
+    assert any(c["name"] == "installed files" and c["status"] == "ok" for c in result["checks"])
+
+
+def test_doctor_overall_budget_reports_unrun_checks(system, home, monkeypatch, capsys):
+    monkeypatch.setattr(cli, "DOCTOR_TOTAL_SECONDS", 0)
+    assert run("doctor", "--json") == 2
+    result = json.loads(capsys.readouterr().out)
+    assert any("overall diagnostic budget exhausted" in c["detail"] for c in result["checks"])
+
+
+@pytest.mark.parametrize("first,second", [(a, b) for a in ("hyprland", "systemd", "manual") for b in ("hyprland", "systemd", "manual")])
+def test_startup_mode_switches(system, home, first, second):
+    lua_main(home)
+    for mode in (first, second):
+        assert run("--yes", "install", "--ai", "none", "--startup", mode) == 0
+        lay = layout()
+        m = Manifest.load(lay.manifest)
+        assert m.startup == mode and m.systemd_enabled == (mode == "systemd")
+        assert systemctl_state()["enabled"] == (mode == "systemd")
+        assert lay.service.exists() == (mode == "systemd")
+        assert ('hl.exec_cmd(' in (lay.hypr_fragment_dir / "aerolith.lua").read_text()) == (mode == "hyprland")
+    assert all("--now" not in args for args in systemctl_log() if args[0] == "enable")
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert not systemctl_state()["enabled"]
+    assert not lay.service.exists()
+    assert not lay.manifest.exists()
+
+
+@pytest.mark.parametrize("mode", ["systemd", "manual"])
+def test_switch_without_hypr_integration_removes_old_autostart(system, home, mode):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
+    assert run("--yes", "install", "--ai", "none", "--startup", mode, "--no-hypr") == 0
+    assert 'hl.exec_cmd(' not in (layout().hypr_fragment_dir / "aerolith.lua").read_text()
+
+
+@pytest.mark.parametrize("prior,target,failure", [(None, "systemd", "enable"), (None, "systemd", "daemon-reload"),
+    ("hyprland", "systemd", "enable"), ("systemd", "hyprland", "disable"),
+    ("systemd", "manual", "daemon-reload"), ("systemd", "systemd", "enable")])
+def test_startup_failure_rolls_back_files_and_enablement(system, home, monkeypatch, prior, target, failure):
+    main = lua_main(home)
+    if prior:
+        assert run("--yes", "install", "--ai", "none", "--startup", prior) == 0
+    lay = layout()
+    before = snapshot(home)
+    before_state = systemctl_state()
+    monkeypatch.setenv("FAKE_SYSTEMCTL_FAIL", failure)
+    assert run("--yes", "install", "--ai", "none", "--startup", target) == 2
+    after = snapshot(home)
+    # Backups and empty directories are deliberately retained; compare file bytes.
+    assert {k: v for k, v in after.items() if "/backups/" not in k} == {k: v for k, v in before.items() if "/backups/" not in k}
+    assert systemctl_state() == before_state
+    assert main.read_text().startswith(LUA_CONFIG)
+    assert lay.manifest.exists() == bool(prior)
+
+
+def test_no_user_bus_leaves_install_and_uninstall_untouched(system, home, monkeypatch, capsys):
+    lua_main(home)
+    before = snapshot(home)
+    monkeypatch.setenv("FAKE_USER_BUS", "missing")
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 2
+    assert snapshot(home) == before
+    assert "nothing changed" in capsys.readouterr().err
+    monkeypatch.delenv("FAKE_USER_BUS")
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 0
+    before = snapshot(home)
+    monkeypatch.setenv("FAKE_USER_BUS", "missing")
+    assert run("--yes", "uninstall", "--remove-config") == 2
+    assert snapshot(home) == before
+    assert systemctl_state()["enabled"]
+
+
+def test_systemd_unowned_service_is_preserved(system, home):
+    lay = layout()
+    lay.service.parent.mkdir(parents=True)
+    lay.service.write_text("user service")
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 2
+    assert lay.service.read_text() == "user service"
+    assert not lay.manifest.exists()
+
+
+def test_installer_respects_shell_path_overrides(home, monkeypatch):
+    monkeypatch.setenv("AEROLITH_CONFIG_DIR", str(home / "config-override"))
+    monkeypatch.setenv("AEROLITH_STATE_DIR", str(home / "state-override"))
+    assert layout().config == home / "config-override"
+    assert layout().manifest == home / "state-override/manifest.json"
+
+
+@pytest.mark.parametrize("error", [FileNotFoundError("git missing"), subprocess.TimeoutExpired(["git"], 3)])
+def test_build_git_execution_failure_is_unknown(home, tmp_path, monkeypatch, error):
+    from aerolith_install import build
+    (tmp_path / ".git").touch()
+    def fail(*args, **kwargs):
+        raise error
+    monkeypatch.setattr(build.subprocess, "run", fail)
+    assert build.identity(tmp_path)["commit"] is None
+
+
+@pytest.mark.parametrize("body,expected", [(b'{"version":"0.57.1"}', "0.57.1"),
+    (b'{', None), (b'[]', None), (b'{"version":42}', None), (b'{"version":""}', None),
+    (b'x' * 65536, None)])
+def test_running_hyprland_version_uses_instance_socket(home, monkeypatch, body, expected):
+    monkeypatch.setenv("HYPRLAND_INSTANCE_SIGNATURE", "test-instance")
+    monkeypatch.setenv("XDG_RUNTIME_DIR", str(home / "runtime"))
+    class FakeSocket:
+        def __enter__(self): return self
+        def __exit__(self, *args): pass
+        def settimeout(self, seconds): assert seconds == 2
+        def connect(self, path):
+            assert path == str(home / "runtime/hypr/test-instance/.socket.sock")
+        def sendall(self, data): assert data == b"j/version"
+        def recv(self, count):
+            nonlocal body
+            result, body = body[:count], body[count:]
+            return result
+    monkeypatch.setattr(checks.socket, "socket", lambda *args: FakeSocket())
+    assert checks.running_hyprland_version() == expected
+
+
+def test_running_hyprland_version_unavailable(home, monkeypatch):
+    assert checks.running_hyprland_version() is None
+    monkeypatch.setenv("HYPRLAND_INSTANCE_SIGNATURE", "no-socket")
+    monkeypatch.setenv("XDG_RUNTIME_DIR", str(home))
+    assert checks.running_hyprland_version() is None
+
+
+def test_doctor_keeps_other_results_after_hash_timeout(system, home, monkeypatch, capsys):
+    import time
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    monkeypatch.setattr(checks, "run_checks", lambda *args, **kwargs: [])
+    monkeypatch.setattr(checks, "running_hyprland_version", lambda: "0.57.1")
+    monkeypatch.setattr(cli, "DOCTOR_CHECK_SECONDS", 0.1)
+    monkeypatch.setattr(cli, "verify", lambda *args: time.sleep(10))
+    capsys.readouterr()
+    assert run("doctor", "--json") == 1
+    result = json.loads(capsys.readouterr().out)
+    assert result["hyprland_version"] == "0.57.1"
+    assert any(c["name"] == "installed files" and "timed out" in c["detail"] for c in result["checks"])
+    assert any(c["name"] == "configuration" and c["status"] == "ok" for c in result["checks"])
+
+
+def test_doctor_contains_malformed_ai_probe_failure(system, home, fake_claude, monkeypatch, capsys):
+    assert run("--yes", "install", "--ai", "claude", "--startup", "manual") == 0
+    monkeypatch.setattr(cli, "bridge_status", lambda *args: [])
+    capsys.readouterr()
+    assert run("doctor", "--json") == 1
+    result = json.loads(capsys.readouterr().out)
+    assert any(c["name"] == "AI" and c["status"] == "fail" for c in result["checks"])
+    assert any(c["name"] == "installed files" and c["status"] == "ok" for c in result["checks"])
+
+
+@pytest.mark.parametrize("failure", [FileNotFoundError("no systemctl"), subprocess.TimeoutExpired(["systemctl"], 5)])
+def test_systemctl_missing_or_timed_out(home, monkeypatch, failure):
+    from aerolith_install import startup
+    def fail(*args, **kwargs):
+        raise failure
+    monkeypatch.setattr(startup.subprocess, "run", fail)
+    with pytest.raises(RuntimeError, match="user bus unavailable or timed out"):
+        startup.systemctl("show", "--property=Version")
+
+
+def test_startup_rollback_restores_active_service(system, home, monkeypatch):
+    lua_main(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 0
+    Path(os.environ["FAKE_SYSTEMCTL_STATE"]).write_text(json.dumps({"enabled": True, "active": True}))
+    monkeypatch.setenv("FAKE_SYSTEMCTL_FAIL", "daemon-reload")
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 2
+    assert systemctl_state() == {"enabled": True, "active": True}
+    assert ["start", "aerolith.service"] in systemctl_log()
+
+
+@pytest.mark.parametrize("dialect", ["lua", "hyprlang"])
+def test_both_dialects_remove_previous_autostart(system, home, dialect):
+    if dialect == "lua":
+        lua_main(home)
+    else:
+        main = layout().hypr / "hyprland.conf"
+        main.write_text(CONF_CONFIG)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 0
+    old_fragment = hypr.fragment_path(layout(), dialect)
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 0
+    assert 'hl.exec_cmd(' not in old_fragment.read_text()
+    assert 'exec-once = ' not in old_fragment.read_text()
+
+
+def test_startup_modified_unit_is_preserved(system, home):
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 0
+    layout().service.write_text("custom unit")
+    before = snapshot(home)
+    assert run("--yes", "install", "--ai", "none", "--startup", "hyprland") == 2
+    assert snapshot(home) == before
+    assert systemctl_state()["enabled"]
+
+
+def test_systemd_service_has_no_target_ordering_cycle(system, home):
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 0
+    unit = layout().service.read_text()
+    assert "WantedBy=graphical-session.target" in unit
+    assert "After=graphical-session.target" not in unit
+    assert "After=graphical-session-pre.target" in unit
+    calls = systemctl_log()
+    assert calls.index(["daemon-reload"]) < calls.index(["enable", "aerolith.service"])
+
+
+
+def test_uninstall_disable_failure_restores_enablement_and_files(system, home, monkeypatch):
+    assert run("--yes", "install", "--ai", "none", "--startup", "systemd") == 0
+    Path(os.environ["FAKE_SYSTEMCTL_STATE"]).write_text(json.dumps({"enabled": True, "active": True}))
+    before = snapshot(home)
+    monkeypatch.setenv("FAKE_SYSTEMCTL_FAIL", "disable")
+    assert run("--yes", "uninstall", "--remove-config") == 2
+    assert snapshot(home) == before
+    assert systemctl_state() == {"enabled": True, "active": True}

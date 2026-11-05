@@ -69,7 +69,7 @@ FocusScope {
 
     function valueOf(path) {
         Config.revision;
-        return ConfigLib.getPath(Config.data, path);
+        return ConfigLib.getPath(Config.projectedData, path);
     }
 
     function display(row) {
@@ -82,7 +82,7 @@ FocusScope {
     }
 
     function apply(row, value) {
-        const err = Config.setValue(row.path, value);
+        const err = Config.setValues([{path: row.path, value: value}]);
         message = err ? err : row.path + " → " + JSON.stringify(value);
         messageState = err ? "error" : "requested";
     }

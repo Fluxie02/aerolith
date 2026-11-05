@@ -78,6 +78,9 @@ class Manifest:
     version: int = MANIFEST_VERSION
     aerolith_version: str = ""
     source: str = ""
+    source_commit: str | None = None
+    source_dirty: bool | None = None
+    systemd_enabled: bool = False
     created: float = 0.0
     updated: float = 0.0
     files: list[FileEntry] = field(default_factory=list)
@@ -124,10 +127,20 @@ class Manifest:
                 raise ValueError(f"{path}: damaged edit record")
         if not isinstance(data.get("source", ""), str):
             raise ValueError(f"{path}: damaged source record")
+        if (not isinstance(data.get("aerolith_version", ""), str)
+            or (data.get("source_commit") is not None and
+                (not isinstance(data["source_commit"], str) or
+                 not re.fullmatch(r"[a-f0-9]{40,64}", data["source_commit"])))
+            or (data.get("source_dirty") is not None and type(data["source_dirty"]) is not bool)
+            or type(data.get("systemd_enabled", False)) is not bool):
+            raise ValueError(f"{path}: damaged build/startup metadata")
         m = cls(
             version=data["version"],
             aerolith_version=data.get("aerolith_version", ""),
             source=data.get("source", ""),
+            source_commit=data.get("source_commit"),
+            source_dirty=data.get("source_dirty"),
+            systemd_enabled=data.get("systemd_enabled", False),
             created=data.get("created", 0.0),
             updated=data.get("updated", 0.0),
             dirs=list(data.get("dirs", [])),

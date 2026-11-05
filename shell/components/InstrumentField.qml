@@ -7,6 +7,7 @@ import qs.services
 Item {
     id: field
     property var profile: Theme
+    readonly property var geometry: Theme.groundGeometry(width, height, Screen.name)
     property bool instrument: false
     // DeckView supplies progress for API compatibility. Opening moves the
     // retained chord only; its surrounding geometry stays registered.
@@ -22,6 +23,7 @@ Item {
         Connections {
             target: field
             function onProfileChanged() { art.requestPaint(); }
+            function onGeometryChanged() { art.requestPaint(); }
         }
         anchors.fill: parent
         renderTarget: Canvas.Image
@@ -46,7 +48,7 @@ Item {
         }
         onPaint: {
             var c=getContext("2d"); c.reset();
-            var w=width,h=height,x=w*.27,y=h*.55,r=h*.34,L=field.level;
+            var w=width,h=height,x=field.geometry.cx,y=field.geometry.cy,r=field.geometry.ringRadius,L=field.level;
             // Assemble retained geometry with opacity, never repaint a
             // screen-sized Canvas for each ignition frame.
             var boot=1;
@@ -153,6 +155,6 @@ Item {
         opacity: (field.profile.decorationOpacity === undefined ? 1 : field.profile.decorationOpacity) * (field.instrument ? 1 : Math.min(1, Theme.bootProgress * 2))
         Behavior on opacity { enabled: Theme.animate && targetValue < opacity; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
     }
-    Hatch { profile: field.profile; anchors.fill: parent; visible: !field.instrument }
+    Hatch { profile: field.profile; anchors.fill: parent; instrument: field.instrument; visible: !field.instrument }
     Counterphase { profile: field.profile; anchors.fill: parent; instrument: field.instrument }
 }

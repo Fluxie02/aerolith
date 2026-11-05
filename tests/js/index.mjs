@@ -19,5 +19,7 @@ import oledTokens from "./tokens.test.mjs";
 import network from "./network.test.mjs";
 import bluetooth from "./bluetooth.test.mjs";
 import tour from "./tour.test.mjs";
+import anchors from "./anchors.test.mjs";
+import geometry from "./geometry.test.mjs";
 
-export const suites = [displays, outputLifecycles, fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient, oledTokens, network, bluetooth, tour];
+export const suites = [displays, outputLifecycles, fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient, oledTokens, network, bluetooth, tour, anchors, geometry];

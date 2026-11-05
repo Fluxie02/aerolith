@@ -119,6 +119,13 @@ PanelWindow {
     }
 
     property string mappedOutput: ""
+    // A screen change can remap without toggling visible. Record that output
+    // after the move's synchronous closed signal has captured the old one.
+    onScreenChanged: Qt.callLater(recordMappedOutput)
+    function recordMappedOutput() {
+        if (visible)
+            mappedOutput = screen ? screen.name : "";
+    }
     onVisibleChanged: {
         Ui.deckMapped = visible;
         if (visible) {
@@ -129,14 +136,17 @@ PanelWindow {
     // shell.qml unloads the Deck while a fullscreen window owns the output;
     // a destroyed Deck is not mapped.
     Component.onDestruction: Ui.deckMapped = false
-    // A removed output closes its old layer surface. Let Displays settle,
-    // then remap the requested bay on the surviving output. Other compositor
-    // closes still end the bay and its service demand.
+    // Moving to another output can close the old layer surface too. Capture
+    // the move here: by the deferred callback it may already have remapped,
+    // or focus may have moved again. Neither should dismiss the requested bay.
+    // A removed output still waits for Displays to select a surviving screen;
+    // a compositor close on the current output still ends the bay's demand.
     onClosed: {
         const previousOutput = mappedOutput;
+        const moved = Ui.overlayScreen && Ui.overlayScreen.name !== previousOutput;
         Qt.callLater(() => {
             const removed = !Quickshell.screens.some(s => s.name === previousOutput);
-            if (removed && Ui.overlayScreen && Ui.deckOpen) {
+            if ((moved || removed) && Ui.overlayScreen && Ui.deckOpen && !Ui.locked) {
                 deck.screen = Qt.binding(() => Ui.overlayScreen);
                 deck.visible = Qt.binding(() => deck.holdSurface && Ui.overlayScreen !== null);
             } else {

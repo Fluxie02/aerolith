@@ -6,6 +6,8 @@ import qs.services
 // travel; no canvas, texture, timer, thumbnail or independent surface is owned.
 Item {
     id: hatch
+    readonly property var geometry: Theme.groundGeometry(width, height, Screen.name)
+    property bool instrument: false
     property var profile: Theme
     readonly property string outputName: Screen.name
     readonly property bool ambient: Theme.ambientFor(outputName)
@@ -27,10 +29,12 @@ Item {
 
     Item {
         id: entrance
-        x: hatch.width * .59 - width / 2
-        y: hatch.height * .49 - aperture.height / 2 - aperture.y
-        width: Math.min(hatch.width * .18, Theme.du(360))
-        height: aperture.y + aperture.height + Theme.du(88)
+        objectName: "hatchEntrance"
+        AnchorTarget { name: "hatch"; anchors.fill: parent; active: !hatch.instrument }
+        x: hatch.geometry.hatch.x
+        y: hatch.geometry.hatch.y
+        width: hatch.geometry.hatch.width
+        height: hatch.geometry.hatch.height
         enabled: hatch.canToggle
         activeFocusOnTab: hatch.canToggle
         Keys.onReturnPressed: hatch.toggle()
@@ -55,8 +59,8 @@ Item {
 
         Rectangle {
             id: aperture
-            y: Theme.du(28); width: parent.width
-            height: Math.min(hatch.height * .34, Theme.du(380))
+            y: hatch.geometry.apertureY; width: parent.width
+            height: hatch.geometry.apertureHeight
             color: hatch.profile.bg
             border.color: entrance.activeFocus || pointer.containsMouse || hatch.opened ? hatch.profile.signal : hatch.profile.textDim
             border.width: entrance.activeFocus ? Theme.du(2) : Theme.border

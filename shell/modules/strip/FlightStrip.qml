@@ -47,7 +47,12 @@ PanelWindow {
     readonly property bool hideContent: displayProfile.hideContent
     readonly property bool atTop: Config.strip.edge === "top"
     readonly property string telemetryMode: Config.strip.telemetry
-    readonly property bool compact: width < Theme.px(1500)
+    AnchorTarget {
+        name: "strip"; anchors.fill: parent
+        active: !strip.hideContent
+        surfaceOrigin: Qt.point(0, strip.atTop || !strip.screen ? 0 : strip.screen.height - strip.height)
+    }
+    readonly property bool compact: Theme.layoutFor(screen ? screen.width : width, screen ? screen.height : 0, screen ? screen.name : "").compact
 
     // Datum line on the inner edge.
     Rectangle {
@@ -67,6 +72,11 @@ PanelWindow {
 
         // Identity mark: opens the Command Core.
         Item {
+            AnchorTarget {
+                name: "search"; anchors.fill: parent
+                active: !strip.hideContent
+                surfaceOrigin: Qt.point(0, strip.atTop || !strip.screen ? 0 : strip.screen.height - strip.height)
+            }
             opacity: strip.hideContent ? 0 : 1
             Behavior on opacity { enabled: Theme.animate && targetValue < 1; NumberAnimation { duration: Theme.normal; easing.type: Easing.OutCubic } }
             enabled: !strip.hideContent

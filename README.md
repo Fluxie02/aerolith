@@ -21,7 +21,16 @@ Run `./install.sh` interactively, or choose the integrations explicitly:
 ./install.sh --yes --ai none --startup manual --direction piyti --intensity insane --scheme iris
 aerolith install --yes --ai none --startup manual --direction thears --dry-run
 aerolith status --json
+aerolith doctor --json
 ```
+
+`--startup systemd` installs, reloads and enables the user service for the
+next graphical session, without starting it immediately. Switching startup
+modes removes the previous managed path; a reachable user bus is required
+when changing systemd startup or uninstalling it. Status reports the installed
+version and Git identity, with an offline “different local source” notice
+when commits differ. Doctor JSON includes partial failures and bounded checks;
+see [the alpha guide](docs/ALPHA.md).
 
 The installer asks for the application direction once: **PIYTI** (default,
 app windows become part of the shell instrument; the forward design) or

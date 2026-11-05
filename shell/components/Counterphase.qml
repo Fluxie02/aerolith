@@ -12,6 +12,7 @@ Item {
     readonly property string outputName: Screen.name
     readonly property bool ambient: Theme.ambientFor(outputName)
     readonly property bool deckHere: Ui.deckOpen && !!Ui.overlayScreen && Ui.overlayScreen.name === outputName
+    readonly property var geometry: Theme.groundGeometry(width, height, outputName)
     property bool instrument: false
     readonly property bool exposed: visible && Window.window && Window.window.visible
     opacity: profile.decorationOpacity === undefined ? 1 : profile.decorationOpacity
@@ -45,10 +46,9 @@ Item {
         delegate: Item {
             id: bearing
             required property int index
-            x: machine.width * (index === 0 ? .055 : index === 1 ? .72 : .49)
-            y: machine.height * (index === 0 ? .22 : index === 1 ? .79 : .105)
-            width: machine.width * (index === 2 ? .12 : .16)
-            height: Theme.du(11)
+            readonly property var placement: machine.geometry.bearings[index]
+            x: placement.x; y: placement.y
+            width: placement.width; height: placement.height
             opacity: machine.instrument ? .55 : 1
             Rectangle { width: parent.width; height: Theme.du(2); color: machine.profile.grid }
             Rectangle { width: Theme.du(3); height: parent.height; color: machine.profile.textDim }

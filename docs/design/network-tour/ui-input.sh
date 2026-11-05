@@ -4,8 +4,8 @@ ui_is() {
   ui_snapshot 2>/dev/null && python3 - "$OUT/ui.json" "$1" <<'PY' 2>/dev/null
 import json, sys
 s = json.load(open(sys.argv[1]))
-assert eval(sys.argv[2], {'__builtins__': {}},
-            {'s': s, 'all': all, 'any': any, 'len': len}), s
+# Comprehensions resolve free names in globals, including nested uses of s.
+assert eval(sys.argv[2], {'__builtins__': {}, 's': s, 'all': all, 'any': any, 'len': len}), s
 PY
 }
 wait_ui() {

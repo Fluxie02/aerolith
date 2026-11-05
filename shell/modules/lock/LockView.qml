@@ -20,8 +20,11 @@ FocusScope {
     property alias password: entry.text
     signal submitted(string password)
     readonly property bool editable: state === "idle" || state === "failed"
-    readonly property bool compact: height < Theme.du(760)
-    readonly property bool narrow: width < Theme.du(1100)
+    // Local clock/form minima; the lock is independent of shell work-area fit.
+    readonly property int minimumFullClockHeight: Theme.du(760)
+    readonly property int minimumSplitFormWidth: Theme.du(1100)
+    readonly property bool compact: height < minimumFullClockHeight
+    readonly property bool narrow: width < minimumSplitFormWidth
     readonly property color accent: state === "failed" ? root.profile.critical : state === "locked-out" ? root.profile.caution : root.profile.signal
     function submit() {
         if (!editable || !entry.text.length) return;

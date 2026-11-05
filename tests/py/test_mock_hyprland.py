@@ -45,3 +45,43 @@ def test_missing_focus_target_does_not_emit_or_change_state(tmp_path):
     assert mock.control({"op": "focus_window", "address": "0xdead"}) == {"ok": False}
     assert events == []
     assert mock.state.active_addr == ""
+
+
+def test_open_on_new_unfocused_workspace_announces_creation_before_window(tmp_path):
+    mock = mock_module.Mock(str(tmp_path), None, lua=True)
+    events = []
+    mock.emit = lambda name, data: events.append((name, data))
+    address = mock.control({"op": "open", "class": "higher", "title": "Higher", "workspace": 33})["address"]
+    assert events == [
+        ("createworkspace", "33"),
+        ("createworkspacev2", "33,33"),
+        ("openwindow", f"{address[2:]},33,higher,Higher"),
+    ]
+    assert mock.state.active_ws == 1
+    workspace = next(w for w in mock.query("workspaces", "") if w["id"] == 33)
+    assert workspace["windows"] == 1
+    assert next(c for c in mock.query("clients", "") if c["address"] == address)["workspace"]["id"] == 33
+
+    # Opening another client there must not announce the workspace twice.
+    events.clear()
+    second = mock.control({"op": "open", "class": "second", "title": "Second", "workspace": 33})["address"]
+    assert events == [("openwindow", f"{second[2:]},33,second,Second")]
+    assert next(w for w in mock.query("workspaces", "") if w["id"] == 33)["windows"] == 2
+
+
+def test_hotplug_announces_default_workspace_before_monitor(tmp_path):
+    mock = mock_module.Mock(str(tmp_path), None, lua=True)
+    events = []
+    mock.emit = lambda name, data: events.append((name, data))
+    assert mock.control({"op": "add_monitor", "name": "DP-2", "workspace": 5}) == {"ok": True}
+    assert events == [
+        ("createworkspace", "5"),
+        ("createworkspacev2", "5,5"),
+        ("monitoradded", "DP-2"),
+        ("monitoraddedv2", "1,DP-2,Mock Display 1920x1080"),
+    ]
+    workspace = next(w for w in mock.query("workspaces", "") if w["id"] == 5)
+    monitor = next(m for m in mock.query("monitors", "") if m["name"] == "DP-2")
+    assert workspace["monitor"] == monitor["name"]
+    assert monitor["activeWorkspace"]["id"] == 5
+    assert mock.state.active_ws == 1

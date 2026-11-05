@@ -15,10 +15,10 @@ import subprocess
 import sys
 import time
 from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-from . import __version__, checks, hypr, packages, themes
+from . import __version__, build, checks, hypr, packages, startup as startup_service, themes
 from .manifest import Manifest, RemovalReport, atomic_write, copy_tree, prune_dirs, remove_files, sha256
 from .paths import Layout, layout, source_root, tilde
 from .schema import validate_file
@@ -297,7 +297,7 @@ SERVICE = """[Unit]
 Description=AEROLITH desktop shell
 Documentation=file://{shell}/../README.md
 PartOf=graphical-session.target
-After=graphical-session.target
+After=graphical-session-pre.target
 
 [Service]
 ExecStart={qs} -p {shell}
@@ -480,9 +480,13 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     lay = layout()
     src = require_source(args)
     existing = load_manifest(lay)
+    local_build = build.identity(src, packaged=bool(lay.system))
+    source_notice = build.comparison(existing, local_build)
     manifest = existing or Manifest(aerolith_version=__version__, source=str(src))
-    manifest.aerolith_version = __version__
+    manifest.aerolith_version = local_build["version"]
     manifest.source = str(src)
+    manifest.source_commit = local_build["commit"]
+    manifest.source_dirty = local_build["dirty"]
     manifest.mode = lay.mode
 
     ui.title(f"AEROLITH {__version__} · install for {os.environ.get('USER', 'this user')}")
@@ -490,6 +494,10 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
         ui.info(f"using the packaged shell in {lay.shell} (owned by pacman; only your own files are written)")
     if existing:
         ui.info(f"existing installation found (AI: {existing.ai_provider}); this updates it")
+    if source_notice:
+        ui.info(source_notice)
+    if local_build["dirty"]:
+        ui.warn("local source has uncommitted changes; the installed build will be marked dirty")
 
     installation = read_installation(lay)
     current_direction = installation.get("direction")
@@ -681,7 +689,8 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
             atomic_write(lay.service, SERVICE.format(qs=qs, shell=lay.shell))
             manifest.record_file(lay.service, "integration", "service")
 
-        plan.add(f"install {tilde(lay.service)} (enable it with: systemctl --user enable aerolith.service)", install_service)
+        plan.add(f"install {tilde(lay.service)}, daemon-reload and enable aerolith.service", install_service)
+        ui.info("systemd startup will be enabled for the next graphical session; no --now because session target/environment readiness is not assumed")
     plan.add(f"application direction: {direction} (startup only; {tilde(lay.installation_file)})", install_direction)
     for deployment in theme_plans:
         for line in deployment.describe():
@@ -709,15 +718,38 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     # 6. execute with rollback
     done: list[str] = []
     snapshot = Manifest.load(lay.manifest) if lay.manifest.exists() else None
+    transaction = startup_service.Transaction(lay, snapshot, startup)
     try:
+        transaction.preflight()
+    except (OSError, RuntimeError) as exc:
+        transaction.close()
+        raise Abort(f"startup preflight failed; nothing changed: {exc}") from exc
+    try:
+        transaction.prepare(manifest)
         for label, action in plan.actions:
             action()
             done.append(label)
+        if startup == "systemd":
+            transaction.enable(manifest)
+        manifest.save(lay.manifest)
     except (Abort, OSError, RuntimeError) as exc:
         ui.fail(f"installation stopped: {exc}")
-        rollback(lay, manifest, snapshot, ui)
+        try:
+            # Remove possibly partial enablement while the new unit still exists.
+            if transaction.touched and not transaction.enabled and startup == "systemd":
+                startup_service.systemctl("disable", "aerolith.service")
+        except RuntimeError as undo_exc:
+            ui.fail(f"could not undo systemd enablement: {undo_exc}")
+        try:
+            rollback(lay, manifest, snapshot, ui)
+        finally:
+            try:
+                transaction.restore()
+            except (OSError, RuntimeError) as undo_exc:
+                ui.fail(f"startup rollback needs attention: {undo_exc}")
         return 2
-    manifest.save(lay.manifest)
+    finally:
+        transaction.close()
 
     # 7. verify
     ui.title("Verification")
@@ -748,7 +780,7 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
     ui.say("  Uninstall:        aerolith uninstall")
     for e in manifest.edits:
         ui.say(f"  Backup of {Path(e.file).name}: {tilde(e.backup)}")
-    if os.environ.get("HYPRLAND_INSTANCE_SIGNATURE") and not shell_running(lay) and (args.start or (args.start is None and ui.interactive and ui.confirm("Start AEROLITH now?", default=False))):
+    if startup != "systemd" and os.environ.get("HYPRLAND_INSTANCE_SIGNATURE") and not shell_running(lay) and (args.start or (args.start is None and ui.interactive and ui.confirm("Start AEROLITH now?", default=False))):
         try:
             start_shell(lay)
         except OSError as exc:
@@ -776,7 +808,7 @@ def rollback(lay: Layout, manifest: Manifest, snapshot: Manifest | None, ui: Ui)
         snapshot.save(lay.manifest)
     elif lay.manifest.exists():
         lay.manifest.unlink()
-    ui.info(f"rolled back {len(report.removed)} new files; your previous state is unchanged")
+    ui.info(f"rolled back {len(report.removed)} new files; restoring previous files and startup state")
 
 
 def verify(lay: Layout, manifest: Manifest) -> list[str]:
@@ -893,11 +925,16 @@ def cmd_uninstall(args: argparse.Namespace, ui: Ui) -> int:
     if not ui.confirm("Uninstall now?", default=None):
         ui.info("cancelled")
         return 1
+    managed_service = manifest.systemd_enabled or manifest.find(lay.service) is not None
+    if managed_service:
+        try:
+            startup_service.disable_for_uninstall()
+        except RuntimeError as exc:
+            raise Abort(f"cannot disable systemd startup; installation retained: {exc}") from exc
+        manifest.systemd_enabled = False
     if shell_running(lay):
         subprocess.run([shutil.which("qs") or "qs", "-p", str(lay.shell), "kill"], capture_output=True, check=False, timeout=15)
         ui.info("stopped the running shell")
-    if (lay.service.exists()) and shutil.which("systemctl"):
-        subprocess.run(["systemctl", "--user", "disable", "--now", "aerolith.service"], capture_output=True, check=False, timeout=15)
     # Startup may have been added to a minimal config created by theming on
     # an earlier install. Remove it first so the theme can delete that file
     # only when no user content remains.
@@ -915,6 +952,11 @@ def cmd_uninstall(args: argparse.Namespace, ui: Ui) -> int:
     ai_remove(lay, manifest, ui, remove_provider=args.remove_provider, report=False)
     components = ["core", "integration"] + ([] if keep_config else ["config"])
     rep = remove_files(manifest, [f for f in manifest.files if f.component in components], force_modified=args.force)
+    if managed_service:
+        try:
+            startup_service.systemctl("daemon-reload")
+        except RuntimeError as exc:
+            ui.warn(str(exc))
     for d in (lay.data, lay.hypr_fragment_dir):
         prune_dirs(manifest, d, rep)
     for p in rep.removed:
@@ -1029,6 +1071,8 @@ def cmd_status(args: argparse.Namespace, ui: Ui) -> int:
     lay = layout()
     manifest = load_manifest(lay)
     direction = read_installation(lay).get("direction", "piyti")
+    local = build.identity(source_root() or (Path(manifest.source) if manifest and manifest.source else None),
+                           packaged=bool(lay.system))
     info = {
         "installed": manifest is not None,
         "mode": lay.mode,
@@ -1041,7 +1085,13 @@ def cmd_status(args: argparse.Namespace, ui: Ui) -> int:
         "notifications": checks.notifications_owner(),
         "files": len(manifest.files) if manifest else 0,
         "packages_installed_by_aerolith": [p.name for p in manifest.packages] if manifest else [],
-        "version": manifest.aerolith_version if manifest else None,
+        "version": (manifest.aerolith_version or None) if manifest else None,
+        "version_label": "installed version",
+        "source_commit": manifest.source_commit if manifest else None,
+        "source_dirty": manifest.source_dirty if manifest else None,
+        "local_source": local,
+        "source_notice": build.comparison(manifest, local),
+        "systemd_enabled": manifest.systemd_enabled if manifest else False,
     }
     if args.json:
         print(json.dumps(info, indent=2))
@@ -1052,44 +1102,103 @@ def cmd_status(args: argparse.Namespace, ui: Ui) -> int:
     return 0
 
 
-def cmd_doctor(args: argparse.Namespace, ui: Ui) -> int:
-    lay = layout()
-    bad = 0
-    ui.title("Environment")
-    for c in checks.run_checks(lay):
-        {"ok": ui.ok, "warn": ui.warn, "fail": ui.fail, "info": ui.info}[c.status](f"{c.name}: {c.detail}")
-        bad += c.status == "fail"
-    ui.title("Installation")
-    manifest = load_manifest(lay)
+DOCTOR_CHECK_SECONDS = 3.0
+DOCTOR_TOTAL_SECONDS = 30.0
+
+
+def collect_doctor(lay: Layout) -> dict:
+    """Collect partial results even when a probe times out or metadata is bad."""
+    deadline = time.monotonic() + DOCTOR_TOTAL_SECONDS
+    rows = []
+
+    def add(section, check):
+        if check is not None:
+            rows.append(dict(asdict(check), section=section))
+
+    def probe(section, name, fn):
+        c = checks.collect(name, fn, timeout=DOCTOR_CHECK_SECONDS, deadline=deadline)
+        add(section, c)
+        return c
+
+    for c in checks.run_checks(lay, timeout=DOCTOR_CHECK_SECONDS, deadline=deadline):
+        add("Environment", c)
+    runtime = os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")
+    logs = str(Path(runtime) / "quickshell/by-id")
+    add("Diagnostics", checks.Check("shell log location", checks.INFO,
+        f"{logs}/*/log.qslog (or: qs -p {lay.shell} log)"))
+    running_version = None
+
+    def compositor_version():
+        nonlocal running_version
+        running_version = checks.running_hyprland_version()
+        return checks.Check("Hyprland version (running IPC)", checks.INFO,
+                            running_version or "unavailable (no running IPC version)")
+    probe("Diagnostics", "Hyprland version (running IPC)", compositor_version)
+    probe("Diagnostics", "Hyprland version (executable)", lambda: checks.Check(
+        "Hyprland version (executable)", checks.INFO,
+        ".".join(map(str, v)) if (v := checks.hyprland_version()) else "unavailable"))
+    result = {"checks": rows, "log_location": logs, "hyprland_version": running_version,
+              "installed": False, "version": None, "exit_code": 1,
+              "check_timeout_seconds": DOCTOR_CHECK_SECONDS, "total_timeout_seconds": DOCTOR_TOTAL_SECONDS}
+    manifest = None
+
+    def installation():
+        nonlocal manifest
+        manifest = load_manifest(lay)
+        return checks.Check("manifest", checks.OK if manifest else checks.WARN,
+                            "ownership manifest loaded" if manifest else "not installed")
+    c = probe("Installation", "manifest", installation)
+    if c.status == checks.FAIL:
+        result["exit_code"] = 2  # Invalid/unreadable manifest was a CLI error before JSON.
+        return result
     if manifest is None:
-        ui.warn("not installed")
-        return 1
-    problems = verify(lay, manifest)
-    for p in problems:
-        ui.fail(p)
-    if not problems:
-        ui.ok("all installed files present and unmodified")
-    bad += len(problems)
-    ui.title("Configuration")
-    schema = lay.shell / "schema" / "config.schema.json"
-    if schema.is_file():
+        return result
+    result.update(installed=True, version=manifest.aerolith_version or None)
+
+    def files():
+        problems = verify(lay, manifest)
+        return checks.Check("installed files", checks.FAIL if problems else checks.OK,
+                            "; ".join(problems) if problems else "all installed files present and unmodified")
+    probe("Installation", "installed files", files)
+    schema = lay.shell / "schema/config.schema.json"
+
+    def configuration():
         errors, warnings = validate_file(lay.config_file, schema)
-        for e in errors:
-            ui.fail(e)
-        for w in warnings:
-            ui.warn(w)
-        if not errors:
-            ui.ok(f"{tilde(lay.config_file)} is valid")
-        bad += len(errors)
-    ui.ok(f"shell {'running' if shell_running(lay) else 'not running'}")
+        for warning in warnings:
+            add("Configuration", checks.Check("configuration warning", checks.WARN, warning))
+        return checks.Check("configuration", checks.FAIL if errors else checks.OK,
+                            "; ".join(errors) if errors else f"{tilde(lay.config_file)} is valid")
+    if schema.is_file():
+        probe("Configuration", "configuration", configuration)
+    probe("Installation", "shell", lambda: checks.Check("shell", checks.OK,
+          "running" if shell_running(lay) else "not running"))
     if manifest.ai_provider != "none":
-        ui.title("AI")
-        st = bridge_status(lay)
-        if st.get("installed"):
-            ui.ok(f"{manifest.ai_provider}: {st.get('providerVersion')}")
-        else:
-            ui.warn(f"{manifest.ai_provider}: " + str((st.get("problem") or st.get("error") or {}).get("message")))
-    return 1 if bad else 0
+        def ai():
+            st = bridge_status(lay)
+            return checks.Check("AI", checks.OK if st.get("installed") else checks.WARN,
+                f"{manifest.ai_provider}: " + str(st.get("providerVersion") if st.get("installed") else
+                (st.get("problem") or st.get("error") or {}).get("message")))
+        probe("AI", "AI", ai)
+    result["exit_code"] = 1 if any(c["status"] == checks.FAIL for c in rows) else 0
+    return result
+
+
+def render_doctor_text(result: dict, ui: Ui) -> None:
+    section = None
+    for c in result["checks"]:
+        if section != c["section"]:
+            section = c["section"]
+            ui.title(section)
+        {"ok": ui.ok, "warn": ui.warn, "fail": ui.fail, "info": ui.info}[c["status"]](f"{c['name']}: {c['detail']}")
+
+
+def cmd_doctor(args: argparse.Namespace, ui: Ui) -> int:
+    result = collect_doctor(layout())
+    if args.json:
+        print(json.dumps(result, indent=2))
+    else:
+        render_doctor_text(result, ui)
+    return result["exit_code"]
 
 
 def cmd_config(args: argparse.Namespace, ui: Ui) -> int:
@@ -1341,7 +1450,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("status", parents=[yes], help="show what is installed")
     s.add_argument("--json", action="store_true")
-    sub.add_parser("doctor", parents=[yes], help="check the environment and installation")
+    sub.add_parser("doctor", parents=[yes], help="check the environment and installation").add_argument("--json", action="store_true")
     th = sub.add_parser("themes", parents=[yes], help="explicit optional app theme deployment")
     ts = th.add_subparsers(dest="themes_cmd", required=True)
     ts.add_parser("list", parents=[yes])

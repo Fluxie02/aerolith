@@ -58,4 +58,33 @@ export default suite("output lifecycles", test => {
     t.scheduler.advance(400);
     a.equal(t.c.states()["HEADLESS-1"].released, true);
   });
+  test("hotplug with a missing monitor snapshot cannot borrow another output's fullscreen", a => {
+    const t = fixture();
+    // Qt has announced the replugged output, but an older IPC response has
+    // left only the primary monitor in Quickshell's model.
+    t.snapshot.monitors = [{ name: "DP-1", activeWorkspaceId: 1 }];
+    t.snapshot.clients = [{ workspaceId: 1, ipc: { fullscreen: 2, class: "primary-game" } }];
+    t.c.update(t.outputs, t.snapshot);
+    t.scheduler.advance(1000);
+    a.equal(t.c.states()["DP-1"].released, true);
+    a.equal(t.c.states()["DP-2"].released, false);
+    a.equal(t.c.states()["DP-2"].fullscreen, false);
+    // Once metadata catches up, the secondary still owns workspace 5.
+    t.snapshot.monitors.push({ name: "DP-2", activeWorkspaceId: 5 });
+    t.c.update(t.outputs, t.snapshot);
+    t.scheduler.advance(1000);
+    a.equal(t.c.states()["DP-2"].released, false);
+    t.c.dispose();
+    a.equal(t.scheduler.pending(), 0);
+  });
+  test("the name fallback remains available for one Qt output and one IPC monitor", a => {
+    const t = fixture();
+    t.c.update([{ name: "HEADLESS-1" }], {
+      monitors: [{ name: "DP-1", activeWorkspaceId: 1 }],
+      clients: [{ workspaceId: 1, ipc: { fullscreen: 2 } }]
+    });
+    t.scheduler.advance(1000);
+    a.equal(t.c.states()["HEADLESS-1"].released, true);
+    t.c.dispose();
+  });
 });

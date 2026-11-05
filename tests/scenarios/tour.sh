@@ -65,6 +65,7 @@ stop_shell
 cp -r "$SHELL_DIR" "$HOME/tour-shell"
 SHELL_DIR="$HOME/tour-shell"
 python3 "$SRC/docs/design/network-tour/fixture.py" "$SHELL_DIR" --behavior
+python3 "$SRC/tests/scenarios/tour-probe.py" "$SHELL_DIR"
 source "$SRC/docs/design/network-tour/ui-input.sh"
 start_shell
 # Keep one idle virtual keyboard attached while probing focus. A one-shot
@@ -77,6 +78,98 @@ assert_state fresh '{"active":true,"step":0,"stepId":"hatch","completed":false}'
 surface_ready='s["tour"] is not None and s["tour"]["name"] == "tourHost" and s["tour"]["output"] == s["primaryOutput"] and any(p["focus"] for p in s["tour"]["parts"])'
 wait_ui "$surface_ready"
 cp "$OUT/ui.json" "$OUT/tour-focused.json"
+# Measure the real Item on its own surface; compare output-local coordinates
+# with both the registry and Tour's highlight (never map across windows).
+anchor_check() {
+  ui_snapshot && python3 - "$OUT/ui.json" "$1" "$2" "$OUT" <<'PYANCHOR'
+import json, math, pathlib, sys
+s = json.load(open(sys.argv[1])); step = sys.argv[2]
+def near(actual, expected, context):
+    assert math.isclose(actual, expected, rel_tol=0, abs_tol=.5), (context, actual, expected)
+tour = s['tour']; assert tour is not None, s
+names = ['hatch', 'ring', 'search', 'apps', 'strip']
+assert names[tour['step']] == step, tour
+record = next(o for o in s['anchors'] if o['output'] == tour['output'])
+a = next(a['rect'] for a in record['anchors'] if a['name'] == step)
+assert a is not None, (step, record)
+t = tour['target']
+for field in ('x', 'y', 'width', 'height'):
+    near(t[field], a[field], (step, field, 'target/anchor'))
+highlight = next(p for p in tour['parts'] if p['name'] == 'tourTarget')
+assert highlight['visible'], highlight
+for field, other in [('x','x'), ('y','y'), ('w','width'), ('h','height')]:
+    near(highlight[field], a[other], (step, field, 'highlight/anchor'))
+if step == 'strip':
+    # Whole strip target: compare its real surface content bounds, not config maths.
+    parts = next(o['parts'] for o in s['strips'] if o['output'] == tour['output'])
+    actual = next(p for p in parts if p['name'] == 'stripSurfaceBounds')
+elif step == 'search':
+    actual = next(p for o in s['strips'] if o['output'] == tour['output'] for p in o['parts'] if p['name'] == 'stripSearchButton')
+else:
+    parts = next(o['parts'] for o in s['groundTargets'] if o['output'] == tour['output'])
+    if step == 'ring':
+        targets = [p for p in parts if p['name'].startswith('workspaceStation-') or p['name'] == 'workspaceOverflow']
+        assert targets, parts
+        left = min(p['x'] for p in targets); top = min(p['y'] for p in targets)
+        actual = dict(x=left, y=top, w=max(p['x']+p['w'] for p in targets)-left,
+                      h=max(p['y']+p['h'] for p in targets)-top)
+    else:
+        actual = next(p for p in parts if p['name'] == {'hatch':'hatchEntrance','apps':'appBar'}[step])
+for field, other in [('x','x'), ('y','y'), ('w','width'), ('h','height')]:
+    near(actual[field], a[other], (step, field, 'item/anchor'))
+# Wait for the injected layout change too: agreement between three stale
+# rectangles must not allow a snapshot before the mutation takes effect.
+action = sys.argv[3]
+if step == 'hatch' and action in ('move', 'scale', 'unscale', 'unmove'):
+    initial = json.loads((pathlib.Path(sys.argv[4]) / 'anchor-hatch-initial.json').read_text())['tour']['target']
+    scale = .9 if action == 'scale' else 1
+    offset = 13 if action in ('move', 'scale', 'unscale') else 0
+    for field, expected in dict(x=initial['x'] + offset + initial['width'] * (1-scale)/2,
+                                y=initial['y'] + initial['height'] * (1-scale)/2,
+                                width=initial['width'] * scale, height=initial['height'] * scale).items():
+        near(t[field], expected, (action, field, 'mutation'))
+PYANCHOR
+}
+wait_anchor() {
+  for _ in $(seq 60); do
+    if anchor_check "$1" "$2" 2>"$OUT/anchor-error.txt"; then
+      cp "$OUT/ui.json" "$OUT/anchor-$1-$2.json"
+      return 0
+    fi
+    sleep .1
+  done
+  cat "$OUT/anchor-error.txt" >&2
+  fail "measured anchor mismatch: $1 $2"
+}
+wait_anchor hatch initial
+for action in move scale unscale unmove; do
+  qs -p "$SHELL_DIR" ipc call visualTest target "$action"
+  wait_anchor hatch "$action"
+done
+python3 - "$OUT" <<'PYLAYOUT'
+import json, math, pathlib, sys
+out = pathlib.Path(sys.argv[1])
+def target(action): return json.loads((out / ('anchor-hatch-' + action + '.json')).read_text())['tour']['target']
+a, moved, scaled, unscaled, restored = map(target, ['initial','move','scale','unscale','unmove'])
+for actual, expected in [(moved['x'], a['x'] + 13), (scaled['width'], a['width'] * .9)]:
+    assert math.isclose(actual, expected, rel_tol=0, abs_tol=.5), (actual, expected)
+for actual, expected in [(moved, unscaled), (a, restored)]:
+    for field in ('x', 'y', 'width', 'height'):
+        assert math.isclose(actual[field], expected[field], rel_tol=0, abs_tol=.5), (field, actual, expected)
+PYLAYOUT
+qs -p "$SHELL_DIR" ipc call visualTest target hide
+wait_ui 's["tour"] is not None and all(not p["visible"] for p in s["tour"]["parts"] if p["name"] == "tourTarget") and all(a["rect"] is None for o in s["anchors"] if o["output"] == s["tour"]["output"] for a in o["anchors"] if a["name"] == "hatch")'
+wait_ui 'any(p["name"] == "tourExplanation" and "Your desktop background is hidden" in p["text"] for p in s["tour"]["parts"])'
+# "show" is a qs IPC introspection subcommand, even in argument position.
+qs -p "$SHELL_DIR" ipc call visualTest target reveal
+wait_anchor hatch shown
+for step in ring search apps strip; do
+  tour next
+  wait_anchor "$step" initial
+done
+for _ in $(seq 4); do tour back; done
+wait_anchor hatch returned
+
 # A real normal window waits behind the exclusive layer surface. Do not
 # refocus it after dismissal: compositor focus must return there by itself.
 foot --app-id=nb2-tour-input bash -c 'while IFS= read -r line; do printf "%s\n" "$line" >"$1"; done' -- "$OUT/normal-input.txt" >"$OUT/foot.log" 2>&1 &
@@ -231,6 +324,16 @@ mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
 wait_tour active True
 wait_tour step 1
 wait_ui "$surface_ready and s[\"tour\"][\"step\"] == 1"
+wait_anchor ring restored
 ui_key Escape 's["tour"] is None'
+# Higher live workspace must appear on BOTH data views, including an overflow
+# station on the ring. Negative/special ids never enter this ordered set.
+high=$(mock '{"op":"open","class":"tour-higher-workspace","title":"Higher workspace","workspace":33}' | python3 -c 'import json,sys; print(json.load(sys.stdin)["address"])')
+wait_ui 'len(s["workspaceViews"]) >= 2 and all(any(c["id"] == 33 and c["windows"] > 0 for c in v["cells"]) for v in s["workspaceViews"]) and all(any(t["id"] == 33 or 33 in t["overflow"] for t in v["stations"]) for v in s["workspaceViews"] if v["kind"] == "ring")'
+cp "$OUT/ui.json" "$OUT/higher-workspace.json"
+qs -p "$SHELL_DIR" ipc call visualTest overflow
+wait_ui 's["bay"] == "navigator"'
+ipc close
+mock "{\"op\":\"close\",\"address\":\"$high\"}" >/dev/null
 check_life
 echo 'tour: ok (state persistence, primary surface/focus, real navigation, fullscreen lifetime, keyboard returned to foot)'

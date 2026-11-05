@@ -36,6 +36,15 @@ probe='''
                 for (const child of item.children || []) appBars(child, found);
                 return found;
             }
+            function workspaceViews(item, found) {
+                if (!item) return found;
+                if (item.toString().indexOf("WorkspaceOrbit") === 0)
+                    found.push({ kind: "ring", cells: item.cells, stations: item.stations });
+                if (item.toString().indexOf("WorkspaceTape") === 0)
+                    found.push({ kind: "tape", cells: item.cells });
+                for (const child of item.children || []) workspaceViews(child, found);
+                return found;
+            }
             function contents(window) {
                 const found = [];
                 if (window) collect(window.contentItem, found);
@@ -44,14 +53,18 @@ probe='''
             function surface(loader) {
                 const w = loader.item;
                 return { output: loader.modelData.name, loaded: w !== null,
-                    visible: !!w && w.visible, screen: w && w.screen ? w.screen.name : "", consumers: contents(w), appBars: w ? appBars(w.contentItem, []) : [] };
+                    visible: !!w && w.visible, screen: w && w.screen ? w.screen.name : "", consumers: contents(w), workspaceViews: w ? workspaceViews(w.contentItem, []) : [], appBars: w ? appBars(w.contentItem, []) : [] };
             }
             const deck = overlayLoader.item;
+            const slot = deck ? (deck.slotA.current ? deck.slotA : deck.slotB.current ? deck.slotB : null) : null;
             const notices = noticeLoader.item;
             return JSON.stringify({ stripDemand: Telemetry.stripDemand, samples: Telemetry.samplesTaken,
                 covered: Theme.coveredOutputs,
+                detection: ShellState.detection, lifecycle: ShellState.outputStates,
                 notificationServer: Notifications.server !== null, popupHeld: Notifications.held, noticesInDeck: ShellState.noticesInDeck,
                 deckContents: contents(deck),
+                deckBay: slot && slot.item ? { name: slot.bay, instance: slot.item.toString(),
+                    query: slot.item.query || "" } : null,
                 grounds: grounds.instances.map(surface),
                 strips: strips.instances.map(surface),
                 deck: deck && deck.visible && deck.screen ? deck.screen.name : "",
@@ -83,6 +96,7 @@ wait_check() {
     sleep 0.1
   done
   cat "$OUT/check-error.txt" >&2
+  mock '{"op":"state"}' >"$OUT/mock-failure.json"
   fail "$expression"
 }
 config() {
@@ -94,6 +108,13 @@ wait_check 'len(o)==2 and all(x["loaded"] and x["visible"] and x["screen"]==x["o
 wait_check 's["display"]=="HEADLESS-1" and s["noticeOutput"]=="HEADLESS-1"'
 wait_check 'p["stripDemand"]==2 and s["telemetryIntervalMs"]==5000'
 wait_check 'all(x["appBars"]==[o[x["output"]]["primary"]] for x in p["grounds"])'
+# A live workspace beyond both the configured minimum and the former 30-cell
+# cap must be represented by every ring (directly or overflow) and every tape.
+higher=$(mock '{"op":"open","class":"mm-workspace-set","title":"Higher workspace","workspace":33}' | python3 -c 'import json,sys;print(json.load(sys.stdin)["address"])')
+wait_check 'all(len(x["workspaceViews"])==1 and any(c["id"]==33 and c["windows"]>0 for c in x["workspaceViews"][0]["cells"]) for x in p["grounds"]+p["strips"])'
+wait_check 'all(any(t["id"]==33 or 33 in t["overflow"] for t in x["workspaceViews"][0]["stations"]) for x in p["grounds"])'
+probe >"$OUT/higher-workspace.json"
+mock "{\"op\":\"close\",\"address\":\"$higher\"}" >/dev/null
 # Clear seeded clients so coverage can be exercised independently on each output.
 mock '{"op":"state"}' | python3 -c 'import json,sys;print("\n".join(c["address"] for c in json.load(sys.stdin)["clients"]))' >"$OUT/seed-clients.txt"
 while read -r address; do
@@ -129,10 +150,25 @@ ipc run shell.notify '{"message":"Primary output notice"}' >/dev/null
 wait_check 'p["notices"]=="HEADLESS-1"'
 ipc open command >/dev/null
 wait_check 'p["deck"]=="HEADLESS-2" and p["notices"]=="HEADLESS-1" and not p["noticesInDeck"] and any(c["type"]=="notices" and not c["visible"] for c in p["deckContents"])'
+deck_instance=$(probe | python3 -c 'import json,sys;print(json.load(sys.stdin)["deckBay"]["instance"])')
+sleep 0.4
+typ 'focus'
+wait_check 'p["deckBay"]["query"]=="focus"'
 mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
-wait_check 'p["deck"]=="HEADLESS-1" and not p["notices"] and p["noticesInDeck"] and any(c["type"]=="notices" and c["visible"] for c in p["deckContents"])'
+wait_check 's["bay"]=="command" and s["deckMapped"] and p["deck"]=="HEADLESS-1" and not p["notices"] and p["noticesInDeck"] and any(c["type"]=="notices" and c["visible"] for c in p["deckContents"])'
+# The old layer's queued close used to dismiss the bay AFTER that assertion
+# could pass. Check settled state, preserved content, and real keyboard focus.
+sleep 0.4
+typ '-primary'
+wait_check "p['deck']=='HEADLESS-1' and p['deckBay'] and p['deckBay']['instance']=='$deck_instance' and p['deckBay']['query']=='focus-primary'"
 mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
-ipc close
+wait_check 's["bay"]=="command" and s["deckMapped"] and p["deck"]=="HEADLESS-2" and p["notices"]=="HEADLESS-1" and not p["noticesInDeck"]'
+sleep 0.4
+typ '-secondary'
+wait_check "p['deck']=='HEADLESS-2' and p['deckBay'] and p['deckBay']['instance']=='$deck_instance' and p['deckBay']['query']=='focus-primary-secondary'"
+key Escape
+wait_check 's["bay"]=="command" and p["deckBay"]["query"]==""'
+key Escape
 wait_check 'not s["deckMapped"]'
 
 # Second monitor's own workspace, not the primary's active workspace.
@@ -182,6 +218,7 @@ wait_check 'len(o)==2 and all(not x["released"] for x in o.values()) and len(p["
 primary_game=$(mock '{"op":"open","class":"mm1-primary-game","title":"Primary game","workspace":1}' | python3 -c 'import json,sys;print(json.load(sys.stdin)["address"])')
 mock "{\"op\":\"fullscreen\",\"address\":\"$primary_game\",\"mode\":2}" >/dev/null
 wait_check "o['HEADLESS-1']['released'] and not o['$second']['released'] and all(x['loaded']==(x['output']=='$second') for x in p['grounds']+p['strips'])"
+wait_check "any(m['name']=='$second' and m['activeWorkspaceId']==5 for m in p['detection']['monitors'])"
 wait_check "p['stripDemand']==1 and all(all(c['ambient'] for c in x['consumers']) for x in p['grounds'] if x['output']=='$second')"
 mock "{\"op\":\"fullscreen\",\"address\":\"$primary_game\",\"mode\":0}" >/dev/null
 wait_check 'all(not x["released"] for x in o.values()) and all(x["loaded"] for x in p["grounds"]+p["strips"])'

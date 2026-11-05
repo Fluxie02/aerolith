@@ -1,7 +1,100 @@
 import { suite } from "./harness.mjs";
-import { validateConfig, defaultsOf, SCHEMA, SCHEMA_VERSION, migrate, mergeChange, setPath, getPath, toJsonSchema } from "../../shell/lib/config.mjs";
+import { validateConfig, defaultsOf, SCHEMA, SCHEMA_VERSION, migrate, mergeChange, mergeChanges, prepareBatch, beginPreview, setPreviewValues, previewData, previewAllowed, conflictsFor, setPath, getPath, toJsonSchema } from "../../shell/lib/config.mjs";
 
 export default suite("config", (test) => {
+  test("batch validates every leaf before returning a writable result", a => {
+    const raw = { theme: { scheme: "limb" }, unknown: { keep: true } };
+    const bad = prepareBatch(raw, [{path: "theme.scheme", value: "iris"}, {path: "strip.edge", value: "left"}]);
+    a.match(bad.error, /strip/);
+    a.equal(bad.raw, undefined);
+    a.equal(raw.theme.scheme, "limb");
+    const good = prepareBatch(raw, [{path: "theme.scheme", value: "iris"}, {path: "strip.edge", value: "bottom"}]);
+    a.equal(good.changes.length, 2);
+    a.equal(good.changes[0].expected, "limb");
+    a.equal(good.raw.strip.edge, "bottom");
+    a.deepEqual(good.raw.unknown, raw.unknown);
+    a.match(prepareBatch(raw, [{path: "theme.palette", value: {}}, {path: "theme.palette.text", value: "#ffffff"}]).error, /overlapping/);
+    a.match(prepareBatch(raw, [{path: "strip.edge", value: "top"}, {path: "strip.edge", value: "bottom"}]).error, /overlapping/);
+    a.match(prepareBatch(raw, null).error, /list/);
+    a.match(prepareBatch(raw, [null]).error, /path/);
+    a.match(prepareBatch(raw, [{path: "theme.palette", value: undefined}]).error, /required/);
+  });
+
+  test("appearance allowlist cannot smuggle service changes through containers", a => {
+    for (const path of ["theme.scheme", "theme.palette", "theme.palette.signal", "strip.visible", "strip.edge", "strip.showWindowTitle", "strip.clock", "strip.showDate", "strip.showSeconds", "ground.enabled", ["display", "outputs", "DP.1", "profile"]])
+      a.equal(previewAllowed(path), true, String(path));
+    for (const path of ["theme", "theme.unknown", "strip", "strip.telemetry", "strip.workspaceCount", "telemetry.gpu", "notifications.server", "lock.enabled", "display.outputs", "display.oled.idleDimAfter", "display.outputs.DP-1.strip", "commandCore.terminal", "theme.__proto__.x", ["display", "outputs", "constructor", "profile"]])
+      a.equal(previewAllowed(path), false, String(path));
+    a.match(setPath({}, "__proto__.polluted", true).error, /unknown/);
+    a.match(setPath({}, "theme.constructor", true).error, /unknown/);
+  });
+
+  test("draft overlay is immutable, retains last valid edit, and cancel uses latest base", a => {
+    const raw = { theme: { scheme: "limb" }, future: 7 };
+    const initial = beginPreview(raw);
+    a.equal(setPreviewValues(beginPreview({}), [{path: "theme.scheme", value: "limb"}]).preview.changes.length, 0);
+    a.equal(setPreviewValues(beginPreview({}), [{path: ["display", "outputs", "DP-1", "profile"], value: "standard"}]).preview.changes.length, 0);
+    const p = setPreviewValues(initial, [{path: "theme.scheme", value: "iris"}, {path: "strip.edge", value: "bottom"}]).preview;
+    a.equal(previewData(raw, p).theme.scheme, "iris");
+    a.equal(previewData(raw, p).strip.edge, "bottom");
+    a.equal(raw.theme.scheme, "limb");
+    a.equal(initial.changes.length, 0);
+    a.match(setPreviewValues(p, [{path: "theme.scheme", value: "invalid"}]).error, /must be one/);
+    a.match(setPreviewValues(p, [{path: "notifications.server", value: true}]).error, /not an appearance/);
+    a.equal(previewData(raw, p).theme.scheme, "iris");
+    const fresh = {theme: {scheme: "limb", density: "compact"}, future: 8};
+    a.equal(previewData(fresh, p).theme.density, "compact");
+    a.equal(previewData(fresh, null).theme.scheme, "limb");
+    a.equal(previewData(fresh, null).future, 8);
+    const reset = setPreviewValues(p, [{path: "theme.scheme", value: "limb"}]).preview;
+    a.deepEqual(reset.changes.map(c => c.path.join(".")), ["strip.edge"]);
+    a.equal(p.changes.length, 2);
+  });
+
+  test("transaction rebases unrelated changes but compares all paths to BEGIN", a => {
+    const raw = {theme: {scheme: "limb", density: "standard"}};
+    let p = setPreviewValues(beginPreview(raw), [{path: "theme.scheme", value: "iris"}]).preview;
+    p = setPreviewValues(p, [{path: "theme.scheme", value: "corona"}]).preview;
+    const external = {theme: {scheme: "limb", density: "compact"}, future: {keep: [1]}};
+    const applied = mergeChanges(JSON.stringify(external), p.changes);
+    a.deepEqual(applied.raw.theme, {scheme: "corona", density: "compact"});
+    a.deepEqual(applied.raw.future, external.future);
+    const conflict = {theme: {scheme: "bathyal", density: "compact"}};
+    a.deepEqual(conflictsFor(conflict, p.changes), ["theme.scheme"]);
+    a.equal(mergeChanges(JSON.stringify(conflict), p.changes).raw, undefined);
+    // First editing density after a watcher update still uses BEGIN's value.
+    p = setPreviewValues(p, [{path: "theme.density", value: "comfortable"}]).preview;
+    a.deepEqual(conflictsFor(external, p.changes), ["theme.density"]);
+    a.equal(mergeChanges(JSON.stringify(external), p.changes).raw, undefined);
+    a.match(mergeChanges("{broken", p.changes).error, /valid JSON/);
+  });
+
+  test("structured output paths preserve literal dots, siblings and disconnected outputs", a => {
+    const raw = {display: {outputs: {"DP.1": {profile: "standard", strip: false}, "DP-2": {ground: false}}}};
+    const path = ["display", "outputs", "DP.1", "profile"];
+    const p = setPreviewValues(beginPreview(raw), [{path, value: "oled"}]).preview;
+    const data = previewData(raw, p);
+    a.equal(data.display.outputs["DP.1"].profile, "oled");
+    a.equal(data.display.outputs["DP.1"].strip, false);
+    a.equal(data.display.outputs["DP-2"].ground, false);
+    const applied = mergeChanges(JSON.stringify(raw), p.changes);
+    a.equal(getPath(applied.raw, path), "oled");
+    a.equal(raw.display.outputs["DP.1"].profile, "standard");
+  });
+
+  test("queued batch projection supports rapid stepping without exposing drafts to disk", a => {
+    const raw = {};
+    const first = prepareBatch(raw, [{path: "theme.density", value: "compact"}]);
+    const next = prepareBatch(first.raw, [{path: "theme.density", value: "comfortable"}]);
+    const saved = mergeChanges("{}", first.changes);
+    a.equal(mergeChanges(JSON.stringify(saved.raw), next.changes).raw.theme.density, "comfortable");
+    a.deepEqual(raw, {});
+    const values = [{path: "theme.palette", value: {signal: "#ffffff"}}];
+    const draft = setPreviewValues(beginPreview(raw), values).preview;
+    values[0].value.signal = "orange";
+    a.equal(previewData(raw, draft).theme.palette.signal, "#ffffff");
+  });
+
   test("fresh saves preserve unrelated CLI edits and unknown keys", a => {
     const fresh = { theme: { scheme: "cinder", density: "standard" }, future: { keep: [1, 2] } };
     const r = mergeChange(JSON.stringify(fresh), "theme.density", "compact", "standard");

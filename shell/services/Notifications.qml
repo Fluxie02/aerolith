@@ -12,11 +12,11 @@ import qs.core
 Singleton {
     id: root
 
-    readonly property bool enabled: Config.notifications.server
+    readonly property bool enabled: Config.committedData.notifications.server
     property var server: null
     property var items: []
     readonly property int count: items.length
-    readonly property bool doNotDisturb: Config.notifications.doNotDisturb
+    readonly property bool doNotDisturb: Config.committedData.notifications.doNotDisturb
     property var popups: []
 
     Component {
@@ -86,7 +86,7 @@ Singleton {
 
     function showPopup(n) {
         const expiry = Object.assign({}, popupExpiry);
-        expiry[n.id] = (held ? heldAt : Date.now()) + Config.notifications.popupTimeoutMs;
+        expiry[n.id] = (held ? heldAt : Date.now()) + Config.committedData.notifications.popupTimeoutMs;
         const kept = popups.concat([n]).slice(-3);
         const ids = kept.map(x => String(x.id));
         for (const k in expiry)
@@ -170,7 +170,7 @@ Singleton {
 
     Connections {
         target: Config
-        function onReloaded() {
+        function onCommittedChanged() {
             root.sync();
         }
     }

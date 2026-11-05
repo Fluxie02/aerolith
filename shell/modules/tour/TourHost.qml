@@ -18,44 +18,17 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-    Text {
-        id: brandMeasure
-        objectName: "tourBrandMeasure"
-        visible: false
-        text: "AEROLITH"; textFormat: Text.PlainText
-        font.family: Theme.sans; font.pixelSize: Theme.fontXs
-        font.weight: Font.DemiBold; font.letterSpacing: 2.2
-    }
-    readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
+    readonly property bool compact: Theme.layoutFor(width, height, Tour.output ? Tour.output.name : "").compact
     readonly property string stepId: Tour.steps[Tour.step]
-    readonly property bool desktopVisible: Config.ground.enabled && !!Tour.output && Tour.output.ground
-    readonly property bool stripVisible: Config.strip.visible && !!Tour.output && Tour.output.strip
-    // Bounds reproduce the layout equations in FlightStrip, Hatch,
-    // WorkspaceOrbit and Instrumentation. The brand width is measured with
-    // the same type settings as the strip. All use
-    // the output's logical dimensions and the same Theme density/UI scale.
-    readonly property rect target: {
-        const w = width, h = height, pad = Theme.du(8);
-        if (stepId === "hatch") {
-            const hw = Math.min(w * .18, Theme.du(360)), hh = Math.min(h * .34, Theme.du(380));
-            return Qt.rect(w * .59 - hw / 2 - pad, h * .49 - hh / 2 - Theme.du(28) - pad, hw + pad * 2, hh + Theme.du(116) + pad * 2);
-        }
-        if (stepId === "ring") {
-            if (compact) return Qt.rect(w * .055 - pad, h - Theme.du(153) - pad, w * .47 + pad * 2, Theme.du(56) + pad * 2);
-            return Qt.rect(w * .27 - Math.sin(.92) * h * .29 - Theme.du(46), h * .55 + Math.cos(.92) * h * .29 - Theme.du(36), Math.sin(.92) * h * .58 + Theme.du(92), (1 - Math.cos(.92)) * h * .29 + Theme.du(72));
-        }
-        if (stepId === "apps") return Qt.rect(w * .055 - pad, h - Theme.du(64) - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0) - pad, w * .885 + pad * 2, Theme.du(48) + pad * 2);
-        if (stepId === "search") {
-            const brandWidth = w < Theme.px(1500) ? 0 : Theme.px(6) + brandMeasure.implicitWidth;
-            return Qt.rect(Theme.pad, Config.strip.edge === "top" ? 0 : h - Theme.stripHeight, Math.ceil(Theme.px(8) + brandWidth + Theme.pad), Theme.stripHeight);
-        }
-        return Qt.rect(0, Config.strip.edge === "top" ? 0 : h - Theme.stripHeight, w, Theme.stripHeight);
-    }
-    readonly property bool targetVisible: stepId === "strip" || stepId === "search" ? stripVisible : desktopVisible
+    // Each target maps only inside its own layer surface, then publishes
+    // output-local logical coordinates. Tour is a full-output overlay at 0,0.
+    readonly property var anchor: Anchors.lookup(Tour.output ? Tour.output.name : "", stepId)
+    readonly property rect target: anchor ? Qt.rect(anchor.x, anchor.y, anchor.width, anchor.height) : Qt.rect(0, 0, 0, 0)
+    readonly property bool targetVisible: anchor !== null
     readonly property var stepNames: ["Hatch", "Workspaces", "Search", "Used apps", "Status strip"]
     readonly property var words: [
         {title: "A SPACE TO KEEP THINGS", body: "The hatch opens your scratch space. Park any window here and bring it back when you need it.", key: "SUPER + S  OPEN / CLOSE\nSUPER + SHIFT + S  PARK A WINDOW"},
-        {title: "ROOM FOR EACH TASK", body: "Click a station on the workspace ring to switch. Its window count shows where your work is.", key: ""},
+        {title: "ROOM FOR EACH TASK", body: "Click a station on the workspace " + (host.compact ? "row" : "ring") + " to switch. Its window count shows where your work is.", key: ""},
         {title: "FIND IT. OPEN IT.", body: "Search for an app or a shell action. Type a name, then press Enter.", key: "SUPER + SPACE  SEARCH & LAUNCH"},
         {title: "YOUR APPS, CLOSE BY", body: "The bottom bar keeps your most used apps nearby. Click to open an app or return to its windows.", key: ""},
         {title: Network.available || Bluetooth.available ? "CONNECTIONS AT A GLANCE" : "YOUR STATUS STRIP", body: (Network.available || Bluetooth.available ? "Click " + [Network.available ? "Network" : "", Bluetooth.available ? "Bluetooth" : ""].filter(s => s !== "").join(" or ") + " in the " + (Config.strip.edge === "top" ? "top" : "bottom") + " status strip to connect." : "The " + Config.strip.edge + " status strip shows your workspace, sound and time.") + " Open Settings to change the layout and decoration level.", key: "ENTER  FINISH   ·   ESC  SKIP"}

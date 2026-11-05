@@ -73,6 +73,7 @@ Singleton {
     }
 
     function runChecked(argv, okMessage) {
+        Config.cancelPreview();
         return Exec.run(argv, {
             timeoutMs: 15000
         }).then(r => r.code === 0 ? Registry.ok(okMessage) : Registry.fail(argv[0] + " failed (" + (r.timedOut ? "timed out" : "status " + r.code) + ")", {
@@ -81,6 +82,7 @@ Singleton {
     }
 
     function lockExternal() {
+        Config.cancelPreview();
         // loginctl succeeds even when nobody handles its Lock signal. Check
         // this user's locker/idle listener first, rather than installed files.
         return Exec.run(["sh", "-c", "pgrep -u \"$(id -u)\" -x 'hyprlock|swaylock|hypridle|swayidle|xss-lock|light-locker' >/dev/null"], {
@@ -165,7 +167,10 @@ Singleton {
             sensitive: true,
             aiAllowed: false,
             available: () => Compositor.available ? true : "Hyprland is not running",
-            run: () => Compositor.dispatch(d => HD.exitSession(d)).then(r => r.ok ? Registry.ok("Exiting Hyprland") : Registry.fail(r.message))
+            run: () => {
+                Config.cancelPreview();
+                return Compositor.dispatch(d => HD.exitSession(d)).then(r => r.ok ? Registry.ok("Exiting Hyprland") : Registry.fail(r.message));
+            }
         });
     }
 }

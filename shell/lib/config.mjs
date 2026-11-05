@@ -348,22 +348,33 @@ export function validateConfig(text) {
   return { config: config, errors: errors, warnings: warnings, notes: notes, migrated: migrated };
 }
 
-// Look up a dotted path in the schema: "strip.edge" -> leaf schema or null.
+// Structured paths keep connector names containing dots intact. Dotted strings
+// remain compatible with existing callers. Never traverse inherited properties.
+function partsOf(path) {
+  const parts = Array.isArray(path) ? path.slice() : typeof path === "string" ? path.split(".") : [];
+  return parts.length && parts.every(p => typeof p === "string" && p.length > 0
+    && ["__proto__", "prototype", "constructor"].indexOf(p) < 0) ? parts : [];
+}
+
+// Look up a schema leaf, including entries in dynamic maps.
 export function schemaAt(path) {
-  const parts = String(path).split(".");
+  const parts = partsOf(path);
+  if (!parts.length) return null;
   let s = SCHEMA;
   for (let i = 0; i < parts.length; i++) {
-    if (!s || s.type !== "object" || !s.props[parts[i]]) return null;
-    s = s.props[parts[i]];
+    if (s.type === "map") s = s.values;
+    else if (s.type === "object" && Object.prototype.hasOwnProperty.call(s.props, parts[i])) s = s.props[parts[i]];
+    else return null;
   }
   return s;
 }
 
 export function getPath(obj, path) {
-  const parts = String(path).split(".");
+  const parts = partsOf(path);
+  if (!parts.length) return undefined;
   let cur = obj;
   for (let i = 0; i < parts.length; i++) {
-    if (cur === null || typeof cur !== "object") return undefined;
+    if (cur === null || typeof cur !== "object" || !Object.prototype.hasOwnProperty.call(cur, parts[i])) return undefined;
     cur = cur[parts[i]];
   }
   return cur;
@@ -373,40 +384,124 @@ export function getPath(obj, path) {
 // value against the schema. Unknown keys elsewhere are kept untouched.
 export function setPath(raw, path, value) {
   const leaf = schemaAt(path);
-  if (!leaf || leaf.type === "object") return { error: "unknown setting " + path };
+  const label = partsOf(path).join(".");
+  if (!leaf || leaf.type === "object") return { error: "unknown setting " + label };
+  if (value === undefined) return { error: label + ": a value is required" };
   if (leaf.type === "array" || leaf.type === "map") {
     // Check only the proposed subtree: unrelated invalid values must not
     // prevent repairing a setting, and unknown keys must survive the write.
     const errors = [];
-    walk(leaf, value, path, errors, []);
+    walk(leaf, value, label, errors, []);
     if (errors.length) return { error: errors.map(e => e.path + ": " + e.message).join("; ") };
   } else {
     const e = checkLeaf(leaf, value);
-    if (e) return { error: path + ": " + e };
+    if (e) return { error: label + ": " + e };
   }
   const out = typeName(raw) === "object" ? clone(raw) : {};
-  const parts = String(path).split(".");
+  const parts = partsOf(path);
   let cur = out;
   for (let i = 0; i < parts.length - 1; i++) {
     if (typeName(cur[parts[i]]) !== "object") cur[parts[i]] = {};
     cur = cur[parts[i]];
   }
-  cur[parts[parts.length - 1]] = value;
+  cur[parts[parts.length - 1]] = clone(value);
   if (out.schemaVersion === undefined) out.schemaVersion = SCHEMA_VERSION;
   return { raw: out };
 }
 
-// Rebase one requested setting onto a freshly read disk file. Compare only
-// that path against its value when requested; unrelated and unknown keys survive.
-export function mergeChange(text, path, value, expected) {
+// Explicit appearance boundary. In particular strip.telemetry, workspaceCount,
+// OLED idle policy, service/server settings and command execution are excluded.
+export const PREVIEW_PATHS = [
+  "theme.*", "strip.visible", "strip.edge", "strip.showWindowTitle",
+  "strip.clock", "strip.showDate", "strip.showSeconds", "ground.enabled",
+  "display.outputs.*.profile",
+];
+
+export function previewAllowed(path) {
+  const parts = partsOf(path);
+  if (!schemaAt(parts)) return false;
+  return PREVIEW_PATHS.some(pattern => {
+    const rule = pattern.split(".");
+    if (pattern === "theme.*") return parts[0] === "theme" && parts.length > 1;
+    return rule.length === parts.length && rule.every((p, i) => p === "*" || p === parts[i]);
+  });
+}
+
+function overlaps(a, b) {
+  return a.slice(0, Math.min(a.length, b.length)).every((p, i) => p === b[i]);
+}
+
+// All-or-nothing validation; the caller never receives a partial writable raw.
+// Reject ambiguous duplicate/parent-child edits in a single batch.
+export function prepareBatch(raw, values, previewOnly) {
+  if (!Array.isArray(values)) return { error: "settings must be a list of {path, value}" };
+  let next = raw;
+  const changes = [];
+  for (const item of values) {
+    if (!item || !partsOf(item.path).length) return { error: "invalid setting path" };
+    const path = partsOf(item.path);
+    if (changes.some(c => overlaps(c.path, path))) return { error: "overlapping setting " + path.join(".") };
+    if (previewOnly && !previewAllowed(path)) return { error: path.join(".") + ": not an appearance setting; cannot preview" };
+    const r = setPath(next, path, item.value);
+    if (r.error) return r;
+    changes.push({ path: path, value: clone(item.value), expected: clone(getPath(raw, path)) });
+    next = r.raw;
+  }
+  return { raw: next, changes: changes };
+}
+
+// Rebase a whole transaction against a fresh disk read, checking every path
+// before constructing a replacement. Unknown and unrelated values survive.
+export function mergeChanges(text, changes) {
   let fresh;
   try { fresh = String(text).trim() ? JSON.parse(text) : {}; }
   catch (e) { return { error: "configuration file is not valid JSON; fix it before saving settings" }; }
   if (typeName(fresh) !== "object")
     return { error: "configuration file must be an object; fix it before saving settings" };
-  if (!sameValue(getPath(fresh, path), expected))
-    return { error: "configuration changed at " + path + "; retry your change" };
-  return setPath(fresh, path, value);
+  const conflicts = conflictsFor(fresh, changes);
+  if (conflicts.length) return { error: "configuration changed at " + conflicts.join(", ") + "; reload/review your change", conflicts: conflicts };
+  return prepareBatch(fresh, changes);
+}
+
+export function mergeChange(text, path, value, expected) {
+  return mergeChanges(text, [{ path: path, value: value, expected: expected }]);
+}
+
+export function conflictsFor(raw, changes) {
+  return changes.filter(c => !sameValue(getPath(raw, c.path), c.expected)).map(c => partsOf(c.path).join("."));
+}
+
+export function overlay(raw, changes) {
+  return prepareBatch(raw, changes).raw;
+}
+
+export function beginPreview(raw) {
+  return { base: clone(raw), changes: [] };
+}
+
+// Repeated edits replace a draft leaf, but always compare disk to the value
+// captured at BEGIN, including when that leaf is first edited after a reload.
+export function setPreviewValues(preview, values) {
+  if (!preview) return { error: "no preview is active" };
+  const checked = prepareBatch(overlay(preview.base, preview.changes), values, true);
+  if (checked.error) return checked;
+  let changes = preview.changes.slice();
+  const starting = previewData(preview.base, null);
+  for (const c of checked.changes) {
+    if (changes.some(prior => !sameValue(prior.path, c.path) && overlaps(prior.path, c.path)))
+      return { error: "overlapping draft setting " + c.path.join(".") };
+    changes = changes.filter(prior => !sameValue(prior.path, c.path));
+    const expected = clone(getPath(preview.base, c.path));
+    const initial = getPath(starting, c.path);
+    const effective = initial === undefined ? schemaAt(c.path).default : initial;
+    if (!sameValue(effective, c.value)) changes.push({ path: c.path, value: c.value, expected: expected });
+  }
+  return { preview: { base: preview.base, changes: changes } };
+}
+
+// Cancel uses the current committed base, preserving external watcher edits.
+export function previewData(raw, preview) {
+  return validateConfig(JSON.stringify(preview ? overlay(raw, preview.changes) : raw)).config;
 }
 
 // Object key order is immaterial, including in map-valued settings.
