@@ -1,7 +1,33 @@
 import { suite } from "./harness.mjs";
-import { validateConfig, defaultsOf, SCHEMA, SCHEMA_VERSION, migrate, setPath, getPath, toJsonSchema } from "../../shell/lib/config.mjs";
+import { validateConfig, defaultsOf, SCHEMA, SCHEMA_VERSION, migrate, mergeChange, setPath, getPath, toJsonSchema } from "../../shell/lib/config.mjs";
 
 export default suite("config", (test) => {
+  test("fresh saves preserve unrelated CLI edits and unknown keys", a => {
+    const fresh = { theme: { scheme: "cinder", density: "standard" }, future: { keep: [1, 2] } };
+    const r = mergeChange(JSON.stringify(fresh), "theme.density", "compact", "standard");
+    a.equal(r.error, undefined);
+    a.deepEqual(r.raw.theme, { scheme: "cinder", density: "compact" });
+    a.deepEqual(r.raw.future, fresh.future);
+    a.equal(fresh.theme.density, "standard");
+    a.equal(mergeChange("", "strip.edge", "bottom", undefined).raw.strip.edge, "bottom");
+  });
+
+  test("fresh saves refuse conflicts and broken/non-object files", a => {
+    a.match(mergeChange('{"theme":{"density":"comfortable"}}', "theme.density", "compact", "standard").error,
+      /configuration changed at theme.density/);
+    a.match(mergeChange('{}', "theme.density", "compact", "standard").error, /configuration changed/);
+    for (const text of ['{bad', '[]', 'null', 'false', '42', '"text"'])
+      a.match(mergeChange(text, "strip.edge", "bottom", undefined).error, /fix it before saving settings/);
+    a.match(mergeChange('{}', "strip.edge", "bad", undefined).error, /strip.edge/);
+  });
+
+  test("map conflicts compare contents regardless of key order", a => {
+    const expected = { text: "#ffffff", signal: "#123456" };
+    const text = '{"theme":{"palette":{"signal":"#123456","text":"#ffffff"}}}';
+    a.equal(mergeChange(text, "theme.palette", {}, expected).error, undefined);
+    a.match(mergeChange(text, "theme.palette", {}, { text: "#ffffff" }).error, /configuration changed/);
+  });
+
   test("OLED defaults preserve old configs, validate bounds and retain output profiles", assert => {
     const parse = value => validateConfig(JSON.stringify(value));
     const old = parse({ display: { output: "DP-1" } });

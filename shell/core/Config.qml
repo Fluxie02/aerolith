@@ -111,28 +111,101 @@ Singleton {
         reloaded();
     }
 
-    // Validate and persist a single setting. Returns "" or an error message.
+    // Serialize read -> rebase -> atomic write. reload() is asynchronous: only
+    // the fresh reader's completion may produce the replacement text.
+    property var saves: []
+    property string savePhase: ""
+    property string writeText: ""
+    property bool reloadPending: false
+    property bool freshStarted: false
+
+    // Returns an immediate validation error, or accepts a queued save. Disk
+    // conflicts/read/write failures are reported through saveFailed.
     function setValue(path, value) {
-        // Never write over a file the user is in the middle of editing.
-        if (fileBroken)
-            return "the configuration file is not valid JSON; fix it before changing settings from the shell";
-        if (Object.keys(raw).length === 0 && errors.length > 0)
-            return "configuration file has errors; fix it before changing settings from the shell";
-        const r = ConfigLib.setPath(raw, path, value);
-        if (r.error)
-            return r.error;
-        const text = JSON.stringify(r.raw, null, 2) + "\n";
-        file.setText(text);
-        // Apply now: an atomic save replaces the file, and the watcher does
-        // not reliably report that replacement (measured), so waiting for it
-        // could leave the change unapplied. A later file event re-applies
-        // the same text harmlessly.
-        apply(text);
+        let projected = raw;
+        for (const pending of saves) {
+            const prior = ConfigLib.setPath(projected, pending.path, pending.value);
+            if (!prior.error) projected = prior.raw;
+        }
+        const r = ConfigLib.setPath(projected, path, value);
+        if (r.error) return r.error;
+        saves = saves.concat([{ path: path, value: value,
+            expected: ConfigLib.getPath(projected, path) }]);
+        Qt.callLater(root.saveNext);
         return "";
     }
 
+    function saveNext() {
+        if (savePhase || !saves.length) return;
+        savePhase = "reading";
+        if (!freshStarted) {
+            // Start the first load only after a request, so no startup read
+            // can be mistaken for the requested fresh read.
+            freshStarted = true;
+            fresh.preload = true;
+        } else fresh.reload();
+    }
+
+    function readForSave(text) {
+        if (savePhase !== "reading") return;
+        const request = saves[0];
+        const r = ConfigLib.mergeChange(text, request.path, request.value, request.expected);
+        // Adopt external edits even when this request conflicts or is invalid.
+        diskText = text;
+        apply(text);
+        if (r.error) { finishSave(r.error); return; }
+        writeText = JSON.stringify(r.raw, null, 2) + "\n";
+        if (writeText === text) { finishSave(""); return; }
+        savePhase = "writing";
+        // Leave FileView's load-completion handler before starting its write.
+        Qt.callLater(root.writeSave);
+    }
+
+    function writeSave() {
+        fresh.setText(writeText);
+    }
+
+    function finishSave(message) {
+        saves = saves.slice(1);
+        savePhase = "";
+        if (message) {
+            Log.warn("config", message);
+            saveFailed(message);
+        }
+        if (saves.length) Qt.callLater(root.saveNext);
+        else if (reloadPending) { reloadPending = false; file.reload(); }
+    }
+
+    FileView {
+        id: fresh
+        path: Paths.configFile
+        preload: false
+        blockLoading: false
+        printErrors: false
+        atomicWrites: true
+        // Only successful commits update effective settings and diskText.
+        onSaveFailed: error => {
+            Log.error("config", "could not save " + path + ": " + error);
+            root.reloadPending = true;
+            root.finishSave("Could not write " + path + " (" + error + "); settings were not saved.");
+        }
+        onSaved: {
+            root.fileMissing = false;
+            root.diskText = root.writeText;
+            root.apply(root.diskText);
+            root.finishSave("");
+        }
+        onLoaded: root.readForSave(text())
+        onLoadFailed: error => {
+            if (root.savePhase !== "reading") return;
+            if (error === FileViewError.FileNotFound) root.readForSave("");
+            else root.finishSave("Could not read " + path + " (" + FileViewError.toString(error) + "); settings were not saved.");
+        }
+    }
+
     function reload() {
-        file.reload();
+        if (savePhase) reloadPending = true;
+        else file.reload();
     }
 
     FileView {
@@ -144,23 +217,21 @@ Singleton {
         atomicWrites: true
         onFileChanged: reload()
         onLoaded: {
+            if (root.savePhase) { root.reloadPending = true; return; }
             root.fileMissing = false;
             root.diskText = text();
             root.apply(root.diskText);
         }
         onLoadFailed: error => {
+            if (root.savePhase) { root.reloadPending = true; return; }
+            if (error !== FileViewError.FileNotFound) {
+                root.saveFailed("Could not read " + path + " (" + FileViewError.toString(error) + ")");
+                return;
+            }
             // A missing file is normal: run on defaults.
             root.fileMissing = true;
             root.diskText = "";
             root.apply("");
         }
-        // setValue() applied the change before the save finished; when the
-        // save fails, go back to what is on disk and say so.
-        onSaveFailed: error => {
-            Log.error("config", "could not save " + path + ": " + error);
-            root.apply(root.diskText);
-            root.saveFailed("Could not write " + path + " (" + error + "); the previous settings are back.");
-        }
-        onSaved: root.diskText = text()
     }
 }

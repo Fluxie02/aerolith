@@ -31,6 +31,8 @@ Singleton {
     readonly property string stateFile: stateDir + "/state.json"
 
     readonly property string shellDir: Quickshell.shellDir
+    // Sibling bundle in both ~/.local/share/aerolith and /usr/share/aerolith.
+    readonly property string docsDir: shellDir + "/../docs"
     // The optional AI Bridge installs its QML here. The core never imports
     // it statically; see modules/AiLoader.qml.
     readonly property string aiModuleEntry: shellDir + "/modules/ai/AiModule.qml"

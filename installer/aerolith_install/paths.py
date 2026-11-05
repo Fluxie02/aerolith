@@ -44,6 +44,11 @@ class Layout:
         return (self.system or self.data) / "shell"
 
     @property
+    def docs(self) -> Path:
+        # The bundle preserves repository-relative links: README.md, docs/*.md.
+        return (self.system or self.data) / "docs"
+
+    @property
     def ai_module(self) -> Path:
         return self.shell / "modules" / "ai"
 

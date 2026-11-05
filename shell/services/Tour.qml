@@ -80,8 +80,7 @@ Singleton {
         title: "Show the tour again",
         category: "shell",
         keywords: ["tour", "welcome", "first run"],
-        available: () => !Config.data.tour.enabled ? "Tour is disabled in settings"
-            : Ui.locked ? "Session is locked"
+        available: () => Ui.locked ? "Session is locked"
             : !root.mayShow ? "Waiting for the primary desktop to be ready" : true,
         run: () => root.start() ? Registry.ok("Tour started") : Registry.fail("Tour is unavailable")
     })

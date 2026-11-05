@@ -396,6 +396,28 @@ export function setPath(raw, path, value) {
   return { raw: out };
 }
 
+// Rebase one requested setting onto a freshly read disk file. Compare only
+// that path against its value when requested; unrelated and unknown keys survive.
+export function mergeChange(text, path, value, expected) {
+  let fresh;
+  try { fresh = String(text).trim() ? JSON.parse(text) : {}; }
+  catch (e) { return { error: "configuration file is not valid JSON; fix it before saving settings" }; }
+  if (typeName(fresh) !== "object")
+    return { error: "configuration file must be an object; fix it before saving settings" };
+  if (!sameValue(getPath(fresh, path), expected))
+    return { error: "configuration changed at " + path + "; retry your change" };
+  return setPath(fresh, path, value);
+}
+
+// Object key order is immaterial, including in map-valued settings.
+function sameValue(a, b) {
+  if (a === b) return true;
+  if (typeName(a) !== typeName(b) || a === null || b === null || typeof a !== "object") return false;
+  const keys = Object.keys(a);
+  return keys.length === Object.keys(b).length && keys.every(k =>
+    Object.prototype.hasOwnProperty.call(b, k) && sameValue(a[k], b[k]));
+}
+
 // Convert the compact schema to JSON Schema (draft 2020-12) for editors.
 export function toJsonSchema(schema, root) {
   const s = schema || SCHEMA;

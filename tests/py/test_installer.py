@@ -127,6 +127,87 @@ def test_none_installs_complete_shell_without_any_ai(system, home):
     assert cli.verify(lay, m) == []
 
 
+@pytest.mark.parametrize("packaged_layout", [False, True], ids=["user", "packaged"])
+def test_user_docs_bundle_lifecycle(system, home, tmp_path, monkeypatch, packaged_layout):
+    from aerolith_install.manifest import remove_files, prune_dirs
+
+    src = tmp_path / "docs-source"
+    for name in cli.USER_DOCS:
+        target = src / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / name, target)
+    (src / "docs/PRIVATE.md").write_text("not shipped")
+    if packaged_layout:
+        # Stage as a package builder, then verify that per-user install/update/
+        # uninstall leave these package-owned docs alone.
+        root = tmp_path / "usr/share/aerolith"
+        shutil.copytree(ROOT / "shell", root / "shell", ignore=_PYC)
+        (root / "PACKAGED").write_text("aerolith\n")
+        monkeypatch.setenv("AEROLITH_SYSTEM_ROOT", str(root))
+        lay = layout()
+        assert lay.docs == root / "docs"
+        owner = Manifest(mode="system")
+        cli.install_docs(src, lay.docs, owner)
+    else:
+        assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+        lay = layout()
+        assert lay.docs == lay.data / "docs"
+        owner = Manifest.load(lay.manifest)
+    assert {str(p.relative_to(lay.docs)) for p in lay.docs.rglob("*") if p.is_file()} == set(cli.USER_DOCS)
+    for name in cli.USER_DOCS:
+        assert (lay.docs / name).read_bytes() == (ROOT / name).read_bytes()
+        assert owner.find(lay.docs / name).component == "core"
+    # Relative README -> ALPHA and ALPHA -> CONFIGURATION links resolve offline.
+    assert (lay.docs / "README.md").parent.joinpath("docs/ALPHA.md").is_file()
+    assert (lay.docs / "docs/ALPHA.md").parent.joinpath("CONFIGURATION.md").is_file()
+    if packaged_layout:
+        before = snapshot(lay.docs)
+        for _ in range(2):
+            assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+        assert run("--yes", "uninstall", "--remove-config") == 0
+        assert snapshot(lay.docs) == before
+    # Updating the bundle prunes documents no longer shipped and updates content.
+    (src / "docs/COMMANDS.md").unlink()
+    (src / "docs/ALPHA.md").write_text("updated user guide\n")
+    cli.install_docs(src, lay.docs, owner)
+    assert not (lay.docs / "docs/COMMANDS.md").exists()
+    assert owner.find(lay.docs / "docs/COMMANDS.md") is None
+    assert (lay.docs / "docs/ALPHA.md").read_text() == "updated user guide\n"
+    if packaged_layout:
+        # Simulate package removal through the staging manifest.
+        remove_files(owner, owner.component_files("core"))
+        from aerolith_install.manifest import RemovalReport
+        prune_dirs(owner, lay.docs, RemovalReport())
+    else:
+        owner.save(lay.manifest)
+        assert run("--yes", "uninstall", "--remove-config") == 0
+    assert not lay.docs.exists()
+
+
+def test_docs_update_prunes_legacy_readme_and_stale_bundle_files(system, home):
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    lay = layout()
+    owner = Manifest.load(lay.manifest)
+    for target in [lay.data / "README.md", lay.docs / "docs/retired.md"]:
+        target.write_text("old shipped guide")
+        owner.record_file(target, "core")
+    owner.save(lay.manifest)
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    assert not (lay.data / "README.md").exists()
+    assert not (lay.docs / "docs/retired.md").exists()
+    assert (lay.docs / "README.md").is_file()
+
+
+def test_user_modified_docs_survive_uninstall(system, home):
+    assert run("--yes", "install", "--ai", "none", "--startup", "manual") == 0
+    lay = layout()
+    guide = lay.docs / "docs/ALPHA.md"
+    guide.write_text("my offline notes\n")
+    assert run("--yes", "uninstall", "--remove-config") == 0
+    assert guide.read_text() == "my offline notes\n"
+    assert not (lay.docs / "README.md").exists()
+
+
 # --- CLAUDE -------------------------------------------------------------------------
 
 def test_claude_uses_existing_cli_and_never_owns_it(system, home, fake_claude):
