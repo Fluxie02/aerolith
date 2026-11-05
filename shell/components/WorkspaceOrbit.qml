@@ -12,9 +12,9 @@ Item {
     readonly property bool ambient: !(profile.idleDimmed || profile.idleAnimationHeld) && Theme.ambientFor(outputName)
     property bool instrument: false
     objectName: "workspaceOrbit"
-    readonly property var geometry: Geometry.ground(width, height, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
+    readonly property var geometry: Theme.groundGeometry(width, height, Screen.name)
     readonly property var cells: Compositor.workspaceCells
-    readonly property var stations: Geometry.orbitStations(cells, Config.strip.workspaceCount, width, height, Theme.unit)
+    readonly property var stations: Geometry.orbitStations(cells, Config.strip.workspaceCount, geometry)
     readonly property int count: stations.length
     readonly property bool compact: geometry.compact
     function stationX(index) { return stations[index].x; }
@@ -50,6 +50,7 @@ Item {
     // station radius. Only its two lips are shaded; the numeral stays dark.
     Material { profile: orbit.profile;
         shader: "annulus"
+        visible: !orbit.compact
         readonly property real ringRadius: orbit.geometry.ringRadius
         x: orbit.geometry.cx - width / 2
         y: orbit.geometry.cy - height / 2
@@ -63,7 +64,7 @@ Item {
         width: orbit.radius; height: 1
         rotation: 90 - orbit.focusAngle * 180 / Math.PI
         transformOrigin: Item.Left
-        visible: Compositor.focusedWorkspaceId > 0 && orbit.cells.some(w => w.id === Compositor.focusedWorkspaceId)
+        visible: !orbit.compact && Compositor.focusedWorkspaceId > 0 && orbit.cells.some(w => w.id === Compositor.focusedWorkspaceId)
         Behavior on rotation { enabled: Theme.travel && orbit.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
         Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: orbit.profile.signal }
         Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: orbit.profile.signal }

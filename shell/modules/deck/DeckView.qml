@@ -17,7 +17,7 @@ Item {
     readonly property var codes: ({command:"SEARCH",navigator:"WINDOWS",systems:"SYSTEMS",signal:"SYSTEMS",routines:"SYSTEMS",ai:"AI",settings:"SETTINGS",help:"HELP"})
     readonly property var bayNames: ({command:"Search & launch",navigator:"Window overview",systems:"System monitor",signal:"Signal",routines:"Routines",ai:"AI",settings:"Settings",help:"Help"})
     readonly property var railEntries: deck.rail.filter(r => ["command", "navigator", "systems"].indexOf(r.bay) !== -1).map(r => ({bay:r.bay, key:r.key, label:bayNames[r.bay] || r.bay}))
-    readonly property bool compactScreen: width < Theme.du(1500) || height < Theme.du(850)
+    readonly property bool compactScreen: Theme.layoutFor(width, height, Screen.name).compact
     readonly property real fieldProgress: Math.max(frameA.progress, frameB.progress)
     readonly property string shownBay: Ui.activeBay || (deck.slotA.leaving ? deck.slotA.bay : deck.slotB.bay)
     readonly property string shownCode: codes[shownBay] || "—"

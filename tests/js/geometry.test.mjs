@@ -2,39 +2,99 @@ import { suite, runAll } from "./harness.mjs";
 import * as G from "../../shell/lib/geometry.mjs";
 
 const geometry = suite("geometry", test => {
-    test("ground and stations exactly preserve the old equations and density rounding", a => {
-        for (const [w, h] of [[1920, 1080], [3840 / 1.5, 2160 / 1.5], [1280, 720]]) {
-            for (const unit of [1, .92, 1.08, 1.5, 1.38, 1.62]) {
+    test("one work-area classification uses UI scale and strip reservation, never density", a => {
+        a.deepEqual(G.workArea(1500, 878, 1, 28),
+            { width: 1500, height: 850, compact: false, portrait: false, ultrawide: false });
+        a.equal(G.workArea(1499, 878, 1, 28).compact, true);
+        a.equal(G.workArea(1500, 877, 1, 28).compact, true);
+        a.equal(G.workArea(3000, 1756, 2, 56).compact, false);
+        a.equal(G.workArea(3000, 1755, 2, 56).compact, true);
+        a.equal(G.workArea(1500, 850, 1, 0).compact, false);
+        for (const unit of [.92, 1, 1.08]) {
+            a.equal(G.ground(1500, 878, unit, 28, false).compact, false);
+            a.equal(G.ground(1499, 878, unit, 28, false).compact, true);
+        }
+    });
+    test("16:9 hatch, app register, rings and default stations retain exact equations", a => {
+        for (const [w, h] of [[1920, 1080], [3840 / 1.5, 2160 / 1.5]]) {
+            for (const unit of [.92, 1, 1.08]) for (const bottom of [false, true]) {
                 const du = n => Math.round(n * unit);
-                for (const bottom of [false, true]) {
-                    const g = G.ground(w, h, unit, 38, bottom);
-                    const hw = Math.min(w * .18, du(360)), ah = Math.min(h * .34, du(380));
-                    a.deepEqual(g.hatch, { x: w * .59 - hw / 2, y: h * .49 - ah / 2 - du(28),
-                        width: hw, height: du(28) + ah + du(88) });
-                    a.deepEqual(g.apps, { x: w * .055, y: h - du(48) - du(16) - (bottom ? 38 : 0),
-                        width: w * .885, height: du(48) });
-                    a.equal(g.cx, w * .27); a.equal(g.cy, h * .55);
-                    a.equal(g.ringRadius, h * .34); a.equal(g.stationRadius, h * .29);
-                    for (const count of [1, 5, 20]) for (let i = 0; i < count; i++) {
-                        const compact = w < du(1500) || h < du(850);
-                        a.deepEqual(G.station(w, h, unit, i, count), {
-                            x: compact ? w * (.055 + .47 * (i + .5) / count)
-                                : w * .27 + Math.sin(-.92 + i * 1.84 / Math.max(1, count - 1)) * (h * .29),
-                            y: compact ? h - du(125)
-                                : h * .55 + Math.cos(-.92 + i * 1.84 / Math.max(1, count - 1)) * (h * .29),
-                            width: Math.min(du(76), w * .47 / count - du(6)), height: du(56)
-                        });
-                    }
+                const g = G.ground(w, h, unit, 28, bottom);
+                const hw = Math.min(w * .18, du(360)), ah = Math.min(h * .34, du(380));
+                a.deepEqual(g.hatch, { x: w * .59 - hw / 2, y: h * .49 - ah / 2 - du(28),
+                    width: hw, height: du(28) + ah + du(88) });
+                a.deepEqual(g.apps, { x: w * .055, y: h - du(48) - du(16) - (bottom ? 28 : 0),
+                    width: w * .885, height: du(48) });
+                a.equal(g.cx, w * .27); a.equal(g.cy, h * .55);
+                a.equal(g.ringRadius, h * .34); a.equal(g.stationRadius, h * .29);
+                a.equal(g.instrumentWidth, w * .25);
+                for (let i = 0; i < 5; i++) a.deepEqual(G.station(g, i, 5), {
+                    x: w * .27 + Math.sin(-.92 + i * 1.84 / 4) * (h * .29),
+                    y: h * .55 + Math.cos(-.92 + i * 1.84 / 4) * (h * .29),
+                    width: Math.min(du(76), w * .47 / 5 - du(6)), height: du(56)
+                });
+            }
+        }
+    });
+    test("portrait uses an on-screen station row at both requested resolutions and every density", a => {
+        for (const [w, h] of [[1080, 1920], [1440, 2560]]) for (const unit of [.92, 1, 1.08]) {
+            const g = G.ground(w, h, unit, 34, false);
+            a.equal(g.compact, true);
+            a.ok(g.cx - g.ringRadius >= 0);
+            a.ok(g.cx + g.ringRadius <= w);
+            for (let i = 0; i < 5; i++) {
+                const s = G.station(g, i, 5);
+                a.equal(s.y, g.stationRowY);
+                a.ok(s.x - s.width / 2 >= 0 && s.x + s.width / 2 <= w);
+                a.ok(s.y - s.height / 2 >= 34 && s.y + s.height / 2 < h);
+            }
+        }
+    });
+    test("compact stations and projecting marks clear both strip edges and the app row by two gaps", a => {
+        for (const [w, h] of [[1366, 768], [1280, 720], [1080, 1920], [1440, 2560]]) {
+            for (const [density, strip, gap] of [[.92, 24, 4], [1, 28, 6], [1.08, 34, 8]]) {
+                for (const scale of [.75, 1, 1.5, 2]) for (const bottom of [false, true]) {
+                    const unit = scale * density, lane = Math.round(strip * scale), gutter = Math.round(gap * scale);
+                    const g = G.ground(w, h, unit, lane, bottom, scale, gutter);
+                    const s = G.station(g, 0, 5), mark = Math.round(4 * unit);
+                    if (!g.compact) continue;
+                    a.ok(s.y - s.height / 2 - mark >= (bottom ? 0 : lane) + 2 * gutter);
+                    a.ok(s.y + s.height / 2 + mark <= h - (bottom ? lane : 0) - 2 * gutter);
+                    a.ok(s.y + s.height / 2 + mark <= g.apps.y - 2 * gutter);
                 }
+            }
+        }
+    });
+    test("ultrawide instruments cap before UI scale, ignore density and keep existing origins", a => {
+        for (const w of [3440, 5120]) for (const scale of [.75, 1, 1.5, 2]) {
+            for (const density of [.92, 1, 1.08]) {
+                const g = G.ground(w, 1440, scale * density, 34, false, scale);
+                a.equal(g.instrumentWidth, Math.round(420 * scale));
+                a.equal(g.apps.width, Math.round(1120 * scale));
+                a.equal(g.apps.x, w * .055);
+                a.equal(g.windows.x, w * .70);
+                a.equal(g.windows.width, Math.min(w * .24, Math.round(420 * scale)));
+            }
+        }
+        a.equal(G.workArea(2000, 1000, 1, 0).ultrawide, false);
+        a.equal(G.workArea(2001, 1000, 1, 0).ultrawide, true);
+    });
+    test("window register ends two gaps before the shared second bearing", a => {
+        for (const [w, h] of [[1920, 1080], [2560, 1440], [3440, 1440], [5120, 1440]]) {
+            for (const gap of [4, 6, 8, 12]) {
+                const g = G.ground(w, h, 1, 28, false, 1, gap);
+                a.equal(g.windows.y + g.windows.height, g.bearings[1].y - 2 * gap);
+                a.deepEqual(g.bearings[1], { x: w * .72, y: h * .79, width: w * .16, height: 11 });
             }
         }
     });
     test("default stations retain every position and size at 1080p and scaled 4K", a => {
         for (const [w, h] of [[1920, 1080], [2560, 1440]]) {
-            const stations = G.orbitStations(G.workspaceCells(5, [], 1), 5, w, h, 1);
+            const g = G.ground(w, h, 1, 28, false);
+            const stations = G.orbitStations(G.workspaceCells(5, [], 1), 5, g);
             a.equal(stations.length, 5);
             stations.forEach((s, i) => {
-                a.deepEqual(s, Object.assign({ id: i + 1 }, G.station(w, h, 1, i, 5), { overflow: [] }));
+                a.deepEqual(s, Object.assign({ id: i + 1 }, G.station(g, i, 5), { overflow: [] }));
             });
         }
     });
@@ -49,12 +109,13 @@ const geometry = suite("geometry", test => {
         for (const [w, h] of [[1920, 1080], [2560, 1440], [800, 600]]) {
             for (const configured of [1, 5, 20]) {
                 const cells = G.workspaceCells(configured, [{ id: 33, windows: 1 }], 33);
-                const stations = G.orbitStations(cells, configured, w, h, 1);
+                const g = G.ground(w, h, 1, 28, false);
+                const stations = G.orbitStations(cells, configured, g);
                 const ids = [];
                 let overflow = 0;
                 stations.forEach((s, i) => {
-                    a.equal(s.x, G.station(w, h, 1, i, configured).x);
-                    a.equal(s.y, G.station(w, h, 1, i, configured).y);
+                    a.equal(s.x, G.station(g, i, configured).x);
+                    a.equal(s.y, G.station(g, i, configured).y);
                     if (s.overflow.length) { overflow++; ids.push.apply(ids, s.overflow); }
                     else ids.push(s.id);
                 });

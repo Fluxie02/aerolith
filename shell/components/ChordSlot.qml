@@ -8,7 +8,7 @@ Item {
     property var profile: Theme
     required property var slot
     readonly property bool wide: slot.bay !== "command" && slot.bay !== "ai"
-    readonly property bool compactScreen: parent.width < Theme.du(1500) || parent.height < Theme.du(850)
+    readonly property bool compactScreen: Theme.layoutFor(parent.width, parent.height, Screen.name).compact
     readonly property real leftOrigin: compactScreen ? parent.width * .045 : parent.width * (wide ? .12 : .37)
     readonly property real topOrigin: compactScreen ? Math.max(Theme.stripHeight + Theme.du(78), parent.height * .14) : parent.height * .22
     // Progress is a presentation target kept for DeckView's compatibility.

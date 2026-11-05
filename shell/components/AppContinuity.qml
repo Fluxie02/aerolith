@@ -1,14 +1,13 @@
 import QtQuick
 import qs.core
 import qs.services
-import "../lib/geometry.mjs" as Geometry
 import "../lib/appbus.mjs" as Bus
 
 // A single row of the user's applications, ranked by the Apps service.
 Item {
     id: bus
     property var profile: Theme
-    readonly property var geometry: Geometry.ground(parent ? parent.width : 0, parent ? parent.height : 0, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
+    readonly property var geometry: Theme.groundGeometry(parent ? parent.width : 0, parent ? parent.height : 0, Screen.name)
     x: geometry.apps.x; y: geometry.apps.y
     width: geometry.apps.width; height: geometry.apps.height
     objectName: "appBar"

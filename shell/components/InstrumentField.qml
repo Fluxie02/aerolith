@@ -1,14 +1,13 @@
 import QtQuick
 import qs.core
 import qs.services
-import "../lib/geometry.mjs" as Geometry
 
 // All geometry is reconstructed from CPU-side properties after a remap.
 // No frame callbacks, persistent GPU content, shader or sampling timer.
 Item {
     id: field
     property var profile: Theme
-    readonly property var geometry: Geometry.ground(width, height, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
+    readonly property var geometry: Theme.groundGeometry(width, height, Screen.name)
     property bool instrument: false
     // DeckView supplies progress for API compatibility. Opening moves the
     // retained chord only; its surrounding geometry stays registered.
@@ -24,6 +23,7 @@ Item {
         Connections {
             target: field
             function onProfileChanged() { art.requestPaint(); }
+            function onGeometryChanged() { art.requestPaint(); }
         }
         anchors.fill: parent
         renderTarget: Canvas.Image

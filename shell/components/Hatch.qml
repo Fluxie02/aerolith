@@ -1,13 +1,12 @@
 import QtQuick
 import qs.core
 import qs.services
-import "../lib/geometry.mjs" as Geometry
 
 // The scratch space has a physical entrance. Only these two retained leaves
 // travel; no canvas, texture, timer, thumbnail or independent surface is owned.
 Item {
     id: hatch
-    readonly property var geometry: Geometry.ground(width, height, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
+    readonly property var geometry: Theme.groundGeometry(width, height, Screen.name)
     property bool instrument: false
     property var profile: Theme
     readonly property string outputName: Screen.name

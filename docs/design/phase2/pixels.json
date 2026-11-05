@@ -1,0 +1,24 @@
+[
+  {
+    "case": "1080",
+    "size": [
+      1920,
+      1080
+    ],
+    "byteIdentical": true,
+    "differingPixels": 0,
+    "beforeSHA256": "8aec4e99bdc53b29fc322f79790ad01397f088009853f9e59b84668864f391c2",
+    "afterSHA256": "8aec4e99bdc53b29fc322f79790ad01397f088009853f9e59b84668864f391c2"
+  },
+  {
+    "case": "4k",
+    "size": [
+      3840,
+      2160
+    ],
+    "byteIdentical": true,
+    "differingPixels": 0,
+    "beforeSHA256": "6564e1f6e7cc6817445858b8d743ad8576536deaa9e6cb5b8d126bb963fd493a",
+    "afterSHA256": "6564e1f6e7cc6817445858b8d743ad8576536deaa9e6cb5b8d126bb963fd493a"
+  }
+]

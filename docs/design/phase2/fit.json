@@ -1,0 +1,479 @@
+[
+  {
+    "evidence": "ground-1920x1080.jpg",
+    "logicalSize": [
+      1920,
+      1080
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": false,
+      "strip": false,
+      "deck": false,
+      "tour": false
+    },
+    "mediaWidth": 480,
+    "apps": {
+      "x": 105.6,
+      "y": 1016,
+      "width": 1699.2
+    },
+    "stationsIncludingMarks": {
+      "top": 751.7428730607326,
+      "bottom": 939.2,
+      "appClearance": 76.79999999999995,
+      "stripClearance": 723.7428730607326
+    },
+    "windowViewport": {
+      "x": 1344,
+      "y": 734.8000000000001,
+      "contentHeight": 152,
+      "width": 461.79999999999995,
+      "height": 106.39999999999998,
+      "scrolledContentY": 45.60000000000002
+    },
+    "secondBearing": {
+      "x": 1382.3999999999999,
+      "y": 853.2,
+      "width": 307.2,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 231.21757260461027,
+      "y": 755.7428730607326,
+      "width": 574.3648547907796,
+      "height": 179.45712693926748,
+      "left": 231.21757260461027,
+      "right": 805.5824273953899,
+      "top": 755.7428730607326,
+      "bottom": 935.2
+    }
+  },
+  {
+    "evidence": "ground-3840x2160-scale1.5.jpg",
+    "logicalSize": [
+      2560,
+      1440
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": false,
+      "strip": false,
+      "deck": false,
+      "tour": false
+    },
+    "mediaWidth": 640,
+    "apps": {
+      "x": 140.8,
+      "y": 1376,
+      "width": 2265.6
+    },
+    "stationsIncludingMarks": {
+      "top": 1012.9904974143101,
+      "bottom": 1241.6000000000001,
+      "appClearance": 134.39999999999986,
+      "stripClearance": 984.9904974143101
+    },
+    "windowViewport": {
+      "x": 1792,
+      "y": 972.4000000000001,
+      "contentHeight": 152,
+      "width": 615.4,
+      "height": 112,
+      "scrolledContentY": 40
+    },
+    "secondBearing": {
+      "x": 1843.1999999999998,
+      "y": 1137.6000000000001,
+      "width": 409.6,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 320.95676347281363,
+      "y": 1016.9904974143101,
+      "width": 740.4864730543727,
+      "height": 220.60950258569005,
+      "left": 320.95676347281363,
+      "right": 1061.4432365271864,
+      "top": 1016.9904974143101,
+      "bottom": 1237.6000000000001
+    }
+  },
+  {
+    "evidence": "ground-1366x768.jpg",
+    "logicalSize": [
+      1366,
+      768
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": true,
+      "strip": true,
+      "deck": true,
+      "tour": true
+    },
+    "mediaWidth": 341.5,
+    "apps": {
+      "x": 75.13,
+      "y": 704,
+      "width": 1208.91
+    },
+    "stationsIncludingMarks": {
+      "top": 611,
+      "bottom": 675,
+      "appClearance": 29,
+      "stripClearance": 583
+    },
+    "windowViewport": {
+      "x": 956.1999999999999,
+      "y": 528.88,
+      "contentHeight": 152,
+      "width": 328.84,
+      "height": 65.84000000000003,
+      "scrolledContentY": 86.15999999999997
+    },
+    "secondBearing": {
+      "x": 983.52,
+      "y": 606.72,
+      "width": 218.56,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 101.33200000000002,
+      "y": 615,
+      "width": 589.6159999999999,
+      "height": 56,
+      "left": 101.33200000000002,
+      "right": 690.9479999999999,
+      "top": 615,
+      "bottom": 671
+    }
+  },
+  {
+    "evidence": "ground-1280x720.jpg",
+    "logicalSize": [
+      1280,
+      720
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": true,
+      "strip": true,
+      "deck": true,
+      "tour": true
+    },
+    "mediaWidth": 320,
+    "apps": {
+      "x": 70.4,
+      "y": 656,
+      "width": 1132.8
+    },
+    "stationsIncludingMarks": {
+      "top": 563,
+      "bottom": 627,
+      "appClearance": 29,
+      "stripClearance": 535
+    },
+    "windowViewport": {
+      "x": 896,
+      "y": 497.20000000000005,
+      "contentHeight": 152,
+      "width": 308.2,
+      "height": 59.60000000000002,
+      "scrolledContentY": 92.39999999999998
+    },
+    "secondBearing": {
+      "x": 921.5999999999999,
+      "y": 568.8000000000001,
+      "width": 204.8,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 92.56,
+      "y": 567,
+      "width": 557.28,
+      "height": 56,
+      "left": 92.56,
+      "right": 649.8399999999999,
+      "top": 567,
+      "bottom": 623
+    }
+  },
+  {
+    "evidence": "ground-1080x1920.jpg",
+    "logicalSize": [
+      1080,
+      1920
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": true,
+      "strip": true,
+      "deck": true,
+      "tour": true
+    },
+    "mediaWidth": 270,
+    "apps": {
+      "x": 59.4,
+      "y": 1856,
+      "width": 955.8
+    },
+    "stationsIncludingMarks": {
+      "top": 1763,
+      "bottom": 1827,
+      "appClearance": 29,
+      "stripClearance": 1735
+    },
+    "windowViewport": {
+      "x": 756,
+      "y": 1289.2,
+      "contentHeight": 152,
+      "width": 260.2,
+      "height": 112,
+      "scrolledContentY": 40
+    },
+    "secondBearing": {
+      "x": 777.6,
+      "y": 1516.8000000000002,
+      "width": 172.8,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 72.16000000000001,
+      "y": 1767,
+      "width": 482.07999999999987,
+      "height": 56,
+      "left": 72.16000000000001,
+      "right": 554.2399999999999,
+      "top": 1767,
+      "bottom": 1823
+    }
+  },
+  {
+    "evidence": "ground-1440x2560.jpg",
+    "logicalSize": [
+      1440,
+      2560
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": true,
+      "strip": true,
+      "deck": true,
+      "tour": true
+    },
+    "mediaWidth": 360,
+    "apps": {
+      "x": 79.2,
+      "y": 2496,
+      "width": 1274.4
+    },
+    "stationsIncludingMarks": {
+      "top": 2403,
+      "bottom": 2467,
+      "appClearance": 29,
+      "stripClearance": 2375
+    },
+    "windowViewport": {
+      "x": 1007.9999999999999,
+      "y": 1711.6000000000001,
+      "contentHeight": 152,
+      "width": 346.59999999999997,
+      "height": 112,
+      "scrolledContentY": 40
+    },
+    "secondBearing": {
+      "x": 1036.8,
+      "y": 2022.4,
+      "width": 230.4,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 108.88000000000002,
+      "y": 2407,
+      "width": 617.4399999999999,
+      "height": 56,
+      "left": 108.88000000000002,
+      "right": 726.3199999999999,
+      "top": 2407,
+      "bottom": 2463
+    }
+  },
+  {
+    "evidence": "ground-3440x1440.jpg",
+    "logicalSize": [
+      3440,
+      1440
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": false,
+      "strip": false,
+      "deck": false,
+      "tour": false
+    },
+    "mediaWidth": 420,
+    "apps": {
+      "x": 189.2,
+      "y": 1376,
+      "width": 1120
+    },
+    "stationsIncludingMarks": {
+      "top": 1012.9904974143101,
+      "bottom": 1241.6000000000001,
+      "appClearance": 134.39999999999986,
+      "stripClearance": 984.9904974143101
+    },
+    "windowViewport": {
+      "x": 2408,
+      "y": 972.4000000000001,
+      "contentHeight": 152,
+      "width": 421,
+      "height": 112,
+      "scrolledContentY": 40
+    },
+    "secondBearing": {
+      "x": 2476.7999999999997,
+      "y": 1137.6000000000001,
+      "width": 550.4,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 558.5567634728136,
+      "y": 1016.9904974143101,
+      "width": 740.4864730543729,
+      "height": 220.60950258569005,
+      "left": 558.5567634728136,
+      "right": 1299.0432365271865,
+      "top": 1016.9904974143101,
+      "bottom": 1237.6000000000001
+    }
+  },
+  {
+    "evidence": "ground-5120x1440.jpg",
+    "logicalSize": [
+      5120,
+      1440
+    ],
+    "uiScale": 1,
+    "unit": 1,
+    "gap": 6,
+    "stripEdge": "top",
+    "compact": {
+      "ground": false,
+      "strip": false,
+      "deck": false,
+      "tour": false
+    },
+    "mediaWidth": 420,
+    "apps": {
+      "x": 281.6,
+      "y": 1376,
+      "width": 1120
+    },
+    "stationsIncludingMarks": {
+      "top": 1012.9904974143101,
+      "bottom": 1241.6000000000001,
+      "appClearance": 134.39999999999986,
+      "stripClearance": 984.9904974143101
+    },
+    "windowViewport": {
+      "x": 3584,
+      "y": 972.4000000000001,
+      "contentHeight": 152,
+      "width": 421,
+      "height": 112,
+      "scrolledContentY": 40
+    },
+    "secondBearing": {
+      "x": 3686.3999999999996,
+      "y": 1137.6000000000001,
+      "width": 819.2,
+      "height": 11
+    },
+    "tourTarget": {
+      "x": 1012.1567634728137,
+      "y": 1016.9904974143101,
+      "width": 740.4864730543727,
+      "height": 220.60950258569005,
+      "left": 1012.1567634728137,
+      "right": 1752.6432365271864,
+      "top": 1016.9904974143101,
+      "bottom": 1237.6000000000001
+    }
+  },
+  {
+    "evidence": "ground-1280x720-comfortable-bottom.jpg",
+    "logicalSize": [
+      1280,
+      720
+    ],
+    "uiScale": 1,
+    "unit": 1.08,
+    "gap": 8,
+    "stripEdge": "bottom",
+    "compact": {
+      "ground": true,
+      "strip": true,
+      "deck": true,
+      "tour": true
+    },
+    "mediaWidth": 320,
+    "apps": {
+      "x": 70.4,
+      "y": 617,
+      "width": 1132.8
+    },
+    "stationsIncludingMarks": {
+      "top": 533,
+      "bottom": 601,
+      "appClearance": 16,
+      "stripClearance": 85
+    },
+    "windowViewport": {
+      "x": 896,
+      "y": 499.20000000000005,
+      "contentHeight": 167,
+      "width": 308.2,
+      "height": 53.60000000000002,
+      "scrolledContentY": 113.39999999999998
+    },
+    "secondBearing": {
+      "x": 921.5999999999999,
+      "y": 568.8000000000001,
+      "width": 204.8,
+      "height": 12
+    },
+    "tourTarget": {
+      "x": 89.56,
+      "y": 537,
+      "width": 563.28,
+      "height": 60,
+      "left": 89.56,
+      "right": 652.8399999999999,
+      "top": 537,
+      "bottom": 597
+    }
+  }
+]

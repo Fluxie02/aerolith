@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Hyprland
 import qs.services
 import "../lib/tokens.mjs" as Tokens
+import "../lib/geometry.mjs" as Geometry
 import "../lib/schemes.mjs" as Schemes
 import "../lib/ambient.mjs" as Ambient
 import "../lib/hyprdispatch.mjs" as HD
@@ -83,6 +84,17 @@ Singleton {
     readonly property real unit: scale * (cfg.density === "compact" ? 0.92 : cfg.density === "comfortable" ? 1.08 : 1)
     function du(n) {
         return Math.round(n * unit);
+    }
+    // All surfaces classify the full output, with that output's actual strip.
+    function stripReservation(outputName) {
+        return Displays.settings(outputName).strip ? stripHeight : 0;
+    }
+    function layoutFor(width, height, outputName) {
+        return Geometry.workArea(width, height, scale, stripReservation(outputName));
+    }
+    function groundGeometry(width, height, outputName) {
+        return Geometry.ground(width, height, unit, stripReservation(outputName),
+            Config.strip.edge === "bottom", scale, gap);
     }
     readonly property int fontXs: px(density.fontXs)
     readonly property int fontSm: px(density.fontSm)

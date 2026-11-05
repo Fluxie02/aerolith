@@ -1,7 +1,6 @@
 import QtQuick
 import qs.core
 import qs.services
-import "../lib/geometry.mjs" as Geometry
 import "../lib/telemetry.mjs" as T
 
 // A working section through the airframe: identity on the right, workspace
@@ -10,7 +9,7 @@ Item {
     id: rig
     property var profile: Theme
     property bool instrument: false
-    readonly property var geometry: Geometry.ground(width, height, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
+    readonly property var geometry: Theme.groundGeometry(width, height, Screen.name)
     readonly property bool compact: geometry.compact
     readonly property var windows: Compositor.windows()
     readonly property string ws: Compositor.focusedWorkspaceId > 0 ? ("0" + Compositor.focusedWorkspaceId).slice(-2) : "N/A"
@@ -84,7 +83,7 @@ Item {
 
     Column {
         x: parent.width * .69; y: parent.height * .27
-        width: parent.width * .25
+        width: rig.geometry.instrumentWidth
         spacing: Theme.du(24); visible: !rig.instrument
         opacity: Math.max(0, Math.min(1, (rig.ignition - .22) / .30))
         NowPlaying { profile: rig.profile; width: parent.width }
@@ -115,39 +114,66 @@ Item {
         }
     }
 
-    // A narrow window register occupies the clear side of the structural fins.
+    // Keep the register above the actual second bearing; overflow scrolls
+    // through every window instead of silently truncating the model.
     Column {
-        x: parent.width * .70; y: parent.height * .66; width: parent.width * .24
+        id: windowRegister
+        x: rig.geometry.windows.x; y: rig.geometry.windows.y
+        width: rig.geometry.windows.width
         spacing: Theme.du(8); visible: !rig.instrument && !rig.compact
         opacity: Math.max(0, Math.min(1, (rig.ignition - .48) / .26))
         Text {
+            id: windowHeading
             text: "OPEN WINDOWS / " + rig.windows.length; textFormat: Text.PlainText
             color: rig.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs; font.letterSpacing: 1
         }
-        Repeater {
-            model: rig.windows.slice(0, 3)
-            delegate: Item {
-                required property var modelData
-                width: parent.width; height: Theme.du(32)
-                Rectangle { width: parent.width; height: 1; color: rig.profile.grid }
-                Text {
-                    y: Theme.du(9); width: parent.width - Theme.du(38); elide: Text.ElideRight
-                    text: modelData.title; textFormat: Text.PlainText; color: rig.profile.text
-                    font.family: Theme.sans; font.pixelSize: Theme.fontSm
-                }
-                Text {
-                    anchors.right: parent.right; y: Theme.du(9)
-                    text: "W" + modelData.workspaceId; textFormat: Text.PlainText
-                    color: rig.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
-                }
-                MouseArea {
-                    anchors.fill: parent; cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        Registry.run("window.focus", { address: modelData.address });
-                        if (rig.instrument)
-                            Ui.close();
+        Flickable {
+            id: windowViewport
+            objectName: "groundWindowRegister"
+            // One border of horizontal raster allowance keeps fractional-
+            // scale rule endpoints intact; content retains its original width.
+            width: parent.width + Theme.border
+            height: Math.max(0, Math.min(Theme.du(32) * 3 + Theme.du(8) * 2,
+                rig.geometry.windows.height - windowHeading.height - windowRegister.spacing))
+            contentWidth: width; contentHeight: windowRows.height
+            clip: true; boundsBehavior: Flickable.StopAtBounds
+            flickableDirection: Flickable.VerticalFlick
+            Column {
+                id: windowRows
+                width: windowRegister.width; spacing: windowRegister.spacing
+                Repeater {
+                    model: rig.windows
+                    delegate: Item {
+                        required property var modelData
+                        width: windowRows.width; height: Theme.du(32)
+                        Rectangle { width: parent.width; height: 1; color: rig.profile.grid }
+                        Text {
+                            y: Theme.du(9); width: parent.width - Theme.du(38); elide: Text.ElideRight
+                            text: modelData.title; textFormat: Text.PlainText; color: rig.profile.text
+                            font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                        }
+                        Text {
+                            anchors.right: parent.right; y: Theme.du(9)
+                            text: "W" + modelData.workspaceId; textFormat: Text.PlainText
+                            color: rig.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                        }
+                        MouseArea {
+                            anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+                            onClicked: {
+                                Registry.run("window.focus", { address: modelData.address });
+                                if (rig.instrument)
+                                    Ui.close();
+                            }
+                        }
                     }
                 }
+            }
+            // Reveal the position mark on interaction, keeping the resting
+            // register's original inscriptions and pixels intact.
+            HoverHandler { id: windowHover }
+            ScrollMark {
+                profile: rig.profile; viewport: windowViewport
+                opacity: windowHover.hovered || windowViewport.contentY > 0 ? 1 : 0
             }
         }
     }
@@ -155,7 +181,7 @@ Item {
     // The core comb uses the service's existing samples. It never polls.
     Item {
         x: parent.width * .69; y: parent.height * .105
-        width: parent.width * .25; height: parent.height * .085
+        width: rig.geometry.instrumentWidth; height: parent.height * .085
         visible: !rig.compact && !rig.instrument
         Text {
             text: "CPU CORES / " + Math.min(Theme.insane ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length

@@ -18,6 +18,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
+    readonly property bool compact: Theme.layoutFor(width, height, Tour.output ? Tour.output.name : "").compact
     readonly property string stepId: Tour.steps[Tour.step]
     // Each target maps only inside its own layer surface, then publishes
     // output-local logical coordinates. Tour is a full-output overlay at 0,0.
@@ -27,7 +28,7 @@ PanelWindow {
     readonly property var stepNames: ["Hatch", "Workspaces", "Search", "Used apps", "Status strip"]
     readonly property var words: [
         {title: "A SPACE TO KEEP THINGS", body: "The hatch opens your scratch space. Park any window here and bring it back when you need it.", key: "SUPER + S  OPEN / CLOSE\nSUPER + SHIFT + S  PARK A WINDOW"},
-        {title: "ROOM FOR EACH TASK", body: "Click a station on the workspace ring to switch. Its window count shows where your work is.", key: ""},
+        {title: "ROOM FOR EACH TASK", body: "Click a station on the workspace " + (host.compact ? "row" : "ring") + " to switch. Its window count shows where your work is.", key: ""},
         {title: "FIND IT. OPEN IT.", body: "Search for an app or a shell action. Type a name, then press Enter.", key: "SUPER + SPACE  SEARCH & LAUNCH"},
         {title: "YOUR APPS, CLOSE BY", body: "The bottom bar keeps your most used apps nearby. Click to open an app or return to its windows.", key: ""},
         {title: Network.available || Bluetooth.available ? "CONNECTIONS AT A GLANCE" : "YOUR STATUS STRIP", body: (Network.available || Bluetooth.available ? "Click " + [Network.available ? "Network" : "", Bluetooth.available ? "Bluetooth" : ""].filter(s => s !== "").join(" or ") + " in the " + (Config.strip.edge === "top" ? "top" : "bottom") + " status strip to connect." : "The " + Config.strip.edge + " status strip shows your workspace, sound and time.") + " Open Settings to change the layout and decoration level.", key: "ENTER  FINISH   ·   ESC  SKIP"}

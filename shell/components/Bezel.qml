@@ -17,7 +17,9 @@ Item {
     property color accent: active ? root.profile.appLink : root.profile.grid
     property alias headerRight: headerRightSlot.data
     default property alias content: body.data
-    readonly property bool compact: height < Theme.du(600)
+    // Local housing minimum, independent of the output layout classification.
+    readonly property int minimumFullHeaderHeight: Theme.du(600)
+    readonly property bool compact: height < minimumFullHeaderHeight
     property int contentPadding: compact ? Theme.pad : Theme.contentInset
     property int titleHeight: compact ? Theme.du(42) : Theme.headerHeight
     readonly property int headerHeight: showHeader ? titleHeight : 0

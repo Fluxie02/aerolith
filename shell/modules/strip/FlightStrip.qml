@@ -52,7 +52,7 @@ PanelWindow {
         active: !strip.hideContent
         surfaceOrigin: Qt.point(0, strip.atTop || !strip.screen ? 0 : strip.screen.height - strip.height)
     }
-    readonly property bool compact: width < Theme.px(1500)
+    readonly property bool compact: Theme.layoutFor(screen ? screen.width : width, screen ? screen.height : 0, screen ? screen.name : "").compact
 
     // Datum line on the inner edge.
     Rectangle {
