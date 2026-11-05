@@ -112,6 +112,21 @@ jobs:
           cache-to: type=gha,scope=aerolith-dev,mode=max
       # Each scenario finishes before the next starts; wtype loses keys in parallel.
       # Keep running independent scenarios after a failure. Artifacts are failure-only.
+      - name: schema-keys
+        id: schema-keys
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          tools/headless/run.sh tests/scenarios/schema-keys.sh build/ci/schema-keys
+      - name: Upload failed schema-keys output
+        if: ${{ failure() && steps.schema-keys.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: schema-keys-failure
+          path: build/ci/schema-keys/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
       - name: smoke
         id: smoke
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

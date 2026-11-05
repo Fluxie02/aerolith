@@ -40,10 +40,11 @@ export const SCHEMA = S.obj(
           values: S.obj({
             strip: S.bool(true, "Enable the Flight Strip on this output (also requires strip.visible)."),
             ground: S.bool(true, "Enable Ground on this output (also requires ground.enabled)."),
+            blackBackground: Object.assign(S.bool(false, "Use a true-black background on this output, including LCD. Retains theme planes; does not enable OLED idle protection."), { preview: true }),
             profile: S.enumOf("standard", ["standard", "oled"], "Display profile: standard preserves the theme; oled uses black fills and display.oled idle protection. Applies live."),
           }, "Per-output settings."),
           default: {},
-          description: "Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults.",
+          description: "Settings by output name: strip/ground default true, blackBackground default false, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults.",
         },
         oled: Object.assign(S.obj({
           idleDimAfter: S.int(300, 0, 86400, "Seconds without activity before dimming shell surfaces on OLED outputs. 0 disables idle protection. Respects idle inhibitors."),
@@ -61,6 +62,7 @@ export const SCHEMA = S.obj(
         scheme: S.enumOf("limb", ["limb", "bathyal", "corona", "cinder", "ferrite", "iris", "argent", "lichen", "helios", "umbra", "vellum", "glacial"], "Colour spectrum. Choose in Settings; applies live. Palette overrides take precedence."),
         density: S.enumOf("standard", ["compact", "standard", "comfortable"], "Spacing and type scale."),
         uiScale: S.num(1.0, 0.75, 2.0, "Multiplier applied on top of the compositor's own scaling."),
+        textSize: Object.assign(S.enumOf(100, [100, 112, 125, 150], "Text size in percent, independent of UI scale. Grows type and its rows/headers; never shrinks text to fit."), { preview: true }),
         motion: S.enumOf("full", ["full", "reduced", "off"], "Animation level. 'off' disables all transitions."),
         intensity: S.enumOf("saturated", ["saturated", "insane"], "How much the interface shows: 'saturated' or the even denser 'insane'. Switch with `aerolith intensity`."),
         lowEffects: S.bool(false, "Opaque backdrops and no shadows, for slow GPUs or screen recording."),
@@ -80,7 +82,13 @@ export const SCHEMA = S.obj(
         visible: S.bool(true, "Show the Flight Strip."),
         edge: S.enumOf("top", ["top", "bottom"], "Screen edge for the Flight Strip."),
         showWindowTitle: S.bool(true, "Show the focused window title."),
-        telemetry: S.enumOf("alert", ["off", "alert", "always"], "CPU/memory readouts: never, only when above thresholds, or always."),
+        showNetwork: Object.assign(S.bool(true, "Show the network indicator. Privacy and critical warnings remain visible."), { preview: true }),
+        showBluetooth: Object.assign(S.bool(true, "Show the Bluetooth indicator. Privacy and critical warnings remain visible."), { preview: true }),
+        showMedia: Object.assign(S.bool(true, "Show the media indicator. Privacy and critical warnings remain visible."), { preview: true }),
+        showAudio: Object.assign(S.bool(true, "Show the audio indicator. Privacy and critical warnings remain visible."), { preview: true }),
+        showBattery: Object.assign(S.bool(true, "Show the battery indicator. Privacy and critical warnings remain visible."), { preview: true }),
+        showNotifications: Object.assign(S.bool(true, "Show the notifications indicator. Privacy and critical warnings remain visible."), { preview: true }),
+        telemetry: S.enumOf("alert", ["off", "alert", "always"], "CPU/memory/temperature readouts: off, above thresholds, or always. Critical temperature warnings always remain visible."),
         clock: S.enumOf("24h", ["24h", "12h"], "Clock format."),
         showDate: S.bool(true, "Show the date next to the clock."),
         showSeconds: S.bool(false, "Show seconds. Costs one redraw per second."),
@@ -90,10 +98,18 @@ export const SCHEMA = S.obj(
     ),
     ground: S.obj(
       {
+        showNowPlaying: Object.assign(S.bool(true, "Show Now playing on Ground."), { preview: true }),
+        showTelemetry: Object.assign(S.bool(true, "Show telemetry readouts on Ground."), { preview: true }),
+        showAppRegister: Object.assign(S.bool(true, "Show the application register on Ground."), { preview: true }),
         enabled: S.bool(true, "Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg."),
       },
       "The desktop background surface.",
     ),
+    workspaces: S.obj({
+      names: { type: "map", values: S.str("", 48, "Workspace label. Empty uses its numeric ID."),
+        default: {}, maxProperties: 64, keyPattern: "^[1-9][0-9]{0,8}$", preview: true,
+        description: "Workspace ID to label: at most 64 entries, positive IDs 1–999999999, labels at most 48 characters. Ring and strip elide labels; dispatch always uses the ID." },
+    }, "Workspace labels shared by the ring and status strip."),
     welcome: S.obj({
       showOnStartup: S.bool(false, "Show Welcome on every shell start. Fresh installs show it once regardless; this does not enable shell autostart."),
     }, "Welcome startup preference."),
@@ -270,8 +286,16 @@ function walk(schema, value, path, errors, warnings) {
       errors.push({ path: path, message: "expected an object, got " + typeName(value) + "; using default" });
       return clone(schema.default);
     }
+    if (schema.maxProperties !== undefined && Object.keys(value).length > schema.maxProperties) {
+      errors.push({ path: path, message: "more than " + schema.maxProperties + " entries; using default" });
+      return clone(schema.default);
+    }
     const out = {};
     for (const k in value) {
+      if (schema.keyPattern && !new RegExp(schema.keyPattern).test(k)) {
+        errors.push({ path: path + "." + k, message: "invalid map key; ignored" });
+        continue;
+      }
       if (schema.values.type === "object") {
         out[k] = walk(schema.values, value[k], path + "." + k, errors, warnings);
       } else {
@@ -365,7 +389,10 @@ export function schemaAt(path) {
   if (!parts.length) return null;
   let s = SCHEMA;
   for (let i = 0; i < parts.length; i++) {
-    if (s.type === "map") s = s.values;
+    if (s.type === "map") {
+      if (s.keyPattern && !new RegExp(s.keyPattern).test(parts[i])) return null;
+      s = s.values;
+    }
     else if (s.type === "object" && Object.prototype.hasOwnProperty.call(s.props, parts[i])) s = s.props[parts[i]];
     else return null;
   }
@@ -408,6 +435,13 @@ export function setPath(raw, path, value) {
     cur = cur[parts[i]];
   }
   cur[parts[parts.length - 1]] = clone(value);
+  // Enforce bounded maps for individual-entry writes as well as whole-map edits.
+  for (let i = 1; i < parts.length; i++) {
+    const parent = schemaAt(parts.slice(0, i));
+    if (parent && parent.type === "map" && parent.maxProperties !== undefined
+        && Object.keys(getPath(out, parts.slice(0, i))).length > parent.maxProperties)
+      return { error: parts.slice(0, i).join(".") + ": more than " + parent.maxProperties + " entries" };
+  }
   if (out.schemaVersion === undefined) out.schemaVersion = SCHEMA_VERSION;
   return { raw: out };
 }
@@ -422,7 +456,14 @@ export const PREVIEW_PATHS = [
 
 export function previewAllowed(path) {
   const parts = partsOf(path);
-  if (!schemaAt(parts)) return false;
+  const leaf = schemaAt(parts);
+  if (!leaf) return false;
+  if (leaf.preview === true) return true;
+  // Entry edits inherit the map's appearance permission.
+  if (parts.length > 1) {
+    const parent = schemaAt(parts.slice(0, -1));
+    if (parent && parent.type === "map" && parent.preview === true) return true;
+  }
   return PREVIEW_PATHS.some(pattern => {
     const rule = pattern.split(".");
     if (pattern === "theme.*") return parts[0] === "theme" && parts.length > 1;
@@ -521,6 +562,7 @@ export function toJsonSchema(schema, root) {
   const s = schema || SCHEMA;
   const desc = s.description ? { description: s.description } : {};
   if (s.deprecated) desc.deprecated = true;
+  if (s.preview === true) desc.preview = true;
   switch (s.type) {
     case "object": {
       const props = {};
@@ -548,7 +590,7 @@ export function toJsonSchema(schema, root) {
     case "array":
       return Object.assign({ type: "array" }, desc, { items: toJsonSchema(s.items, false), default: s.default, maxItems: s.maxItems });
     case "map":
-      return Object.assign({ type: "object" }, desc, { additionalProperties: toJsonSchema(s.values, false), default: s.default });
+      return Object.assign({ type: "object" }, desc, { additionalProperties: toJsonSchema(s.values, false), default: s.default, maxProperties: s.maxProperties, propertyNames: s.keyPattern ? { pattern: s.keyPattern } : undefined });
   }
   return {};
 }

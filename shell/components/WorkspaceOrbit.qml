@@ -80,6 +80,7 @@ Item {
             required property int index
             readonly property var modelData: orbit.stations[index] || ({ id: 0, x: 0, y: 0, width: 0, height: 0, overflow: [] })
             objectName: modelData.overflow.length ? "workspaceOverflow" : "workspaceStation-" + workspaceId
+            readonly property string label: Geometry.workspaceLabel(workspaceId, Config.data.workspaces.names, true)
             readonly property int workspaceId: modelData.id
             readonly property bool overflow: modelData.overflow.length > 0
             readonly property bool current: overflow ? modelData.overflow.indexOf(Compositor.focusedWorkspaceId) >= 0 : Compositor.focusedWorkspaceId === workspaceId
@@ -114,12 +115,13 @@ Item {
             }
             Text {
                 y: Theme.du(6); anchors.horizontalCenter: parent.horizontalCenter
-                text: station.overflow ? "+" + station.modelData.overflow.length : (station.workspaceId < 10 ? "0" : "") + station.workspaceId
+                width: Math.min(implicitWidth, parent.width - Theme.du(8)); elide: Text.ElideRight
+                text: station.overflow ? "+" + station.modelData.overflow.length : station.label
                 textFormat: Text.PlainText; color: station.current ? orbit.profile.bg : orbit.profile.text
-                font.family: Theme.mono; font.pixelSize: Theme.du(18)
+                font.family: Theme.mono; font.pixelSize: Theme.textDu(18)
             }
             Text {
-                y: Theme.du(34); width: parent.width; horizontalAlignment: Text.AlignHCenter
+                y: Theme.textDu(34); width: parent.width; horizontalAlignment: Text.AlignHCenter
                 text: station.occupancy > 0 ? station.occupancy + " OPEN" : "EMPTY"
                 textFormat: Text.PlainText
                 color: station.current ? orbit.profile.bg : station.occupancy > 0 ? orbit.profile.text : orbit.profile.textDim
@@ -131,7 +133,7 @@ Item {
                 anchors.fill: parent; cursorShape: Qt.PointingHandCursor
                 onClicked: station.choose()
             }
-            Accessible.role: Accessible.Button; Accessible.name: overflow ? "More workspaces, " + modelData.overflow.length + ", open Windows" : "Workspace " + workspaceId + ", " + occupancy + " windows"
+            Accessible.role: Accessible.Button; Accessible.name: overflow ? "More workspaces, " + modelData.overflow.length + ", active " + Geometry.workspaceLabel(Compositor.focusedWorkspaceId, Config.data.workspaces.names) + ", open Windows" : "Workspace " + workspaceId + ", " + label + ", " + occupancy + " windows"
             Accessible.selected: current
             Accessible.onPressAction: choose()
         }

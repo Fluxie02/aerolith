@@ -2,6 +2,35 @@ import { suite, runAll } from "./harness.mjs";
 import * as G from "../../shell/lib/geometry.mjs";
 
 const geometry = suite("geometry", test => {
+    test("workspace labels preserve IDs, empty/default labels, literal text and overflow membership", a => {
+        const names = {1:"Writing",2:"",3:"<b>Plain</b>",33:"Long workspace name"};
+        a.equal(G.workspaceLabel(1,names), "Writing");
+        a.equal(G.workspaceLabel(2,names), "2");
+        a.equal(G.workspaceLabel(2,names,true), "02");
+        a.equal(G.workspaceLabel(3,names), "<b>Plain</b>");
+        a.equal(G.workspaceLabel(5,{}), "5");
+        a.equal(G.workspaceLabel(5,null,true), "05");
+        a.equal(G.workspaceLabel(10,{},true), "10");
+        const cells = G.workspaceCells(5,[{id:33,windows:1}],33);
+        a.ok(cells.every(c => typeof c.id === "number"));
+        const s = G.orbitStations(cells,5,G.ground(1920,1080,1,28,false));
+        a.ok(s[4].overflow.indexOf(33) >= 0);
+        a.equal(G.workspaceLabel(33,names), "Long workspace name");
+    });
+    test("text growth expands station and app containers without scaling ornament or spacing", a => {
+        for (const factor of [1,1.12,1.25,1.5]) for (const unit of [.92,1,1.08,1.5]) for (const bottom of [false,true]) {
+            const g = G.ground(1280,720,unit,34,bottom,1,8,factor);
+            a.equal(g.apps.height,Math.round(48*unit*factor));
+            a.equal(G.station(g,0,5).height,Math.round(56*unit*factor));
+            a.equal(g.apps.y + g.apps.height,720-Math.round(16*unit)-(bottom?34:0));
+            const s = G.station(g,0,5), mark = Math.round(4*unit);
+            a.ok(s.y-s.height/2-mark >= (bottom?0:34)+16);
+            a.ok(s.y+s.height/2+mark <= g.apps.y-16);
+            const base = G.ground(1280,720,unit,34,bottom,1,8);
+            a.deepEqual(g.hatch,base.hatch); a.deepEqual(g.bearings,base.bearings);
+            a.equal(g.ringRadius,base.ringRadius); a.equal(g.instrumentWidth,base.instrumentWidth);
+        }
+    });
     test("one work-area classification uses UI scale and strip reservation, never density", a => {
         a.deepEqual(G.workArea(1500, 878, 1, 28),
             { width: 1500, height: 850, compact: false, portrait: false, ultrawide: false });

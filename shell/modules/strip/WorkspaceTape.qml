@@ -1,6 +1,7 @@
 import QtQuick
 import qs.core
 import qs.services
+import "../../lib/geometry.mjs" as Geometry
 
 // Workspace tape: numbered cells with occupancy ticks. The focused cell is
 // boxed with phosphor registration brackets; urgent cells get an amber plate.
@@ -39,7 +40,9 @@ Row {
                 textFormat: Text.PlainText
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: -Theme.px(2)
-                text: cell.modelData.id
+                text: Geometry.workspaceLabel(cell.modelData.id, Config.data.workspaces.names)
+                width: Math.min(implicitWidth, parent.width - Theme.px(6))
+                elide: Text.ElideRight
                 color: cell.modelData.focused ? tape.profile.signal : cell.modelData.urgent ? tape.profile.caution : cell.modelData.windows > 0 ? tape.profile.text : tape.profile.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontSm
@@ -61,6 +64,9 @@ Row {
                     }
                 }
             }
+
+            Accessible.role: Accessible.Button
+            Accessible.name: "Workspace " + cell.modelData.id + ", " + Geometry.workspaceLabel(cell.modelData.id, Config.data.workspaces.names)
 
             MouseArea {
                 id: hover
