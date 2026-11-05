@@ -1,7 +1,108 @@
 # P2-TERRA — geometry, measured tour anchors and workspace set
 
-5 November 2026. Implementation is ready for review; required Wayland and pixel
-validation remains **blocked**, not passed. No commit made.
+## P2-TERRA-FIX — follow-up verification, 5 November 2026
+
+All seven requested checks now pass in this worktree. No production shell or
+visual design files changed, and no commit made. The original blocked attempt
+is retained below as history; its Docker blocker no longer applies.
+
+### Causes and changes
+
+- `tests/scenarios/tour-probe.py:50`, private `target()` fixture: the previous
+  `item.parent.x += 13` writes to a Hatch ancestor positioned by `anchors.fill`
+  (`shell/components/InstrumentField.qml:158`). The original assertion correctly
+  rejected a move that never happened; identical rects were evidence of that
+  no-op, not a rounding failure. Opposite left/right margins now translate the
+  ancestor without changing its size. The private reveal action is named
+  `reveal`: passing `show` made qs print the IPC function signature instead of
+  invoking it.
+- `tests/scenarios/tour.sh:83`, `anchor_check()` / `wait_anchor()`: compare
+  x/y/width/height with absolute tolerance 0.5 logical pixels, relative tolerance
+  zero, between Tour's target, its rendered highlight, the registered anchor,
+  and the independently mapped real target bounds. Mutation waits also require
+  the expected translation/scale, so agreement between stale rectangles cannot
+  pass. Restoration compares scalar geometry with the same tolerance.
+- `docs/design/network-tour/ui-input.sh:3`, `ui_is()`: put the evaluation
+  namespace in globals. Nested Python comprehensions could not resolve `s`
+  from eval's locals, causing a suppressed NameError on the true hide assertion.
+- `tools/mock-hyprland/mock_hyprland.py:394`, `open_window()`: announce a newly
+  created workspace with `createworkspace` and `createworkspacev2` before
+  `openwindow`, as the existing focus/move paths do. Previously workspace 33
+  existed in mock state but Quickshell's workspace model was never told of its
+  creation. The shell and multimonitor assertions need no change.
+- `tests/py/test_mock_hyprland.py:50`: regression covers event order, unfocused
+  workspace membership/occupancy, and no duplicate creation on a second open.
+
+### Observed probe data
+
+Opus's supplied multimonitor log has exactly **one** workspace view on each of
+the two Grounds and two strips. All contain ids 1–5 with window counts
+`[1, 2, 1, 0, 0]`; none contains 33. After the mock fix,
+`build/p2-terra-fix/multimonitor/higher-workspace.json` still reports one view
+per surface, with ids **1–33** on all four. Window counts are 1 on id 1, 2 on
+id 2, 1 on id 3, zero on ids 4–32, and **1 on id 33**. Each ring has stations
+1, 2, 3, 4 and an overflow station containing **5–33**. The original assertions
+at `tests/scenarios/multimonitor.sh:109` and `:110` pass unchanged.
+
+At 1080p, saved hatch snapshots show x=960 initially, x=973 after moving,
+width=345.6 initially and width=311.04 after scaling by 0.9; restoration returns
+to x=960. All three tour variants verify all five targets, hide/reveal,
+fullscreen remapping, keyboard focus/persistence, and the actual overflow action.
+An ad hoc Python replay of the extracted assertions passed six checks: valid
+move accepted, original no-op move rejected, highlight displaced by 1 pixel
+rejected, actual target displaced by 1 pixel rejected, true/false nested
+comprehensions accepted/rejected respectively. Evidence: `probe-regression.log`.
+
+### Commands and results
+
+Commands ran from this worktree, one scenario at a time, followed by Node.
+Scenario stdout/stderr went to `build/p2-terra-fix/<variant>.log`; snapshots and
+QML logs are in the corresponding `<variant>/` directory. The bottom fixture
+was created with `printf '%s\n' '{"strip":{"edge":"bottom"}}' >build/p2-terra-fix/bottom-config.json`.
+
+| Command | Result |
+| --- | --- |
+| `docker info --format '{{.ServerVersion}}'` | Exit 0; 29.9.1 |
+| `TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh build/p2-terra-fix/tour` | Exit 0; tour: ok |
+| `TOUR=1 RES=3840x2160 SCALE=1.5 tools/headless/run.sh tests/scenarios/tour.sh build/p2-terra-fix/tour-4k` | Exit 0; tour: ok |
+| `TOUR=1 CONFIG=build/p2-terra-fix/bottom-config.json tools/headless/run.sh tests/scenarios/tour.sh build/p2-terra-fix/tour-bottom` | Exit 0; tour: ok |
+| `OUTPUTS=2 tools/headless/run.sh tests/scenarios/multimonitor.sh build/p2-terra-fix/multimonitor` | Exit 0; multimonitor: ok |
+| `tools/headless/run.sh tests/scenarios/smoke.sh build/p2-terra-fix/smoke` | Exit 0; smoke: ok |
+| `tools/headless/run.sh tests/scenarios/app-links.sh build/p2-terra-fix/app-links` | Exit 0; app-links: ok |
+| `node tests/js/run-node.mjs` | Exit 0; 268 passed, 0 failed, including anchors 7/7 and geometry 6/6 |
+| `python3 -m pytest -q tests/py/test_mock_hyprland.py` | Exit 0; 3 passed |
+| `bash -n tests/scenarios/tour.sh tests/scenarios/multimonitor.sh docs/design/network-tour/ui-input.sh` | Exit 0 |
+| `python3 -m py_compile tests/scenarios/tour-probe.py tools/mock-hyprland/mock_hyprland.py` | Exit 0 |
+| `git diff --check` | Exit 0 |
+
+The original 1080p failure was reproduced before editing (exit 1,
+`tour-before.log`). Intermediate corrected runs exposed the eval scope and
+`show` argument bugs above; the final three variants all pass.
+
+### Scope, coordination and remaining limits
+
+Reviewed all requested shell paths, including `AnchorTarget.publish()`, the
+scalar registry, `TourHost.target`, and the shared ring/tape workspace bindings;
+the harness results require no production change. One peer review of the merged
+suite registration (`f8ea2ec`, `tests/js/index.mjs`) found no actionable issue:
+both default exports are registered once, and Node executes their 13 tests.
+
+The shared state is Claude_Performance_Audit, owner Claude; the explicit
+P2-TERRA-FIX assignment uses Opus's matching Claude-held reservation despite the
+older top-level workflow task id. Additional fixture/mock/test/evidence locks
+were acquired as Terra. Completion is published as Terra; only Terra's extra
+locks are released, leaving Opus's reservation for Opus.
+
+Docker was already running and was only used, never started/stopped/cleaned.
+No host configuration, secrets, global packages or files outside this worktree
+were accessed or edited, apart from the requested main-checkout logs and sync
+hub operations. Opus supplied byte-identical Ground pixel results at 1080p and
+4K x1.5; those comparisons were **not rerun** in this fix. Real Hyprland/GPU
+rendering remains outside this software-rendered headless verification.
+
+## Original implementation report (historical)
+
+5 November 2026. The initial implementation attempt was blocked on Docker.
 
 ## Implementation
 

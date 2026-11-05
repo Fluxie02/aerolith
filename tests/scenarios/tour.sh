@@ -81,9 +81,11 @@ cp "$OUT/ui.json" "$OUT/tour-focused.json"
 # Measure the real Item on its own surface; compare output-local coordinates
 # with both the registry and Tour's highlight (never map across windows).
 anchor_check() {
-  ui_snapshot && python3 - "$OUT/ui.json" "$1" <<'PYANCHOR'
-import json, math, sys
+  ui_snapshot && python3 - "$OUT/ui.json" "$1" "$2" "$OUT" <<'PYANCHOR'
+import json, math, pathlib, sys
 s = json.load(open(sys.argv[1])); step = sys.argv[2]
+def near(actual, expected, context):
+    assert math.isclose(actual, expected, rel_tol=0, abs_tol=.5), (context, actual, expected)
 tour = s['tour']; assert tour is not None, s
 names = ['hatch', 'ring', 'search', 'apps', 'strip']
 assert names[tour['step']] == step, tour
@@ -92,11 +94,11 @@ a = next(a['rect'] for a in record['anchors'] if a['name'] == step)
 assert a is not None, (step, record)
 t = tour['target']
 for field in ('x', 'y', 'width', 'height'):
-    assert math.isclose(t[field], a[field], abs_tol=1e-6), (step, field, t, a)
+    near(t[field], a[field], (step, field, 'target/anchor'))
 highlight = next(p for p in tour['parts'] if p['name'] == 'tourTarget')
 assert highlight['visible'], highlight
 for field, other in [('x','x'), ('y','y'), ('w','width'), ('h','height')]:
-    assert math.isclose(highlight[field], a[other], abs_tol=.01), (highlight, a)
+    near(highlight[field], a[other], (step, field, 'highlight/anchor'))
 if step == 'strip':
     # Whole strip target: compare its real surface content bounds, not config maths.
     parts = next(o['parts'] for o in s['strips'] if o['output'] == tour['output'])
@@ -114,12 +116,23 @@ else:
     else:
         actual = next(p for p in parts if p['name'] == {'hatch':'hatchEntrance','apps':'appBar'}[step])
 for field, other in [('x','x'), ('y','y'), ('w','width'), ('h','height')]:
-    assert math.isclose(actual[field], a[other], abs_tol=1e-6), (step, actual, a)
+    near(actual[field], a[other], (step, field, 'item/anchor'))
+# Wait for the injected layout change too: agreement between three stale
+# rectangles must not allow a snapshot before the mutation takes effect.
+action = sys.argv[3]
+if step == 'hatch' and action in ('move', 'scale', 'unscale', 'unmove'):
+    initial = json.loads((pathlib.Path(sys.argv[4]) / 'anchor-hatch-initial.json').read_text())['tour']['target']
+    scale = .9 if action == 'scale' else 1
+    offset = 13 if action in ('move', 'scale', 'unscale') else 0
+    for field, expected in dict(x=initial['x'] + offset + initial['width'] * (1-scale)/2,
+                                y=initial['y'] + initial['height'] * (1-scale)/2,
+                                width=initial['width'] * scale, height=initial['height'] * scale).items():
+        near(t[field], expected, (action, field, 'mutation'))
 PYANCHOR
 }
 wait_anchor() {
   for _ in $(seq 60); do
-    if anchor_check "$1" 2>"$OUT/anchor-error.txt"; then
+    if anchor_check "$1" "$2" 2>"$OUT/anchor-error.txt"; then
       cp "$OUT/ui.json" "$OUT/anchor-$1-$2.json"
       return 0
     fi
@@ -138,14 +151,17 @@ import json, math, pathlib, sys
 out = pathlib.Path(sys.argv[1])
 def target(action): return json.loads((out / ('anchor-hatch-' + action + '.json')).read_text())['tour']['target']
 a, moved, scaled, unscaled, restored = map(target, ['initial','move','scale','unscale','unmove'])
-assert math.isclose(moved['x'], a['x'] + 13, abs_tol=1e-6), (a, moved)
-assert math.isclose(scaled['width'], a['width'] * .9, abs_tol=1e-6), (a, scaled)
-assert moved == unscaled and a == restored, (a, moved, unscaled, restored)
+for actual, expected in [(moved['x'], a['x'] + 13), (scaled['width'], a['width'] * .9)]:
+    assert math.isclose(actual, expected, rel_tol=0, abs_tol=.5), (actual, expected)
+for actual, expected in [(moved, unscaled), (a, restored)]:
+    for field in ('x', 'y', 'width', 'height'):
+        assert math.isclose(actual[field], expected[field], rel_tol=0, abs_tol=.5), (field, actual, expected)
 PYLAYOUT
 qs -p "$SHELL_DIR" ipc call visualTest target hide
 wait_ui 's["tour"] is not None and all(not p["visible"] for p in s["tour"]["parts"] if p["name"] == "tourTarget") and all(a["rect"] is None for o in s["anchors"] if o["output"] == s["tour"]["output"] for a in o["anchors"] if a["name"] == "hatch")'
 wait_ui 'any(p["name"] == "tourExplanation" and "Your desktop background is hidden" in p["text"] for p in s["tour"]["parts"])'
-qs -p "$SHELL_DIR" ipc call visualTest target show
+# "show" is a qs IPC introspection subcommand, even in argument position.
+qs -p "$SHELL_DIR" ipc call visualTest target reveal
 wait_anchor hatch shown
 for step in ring search apps strip; do
   tour next

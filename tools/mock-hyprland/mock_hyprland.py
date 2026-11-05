@@ -395,10 +395,14 @@ class Mock:
         st = self.state
         addr = st.new_address()
         wid = workspace if workspace is not None else st.active_ws
+        created = wid not in st.ws_ids()
         # Hyprland's focusHistoryID: 0 is the focused window, higher is older.
         # A new unfocused window goes to the back of the history.
         history = max((c.focus_history_id for c in st.clients.values()), default=-1) + 1
         st.clients[addr] = Client(addr, cls, title, wid, pid=4000 + len(st.clients), floating=floating, focus_history_id=history)
+        if created:
+            self.emit("createworkspace", st.ws_name(wid))
+            self.emit("createworkspacev2", f"{wid},{st.ws_name(wid)}")
         self.emit("openwindow", f"{addr[2:]},{st.ws_name(wid)},{cls},{title}")
         if wid == st.special_by_monitor.get(st.focused_monitor, st.active_ws):
             self.focus_window(addr)

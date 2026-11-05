@@ -52,9 +52,11 @@ s = s.replace(needle, '''        function overflow(): void {
                 if (!item) return;
                 if (item.objectName === "hatchEntrance") {
                     if (action === "hide") item.visible = false;
-                    else if (action === "show") item.visible = true;
-                    else if (action === "move") item.parent.x += 13;
-                    else if (action === "unmove") item.parent.x -= 13;
+                    else if (action === "reveal") item.visible = true;
+                    // The Hatch ancestor fills its parent: x is controlled by
+                    // anchors. Opposite margins translate it without resizing.
+                    else if (action === "move") { item.parent.anchors.leftMargin = 13; item.parent.anchors.rightMargin = -13; }
+                    else if (action === "unmove") { item.parent.anchors.leftMargin = 0; item.parent.anchors.rightMargin = 0; }
                     else if (action === "scale") item.scale = .9;
                     else if (action === "unscale") item.scale = 1;
                 }
