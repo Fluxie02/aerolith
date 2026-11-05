@@ -1,6 +1,7 @@
 import QtQuick
 import qs.core
 import qs.services
+import "../lib/geometry.mjs" as Geometry
 
 // The annulus is a real route. Its index arm tracks the focused station;
 // window occupancy adds teeth, without changing the click targets.
@@ -10,17 +11,28 @@ Item {
     readonly property string outputName: Screen.name
     readonly property bool ambient: !(profile.idleDimmed || profile.idleAnimationHeld) && Theme.ambientFor(outputName)
     property bool instrument: false
-    readonly property int count: Config.strip.workspaceCount
-    readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
-    // At small logical sizes, register the targets along one lower chord.
-    // The ring remains visible, while labels and the app row keep clear.
-    function stationX(index) {
-        return compact ? width * (.055 + .47 * (index + .5) / count)
-            : width * .27 + Math.sin(-.92 + index * 1.84 / Math.max(1, count - 1)) * radius;
+    objectName: "workspaceOrbit"
+    readonly property var geometry: Geometry.ground(width, height, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
+    readonly property var cells: Compositor.workspaceCells
+    readonly property var stations: Geometry.orbitStations(cells, Config.strip.workspaceCount, width, height, Theme.unit)
+    readonly property int count: stations.length
+    readonly property bool compact: geometry.compact
+    function stationX(index) { return stations[index].x; }
+    function stationY(index) { return stations[index].y; }
+    property int stationRevision: 0
+    readonly property var stationBounds: {
+        const revision = stationRevision;
+        const rects = [];
+        for (let i = 0; i < stationRepeater.count; i++) {
+            const item = stationRepeater.itemAt(i);
+            if (item) rects.push({ x: item.x, y: item.y, width: item.width, height: item.height });
+        }
+        return Geometry.bounds(rects);
     }
-    function stationY(index) {
-        return compact ? height - Theme.du(125)
-            : height * .55 + Math.cos(-.92 + index * 1.84 / Math.max(1, count - 1)) * radius;
+    AnchorTarget {
+        name: "ring"; active: !orbit.instrument
+        x: orbit.stationBounds.x; y: orbit.stationBounds.y
+        width: orbit.stationBounds.width; height: orbit.stationBounds.height
     }
     readonly property bool exposed: visible && Window.window && Window.window.visible
     onAmbientChanged: if (!ambient) indexMotion.complete()
@@ -29,50 +41,59 @@ Item {
         target: Theme
         function onTravelChanged() { if (!Theme.travel) indexMotion.complete(); }
     }
-    readonly property real radius: height * .29
-    readonly property int focusIndex: Math.max(0, Math.min(count - 1, Compositor.focusedWorkspaceId - 1))
-    readonly property real focusAngle: Math.atan2(stationX(focusIndex) - width * .27, stationY(focusIndex) - height * .55)
+    readonly property real radius: geometry.stationRadius
+    readonly property int focusIndex: Math.max(0, stations.findIndex(s => s.id === Compositor.focusedWorkspaceId || s.overflow.indexOf(Compositor.focusedWorkspaceId) >= 0))
+    readonly property real focusAngle: Math.atan2(stationX(focusIndex) - geometry.cx, stationY(focusIndex) - geometry.cy)
     visible: !instrument
 
     // Follow the machined annulus in InstrumentField, not the clickable
     // station radius. Only its two lips are shaded; the numeral stays dark.
     Material { profile: orbit.profile;
         shader: "annulus"
-        readonly property real ringRadius: orbit.height * .34
-        x: orbit.width * .27 - width / 2
-        y: orbit.height * .55 - height / 2
+        readonly property real ringRadius: orbit.geometry.ringRadius
+        x: orbit.geometry.cx - width / 2
+        y: orbit.geometry.cy - height / 2
         width: ringRadius * 2 + Theme.du(8); height: width
         parameters: Qt.vector4d(ringRadius, Math.PI / 2 - orbit.focusAngle,
             Compositor.focusedWorkspaceId > 0 ? 1 : 0, 0)
     }
 
     Item {
-        x: orbit.width * .27; y: orbit.height * .55
+        x: orbit.geometry.cx; y: orbit.geometry.cy
         width: orbit.radius; height: 1
         rotation: 90 - orbit.focusAngle * 180 / Math.PI
         transformOrigin: Item.Left
-        visible: Compositor.focusedWorkspaceId > 0 && Compositor.focusedWorkspaceId <= orbit.count
+        visible: Compositor.focusedWorkspaceId > 0 && orbit.cells.some(w => w.id === Compositor.focusedWorkspaceId)
         Behavior on rotation { enabled: Theme.travel && orbit.ambient && orbit.exposed; RotationAnimator { id: indexMotion; duration: Theme.slow * 2; easing.type: Easing.OutCubic } }
         Rectangle { x: parent.width * .82; width: parent.width * .10; height: Theme.du(2); color: orbit.profile.signal }
         Rectangle { x: parent.width * .77; width: Theme.du(3); height: Theme.du(7); y: -height / 2; color: orbit.profile.signal }
     }
     Repeater {
+        id: stationRepeater
+        onItemAdded: orbit.stationRevision++
+        onItemRemoved: orbit.stationRevision++
+        // Keep delegates alive across focus/occupancy updates.
         model: orbit.count
         delegate: Item {
             id: station
             required property int index
-            readonly property int workspaceId: index + 1
-            readonly property bool current: Compositor.focusedWorkspaceId === workspaceId
+            readonly property var modelData: orbit.stations[index] || ({ id: 0, x: 0, y: 0, width: 0, height: 0, overflow: [] })
+            objectName: modelData.overflow.length ? "workspaceOverflow" : "workspaceStation-" + workspaceId
+            readonly property int workspaceId: modelData.id
+            readonly property bool overflow: modelData.overflow.length > 0
+            readonly property bool current: overflow ? modelData.overflow.indexOf(Compositor.focusedWorkspaceId) >= 0 : Compositor.focusedWorkspaceId === workspaceId
             readonly property var entry: Compositor.workspaces.filter(w => w.id === workspaceId)
-            readonly property int occupancy: entry.length ? entry[0].windows : 0
-            readonly property real angle: -.92 + index * 1.84 / Math.max(1, orbit.count - 1)
-            x: orbit.stationX(index) - width / 2
-            y: orbit.stationY(index) - height / 2
-            width: Math.min(Theme.du(76), orbit.width * .47 / orbit.count - Theme.du(6)); height: Theme.du(56)
+            readonly property int occupancy: overflow ? orbit.cells.filter(w => modelData.overflow.indexOf(w.id) >= 0).reduce((n, w) => n + w.windows, 0) : entry.length ? entry[0].windows : 0
+            x: modelData.x - width / 2
+            y: modelData.y - height / 2
+            width: modelData.width; height: modelData.height
             activeFocusOnTab: true
             Keys.onReturnPressed: choose()
             Keys.onSpacePressed: choose()
-            function choose() { Registry.execute("workspace.focus", {workspace: workspaceId}, {record: false}); }
+            function choose() {
+                if (overflow) Ui.open("navigator");
+                else Registry.execute("workspace.focus", {workspace: workspaceId}, {record: false});
+            }
             Rectangle {
                 anchors.fill: parent
                 color: station.current ? orbit.profile.signal : hover.containsMouse ? orbit.profile.surface2 : orbit.profile.bg
@@ -92,7 +113,7 @@ Item {
             }
             Text {
                 y: Theme.du(6); anchors.horizontalCenter: parent.horizontalCenter
-                text: (station.workspaceId < 10 ? "0" : "") + station.workspaceId
+                text: station.overflow ? "+" + station.modelData.overflow.length : (station.workspaceId < 10 ? "0" : "") + station.workspaceId
                 textFormat: Text.PlainText; color: station.current ? orbit.profile.bg : orbit.profile.text
                 font.family: Theme.mono; font.pixelSize: Theme.du(18)
             }
@@ -109,7 +130,7 @@ Item {
                 anchors.fill: parent; cursorShape: Qt.PointingHandCursor
                 onClicked: station.choose()
             }
-            Accessible.role: Accessible.Button; Accessible.name: "Workspace " + workspaceId + ", " + occupancy + " windows"
+            Accessible.role: Accessible.Button; Accessible.name: overflow ? "More workspaces, " + modelData.overflow.length + ", open Windows" : "Workspace " + workspaceId + ", " + occupancy + " windows"
             Accessible.selected: current
             Accessible.onPressAction: choose()
         }

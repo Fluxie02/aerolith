@@ -1,12 +1,14 @@
 import QtQuick
 import qs.core
 import qs.services
+import "../lib/geometry.mjs" as Geometry
 
 // Limb's collimator. The engraving is event-painted; the workspace needle
 // is a retained transform, including for legacy users of progress.
 Item {
     id: field
     property var profile: Theme
+    readonly property var geometry: Geometry.ground(width, height, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
     property bool instrument: false
     property real progress: 1
     readonly property int workspace: Compositor.focusedWorkspaceId
@@ -27,6 +29,7 @@ Item {
         Connections {
             target: field
             function onProfileChanged() { art.requestPaint(); }
+            function onGeometryChanged() { art.requestPaint(); }
         }
         anchors.fill: parent
         onWidthChanged: requestPaint()
@@ -45,7 +48,7 @@ Item {
             var c = getContext("2d");
             c.reset();
             var w = width, h = height;
-            var x = w * .27, y = h * .55, r = h * .34;
+            var x = field.geometry.cx, y = field.geometry.cy, r = field.geometry.ringRadius;
             function line(x1, y1, x2, y2, color, weight) {
                 c.strokeStyle = color;
                 c.lineWidth = weight || 1;
@@ -84,8 +87,8 @@ Item {
         }
     }
     Item {
-        x: field.width * .27; y: field.height * .55
-        width: field.height * .34; height: 0
+        x: field.geometry.cx; y: field.geometry.cy
+        width: field.geometry.ringRadius; height: 0
         transformOrigin: Item.Left
         visible: field.workspace > 0
         rotation: (-1.6 + field.workspace * .24 + (field.instrument && Theme.travel ? (1 - field.progress) * .4 : 0)) * 180 / Math.PI

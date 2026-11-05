@@ -10,28 +10,7 @@ Row {
     property bool compact: false
     spacing: Theme.px(2)
 
-    // Cells 1..max(configured minimum, highest existing workspace).
-    readonly property var cells: {
-        const known = {};
-        let highest = 0;
-        const ws = Compositor.workspaces;
-        for (let i = 0; i < ws.length; i++) {
-            known[ws[i].id] = ws[i];
-            highest = Math.max(highest, ws[i].id);
-        }
-        const n = Math.min(30, Math.max(Config.strip.workspaceCount, highest));
-        const out = [];
-        for (let id = 1; id <= n; id++) {
-            const w = known[id];
-            out.push({
-                id: id,
-                windows: w ? w.windows : 0,
-                focused: id === Compositor.focusedWorkspaceId,
-                urgent: w ? w.urgent : false
-            });
-        }
-        return out;
-    }
+    readonly property var cells: Compositor.workspaceCells
 
     Repeater {
         model: tape.cells

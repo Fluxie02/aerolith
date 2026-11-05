@@ -6,6 +6,7 @@ import Quickshell.Io
 import Quickshell.Hyprland
 import qs.core
 import "../lib/hyprdispatch.mjs" as HD
+import "../lib/geometry.mjs" as Geometry
 
 // Hyprland integration: workspace and window state from Quickshell's
 // Hyprland module, and dispatches with verified results.
@@ -93,6 +94,8 @@ Singleton {
         out.sort((a, b) => a.id - b.id);
         return out;
     }
+
+    readonly property var workspaceCells: Geometry.workspaceCells(Config.strip.workspaceCount, workspaces, focusedWorkspaceId)
 
     // Publish Hyprland's output order to the single-display picker.
     Binding {

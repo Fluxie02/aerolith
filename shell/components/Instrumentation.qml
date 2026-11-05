@@ -1,6 +1,7 @@
 import QtQuick
 import qs.core
 import qs.services
+import "../lib/geometry.mjs" as Geometry
 import "../lib/telemetry.mjs" as T
 
 // A working section through the airframe: identity on the right, workspace
@@ -9,7 +10,8 @@ Item {
     id: rig
     property var profile: Theme
     property bool instrument: false
-    readonly property bool compact: width < Theme.du(1500) || height < Theme.du(850)
+    readonly property var geometry: Geometry.ground(width, height, Theme.unit, Theme.stripHeight, Config.strip.edge === "bottom")
+    readonly property bool compact: geometry.compact
     readonly property var windows: Compositor.windows()
     readonly property string ws: Compositor.focusedWorkspaceId > 0 ? ("0" + Compositor.focusedWorkspaceId).slice(-2) : "N/A"
     readonly property string cpu: T.formatPercent(Telemetry.cpu.total)
@@ -193,9 +195,9 @@ Item {
 
     // THEARS offers native surfaces; PIYTI exposes real window continuity.
     AppContinuity { profile: rig.profile;
-        x: parent.width * .055; y: parent.height - height - Theme.du(16) - (Config.strip.edge === "bottom" ? Theme.stripHeight : 0)
-        width: parent.width * .885
-        height: Theme.du(48)
+        x: rig.geometry.apps.x; y: rig.geometry.apps.y
+        width: rig.geometry.apps.width
+        height: rig.geometry.apps.height
         visible: !rig.instrument && !!Displays.primary && Screen.name === Displays.primary.name && !rig.profile.hideContent
         instrument: rig.instrument
     }

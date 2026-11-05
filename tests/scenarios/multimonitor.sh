@@ -36,6 +36,15 @@ probe='''
                 for (const child of item.children || []) appBars(child, found);
                 return found;
             }
+            function workspaceViews(item, found) {
+                if (!item) return found;
+                if (item.toString().indexOf("WorkspaceOrbit") === 0)
+                    found.push({ kind: "ring", cells: item.cells, stations: item.stations });
+                if (item.toString().indexOf("WorkspaceTape") === 0)
+                    found.push({ kind: "tape", cells: item.cells });
+                for (const child of item.children || []) workspaceViews(child, found);
+                return found;
+            }
             function contents(window) {
                 const found = [];
                 if (window) collect(window.contentItem, found);
@@ -44,7 +53,7 @@ probe='''
             function surface(loader) {
                 const w = loader.item;
                 return { output: loader.modelData.name, loaded: w !== null,
-                    visible: !!w && w.visible, screen: w && w.screen ? w.screen.name : "", consumers: contents(w), appBars: w ? appBars(w.contentItem, []) : [] };
+                    visible: !!w && w.visible, screen: w && w.screen ? w.screen.name : "", consumers: contents(w), workspaceViews: w ? workspaceViews(w.contentItem, []) : [], appBars: w ? appBars(w.contentItem, []) : [] };
             }
             const deck = overlayLoader.item;
             const notices = noticeLoader.item;
@@ -94,6 +103,13 @@ wait_check 'len(o)==2 and all(x["loaded"] and x["visible"] and x["screen"]==x["o
 wait_check 's["display"]=="HEADLESS-1" and s["noticeOutput"]=="HEADLESS-1"'
 wait_check 'p["stripDemand"]==2 and s["telemetryIntervalMs"]==5000'
 wait_check 'all(x["appBars"]==[o[x["output"]]["primary"]] for x in p["grounds"])'
+# A live workspace beyond both the configured minimum and the former 30-cell
+# cap must be represented by every ring (directly or overflow) and every tape.
+higher=$(mock '{"op":"open","class":"mm-workspace-set","title":"Higher workspace","workspace":33}' | python3 -c 'import json,sys;print(json.load(sys.stdin)["address"])')
+wait_check 'all(len(x["workspaceViews"])==1 and any(c["id"]==33 and c["windows"]>0 for c in x["workspaceViews"][0]["cells"]) for x in p["grounds"]+p["strips"])'
+wait_check 'all(any(t["id"]==33 or 33 in t["overflow"] for t in x["workspaceViews"][0]["stations"]) for x in p["grounds"])'
+probe >"$OUT/higher-workspace.json"
+mock "{\"op\":\"close\",\"address\":\"$higher\"}" >/dev/null
 # Clear seeded clients so coverage can be exercised independently on each output.
 mock '{"op":"state"}' | python3 -c 'import json,sys;print("\n".join(c["address"] for c in json.load(sys.stdin)["clients"]))' >"$OUT/seed-clients.txt"
 while read -r address; do
