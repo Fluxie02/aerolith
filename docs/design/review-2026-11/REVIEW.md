@@ -286,3 +286,17 @@ Welcome app (see §1).
    Super + F1?
 5. **Agree to leave blur and translucency out?** Astra and Sol both
    recommend it.
+
+## 7. Owner decisions (5 November 2026)
+
+1. **Phase 1:** approved as one PR, built by Sol and Astra.
+2. **Phase 2 foundations:** approved, including the config transaction, so
+   Settings moves to a preview, then Apply.
+3. **When Welcome opens:** on the first start of a fresh install, and on
+   every start while "Show Welcome on startup" is enabled.
+4. **Welcome shortcut:** none by default.
+5. **Blur and translucency:** left out, after explaining the reasons:
+   identity, readability, OLED, GPU and power, and complexity. If the owner
+   asks later, the option to revisit is an opt-in "glass" setting for the
+   Deck backdrop only, off by default, never on OLED outputs, and measured
+   on the owner's RTX 4060 Ti first.
