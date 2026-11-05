@@ -1,0 +1,270 @@
+{
+  "task": "P3-ASTRA-1",
+  "agent": "Astra",
+  "recordedAt": "2026-11-05T21:25:58.136395+00:00",
+  "dockerServer": "29.9.1",
+  "requiredChecksInOrder": [
+    {
+      "name": "personalize",
+      "command": "OUTPUTS=2 tools/headless/run.sh tests/scenarios/personalize.sh build/ci/p3-astra/personalize",
+      "exitCode": 0,
+      "result": "personalize: ok (real input, all-output preview, Cancel, one-write Apply, contrast refusal, dirty leave, View desktop, lock discard)",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/personalize/qs.log",
+          "qmlErrors": 0,
+          "sha256": "1dbb09a5ef122aeb7a31fde17f0bf0ae8bee6d5641697a976fca050f2bf196c1"
+        },
+        {
+          "path": "build/ci/p3-astra/personalize/startup-qs.log",
+          "qmlErrors": 10,
+          "sha256": "a8b87f84589a37103ba0fd2d687853eafd84769fa07c67a9a9cfe53f7313ed02"
+        }
+      ]
+    },
+    {
+      "name": "config",
+      "command": "OUTPUTS=2 tools/headless/run.sh tests/scenarios/config.sh build/ci/p3-astra/config",
+      "exitCode": 0,
+      "result": "config: ok (atomic batches, projected stepping, preview on all outputs, cancel, one-write Apply, rebase/conflict, watcher, side-effect isolation, failures, lock/output loss/crash discard)",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/config/qs.log",
+          "qmlErrors": 0,
+          "sha256": "e7247cf47865cf0f88ca401332f728289371104e42b7591b6e67c0e687a485d5"
+        },
+        {
+          "path": "build/ci/p3-astra/config/startup-qs.log",
+          "qmlErrors": 0,
+          "sha256": "09679ac497dc86bd0abfbdca7de29208ed42677f6217a18ac72a405921234c35"
+        },
+        {
+          "path": "build/ci/p3-astra/config/transaction-qs.log",
+          "qmlErrors": 0,
+          "sha256": "88c92f12c95a132f81a92893bea575feeef06cfceb67e0f80772fe82f1ee9791"
+        }
+      ]
+    },
+    {
+      "name": "deck",
+      "command": "AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/ci/p3-astra/deck",
+      "exitCode": 0,
+      "result": "deck: ok",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/deck/qs.log",
+          "qmlErrors": 0,
+          "sha256": "27aa6fa888aeceab2fe1435a9c917c02bf16d069b3e626953181bd75f18dd65f"
+        }
+      ]
+    },
+    {
+      "name": "smoke",
+      "command": "tools/headless/run.sh tests/scenarios/smoke.sh build/ci/p3-astra/smoke",
+      "exitCode": 0,
+      "result": "smoke: ok",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/smoke/qs.log",
+          "qmlErrors": 0,
+          "sha256": "e430af147a257bcbb9b813fcafcbecb69629c77c024fb237fd128d23e5459b7a"
+        }
+      ]
+    },
+    {
+      "name": "oled",
+      "command": "AI=1 OUTPUTS=2 CONFIG=tests/fixtures/oled-config.json tools/headless/run.sh tests/scenarios/oled.sh build/ci/p3-astra/oled",
+      "exitCode": 0,
+      "result": "oled: ok",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/oled/qs.log",
+          "qmlErrors": 0,
+          "sha256": "fc3e16d96fb1e6b533687ba597ab4d31a15301770af190a5c6ee0c39a7d044af"
+        },
+        {
+          "path": "build/ci/p3-astra/oled/startup-qs.log",
+          "qmlErrors": 0,
+          "sha256": "f356c516e93d8f6c75d7385ea78c5737476b083efe6925677e3b6c239cff89f8"
+        }
+      ]
+    },
+    {
+      "name": "node",
+      "command": "node tests/js/run-node.mjs",
+      "exitCode": 0,
+      "result": "# passed 275, failed 0",
+      "qmlLogs": []
+    }
+  ],
+  "additionalCaptureChecks": [
+    {
+      "name": "personalize-4k",
+      "command": "RES=3840x2160 SCALE=1.5 HYPR_MOCK_ARGS='--mode 3840x2160 --scale 1.5' tools/headless/run.sh tests/scenarios/personalize.sh build/ci/p3-astra/personalize-4k",
+      "exitCode": 0,
+      "result": "personalize: ok (real input, all-output preview, Cancel, one-write Apply, contrast refusal, dirty leave, View desktop, lock discard)",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/personalize-4k/qs.log",
+          "qmlErrors": 0,
+          "sha256": "8ef9056053019aaa53ed1bff756334789e2a71d98f66b2048eba54c25aeb75dd"
+        },
+        {
+          "path": "build/ci/p3-astra/personalize-4k/startup-qs.log",
+          "qmlErrors": 0,
+          "sha256": "30b1a1a163aaf8d917ae8de8a903492b7530fa8b7cf825855761c660e9cffce9"
+        }
+      ]
+    },
+    {
+      "name": "personalize-compact",
+      "command": "RES=1280x720 HYPR_MOCK_ARGS='--mode 1280x720' tools/headless/run.sh tests/scenarios/personalize.sh build/ci/p3-astra/personalize-compact",
+      "exitCode": 0,
+      "result": "personalize: ok (real input, all-output preview, Cancel, one-write Apply, contrast refusal, dirty leave, View desktop, lock discard)",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/personalize-compact/qs.log",
+          "qmlErrors": 0,
+          "sha256": "37da1b4feff27cdaa41e5d07c23c7cf5ea5297c0a511c9f62168eeabb0fb1d9b"
+        },
+        {
+          "path": "build/ci/p3-astra/personalize-compact/startup-qs.log",
+          "qmlErrors": 0,
+          "sha256": "f704097b5e54fc699bb0237fafbb3d8d49068ebc7800345e0ce25f3e33223c25"
+        }
+      ]
+    },
+    {
+      "name": "personalize-oled",
+      "command": "CONFIG=docs/design/phase3/oled-personalize-config.json tools/headless/run.sh tests/scenarios/personalize.sh build/ci/p3-astra/personalize-oled",
+      "exitCode": 0,
+      "result": "personalize: ok (real input, all-output preview, Cancel, one-write Apply, contrast refusal, dirty leave, View desktop, lock discard)",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/personalize-oled/qs.log",
+          "qmlErrors": 0,
+          "sha256": "0617bfe6b3906f7a47cd097cdd8c92db4ed1d7f018782c4e33af8fe155302080"
+        },
+        {
+          "path": "build/ci/p3-astra/personalize-oled/startup-qs.log",
+          "qmlErrors": 0,
+          "sha256": "e7040539a677be0f4ad395da68adbffb13db5f314eb599328793f2c50206e60f"
+        }
+      ]
+    }
+  ],
+  "staticChecks": [
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    },
+    {
+      "command": "bash -n tests/scenarios/personalize.sh",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check shell/modules/settings/personalize.mjs",
+      "exitCode": 0
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "personalize-1080.jpg",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 255397,
+      "sha256": "da278798347d3f8c9799ee33b37ad48f37e4154ca27c2c211d419dd34c55cfd3"
+    },
+    {
+      "file": "personalize-4k-1.5.jpg",
+      "width": 3840,
+      "height": 2160,
+      "bytes": 586040,
+      "sha256": "248861fe03458e2b27cc5f578e7f094ff3e45ba913b578ca9904c5bb06b6c7aa"
+    },
+    {
+      "file": "personalize-compact.jpg",
+      "width": 1280,
+      "height": 720,
+      "bytes": 149822,
+      "sha256": "6c1ce277f1743a807c9127f32e63f2031f64cbfadd74308b045f4c4d8bf263ee"
+    },
+    {
+      "file": "personalize-contrast-refused.jpg",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 207054,
+      "sha256": "e88d2ea21ecaf2556b3dc8ca2e48d43e2828418ee78e4a155f911f6826c111db"
+    },
+    {
+      "file": "personalize-desktop.jpg",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 250350,
+      "sha256": "fa771a2c8b0489d11e792a3efc8d1b2b982d49a253e2cbac5e0ce91f9afbcc28"
+    },
+    {
+      "file": "personalize-dirty-leave.jpg",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 140697,
+      "sha256": "9cde95d15a5564fb39da1fdf3a49912dec43a7bd7cf343cc50190f0c93df9135"
+    },
+    {
+      "file": "personalize-oled.jpg",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 223947,
+      "sha256": "3218cc5716b606d193addeba8ad61191fcad2bdf766f50ee6612fedf3d9a2db7"
+    }
+  ],
+  "sourceSha256": {
+    "shell/modules/settings/SettingsBay.qml": "76af12691463e0af6823d8cbbcc687b65dd6f97638aaa8096f8f62eae3c68199",
+    "shell/modules/settings/AllSettings.qml": "b18d185a3ee4d0de6649f4b60210d8f234de4e828132cd04ed00ea79babc674f",
+    "shell/modules/settings/SchemePicker.qml": "4072e61235ab2f2baec9c4cb47c9b08d686a98a995b7fd37528b0c1551ff672d",
+    "shell/modules/settings/PersonalizePane.qml": "0e401a3ae882bfb211006abc57d91f11f335c48377bb632984e9bd37de414346",
+    "shell/modules/settings/PersonalizeField.qml": "0e841fa90447afa116fea86927d02d9891840493f5755becf3766a1eb2d850e4",
+    "shell/modules/settings/PersonalizeAction.qml": "3d2d1ff39c3cad4000c7d943cda333730aedba535628a97f74b92812bc1424fa",
+    "shell/modules/settings/personalize.mjs": "b01d8bf3d927137560d8a096dcc55e1816ff284eb462936f07bd0115017321c8",
+    "tests/scenarios/personalize.sh": "69ad7db8e2f83b806dfa7be01c309ca162896b275bb9dc07a2c69f69de520496",
+    "docs/design/phase3/contrast-audit.mjs": "36d8a4a47393778ed1d16791def3598c4ee0f28a672bd126fb245cfc00911ec2"
+  },
+  "limits": [
+    "Forced rail/backdrop/IPC retirement discards without a dialog until the Deck exposes a before-leave hook.",
+    "Per-output strip/Ground permissions are read-only until the preview allowlist and safety-path handling are extended.",
+    "Real Hyprland, hardware OLED, fullscreen handoff and PAM authentication remain unverified.",
+    "Ten transient typed-assignment warnings occurred in one original startup; the final strict rerun is clean. The cause remains unverified in core/services."
+  ],
+  "targetedChecks": [
+    {
+      "name": "contrast-audit",
+      "command": "node docs/design/phase3/contrast-audit.mjs",
+      "exitCode": 0,
+      "result": "contrast-audit: ok (12 schemes, actual navigator tint, both app-link derivations, invalid role/alpha, no mutation, literal-dot output path)"
+    },
+    {
+      "name": "personalize-final-guard",
+      "command": "OUTPUTS=2 tools/headless/run.sh tests/scenarios/personalize.sh build/ci/p3-astra/personalize-final-guard",
+      "exitCode": 0,
+      "result": "personalize: ok (strict startup and runtime audit)",
+      "qmlLogs": [
+        {
+          "path": "build/ci/p3-astra/personalize-final-guard/qs.log",
+          "qmlErrors": 0,
+          "sha256": "2fd7ba7c0e28d482ba1a437ac395e990809ef20ba25c2d5b147a99b9ce778416"
+        },
+        {
+          "path": "build/ci/p3-astra/personalize-final-guard/startup-qs.log",
+          "qmlErrors": 0,
+          "sha256": "28c62f51f7e9ecfdc144e034fde6cabbef0f0204526f41f606a7f875b3b9736d"
+        }
+      ]
+    }
+  ],
+  "startupWarning": {
+    "file": "docs/design/phase3/startup-warning-qs.log",
+    "assignmentWarnings": 10,
+    "sha256": "a8b87f84589a37103ba0fd2d687853eafd84769fa07c67a9a9cfe53f7313ed02",
+    "status": "Observed once; stricter cold rerun is clean. Cause unverified; systems review required."
+  }
+}

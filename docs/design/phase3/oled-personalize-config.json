@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "theme": {"motion": "off"},
+  "strip": {"telemetry": "off"},
+  "display": {"outputs": {"HEADLESS-1": {"profile": "oled"}}}
+}

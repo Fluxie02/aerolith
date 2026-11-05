@@ -9,11 +9,12 @@ import "../../lib/tokens.mjs" as Tokens
 FocusScope {
     id: picker
     property var profile: Theme
+    property bool embedded: false
     signal picked(string scheme)
     signal registerRequested()
     readonly property int schemeCount: Schemes.SCHEMES.length
-    readonly property int columns: width >= Theme.du(840) ? 3 : width >= Theme.du(600) ? 2 : 1
-    readonly property bool shallow: height < Theme.du(380)
+    readonly property int columns: width >= Theme.du(840) ? 3 : width >= Theme.du(embedded ? 380 : 600) ? 2 : 1
+    readonly property bool shallow: embedded || height < Theme.du(380)
     property int cursor: 0
     readonly property bool overrides: Object.keys(Theme.cfg.palette || {}).length > 0
 
@@ -111,6 +112,7 @@ FocusScope {
         onHeightChanged: picker.containCursor()
         delegate: Item {
             id: specimen
+            objectName: "scheme_" + modelData.id
             required property var modelData
             required property int index
             readonly property var p: picker.profile.profile === "oled" ? Tokens.oledPalette(modelData.palette, { appLink: modelData.link }) : modelData.palette
