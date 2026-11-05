@@ -173,3 +173,103 @@ transport delay; no claim is made that a real compositor failed at the measured
 mock frequency. Event-triggered workspace refresh adds work during event bursts
 and remains idle between them. The earlier notice/deck baseline failure is
 recorded separately from this hotplug race.
+
+## P2-DECK-FOCUS follow-up
+
+Worktree base: `b4c584f` (`codex/coding-0e2101a9`). This fixes the earlier
+notice/Deck failure recorded above, independently of the monitor-model race.
+All source edits are in this worktree. Opus holds the shared systems-file
+locks for this task; Sol publishes the result. No visual design changed.
+
+The original host reproduces the failure in
+`build/p2-deck-focus/trace-2/qs.log`. A diagnostic-only copy logs this order:
+
+```text
+closed:   screen=HEADLESS-1 desired=HEADLESS-1 mappedOutput=HEADLESS-2 bay=command
+visible:  true on HEADLESS-1, bay=command
+deferred: screen=HEADLESS-1 desired=HEADLESS-1 mappedOutput=HEADLESS-1 bay=command
+visible:  false on HEADLESS-1, bay=""
+```
+
+Both outputs remain connected. `Deck.qml`'s old `onClosed` callback only
+recovered when `mappedOutput` had disappeared, so it called `Ui.close()` after
+Quickshell had already remapped the same bay on the new output. The first trace
+even passed the original move assertion before that callback dismissed the bay;
+the second trace waits 400 ms and observes the closed Deck. This
+verifies the proposed callback mechanism and explains the timing-dependent
+assertion. It does not establish the frequency on real Hyprland.
+
+`Deck.qml:onClosed` now captures whether the requested output differs from the
+old mapped output **when the signal arrives**. Its existing deferred recovery
+also handles that move, preserving the requested bay, slots and input. Capturing
+the move before deferring avoids losing it if focus moves again. Recovery still
+requires a live destination, an open bay and an unlocked session. Removal keeps
+the existing surviving-output recovery; an ordinary close on the current output
+still calls `Ui.close()`. `recordMappedOutput()` records screen changes at the
+end of the event turn, including changes without a visibility toggle, so a later
+ordinary close is attributed to the current output. No timer or polling added.
+
+The existing `Ui.qml:overlayScreen` alias and `Displays.qml` selection already
+choose the newly focused Qt output. Neither needs a change. The existing
+fullscreen loader and lock request's synchronous `Ui.close()` remain in place.
+Single review of those placement/lifecycle paths found the high-severity defect
+in the old Deck close handler described above; the minimal correction is here.
+
+`multimonitor.sh` now checks both move directions, the same bay object, preserved
+query text, actual typed input after settling, notice takeover/release, and Esc
+(first clears the query, then closes). All original hot-unplug/fullscreen checks
+remain. `oled.sh` removes the AI reopen workaround and checks that every actual
+bay stays mapped with the same object on both destination outputs. The 200/400 ms
+settling waits are scenario-only; the shell recovery is event driven.
+
+### Follow-up verification
+
+All commands below ran from this worktree on 2026-11-05. Docker was already
+running; `docker info --format '{{.ServerVersion}}'` succeeded before every
+scenario. No daemon start, stop or cleanup command was used. The final batch
+stopped on any failure and checked source hashes before each run. All 19 runs
+passed without retries, with no subsequent shell or scenario source changes.
+
+| Command | Result |
+| --- | --- |
+| `OUTPUTS=2 tools/headless/run.sh tests/scenarios/multimonitor.sh build/p2-deck-focus/mm-NN` | Ten consecutive passes, NN=01–10 |
+| `AI=1 OUTPUTS=2 CONFIG=tests/fixtures/oled-config.json tools/headless/run.sh tests/scenarios/oled.sh build/p2-deck-focus/oled-N` | Three consecutive passes, N=1–3; no reopen workaround |
+| `AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/p2-deck-focus/deck` | Exit 0, `deck: ok` |
+| `AUDIO=1 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/fullscreen.sh build/p2-deck-focus/fullscreen` | Exit 0, `fullscreen: ok` |
+| `tools/headless/run.sh tests/scenarios/smoke.sh build/p2-deck-focus/smoke` | Exit 0, `smoke: ok` |
+| `NET=1 tools/headless/run.sh tests/scenarios/network.sh build/p2-deck-focus/network` | Exit 0, `network NET=1: ok` |
+| `TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh build/p2-deck-focus/tour` | Exit 0, `tour: ok` |
+| `node tests/js/run-node.mjs` | Exit 0, 275 passed, 0 failed |
+| `OUTPUTS=2 LOCK=1 CONFIG=tests/fixtures/lock-config.json tools/headless/run.sh build/p2-deck-focus/close-lock.sh build/p2-deck-focus/close-lock` | Exit 0, `close-lock: ok` |
+| `bash -n tests/scenarios/multimonitor.sh tests/scenarios/oled.sh build/p2-deck-focus/close-lock.sh` | Exit 0 |
+| `git diff --check` | Exit 0 |
+
+The additional disposable close/lock scenario emits the Deck's `closed` signal
+on its current output after transfers and verifies that the bay closes and
+telemetry returns to 5000 ms. It also closes during a focus move, then exercises
+real session-lock acquisition during another move, focus changes while locked,
+and PAM unlock. No queued recovery reopens the Deck. The ordinary-close check
+injects the signal; it does not force a native compositor to send a close.
+
+Evidence is under ignored `build/p2-deck-focus/`: `results.json` records every
+final run's exact command, flags, exit and duration; `source-hashes.json` pins
+the three source files; `suite.log`, per-run logs, screenshots and snapshots
+retain the observations. `node.log` retains the unit output. Development
+attempts `candidate-mm-1` through `candidate-mm-3` failed newly added harness
+assertions: the headless `activeFocus` property was false despite successful
+typing, the first Esc correctly cleared the query, and typing before mapping
+settled lost the first character. The final assertions use actual input, the
+existing two-Esc semantics and a 400 ms settling wait; `candidate-mm-4` passed
+before the uninterrupted ten-run batch.
+
+`qml-audit.json` covers all 33 startup/runtime QML logs: **zero error matches
+before shutdown**. Two discarded startup-shell logs (`mm-04`, `mm-08`) contain
+25 assignment warnings after their explicit `Exiting due to IPC request` lines
+during singleton teardown; none mentions the Deck, and all replacement runtime
+logs are clean. These warnings are recorded rather than counted as clean logs.
+Expected headless protocol and RTKit/system-bus warnings also remain.
+
+Limits: these checks use real Quickshell on headless sway with Hyprland IPC
+mocked. Native Hyprland, physical hotplug and hardware/GPU timing remain
+unverified. No visual design, host configuration, global package or production
+checkout source was changed; no commit was made.

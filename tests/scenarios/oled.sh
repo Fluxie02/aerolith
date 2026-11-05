@@ -92,6 +92,7 @@ probe='''
                 return { output: w.screen ? w.screen.name : "", visible: w.visible,
                     bayType: slot && slot.item ? slot.item.toString().split("(")[0] : "",
                     bayReady: !!slot && !!slot.item, bay: slot ? slot.bay : "",
+                    bayInstance: slot && slot.item ? slot.item.toString() : "",
                     bayIsAiConsole: !!slot && !!slot.item && slot.item.module !== undefined && slot.item.module !== null,
                     bayInputBackgrounds: backgrounds,
                     bayProfile: slot && slot.item && slot.item.profile ? (slot.item.profile.profile || "standard-default") : "missing",
@@ -320,16 +321,17 @@ for bay in command navigator systems signal routines help settings ai; do
     wait_check 's["ai"] and p["deck"]["output"]=="HEADLESS-2" and p["deck"]["bayIsAiConsole"] and p["deck"]["bayInputBackgrounds"]==["#000000"]'
   fi
   probe snapshot >"$OUT/bay-$bay.json"
+  bay_instance=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["deck"]["bayInstance"])' "$OUT/bay-$bay.json")
   capture "bay-$bay"
   mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
-  wait_check 'p["deck"]["profile"]=="standard" and all(c["profile"]=="standard" for c in p["deck"]["parts"])'
+  sleep .2
+  wait_check "s['bay']=='$bay' and s['deckMapped'] and p['deck']['visible'] and p['deck']['output']=='HEADLESS-1' and p['deck']['bayInstance']=='$bay_instance' and p['deck']['profile']=='standard' and all(c['profile']=='standard' for c in p['deck']['parts'])"
   if [ "$bay" = ai ] && [ "${AI:-0}" = 1 ]; then
-    # Moving focus closes the Deck; reopen the console on the standard output.
-    ipc open ai
     wait_check 'p["deck"]["bayReady"] and p["deck"]["bay"]=="ai" and p["deck"]["output"]=="HEADLESS-1" and p["deck"]["bayIsAiConsole"] and p["deck"]["bayProfile"]=="standard" and p["deck"]["bayInputBackgrounds"]==[g["HEADLESS-1"]["bg"]]'
   fi
   mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
-  wait_check 'p["deck"]["profile"]=="oled" and all(c["profile"]=="oled" for c in p["deck"]["parts"])'
+  sleep .2
+  wait_check "s['bay']=='$bay' and s['deckMapped'] and p['deck']['visible'] and p['deck']['output']=='HEADLESS-2' and p['deck']['bayInstance']=='$bay_instance' and p['deck']['profile']=='oled' and all(c['profile']=='oled' for c in p['deck']['parts'])"
 done
 # Transient foregrounds and Deck retain full opacity while persistent content hides.
 probe notice

@@ -56,12 +56,15 @@ probe='''
                     visible: !!w && w.visible, screen: w && w.screen ? w.screen.name : "", consumers: contents(w), workspaceViews: w ? workspaceViews(w.contentItem, []) : [], appBars: w ? appBars(w.contentItem, []) : [] };
             }
             const deck = overlayLoader.item;
+            const slot = deck ? (deck.slotA.current ? deck.slotA : deck.slotB.current ? deck.slotB : null) : null;
             const notices = noticeLoader.item;
             return JSON.stringify({ stripDemand: Telemetry.stripDemand, samples: Telemetry.samplesTaken,
                 covered: Theme.coveredOutputs,
                 detection: ShellState.detection, lifecycle: ShellState.outputStates,
                 notificationServer: Notifications.server !== null, popupHeld: Notifications.held, noticesInDeck: ShellState.noticesInDeck,
                 deckContents: contents(deck),
+                deckBay: slot && slot.item ? { name: slot.bay, instance: slot.item.toString(),
+                    query: slot.item.query || "" } : null,
                 grounds: grounds.instances.map(surface),
                 strips: strips.instances.map(surface),
                 deck: deck && deck.visible && deck.screen ? deck.screen.name : "",
@@ -147,10 +150,25 @@ ipc run shell.notify '{"message":"Primary output notice"}' >/dev/null
 wait_check 'p["notices"]=="HEADLESS-1"'
 ipc open command >/dev/null
 wait_check 'p["deck"]=="HEADLESS-2" and p["notices"]=="HEADLESS-1" and not p["noticesInDeck"] and any(c["type"]=="notices" and not c["visible"] for c in p["deckContents"])'
+deck_instance=$(probe | python3 -c 'import json,sys;print(json.load(sys.stdin)["deckBay"]["instance"])')
+sleep 0.4
+typ 'focus'
+wait_check 'p["deckBay"]["query"]=="focus"'
 mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
-wait_check 'p["deck"]=="HEADLESS-1" and not p["notices"] and p["noticesInDeck"] and any(c["type"]=="notices" and c["visible"] for c in p["deckContents"])'
+wait_check 's["bay"]=="command" and s["deckMapped"] and p["deck"]=="HEADLESS-1" and not p["notices"] and p["noticesInDeck"] and any(c["type"]=="notices" and c["visible"] for c in p["deckContents"])'
+# The old layer's queued close used to dismiss the bay AFTER that assertion
+# could pass. Check settled state, preserved content, and real keyboard focus.
+sleep 0.4
+typ '-primary'
+wait_check "p['deck']=='HEADLESS-1' and p['deckBay'] and p['deckBay']['instance']=='$deck_instance' and p['deckBay']['query']=='focus-primary'"
 mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
-ipc close
+wait_check 's["bay"]=="command" and s["deckMapped"] and p["deck"]=="HEADLESS-2" and p["notices"]=="HEADLESS-1" and not p["noticesInDeck"]'
+sleep 0.4
+typ '-secondary'
+wait_check "p['deck']=='HEADLESS-2' and p['deckBay'] and p['deckBay']['instance']=='$deck_instance' and p['deckBay']['query']=='focus-primary-secondary'"
+key Escape
+wait_check 's["bay"]=="command" and p["deckBay"]["query"]==""'
+key Escape
 wait_check 'not s["deckMapped"]'
 
 # Second monitor's own workspace, not the primary's active workspace.
