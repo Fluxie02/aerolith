@@ -72,7 +72,7 @@ FocusScope {
         else if (k === Qt.Key_R)
             Routines.revertLast().then(r => console_.setStatus(r.message, r.ok ? "ok" : "error"));
         else if (k === Qt.Key_E)
-            Exec.run(["xdg-open", Paths.routinesFile]).then(r => console_.setStatus(r.code === 0 ? "Opened routines.json" : "Could not open " + Paths.routinesFile + " (create it first; see docs/COMMANDS.md)", r.code === 0 ? "ok" : "error"));
+            Exec.run(["xdg-open", Paths.routinesFile]).then(r => console_.setStatus(r.code === 0 ? "Opened routines.json" : "Could not open " + Paths.routinesFile + " (create it first; see Commands in the AEROLITH documentation (Help))", r.code === 0 ? "ok" : "error"));
         else if (k === Qt.Key_PageDown || k === Qt.Key_PageUp) {
             const direction = k === Qt.Key_PageDown ? 1 : -1;
             contentView.contentY = Math.max(0, Math.min(contentView.contentHeight - contentView.height, contentView.contentY + direction * contentView.height * .8));
@@ -83,7 +83,7 @@ FocusScope {
 
     Bezel { profile: console_.profile;
         anchors.fill: parent
-        designation: "RTN / 05"
+        designation: "SYSTEMS"
         title: "Routine Console"
         status: Routines.routines.length + " ROUTINES" + (Routines.errors.length ? " · " + Routines.errors.length + " PROBLEMS" : "") + (Routines.running ? " · RUNNING" : "")
         statusColor: Routines.errors.length ? console_.profile.caution : console_.profile.textDim
@@ -230,7 +230,7 @@ FocusScope {
                             visible: console_.list.length === 0
                             Layout.fillWidth: true
                             wrapMode: Text.WordWrap
-                            text: Routines.fileMissing ? "No routines yet. Create " + Paths.routinesFile + " (see docs/COMMANDS.md for the format and an example), then it loads automatically." : "No valid routines in the file."
+                            text: Routines.fileMissing ? "No routines yet. Create " + Paths.routinesFile + " (see Commands in the AEROLITH documentation (Help) for the format and an example), then it loads automatically." : "No valid routines in the file."
                             textFormat: Text.PlainText
                             color: console_.profile.textDim
                             font.family: Theme.sans

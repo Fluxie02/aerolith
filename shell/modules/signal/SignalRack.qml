@@ -183,7 +183,7 @@ FocusScope {
 
     Bezel { profile: rack.profile;
         anchors.fill: parent
-        designation: "SIG / 04"
+        designation: "SYSTEMS"
         title: "Signal Rack"
         status: Audio.ready ? Audio.sinks.length + " OUT · " + Audio.sources.length + " IN · " + Audio.playbackStreams.length + " STREAMS · " + Media.players.length + " PLAYERS" : "PIPEWIRE NOT CONNECTED"
         statusColor: Audio.ready ? rack.profile.textDim : rack.profile.caution

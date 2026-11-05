@@ -478,7 +478,7 @@ Scope {
             anchors.fill: parent
             contentPadding: height < Theme.du(600) ? Theme.pad : Theme.contentInset
             titleHeight: height < Theme.du(600) ? Theme.du(42) : Theme.headerHeight
-            designation: "AI / 06"
+            designation: "AI"
             title: "AI Bridge"
             status: {
                 const s = console_.module ? console_.module.status : null;
