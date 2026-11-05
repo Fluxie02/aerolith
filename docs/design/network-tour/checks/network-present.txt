@@ -1,0 +1,2 @@
+Killed h1zboznt
+network NET=1: ok (wired, Wi-Fi, Bluetooth, radio commands, demand lifetime)

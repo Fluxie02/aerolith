@@ -11,6 +11,9 @@ import qs.services
 Scope {
     id: root
 
+    // Initialise command registration even before the first status request.
+    readonly property var networkServices: [Network, Bluetooth]
+
     IpcHandler {
         target: "aerolith"
 
@@ -86,6 +89,12 @@ Scope {
                 scratchOpen: Compositor.scratchOpen,
                 scratchWindows: Compositor.scratchWindows.length,
                 toplevels: Compositor.available ? Compositor.windows().map(w => w.address) : [],
+                network: { available: Network.available, kind: Network.kind, state: Network.state,
+                    connectionName: Network.connectionName, signal: Network.signal,
+                    wifiEnabled: Network.wifiEnabled, networks: Network.networks.length },
+                bluetooth: { available: Bluetooth.available, powered: Bluetooth.powered,
+                    connectedCount: Bluetooth.connectedCount, devices: Bluetooth.devices.length },
+                tour: { active: Tour.active, step: Tour.steps[Tour.step], completed: Tour.completed },
                 pipewire: Audio.ready,
                 players: Media.players.length,
                 commands: Registry.api.size(),

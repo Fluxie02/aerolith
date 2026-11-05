@@ -103,6 +103,14 @@ The desktop background surface.
 |---|---|---|---|
 | `ground.enabled` | bool | `true` | Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg. |
 
+### `tour`
+
+First-run tour.
+
+| Key | Type | Default | Meaning |
+|---|---|---|---|
+| `tour.enabled` | bool | `true` | Show the first-run tour on the primary output. Completion is saved in shell state, separately from this config. |
+
 ### `commandCore`
 
 The universal command palette.

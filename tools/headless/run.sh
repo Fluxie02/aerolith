@@ -7,6 +7,8 @@
 # PKGS (directory of built Arch packages to install with pacman -U first;
 # the scenario then runs against the packaged tree, see tools/package/build.sh),
 # APP_THEMES=1 (fake aerolith CLI for refresh debounce/restore checks).
+# TOUR=1 (fresh state, so the first-run tour auto-starts; otherwise it is marked done),
+# NET=1 (private system bus with NetworkManager and BlueZ dbusmock templates),
 # BACKLIGHT=1 (a fake backlight and brightnessctl for the brightness service),
 # LOCK=1 (the test user gets the password aerolith-test, for the lock scenario;
 # the shell runs from a writable copy so the scenario can trigger a reload),
@@ -41,7 +43,7 @@ fi
 
 docker run --rm --cap-add=SYS_NICE \
   -v "$here:/src:ro" -v "$out:/out" "${extra[@]}" \
-  -e APP_THEMES -e AUDIO -e BACKLIGHT -e LOCK -e LOCK_PAM -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e OUTPUTS -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
+  -e NET -e TOUR -e APP_THEMES -e AUDIO -e BACKLIGHT -e LOCK -e LOCK_PAM -e MEDIA -e AI -e INSTALL -e AI_PROVIDER -e WIREPLUMBER_DEBUG -e PIPEWIRE_DEBUG -e OUTPUTS -e RES -e SCALE -e HYPR_MOCK -e HYPR_MOCK_ARGS -e MPV_AO -e SHELL_PATH \
   "$image" bash -c '
     set -e
     if [ -d /pkgs ]; then pacman -U --noconfirm /pkgs/*.pkg.tar.zst >/out/pacman.log 2>&1 || { cat /out/pacman.log; exit 1; }; fi
@@ -58,5 +60,5 @@ docker run --rm --cap-add=SYS_NICE \
       gcc -shared -fPIC -o /usr/lib/security/pam_twice.so /src/tests/fixtures/pam/pam_twice.c -lpam
       printf "auth required pam_twice.so aerolith-test\naccount required pam_unix.so\n" >/etc/pam.d/login
     fi
-    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} APP_THEMES=${APP_THEMES:-0} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} LOCK=${LOCK:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} OUTPUTS=${OUTPUTS:-1} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
+    exec su pilot -c "SHELL_PATH=${SHELL_PATH:-shell} NET=${NET:-0} TOUR=${TOUR:-0} AI=${AI:-0} AI_PROVIDER=${AI_PROVIDER:-claude} APP_THEMES=${APP_THEMES:-0} AUDIO=${AUDIO:-0} BACKLIGHT=${BACKLIGHT:-0} LOCK=${LOCK:-0} PACKAGED='"$packaged"' INSTALL=\"${INSTALL:-}\" MEDIA=${MEDIA:-0} OUTPUTS=${OUTPUTS:-1} RES=${RES:-1920x1080} SCALE=${SCALE:-1} HYPR_MOCK=${HYPR_MOCK:-1} HYPR_MOCK_ARGS=\"${HYPR_MOCK_ARGS:-}\" MPV_AO=${MPV_AO:-null} WIREPLUMBER_DEBUG=${WIREPLUMBER_DEBUG:-W} PIPEWIRE_DEBUG=${PIPEWIRE_DEBUG:-2} bash /src/tools/headless/session.sh /src/'"$scenario"'"
   '

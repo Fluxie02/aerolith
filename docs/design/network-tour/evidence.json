@@ -1,0 +1,268 @@
+[
+  {
+    "file": "1080/01-ethernet.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/02-wifi.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/03-network.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/04-password.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/05-bluetooth.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/06-unavailable.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/tour-0.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/tour-1.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/tour-2.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/tour-3.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "1080/tour-4.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 1920,
+    "captureHeight": 1080
+  },
+  {
+    "file": "4k/01-ethernet.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/02-wifi.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/03-network.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/04-password.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/05-bluetooth.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/06-unavailable.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/tour-0.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/tour-1.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/tour-2.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/tour-3.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "4k/tour-4.jpg",
+    "width": 1920,
+    "height": 1080,
+    "captureWidth": 3840,
+    "captureHeight": 2160
+  },
+  {
+    "file": "oled/01-ethernet.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/02-wifi.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/03-network.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/04-password.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/05-bluetooth.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/06-unavailable.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/tour-0.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/tour-1.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/tour-2.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/tour-3.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "oled/tour-4.jpg",
+    "width": 1920,
+    "height": 540,
+    "captureWidth": 3840,
+    "captureHeight": 1080
+  },
+  {
+    "file": "compact/tour-0.jpg",
+    "width": 1280,
+    "height": 720,
+    "captureWidth": 1280,
+    "captureHeight": 720
+  },
+  {
+    "file": "compact/tour-1.jpg",
+    "width": 1280,
+    "height": 720,
+    "captureWidth": 1280,
+    "captureHeight": 720
+  },
+  {
+    "file": "compact/tour-2.jpg",
+    "width": 1280,
+    "height": 720,
+    "captureWidth": 1280,
+    "captureHeight": 720
+  },
+  {
+    "file": "compact/tour-3.jpg",
+    "width": 1280,
+    "height": 720,
+    "captureWidth": 1280,
+    "captureHeight": 720
+  },
+  {
+    "file": "compact/tour-4.jpg",
+    "width": 1280,
+    "height": 720,
+    "captureWidth": 1280,
+    "captureHeight": 720
+  }
+]

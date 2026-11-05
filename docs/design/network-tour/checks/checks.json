@@ -1,0 +1,48 @@
+[
+  {
+    "name": "smoke",
+    "command": "tools/headless/run.sh tests/scenarios/smoke.sh build/network-tour/smoke",
+    "exit": 0
+  },
+  {
+    "name": "deck",
+    "command": "AUDIO=1 tools/headless/run.sh tests/scenarios/deck.sh build/network-tour/deck",
+    "exit": 0
+  },
+  {
+    "name": "app-links",
+    "command": "tools/headless/run.sh tests/scenarios/app-links.sh build/network-tour/app-links",
+    "exit": 0
+  },
+  {
+    "name": "fullscreen",
+    "command": "AUDIO=1 CONFIG=tests/fixtures/notify-config.json tools/headless/run.sh tests/scenarios/fullscreen.sh build/network-tour/fullscreen",
+    "exit": 0
+  },
+  {
+    "name": "network-present",
+    "command": "NET=1 tools/headless/run.sh tests/scenarios/network.sh build/network-tour/network-present",
+    "exit": 0
+  },
+  {
+    "name": "network-absent",
+    "command": "NET=0 tools/headless/run.sh tests/scenarios/network.sh build/network-tour/network-absent",
+    "exit": 0
+  },
+  {
+    "name": "tour",
+    "command": "TOUR='1' tools/headless/run.sh tests/scenarios/tour.sh build/network-tour/tour",
+    "exit": 0
+  },
+  {
+    "name": "oled",
+    "command": "AI='1' OUTPUTS='2' CONFIG='tests/fixtures/oled-config.json' tools/headless/run.sh tests/scenarios/oled.sh build/network-tour/oled",
+    "exit": 0
+  },
+  {
+    "name": "node",
+    "command": "node tests/js/run-node.mjs",
+    "exit": 0,
+    "result": "# passed 233, failed 0"
+  }
+]

@@ -42,7 +42,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 
 <!-- BEGIN GENERATED: tools/gen-commands-doc.py -->
 
-63 commands with the AI module installed; without it the `ai` category is absent.
+67 commands with the AI module installed; without it the `ai` category is absent.
 
 ### shell
 
@@ -61,6 +61,7 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 | `shell.open.settings`<br>Open Settings | `set` | — | — |
 | `shell.open.signal`<br>Open Signal Rack | `sig` | — | — |
 | `shell.open.systems`<br>Open Systems Bay | `sys` | — | — |
+| `tour.start`<br>Show the tour again | — | — | — |
 
 ### apps
 
@@ -125,9 +126,12 @@ and `tools/gen-commands-doc.py` (CI checks it is current).
 
 | Command | Alias | Parameters | Notes |
 |---|---|---|---|
+| `bluetooth.toggle`<br>Turn Bluetooth on or off | — | — | — |
 | `brightness.down`<br>Brightness down | — | — | routine step, AI may propose |
 | `brightness.set`<br>Set brightness | `bright` | `level`: integer 1–100 | routine step, AI may propose |
 | `brightness.up`<br>Brightness up | — | — | routine step, AI may propose |
+| `network.disconnect`<br>Disconnect network | — | — | — |
+| `network.wifi.toggle`<br>Turn Wi-Fi on or off | — | — | — |
 | `power.profile.set`<br>Set power profile | `power` | `profile`: one of `balanced`, `performance`, `power-saver` | routine step, AI may propose |
 | `session.lock`<br>Lock session — AEROLITH's lock screen when lock.enabled is on; otherwise loginctl lock-session (needs a locker such as hyprlock via hypridle) | `lock` | — | routine step, AI may propose |
 | `session.logout`<br>Log out (exit Hyprland) | — | — | asks for confirmation |

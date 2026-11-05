@@ -1,0 +1,3 @@
+git diff --check: exit 0
+python -m py_compile docs/design/network-tour/fixture.py docs/design/network-tour/checks.py: exit 0
+bash -n docs/design/network-tour/visuals.sh docs/design/network-tour/compact.sh: exit 0

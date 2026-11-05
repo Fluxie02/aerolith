@@ -16,5 +16,8 @@ import ambient from "./ambient.test.mjs";
 import displays from "./displays.test.mjs";
 import outputLifecycles from "./displays-lifecycle.test.mjs";
 import oledTokens from "./tokens.test.mjs";
+import network from "./network.test.mjs";
+import bluetooth from "./bluetooth.test.mjs";
+import tour from "./tour.test.mjs";
 
-export const suites = [displays, outputLifecycles, fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient, oledTokens];
+export const suites = [displays, outputLifecycles, fuzzy, hyprdispatch, registry, paramsSuite, telemetry, config, routines, launch, tokensSuite, schemes, shellstate, brightness, appbus, ambient, oledTokens, network, bluetooth, tour];

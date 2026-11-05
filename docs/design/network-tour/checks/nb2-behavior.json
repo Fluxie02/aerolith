@@ -1,0 +1,62 @@
+[
+  {
+    "command": "NET=1 tools/headless/run.sh tests/scenarios/network.sh build/nb2/network-present-1",
+    "exit": 0,
+    "seconds": 18.34,
+    "budget": 180
+  },
+  {
+    "command": "NET=1 tools/headless/run.sh tests/scenarios/network.sh build/nb2/network-present-2",
+    "exit": 0,
+    "seconds": 18.63,
+    "budget": 180
+  },
+  {
+    "command": "NET=1 tools/headless/run.sh tests/scenarios/network.sh build/nb2/network-present-3",
+    "exit": 0,
+    "seconds": 18.55,
+    "budget": 180
+  },
+  {
+    "command": "NET=0 tools/headless/run.sh tests/scenarios/network.sh build/nb2/network-absent-1",
+    "exit": 0,
+    "seconds": 1.75,
+    "budget": 180
+  },
+  {
+    "command": "NET=0 tools/headless/run.sh tests/scenarios/network.sh build/nb2/network-absent-2",
+    "exit": 0,
+    "seconds": 1.87,
+    "budget": 180
+  },
+  {
+    "command": "NET=0 tools/headless/run.sh tests/scenarios/network.sh build/nb2/network-absent-3",
+    "exit": 0,
+    "seconds": 1.81,
+    "budget": 180
+  },
+  {
+    "command": "TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh build/nb2/tour-1",
+    "exit": 0,
+    "seconds": 14.14,
+    "budget": 240
+  },
+  {
+    "command": "TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh build/nb2/tour-2",
+    "exit": 0,
+    "seconds": 14.69,
+    "budget": 240
+  },
+  {
+    "command": "TOUR=1 tools/headless/run.sh tests/scenarios/tour.sh build/nb2/tour-3",
+    "exit": 0,
+    "seconds": 14.37,
+    "budget": 240
+  },
+  {
+    "command": "NET=1 OUTPUTS=2 tools/headless/run.sh tests/scenarios/network.sh build/nb2/network-two-outputs-1",
+    "exit": 0,
+    "seconds": 28.55,
+    "budget": 180
+  }
+]

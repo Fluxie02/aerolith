@@ -4,15 +4,17 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import "../lib/launch.mjs" as Launch
+import "../lib/tour.mjs" as TourLib
 
 // Small persistent runtime state (launch frecency, recent actions) in
 // ~/.local/state/aerolith/state.json. Writes are debounced and atomic.
-// Nothing here is configuration; deleting the file only resets rankings.
+// Nothing here is configuration; deleting the file resets rankings and the tour.
 Singleton {
     id: root
 
     property var usage: ({})
     property var recent: []
+    property var tour: ({ completed: false, version: 0 })
     readonly property int recentLimit: Config.commandCore.historySize
     property bool ready: false
 
@@ -38,10 +40,23 @@ Singleton {
         saveTimer.restart();
     }
 
+    function save() {
+        file.setText(JSON.stringify({ version: 1, usage: usage, recent: recent, tour: tour }) + "\n");
+    }
+
+    function completeTour(version) {
+        if (!ready) return;
+        tour = { completed: true, version: version };
+        // Completion must survive an immediate shell restart, without waiting
+        // for the usage/history debounce. FileView still writes atomically.
+        saveTimer.stop();
+        save();
+    }
+
     Timer {
         id: saveTimer
         interval: 2000
-        onTriggered: file.setText(JSON.stringify({ version: 1, usage: root.usage, recent: root.recent }) + "\n")
+        onTriggered: root.save()
     }
 
     FileView {
@@ -54,6 +69,7 @@ Singleton {
                 const d = JSON.parse(text());
                 root.usage = d && typeof d.usage === "object" && d.usage !== null ? d.usage : {};
                 root.recent = d && Array.isArray(d.recent) ? d.recent.slice(0, 1000) : [];
+                root.tour = TourLib.readRecord(d && d.tour);
             } catch (e) {
                 Log.warn("state", "ignoring unreadable state file: " + e);
             }
