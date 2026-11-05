@@ -14,7 +14,7 @@ Item {
     readonly property alias frameA: frameA
     readonly property alias frameB: frameB
     readonly property alias missingAiBay: missingAiBay
-    readonly property var codes: ({command:"CMD",navigator:"NAV",systems:"SYS",signal:"SIG",routines:"RTN",ai:"AI",settings:"SET",help:"HELP"})
+    readonly property var codes: ({command:"SEARCH",navigator:"WINDOWS",systems:"SYSTEMS",signal:"SYSTEMS",routines:"SYSTEMS",ai:"AI",settings:"SETTINGS",help:"HELP"})
     readonly property var bayNames: ({command:"Search & launch",navigator:"Window overview",systems:"System monitor",signal:"Signal",routines:"Routines",ai:"AI",settings:"Settings",help:"Help"})
     readonly property var railEntries: deck.rail.filter(r => ["command", "navigator", "systems"].indexOf(r.bay) !== -1).map(r => ({bay:r.bay, key:r.key, label:bayNames[r.bay] || r.bay}))
     readonly property bool compactScreen: width < Theme.du(1500) || height < Theme.du(850)
@@ -192,7 +192,7 @@ Item {
     Text {
         x: parent.width * .055; y: parent.height * .84
         visible: !view.compactScreen
-        text: Theme.applicationName + " / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
+        text: "ESC / CLOSE  ·  F1 / HELP"; textFormat: Text.PlainText
         color: view.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
     }
     NoticeStack { profile: view.profile;
@@ -211,7 +211,7 @@ Item {
             property var profile: view.profile
             Bezel { profile: view.profile;
                 anchors.fill: parent
-                designation: "AI / 06"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: view.profile.caution
+                designation: "AI"; title: "AI Bridge"; status: "NOT INSTALLED"; statusColor: view.profile.caution
                 MouseArea { anchors.fill: parent }
                 Column {
                     width: parent.width; spacing: Theme.pad

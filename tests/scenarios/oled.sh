@@ -18,7 +18,7 @@ s=s.replace('model: Displays.groundScreens','id: oledGrounds\n        model: Dis
 s=s.replace('model: Displays.stripScreens','id: oledStrips\n        model: Displays.stripScreens')
 s=s.replace('active: !!Ui.overlayScreen','id: oledDeck\n        active: !!Ui.overlayScreen')
 s=s.replace('active: !!Ui.noticeScreen','id: oledNotices\n        active: !!Ui.noticeScreen')
-s=s.replace('OsdHost {}','OsdHost { id: oledOsd }').replace('SessionHost {}','SessionHost { id: oledSession }')
+s=s.replace('OsdHost {}','OsdHost { id: oledOsd }').replace('SessionHost {}','SessionHost { id: oledSession }').replace('LockHost {}','LockHost { id: oledLock }')
 probe='''
     IpcHandler {
         target: "oledTest"
@@ -31,8 +31,34 @@ probe='''
                 ground: oledGrounds.instances.map(l => l.item.contentItem.children[0].children[0].opacity),
                 tapes: surfaces.strips.map(w => w.parts.filter(c => c.type.indexOf("WorkspaceTape") === 0).map(c => c.opacity)) });
         }
-        function notice(): void { Ui.notify("OLED profile check", "info", "Transient notice"); }
-        function osd(): void { oledOsd.armed = true; oledOsd.show("volume"); }
+        function notice(): void { Ui.notify("OLED profile check", "error", "Transient notice"); }
+        function osd(): void { oledOsd.armed = true; oledOsd.show("volume"); oledOsd.muted = true; }
+        function confirmSession(): void { oledSession.testWindow.contentItem.children[0].choose(2); }
+        function paletteSnapshot(): string {
+            function surface(w) {
+                if (!w || !w.profile) return null;
+                const colors = [], ornaments = [], prompts = [];
+                function visit(item) {
+                    if (!item || !item.visible || item.opacity === 0) return;
+                    if (item.objectName === "lockEngraving") ornaments.push(true);
+                    const record = {type: item.toString().split("(")[0]};
+                    for (const key of ["color", "selectionColor", "selectedTextColor"])
+                        if (item[key] !== undefined) record[key] = String(item[key]);
+                    if (item.border !== undefined && item.border.width > 0 && String(item.border.color) !== "#000000") record.border = String(item.border.color);
+                    if (item.echoMode !== undefined) prompts.push({visible: item.visible, color: String(item.color)});
+                    colors.push(record);
+                    for (const child of item.children || []) visit(child);
+                }
+                visit(w.contentItem);
+                const palette = {};
+                for (const key of ["bg", "surface", "surface2", "grid", "text", "textDim", "signal", "caution", "critical", "nominal", "appLink"])
+                    palette[key] = String(w.profile[key]);
+                return {output: w.screen.name, profile: w.profile.profile, bg: String(w.color), palette: palette, colors: colors,
+                    prompts: prompts, ornaments: ornaments.length, hide: w.profile.hideContent, decoration: w.profile.decorationOpacity};
+            }
+            return JSON.stringify({lock: oledLock.testSurfaces.map(surface), session: surface(oledSession.testWindow),
+                osd: surface(oledOsd.testWindow), notices: surface(oledNotices.item)});
+        }
         function dismiss(): void { Ui.sessionOpen = false; }
         function snapshot(): string {
             function children(item, found, opacity) {
@@ -89,6 +115,13 @@ for name in ['osd/OsdHost','session/SessionHost']:
     code=code.replace('    id: host','    id: host\n    readonly property alias testWindow: oledWindowLoader.item',1)
     code=code.replace('    LazyLoader {','    LazyLoader {\n        id: oledWindowLoader',1)
     q.write_text(code)
+# Observe every actual lock surface, including the secondary backing. No
+# authentication hooks: the scenario unlocks through normal PAM input.
+p=root/'modules/lock/LockHost.qml'; code=p.read_text()
+code=code.replace('    id: host', '    id: host\n    property var testSurfaces: []', 1)
+code=code.replace('            id: surface', '            id: surface\n            Component.onCompleted: host.testSurfaces = host.testSurfaces.concat([surface])\n            Component.onDestruction: host.testSurfaces = host.testSurfaces.filter(s => s !== surface)', 1)
+p.write_text(code)
+p=root/'modules/lock/LockView.qml'; code=p.read_text().replace('        id: engraving', '        id: engraving\n        objectName: "lockEngraving"', 1); p.write_text(code)
 # Count real scene-graph swaps without adding a production render callback.
 for name,ident in [('ground/GroundSurface','ground'),('strip/FlightStrip','strip')]:
     q=root/('modules/'+name+'.qml'); code=q.read_text()
@@ -114,11 +147,14 @@ PIDS+=("$QS_PID")
 probe() { qs -p "$SHELL_DIR" ipc call oledTest "$@"; }
 config() {
   # Only HEADLESS-2 opts in, and all changes use the real live config watcher.
-  python3 - "$SRC/tests/fixtures/oled-config.json" "$XDG_CONFIG_HOME/aerolith/config.json" "$1" "${2:-0}" "${3:-true}" "${4:-off}" <<'PY'
+  python3 - "$SRC/tests/fixtures/oled-config.json" "$XDG_CONFIG_HOME/aerolith/config.json" "$1" "${2:-0}" "${3:-true}" "${4:-off}" "${5:-HEADLESS-2}" <<'PY'
 import json,sys,os
-fixture,path,profile,after,hide,motion=sys.argv[1:]
+fixture,path,profile,after,hide,motion,oled_output=sys.argv[1:]
 c=json.load(open(fixture)); c['display']['outputs']['HEADLESS-2']['profile']=profile
 c['strip']['showSeconds']=True
+c['lock']={'enabled': True}
+c['display']['outputs'][oled_output]={'profile':profile}
+if oled_output != 'HEADLESS-2': c['display']['outputs']['HEADLESS-2']={'profile':'standard'}
 c['display']['oled']['idleDimAfter']=int(after); c['display']['oled']['hideDecorationWhenIdle']=hide=='true'; c['theme']['motion']=motion
 with open(path+'.tmp','w') as f: json.dump(c,f)
 os.replace(path+'.tmp',path)
@@ -146,6 +182,35 @@ capture() {
     grim -o "HEADLESS-$n" -s .5 "$OUT/$1-$n.png"
     grim -o "HEADLESS-$n" -t ppm "$OUT/$1-$n.ppm"
   done
+}
+palette_check() {
+  probe paletteSnapshot >"$OUT/palette-$1.json"
+  python3 - "$OUT/palette-$1.json" "$2" <<'PYCOLOR'
+import json,sys
+s=json.load(open(sys.argv[1]))
+assert eval(sys.argv[2]), s
+for kind in ['lock','session','osd','notices']:
+    windows=s[kind] if kind=='lock' else [s[kind]]
+    for w in windows:
+        if not w: continue
+        palette=set(w['palette'].values())
+        assert w['palette']['bg']==('#000000' if w['profile']=='oled' else '#0d1215'), w
+        for c in w['colors']:
+            for key,value in c.items():
+                if key=='type' or value=='#00000000': continue
+                # Alpha tints retain the palette RGB; fully transparent fills
+                # contribute no pixels. Other arbitrary colours are rejected.
+                rgb='#'+value[-6:]
+                assert rgb in palette, (kind,w['output'],c,key,value,palette)
+PYCOLOR
+}
+wait_palette() {
+  for _ in $(seq 60); do
+    if palette_check "$1" "$2" 2>"$OUT/palette-error.txt"; then return 0; fi
+    sleep .1
+  done
+  cat "$OUT/palette-error.txt" >&2
+  fail "palette $1"
 }
 config standard
 wait_check 'len(g)==len(t)==2 and all(x["profile"]=="standard" and x["opacity"]==1 for x in list(g.values())+list(t.values())) and p["timeout"]==0'
@@ -284,6 +349,19 @@ mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
 probe osd
 ipc session
 wait_check 's["session"] and len(p["extras"])==2 and all(x["profile"]=="oled" and all(c["profile"]=="oled" for c in x["parts"]) for x in p["extras"])'
+wait_palette overlays-oled 's["session"] and s["osd"] and s["notices"] and all(s[k]["colors"] for k in ["session","osd","notices"])'
+probe confirmSession
+wait_palette confirmation-oled 's["session"] and any(c.get("border")==s["session"]["palette"]["signal"] for c in s["session"]["colors"])'
+probe dismiss
+mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
+probe notice
+probe osd
+ipc session
+wait_palette overlays-standard 's["session"] and s["osd"] and s["notices"] and all(s[k]["output"]=="HEADLESS-1" and s[k]["colors"] for k in ["session","osd","notices"])'
+probe dismiss
+mock '{"op":"focus_monitor","name":"HEADLESS-2"}' >/dev/null
+probe osd
+ipc session
 config oled 2
 probe idle true
 wait_check 'all(not x["dimmed"] and x["opacity"]==1 and x["decoration"]==0.55 for x in p["extras"])'
@@ -292,6 +370,35 @@ config oled 0
 probe dismiss
 ipc close
 mock '{"op":"focus_monitor","name":"HEADLESS-1"}' >/dev/null
+# LOCK=1 adds real session-lock/PAM coverage to the same two-output fixture.
+# The CI OLED invocation still runs without LOCK; run once more with LOCK=1.
+if [ "${LOCK:-0}" = 1 ]; then
+  ipc lock >/dev/null
+  wait_palette lock-backing 'len(s["lock"])==2 and sum(bool(w["prompts"]) for w in s["lock"])==1 and all(w["bg"]==w["palette"]["bg"] for w in s["lock"])'
+  capture lock-standard-primary
+  wtype -k Shift_L -- 'aerolith-test'; sleep .3; key Return
+  wait_check 'not s["locked"]'
+  # Exchange the output profiles so the existing primary prompt also gets
+  # the OLED palette. This avoids depending on Sway's secondary-lock keyboard
+  # routing while checking both the prompt and secondary standard backing.
+  config oled 0 true off HEADLESS-1
+  wait_check 'o["HEADLESS-1"]["profile"]=="oled" and o["HEADLESS-2"]["profile"]=="standard"'
+  ipc lock >/dev/null
+  wait_palette lock-oled 'len(s["lock"])==2 and any(w["profile"]=="oled" and w["prompts"] for w in s["lock"])'
+  wtype -k Shift_L -- 'oled-wrong-password'; sleep .3; key Return
+  wait_check 's["lockState"]=="failed" and s["locked"]'
+  config oled 2 true off HEADLESS-1
+  probe idle true
+  wait_palette lock-idle 'any(w["profile"]=="oled" and w["hide"] and w["ornaments"]==0 and any(c.get("color")==w["palette"]["critical"] for c in w["colors"]) and w["prompts"] and all(p["visible"] and p["color"]==w["palette"]["text"] for p in w["prompts"]) for w in s["lock"])'
+  capture lock-oled-idle
+  probe idle false
+  # Reset the virtual keyboard's edit selection after the injected idle/resume
+  # sequence; the prompt remains the real masked TextInput throughout.
+  wtype -k Shift_L -M ctrl -k a -m ctrl -k BackSpace
+  wtype -k Shift_L -- 'aerolith-test'; sleep .3; key Return
+  wait_check 'not s["locked"]'
+  config oled 0
+fi
 # A live profile toggle returns output 2 to exactly its standard pixels.
 config standard
 wait_check 'g["HEADLESS-2"]["profile"]==t["HEADLESS-2"]["profile"]=="standard" and not o["HEADLESS-2"]["idleDimmed"]'

@@ -168,7 +168,7 @@ wait_tour step 0
 tour skip
 [ "$(config_hash)" = "$config_before" ] || fail "replay changed user config"
 
-# Fresh state with tour.enabled=false stays off, including explicit IPC start.
+# Fresh state with tour.enabled=false stays off automatically; manual IPC and command replay work.
 stop_shell
 python3 - "$XDG_CONFIG_HOME/aerolith/config.json" "$state_file" <<'PY'
 import json, pathlib, sys
@@ -185,16 +185,28 @@ sleep 0.7
 assert_state disabled '{"active":false,"step":0,"stepId":"hatch","completed":false}'
 wait_ui 's["tour"] is None'
 tour start
-assert_state disabled-start '{"active":false,"step":0,"stepId":"hatch","completed":false}'
+wait_tour active True
+assert_state disabled-start '{"active":true,"step":0,"stepId":"hatch","completed":false}'
+wait_ui "$surface_ready"
+tour skip
+wait_tour active False
+ipc run tour.start '{}' >"$OUT/disabled-command-reply.txt"
+wait_tour active True
+wait_ui "$surface_ready"
+tour skip
+wait_tour active False
 
 # Seed fullscreen BEFORE starting a fresh shell: catches startup snapshot races.
 stop_shell
-python3 - "$XDG_CONFIG_HOME/aerolith/config.json" <<'PY'
+python3 - "$XDG_CONFIG_HOME/aerolith/config.json" "$state_file" <<'PY'
 import json, pathlib, sys
 p = pathlib.Path(sys.argv[1])
 d = json.loads(p.read_text())
 d['tour']['enabled'] = True
 p.write_text(json.dumps(d))
+state = pathlib.Path(sys.argv[2])
+s = json.loads(state.read_text()); s.pop('tour', None)
+state.write_text(json.dumps(s))
 PY
 game=$(mock '{"op":"open","class":"tour-game","title":"Tour fullscreen hold","workspace":1}' | python3 -c 'import json,sys; print(json.load(sys.stdin)["address"])')
 mock '{"op":"focus_workspace","workspace":1}' >/dev/null

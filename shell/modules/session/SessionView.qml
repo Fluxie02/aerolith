@@ -69,20 +69,20 @@ FocusScope {
         width: Math.min(root.width-Theme.du(48),Theme.du(640))
         height: Math.min(root.height-Theme.du(48),Theme.du(600))
         designation: "02"; title: "Session control"
-        status: root.confirming ? "CONFIRM" : "SELECT"; statusColor: root.confirming ? Theme.caution : Theme.signal
-        accent: root.confirming ? Theme.caution : Theme.signal
+        status: root.confirming ? "CONFIRM" : "SELECT"; statusColor: root.confirming ? root.profile.caution : root.profile.signal
+        accent: root.confirming ? root.profile.caution : root.profile.signal
         Column {
             id: heading; width: parent.width; spacing: Theme.du(10)
             Text {
                 width: parent.width; text: root.confirming ? root.pending.label + "?" : "Leave the controls."
                 textFormat: Text.PlainText; wrapMode: Text.Wrap
-                color: Theme.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(32)
+                color: root.profile.text; font.family: Theme.displaySans; font.pixelSize: Theme.du(32)
             }
             Text {
                 width: parent.width
                 text: root.confirming ? "Confirm this action to continue. Save your work first." : root.actions.length ? "Choose what happens to your session." : "No session actions are available."
                 textFormat: Text.PlainText; wrapMode: Text.Wrap
-                color: Theme.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontLg
+                color: root.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontLg
             }
         }
         ListView {
@@ -95,7 +95,7 @@ FocusScope {
                 x: list.width-Theme.du(3)
                 y: list.visibleArea.yPosition*list.height
                 width: Theme.du(3); height: list.visibleArea.heightRatio*list.height
-                visible: list.contentHeight > list.height; color: Theme.textDim
+                visible: list.contentHeight > list.height; color: root.profile.textDim
             }
             onCurrentIndexChanged: positionViewAtIndex(currentIndex,ListView.Contain)
             delegate: Rectangle {
@@ -104,31 +104,31 @@ FocusScope {
                 width: list.width; height: Math.max(Theme.du(62), labels.implicitHeight+Theme.du(20))
                 color: root.selected === index ? root.profile.surface2 : root.profile.surface
                 radius: Theme.radius
-                border.width: Theme.border; border.color: root.selected === index ? Theme.signal : root.profile.grid
-                Rectangle { x: 0; y: 0; width: Theme.du(3); height: parent.height; color: modelData.available === true ? root.sensitive(modelData) ? Theme.caution : Theme.signal : root.profile.grid }
+                border.width: Theme.border; border.color: root.selected === index ? root.profile.signal : root.profile.grid
+                Rectangle { x: 0; y: 0; width: Theme.du(3); height: parent.height; color: modelData.available === true ? root.sensitive(modelData) ? root.profile.caution : root.profile.signal : root.profile.grid }
                 Text {
                     x: Theme.du(16); anchors.verticalCenter: parent.verticalCenter
                     text: String(index+1).padStart(2,"0"); textFormat: Text.PlainText
-                    color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+                    color: root.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
                 }
                 Column {
                     id: labels; x: Theme.du(56); width: parent.width-x-Theme.du(48)
                     anchors.verticalCenter: parent.verticalCenter; spacing: Theme.du(4)
                     Text {
                         width: parent.width; text: modelData.label; textFormat: Text.PlainText; elide: Text.ElideRight
-                        color: modelData.available === true ? Theme.text : Theme.textDim
+                        color: modelData.available === true ? root.profile.text : root.profile.textDim
                         font.family: Theme.sans; font.pixelSize: Theme.fontLg
                     }
                     Text {
                         width: parent.width; visible: modelData.available !== true
                         text: modelData.reason || "Unavailable"; textFormat: Text.PlainText; wrapMode: Text.Wrap
-                        color: Theme.caution; font.family: Theme.sans; font.pixelSize: Theme.fontMd
+                        color: root.profile.caution; font.family: Theme.sans; font.pixelSize: Theme.fontMd
                     }
                 }
                 Text {
                     anchors.right: parent.right; anchors.rightMargin: Theme.du(16); anchors.verticalCenter: parent.verticalCenter
                     text: modelData.available !== true ? "—" : root.sensitive(modelData) ? "!" : "↵"
-                    textFormat: Text.PlainText; color: root.sensitive(modelData) ? Theme.caution : Theme.signal
+                    textFormat: Text.PlainText; color: root.sensitive(modelData) ? root.profile.caution : root.profile.signal
                     font.family: Theme.mono; font.pixelSize: Theme.fontMd
                 }
                 MouseArea {
@@ -144,11 +144,11 @@ FocusScope {
             visible: root.confirming
             anchors { left: parent.left; right: parent.right; top: heading.bottom; topMargin: Theme.du(32) }
             spacing: Theme.du(24)
-            Rectangle { width: parent.width; height: Theme.border; color: Theme.caution }
+            Rectangle { width: parent.width; height: Theme.border; color: root.profile.caution }
             Text {
                 width: parent.width
                 text: "This action changes your current session."
-                textFormat: Text.PlainText; wrapMode: Text.Wrap; color: Theme.caution
+                textFormat: Text.PlainText; wrapMode: Text.Wrap; color: root.profile.caution
                 font.family: Theme.mono; font.pixelSize: Theme.fontMd
             }
             Row {
@@ -162,12 +162,12 @@ FocusScope {
                         color: (index === 1) === root.confirmSelected ? root.profile.surface2 : root.profile.surface
                         radius: Theme.radius
                         border.width: Theme.border
-                        border.color: (index === 1) === root.confirmSelected ? (index === 1 ? Theme.caution : Theme.signal) : root.profile.grid
+                        border.color: (index === 1) === root.confirmSelected ? (index === 1 ? root.profile.caution : root.profile.signal) : root.profile.grid
                         Text {
                             anchors.fill: parent; anchors.margins: Theme.du(12)
                             horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
                             text: modelData; textFormat: Text.PlainText; elide: Text.ElideRight
-                            color: index === 1 ? Theme.caution : Theme.text
+                            color: index === 1 ? root.profile.caution : root.profile.text
                             font.family: Theme.sans; font.pixelSize: Theme.fontLg
                         }
                         MouseArea { anchors.fill: parent; onClicked: { root.forceActiveFocus(); if (index === 1) root.confirm(); else root.back(); } }
@@ -181,7 +181,7 @@ FocusScope {
             id: footer; anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
             text: root.confirming ? "← →  CHOOSE     ↵  ACCEPT     ESC  BACK" : "↑ ↓  SELECT     ↵  CONTINUE     ESC  CANCEL"
             textFormat: Text.PlainText; wrapMode: Text.Wrap
-            color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
+            color: root.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontSm
         }
     }
 }

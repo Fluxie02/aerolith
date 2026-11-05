@@ -67,7 +67,7 @@ FocusScope {
             }
             Text {
                 width: parent.width * .35; horizontalAlignment: Text.AlignRight
-                text: Theme.applicationName + " / " + Theme.variantName.toUpperCase(); textFormat: Text.PlainText
+                text: "ACTIVE / " + Theme.specimen.name.toUpperCase(); textFormat: Text.PlainText
                 color: picker.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 elide: Text.ElideRight
             }

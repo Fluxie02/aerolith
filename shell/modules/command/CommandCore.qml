@@ -235,7 +235,7 @@ FocusScope {
         anchors.fill: parent
         contentPadding: core.compact ? Theme.pad : Theme.contentInset
         titleHeight: core.compact ? Theme.du(42) : Theme.headerHeight
-        designation: "CMD / 01"
+        designation: "SEARCH"
         title: "Command Core"
         status: "ESC / CLOSE"
 

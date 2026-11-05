@@ -8,13 +8,14 @@ Bezel {
     id: card
     objectName: "tourCard"
     property int step: Tour.step
+    property string stepName: ""
     property string heading: ""
     property string explanation: ""
     property string shortcut: ""
     contentPadding: Theme.du(24)
     titleHeight: Theme.du(48)
     title: "QUICK TOUR"
-    status: (step + 1) + " / 5"
+    status: ""
     width: Theme.du(420)
     height: headerHeight + contentPadding * 2 + copy.implicitHeight
     Column {
@@ -32,6 +33,13 @@ Bezel {
                     color: index <= card.step ? card.profile.signal : card.profile.grid
                 }
             }
+        }
+        Text {
+            objectName: "tourStepLabel"
+            width: parent.width; wrapMode: Text.WordWrap
+            text: (card.step + 1) + " of 5 · " + card.stepName; textFormat: Text.PlainText
+            font.family: Theme.mono; font.pixelSize: Theme.fontSm
+            color: card.profile.signal
         }
         Text {
             objectName: "tourTitle"
@@ -53,6 +61,12 @@ Bezel {
             text: card.shortcut; textFormat: Text.PlainText
             font.family: Theme.mono; font.pixelSize: Theme.fontXs; lineHeight: 1.4
             color: card.profile.signal
+        }
+        TourButton {
+            objectName: "tourSettings"
+            visible: card.step === 4
+            label: "OPEN SETTINGS"
+            onActivated: { Tour.finish(); Registry.execute("shell.open.settings"); }
         }
         RowLayout {
             width: parent.width; spacing: Theme.du(8)
@@ -80,6 +94,7 @@ Bezel {
             color: button.primary ? card.profile.bg : card.profile.text
         }
         Keys.onReturnPressed: activated()
+        Keys.onEnterPressed: activated()
         Keys.onSpacePressed: activated()
         MouseArea { id: hover; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: button.activated() }
         Accessible.role: Accessible.Button; Accessible.name: label

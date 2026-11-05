@@ -86,6 +86,36 @@ class Plan:
 
 # --- helpers -------------------------------------------------------------------
 
+USER_DOCS = ("README.md", "docs/ALPHA.md", "docs/CONFIGURATION.md", "docs/COMMANDS.md")
+
+
+def install_docs(src: Path, destination: Path, manifest: Manifest) -> list[str]:
+    """Stage only user docs, retaining relative links and manifest ownership.
+
+    Package builders can use the same staging operation for /usr/share/aerolith/docs.
+    The per-user installer never modifies an already package-owned tree.
+    """
+    old = [entry for entry in manifest.component_files("core")
+           if Path(entry.path).is_relative_to(destination)]
+    written = []
+    for relative in USER_DOCS:
+        source = src / relative
+        if not source.is_file():
+            continue
+        target = destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        manifest.record_dir(destination)
+        manifest.record_dir(target.parent)
+        shutil.copy2(source, target)
+        manifest.record_file(target, "core")
+        written.append(str(target))
+    stale = [entry for entry in old if entry.path not in written]
+    if stale:
+        report = remove_files(manifest, stale)
+        prune_dirs(manifest, destination, report)
+    return written
+
+
 def read_installation(lay: Layout) -> dict:
     """Installation metadata is separate from the live Settings schema."""
     try:
@@ -594,17 +624,14 @@ def cmd_install(args: argparse.Namespace, ui: Ui) -> int:
         atomic_write(lay.launcher, LAUNCHER.format(cli=lay.cli), 0o755)
         manifest.record_file(lay.launcher, "core", "launcher")
         written += [str(lay.cli / "aerolith"), str(lay.launcher)]
-        if (src / "README.md").is_file():
-            shutil.copy2(src / "README.md", lay.data / "README.md")
-            manifest.record_file(lay.data / "README.md", "core")
-            written.append(str(lay.data / "README.md"))
+        written += install_docs(src, lay.docs, manifest)
         # On update, remove files the new version no longer ships (only if
         # unmodified; see remove_files).
         keep = set(written)
         stale = [f for f in old_core if f.path not in keep]
         if stale:
             rep = remove_files(manifest, stale)
-            for d in (lay.shell, lay.cli):
+            for d in (lay.shell, lay.cli, lay.docs):
                 prune_dirs(manifest, d, rep)
 
     def install_config() -> None:

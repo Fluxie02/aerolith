@@ -22,7 +22,7 @@ Item {
     readonly property bool known: isFinite(value)
     readonly property real ceiling: isFinite(maxValue) && maxValue > 0 ? maxValue : 1
     readonly property real bounded: known ? Math.max(0, Math.min(ceiling, value)) : 0
-    readonly property color accent: muted ? Theme.caution : known && value > 1 ? Theme.caution : Theme.signal
+    readonly property color accent: muted ? root.profile.caution : known && value > 1 ? root.profile.caution : root.profile.signal
     signal settled()
     implicitWidth: Theme.du(408)
     implicitHeight: Theme.du(158)
@@ -67,7 +67,7 @@ Item {
             Text {
                 width: parent.width; text: root.label || "Device not reported"
                 textFormat: Text.PlainText; elide: Text.ElideRight
-                color: Theme.text; font.family: Theme.sans; font.pixelSize: Theme.fontMd
+                color: root.profile.text; font.family: Theme.sans; font.pixelSize: Theme.fontMd
             }
             Item {
                 width: parent.width; height: Theme.du(14)
@@ -87,7 +87,7 @@ Item {
                 }
                 Rectangle {
                     visible: root.ceiling > 1
-                    x: parent.width/root.ceiling; width: Theme.border; height: parent.height+Theme.du(5); color: Theme.text
+                    x: parent.width/root.ceiling; width: Theme.border; height: parent.height+Theme.du(5); color: root.profile.text
                 }
                 Text {
                     anchors.centerIn: parent; visible: !root.known || root.muted
@@ -97,16 +97,16 @@ Item {
             }
             Item {
                 width: parent.width; height: Theme.fontXs + Theme.du(2)
-                Text { text: "0"; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
+                Text { text: "0"; color: root.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs }
                 Text {
                     visible: root.ceiling > 1
                     x: parent.width/root.ceiling-width/2
-                    text: "100%"; color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    text: "100%"; color: root.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 }
                 Text {
                     anchors.right: parent.right
                     text: root.ceiling > 1 ? "MAX " + Math.round(root.ceiling*100) + "%" : "100%"
-                    color: Theme.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                    color: root.profile.textDim; font.family: Theme.mono; font.pixelSize: Theme.fontXs
                 }
             }
         }

@@ -95,7 +95,7 @@ Item {
         property string detail: ""
         signal dismissed
 
-        readonly property color tone: severity === "error" ? Theme.critical : severity === "caution" ? Theme.caution : severity === "ok" ? Theme.signal : Theme.textDim
+        readonly property color tone: severity === "error" ? card.profile.critical : severity === "caution" ? card.profile.caution : severity === "ok" ? card.profile.signal : card.profile.textDim
         implicitHeight: body.implicitHeight + Theme.du(32)
         color: card.profile.surface
         border.color: card.profile.grid
@@ -132,7 +132,7 @@ Item {
                     width: body.width - x
                     text: card.message
                     textFormat: Text.PlainText
-                    color: Theme.text
+                    color: card.profile.text
                     font.family: Theme.displaySans
                     font.pixelSize: Theme.fontMd
                     wrapMode: Text.Wrap
@@ -145,7 +145,7 @@ Item {
                 width: parent.width
                 text: card.detail
                 textFormat: Text.PlainText
-                color: Theme.textDim
+                color: card.profile.textDim
                 font.family: Theme.mono
                 font.pixelSize: Theme.fontXs
                 wrapMode: Text.Wrap

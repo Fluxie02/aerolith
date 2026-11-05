@@ -52,12 +52,13 @@ PanelWindow {
         return Qt.rect(0, Config.strip.edge === "top" ? 0 : h - Theme.stripHeight, w, Theme.stripHeight);
     }
     readonly property bool targetVisible: stepId === "strip" || stepId === "search" ? stripVisible : desktopVisible
+    readonly property var stepNames: ["Hatch", "Workspaces", "Search", "Used apps", "Status strip"]
     readonly property var words: [
         {title: "A SPACE TO KEEP THINGS", body: "The hatch opens your scratch space. Park any window here and bring it back when you need it.", key: "SUPER + S  OPEN / CLOSE\nSUPER + SHIFT + S  PARK A WINDOW"},
         {title: "ROOM FOR EACH TASK", body: "Click a station on the workspace ring to switch. Its window count shows where your work is.", key: ""},
         {title: "FIND IT. OPEN IT.", body: "Search for an app or a shell action. Type a name, then press Enter.", key: "SUPER + SPACE  SEARCH & LAUNCH"},
         {title: "YOUR APPS, CLOSE BY", body: "The bottom bar keeps your most used apps nearby. Click to open an app or return to its windows.", key: ""},
-        {title: Network.available || Bluetooth.available ? "CONNECTIONS AT A GLANCE" : "YOUR STATUS BAR", body: (Network.available || Bluetooth.available ? "Click " + [Network.available ? "Network" : "", Bluetooth.available ? "Bluetooth" : ""].filter(s => s !== "").join(" or ") + " in the " + (Config.strip.edge === "top" ? "top" : "bottom") + " bar to connect." : "The status bar shows your workspace, sound and time.") + " For Settings, open Search and type Settings.", key: "ENTER  FINISH   ·   ESC  SKIP"}
+        {title: Network.available || Bluetooth.available ? "CONNECTIONS AT A GLANCE" : "YOUR STATUS STRIP", body: (Network.available || Bluetooth.available ? "Click " + [Network.available ? "Network" : "", Bluetooth.available ? "Bluetooth" : ""].filter(s => s !== "").join(" or ") + " in the " + (Config.strip.edge === "top" ? "top" : "bottom") + " status strip to connect." : "The " + Config.strip.edge + " status strip shows your workspace, sound and time.") + " Open Settings to change the layout and decoration level.", key: "ENTER  FINISH   ·   ESC  SKIP"}
     ]
     // Four quiet scrims leave the actual target undimmed. No copied artwork.
     Repeater {
@@ -92,8 +93,9 @@ PanelWindow {
             profile: host.profile
             width: Math.min(Theme.du(420), host.width - Theme.pad * 2, host.stepId === "hatch" ? Math.max(Theme.du(240), host.target.x - Theme.du(30) - Theme.pad) : host.width)
             step: Tour.step
+            stepName: host.stepNames[Tour.step]
             heading: host.words[Tour.step].title
-            explanation: host.words[Tour.step].body + (!host.targetVisible ? (host.stepId === "search" || host.stepId === "strip" ? " Your top bar is hidden in this layout." : " Your desktop background is hidden in this layout.") : "")
+            explanation: host.words[Tour.step].body + (!host.targetVisible ? (host.stepId === "search" || host.stepId === "strip" ? (host.stepId === "strip" ? " Your status strip is hidden in this layout. Open Settings below or use Search (Super + Space by default)." : " Your status strip is hidden in this layout. Use Search (Super + Space by default) to find apps and Settings.") : " Your desktop background is hidden in this layout.") : "")
             shortcut: host.words[Tour.step].key
             // Hatch: left of its entrance. Ring/apps: above their lower rail.
             // Search/strip: directly below (or above a bottom-edge strip).

@@ -1,6 +1,7 @@
 import QtQuick
 import qs.core
 import qs.components
+import qs.services
 import "../../lib/config.mjs" as ConfigLib
 
 // Settings bay: every setting in the configuration schema, generated from the
@@ -82,8 +83,8 @@ FocusScope {
 
     function apply(row, value) {
         const err = Config.setValue(row.path, value);
-        message = err ? err : row.path + " set to " + JSON.stringify(value);
-        messageState = err ? "error" : "ok";
+        message = err ? err : row.path + " → " + JSON.stringify(value);
+        messageState = err ? "error" : "requested";
     }
 
     // Step size for numbers: about a hundredth of the range, rounded to a
@@ -124,7 +125,10 @@ FocusScope {
         if (editing)
             return;
         if (event.key === Qt.Key_Tab) {
-            if (spectra) showRegister(); else showSpectra();
+            if (tourAction.activeFocus) showSpectra();
+            else if (spectra) showRegister();
+            else if (diagnosticsList.activeFocus || !diagnosticsPanel.visible) tourAction.forceActiveFocus();
+            else diagnosticsList.forceActiveFocus();
             event.accepted = true;
             return;
         }
@@ -162,6 +166,11 @@ FocusScope {
     // Presentation only: the schema traversal, mutations and keys above stay exact.
     readonly property var selectedRow: rows[current]
     readonly property bool inspectorVisible: width >= Theme.du(1050)
+    readonly property var diagnostics: Config.errors.map(d => ({path: d.path, message: d.message, error: true}))
+        .concat(Config.warnings.map(d => ({path: d.path, message: d.message, error: false})))
+    function description(row) {
+        return row.path === "theme.intensity" ? "Decoration level: Saturated / Insane. Changes how much ornament is shown." : row.description;
+    }
     function caption(path) {
         const leaf = path.substring(path.lastIndexOf(".") + 1);
         return leaf.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, c => c.toUpperCase());
@@ -169,7 +178,7 @@ FocusScope {
 
     Bezel { profile: bay.profile;
         anchors.fill: parent
-        designation: "SET / 07"
+        designation: "SETTINGS"
         title: "Settings"
         status: bay.editing ? "EDIT / UNSAVED" : "CONFIG / LIVE"
         statusColor: bay.editing ? bay.profile.caution : bay.profile.signal
@@ -200,12 +209,28 @@ FocusScope {
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: if (index === 0) bay.showSpectra(); else bay.showRegister(); }
                     }
                 }
-                Text {
-                    width: Math.max(0, parent.width - x); height: parent.height
-                    horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter
-                    text: "TAB / " + (bay.spectra ? "REGISTER" : "SPECTRA"); textFormat: Text.PlainText
-                    color: bay.profile.signal; font.family: Theme.mono; font.pixelSize: Theme.fontXs
-                    elide: Text.ElideRight
+                Rectangle {
+                    id: tourAction
+                    objectName: "settingsTakeTour"
+                    width: tourCaption.implicitWidth + 2 * Theme.pad; height: parent.height
+                    color: tourPointer.containsMouse ? bay.profile.surface2 : bay.profile.bg
+                    border.color: activeFocus ? bay.profile.text : bay.profile.signal
+                    border.width: activeFocus ? Theme.px(2) : Theme.border
+                    radius: Theme.radius; activeFocusOnTab: true
+                    function activate() { if (Tour.start()) Ui.close(); }
+                    Keys.onReturnPressed: activate()
+                    Keys.onEnterPressed: activate()
+                    Keys.onSpacePressed: activate()
+                    Keys.onTabPressed: bay.showSpectra()
+                    Keys.onBacktabPressed: { if (diagnosticsPanel.visible) diagnosticsList.forceActiveFocus(); else bay.showRegister(); }
+                    Text {
+                        id: tourCaption; anchors.centerIn: parent
+                        text: "Take the tour"; textFormat: Text.PlainText
+                        color: bay.profile.text; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                    }
+                    MouseArea { id: tourPointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: tourAction.activate() }
+                    Accessible.role: Accessible.Button; Accessible.name: "Take the tour"
+                    Accessible.onPressAction: activate()
                 }
             }
 
@@ -239,7 +264,7 @@ FocusScope {
 
             Item {
                 width: parent.width
-                height: Math.max(0, content.height - y - feedback.height - status.height - content.spacing * 3)
+                height: Math.max(0, content.height - y - feedback.height - status.height - diagnosticsPanel.height - content.spacing * (diagnosticsPanel.visible ? 4 : 3))
 
                 SchemePicker { profile: bay.profile;
                     id: spectrum
@@ -312,7 +337,7 @@ FocusScope {
                                 elide: Text.ElideRight
                             }
                             Text {
-                                width: parent.width; text: row.modelData.description; textFormat: Text.PlainText
+                                width: parent.width; text: bay.description(row.modelData); textFormat: Text.PlainText
                                 color: bay.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontXs
                                 wrapMode: row.selected && !bay.inspectorVisible ? Text.WordWrap : Text.NoWrap
                                 elide: row.selected && !bay.inspectorVisible ? Text.ElideNone : Text.ElideRight
@@ -393,7 +418,7 @@ FocusScope {
                         }
                         Rectangle { width: parent.width; height: Theme.border; color: bay.profile.grid }
                         Text {
-                            width: parent.width; text: bay.selectedRow.description; textFormat: Text.PlainText
+                            width: parent.width; text: bay.description(bay.selectedRow); textFormat: Text.PlainText
                             wrapMode: Text.WordWrap; color: bay.profile.text; font.family: Theme.sans; font.pixelSize: Theme.fontSm; lineHeight: 1.4
                         }
                         Text {
@@ -407,6 +432,53 @@ FocusScope {
             }
 
             Rectangle {
+                id: diagnosticsPanel
+                objectName: "settingsDiagnostics"
+                width: parent.width
+                visible: bay.diagnostics.length > 0
+                height: visible ? Math.min(Theme.du(144), content.height * .25, diagnosticsHeading.implicitHeight + diagnosticsList.contentHeight + Theme.du(30)) : 0
+                color: bay.profile.bg; radius: Theme.radius
+                border.color: diagnosticsList.activeFocus ? bay.profile.text : Config.errors.length ? bay.profile.critical : bay.profile.caution
+                border.width: diagnosticsList.activeFocus ? Theme.px(2) : Theme.border
+                Text {
+                    id: diagnosticsHeading
+                    x: Theme.du(12); y: Theme.du(8); width: parent.width - 2 * x
+                    text: "CONFIG DIAGNOSTICS / " + Config.errors.length + " errors · " + Config.warnings.length + " warnings"
+                    textFormat: Text.PlainText; elide: Text.ElideRight
+                    color: bay.profile.text; font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                }
+                ListView {
+                    id: diagnosticsList
+                    objectName: "settingsDiagnosticsList"
+                    x: Theme.du(12); y: diagnosticsHeading.y + diagnosticsHeading.height + Theme.du(6)
+                    width: parent.width - 2 * x; height: Math.max(0, parent.height - y - Theme.du(8))
+                    clip: true; boundsBehavior: Flickable.StopAtBounds
+                    model: bay.diagnostics; spacing: Theme.du(8)
+                    activeFocusOnTab: true
+                    Keys.onTabPressed: tourAction.forceActiveFocus()
+                    Keys.onBacktabPressed: bay.showRegister()
+                    Keys.onDownPressed: incrementCurrentIndex()
+                    Keys.onUpPressed: decrementCurrentIndex()
+                    delegate: Column {
+                        required property var modelData
+                        width: diagnosticsList.width - Theme.gap; spacing: Theme.du(3)
+                        Text {
+                            width: parent.width
+                            text: (modelData.error ? "ERROR / " : "WARNING / ") + modelData.path
+                            textFormat: Text.PlainText; wrapMode: Text.WrapAnywhere
+                            color: modelData.error ? bay.profile.critical : bay.profile.caution
+                            font.family: Theme.mono; font.pixelSize: Theme.fontXs
+                        }
+                        Text {
+                            width: parent.width; text: modelData.message
+                            textFormat: Text.PlainText; wrapMode: Text.WrapAnywhere
+                            color: bay.profile.text; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                        }
+                    }
+                    ScrollMark { profile: bay.profile; viewport: diagnosticsList }
+                }
+            }
+            Rectangle {
                 id: feedback
                 width: parent.width
                 height: feedbackText.implicitHeight + Theme.du(18)
@@ -417,7 +489,7 @@ FocusScope {
                 Text {
                     id: feedbackText
                     x: Theme.du(12); y: Theme.du(9); width: parent.width - 2 * x
-                    text: bay.editing ? "DRAFT  /  " + bay.selectedRow.path + "  /  Enter to save · Esc to cancel" : bay.message ? (bay.messageState === "error" ? "REFUSED  /  " : "SAVED  /  ") + bay.message : "READY  /  Settings save to config.json and apply immediately."
+                    text: bay.editing ? "DRAFT  /  " + bay.selectedRow.path + "  /  Enter to save · Esc to cancel" : bay.message ? (bay.messageState === "error" ? "REFUSED  /  " : "REQUESTED  /  ") + bay.message : "READY  /  Settings save to config.json and apply immediately."
                     textFormat: Text.PlainText; wrapMode: Text.WrapAnywhere
                     color: bay.editing ? bay.profile.caution : bay.messageState === "error" ? bay.profile.critical : bay.messageState === "ok" ? bay.profile.signal : bay.profile.textDim
                     font.family: Theme.mono; font.pixelSize: Theme.fontXs

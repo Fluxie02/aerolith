@@ -81,9 +81,11 @@ const tourSuite = suite("tour", test => {
       a.equal(T.mayShowNow(context(patch)), true);
     }
   });
-  test("disabled prevents both automatic and manual presentation", a => {
+  test("disabled prevents automatic start but allows manual replay", a => {
     a.equal(T.shouldAutoStart(context({ enabled: false })), false);
-    a.equal(T.mayShowNow(context({ enabled: false })), false);
+    a.equal(T.mayShowNow(context({ enabled: false })), true);
+    for (const patch of [{ ready: false }, { output: null }, { locked: true }, { fullscreen: true }])
+      a.equal(T.mayShowNow(context(Object.assign({ enabled: false }, patch))), false);
   });
   test("tour.enabled defaults true, accepts false, and validates booleans", a => {
     a.equal(validateConfig("").config.tour.enabled, true);

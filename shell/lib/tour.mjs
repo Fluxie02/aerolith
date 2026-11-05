@@ -17,12 +17,12 @@ export function isCompleted(record) {
 
 // Manual replay ignores completion, but shares all presentation safety gates.
 export function mayShowNow(context) {
-  return !!(context.ready && context.enabled && context.output
+  return !!(context.ready && context.output
     && !context.locked && !context.fullscreen);
 }
 
 export function shouldAutoStart(context) {
-  return mayShowNow(context) && !context.completed && !context.started;
+  return context.enabled && mayShowNow(context) && !context.completed && !context.started;
 }
 
 export function transition(state, action) {

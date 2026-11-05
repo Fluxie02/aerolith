@@ -311,7 +311,12 @@ Scope {
 
         WlSessionLockSurface {
             id: surface
-            color: Theme.bg
+            readonly property var profile: DisplayProfile {
+                output: surface.screen ? surface.screen.name : ""
+                // Only decoration uses idle policy; authentication stays opaque.
+                persistent: true
+            }
+            color: profile.bg
 
             // The view sits in a Loader so that a problem creating it can
             // never fail the surface: Quickshell 0.3.2 releases the whole
@@ -323,6 +328,7 @@ Scope {
                 onStatusChanged: if (status === Loader.Error)
                     Log.warn("lock", "the lock view failed to load; the session stays locked")
                 sourceComponent: LockView {
+                    profile: surface.profile
                     focus: true
                     state: host.viewState
                     message: host.message

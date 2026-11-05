@@ -127,6 +127,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 3
           compression-level: 9
+      - name: config
+        id: config
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/config.sh build/ci/config
+      - name: Upload failed config output
+        if: ${{ failure() && steps.config.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: config-failure
+          path: build/ci/config/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
       - name: full
         id: full
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}
@@ -304,6 +319,21 @@ jobs:
           path: build/ci/oled/
           if-no-files-found: warn
           retention-days: 3
+      - name: oled-lock
+        id: oled-lock
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          LOCK=1 AI=1 OUTPUTS=2 CONFIG=tests/fixtures/oled-config.json tools/headless/run.sh tests/scenarios/oled.sh build/ci/oled-lock
+      - name: Upload failed oled-lock output
+        if: ${{ failure() && steps.oled-lock.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: oled-lock-failure
+          path: build/ci/oled-lock/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
       - name: scratch
         id: scratch
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

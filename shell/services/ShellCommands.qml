@@ -18,7 +18,7 @@ Singleton {
 
     function setting(path, value, label) {
         const err = Config.setValue(path, value);
-        return err ? Registry.fail(err) : Registry.ok(label + " (saved to config.json)");
+        return err ? Registry.fail(err) : Registry.ok(label + " (change requested)");
     }
 
     Component.onCompleted: {
