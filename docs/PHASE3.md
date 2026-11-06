@@ -83,5 +83,18 @@ Integration:
 - [x] P3-ASTRA-1 (Astra): Personalize mode in Settings: live preview, Apply/Cancel/Keep editing, contrast-guarded palette, View desktop, `personalize.sh`.
 - [x] P3-SOL-2 (Sol): Presets (built-in, user, import/export, backups), the Deck leave-confirmation protocol (`mayRetire`), and a cold-start fix (`Config.refreshData`: no more "Unable to assign [undefined]"; `smoke.sh` now checks for it). Tour resume landed in P3-SOL-1.
 - [x] P3-TERRA-1 (Terra): `theme.textSize`, per-output `blackBackground`, strip item toggles, Ground widget toggles and workspace names, with their consumers. Defaults stay byte-identical. `schema-keys.sh` in CI. Per-output text and density overrides are skipped (ASTRA.md marks them "could").
-- [ ] P3-ASTRA-2: Welcome UI and the presets section
-- [ ] Integration, harness and PR (Opus)
+- [x] P3-ASTRA-2 (Astra): the Welcome surface (`shell/modules/welcome/`, one component per section), the presets section of Personalize, controls for Terra's keys (text size, black background per output, strip items, Ground widgets, workspace names), and SettingsBay on Deck's leave protocol. `welcome-ui.sh` in CI. Evidence: `docs/design/phase3b/`.
+- [x] Integration (Opus):
+  - **Exec bits:** `welcome-ui.sh` and `schema-keys.sh` are now executable in git.
+  - **`personalize.sh`:** added to CI.
+  - **`welcome-ui.sh` startup audit:** now taken before the production shell stops, as `smoke.sh` and `welcome.sh` already do. Qt's engine teardown is kept in `startup-teardown-qs.log`; it was the source of the ten "Unable to assign [undefined]" lines in Astra's 4K run.
+  - **`welcome-ui.sh` typing:** `ui_type` now waits for focus, sends each edit through one virtual keyboard, and checks the field text. At 4K ×1.5 the first key of a new `wtype` device was dropped.
+- [ ] PR (Opus)
+
+### Follow-ups (not in this phase)
+
+- **Strip names:** a workspace name in the strip's round cell is truncated ("Wri…"). It needs a fit decision, from Astra or Terra.
+- **Presets field:** the "Preset name" field runs into the scrollbar.
+- **Two outputs at 4K:** two outputs at 3840x2160 ×1.5 crash headless sway with a bus error, probably Docker's default 64 MiB `/dev/shm`. `run.sh` could pass `--shm-size`. CI does not run this case.
+- **Teardown warnings:** the ten teardown-only binding warnings at shell exit are harmless but noisy, a hygiene item for Sol.
+- **Earlier follow-ups:** the portrait ring clipping, and the owner's real-hardware checks (Hyprland, GPU, OLED).
