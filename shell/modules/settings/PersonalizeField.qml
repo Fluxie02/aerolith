@@ -9,6 +9,7 @@ FocusScope {
     required property var value
     property bool writable: true
     property bool editing: false
+    property bool livePreview: true
     readonly property bool fontPicker: setting.path === "theme.fontSans" || setting.path === "theme.fontMono"
     readonly property real rowHeight: Math.max(Theme.du(92), labels.implicitHeight + Theme.du(26), control.implicitHeight + Theme.du(28))
     signal changed(var value)
@@ -55,7 +56,7 @@ FocusScope {
         x: Theme.du(14); width: parent.width * .48 - x; y: (field.rowHeight - height) / 2
         spacing: Theme.du(6)
         Text { width: parent.width; text: field.setting.label; textFormat: Text.PlainText; wrapMode: Text.WordWrap; color: field.profile.text; font.family: Theme.sans; font.pixelSize: Theme.fontMd }
-        Text { width: parent.width; text: field.writable ? field.setting.description : "Preview support is pending. The global visibility switch must also be on."; textFormat: Text.PlainText; wrapMode: Text.WordWrap; color: field.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm }
+        Text { width: parent.width; text: field.setting.description + (field.livePreview ? " Live preview; Apply saves." : " Saves immediately. Apply or Cancel your preview first."); textFormat: Text.PlainText; wrapMode: Text.WordWrap; color: field.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm }
     }
     SettingControl {
         id: control

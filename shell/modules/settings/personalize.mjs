@@ -12,21 +12,27 @@ export function pathOf(path) {
 }
 const LABELS = {
   "theme.density": "Spacing & type density", "theme.uiScale": "Overall interface scale",
+  "theme.textSize": "Text size (%)",
   "theme.fontSans": "Interface font", "theme.fontMono": "Instrument font",
   "theme.motion": "Motion", "theme.intensity": "Decoration level", "theme.lowEffects": "Low effects",
   "strip.visible": "Show status strip", "strip.edge": "Status strip edge",
   "strip.showWindowTitle": "Focused window title", "strip.clock": "Clock format",
+  "strip.showNetwork": "Network indicator", "strip.showBluetooth": "Bluetooth indicator",
+  "strip.showMedia": "Media indicator", "strip.showAudio": "Audio indicator",
+  "strip.showBattery": "Battery indicator", "strip.showNotifications": "Notifications indicator",
+  "ground.showNowPlaying": "Ground · Now playing", "ground.showTelemetry": "Ground · Telemetry",
+  "ground.showAppRegister": "Ground · App register",
   "strip.showDate": "Show date", "strip.showSeconds": "Show seconds", "ground.enabled": "Show Ground",
 };
-const GROUPS = [[], ["theme.density", "theme.uiScale", "theme.fontSans", "theme.fontMono"],
+const GROUPS = [[], ["theme.density", "theme.uiScale", "theme.textSize", "theme.fontSans", "theme.fontMono"],
   ["theme.motion", "theme.intensity", "theme.lowEffects"],
-  ["strip.visible", "strip.edge", "strip.showWindowTitle", "strip.clock", "strip.showDate", "strip.showSeconds", "ground.enabled"], []];
+  ["strip.visible", "strip.edge", "strip.showWindowTitle", "strip.clock", "strip.showDate", "strip.showSeconds", "strip.showNetwork", "strip.showBluetooth", "strip.showMedia", "strip.showAudio", "strip.showBattery", "strip.showNotifications", "ground.enabled", "ground.showNowPlaying", "ground.showTelemetry", "ground.showAppRegister"], []];
 export function controls(section) {
   return (GROUPS[section] || []).map(path => Object.assign({values: []}, schemaAt(path), {path: path, label: LABELS[path]}));
 }
 export function outputControls(name) {
-  return ["profile", "strip", "ground"].map(key => Object.assign({values: []}, SCHEMA.props.display.props.outputs.values.props[key], {
-    path: ["display", "outputs", name, key], label: key === "profile" ? "Display profile" : key === "strip" ? "Allow status strip on this output" : "Allow Ground on this output",
+  return ["profile", "blackBackground", "strip", "ground"].map(key => Object.assign({values: []}, SCHEMA.props.display.props.outputs.values.props[key], {
+    path: ["display", "outputs", name, key], label: key === "profile" ? "Display profile" : key === "blackBackground" ? "Black background" : key === "strip" ? "Allow status strip on this output" : "Allow Ground on this output",
   }));
 }
 export function step(row, value, direction) {

@@ -12,7 +12,7 @@ Rectangle {
     signal focused(var item)
     onActiveFocusChanged: if (activeFocus) focused(action)
     implicitWidth: caption.implicitWidth + Theme.du(24)
-    implicitHeight: Theme.du(36)
+    implicitHeight: Math.max(Theme.du(36), caption.implicitHeight + Theme.du(16))
     width: implicitWidth; height: implicitHeight
     activeFocusOnTab: true
     radius: Theme.du(4)

@@ -406,6 +406,20 @@ jobs:
           path: build/ci/network-absent/
           if-no-files-found: warn
           retention-days: 3
+      - name: welcome-ui
+        id: welcome-ui
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 5
+        run: |
+          WELCOME=1 OUTPUTS=2 tools/headless/run.sh tests/scenarios/welcome-ui.sh build/ci/welcome-ui
+      - name: Upload failed welcome UI output
+        if: ${{ failure() && steps.welcome-ui.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: welcome-ui-failure
+          path: build/ci/welcome-ui/
+          if-no-files-found: warn
+          retention-days: 3
       - name: welcome
         id: welcome
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

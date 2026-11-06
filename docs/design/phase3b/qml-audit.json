@@ -1,0 +1,101 @@
+{
+  "build/ci/welcome-ui/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/welcome-ui/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/welcome/qs-lifetimes.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/welcome/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/personalize/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/personalize/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/presets/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/presets/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/schema-keys/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/schema-keys/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/deck/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/deck/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/tour/qs-lifetimes.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/tour/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/smoke/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/smoke/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/oled/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/oled/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/welcome-ui-compact/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/welcome-ui-compact/startup-qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/welcome-4k/qs.log": {
+    "count": 0,
+    "matches": []
+  },
+  "build/ci/welcome-4k/startup-qs.log": {
+    "count": 10,
+    "matches": [
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Telemetry.qml[28:5]: Unable to assign [undefined] to int",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Theme.qml[200:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Theme.qml[201:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Idle.qml[14:5]: Unable to assign [undefined] to double",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Ui.qml[24:5]: Unable to assign [undefined] to QString",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @core/Theme.qml[144:5]: Unable to assign [undefined] to double",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Tour.qml[34:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Tour.qml[35:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Notifications.qml[70:5]: Unable to assign [undefined] to bool",
+      "\u001b[33m  WARN\u001b[97m scene\u001b[0m: @services/Compositor.qml[62:5]: Unable to assign [undefined] to bool"
+    ]
+  }
+}

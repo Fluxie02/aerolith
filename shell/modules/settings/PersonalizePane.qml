@@ -19,6 +19,7 @@ FocusScope {
     property string pendingLeave: ""
     property bool leavePending: false
     property bool applyingLeave: false
+    property var presetLifetime: ({alive: true, generation: 0})
     property var safetyValues: []
     property bool desktop: false
     property var desktopContent: null
@@ -34,14 +35,21 @@ FocusScope {
     }
     signal leaveResolved(string destination)
 
-    function begin() { if (!Config.previewActive) feedback = Config.beginPreview(); }
+    function begin() { if (SettingsEntry.importPending) { feedback = "Wait for the preset operation to finish."; return; } if (!Config.previewActive) feedback = Config.beginPreview(); }
     function valueOf(row) {
         Config.revision;
         const v = ConfigLib.getPath(Config.data, Personalize.pathOf(row.path));
         return v === undefined ? row.default : v;
     }
     function draft(path, value) {
+        if (Presets.busy) { feedback = "Wait for the preset operation to finish."; return; }
         path = Personalize.pathOf(path);
+        if (!ConfigLib.previewAllowed(path)) {
+            if (Config.previewDirty || Config.previewApplying) { feedback = "Apply or Cancel your preview before changing this saved setting."; return; }
+            if (Config.previewActive) Config.cancelPreview();
+            feedback = Config.setValues([{path: path, value: value}]);
+            return;
+        }
         if (!Config.previewActive) begin();
         if (!Config.previewActive) return;
         if (path === "theme.palette" || path === "theme.scheme") {
@@ -58,6 +66,49 @@ FocusScope {
             safety.restart();
         }
     }
+    function presetBaseline() {
+        return {values: ["theme.uiScale", "strip.visible", "ground.enabled"].map(path => ({path: path, value: ConfigLib.getPath(Config.data, path)})),
+            changes: Config.preview ? Config.preview.changes.slice() : [], beforeWrite: Config.previewBeforeWrite};
+    }
+    function acceptPreset(before) {
+        const error = Personalize.paletteError(Config.theme.palette, Config.theme.scheme, Theme.integratedApps);
+        if (error) {
+            Config.cancelPreview();
+            Config.beginPreview();
+            Config.setPreviewValues(before.changes.map(entry => ({path: entry.path, value: entry.value})));
+            Config.previewBeforeWrite = before.beforeWrite;
+            return error;
+        }
+        for (const entry of before.values) {
+            if (entry.value !== ConfigLib.getPath(Config.data, entry.path)) {
+                if (!safetyValues.some(v => JSON.stringify(v.path) === JSON.stringify(entry.path))) safetyValues = safetyValues.concat([entry]);
+                safety.restart();
+            }
+        }
+        return "";
+    }
+    function previewPreset(id) {
+        const before = presetBaseline();
+        feedback = Presets.preview(id);
+        if (!feedback) feedback = acceptPreset(before);
+    }
+    function importPreset(path) {
+        if (SettingsEntry.importPending) { feedback = "Wait for the preset import to finish."; return; }
+        const before = presetBaseline(), lifetime = presetLifetime, generation = lifetime.generation;
+        SettingsEntry.importPending = true;
+        Presets.importFile(path).then(error => {
+            // A forced host retirement can happen during the bounded read.
+            // Never leave its imported draft alive after that editor is gone.
+            if (!lifetime.alive || lifetime.generation !== generation) {
+                if (!error && Config.previewActive) Config.cancelPreview();
+                SettingsEntry.importPending = false;
+                return;
+            }
+            SettingsEntry.importPending = false;
+            if (!error) error = pane.acceptPreset(before);
+            presetSection.result(error, "Imported into preview. Review the change list, then Apply or Cancel.");
+        });
+    }
     function editRole(role, hex, reset) {
         const overrides = Object.assign({}, Config.theme.palette);
         if (reset) delete overrides[role]; else overrides[role] = hex.trim();
@@ -71,6 +122,7 @@ FocusScope {
         safetyValues = [];
     }
     function apply() {
+        if (Presets.busy) { feedback = "Wait for the preset operation to finish."; return; }
         if (safety.running || Config.previewApplying) return;
         feedback = Personalize.paletteError(Config.theme.palette, Config.theme.scheme, Theme.integratedApps);
         if (feedback) { restoreDesktop(); return; }
@@ -83,12 +135,14 @@ FocusScope {
         if (feedback) restoreDesktop();
     }
     function discard() {
+        presetLifetime.generation++;
         restoreDesktop(); keepPreview();
         applyingLeave = false;
         if (Config.previewActive) Config.cancelPreview();
         feedback = ""; leavePending = false;
     }
     function requestLeave(destination) {
+        if (Presets.busy) { feedback = "Wait for the preset operation to finish before leaving."; return; }
         restoreDesktop();
         if (Config.previewApplying) { feedback = "Wait for Apply to finish."; return; }
         if (Config.previewDirty) {
@@ -123,7 +177,7 @@ FocusScope {
         if (desktopContent) desktopContent.opacity = desktopOpacity;
         desktopContent = null;
     }
-    Component.onDestruction: restoreDesktop()
+    Component.onDestruction: { presetLifetime.alive = false; restoreDesktop(); }
     Connections {
         target: Config
         function onPreviewErrorChanged() { if (Config.previewError && pane.desktop) pane.restoreDesktop(); }
@@ -168,7 +222,7 @@ FocusScope {
                     PersonalizeAction {
                         required property string modelData; required property int index
                         objectName: "personalizeCompactSection_" + index
-                        profile: pane.profile; text: modelData; chosen: index === pane.section; enabled: index < 5
+                        profile: pane.profile; text: modelData; chosen: index === pane.section
                         onTriggered: { pane.section = index; scroll.contentY = 0; }
                     }
                 }
@@ -185,13 +239,9 @@ FocusScope {
                         PersonalizeAction {
                             required property string modelData; required property int index
                             objectName: "personalizeSection_" + index
-                            width: rail.width; profile: pane.profile; text: modelData; chosen: index === pane.section; enabled: index < 5
+                            width: rail.width; profile: pane.profile; text: modelData; chosen: index === pane.section
                             onTriggered: { pane.section = index; scroll.contentY = 0; }
                         }
-                    }
-                    Text {
-                        width: parent.width; text: "PRESETS\nComing in the next update"; textFormat: Text.PlainText
-                        wrapMode: Text.WordWrap; color: pane.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm; lineHeight: 1.4
                     }
                 }
                 Flickable {
@@ -312,7 +362,8 @@ FocusScope {
                                 required property var modelData
                                 objectName: "personalizeField_" + (typeof modelData.path === "string" ? modelData.path : Personalize.pathOf(modelData.path).join("_"))
                                 profile: pane.profile; setting: modelData; value: pane.valueOf(modelData)
-                                writable: ConfigLib.previewAllowed(Personalize.pathOf(modelData.path))
+                                writable: !Config.previewApplying
+                                livePreview: ConfigLib.previewAllowed(Personalize.pathOf(modelData.path))
                                 onChanged: value => pane.draft(modelData.path, value)
                                 onFocused: item => scroll.reveal(item)
                             }
@@ -338,10 +389,20 @@ FocusScope {
                                 NumberAnimation { target: transitionSample; property: "opacity"; to: 1; duration: Theme.animate ? Theme.normal : 0 }
                             }
                         }
-                        Text {
-                            visible: pane.compact; width: parent.width
-                            text: "Presets · Coming in the next update"; textFormat: Text.PlainText
-                            color: pane.profile.textDim; font.family: Theme.sans; font.pixelSize: Theme.fontSm
+                        WorkspaceNames {
+                            width: parent.width; visible: pane.section === 3; height: visible ? implicitHeight : 0
+                            profile: pane.profile
+                            onChanged: (path, value) => pane.draft(path, value)
+                            onFocused: item => scroll.reveal(item)
+                        }
+                        PresetsSection {
+                            id: presetSection
+                            width: parent.width; visible: pane.section === 5; height: visible ? implicitHeight : 0
+                            profile: pane.profile
+                            onFeedback: message => pane.feedback = message
+                            onPreviewRequested: id => pane.previewPreset(id)
+                            onImportRequested: path => pane.importPreset(path)
+                            onFocused: item => scroll.reveal(item)
                         }
                     }
                     ScrollMark { profile: pane.profile; viewport: scroll }
