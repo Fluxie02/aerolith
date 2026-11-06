@@ -89,7 +89,8 @@ Integration:
   - **`personalize.sh`:** added to CI.
   - **`welcome-ui.sh` startup audit:** now taken before the production shell stops, as `smoke.sh` and `welcome.sh` already do. Qt's engine teardown is kept in `startup-teardown-qs.log`; it was the source of the ten "Unable to assign [undefined]" lines in Astra's 4K run.
   - **`welcome-ui.sh` typing:** `ui_type` now waits for focus, sends each edit through one virtual keyboard, and checks the field text. At 4K ×1.5 the first key of a new `wtype` device was dropped.
-- [ ] PR (Opus)
+- [x] Welcome on OLED captured (`docs/design/phase3b/welcome-oled.jpg`). Presets unit test: Qt's V4 refuses `1e999` in `JSON.parse`, so the test asserts the refusal in both engines.
+- [ ] PR #16 (Opus): full local CI set green on `4104ab9` (34 headless scenarios, Node 296, Qt V4 274, pytest 389 + 1 skipped); waiting on GitHub CI and the owner
 
 ### Follow-ups (not in this phase)
 

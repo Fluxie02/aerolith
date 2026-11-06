@@ -193,7 +193,7 @@ below 4 MiB (largest: 435,101 bytes); dimensions are preserved.
 | New strip items | [JPEG](personalize-strip-items.jpg) |
 | New Ground widgets / workspace names entry | [JPEG](personalize-ground-widgets.jpg) |
 | Dirty leave from an actual Deck bay switch | [JPEG](deck-dirty-leave.jpg) |
-| Welcome on OLED | Pending: stopped at owner handoff before this capture |
+| Welcome on OLED | [JPEG](welcome-oled.jpg); captured by Opus at integration from `WELCOME=1 CONFIG=docs/design/phase3/oled-personalize-config.json tools/headless/run.sh tests/scenarios/welcome-ui.sh` (exit 0) |
 
 The existing OLED runtime regression passed, but that is not represented as
 a Welcome-on-OLED screenshot or acceptance test.
