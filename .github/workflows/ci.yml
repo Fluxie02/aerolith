@@ -172,6 +172,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 3
           compression-level: 9
+      - name: personalize
+        id: personalize
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 5
+        run: |
+          tools/headless/run.sh tests/scenarios/personalize.sh build/ci/personalize
+      - name: Upload failed personalize output
+        if: ${{ failure() && steps.personalize.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: personalize-failure
+          path: build/ci/personalize/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
       - name: full
         id: full
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}

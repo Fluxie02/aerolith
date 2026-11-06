@@ -2,9 +2,12 @@
 # Real input on production UI; observational probes in a disposable shell copy.
 # WELCOME=1 OUTPUTS=2 tools/headless/run.sh tests/scenarios/welcome-ui.sh build/ci/welcome-ui
 fail() { echo "FAIL: $*"; exit 1; }
+# Audit the production shell's lifetime before stopping it (as smoke.sh and
+# welcome.sh do); Qt's engine teardown is kept separately for reference.
+cp "$OUT/qs.log" "$OUT/startup-qs.log"
 qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
-mv "$OUT/qs.log" "$OUT/startup-qs.log"
+mv "$OUT/qs.log" "$OUT/startup-teardown-qs.log"
 cp -r "$SHELL_DIR" "$HOME/welcome-ui-shell"
 SHELL_DIR="$HOME/welcome-ui-shell"
 mkdir -p "$HOME/welcome-ui-bin" "$HOME/docs"
@@ -129,7 +132,30 @@ PY
   swaymsg input type:pointer map_to_output "$output" >/dev/null
   click "$cx" "$cy"
 }
-ui_type() { ui_click "$1"; wtype -k Shift_L -M ctrl -k a -m ctrl -k BackSpace; typ "$2"; sleep .3; }
+# The headless seat can drop the first keys while focus moves (seen at 4K x1.5),
+# so wait for focus, then retry until the field holds exactly the typed text.
+# field_is NAME focus   -> the field has active focus
+# field_is NAME text T  -> the field holds exactly T
+field_is() {
+  python3 - "$OUT/ui.json" "$@" <<'PY'
+import json,sys
+s=json.load(open(sys.argv[1])); p=next(p for p in s['parts'] if p['name']==sys.argv[2] and p['visible'])
+assert p['activeFocus'] if sys.argv[3]=='focus' else p['text']==sys.argv[4], p
+PY
+}
+ui_type() {
+  local attempt
+  for attempt in 1 2 3; do
+    ui_click "$1"
+    for _ in $(seq 30); do snapshot; field_is "$1" focus 2>/dev/null && break; sleep .1; done
+    # One virtual keyboard for the whole edit: a new wtype device per call can
+    # lose its first key while the seat re-enters the surface.
+    wtype -k Shift_L -s 150 -M ctrl -k a -m ctrl -k BackSpace -- "$2"; sleep .3
+    snapshot; field_is "$1" text "$2" 2>/dev/null && return 0
+    echo "ui_type $1: attempt $attempt did not land; retrying"
+  done
+  fail "could not type into $1"
+}
 ui_shot() { snapshot; grim -o "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["output"])' "$OUT/ui.json")" "$OUT/$1.png"; }
 section() {
   snapshot
