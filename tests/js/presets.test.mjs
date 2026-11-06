@@ -55,7 +55,12 @@ export default suite("presets", test => {
       a.match(P.validate('{"theme":{"palette":{"' + key + '":"#ffffff"}}}').error, /Forbidden property/);
     a.match(P.validate(" ".repeat(P.MAX_BYTES + 1)).error, /bytes/);
     a.match(P.validate(JSON.stringify({x: "é".repeat(P.MAX_BYTES / 2)})).error, /bytes/);
-    a.match(P.validate('{"theme":{"uiScale":1e999}}').error, /finite/);
+    // An overflowing literal must be refused. Node parses it to Infinity and
+    // the bound check refuses it; Qt's V4 (the shell's engine) refuses it in
+    // JSON.parse itself. Either way nothing non-finite reaches the config.
+    const overflow = P.validate('{"theme":{"uiScale":1e999}}');
+    a.ok(!overflow.value, "overflowing number accepted");
+    a.match(overflow.error, /must be finite|Invalid preset JSON/);
     let deep = true;
     for (let i = 0; i < 15; i++) deep = {x: deep};
     a.match(P.validate(JSON.stringify(deep)).error, /nesting/);
