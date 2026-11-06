@@ -3,9 +3,12 @@
 fail() { echo "FAIL: $*"; exit 1; }
 # Add read-only probes to a disposable shell. Observe real Variants/loader
 # instances and mapped PanelWindows; policy/status alone cannot prove release.
+# Audit the production shell's lifetime before stopping it (as smoke.sh and
+# welcome.sh do); Qt's engine teardown is kept separately for reference.
+cp "$OUT/qs.log" "$OUT/startup-qs.log"
 qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
-mv "$OUT/qs.log" "$OUT/startup-qs.log"
+mv "$OUT/qs.log" "$OUT/startup-teardown-qs.log"
 cp -r "$SHELL_DIR" "$HOME/multimonitor-shell"
 SHELL_DIR="$HOME/multimonitor-shell"
 python3 - "$SHELL_DIR/shell.qml" <<'PY'

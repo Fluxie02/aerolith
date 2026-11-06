@@ -2,9 +2,12 @@
 # Service/transaction probes exist only in a throwaway shell copy. List arguments
 # are base64, matching config.sh and avoiding qs ipc's list argument splitting.
 fail() { echo "FAIL: $*"; exit 1; }
+# Audit the production shell's lifetime before stopping it (as smoke.sh and
+# welcome.sh do); Qt's engine teardown is kept separately for reference.
+cp "$OUT/qs.log" "$OUT/startup-qs.log"
 qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
-mv "$OUT/qs.log" "$OUT/startup-qs.log"
+mv "$OUT/qs.log" "$OUT/startup-teardown-qs.log"
 cp -r "$SHELL_DIR" "$HOME/presets-shell"
 SHELL_DIR="$HOME/presets-shell"
 python3 - "$SHELL_DIR" "$XDG_CONFIG_HOME/aerolith/config.json" <<'PY'

@@ -4,9 +4,12 @@
 # Probes/test overrides live only in a throwaway shell copy, never production IPC.
 fail() { echo "FAIL: $*"; exit 1; }
 [ "${OUTPUTS:-1}" = 2 ] || fail 'OLED scenario requires OUTPUTS=2'
+# Audit the production shell's lifetime before stopping it (as smoke.sh and
+# welcome.sh do); Qt's engine teardown is kept separately for reference.
+cp "$OUT/qs.log" "$OUT/startup-qs.log"
 qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
-mv "$OUT/qs.log" "$OUT/startup-qs.log"
+mv "$OUT/qs.log" "$OUT/startup-teardown-qs.log"
 cp -r "$SHELL_DIR" "$HOME/oled-shell"
 SHELL_DIR="$HOME/oled-shell"
 python3 - "$SHELL_DIR" <<'PY'
