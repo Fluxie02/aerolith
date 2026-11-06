@@ -155,3 +155,115 @@ grep -q '"motion": "full"' "$XDG_CONFIG_HOME/aerolith/config.json" || fail "the 
 
 alive || fail "quickshell died"
 echo "deck: ok"
+
+# 8. Optional leave protocol. A deliberately deferring test bay lives only in
+# a disposable copy; production Settings wiring belongs to the Settings owner.
+# Audit the production shell's lifetime before stopping it (as smoke.sh and
+# welcome.sh do); Qt's engine teardown is kept separately for reference.
+cp "$OUT/qs.log" "$OUT/startup-qs.log"
+qs -p "$SHELL_DIR" kill
+wait "$QS_PID" || true
+mv "$OUT/qs.log" "$OUT/startup-teardown-qs.log"
+cp -r "$SHELL_DIR" "$HOME/deck-leave-shell"
+SHELL_DIR="$HOME/deck-leave-shell"
+python3 - "$SHELL_DIR" <<'PY'
+from pathlib import Path
+import sys
+root=Path(sys.argv[1]); p=root/'modules/deck/Deck.qml'
+s=p.read_text().replace('SettingsBay { profile: deck.profile }','''FocusScope {
+            property var profile: deck.profile
+            property bool active: true
+            property int requests: 0
+            property string destination: ""
+            signal leaveResolved(string destination)
+            function requestLeave(target) { requests++; destination = target; return false; }
+        }''',1)
+p.write_text(s)
+p=root/'shell.qml'
+s=p.read_text().replace('import QtQuick\n','import QtQuick\nimport Quickshell.Io\n',1)
+s=s.replace('        active: !!Ui.overlayScreen','        id: leaveTestDeck\n        active: !!Ui.overlayScreen',1)
+probe='''
+    IpcHandler {
+        target: "deckLeaveTest"
+        function state(): string {
+            const d = leaveTestDeck.item;
+            const slot = d ? (d.slotA.current ? d.slotA : d.slotB.current ? d.slotB : null) : null;
+            return JSON.stringify({bay:Ui.activeBay,mapped:Ui.deckMapped,current:slot ? slot.bay : "",
+                active:slot && slot.item ? slot.item.active !== false : false,
+                requests:slot && slot.bay === "settings" ? slot.item.requests : 0,
+                destination:slot && slot.bay === "settings" ? slot.item.destination : ""});
+        }
+        function resolve(destination: string): void {
+            const d=leaveTestDeck.item;
+            const slot=d.slotA.current ? d.slotA : d.slotB.current ? d.slotB : null;
+            if (slot && slot.item) slot.item.leaveResolved(destination);
+        }
+        function forcedClose(): void { leaveTestDeck.item.forceClose(); }
+        function lockedClose(): void { Ui.locked=true; Ui.close(); Ui.locked=false; }
+    }
+'''
+p.write_text(s.replace('    id: shell\n','    id: shell\n'+probe,1))
+PY
+qs -p "$SHELL_DIR" >"$OUT/qs.log" 2>&1 &
+QS_PID=$!; PIDS+=("$QS_PID")
+leave_probe() { qs -p "$SHELL_DIR" ipc call deckLeaveTest "$@"; }
+check_leave() {
+  for _ in $(seq 60); do
+    if leave_probe state >"$OUT/leave-state.json" 2>/dev/null && python3 - "$OUT/leave-state.json" "$1" <<'PY' 2>"$OUT/leave-error.txt"
+import json,sys
+s=json.load(open(sys.argv[1])); assert eval(sys.argv[2]), s
+PY
+    then return 0; fi
+    sleep .1
+  done
+  cat "$OUT/leave-error.txt"; fail "$1"
+}
+check_leave 's["bay"] == ""'
+ipc open settings >/dev/null
+check_leave 's["current"] == "settings" and s["active"] and s["requests"] == 0'
+ipc open help >/dev/null
+check_leave 's["bay"] == "settings" and s["current"] == "settings" and s["active"] and s["mapped"] and s["requests"] == 1 and s["destination"] == "deck:help"'
+# A stale resolution cannot authorize a superseding navigation.
+ipc open command >/dev/null
+check_leave 's["requests"] == 2 and s["destination"] == "deck:command"'
+leave_probe resolve deck:help
+check_leave 's["bay"] == "settings" and s["requests"] == 2'
+leave_probe resolve deck:command
+check_leave 's["bay"] == "command" and s["current"] == "command"'
+ipc close
+check_leave 's["bay"] == ""'
+ipc open settings >/dev/null
+check_leave 's["current"] == "settings" and s["requests"] == 0'
+# Real backdrop click takes the same path and retains input until resolution.
+click 4 500
+check_leave 's["bay"] == "settings" and s["requests"] == 1 and s["destination"] == "deck:close" and s["mapped"]'
+leave_probe resolve deck:close
+check_leave 's["bay"] == ""'
+wait_field deckMapped False 3 || fail 'resolved close left Deck mapped'
+# Host Esc and compositor/lock close bypass the hook, including a pending leave.
+ipc open settings >/dev/null
+check_leave 's["current"] == "settings"'
+key Escape
+check_leave 's["bay"] == ""'
+ipc open settings >/dev/null
+check_leave 's["current"] == "settings"'
+ipc open help >/dev/null
+check_leave 's["requests"] == 1'
+leave_probe forcedClose
+check_leave 's["bay"] == ""'
+ipc open settings >/dev/null
+check_leave 's["current"] == "settings"'
+leave_probe lockedClose
+check_leave 's["bay"] == ""'
+# Fullscreen suspension also bypasses deferral using the real mock lifecycle.
+ipc open settings >/dev/null
+check_leave 's["current"] == "settings"'
+game=$(python3 -c 'import json,sys;print(json.loads(sys.argv[1])["address"])' "$(mock '{"op":"open","class":"steam_app_1","title":"Leave test","workspace":1}')")
+mock '{"op":"focus_workspace","workspace":1}' >/dev/null
+mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":2}" >/dev/null
+check_leave 's["bay"] == ""'
+wait_field deckMapped False 3 || fail 'fullscreen left deferring Deck mapped'
+mock "{\"op\":\"fullscreen\",\"address\":\"$game\",\"mode\":0}" >/dev/null
+if grep -En 'ReferenceError|TypeError|SyntaxError|is not defined|Cannot read|Binding loop|Unable to assign|Cannot assign|is not a type|Type .* unavailable|Error loading QML' "$OUT/qs.log" "$OUT/startup-qs.log"; then fail 'QML errors'; fi
+alive || fail 'quickshell died during leave protocol'
+echo 'deck leave: ok (defer, supersede, stale resolution, continue, backdrop, Esc, compositor close, lock, fullscreen)'

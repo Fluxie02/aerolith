@@ -20,6 +20,8 @@ Singleton {
     readonly property var specimen: Schemes.schemeById(scheme)
     readonly property var palette: Tokens.resolvePalette(cfg.palette, scheme)
     readonly property var density: Tokens.densityTokens(cfg.density)
+    readonly property var typography: Tokens.textTokens(cfg.density, cfg.textSize, cfg.uiScale)
+    readonly property real textScale: typography.factor
     readonly property var motionSet: Tokens.motionTokens(cfg.motion)
     readonly property real scale: cfg.uiScale
 
@@ -82,6 +84,7 @@ Singleton {
         return Math.round(n * scale);
     }
     readonly property real unit: scale * (cfg.density === "compact" ? 0.92 : cfg.density === "comfortable" ? 1.08 : 1)
+    function textDu(n) { return Math.round(n * unit * textScale); }
     function du(n) {
         return Math.round(n * unit);
     }
@@ -94,24 +97,24 @@ Singleton {
     }
     function groundGeometry(width, height, outputName) {
         return Geometry.ground(width, height, unit, stripReservation(outputName),
-            Config.strip.edge === "bottom", scale, gap);
+            Config.strip.edge === "bottom", scale, gap, textScale);
     }
-    readonly property int fontXs: px(density.fontXs)
-    readonly property int fontSm: px(density.fontSm)
-    readonly property int fontMd: px(density.fontMd)
-    readonly property int fontLg: px(density.fontLg)
-    readonly property int fontXl: px(density.fontXl)
-    readonly property int titleSize: du(36)
-    readonly property int inputSize: du(28)
-    readonly property int resultSize: du(16)
-    readonly property int resultHeight: du(68)
-    readonly property int headerHeight: du(56)
+    readonly property int fontXs: typography.fontXs
+    readonly property int fontSm: typography.fontSm
+    readonly property int fontMd: typography.fontMd
+    readonly property int fontLg: typography.fontLg
+    readonly property int fontXl: typography.fontXl
+    readonly property int titleSize: typography.titleSize
+    readonly property int inputSize: typography.inputSize
+    readonly property int resultSize: typography.resultSize
+    readonly property int resultHeight: typography.resultHeight
+    readonly property int headerHeight: typography.headerHeight
     readonly property int contentInset: du(28)
-    readonly property int inputHeight: du(76)
+    readonly property int inputHeight: typography.inputHeight
 
     // Space and shape
-    readonly property int stripHeight: px(density.stripHeight)
-    readonly property int rowHeight: px(density.rowHeight)
+    readonly property int stripHeight: typography.stripHeight
+    readonly property int rowHeight: typography.rowHeight
     readonly property int pad: px(density.pad)
     readonly property int gap: px(density.gap)
     readonly property int radius: du(Tokens.SHAPE.radius)

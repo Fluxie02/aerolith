@@ -6,7 +6,7 @@ export function workArea(width, height, scale, stripHeight) {
         portrait: h > w, ultrawide: w > h * 2 };
 }
 
-export function ground(width, height, unit, stripHeight, bottom, scale = 1, gap = 6) {
+export function ground(width, height, unit, stripHeight, bottom, scale = 1, gap = 6, textScale = 1) {
     const du = n => Math.round(n * unit);
     const px = n => Math.round(n * scale);
     const area = workArea(width, height, scale, stripHeight);
@@ -14,7 +14,8 @@ export function ground(width, height, unit, stripHeight, bottom, scale = 1, gap 
     const apertureHeight = Math.min(height * .34, du(380));
     const apertureY = du(28);
     const hatchY = height * .49 - apertureHeight / 2 - apertureY;
-    const appHeight = du(48);
+    const appHeight = Math.round(48 * unit * textScale);
+    const stationHeight = Math.round(56 * unit * textScale);
     const apps = { x: width * .055, y: height - appHeight - du(16) - (bottom ? stripHeight : 0),
         width: area.ultrawide ? Math.min(width * .885, px(1120)) : width * .885, height: appHeight };
     const bearings = [
@@ -23,14 +24,14 @@ export function ground(width, height, unit, stripHeight, bottom, scale = 1, gap 
         { x: width * .49, y: height * .105, width: width * .12, height: du(11) }
     ];
     return {
-        width: width, height: height, unit: unit,
+        width: width, height: height, unit: unit, stationHeight: stationHeight,
         cx: width * .27, cy: height * .55,
         ringRadius: area.portrait ? Math.min(height * .34, width * .24) : height * .34,
         stationRadius: height * .29,
         compact: area.compact,
         // Include the station's projecting registration marks in the clearance.
-        stationRowY: Math.max((bottom ? 0 : stripHeight) + 2 * gap + du(4) + du(56) / 2,
-            Math.min(height - du(125), apps.y - 2 * gap - du(4) - du(56) / 2)),
+        stationRowY: Math.max((bottom ? 0 : stripHeight) + 2 * gap + du(4) + stationHeight / 2,
+            Math.min(height - du(125), apps.y - 2 * gap - du(4) - stationHeight / 2)),
         instrumentWidth: area.ultrawide ? Math.min(width * .25, px(420)) : width * .25,
         windows: { x: width * .70, y: height * .66,
             width: area.ultrawide ? Math.min(width * .24, px(420)) : width * .24,
@@ -49,7 +50,7 @@ export function station(g, index, count) {
     return {
         x: g.compact ? g.width * (.055 + .47 * (index + .5) / count) : g.cx + Math.sin(angle) * g.stationRadius,
         y: g.compact ? g.stationRowY : g.cy + Math.cos(angle) * g.stationRadius,
-        width: Math.min(du(76), g.width * .47 / count - du(6)), height: du(56)
+        width: Math.min(du(76), g.width * .47 / count - du(6)), height: g.stationHeight === undefined ? du(56) : g.stationHeight
     };
 }
 
@@ -100,4 +101,11 @@ export function bounds(rects) {
         right = Math.max(right, r.x + r.width); bottom = Math.max(bottom, r.y + r.height);
     }
     return { x: left, y: top, width: right - left, height: bottom - top };
+}
+
+// Labels are presentation only. Never pass them to workspace dispatch.
+export function workspaceLabel(id, names, padded = false) {
+    const key = String(id);
+    const name = names && Object.prototype.hasOwnProperty.call(names, key) ? names[key] : "";
+    return typeof name === "string" && name.length ? name : (padded && id < 10 ? "0" : "") + key;
 }

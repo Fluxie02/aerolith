@@ -59,7 +59,7 @@ Item {
             // Reverse for a right-aligned flow, preserving schema reading order.
             model: control.setting.values.slice().reverse()
             delegate: Rectangle {
-                required property string modelData
+                required property var modelData
                 readonly property bool chosen: modelData === control.value
                 width: Math.min(choices.width, choiceLabel.implicitWidth + Theme.du(18))
                 height: Theme.du(30)

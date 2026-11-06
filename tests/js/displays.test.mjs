@@ -66,7 +66,7 @@ export default suite("displays", test => {
       outputs: { "DP-1": { ground: false, profile: "oled", strip: "no" }, "old-name": { profile: "invalid" } } } }));
     a.equal(r.warnings.length, 0);
     a.equal(r.errors.length, 2);
-    a.deepEqual(r.config.display.outputs["DP-1"], { ground: false, strip: true, profile: "oled" });
+    a.deepEqual(r.config.display.outputs["DP-1"], { ground: false, strip: true, profile: "oled", blackBackground: false });
     a.equal(r.config.display.outputs["old-name"].profile, "standard");
     a.equal(r.config.display.output, "DP-1");
     a.equal(r.config.display.warnOnMultipleDisplays, true);

@@ -27,7 +27,8 @@ For multiple outputs, `display.primary` chooses the primary screen and
 }
 ```
 
-Unlisted outputs use `strip: true`, `ground: true`, `profile: "standard"`.
+Unlisted outputs use `strip: true`, `ground: true`, `profile: "standard"`,
+and `blackBackground: false`.
 The global `strip.visible` and `ground.enabled` switches still apply.
 A missing primary falls back to the deprecated `display.output`, the lowest
 Hyprland monitor id, then the first Qt screen. Disconnected connector settings
@@ -49,6 +50,32 @@ The shared Wayland idle monitor respects idle inhibitors. Activity restores
 the shell immediately; entering idle fades with the configured motion level.
 These settings do not change monitor brightness or move pixels.
 
+`display.outputs.<name>.blackBackground` selects a true-black background on
+LCD or OLED outputs without enabling OLED idle protection. It preserves the
+scheme's distinct surface planes; `profile: "oled"` continues to use the full
+OLED palette and idle policy.
+
+`theme.textSize` accepts 100, 112, 125 or 150 percent independently of
+`theme.uiScale`. Type and its row/header containers grow; spacing and decorative
+geometry retain their scale. Per-output text and density overrides are deferred
+until mixed-scale validation (ASTRA.md decision 2).
+
+`strip.showNetwork`, `showBluetooth`, `showMedia`, `showAudio`, `showBattery`
+and `showNotifications` default to true. The existing `strip.telemetry` controls
+readouts; sharing/mic privacy indicators, configuration warnings, critical
+battery and critical temperature warnings remain available. Ground's
+`showNowPlaying`, `showTelemetry` and `showAppRegister` also default to true.
+Hiding the app register removes its measured tour anchor; Tour explains a
+hidden target using its existing fallback.
+
+`workspaces.names` maps positive numeric IDs to labels (64 entries maximum,
+48 characters per label). Empty labels use the ID. Ring and strip show plain
+text with elision and expose the full label through their accessible name;
+workspace commands always retain numeric IDs. These new appearance keys carry
+`preview: true` metadata and work through the existing preview transaction.
+Consumers use `Config.data.workspaces.names`; the settings controls are added
+separately by the settings UI owner.
+
 <!-- BEGIN GENERATED: tools/gen-config-doc.mjs -->
 
 ### `display`
@@ -59,7 +86,7 @@ Multi-monitor placement. Ground and Strip run on every enabled output; global se
 |---|---|---|---|
 | `display.primary` | string (≤ 64) | `""` | Primary output name. Empty or unavailable: deprecated output alias, then lowest Hyprland id, then first screen. Applies live. |
 | `display.output` | string (≤ 64) | `""` | Deprecated alias for display.primary (one release). Used when primary is empty or unavailable. |
-| `display.outputs` | map of objects | `{}` | Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults. |
+| `display.outputs` | map of objects | `{}` | Settings by output name: strip/ground default true, blackBackground default false, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults. |
 | `display.oled` | object | `{"idleDimAfter":300,"idleDimLevel":0.65,"hideDecorationWhenIdle":true}` | Protection for outputs whose profile is oled; standard outputs are unaffected. idleDimAfter is idle seconds (0 disables); idleDimLevel is surface opacity (0–1); hideDecorationWhenIdle hides static geometry. No display brightness changes or pixel shifting. |
 | `display.overlayOn` | `focused` \| `primary` | `"focused"` | Output for Deck, OSD and session menu. Missing focus falls back to primary. |
 | `display.noticesOn` | string (≤ 64) | `"primary"` | Output for notices: primary, focused, or an output name. Missing names fall back to primary. |
@@ -74,6 +101,7 @@ AEROLITH Instrument System appearance.
 | `theme.scheme` | `limb` \| `bathyal` \| `corona` \| `cinder` \| `ferrite` \| `iris` \| `argent` \| `lichen` \| `helios` \| `umbra` \| `vellum` \| `glacial` | `"limb"` | Colour spectrum. Choose in Settings; applies live. Palette overrides take precedence. |
 | `theme.density` | `compact` \| `standard` \| `comfortable` | `"standard"` | Spacing and type scale. |
 | `theme.uiScale` | number 0.75–2 | `1` | Multiplier applied on top of the compositor's own scaling. |
+| `theme.textSize` | `100` \| `112` \| `125` \| `150` | `100` | Text size in percent, independent of UI scale. Grows type and its rows/headers; never shrinks text to fit. |
 | `theme.motion` | `full` \| `reduced` \| `off` | `"full"` | Animation level. 'off' disables all transitions. |
 | `theme.intensity` | `saturated` \| `insane` | `"saturated"` | How much the interface shows: 'saturated' or the even denser 'insane'. Switch with `aerolith intensity`. |
 | `theme.lowEffects` | bool | `false` | Opaque backdrops and no shadows, for slow GPUs or screen recording. |
@@ -90,7 +118,13 @@ The edge-mounted status strip.
 | `strip.visible` | bool | `true` | Show the Flight Strip. |
 | `strip.edge` | `top` \| `bottom` | `"top"` | Screen edge for the Flight Strip. |
 | `strip.showWindowTitle` | bool | `true` | Show the focused window title. |
-| `strip.telemetry` | `off` \| `alert` \| `always` | `"alert"` | CPU/memory readouts: never, only when above thresholds, or always. |
+| `strip.showNetwork` | bool | `true` | Show the network indicator. Privacy and critical warnings remain visible. |
+| `strip.showBluetooth` | bool | `true` | Show the Bluetooth indicator. Privacy and critical warnings remain visible. |
+| `strip.showMedia` | bool | `true` | Show the media indicator. Privacy and critical warnings remain visible. |
+| `strip.showAudio` | bool | `true` | Show the audio indicator. Privacy and critical warnings remain visible. |
+| `strip.showBattery` | bool | `true` | Show the battery indicator. Privacy and critical warnings remain visible. |
+| `strip.showNotifications` | bool | `true` | Show the notifications indicator. Privacy and critical warnings remain visible. |
+| `strip.telemetry` | `off` \| `alert` \| `always` | `"alert"` | CPU/memory/temperature readouts: off, above thresholds, or always. Critical temperature warnings always remain visible. |
 | `strip.clock` | `24h` \| `12h` | `"24h"` | Clock format. |
 | `strip.showDate` | bool | `true` | Show the date next to the clock. |
 | `strip.showSeconds` | bool | `false` | Show seconds. Costs one redraw per second. |
@@ -102,7 +136,26 @@ The desktop background surface.
 
 | Key | Type | Default | Meaning |
 |---|---|---|---|
+| `ground.showNowPlaying` | bool | `true` | Show Now playing on Ground. |
+| `ground.showTelemetry` | bool | `true` | Show telemetry readouts on Ground. |
+| `ground.showAppRegister` | bool | `true` | Show the application register on Ground. |
 | `ground.enabled` | bool | `true` | Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg. |
+
+### `workspaces`
+
+Workspace labels shared by the ring and status strip.
+
+| Key | Type | Default | Meaning |
+|---|---|---|---|
+| `workspaces.names` | map of string | `{}` | Workspace ID to label: at most 64 entries, positive IDs 1–999999999, labels at most 48 characters. Ring and strip elide labels; dispatch always uses the ID. |
+
+### `welcome`
+
+Welcome startup preference.
+
+| Key | Type | Default | Meaning |
+|---|---|---|---|
+| `welcome.showOnStartup` | bool | `false` | Show Welcome on every shell start. Fresh installs show it once regardless; this does not enable shell autostart. |
 
 ### `tour`
 

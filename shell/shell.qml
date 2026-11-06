@@ -10,6 +10,7 @@ import qs.core
 import qs.services
 import "modules/strip"
 import "modules/tour"
+import "modules/welcome"
 import "modules/deck"
 import "modules/notices"
 import "modules/ground"
@@ -23,7 +24,7 @@ ShellRoot {
 
     // Touch services so they initialise and register their commands even
     // before anything visible references them.
-    readonly property var services: [Compositor, Displays, Idle, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands, AppThemes, Tour]
+    readonly property var services: [Compositor, Displays, Idle, ShellState, Apps, Audio, Media, Telemetry, Power, Brightness, Routines, Notifications, ShellCommands, AppThemes, Welcome, Tour, SystemInfo]
 
     // Stable screen keys retain delegates on focus/metadata changes. Each
     // loader destroys only its output's surface while fullscreen owns it.
@@ -76,6 +77,8 @@ ShellRoot {
     // session-lock protocol: the compositor keeps the session locked even if
     // the shell stops.
     LockHost {}
+
+    LazyLoader { id: welcomeSurface; objectName: "welcomeLoader"; active: Welcome.active; WelcomeHost {} }
 
     LazyLoader { id: tourSurface; objectName: "tourLoader"; active: Tour.active; TourHost {} }
 

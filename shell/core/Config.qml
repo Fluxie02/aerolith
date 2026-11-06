@@ -15,15 +15,32 @@ Singleton {
     property var raw: ({})
     // raw is committed only. Queued immediate edits have a separate projection
     // for stepping controls; only the explicit appearance draft reaches data.
-    readonly property var committedData: ConfigLib.previewData(raw, null)
-    readonly property var data: ConfigLib.previewData(raw, preview)
-    readonly property var projectedData: ConfigLib.previewData(projectedRaw(), preview)
+    // Publish a complete object at construction, before any dependent singleton
+    // can read it. Derived bindings can run during a cyclic singleton load,
+    // before QML has initialized their dependencies. Refresh explicitly after
+    // construction and on each input replacement instead.
+    property var committedData: ConfigLib.defaultsOf(ConfigLib.SCHEMA)
+    property var data: ConfigLib.defaultsOf(ConfigLib.SCHEMA)
+    property var projectedData: ConfigLib.defaultsOf(ConfigLib.SCHEMA)
+    function refreshData() {
+        committedData = ConfigLib.previewData(raw, null);
+        data = ConfigLib.previewData(raw, preview);
+        projectedData = ConfigLib.previewData(projectedRaw(), preview);
+    }
+    onRawChanged: refreshData()
+    onPreviewChanged: refreshData()
+    onSavesChanged: refreshData()
+    Component.onCompleted: refreshData()
     property var preview: null
     readonly property bool previewActive: preview !== null
     readonly property bool previewDirty: previewActive && preview.changes.length > 0
     readonly property var previewConflicts: previewActive ? ConfigLib.conflictsFor(raw, preview.changes) : []
     property string previewError: ""
     property bool previewApplying: false
+    // Optional asynchronous pre-write guard for imported appearance drafts.
+    // Receives the freshly read config text; resolves to an error or "".
+    // Captured by Apply, so Cancel invalidates the queued request as usual.
+    property var previewBeforeWrite: null
     property var errors: []
     property var warnings: []
     property bool loaded: false
@@ -134,7 +151,7 @@ Singleton {
 
     function projectedRaw() {
         let projected = raw;
-        for (const pending of saves) {
+        for (const pending of (saves || [])) {
             if (!pending.cancelled)
                 projected = ConfigLib.overlay(projected, pending.changes);
         }
@@ -163,6 +180,7 @@ Singleton {
         if (saves.length || savePhase) return "Wait for pending settings to finish saving";
         if (fileBroken) return "Fix the configuration file before previewing settings";
         previewError = "";
+        previewBeforeWrite = null;
         preview = ConfigLib.beginPreview(raw);
         return "";
     }
@@ -182,7 +200,8 @@ Singleton {
         if (!previewDirty) { cancelPreview(); return ""; }
         previewError = "";
         previewApplying = true;
-        saves = saves.concat([{changes: preview.changes, isPreview: true, cancelled: false}]);
+        saves = saves.concat([{changes: preview.changes, isPreview: true, cancelled: false,
+            beforeWrite: root.previewBeforeWrite}]);
         Qt.callLater(root.saveNext);
         return "";
     }
@@ -194,6 +213,7 @@ Singleton {
             if (request.isPreview) request.cancelled = true;
         }
         preview = null;
+        previewBeforeWrite = null;
         previewError = "";
     }
 
@@ -229,7 +249,18 @@ Singleton {
     }
 
     function writeSave() {
-        if (saves[0].cancelled) { finishSave(""); return; }
+        const request = saves[0];
+        if (request.cancelled) { finishSave(""); return; }
+        if (request.beforeWrite) {
+            const guard = request.beforeWrite;
+            request.beforeWrite = null;
+            Promise.resolve().then(() => guard(root.diskText)).then(message => {
+                if (request.cancelled) root.finishSave("");
+                else if (message) root.finishSave(String(message));
+                else root.writeSave();
+            }, error => root.finishSave("Could not back up the configuration: " + error));
+            return;
+        }
         fresh.setText(writeText);
     }
 

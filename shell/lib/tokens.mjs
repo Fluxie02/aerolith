@@ -84,6 +84,25 @@ export function densityTokens(name) {
   return DENSITY[name] || DENSITY.standard;
 }
 
+// Text and its containers grow independently of spacing/decorative geometry.
+// Preserve the original rounding at 100%, including fractional UI scales.
+export function textTokens(name, percent, scale = 1) {
+  const d = densityTokens(name);
+  const factor = [100, 112, 125, 150].indexOf(percent) >= 0 ? percent / 100 : 1;
+  const unit = scale * (name === "compact" ? .92 : name === "comfortable" ? 1.08 : 1);
+  const out = { factor: factor };
+  for (const key of ["fontXs", "fontSm", "fontMd", "fontLg", "fontXl", "stripHeight", "rowHeight"])
+    out[key] = Math.round(d[key] * scale * factor);
+  const sizes = { titleSize: 36, inputSize: 28, resultSize: 16, resultHeight: 68, headerHeight: 56, inputHeight: 76 };
+  for (const key in sizes) out[key] = Math.round(sizes[key] * unit * factor);
+  return out;
+}
+
+// Black backing is an appearance choice, independent of OLED idle policy.
+export function backgroundPalette(palette, black) {
+  return black ? Object.assign({}, palette, { obsidian: "#000000" }) : palette;
+}
+
 export function motionTokens(name) {
   return MOTION[name] || MOTION.full;
 }

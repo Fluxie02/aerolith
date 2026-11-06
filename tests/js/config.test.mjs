@@ -1,7 +1,86 @@
 import { suite } from "./harness.mjs";
 import { validateConfig, defaultsOf, SCHEMA, SCHEMA_VERSION, migrate, mergeChange, mergeChanges, prepareBatch, beginPreview, setPreviewValues, previewData, previewAllowed, conflictsFor, setPath, getPath, toJsonSchema } from "../../shell/lib/config.mjs";
 
+import { textTokens, DENSITY, backgroundPalette, resolvePalette, profileState } from "../../shell/lib/tokens.mjs";
+
 export default suite("config", (test) => {
+  test("Personalize keys default to the previous appearance and validate strictly", a => {
+    const d = defaultsOf(SCHEMA);
+    a.equal(d.theme.textSize, 100);
+    a.deepEqual(d.workspaces.names, {});
+    for (const key of ["showNetwork", "showBluetooth", "showMedia", "showAudio", "showBattery", "showNotifications"])
+      a.equal(d.strip[key], true);
+    for (const key of ["showNowPlaying", "showTelemetry", "showAppRegister"]) a.equal(d.ground[key], true);
+    const paths = ["theme.textSize", "workspaces.names", "workspaces.names.1", ["display", "outputs", "DP.1", "blackBackground"]];
+    for (const section of ["strip", "ground"])
+      for (const key in d[section]) if (/^show/.test(key) && key !== "showWindowTitle" && key !== "showDate" && key !== "showSeconds") paths.push(section + "." + key);
+    const json = toJsonSchema();
+    a.equal(json.properties.theme.properties.textSize.preview, true);
+    a.equal(json.properties.workspaces.properties.names.maxProperties, 64);
+    a.equal(json.properties.workspaces.properties.names.propertyNames.pattern, "^[1-9][0-9]{0,8}$");
+    for (const path of paths) a.equal(previewAllowed(path), true, String(path));
+    for (const size of [100, 112, 125, 150]) a.equal(setPath({}, "theme.textSize", size).raw.theme.textSize, size);
+    for (const size of [99, 113, 151, "125", null]) a.ok(setPath({}, "theme.textSize", size).error);
+    for (const section of ["strip", "ground"]) for (const key in d[section]) {
+      if (!/^show/.test(key)) continue;
+      a.equal(setPath({}, section + "." + key, false).raw[section][key], false);
+      a.ok(setPath({}, section + "." + key, "false").error);
+    }
+    const output = ["display", "outputs", "DP.1", "blackBackground"];
+    a.equal(getPath(previewData({}, setPreviewValues(beginPreview({}), [{path: output, value: true}]).preview), output), true);
+    a.equal(getPath(validateConfig('{"display":{"outputs":{"DP.1":{}}}}').config, output), false);
+    a.ok(setPath({}, output, 1).error);
+    a.equal(previewData({}, null).theme.textSize, 100);
+    a.equal(SCHEMA.props.display.props.outputs.values.props.textSize, undefined);
+    a.equal(SCHEMA.props.display.props.outputs.values.props.density, undefined);
+  });
+
+  test("workspace names are bounded for files, whole maps, individual writes and previews", a => {
+    const names = {}; for (let i = 1; i <= 64; i++) names[i] = "Label " + i;
+    a.ok(setPath({}, "workspaces.names", names).raw);
+    a.ok(setPath({workspaces: {names}}, "workspaces.names.65", "Overflow").error);
+    names[65] = "Overflow";
+    a.ok(setPath({}, "workspaces.names", names).error);
+    a.equal(Object.keys(validateConfig(JSON.stringify({workspaces: {names}})).config.workspaces.names).length, 0);
+    for (const key of ["0", "-1", "01", "1.5", "1000000000", "__proto__", "constructor"]) {
+      a.ok(setPath({}, ["workspaces", "names", key], "Bad").error, key);
+      a.ok(setPath({}, "workspaces.names", JSON.parse('{"' + key + '":"Bad"}')).error, key);
+    }
+    a.ok(setPath({}, "workspaces.names.1", "x".repeat(49)).error);
+    a.ok(setPath({}, "workspaces.names.1", 12).error);
+    a.equal(setPath({}, "workspaces.names.1", "x".repeat(48)).raw.workspaces.names[1].length, 48);
+    const p = setPreviewValues(beginPreview({}), [{path:"workspaces.names", value:{1:"Writing",2:""}}]).preview;
+    a.equal(previewData({}, p).workspaces.names[1], "Writing");
+    a.deepEqual(previewData({}, null).workspaces.names, {});
+    a.ok(setPreviewValues(p, [{path:"workspaces.names",value:{bad:"No"}}]).error);
+    a.equal(previewData({}, p).workspaces.names[1], "Writing");
+  });
+
+  test("each derived text token scales independently and preserves 100 percent rounding", a => {
+    for (const density of ["compact", "standard", "comfortable"]) for (const scale of [.75, 1, 1.25, 1.5, 2]) {
+      const d = DENSITY[density], unit = scale * (density === "compact" ? .92 : density === "comfortable" ? 1.08 : 1);
+      for (const percent of [100, 112, 125, 150]) {
+        const t = textTokens(density, percent, scale);
+        a.equal(t.factor, percent / 100);
+        for (const key of ["fontXs", "fontSm", "fontMd", "fontLg", "fontXl", "stripHeight", "rowHeight"])
+          a.equal(t[key], Math.round(d[key] * scale * percent / 100), key);
+        const sizes = {titleSize:36,inputSize:28,resultSize:16,resultHeight:68,headerHeight:56,inputHeight:76};
+        for (const key in sizes) a.equal(t[key], Math.round(sizes[key] * unit * percent / 100), key);
+      }
+    }
+    a.deepEqual(textTokens("invalid", undefined), textTokens("standard", 100));
+  });
+
+  test("black backing changes only the background and never enables OLED idle policy", a => {
+    const palette = resolvePalette({});
+    a.equal(backgroundPalette(palette, false), palette);
+    const black = backgroundPalette(palette, true);
+    a.equal(black.obsidian, "#000000");
+    for (const key in palette) if (key !== "obsidian") a.equal(black[key], palette[key]);
+    a.ok(palette.obsidian !== "#000000");
+    a.deepEqual(profileState("standard", {idleDimAfter:1}, true), {idleDimmed:false,opacity:1,hideContent:false,decorationOpacity:1});
+  });
+
   test("batch validates every leaf before returning a writable result", a => {
     const raw = { theme: { scheme: "limb" }, unknown: { keep: true } };
     const bad = prepareBatch(raw, [{path: "theme.scheme", value: "iris"}, {path: "strip.edge", value: "left"}]);

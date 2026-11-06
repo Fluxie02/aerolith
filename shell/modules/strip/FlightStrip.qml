@@ -178,7 +178,7 @@ PanelWindow {
                 id: networkIndicator
                 profile: strip.profile
                 compact: strip.compact
-                visible: Network.available
+                visible: Config.strip.showNetwork && Network.available
                 opacity: strip.hideContent ? 0 : 1
                 enabled: opacity > 0
                 onClicked: strip.picker = strip.picker === "network" ? "" : "network"
@@ -187,7 +187,7 @@ PanelWindow {
                 id: bluetoothIndicator
                 profile: strip.profile
                 compact: strip.compact
-                visible: Bluetooth.available
+                visible: Config.strip.showBluetooth && Bluetooth.available
                 opacity: strip.hideContent ? 0 : 1
                 enabled: opacity > 0
                 onClicked: strip.picker = strip.picker === "bluetooth" ? "" : "bluetooth"
@@ -239,7 +239,7 @@ PanelWindow {
                 opacity: strip.hideContent && !raised ? 0 : 1
                 enabled: opacity > 0
                 compact: strip.compact
-                visible: strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && (Telemetry.tempState === "caution" || Telemetry.tempState === "critical"))
+                visible: Telemetry.tempState === "critical" || strip.telemetryMode === "always" || (strip.telemetryMode === "alert" && Telemetry.tempState === "caution")
                 code: "TMP"
                 value: T.formatTemp(Telemetry.temps.cpu)
                 status: Telemetry.tempState === "unknown" ? "unknown" : Telemetry.tempState
@@ -249,7 +249,7 @@ PanelWindow {
                 opacity: strip.hideContent && !raised ? 0 : 1
                 enabled: opacity > 0
                 compact: strip.compact
-                visible: Media.active !== null
+                visible: Config.strip.showMedia && Media.active !== null
                 code: Media.playing ? "▶" : "Ⅱ"
                 value: {
                     const t = Media.title;
@@ -267,7 +267,7 @@ PanelWindow {
                 opacity: strip.hideContent && !raised ? 0 : 1
                 enabled: opacity > 0
                 compact: strip.compact
-                visible: true
+                visible: Config.strip.showAudio
                 code: "AUD"
                 value: !Audio.ready || Audio.sink === null || !Audio.volumeKnown ? "N/A" : Audio.muted ? "MUTE" : String(Audio.volumePercent)
                 status: !Audio.ready || Audio.sink === null || !Audio.volumeKnown ? "unknown" : Audio.muted ? "caution" : "nominal"
@@ -295,7 +295,7 @@ PanelWindow {
                 opacity: strip.hideContent && !raised ? 0 : 1
                 enabled: opacity > 0
                 compact: strip.compact
-                visible: Power.hasBattery
+                visible: Power.hasBattery && (Config.strip.showBattery || (!Power.charging && Power.batteryPercent <= 10))
                 code: Power.charging ? "CHG" : "BAT"
                 value: Math.round(Power.batteryPercent) + "%"
                 status: Power.charging ? "nominal" : T.classify(100 - Power.batteryPercent, 80, 90)
@@ -305,7 +305,7 @@ PanelWindow {
                 opacity: strip.hideContent && !raised ? 0 : 1
                 enabled: opacity > 0
                 compact: strip.compact
-                visible: Notifications.enabled && (Notifications.count > 0 || Notifications.doNotDisturb)
+                visible: Config.strip.showNotifications && Notifications.enabled && (Notifications.count > 0 || Notifications.doNotDisturb)
                 code: Notifications.doNotDisturb ? "DND" : "NTF"
                 value: String(Notifications.count)
                 status: Notifications.doNotDisturb ? "caution" : "active"
@@ -327,7 +327,7 @@ PanelWindow {
     LazyLoader {
         id: networkPickerLoader
         objectName: "networkPickerLoader"
-        active: strip.picker === "network" && Network.available && !Ui.locked
+        active: strip.picker === "network" && networkIndicator.visible && Network.available && !Ui.locked
         NetworkPicker {
             outputScreen: strip.outputScreen
             profile: strip.profile
@@ -338,7 +338,7 @@ PanelWindow {
     LazyLoader {
         id: bluetoothPickerLoader
         objectName: "bluetoothPickerLoader"
-        active: strip.picker === "bluetooth" && Bluetooth.available && !Ui.locked
+        active: strip.picker === "bluetooth" && bluetoothIndicator.visible && Bluetooth.available && !Ui.locked
         BluetoothPicker {
             outputScreen: strip.outputScreen
             profile: strip.profile

@@ -24,6 +24,7 @@ Singleton {
             && !!ShellState.outputStates[output.name]
             && (!Displays.available || !!output.monitorName),
         enabled: Config.data.tour.enabled,
+        welcomeHolds: Welcome.holdsTourAutoStart,
         output: output,
         locked: Ui.locked,
         fullscreen: output ? ShellState.stateFor(output.name).fullscreen : false,
@@ -35,14 +36,36 @@ Singleton {
     onAutoStartChanged: if (autoStart) Qt.callLater(root.tryAutoStart)
 
     function tryAutoStart() {
-        if (autoStart) start();
+        if (autoStart) {
+            if (Store.welcome.handedOff) resume(Store.welcome.tourStep);
+            else start();
+        }
     }
 
     function change(action) {
         progress = T.transition({ active: active, step: step, completed: completed }, action);
         if (progress.completed && !completed) Store.completeTour(T.VERSION);
+        const handedOff = Store.welcome.handedOff;
+        const ended = !progress.active && (action === "skip" || action === "finish" || action === "next");
+        if (handedOff || ended) {
+            Store.saveWelcome(Object.assign({}, Store.welcome, {seen: Store.welcome.seen || handedOff,
+                handedOff: handedOff && progress.active, tourStep: step,
+                tourFinished: ended ? action !== "skip" : Store.welcome.tourFinished}));
+            if (handedOff && ended) Welcome.tourEnded(action !== "skip");
+        }
+    }
+    function pause() {
+        progress = {active: false, step: step};
+        started = true;
+    }
+    function resume(savedStep) {
+        if (!start()) return false;
+        progress = { active: true, step: Math.max(0, Math.min(steps.length - 1, savedStep)) };
+        if (Store.welcome.handedOff) Store.saveWelcome(Object.assign({}, Store.welcome, {seen: true, handedOff: true, tourStep: step}));
+        return true;
     }
     function start() {
+        if (Welcome.requested) return Welcome.takeTour();
         if (!mayShow) return false;
         started = true;
         change("start");

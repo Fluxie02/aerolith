@@ -36,7 +36,7 @@ Item {
             font.family: Theme.mono; font.pixelSize: Theme.fontSm
         }
         Text {
-            visible: !rig.compact
+            visible: Config.ground.showTelemetry && !rig.compact
             text: "CPU " + rig.cpu + "    MEMORY " + rig.mem
             textFormat: Text.PlainText; color: rig.profile.textDim
             font.family: Theme.mono; font.pixelSize: Theme.fontSm
@@ -86,14 +86,14 @@ Item {
         width: rig.geometry.instrumentWidth
         spacing: Theme.du(24); visible: !rig.instrument
         opacity: Math.max(0, Math.min(1, (rig.ignition - .22) / .30))
-        NowPlaying { profile: rig.profile; width: parent.width }
+        NowPlaying { objectName: "groundNowPlaying"; profile: rig.profile; width: parent.width; visible: Config.ground.showNowPlaying }
         Flow {
             width: parent.width; spacing: Theme.du(5)
             Repeater {
                 model: rig.entryBays
                 delegate: Rectangle {
                     required property var modelData
-                    width: (parent.width - Theme.du(5)) / 2; height: Theme.du(34)
+                    width: (parent.width - Theme.du(5)) / 2; height: Theme.textDu(34)
                     color: entryPointer.containsMouse ? rig.profile.signal : rig.profile.bg
                     border.color: entryPointer.containsMouse ? rig.profile.signal : rig.profile.grid
                     Text {
@@ -133,7 +133,7 @@ Item {
             // One border of horizontal raster allowance keeps fractional-
             // scale rule endpoints intact; content retains its original width.
             width: parent.width + Theme.border
-            height: Math.max(0, Math.min(Theme.du(32) * 3 + Theme.du(8) * 2,
+            height: Math.max(0, Math.min(Theme.textDu(32) * 3 + Theme.du(8) * 2,
                 rig.geometry.windows.height - windowHeading.height - windowRegister.spacing))
             contentWidth: width; contentHeight: windowRows.height
             clip: true; boundsBehavior: Flickable.StopAtBounds
@@ -145,7 +145,7 @@ Item {
                     model: rig.windows
                     delegate: Item {
                         required property var modelData
-                        width: windowRows.width; height: Theme.du(32)
+                        width: windowRows.width; height: Theme.textDu(32)
                         Rectangle { width: parent.width; height: 1; color: rig.profile.grid }
                         Text {
                             y: Theme.du(9); width: parent.width - Theme.du(38); elide: Text.ElideRight
@@ -182,7 +182,8 @@ Item {
     Item {
         x: parent.width * .69; y: parent.height * .105
         width: rig.geometry.instrumentWidth; height: parent.height * .085
-        visible: !rig.compact && !rig.instrument
+        visible: Config.ground.showTelemetry && !rig.compact && !rig.instrument
+        objectName: "groundTelemetry"
         Text {
             text: "CPU CORES / " + Math.min(Theme.insane ? 64 : 32, Telemetry.cpu.cores.length) + " OF " + Telemetry.cpu.cores.length
             textFormat: Text.PlainText; color: rig.profile.textDim
@@ -224,7 +225,7 @@ Item {
         x: rig.geometry.apps.x; y: rig.geometry.apps.y
         width: rig.geometry.apps.width
         height: rig.geometry.apps.height
-        visible: !rig.instrument && !!Displays.primary && Screen.name === Displays.primary.name && !rig.profile.hideContent
+        visible: Config.ground.showAppRegister && !rig.instrument && !!Displays.primary && Screen.name === Displays.primary.name && !rig.profile.hideContent
         instrument: rig.instrument
     }
     Text {

@@ -51,6 +51,10 @@ PanelWindow {
     // and remap, and a remap is a new layer surface (compositor close and
     // open animations).
     property bool holdSurface: false
+    property bool syncing: false
+    property bool forceRetirement: false
+    property var leaveRequest: null
+    property var approvedLeave: null
     readonly property alias slotA: slotA
     readonly property alias slotB: slotB
 
@@ -110,9 +114,10 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.namespace: "aerolith-deck"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: Ui.deckOpen && visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+    readonly property bool interactive: Ui.deckOpen || slotA.current || slotB.current
+    WlrLayershell.keyboardFocus: interactive && visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
     // An exiting Deck must not catch clicks meant for the windows below.
-    mask: Ui.deckOpen ? null : noInput
+    mask: interactive ? null : noInput
 
     Region {
         id: noInput
@@ -150,7 +155,7 @@ PanelWindow {
                 deck.screen = Qt.binding(() => Ui.overlayScreen);
                 deck.visible = Qt.binding(() => deck.holdSurface && Ui.overlayScreen !== null);
             } else {
-                Ui.close();
+                deck.forceClose();
             }
         });
     }
@@ -184,12 +189,72 @@ PanelWindow {
     // an outgoing bay can finish its exit while the incoming one is live; a
     // third change during that time cuts the oldest exit short.
     function updateHold() {
-        holdSurface = wanted !== "" || slotA.leaving || slotB.leaving;
+        holdSurface = wanted !== "" || slotA.current || slotB.current || slotA.leaving || slotB.leaving;
     }
 
     function sync() {
-        syncSlots();
-        updateHold();
+        if (syncing) return;
+        syncing = true;
+        try { syncSlots(); updateHold(); }
+        finally { syncing = false; }
+    }
+
+    // Optional bay protocol: requestLeave(destination) returns true to leave
+    // immediately, or false/undefined to defer. destination is an opaque host
+    // token ("deck:<bay>" or "deck:close"). A deferred bay stays current, active,
+    // focused and mapped; Ui is restored to it without retiring/reopening it.
+    // Emit leaveResolved(the same token) to continue exactly that navigation.
+    // A later request supersedes the previous token. Keep editing emits nothing.
+    // Esc at the host, compositor close, lock, fullscreen suspension and output
+    // loss bypass the hook. Destruction/forced retirement still discards drafts.
+    // Bays without this optional method/signal retain their existing behavior.
+    function forceClose() {
+        leaveRequest = null;
+        approvedLeave = null;
+        forceRetirement = true;
+        Ui.close();
+        sync();
+        forceRetirement = false;
+    }
+    function resolveLeave(slot, destination) {
+        const request = leaveRequest;
+        if (!request || request.slot !== slot || !slot.current || request.destination !== destination) return;
+        request.approved = true;
+        if (!syncing) continueLeave(request);
+    }
+    function continueLeave(request) {
+        if (leaveRequest !== request || !request.slot.current) return;
+        leaveRequest = null;
+        approvedLeave = request;
+        Ui.pendingQuery = request.query;
+        if (request.bay === "") Ui.close();
+        else Ui.open(request.bay);
+        sync();
+    }
+    function mayRetire(slot) {
+        const output = mappedOutput;
+        const forced = forceRetirement || Ui.locked || !Ui.overlayScreen
+            || (output && !Quickshell.screens.some(s => s.name === output))
+            || (output && ShellState.stateFor(output).phase === "suspended");
+        if (forced) { leaveRequest = null; approvedLeave = null; return true; }
+        if (approvedLeave && approvedLeave.slot === slot && approvedLeave.bay === wanted) {
+            approvedLeave = null;
+            return true;
+        }
+        if (!slot.item || typeof slot.item.requestLeave !== "function") return true;
+        const request = {slot: slot, bay: wanted, destination: "deck:" + (wanted || "close"),
+            query: Ui.pendingQuery, approved: false};
+        leaveRequest = request;
+        const permitted = slot.item.requestLeave(request.destination) === true;
+        if (permitted || request.approved) { leaveRequest = null; return true; }
+        // Never mutate wanted's dependencies inside its changed handler: that
+        // would create a QML binding loop and leave wanted stale. The current
+        // slot itself holds mapping/input until this deferred restoration.
+        Qt.callLater(() => {
+            if (deck.leaveRequest === request && slot.current && !request.approved)
+                Ui.activeBay = slot.bay;
+        });
+        return false;
     }
 
     function syncSlots() {
@@ -197,6 +262,7 @@ PanelWindow {
         const cur = slotA.current ? slotA : slotB.current ? slotB : null;
         if (cur && cur.bay === wanted && cur.sourceComponent === comp)
             return;
+        if (cur && !mayRetire(cur)) return;
         if (cur)
             cur.retire();
         if (comp === null)
@@ -232,7 +298,7 @@ PanelWindow {
         Keys.priority: Keys.AfterItem
         Keys.onPressed: event => {
             if (event.key === Qt.Key_Escape) {
-                Ui.close();
+                deck.forceClose();
                 event.accepted = true;
             } else if (event.key === Qt.Key_F1) {
                 Ui.toggle("help");
@@ -323,6 +389,12 @@ PanelWindow {
                 item.profile = Qt.binding(() => deck.profile);
             if (current)
                 item.forceActiveFocus();
+        }
+
+        Connections {
+            target: slot.current ? slot.item : null
+            ignoreUnknownSignals: true
+            function onLeaveResolved(destination) { deck.resolveLeave(slot, destination); }
         }
 
         Timer {

@@ -31,7 +31,7 @@
         },
         "outputs": {
           "type": "object",
-          "description": "Settings by output name: strip/ground default true, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults.",
+          "description": "Settings by output name: strip/ground default true, blackBackground default false, profile standard or oled (default standard). Disconnected or renamed entries are retained and ignored; new names use defaults.",
           "additionalProperties": {
             "type": "object",
             "description": "Per-output settings.",
@@ -45,6 +45,12 @@
                 "type": "boolean",
                 "description": "Enable Ground on this output (also requires ground.enabled).",
                 "default": true
+              },
+              "blackBackground": {
+                "type": "boolean",
+                "description": "Use a true-black background on this output, including LCD. Retains theme planes; does not enable OLED idle protection.",
+                "preview": true,
+                "default": false
               },
               "profile": {
                 "enum": [
@@ -143,6 +149,17 @@
           "minimum": 0.75,
           "maximum": 2
         },
+        "textSize": {
+          "enum": [
+            100,
+            112,
+            125,
+            150
+          ],
+          "description": "Text size in percent, independent of UI scale. Grows type and its rows/headers; never shrinks text to fit.",
+          "preview": true,
+          "default": 100
+        },
         "motion": {
           "enum": [
             "full",
@@ -210,13 +227,49 @@
           "description": "Show the focused window title.",
           "default": true
         },
+        "showNetwork": {
+          "type": "boolean",
+          "description": "Show the network indicator. Privacy and critical warnings remain visible.",
+          "preview": true,
+          "default": true
+        },
+        "showBluetooth": {
+          "type": "boolean",
+          "description": "Show the Bluetooth indicator. Privacy and critical warnings remain visible.",
+          "preview": true,
+          "default": true
+        },
+        "showMedia": {
+          "type": "boolean",
+          "description": "Show the media indicator. Privacy and critical warnings remain visible.",
+          "preview": true,
+          "default": true
+        },
+        "showAudio": {
+          "type": "boolean",
+          "description": "Show the audio indicator. Privacy and critical warnings remain visible.",
+          "preview": true,
+          "default": true
+        },
+        "showBattery": {
+          "type": "boolean",
+          "description": "Show the battery indicator. Privacy and critical warnings remain visible.",
+          "preview": true,
+          "default": true
+        },
+        "showNotifications": {
+          "type": "boolean",
+          "description": "Show the notifications indicator. Privacy and critical warnings remain visible.",
+          "preview": true,
+          "default": true
+        },
         "telemetry": {
           "enum": [
             "off",
             "alert",
             "always"
           ],
-          "description": "CPU/memory readouts: never, only when above thresholds, or always.",
+          "description": "CPU/memory/temperature readouts: off, above thresholds, or always. Critical temperature warnings always remain visible.",
           "default": "alert"
         },
         "clock": {
@@ -250,10 +303,61 @@
       "type": "object",
       "description": "The desktop background surface.",
       "properties": {
+        "showNowPlaying": {
+          "type": "boolean",
+          "description": "Show Now playing on Ground.",
+          "preview": true,
+          "default": true
+        },
+        "showTelemetry": {
+          "type": "boolean",
+          "description": "Show telemetry readouts on Ground.",
+          "preview": true,
+          "default": true
+        },
+        "showAppRegister": {
+          "type": "boolean",
+          "description": "Show the application register on Ground.",
+          "preview": true,
+          "default": true
+        },
         "enabled": {
           "type": "boolean",
           "description": "Draw AEROLITH's own desktop background behind all windows. Turn off to keep a wallpaper from another program such as hyprpaper or swaybg.",
           "default": true
+        }
+      }
+    },
+    "workspaces": {
+      "type": "object",
+      "description": "Workspace labels shared by the ring and status strip.",
+      "properties": {
+        "names": {
+          "type": "object",
+          "description": "Workspace ID to label: at most 64 entries, positive IDs 1–999999999, labels at most 48 characters. Ring and strip elide labels; dispatch always uses the ID.",
+          "preview": true,
+          "additionalProperties": {
+            "type": "string",
+            "description": "Workspace label. Empty uses its numeric ID.",
+            "default": "",
+            "maxLength": 48
+          },
+          "default": {},
+          "maxProperties": 64,
+          "propertyNames": {
+            "pattern": "^[1-9][0-9]{0,8}$"
+          }
+        }
+      }
+    },
+    "welcome": {
+      "type": "object",
+      "description": "Welcome startup preference.",
+      "properties": {
+        "showOnStartup": {
+          "type": "boolean",
+          "description": "Show Welcome on every shell start. Fresh installs show it once regardless; this does not enable shell autostart.",
+          "default": false
         }
       }
     },

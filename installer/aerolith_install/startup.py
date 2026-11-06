@@ -47,7 +47,8 @@ class Transaction:
     only for this transaction and include user configs changed by the plan.
     """
 
-    def __init__(self, lay, previous, desired):
+    def __init__(self, lay, previous, desired, *, stop_active=True):
+        self.stop_active = stop_active
         self.lay = lay
         self.previous = previous
         self.desired = desired
@@ -100,7 +101,7 @@ class Transaction:
         # Remove the old systemd path before adding compositor autostart.
         if self.managed and self.desired != "systemd":
             self.touched = True
-            systemctl("disable", "--now", UNIT)
+            systemctl("disable", *(["--now"] if self.stop_active else []), UNIT)
             self.lay.service.unlink(missing_ok=True)
             manifest.forget(self.lay.service)
             manifest.systemd_enabled = False
@@ -135,9 +136,53 @@ class Transaction:
             # Real systemctl may reject disable after that file is gone.
             if self.enabled or self.managed:
                 systemctl("enable" if self.enabled else "disable", UNIT)
-            if self.active:
+            if self.active and self.stop_active:
                 systemctl("start", UNIT)
 
     def close(self):
         if self.backup:
             self.backup.cleanup()
+
+
+def status(lay, manifest):
+    """Observe actual enablement, never trust the saved intent alone."""
+    from . import checks, hypr
+    result = {"method": None, "enabled": None, "state": "unknown", "error": None}
+    if manifest is None:
+        result["error"] = "Installation metadata unavailable"
+        return result
+    try:
+        dialect, main = hypr.detect_dialect(lay, checks.hyprland_version())
+        method = manifest.startup
+        if method in ("manual", "none"):
+            # Enabling later may use this detected method; never guess systemd.
+            result.update(method="hyprland" if dialect in ("lua", "hyprlang") else None,
+                          enabled=False, state="disabled")
+        elif method == "systemd":
+            result["method"] = method
+            systemctl("show", "--property=Version")
+            r = systemctl("is-enabled", UNIT, allow_failure=True)
+            state = r.stdout.strip()
+            if state not in ("enabled", "disabled", "static", "not-found", "masked", "enabled-runtime"):
+                raise RuntimeError(r.stderr.strip() or "Enablement unavailable")
+            enabled = r.returncode == 0 and state in ("enabled", "enabled-runtime")
+            result.update(enabled=enabled, state="enabled" if enabled else "disabled")
+        elif method == "hyprland":
+            result["method"] = method
+            if dialect not in ("lua", "hyprlang") or main is None:
+                raise RuntimeError("Hyprland configuration unavailable")
+            fragment = hypr.fragment_path(lay, dialect)
+            begin, body, end = hypr.include_block(lay, dialect)
+            text = fragment.read_text() if fragment.is_file() else ""
+            command = hypr.launch_command(lay.shell)
+            generated = hypr.fragment(dialect, [], command)
+            startup_lines = [line for line in generated.splitlines()
+                             if line.startswith(('hl.on(', '  hl.exec_cmd(', 'end)', 'exec-once = '))]
+            included = f"{begin}\n{body}\n{end}" in main.read_text()
+            enabled = bool(startup_lines) and all(line in text.splitlines() for line in startup_lines) and included
+            result.update(enabled=enabled, state="enabled" if enabled else "disabled")
+        else:
+            raise RuntimeError("Startup method unavailable")
+    except (OSError, RuntimeError) as exc:
+        result.update(enabled=None, state="unknown", error=str(exc))
+    return result

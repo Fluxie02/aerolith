@@ -112,6 +112,21 @@ jobs:
           cache-to: type=gha,scope=aerolith-dev,mode=max
       # Each scenario finishes before the next starts; wtype loses keys in parallel.
       # Keep running independent scenarios after a failure. Artifacts are failure-only.
+      - name: schema-keys
+        id: schema-keys
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          tools/headless/run.sh tests/scenarios/schema-keys.sh build/ci/schema-keys
+      - name: Upload failed schema-keys output
+        if: ${{ failure() && steps.schema-keys.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: schema-keys-failure
+          path: build/ci/schema-keys/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
       - name: smoke
         id: smoke
         if: ${{ !cancelled() && steps.image.outcome == 'success' }}
@@ -139,6 +154,36 @@ jobs:
         with:
           name: config-failure
           path: build/ci/config/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: presets
+        id: presets
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          tools/headless/run.sh tests/scenarios/presets.sh build/ci/presets
+      - name: Upload failed presets output
+        if: ${{ failure() && steps.presets.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: presets-failure
+          path: build/ci/presets/
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level: 9
+      - name: personalize
+        id: personalize
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 5
+        run: |
+          tools/headless/run.sh tests/scenarios/personalize.sh build/ci/personalize
+      - name: Upload failed personalize output
+        if: ${{ failure() && steps.personalize.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: personalize-failure
+          path: build/ci/personalize/
           if-no-files-found: warn
           retention-days: 3
           compression-level: 9
@@ -374,6 +419,34 @@ jobs:
         with:
           name: network-absent-failure
           path: build/ci/network-absent/
+          if-no-files-found: warn
+          retention-days: 3
+      - name: welcome-ui
+        id: welcome-ui
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 5
+        run: |
+          WELCOME=1 OUTPUTS=2 tools/headless/run.sh tests/scenarios/welcome-ui.sh build/ci/welcome-ui
+      - name: Upload failed welcome UI output
+        if: ${{ failure() && steps.welcome-ui.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: welcome-ui-failure
+          path: build/ci/welcome-ui/
+          if-no-files-found: warn
+          retention-days: 3
+      - name: welcome
+        id: welcome
+        if: ${{ !cancelled() && steps.image.outcome == 'success' }}
+        timeout-minutes: 4
+        run: |
+          WELCOME=1 OUTPUTS=2 tools/headless/run.sh tests/scenarios/welcome.sh build/ci/welcome
+      - name: Upload failed welcome output
+        if: ${{ failure() && steps.welcome.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: welcome-failure
+          path: build/ci/welcome/
           if-no-files-found: warn
           retention-days: 3
       - name: tour

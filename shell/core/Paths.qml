@@ -25,11 +25,15 @@ Singleton {
     readonly property string stateDir: envOr("AEROLITH_STATE_DIR", stateHome + "/aerolith")
 
     readonly property string configFile: configDir + "/config.json"
+    readonly property string presetsFile: configDir + "/presets.json"
     readonly property string installationFile: configDir + "/installation.json"
     readonly property string routinesFile: configDir + "/routines.json"
     readonly property string aiConfigFile: configDir + "/ai.json"
     readonly property string stateFile: stateDir + "/state.json"
     readonly property string manifestFile: stateDir + "/manifest.json"
+
+    readonly property string userCli: home + "/.local/bin/aerolith"
+    readonly property string packagedCli: "/usr/bin/aerolith"
 
     readonly property string shellDir: Quickshell.shellDir
     // Sibling bundle in both ~/.local/share/aerolith and /usr/share/aerolith.

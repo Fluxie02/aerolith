@@ -29,12 +29,17 @@ export XDG_CONFIG_HOME=$HOME/.config XDG_STATE_HOME=$HOME/.local/state
 export QT_FORCE_STDERR_LOGGING=1 QT_QUICK_BACKEND=software
 export WLR_BACKENDS=headless WLR_RENDERER=pixman WLR_LIBINPUT_NO_DEVICES=1
 mkdir -p "$OUT" "$XDG_CONFIG_HOME/aerolith" "$XDG_STATE_HOME"
-# The first-run tour would auto-start in every scenario on fresh state; mark
-# it done unless the scenario tests it (TOUR=1). Version from lib/tour.mjs.
-if [ "${TOUR:-0}" != 1 ] && [ ! -e "$XDG_STATE_HOME/aerolith/state.json" ]; then
+# Keep onboarding out of unrelated scenarios. TOUR=1 explicitly hands off to
+# the tour; WELCOME=1 leaves truly fresh state for Welcome arbitration.
+if [ "${WELCOME:-0}" != 1 ] && [ ! -e "$XDG_STATE_HOME/aerolith/state.json" ]; then
   mkdir -p "$XDG_STATE_HOME/aerolith"
-  tour_version=$(node -e 'import(process.argv[1]).then(m => console.log(m.VERSION))' "$SRC/${SHELL_PATH:-shell}/lib/tour.mjs" 2>/dev/null || echo 1)
-  printf '{"version":1,"usage":{},"recent":[],"tour":{"completed":true,"version":%s}}\n' "$tour_version" >"$XDG_STATE_HOME/aerolith/state.json"
+  python3 - "$XDG_STATE_HOME/aerolith/state.json" "${TOUR:-0}" <<'STATE'
+import json, pathlib, sys
+tour = sys.argv[2] == '1'
+pathlib.Path(sys.argv[1]).write_text(json.dumps({"version": 1, "usage": {}, "recent": [],
+    "tour": {"completed": not tour, "version": 1},
+    "welcome": {"version": 1, "seen": True, "handedOff": tour, "tourStep": 0}}))
+STATE
 fi
 
 dbus-daemon --session --address="unix:path=$XDG_RUNTIME_DIR/bus" --fork --nopidfile >/dev/null

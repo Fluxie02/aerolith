@@ -2,9 +2,12 @@
 # Real Config.setValue against CLI-style atomic replacement; probes only exist
 # in a disposable shell copy. No production IPC is added.
 fail() { echo "FAIL: $*"; exit 1; }
+# Audit the production shell's lifetime before stopping it (as smoke.sh and
+# welcome.sh do); Qt's engine teardown is kept separately for reference.
+cp "$OUT/qs.log" "$OUT/startup-qs.log"
 qs -p "$SHELL_DIR" kill
 wait "$QS_PID" || true
-mv "$OUT/qs.log" "$OUT/startup-qs.log"
+mv "$OUT/qs.log" "$OUT/startup-teardown-qs.log"
 cp -r "$SHELL_DIR" "$HOME/config-shell"
 SHELL_DIR="$HOME/config-shell"
 python3 - "$SHELL_DIR" <<'PY'

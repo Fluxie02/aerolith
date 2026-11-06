@@ -7,6 +7,7 @@ records ownership in the manifest. --dry-run stops after the plan.
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import os
 import shutil
@@ -1081,6 +1082,7 @@ def cmd_status(args: argparse.Namespace, ui: Ui) -> int:
         "direction": direction if direction in DIRECTIONS else "piyti",
         "ai_provider": manifest.ai_provider if manifest else None,
         "startup": manifest.startup if manifest else None,
+        "startupState": startup_service.status(lay, manifest),
         "hyprland_dialect": manifest.hypr_dialect if manifest else None,
         "notifications": checks.notifications_owner(),
         "files": len(manifest.files) if manifest else 0,
@@ -1337,6 +1339,97 @@ def cmd_hypr(args: argparse.Namespace, ui: Ui) -> int:
     raise Abort(f"unknown hypr command {args.hypr_cmd}")
 
 
+def cmd_welcome(args: argparse.Namespace, ui: Ui) -> int:
+    qs = shutil.which("qs") or shutil.which("quickshell")
+    if not qs:
+        raise Abort("quickshell is not installed")
+    try:
+        return subprocess.run([qs, "-p", str(layout().shell), "ipc", "call", "welcome", "open"],
+                              check=False, timeout=5).returncode
+    except subprocess.TimeoutExpired as exc:
+        raise Abort("Welcome IPC timed out") from exc
+
+
+def cmd_startup(args: argparse.Namespace, ui: Ui) -> int:
+    lay = layout()
+    # Share the manifest serialization and SIGTERM rollback guard with refresh.
+    # Read-only status creates no lock file and performs no writes.
+    if args.startup_cmd == "status":
+        state = startup_service.status(lay, load_manifest(lay))
+    else:
+        with themes.refresh_lock(lay):
+            previous = load_manifest(lay)
+            if previous is None:
+                raise Abort("install AEROLITH first; no ownership manifest was found")
+            current = startup_service.status(lay, previous)
+            desired = "manual" if args.startup_cmd == "disable" else args.method or current["method"]
+            if desired not in ("manual", "hyprland", "systemd"):
+                raise Abort("Startup method unavailable; choose --method hyprland or systemd")
+            dialect, main = hypr.detect_dialect(lay, checks.hyprland_version())
+            if desired == "hyprland" and (dialect not in ("lua", "hyprlang") or main is None):
+                raise Abort("Hyprland configuration unavailable; nothing changed")
+            if desired == "hyprland":
+                begin, body, end = hypr.include_block(lay, dialect)
+                main_text = main.read_text()
+                if begin in main_text and (main_text.count(begin) != 1 or f"{begin}\n{body}\n{end}" not in main_text):
+                    raise Abort(f"{main}: managed include was modified; restore it before changing startup")
+            fragment = hypr.fragment_path(lay, dialect) if desired == "hyprland" else None
+            if fragment and fragment.exists() and not previous.find(fragment):
+                raise Abort(f"{fragment} is not owned by AEROLITH; nothing changed")
+            manifest = copy.deepcopy(previous)
+            transaction = startup_service.Transaction(lay, previous, desired, stop_active=False)
+            new_paths = [p for p in (fragment, lay.service) if p and not p.exists()]
+            try:
+                transaction.preflight()
+                transaction.prepare(manifest)
+                manifest.startup = desired
+                if desired == "systemd":
+                    qs = shutil.which("qs") or "/usr/bin/qs"
+                    atomic_write(lay.service, SERVICE.format(qs=qs, shell=lay.shell))
+                    manifest.record_file(lay.service, "integration", "service")
+                    transaction.enable(manifest)
+                elif desired == "hyprland":
+                    if fragment.exists():
+                        # Keep the installed binds and layer rules byte-for-byte.
+                        text = hypr.without_autostart(fragment.read_text())
+                        command = hypr.launch_command(lay.shell)
+                        launch = (f'hl.on("hyprland.start", function()\n  hl.exec_cmd({hypr.lua_string(command)})\nend)\n'
+                                  if dialect == "lua" else f"exec-once = {command}\n")
+                        atomic_write(fragment, text + launch)
+                    else:
+                        atomic_write(fragment, hypr.fragment(dialect, [], hypr.launch_command(lay.shell)))
+                    manifest.record_dir(lay.hypr_fragment_dir)
+                    manifest.record_file(fragment, "integration", "fragment")
+                    # Replacing a removed managed block must not retain a stale
+                    # second edit record for the same main config.
+                    if begin not in main.read_text():
+                        manifest.edits = [e for e in manifest.edits if not (e.file == str(main) and e.begin == begin)]
+                    hypr.add_include(main, lay, dialect, manifest)
+                    manifest.hypr_dialect = dialect
+                manifest.save(lay.manifest)
+            except (OSError, RuntimeError, KeyboardInterrupt) as exc:
+                try:
+                    if transaction.touched and not transaction.enabled and desired == "systemd":
+                        startup_service.systemctl("disable", startup_service.UNIT)
+                    for path in new_paths:
+                        path.unlink(missing_ok=True)
+                    transaction.restore()
+                except (OSError, RuntimeError) as undo_exc:
+                    raise Abort(f"startup failed: {exc}; rollback needs attention: {undo_exc}") from exc
+                if isinstance(exc, KeyboardInterrupt):
+                    raise
+                raise Abort(f"startup failed; previous state restored: {exc}") from exc
+            finally:
+                transaction.close()
+            state = startup_service.status(lay, manifest)
+    if args.json:
+        print(json.dumps({"startupState": state}))
+    else:
+        ui.say(f"Startup: {state['method'] or 'Unavailable'} / {state['state']}" +
+               (f" ({state['error']})" if state['error'] else ""))
+    return 2 if state["error"] else 0
+
+
 def cmd_run(args: argparse.Namespace, ui: Ui) -> int:
     lay = layout()
     qs = shutil.which("qs") or shutil.which("quickshell")
@@ -1451,6 +1544,11 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("status", parents=[yes], help="show what is installed")
     s.add_argument("--json", action="store_true")
     sub.add_parser("doctor", parents=[yes], help="check the environment and installation").add_argument("--json", action="store_true")
+    sub.add_parser("welcome", parents=[yes], help="open Welcome in the running shell")
+    st = sub.add_parser("startup", parents=[yes], help="explicitly manage shell autostart")
+    st.add_argument("startup_cmd", choices=["status", "enable", "disable"])
+    st.add_argument("--method", choices=["hyprland", "systemd"])
+    st.add_argument("--json", action="store_true")
     th = sub.add_parser("themes", parents=[yes], help="explicit optional app theme deployment")
     ts = th.add_subparsers(dest="themes_cmd", required=True)
     ts.add_parser("list", parents=[yes])
@@ -1502,6 +1600,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 COMMANDS = {
+    "welcome": cmd_welcome,
+    "startup": cmd_startup,
     "themes": cmd_themes,
     "install": cmd_install,
     "uninstall": cmd_uninstall,

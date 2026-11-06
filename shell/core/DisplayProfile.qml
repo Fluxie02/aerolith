@@ -7,6 +7,7 @@ import "../lib/tokens.mjs" as Tokens
 QtObject {
     property string output: ""
     property string profile: Displays.settings(output).profile
+    readonly property bool blackBackground: !!(Config.display.outputs[output] && Config.display.outputs[output].blackBackground)
     // Only persistent Ground/Strip decoration participates in seat idle.
     property bool persistent: false
     readonly property var state: Tokens.profileState(profile, Config.display.oled, persistent && Idle.idle)
@@ -15,8 +16,8 @@ QtObject {
     readonly property bool hideContent: state.hideContent
     readonly property real opacity: state.opacity
 
-    readonly property var palette: profile === "oled" ? Tokens.oledPalette(Theme.palette, { appLink: String(Theme.appLink) }) : Theme.palette
-    readonly property color background: profile === "oled" ? palette.obsidian : Theme.bg
+    readonly property var palette: profile === "oled" ? Tokens.oledPalette(Theme.palette, { appLink: String(Theme.appLink) }) : Tokens.backgroundPalette(Theme.palette, blackBackground)
+    readonly property color background: palette.obsidian
     readonly property color bg: background
     readonly property color surface: profile === "oled" ? palette.surface : Theme.surface
     readonly property color surface2: profile === "oled" ? palette.surface2 : Theme.surface2

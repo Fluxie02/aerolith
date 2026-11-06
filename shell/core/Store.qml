@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import "../lib/launch.mjs" as Launch
 import "../lib/tour.mjs" as TourLib
+import "../lib/welcome.mjs" as WelcomeLib
 
 // Small persistent runtime state (launch frecency, recent actions) in
 // ~/.local/state/aerolith/state.json. Writes are debounced and atomic.
@@ -16,6 +17,10 @@ Singleton {
     property var recent: []
     property var tour: ({ completed: false, version: 0 })
     readonly property int recentLimit: Config.commandCore.historySize
+    property var welcome: WelcomeLib.readRecord(null)
+    // Snapshot of the state file BEFORE this shell wrote anything. Read errors
+    // other than FileNotFound are upgrades too; never onboard over unreadable state.
+    property bool hadState: true
     property bool ready: false
 
     function usageScore(key) {
@@ -41,7 +46,14 @@ Singleton {
     }
 
     function save() {
-        file.setText(JSON.stringify({ version: 1, usage: usage, recent: recent, tour: tour }) + "\n");
+        file.setText(JSON.stringify({ version: 1, usage: usage, recent: recent, tour: tour, welcome: welcome }) + "\n");
+    }
+
+    function saveWelcome(record) {
+        if (!ready) return;
+        welcome = WelcomeLib.readRecord(record);
+        saveTimer.stop();
+        save();
     }
 
     function completeTour(version) {
@@ -70,12 +82,16 @@ Singleton {
                 root.usage = d && typeof d.usage === "object" && d.usage !== null ? d.usage : {};
                 root.recent = d && Array.isArray(d.recent) ? d.recent.slice(0, 1000) : [];
                 root.tour = TourLib.readRecord(d && d.tour);
+                root.welcome = WelcomeLib.readRecord(d && d.welcome);
             } catch (e) {
                 Log.warn("state", "ignoring unreadable state file: " + e);
             }
             root.ready = true;
         }
-        onLoadFailed: root.ready = true
+        onLoadFailed: error => {
+            root.hadState = error !== FileViewError.FileNotFound;
+            root.ready = true;
+        }
         onSaveFailed: error => Log.warn("state", "could not save state: " + error)
     }
 }
